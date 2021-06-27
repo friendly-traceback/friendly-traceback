@@ -1,0 +1,1377 @@
+"""message_analyser.py
+
+Collection of functions that examine SyntaxError messages and
+return relevant information to users.
+"""
+import __future__
+import ast
+import re
+import sys
+
+from . import fixers
+from . import syntax_utils
+from . import statement_analyzer
+from . import error_in_def
+from .. import debug_helper
+from .. import utils
+from ..my_gettext import current_lang
+
+MESSAGE_ANALYZERS = []
+
+
+def add_python_message(func):
+    """A simple decorator that adds a function the the list of functions
+    that process a message given by Python.
+    """
+    MESSAGE_ANALYZERS.append(func)
+
+
+# The following has been taken from https://unicode-table.com/en/sets/quotation-marks/
+bad_quotation_marks = [
+    "«",
+    "»",
+    "‹",
+    "›",
+    "„",
+    "“",
+    "‟",
+    "”",
+    "’",
+    "❝",
+    "❞",
+    "❮",
+    "❯",
+    "⹂",
+    "〝",
+    "〞",
+    "＂",
+    "‚",
+    "‛",
+    "‘",
+    "❛",
+    "❜",
+    "❟",
+]
+
+
+def analyze_message(message="", statement=None):
+    for case in MESSAGE_ANALYZERS:
+        cause = case(message=message, statement=statement)
+        if cause:
+            return cause
+    return {}
+
+
+@add_python_message
+def assign_to_keyword(message="", statement=None):
+    _ = current_lang.translate
+    if message not in (
+        "can't assign to keyword",  # Python 3.6, 3.7
+        "assignment to keyword",  # Python 3.6, 3.7
+        "cannot assign to keyword",  # Python 3.8
+        "cannot assign to None",  # Python 3.8
+        "cannot assign to True",  # Python 3.8
+        "cannot assign to False",  # Python 3.8
+        "cannot assign to __debug__",  # Python 3.8
+        "can't assign to Ellipsis",  # Python 3.6, 3.7
+        "cannot assign to Ellipsis",  # Python 3.8
+        "cannot use named assignment with True",  # Python 3.8
+        "cannot use named assignment with False",  # Python 3.8
+        "cannot use named assignment with None",  # Python 3.8
+        "cannot use named assignment with Ellipsis",  # Python 3.8
+        "cannot use assignment expressions with True",  # Python 3.8
+        "cannot use assignment expressions with False",  # Python 3.8
+        "cannot use assignment expressions with None",  # Python 3.8
+        "cannot use assignment expressions with Ellipsis",  # Python 3.8
+        "cannot assign to Ellipsis here. Maybe you meant '==' instead of '='?",
+        "cannot assign to ellipsis here. Maybe you meant '==' instead of '='?",
+    ):
+        return {}
+
+    for word in ["None", "True", "False", "__debug__", "Ellipsis", "ellipsis"]:
+        if word in message:
+            if word == "ellipsis":
+                word = "Ellipsis"
+            break
+    else:
+        if statement.bad_token.is_keyword():
+            word = statement.bad_token
+        else:  # something like name.constant = ?
+            for tok in statement.tokens[statement.bad_token_index :]:
+                if tok.is_keyword():
+                    word = tok
+                    break
+            else:  # pragma: no cover
+                debug_helper.log(f"Case not covered: {statement.bad_line}")
+                return {}
+    hint = _("You cannot assign a value to `{keyword}`.").format(keyword=word)
+
+    if word == "Ellipsis":
+        hint = _("You cannot assign a value to the ellipsis symbol [`...`].\n")
+        cause = _(
+            "The ellipsis symbol `...` is a constant in Python;"
+            "you cannot assign it a different value.\n"
+        ).format(keyword=word)
+    elif word in ["None", "True", "False", "__debug__"]:
+        cause = _(
+            "`{keyword}` is a constant in Python; you cannot assign it a different value.\n"
+        ).format(keyword=word)
+    else:  # pragma: no cover
+        debug_helper.log(f"Case not covered: {statement.bad_line}")
+        cause = _(
+            "You were trying to assign a value to the Python keyword `{keyword}`.\n"
+            "This is not allowed.\n"
+            "\n"
+        ).format(keyword=word)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def assign_to_conditional_expression(message="", **_kwargs):
+    _ = current_lang.translate
+    if message not in (
+        "can't assign to conditional expression",  # Python 3.6, 3.7
+        "cannot assign to conditional expression",  # Python 3.8
+    ):
+        return {}
+
+    hint = _("You can only assign objects to identifiers (variable names).\n")
+    cause = _(
+        "On the left-hand side of an equal sign, you have a\n"
+        "conditional expression instead of the name of a variable.\n"
+        "A conditional expression has the following form:\n\n"
+        "    variable = object if condition else other_object"
+    )
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def assign_to_function_call(message="", statement=None):
+    _ = current_lang.translate
+    if (
+        message != "can't assign to function call"  # Python 3.6, 3.7
+        and "cannot assign to function call" not in message
+    ):
+        # if message not in (
+        #     "can't assign to function call",  # Python 3.6, 3.7
+        #     "cannot assign to function call",  # Python 3.8
+        # ):
+        return {}
+
+    hint = _("You can only assign objects to identifiers (variable names).\n")
+
+    fn_call = statement.bad_token.string + "(...)"
+    line = statement.bad_line
+
+    if line.count("=") != 1 or line.count("(") != line.count(")"):
+        # we have something like  fn(a=1) = 2
+        # or fn(a) = 1 = 2, etc., and we cannot determine what is a function
+        # argument and what is the value assigned
+        value = _("some value")
+        cause = _(
+            "You wrote an expression like\n\n"
+            "    {fn_call} = {value}\n\n"
+            "where `{fn_call}`, on the left-hand side of the equal sign, is\n"
+            "a function call and not the name of a variable.\n"
+        ).format(fn_call=fn_call, value=value)
+
+        return {"cause": cause, "suggest": hint}
+
+    info = line.split("=")
+    fn_call = info[0].strip()
+    value = info[1].strip()
+    cause = _(
+        "You wrote the expression\n\n"
+        "    {fn_call} = {value}\n\n"
+        "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
+        "or includes a function call and is not simply the name of a variable.\n"
+    ).format(fn_call=fn_call, value=value)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def assign_to_generator_expression(message="", **_kwargs):
+    _ = current_lang.translate
+    if message not in (
+        "can't assign to generator expression",  # Python 3.6, 3.7
+        "cannot assign to generator expression",  # Python 3.8
+    ):
+        return {}
+
+    hint = _("You can only assign objects to identifiers (variable names).\n")
+    cause = _(
+        "On the left-hand side of an equal sign, you have a\n"
+        "generator expression instead of the name of a variable.\n"
+    )
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def assign_to_f_expression(message="", statement=None):
+    _ = current_lang.translate
+
+    if "cannot assign to f-string expression" in message:
+        hint = _("You can only assign objects to identifiers (variable names).\n")
+        cause = _(
+            "You wrote an expression that has the f-string `{fstring}`\n"
+            "on the left-hand side of the equal sign.\n"
+            "An f-string should only appear on the right-hand "
+            "side of an equal sign.\n"
+        ).format(fstring=statement.bad_token)
+        return {"cause": cause, "suggest": hint}
+    return {}
+
+
+@add_python_message
+def f_string_backslash(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "f-string expression part cannot include a backslash":
+        return {}
+
+    cause = _(
+        "You have written an f-string whose content `{...}`\n"
+        "includes a backslash; this is not allowed.\n"
+        "Perhaps you can replace the part that contains a backslash by\n"
+        "some variable. For example, suppose that you have an f-string like:\n\n"
+        "    f\"{... 'hello\\n' ...}\"\n\n"
+        "you could write this as\n\n"
+        "    hello = 'hello\\n'\n"
+        '    f"{... hello ...}"\n'
+    )
+    return {"cause": cause}
+
+
+def what_kind_of_literal(literal):
+    _ = current_lang.translate
+
+    try:
+        a = ast.literal_eval(literal)
+    except Exception:  # noqa
+        return None
+
+    kinds = (
+        (int, _("of type `int`")),
+        (complex, _("of type `complex`")),
+        (float, _("of type `float`")),
+        (str, _("of type `str`")),
+        (dict, _("of type `dict`")),
+        (list, _("of type `list`")),
+        (set, _("of type `set`")),
+        (tuple, _("of type `tuple`")),
+    )
+    for kind, result in kinds:
+        if isinstance(a, kind):
+            return result
+
+    debug_helper.log("New kind of literal" + str(a))  # pragma: no cover
+    return None  # pragma: no cover
+
+
+@add_python_message
+def annotated_name_cannot_be_global(message="", **_kwargs):
+    # annotated name 'x' can't be global
+    _ = current_lang.translate
+    pattern1 = re.compile(r"annotated name '(.)' can't be global")
+    match = re.search(pattern1, message)
+    if not match:
+        return {}
+    cause = _(
+        "The object named `{name}` is defined with type annotation\n"
+        "as a local variable. It cannot be declared to be a global variable.\n"
+    ).format(name=match.group(1))
+
+    return {"cause": cause}
+
+
+@add_python_message
+def assign_to_literal(message="", statement=None):
+    _ = current_lang.translate
+    if message not in (
+        "can't assign to literal",  # Python 3.6, 3.7
+        "cannot assign to literal",  # Python 3.8
+        "cannot assign to set display",  # Python 3.8
+        "cannot assign to dict display",  # Python 3.8
+        "cannot assign to dict literal here. Maybe you meant '==' instead of '='?",  # 3.10
+        "cannot assign to literal here. Maybe you meant '==' instead of '='?",  # 3.10
+        "cannot assign to set display here. Maybe you meant '==' instead of '='?",  # 3.10
+    ):
+        return {}
+
+    # This error can happen if we use a literal as an element of
+    # a for loop; we take care of this case first.
+
+    tokens = statement.tokens[0 : statement.bad_token_index]
+    for_loop = False
+    for tok in tokens[::-1]:
+        if tok == "in":  # pragma: no cover
+            debug_helper.log("New case for assign_to_literal")
+            break
+        elif tok == "for":
+            for_loop = True
+            break
+
+    if for_loop:
+        hint = _("You can only assign objects to identifiers (variable names).\n")
+        cause = _(
+            "A for loop must have the form:\n\n"
+            "    for ... in sequence:\n\n"
+            "where `...` must contain only identifiers (variable names)\n"
+            "and not literals like `{bad_token}`.\n"
+        ).format(bad_token=statement.bad_token)
+        return {"cause": cause, "suggest": hint}
+
+    line = statement.bad_line.rstrip()
+    info = line.split("=")
+    if len(info) == 2:
+        literal = info[0].strip()
+        name = info[1].strip()
+        if sys.version_info < (3, 8) and (
+            literal.startswith("f'{") or literal.startswith('f"{')
+        ):
+            cause = _(
+                "You wrote an expression that has the f-string `{fstring}`\n"
+                "on the left-hand side of the equal sign.\n"
+                "An f-string should only appear on the right-hand "
+                "side of an equal sign.\n"
+            ).format(fstring=statement.bad_token)
+            return {"cause": cause}
+    else:
+        literal = None
+        name = _("variable_name")
+
+    if len(info) == 2 and name.isidentifier():
+        # fmt: off
+        suggest = _(
+            "Perhaps you meant to write:\n\n"
+            "    {name} = {literal}\n"
+            "\n"
+        ).format(literal=literal, name=name)
+        hint = _(
+            "Perhaps you meant to write `{name} = {literal}`"
+        ).format(literal=literal, name=name)
+        # fmt: on
+    else:
+        suggest = "\n"
+        hint = _("You can only assign objects to identifiers (variable names).\n")
+
+    # Impose the right type when we know it.
+    if message == "cannot assign to set display":
+        of_type = what_kind_of_literal("{1}")
+    elif message == "cannot assign to dict display":
+        of_type = what_kind_of_literal("{1:2}")
+    else:
+        of_type = what_kind_of_literal(literal)
+    if of_type is None:
+        of_type = ""
+
+    if literal is None:
+        literal = "..."
+
+    cause = (
+        _(
+            "You wrote an expression like\n\n"
+            "    {literal} = {name}\n"
+            "where `{literal}`, on the left-hand side of the equal sign,\n"
+            "is or includes an actual object {of_type}\n"
+            "and is not simply the name of a variable.\n"
+        ).format(literal=literal, name=name, of_type=of_type)
+        + suggest
+    )
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def assign_to_operator(message="", statement=None):
+    _ = current_lang.translate
+    line = statement.bad_line.rstrip()
+    if message not in (
+        "can't assign to operator",  # Python 3.6, 3.7
+        "cannot assign to operator",  # Python 3.8
+        "cannot assign to expression here. Maybe you meant '==' instead of '='?",  # Python 3.10
+    ):
+        return {}
+
+    cause = _(
+        "You wrote an expression that includes some mathematical operations\n"
+        "on the left-hand side of the equal sign which should be\n"
+        "only used to assign a value to a variable.\n"
+    )
+    name = could_be_identifier(line)
+    if name:
+        hint = _("Did you mean `{name}`?\n").format(name=name)
+        cause += _(
+            "Perhaps you meant to write `{name}` instead of `{original}`\n"
+        ).format(name=name, original=name.replace("_", "-"))
+        return {"cause": cause, "suggest": hint}
+
+    hint = _("Perhaps you needed `==` instead of `=`.\n")
+    return {"cause": cause, "suggest": hint}
+
+
+def could_be_identifier(line):
+    try:
+        if "=" in line and "-" in line:
+            lhs, *rhs = line.split("=")
+            if "-" in lhs:
+                lhs = lhs.replace("-", "_").strip()
+                if lhs.isidentifier():
+                    return lhs
+        return ""
+    except Exception as e:  # pragma: no cover
+        debug_helper.log("Problem in could_be_idenfier:" + str(e))
+        return ""
+
+
+@add_python_message
+def augmented_assignment_with_literal(message="", statement=None):
+    _ = current_lang.translate
+    if message != "cannot use assignment expressions with literal":
+        return {}
+
+    hint = _("You can only assign objects to identifiers (variable names).\n")
+
+    cause = _(
+        "You cannot use the augmented assignment operator `:=`,\n"
+        "sometimes called the walrus operator, with literals like `{bad_token}`.\n"
+        "You can only assign objects to identifiers (variable names).\n"
+    ).format(bad_token=statement.bad_token)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def both_nonlocal_and_global(message="", statement=None):
+    _ = current_lang.translate
+    if "is nonlocal and global" in message:
+        cause = _(
+            "You declared `{name}` as being both a global and nonlocal variable.\n"
+            "A variable can be global, or nonlocal, but not both at the same time.\n"
+        ).format(name=statement.next_token)
+        return {"cause": cause}
+    return {}
+
+
+@add_python_message
+def break_outside_loop(message="", **_kwargs):
+    _ = current_lang.translate
+
+    if "'break' outside loop" in message:
+        cause = _(
+            "The Python keyword `break` can only be used "
+            "inside a `for` loop or inside a `while` loop.\n"
+        )
+        return {"cause": cause}
+    return {}
+
+
+@add_python_message
+def continue_outside_loop(message="", **_kwargs):
+    _ = current_lang.translate
+    if "'continue' not properly in loop" in message:
+        cause = _(
+            "The Python keyword `continue` can only be used "
+            "inside a `for` loop or inside a `while` loop.\n"
+        )
+        return {"cause": cause}
+    return {}
+
+
+@add_python_message
+def delete_function_call(message="", statement=None):
+    _ = current_lang.translate
+    if message not in (
+        "can't delete function call",  # Python 3.6, 3.7
+        "cannot delete function call",  # Python 3.8
+    ):
+        return {}
+
+    line = statement.bad_line.rstrip()
+    correct = "del {name}".format(name=statement.bad_token)
+    cause = _(
+        "You attempted to delete a function call\n\n"
+        "    {line}\n"
+        "instead of deleting the function's name\n\n"
+        "    {correct}\n"
+    ).format(line=line, correct=correct)
+    return {"cause": cause}
+
+
+@add_python_message
+def delete_x(message="", statement=None):
+    _ = current_lang.translate
+    if message not in (
+        "can't delete keyword",  # Python 3.6, 3.7
+        "can't delete literal",
+        "cannot delete literal",
+        "cannot delete None",
+        "cannot delete True",
+        "cannot delete False",
+    ):
+        return {}
+
+    if statement.bad_token.string in ("None", "True", "False"):
+        cause = _("You cannot delete the constant `{constant}`.\n").format(
+            constant=statement.bad_token
+        )
+    else:
+        cause = _(
+            "You cannot delete the literal `{literal}`.\n"
+            "You can only delete the names of objects, or\n"
+            "individual items in a container.\n"
+        ).format(literal=statement.bad_token)
+    return {"cause": cause}
+
+
+@add_python_message
+def duplicate_argument_in_function_definition(message="", **_kwargs):
+    _ = current_lang.translate
+    if "duplicate argument" in message and "function definition" in message:
+        name = message.split("'")[1]
+        cause = _(
+            "You have defined a function repeating the keyword argument\n\n"
+            "    {name}\n"
+            "twice; each keyword argument should appear only once"
+            " in a function definition.\n"
+        ).format(name=name)
+        return {"cause": cause}
+    return {}
+
+
+@add_python_message
+def eol_while_scanning_string_literal(message="", statement=None):
+    _ = current_lang.translate
+    if (
+        "EOL while scanning string literal" in message
+        or "unterminated string literal" in message  # Python 3.10
+    ):
+        hint = _("Did you forget a closing quote?\n")
+        cause = _(
+            "You started writing a string with a single or double quote\n"
+            "but never ended the string with another quote on that line.\n"
+        )
+        # skipcq: PYL-R1714
+        # second if case for Python 3.10
+        if statement.prev_token == "\\" or statement.bad_line[-2] == "\\":
+            cause += _(
+                "Perhaps you meant to write the backslash character, `\\`\n"
+                "as the last character in the string and forgot that you\n"
+                "needed to escape it by writing two `\\` in a row.\n"
+            )
+            hint = _("Did you forget to escape a backslash character?\n")
+
+        return {"cause": cause, "suggest": hint}
+    return {}
+
+
+@add_python_message
+def expression_cannot_contain_assignment(message="", **_kwargs):
+    _ = current_lang.translate
+    if "expression cannot contain assignment, perhaps you meant" not in message:
+        return {}
+    cause = _(
+        "One of the following two possibilities could be the cause:\n"
+        "1. You meant to do a comparison with == and wrote = instead.\n"
+        "2. You called a function with a named argument:\n\n"
+        "        a_function(invalid=...)\n\n"
+        "where `invalid` is not a valid identifier (variable name) in Python\n"
+        "either because it starts with a number, or is a string,\n"
+        "or contains a period, etc.\n"
+        "\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def generator_expression_must_be_parenthesized(message="", **_kwargs):
+    _ = current_lang.translate
+    if "Generator expression must be parenthesized" not in message:
+        return {}
+    cause = _(
+        "You are using a generator expression, something of the form\n\n"
+        "    x for x in thing\n\n"
+        "You must add parentheses enclosing that expression.\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def keyword_argument_repeated(message="", statement=None):
+    _ = current_lang.translate
+    if "keyword argument repeated" not in message:
+        return {}
+    cause = _(
+        "You have called a function repeating the same keyword argument (`{arg}`).\n"
+        "Each keyword argument should appear only once in a function call.\n"
+    ).format(arg=statement.bad_token)
+    return {"cause": cause}
+
+
+@add_python_message
+def keyword_cannot_be_expression(message="", **_kwargs):
+    _ = current_lang.translate
+    if "keyword can't be an expression" not in message:
+        return {}
+    cause = _(
+        "You likely called a function with a named argument:\n\n"
+        "    a_function(invalid=something) \n\n"
+        "where `invalid` is not a valid variable name in Python\n"
+        "either because it starts with a number, or is a string,\n"
+        "or contains a period, etc.\n"
+        "\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def invalid_character_in_identifier(message="", statement=None):
+    _ = current_lang.translate
+    copy_paste = _("Did you use copy-paste?\n")
+    if "invalid character" not in message:
+        return {}
+
+    bad_character = statement.bad_token
+    python_says = _(
+        "Python indicates that you used the unicode character"
+        " `{bad_character}`\n"
+        "which is not allowed.\n"
+    ).format(bad_character=bad_character)
+
+    if bad_character in bad_quotation_marks:
+        hint = _("Did you mean to use a normal quote character, `'` or `\"`?\n")
+        cause = (
+            copy_paste
+            + python_says
+            + _(
+                "I suspect that you used a fancy unicode quotation mark\n"
+                "instead of a normal single or double quote for a string."
+                "\n"
+            )
+        )
+        return {"cause": cause, "suggest": hint}
+
+    return {"cause": python_says}
+
+
+@add_python_message
+def mismatched_parenthesis(message="", statement=None):
+    # Python 3.8; something like:
+    # closing parenthesis ']' does not match opening parenthesis '(' on line
+    _ = current_lang.translate
+    pattern1 = re.compile(
+        r"closing parenthesis '(.)' does not match opening parenthesis '(.)' on line (\d+)"
+    )
+    match = re.search(pattern1, message)
+    if match is None:
+        lineno = None
+        pattern2 = re.compile(
+            r"closing parenthesis '(.)' does not match opening parenthesis '(.)'"
+        )
+        match = re.search(pattern2, message)
+        if match is None:
+            return {}
+    else:
+        lineno = match.group(3)
+
+    opening = match.group(2)
+    closing = match.group(1)
+
+    cause = statement_analyzer.mismatched_brackets(statement)
+    if cause:
+        return cause
+
+    if True:  # pragma: no cover
+        debug_helper.log("statement_analyzer.mismatched_brackets failed.")
+        if lineno is not None:
+            cause = _(
+                "Python tells us that the closing `{closing}` on the last line shown\n"
+                "does not match the opening `{opening}` on line {lineno}.\n\n"
+            ).format(closing=closing, opening=opening, lineno=lineno)
+        else:
+            cause = _(
+                "Python tells us that the closing `{closing}` on the last line shown\n"
+                "does not match the opening `{opening}`.\n\n"
+            ).format(closing=closing, opening=opening)
+
+        return {"cause": cause}
+
+
+@add_python_message
+def unterminated_f_string(message="", statement=None):
+    _ = current_lang.translate
+    if "f-string: unterminated string" not in message:
+        return {}
+
+    hint = _("Perhaps you forgot a closing quote.\n")
+    # Depending on the Python version, the error points at the f-string itself
+    # or the previous or the next token. We must guard against the case where
+    # someone writes three strings in a row.
+    for tok in [statement.prev_token, statement.bad_token, statement.next_token]:
+        # escaped quotes are not allowed in f-strings, so we can simply count the number
+        # of quotes of both kinds and look for an odd-number.
+        if (
+            tok.is_string()
+            and tok.string.startswith("f")
+            and (tok.string.count("'") % 2 or tok.string.count('"') % 2)
+        ):
+            fstring = tok
+            break
+    else:  # pragma: no cover
+        debug_helper.log("Need to record case in unterminated_f_string")
+        fstring = "<not found>"
+    cause = _(
+        "Inside the f-string `{fstring}`, \n"
+        "you have another string, which starts with either a\n"
+        "single quote (') or double quote (\"), without a matching closing one.\n"
+    ).format(fstring=fstring)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def name_is_parameter_and_global(message="", statement=None):
+    # something like: name 'x' is parameter and global
+    _ = current_lang.translate
+    line = statement.statement
+    if "is parameter and global" not in message:
+        return {}
+
+    name = message.split("'")[1]
+    if name in line and "global" in line:
+        newline = line
+    else:  # pragma: no cover
+        debug_helper.log("New case for name_is_parameter_and_global")
+        newline = f"global {name}"
+    cause = _(
+        "You are including the statement\n\n"
+        "    {newline}\n\n"
+        "indicating that `{name}` is a variable defined outside a function.\n"
+        "You are also using the same `{name}` as an argument for that\n"
+        "function, thus indicating that it should be variable known only\n"
+        "inside that function, which is the contrary of what `global` implied.\n"
+    ).format(newline=newline, name=name)
+    return {"cause": cause}
+
+
+@add_python_message
+def name_assigned_to_prior_global(message="", **_kwargs):
+    # something like: name 'p' is assigned to before global declaration
+    _ = current_lang.translate
+    if "is assigned to before global declaration" not in message:
+        return {}
+
+    name = message.split("'")[1]
+    cause = _(
+        "You assigned a value to the variable `{name}`\n"
+        "before declaring it as a global variable.\n"
+    ).format(name=name)
+    return {"cause": cause}
+
+
+@add_python_message
+def name_used_prior_global(message="", **_kwargs):
+    # something like: name 'p' is used prior to global declaration
+    _ = current_lang.translate
+    if "is used prior to global declaration" not in message:
+        return {}
+
+    name = message.split("'")[1]
+    cause = _(
+        "You used the variable `{name}`\n" "before declaring it as a global variable.\n"
+    ).format(name=name)
+    return {"cause": cause}
+
+
+@add_python_message
+def name_assigned_to_prior_nonlocal(message="", **_kwargs):
+    # something like: name 'p' is assigned to before global declaration
+    _ = current_lang.translate
+    if "is assigned to before nonlocal declaration" not in message:
+        return {}
+
+    name = message.split("'")[1]
+    hint = _("Did you forget to add `nonlocal`?\n")
+    cause = _(
+        "You assigned a value to the variable `{name}`\n"
+        "before declaring it as a nonlocal variable.\n"
+    ).format(name=name)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def name_is_parameter_and_nonlocal(message="", **_kwargs):
+    _ = current_lang.translate
+    if "is parameter and nonlocal" not in message:
+        return {}
+
+    name = message.split("'")[1]
+    cause = _(
+        "You used `{name}` as a parameter for a function\n"
+        "before declaring it also as a nonlocal variable:\n"
+        "`{name}` cannot be both at the same time.\n"
+    ).format(name=name)
+    return {"cause": cause}
+
+
+@add_python_message
+def name_used_prior_nonlocal(message="", **_kwargs):
+    # something like: name 'q' is used prior to nonlocal declaration
+    _ = current_lang.translate
+    if "is used prior to nonlocal declaration" not in message:
+        return {}
+
+    hint = _("Did you forget to write `nonlocal` first?\n")
+    name = message.split("'")[1]
+    cause = _(
+        "You used the variable `{name}`\n"
+        "before declaring it as a nonlocal variable.\n"
+    ).format(name=name)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def nonlocal_at_module_level(message="", **_kwargs):
+    _ = current_lang.translate
+    if "nonlocal declaration not allowed at module level" not in message:
+        return {}
+    cause = _(
+        "You used the nonlocal keyword at a module level.\n"
+        "The nonlocal keyword refers to a variable inside a function\n"
+        "given a value outside that function."
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def no_binding_for_nonlocal(message="", **_kwargs):
+    _ = current_lang.translate
+    if "no binding for nonlocal" not in message:
+        return {}
+
+    name = message.split("'")[1]
+    cause = _(
+        "You declared the variable `{name}` as being a\n"
+        "nonlocal variable but it cannot be found.\n"
+    ).format(name=name)
+    return {"cause": cause}
+
+
+@add_python_message
+def unexpected_character_after_continuation(message="", statement=None):
+    _ = current_lang.translate
+    if "unexpected character after line continuation character" not in message:
+        return {}
+
+    cause = _(
+        "You are using the continuation character `\\` outside of a string,\n"
+        "and it is followed by some other character(s).\n"
+    )
+
+    # For 3.9.0 and 3.10.0a6 (and possibly others), the new peg parser is
+    # not giving us the correct location for the error; so we need to find it.
+    bad_token = statement.bad_token
+    if statement.prev_token != "\\":
+        found_continuation = False
+        for tok in statement.tokens:
+            if tok == "\\":
+                found_continuation = True
+                continue
+
+            if found_continuation:
+                bad_token = tok
+                break
+        else:  # pragma: no cover
+            debug_helper.log("Could not find bad token after continuation character.")
+
+    if bad_token.is_number():
+        number = bad_token
+        cause += _(
+            "I am guessing that you wanted to divide by the number {number} \n"
+            "and wrote \\ instead of /."
+        ).format(number=number)
+        hint = _("Did you mean to divide by {number}?\n").format(number=number)
+        return {"cause": cause, "suggest": hint}
+
+    cause += _("I am guessing that you forgot to enclose some content in a string.\n")
+    return {"cause": cause}
+
+
+@add_python_message
+def unexpected_eof_while_parsing(message="", statement=None):
+    # unexpected EOF while parsing
+    _ = current_lang.translate
+    if "unexpected EOF while parsing" not in message:
+        return {}
+
+    cause = _(
+        "Python tells us that it reached the end of the file\n"
+        "and expected more content.\n\n"
+    )
+    additional_cause = statement_analyzer.unclosed_bracket(statement)
+    if additional_cause:
+        cause += (
+            _("I will attempt to be give a bit more information.\n\n")
+            + additional_cause["cause"]
+        )
+    return {"cause": cause}
+
+
+@add_python_message
+def unmatched_parenthesis(message="", statement=None):
+    _ = current_lang.translate
+    # Python 3.8
+    if message == "unmatched ')'":
+        bracket = syntax_utils.name_bracket(")")
+    elif message == "unmatched ']'":
+        bracket = syntax_utils.name_bracket("]")
+    elif message == "unmatched '}'":
+        bracket = syntax_utils.name_bracket("}")
+    else:
+        return {}
+    cause = _(
+        "The closing {bracket} on line {linenumber} does not match anything.\n"
+    ).format(bracket=bracket, linenumber=statement.linenumber)
+    return {"cause": cause}
+
+
+@add_python_message
+def position_argument_follows_keyword_arg(message="", **_kwargs):
+    _ = current_lang.translate
+    if "positional argument follows keyword argument" not in message:
+        return {}
+    cause = _(
+        "In Python, you can call functions with only positional arguments\n\n"
+        "    test(1, 2, 3)\n\n"
+        "or only keyword arguments\n\n"
+        "    test(a=1, b=2, c=3)\n\n"
+        "or a combination of the two\n\n"
+        "    test(1, 2, c=3)\n\n"
+        "but with the keyword arguments appearing after all the positional ones.\n"
+        "According to Python, you used positional arguments after keyword ones.\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def non_default_arg_follows_default_arg(message="", **_kwargs):
+    _ = current_lang.translate
+    if "non-default argument follows default argument" not in message:
+        return {}
+    cause = _(
+        "In Python, you can define functions with only positional arguments\n\n"
+        "    def test(a, b, c): ...\n\n"
+        "or only keyword arguments\n\n"
+        "    def test(a=1, b=2, c=3): ...\n\n"
+        "or a combination of the two\n\n"
+        "    def test(a, b, c=3): ...\n\n"
+        "but with the keyword arguments appearing after all the positional ones.\n"
+        "According to Python, you used positional arguments after keyword ones.\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def python2_print(message="", **_kwargs):
+    _ = current_lang.translate
+    if not message.startswith(
+        "Missing parentheses in call to 'print'. Did you mean print("
+    ):
+        return {}
+    message = message[59:-2]
+    if len(message) > 40:
+        message = message[0:25] + " ... "
+    cause = _(
+        "Perhaps you need to type\n\n"
+        "     print({message})\n\n"
+        "In older version of Python, `print` was a keyword.\n"
+        "Now, `print` is a function; you need to use parentheses to call it.\n"
+    ).format(message=message)
+    hint = _("Did you mean `print({message})`?\n").format(message=message)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def cannot_use_starred_expression(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "can't use starred expression here":
+        return {}
+
+    cause = _(
+        "The star operator `*` is interpreted to mean that\n"
+        "iterable unpacking is to be used to assign a name\n"
+        "to each item of an iterable, which does not make sense here.\n"
+    )
+
+    return {"cause": cause}
+
+
+@add_python_message
+def return_outside_function(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "'return' outside function":
+        return {}
+
+    cause = _("You can only use a `return` statement inside a function or method.\n")
+    return {"cause": cause}
+
+
+@add_python_message
+def too_many_nested_blocks(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "too many statically nested blocks":
+        return {}
+
+    hint = _("Seriously?\n")
+    cause = _(
+        "You cannot be serious!\n\n"
+        "In case this is a mistake in a real program, please\n"
+        "consider reducing the number of nested code blocks.\n"
+    )
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def named_arguments_must_follow_bare_star(message="", **_kwargs):
+    _ = current_lang.translate
+    # TODO: revise this as it can be greatly improved
+    if message != "named arguments must follow bare *":
+        return {}
+
+    hint = _("Did you forget something after `*`?\n")
+    cause = _(
+        "Assuming you were defining a function, you need\n"
+        "to replace `*` by either `*arguments` or\n"
+        "by `*, named_argument=value`.\n"
+    )
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def you_found_it(message="", statement=None):  # pragma: no cover
+    _ = current_lang.translate
+    if message != "You found it!" or statement.bad_token != "__peg_parser__":
+        return {}
+
+    cause = _(
+        "This is a message that was added in Python 3.9\n"
+        "to prevent redefining `__peg_parser__`.\n"
+        "It should not be present in other versions.\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def from__future__not_defined(message="", **_kwargs):
+    _ = current_lang.translate
+    pattern = re.compile(r"future feature (.*) is not defined")
+    match = re.search(pattern, message)
+    if match is None:
+        return {}
+
+    names = __future__.all_feature_names
+    available = _("The available features are `{names}`.\n").format(
+        names=utils.list_to_string(names).replace(",", ",\n")
+    )
+    feature = match.group(1)
+    if feature == "*":
+        cause = _(
+            "When using a `from __future__ import` statement,\n"
+            "you must import specific named features.\n"
+        )
+        cause += "\n" + available
+        return {"cause": cause}
+
+    names = __future__.all_feature_names
+    similar = utils.get_similar_words(feature, names)
+    if similar:
+        hint = _("Did you mean `{name}`?\n").format(name=similar[0])
+        cause = _(
+            "Instead of `{feature}`, perhaps you meant to import `{name}`.\n"
+        ).format(feature=feature, name=similar[0])
+        return {"cause": cause, "suggest": hint}
+
+    cause = _("`{feature}` is not a valid feature of module `__future__`.\n").format(
+        feature=feature
+    )
+    cause += "\n" + available
+    return {"cause": cause}
+
+
+@add_python_message
+def from__future__at_begin(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "from __future__ imports must occur at the beginning of the file":
+        return {}
+
+    cause = _(
+        "A `from __future__ import` statement changes the way Python\n"
+        "interprets the code in a file.\n"
+        "It must appear at the beginning of the file."
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def import_braces(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "not a chance":
+        return {}
+
+    cause = _(
+        "I suspect you wrote `from __future__ import braces` following\n"
+        "someone else's suggestion. This will never work.\n\n"
+        "Unlike other programming languages, Python's code block are defined by\n"
+        "their indentation level, and not by using some curly braces, like `{...}`.\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def invalid_octal(message="", statement=None):
+    # Before Python 3.8, we'd only get "invalid syntax"
+    if "in octal literal" not in message:
+        return {}
+
+    return statement_analyzer.invalid_octal(statement)
+
+
+@add_python_message
+def eof_unclosed_triple_quoted(message="", **_kwargs):
+    _ = current_lang.translate
+    if not (
+        message == "EOF while scanning triple-quoted string literal"
+        or "unterminated triple-quoted string literal" in message
+    ):
+        return {}
+
+    cause = _(
+        "You started writing a triple-quoted string but never wrote\n"
+        "the triple quotes needed to end the string.\n"
+    )
+
+    return {"cause": cause}
+
+
+def proper_decimal_or_octal_number(prev_str, bad_str):
+    # see next two cases
+    _ = current_lang.translate
+    if not (
+        set(prev_str).issubset("_0") and prev_str.startswith("0")
+    ):  # pragma: no cover
+        debug_helper.log("proper_decimal_or_octal_number should not have been called")
+        return {}
+
+    if prev_str == "0" and set(bad_str).issubset("01234567_"):
+        correct = "0o" + bad_str
+        hint = _("Did you mean `{num}`?\n").format(num=correct)
+        cause = _(
+            "Perhaps you meant to write the octal number `{num}`\n"
+            "and forgot the letter 'o', or perhaps you meant to write\n"
+            "a decimal integer and did not know that it could not start with zeros.\n"
+        ).format(num=correct)
+        return {"cause": cause, "suggest": hint}
+
+    if set(bad_str).issubset("0123456789_"):
+        correct = bad_str.lstrip("_")
+        hint = _("Did you mean `{num}`?\n").format(num=correct)
+        cause = _(
+            "Perhaps you meant to write the integer `{num}`\n"
+            "and did not know that it could not start with zeros.\n"
+        ).format(num=correct)
+        return {"cause": cause, "suggest": hint}
+
+    return {}  # pragma: no cover
+
+
+@add_python_message
+def invalid_token(message="", statement=None):
+    # Seen this for Python 3.6, 3.7 for would-be decimal number starting with zero.
+    _ = current_lang.translate
+    if message != "invalid token":
+        return {}
+
+    prev_str = statement.prev_token.string
+    bad_str = statement.bad_token.string
+    return proper_decimal_or_octal_number(prev_str, bad_str)
+
+
+@add_python_message
+def leading_zeros_in_decimal_integers(message="", statement=None):
+    # Same as previous case but for Python 3.8+
+    _ = current_lang.translate
+    if not (
+        message.startswith(
+            "leading zeros in decimal integer literals are not permitted"
+        )
+    ):
+        return {}
+
+    prev_str = statement.prev_token.string
+    bad_str = statement.bad_token.string
+    return proper_decimal_or_octal_number(prev_str, bad_str)
+
+
+@add_python_message
+def forgot_paren_around_comprehension(message="", **_kwargs):
+    # Python 3.10+
+    _ = current_lang.translate
+    if message != "did you forget parentheses around the comprehension target?":
+        return {}
+
+    # message same as from statement_analyzer.comprehension_condition_or_tuple
+
+    cause_tuple = _(
+        "I am guessing that you were writing a comprehension or a generator expression\n"
+        "and forgot to include parentheses around tuples.\n"
+        "As an example, instead of writing\n\n"
+        "    [i, i**2 for i in range(10)]\n\n"
+        "you would need to write\n\n"
+        "    [(i, i**2) for i in range(10)]\n\n"
+    )
+    hint = _("Did you forget parentheses?\n")
+    return {"cause": cause_tuple, "suggest": hint}
+
+
+@add_python_message
+def parens_around_exceptions(message="", **_kwargs):
+    # keep in sync with statement_analyzer.parens_around_exceptions
+    _ = current_lang.translate
+
+    if message != "multiple exception types must be parenthesized":
+        return {}
+
+    hint = _("Did you forget parentheses?\n")
+    cause = _(
+        "I am guessing that you wanted to use an `except` statement\n"
+        "with multiple exception types. If that is the case, you must\n"
+        "surround them with parentheses.\n"
+    )
+    return {"cause": cause + "\n", "suggest": hint}
+
+
+@add_python_message
+def colon_expected(message="", statement=None):
+    _ = current_lang.translate
+
+    if message != "expected ':'":  # new in Python 3.10
+        return {}
+
+    # Try to be consistent with older versions
+    cause = statement_analyzer.missing_colon(statement)
+    if cause:
+        return cause
+
+    # That did not work, so we try something else
+    hint = _("Did you forget a colon?\n")
+    cause = _("Python expected a colon at the position indicated.\n")
+
+    new_statement = fixers.replace_token(
+        statement.statement_tokens, statement.bad_token, ":"
+    )
+    if fixers.check_statement(new_statement):
+        cause += _("You wrote `{bad}` instead of a colon.\n").format(
+            bad=statement.bad_token
+        )
+        return {"cause": cause, "suggest": hint}
+
+    new_statement = fixers.modify_token(
+        statement.statement_tokens, statement.bad_token, append=":"
+    )
+    if fixers.check_statement(new_statement):  # pragma: no cover
+        debug_helper.log("New case for colon_expected.")
+        return {"cause": cause, "suggest": hint}
+
+    return {}
+
+
+@add_python_message
+def bracket_was_expected(message="", statement=None):
+    _ = current_lang.translate
+
+    pattern = re.compile("'(.)' was never closed")  # new in Python 3.10
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+
+    cause = _("Python tells us that the {bracket} was never closed.\n").format(
+        bracket=syntax_utils.name_bracket(match.group(1))
+    )
+    hint = _("The {bracket} was never closed.\n").format(
+        bracket=syntax_utils.name_bracket(match.group(1))
+    )
+    rephrased_cause = statement_analyzer.unclosed_bracket(statement)
+    if rephrased_cause:
+        cause = rephrased_cause["cause"]
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def invalid_double_star_operator(message="", **_kwargs):
+    _ = current_lang.translate
+
+    # Used to be "invalid syntax" prior to Python version 3.10
+    if (
+        message == "f-string: can't use double starred expression here"  # 3.10.0a7
+        or message == "f-string: cannot use double starred expression here"  # future?
+    ):
+        cause = _(
+            "The double star operator `**` is likely interpreted to mean that\n"
+            "dict unpacking is to be used which is not allowed or does not make sense here.\n"
+        )
+        return {"cause": cause}
+
+    return {}
+
+
+@add_python_message
+def invalid_hexadecimal_literal(message="", statement=None):
+    _ = current_lang.translate
+
+    if message != "invalid hexadecimal literal":  # new in Python 3.10
+        return {}
+    if not statement.highlighted_tokens:
+        statement.highlighted_tokens = [statement.bad_token, statement.next_token]
+
+    if statement.first_token == "def" or (
+        statement.first_token == "async" and statement.tokens[1] == "def"
+    ):
+        cause = error_in_def.analyze_def_statement(statement)
+        if cause:
+            return cause
+
+    return statement_analyzer.invalid_hexadecimal(statement)
+
+
+@add_python_message
+def invalid_decimal_literal(message="", statement=None):
+    _ = current_lang.translate
+
+    if message != "invalid decimal literal":  # new in Python 3.10
+        return {}
+    if not statement.highlighted_tokens:
+        statement.highlighted_tokens = [statement.bad_token, statement.next_token]
+
+    if statement.first_token == "def" or (
+        statement.first_token == "async" and statement.tokens[1] == "def"
+    ):
+        cause = error_in_def.analyze_def_statement(statement)
+        if cause:
+            return cause
+
+    return statement_analyzer.invalid_name(statement)
+
+
+@add_python_message
+def invalid_imaginary_literal(message="", statement=None):
+    _ = current_lang.translate
+
+    if message != "invalid imaginary literal":  # new in Python 3.10
+        return {}
+    if not statement.highlighted_tokens:
+        statement.highlighted_tokens = [statement.bad_token, statement.next_token]
+
+    if statement.first_token == "def" or (
+        statement.first_token == "async" and statement.tokens[1] == "def"
+    ):
+        cause = error_in_def.analyze_def_statement(statement)
+        if cause:
+            return cause
+
+    return statement_analyzer.invalid_name(statement)

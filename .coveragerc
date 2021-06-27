@@ -1,0 +1,23 @@
+[run]
+branch = true
+parallel = true
+omit =
+    .tox/*
+    Fake_filename
+    *mu.py
+    *ipython.py
+    *idle/*
+    *jupyter.py
+    *console.py
+    *theme/*
+
+[:report]
+skip_covered = True
+show_missing = True
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if self\.debug
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
