@@ -5,8 +5,6 @@ console.py
 Adaptation of Python's console found in code.py so that it can be
 used to show some "friendly" tracebacks.
 """
-import builtins
-import copy
 import os
 import platform
 import sys
@@ -17,16 +15,7 @@ import codeop  # need to import to exclude from tracebacks
 import friendly
 
 from . import source_cache
-
-try:
-    from . import theme
-
-    rich_available = True
-except ImportError:
-    rich_available = False
-
-from .config import session
-from .console_helpers import helpers, default_color_schemes
+from .console_helpers import helpers
 from .my_gettext import current_lang
 
 
@@ -35,20 +24,20 @@ def type_friendly():
     return _("Type 'Friendly' for help on special functions/methods.")
 
 
-BANNER = "\nFriendly Console version {}. [Python version: {}]\n".format(
+BANNER = "\nFriendly-traceback Console version {}. [Python version: {}]\n".format(
     friendly.__version__, platform.python_version()
-)
-
-please_comment = (
-    "   Do you find these warnings useful?\n"
-    "   Comment at https://github.com/aroberge/friendly/issues/112"
 )
 
 
 _old_displayhook = sys.displayhook
 
 
-def _displayhook(value):
+def rich_displayhook(value):
+    """Custom display hook intended to show some brief function descriptions
+    that can be translated into various languages, for functions that have
+    a custom '__rich_repr__' attribute.
+    Compatible with Rich (https://github.com/willmcgugan/rich)
+    """
     if value is None:
         return
     if str(type(value)) == "<class 'function'>" and hasattr(value, "__rich_repr__"):
@@ -57,11 +46,10 @@ def _displayhook(value):
     _old_displayhook(value)
 
 
-class FriendlyConsole(InteractiveConsole):
-    # skipcq: PYL-W0622
+class FriendlyTracebackConsole(InteractiveConsole):
     def __init__(
-        self, locals=None, formatter="dark", background=None, displayhook=None
-    ):  # noqa
+        self, local_vars=None, formatter="bw", displayhook=None
+    ):
         """This class builds upon Python's code.InteractiveConsole
         so as to provide friendly tracebacks. It keeps track
         of code fragment executed by treating each of them as
@@ -71,24 +59,11 @@ class FriendlyConsole(InteractiveConsole):
         friendly.exclude_file_from_traceback(codeop.__file__)
         self.fake_filename = "<friendly-console:%d>"
         self.counter = 1
-        self.old_locals = {}
-        self.saved_builtins = {}
-        for name in dir(builtins):
-            self.saved_builtins[name] = getattr(builtins, name)
-        self.rich_console = False
-        friendly.set_formatter(formatter, background=background)
-        if formatter in ["dark", "light"] and rich_available:
-            self.rich_console = session.console
-            if formatter == "dark":
-                self.prompt_color = "[bold bright_green]"
-            else:
-                self.prompt_color = "[bold dark_violet]"
-        elif displayhook is not None:
+        friendly.set_formatter(formatter)
+        if displayhook is not None:
             sys.displayhook = displayhook
 
-        super().__init__(locals=locals)
-        self.check_for_builtins_changes()
-        self.check_for_annotations()
+        super().__init__(locals=local_vars)
 
     def push(self, line):
         """Push a line to the interpreter.
@@ -120,7 +95,7 @@ class FriendlyConsole(InteractiveConsole):
             self.counter += 1
         return more
 
-    def runsource(self, source, filename="<input>", symbol="single"):
+    def runsource(self, source, filename="<friendly-console>", symbol="single"):
         """Compile and run some source in the interpreter.
 
         Arguments are as for compile_command().
@@ -186,112 +161,6 @@ class FriendlyConsole(InteractiveConsole):
                 traceback.print_exc()
                 print("-" * 60)
 
-        self.check_for_builtins_changes()
-        self.check_for_annotations()
-        self.old_locals = copy.copy(self.locals)
-
-    def check_for_annotations(self):
-        """Attempts to detect code that uses : instead of = by mistake"""
-        _ = current_lang.translate
-        if "__annotations__" not in self.locals:
-            return
-
-        hints = self.locals["__annotations__"]
-        if not hints:
-            return
-
-        warning_builtins = _(
-            "Warning: you added a type hint to the python builtin `{name}`."
-        )
-        header_warning = _(
-            "Warning: you used a type hint for a variable without assigning it a value.\n"
-        )
-        suggest_str = _("Instead of `{hint}`, perhaps you meant `{assignment}`.")
-
-        for name in hints:
-            if name in dir(builtins):
-                warning = warning_builtins.format(name=name)
-                if self.rich_console:
-                    warning = "#### " + warning
-                    warning = theme.friendly_rich.Markdown(warning)
-                    self.rich_console.print(warning)
-                    self.rich_console.print(please_comment)
-                else:
-                    print(warning)
-                    print(please_comment)
-
-        wrote_title = False
-        warning = ""
-
-        for name in hints:
-            if name in dir(builtins):  # Already taken care of these above
-                continue
-            if (
-                name not in self.locals
-                or name in self.old_locals
-                and self.old_locals[name] == self.locals[name]
-            ):
-                if not wrote_title:
-                    warning = header_warning
-                    wrote_title = True
-                    if self.rich_console:
-                        warning = "#### " + warning
-                if not str(f"{hints[name]}").startswith("<"):
-                    suggest = suggest_str.format(
-                        hint=f"{name} : {hints[name]}",
-                        assignment=f"{name} = {hints[name]}",
-                    )
-                else:
-                    suggest = ""
-                if self.rich_console and suggest:
-                    suggest = "* " + suggest
-                if suggest:
-                    warning = warning + suggest + "\n"
-
-        if warning:
-            if self.rich_console:
-                warning = theme.friendly_rich.Markdown(warning)
-                self.rich_console.print(warning)
-                self.rich_console.print(please_comment)
-            else:
-                print(warning)
-                print(please_comment)
-
-            self.locals["__annotations__"] = {}
-
-    def check_for_builtins_changes(self):
-        """Warning users if they assign a value to a builtin"""
-        _ = current_lang.translate
-        changed = []
-        for name in self.saved_builtins:
-            if name.startswith("__") and name.endswith("__"):
-                continue
-
-            if (
-                name == "pow"
-                and "cos" in self.locals
-                and "cosh" in self.locals
-                and "pi" in self.locals
-            ):
-                # we likely did 'from math import *' which redefines pow;
-                # no warning needed in this case
-                continue
-            if name in self.locals and self.saved_builtins[name] != self.locals[name]:
-                warning = _(
-                    "Warning: you have redefined the python builtin `{name}`."
-                ).format(name=name)
-                if self.rich_console:
-                    warning = theme.friendly_rich.Markdown("#### " + warning)
-                    self.rich_console.print(warning)
-                    self.rich_console.print(please_comment)
-                else:
-                    print(warning)
-                    print(please_comment)
-                changed.append(name)
-
-        for name in changed:
-            self.saved_builtins[name] = self.locals[name]
-
     # The following two methods are never used in this class, but they are
     # defined in the parent class. The following are the equivalent methods
     # that can be used if an explicit call is desired for some reason.
@@ -302,28 +171,13 @@ class FriendlyConsole(InteractiveConsole):
     def showtraceback(self):
         friendly.explain_traceback()
 
-    def raw_input(self, prompt=""):
-        """Write a prompt and read a line.
-        The returned line does not include the trailing newline.
-        When the user enters the EOF key sequence, EOFError is raised.
-        The base implementation uses the built-in function
-        input(); a subclass may replace this with a different
-        implementation.
-        """
-        if self.rich_console:
-            self.rich_console.print(prompt, style="operators", end="")
-            return input()
-        return input(prompt)
-
 
 def start_console(
     local_vars=None,
-    formatter="dark",
+    formatter="bw",
     include="friendly_tb",
     lang="en",
     banner=None,
-    color_schemes=None,
-    background=None,
     displayhook=None,
 ):
     """Starts a console; modified from code.interact"""
@@ -332,25 +186,17 @@ def start_console(
     if banner is None:
         banner = BANNER + type_friendly() + "\n"
     if displayhook is None:
-        displayhook = _displayhook
+        displayhook = rich_displayhook
 
-    if not friendly.is_installed():
-        friendly.install(include=include, lang=lang)
-
-    source_cache.idle_get_lines = None
+    friendly.install(include=include, lang=lang)
 
     if local_vars is not None:
         # Make sure we don't overwrite with our own functions
         helpers.update(local_vars)
 
-    if color_schemes is None:
-        color_schemes = default_color_schemes
-    helpers.update(color_schemes)
-
-    console = FriendlyConsole(
-        locals=helpers,
+    console = FriendlyTracebackConsole(
+        local_vars=helpers,
         formatter=formatter,
-        background=background,
         displayhook=displayhook,
     )
     console.interact(banner=banner)

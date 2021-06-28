@@ -1,10 +1,7 @@
 """
-friendly.__init__.py
-==============================
-
 With the exceptions of the functions that are specific to the console,
 this module contains all the functions that are part of the public API.
-While Friendly is still considered to be in alpha stage,
+While Friendly-traceback is still considered to be in beta stage,
 we do attempt to avoid creating incompatibility for the functions
 here when introducing changes.
 
@@ -13,7 +10,7 @@ when reaching beta stage, and planning to be always backward compatible
 starting at version 1.0 -- except possibly for the required minimal
 Python version.
 
-Friendly is currently compatible with Python versions 3.6
+Friendly-traceback is currently compatible with Python versions 3.6
 or newer.
 
 If you find that some additional functionality would be useful to
@@ -49,14 +46,6 @@ from .my_gettext import current_lang
 # we do for Exceptions.
 _warnings.simplefilter("ignore")
 del _warnings
-
-#
-# def _doc_version():
-#     """Use this number in the documentation to avoid triggering updates
-#     of the whole documentation each time the last part of the version is
-#     changed."""
-#     parts = __version__.split(".")
-#     return parts[0] + "." + parts[1]
 
 
 def exclude_file_from_traceback(full_path):
@@ -146,7 +135,6 @@ def run(
     console=True,
     formatter="bw",
     redirect=None,
-    background=None,
 ):
     """Given a filename (relative or absolute path) ending with the ".py"
     extension, this function uses the
@@ -174,12 +162,6 @@ def run(
 
         python filename.py arg1 arg2 ...
 
-    ``use_rich``: ``False`` by default. Set it to ``True`` if Rich is available
-    and the environment supports it.
-
-    ``theme``: Theme to be used with Rich. Currently only ``"dark"``,
-    the default, and ``"light"`` are available. ``"light"`` is meant for
-    light coloured background and has not been extensively tested.
     """
     _ = current_lang.translate
     if include is None:
@@ -211,13 +193,12 @@ def run(
             formatter=formatter,
             banner="",
             include=include,
-            background=background,
         )
     else:
         return module_globals
 
 
-def set_formatter(formatter=None, **kwargs):
+def set_formatter(formatter=None):
     """Sets the default formatter. If no argument is given, the default
     formatter is used.
 
@@ -225,7 +206,7 @@ def set_formatter(formatter=None, **kwargs):
     as well an additional argument whose value is subject to change.
     See formatters.py for details.
     """
-    session.set_formatter(formatter=formatter, **kwargs)
+    session.set_formatter(formatter=formatter)
 
 
 def start_console(  # pragma: no cover
@@ -234,9 +215,6 @@ def start_console(  # pragma: no cover
     include="friendly_tb",
     lang="en",
     banner=None,
-    color_schemes=None,
-    background=None,
-    displayhook=None,
 ):
     """Starts a Friendly console."""
     from . import console
@@ -247,9 +225,6 @@ def start_console(  # pragma: no cover
         include=include,
         lang=lang,
         banner=banner,
-        color_schemes=color_schemes,
-        background=background,
-        displayhook=displayhook,
     )
 
 

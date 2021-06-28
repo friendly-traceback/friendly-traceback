@@ -578,8 +578,6 @@ class FriendlyTraceback:
                 "{filename} is not a regular Python file whose contents can be analyzed.\n"
             ).format(filename=filename)
 
-        if session.use_rich:
-            filename = f"`'{filename}'`"
         self.info["exception_raised_header"] = _(
             "Exception raised on line {linenumber} of file {filename}.\n"
         ).format(linenumber=linenumber, filename=filename)
@@ -617,8 +615,6 @@ class FriendlyTraceback:
             filename, linenumber, lines, index, self.tb_data.program_stopped_node_range
         )
         filename = path_utils.shorten_path(filename)
-        if session.use_rich:  # pragma: no cover
-            filename = f"`'{filename}'`"
 
         self.info["last_call_header"] = _(
             "Execution stopped on line {linenumber} of file {filename}.\n"

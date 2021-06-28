@@ -9,33 +9,14 @@ from . import debug_helper
 from . import formatters
 from .my_gettext import current_lang
 
-try:  # Making Rich optional; see issue #236
-    from . import theme
-
-    rich_available = True
-except ImportError:
-    rich_available = False
-
 
 def _write_err(text):  # pragma: no cover
     """Default writer"""
     if not text.strip():
         return
-    if session.use_rich:
-        if session.rich_add_vspace:
-            session.console.print()
-        md = theme.friendly_rich.Markdown(
-            text, inline_code_lexer="python", code_theme=theme.CURRENT_THEME
-        )
-        if formatters.RICH_HEADER:
-            title = "Traceback"
-            md = theme.friendly_rich.Panel(md, title=title)
-            formatters.RICH_HEADER = False
-        session.console.print(md)
-    else:
-        if not text.endswith("\n"):
-            text += "\n"
-        sys.stderr.write(text)
+    if not text.endswith("\n"):
+        text += "\n"
+    sys.stderr.write(text)
 
 
 class _State:
@@ -52,8 +33,6 @@ class _State:
         self.saved_info = []
         self.formatter = formatters.repl
         self.console = None
-        self.use_rich = False
-        self.rich_add_vspace = True
         self.friendly = []
         self.include = "explain"
         self.lang = "en"
@@ -117,35 +96,14 @@ class _State:
     def get_include(self):
         return self.include
 
-    def set_formatter(
-        self, formatter=None, color_system="auto", force_jupyter=None, background=None
-    ):
+    def set_formatter(self, formatter=None):
         """Sets the default formatter. If no argument is given, the default
         formatter is used.
         """
-        self.use_rich = False
         if formatter is None or formatter == "bw":
             self.formatter = formatters.repl
         elif formatter == "docs":  # pragma: no cover
             self.formatter = formatters.docs
-        elif formatter == "jupyter":  # pragma: no cover
-            self.formatter = formatters.jupyter
-        elif formatter in ["dark", "light"]:  # pragma: no cover
-            if not rich_available:
-                self.formatter = formatters.repl
-                return
-            self.formatter = formatters.rich_markdown
-            self.console = theme.init_rich_console(
-                style=formatter,
-                color_system=color_system,
-                force_jupyter=force_jupyter,
-                background=background,
-            )
-            self.use_rich = True
-        elif formatter == "markdown":  # pragma: no cover
-            self.formatter = formatters.markdown
-        elif formatter == "markdown_docs":  # pragma: no cover
-            self.formatter = formatters.markdown_docs
         elif isinstance(formatter, str):  # pragma: no cover
             print("Unknown formatter", formatter)
             self.formatter = formatters.repl
