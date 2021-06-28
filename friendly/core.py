@@ -556,8 +556,6 @@ class FriendlyTraceback:
         * exception_raised_source
         * exception_raised_variables
         """
-        from .config import session
-
         _ = current_lang.translate
 
         frame, filename, linenumber, _func, lines, index = record
@@ -603,8 +601,6 @@ class FriendlyTraceback:
         * exception_raised_source
         * last_call_variables
         """
-        from .config import session
-
         _ = current_lang.translate
 
         frame, filename, linenumber, _func, lines, index = record
