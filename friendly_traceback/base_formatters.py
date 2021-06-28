@@ -1,6 +1,6 @@
 """
-formatters.py
-==============
+base_formatters.py
+===================
 
 Default formatters showing all or only part of the available information.
 
@@ -152,7 +152,7 @@ def no_result(info, include):
         return _("I have no suggestion to offer.")
 
     debug_helper.log(
-        f"Internal error: include = {include} in formatters.no_result()"
+        f"Internal error: include = {include} in base_formatters.no_result()"
     )  # pragma: no cover
 
 

@@ -6,7 +6,7 @@ import sys
 
 from . import core
 from . import debug_helper
-from . import formatters
+from . import base_formatters
 from .my_gettext import current_lang
 
 
@@ -31,7 +31,7 @@ class _State:
         self.installed = False
         self.running_script = False
         self.saved_info = []
-        self.formatter = formatters.repl
+        self.formatter = base_formatters.repl
         self.console = None
         self.friendly = []
         self.include = "explain"
@@ -89,7 +89,7 @@ class _State:
         self.lang = lang
 
     def set_include(self, include):
-        if include not in formatters.items_groups:  # pragma: no cover
+        if include not in base_formatters.items_groups:  # pragma: no cover
             raise ValueError(f"{include} is not a valid value.")
         self.include = include
 
@@ -101,12 +101,12 @@ class _State:
         formatter is used.
         """
         if formatter is None or formatter == "repl":
-            self.formatter = formatters.repl
+            self.formatter = base_formatters.repl
         elif formatter == "docs":  # pragma: no cover
-            self.formatter = formatters.docs
+            self.formatter = base_formatters.docs
         elif isinstance(formatter, str):  # pragma: no cover
             print("Unknown formatter", formatter)
-            self.formatter = formatters.repl
+            self.formatter = base_formatters.repl
         else:
             self.formatter = formatter  # could be provided as a function
 

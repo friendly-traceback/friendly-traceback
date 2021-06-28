@@ -205,7 +205,7 @@ def test_why():
     assert empty_history()
 
 
-# The following are processed in formatters.py
+# The following are processed in base_formatters.py
 
 def test_why_no_hint():
     while not empty_history():

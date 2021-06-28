@@ -9,7 +9,7 @@ environments such as in a Jupyter notebook.
 import sys
 import friendly_traceback
 
-from friendly_traceback import debug_helper, formatters, __version__
+from friendly_traceback import debug_helper, base_formatters, __version__
 from friendly_traceback.config import session
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
@@ -267,7 +267,7 @@ def _show_info():  # pragma: no cover
     """
     info = session.saved_info[-1] if session.saved_info else []
 
-    for item in formatters.items_in_order:
+    for item in base_formatters.items_in_order:
         if item in info and info[item].strip():
             print(f"{item}:")
             for line in info[item].strip().split("\n"):
@@ -279,7 +279,7 @@ def _show_info():  # pragma: no cover
     print("=" * 56)
     print("The following are not meant to be shown to the end user:\n")
     for item in info:
-        if item not in formatters.items_in_order:
+        if item not in base_formatters.items_in_order:
             print(f"{item}: {info[item]}")
 
 

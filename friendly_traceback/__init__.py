@@ -36,7 +36,7 @@ from pathlib import Path
 
 from . import debug_helper
 from . import editors_helpers
-from . import formatters
+from . import base_formatters
 from . import path_info
 from .config import session
 from .my_gettext import current_lang
@@ -201,7 +201,7 @@ def set_formatter(formatter=None):
 
     A custom formatter must accept ``info`` as a required arguments
     as well an additional argument whose value is subject to change.
-    See formatters.py for details.
+    See base_formatters.py for details.
     """
     session.set_formatter(formatter=formatter)
 
@@ -254,7 +254,7 @@ def get_lang():
 
 def _include_choices():
     """Prints the available choices for arguments to set_include()"""
-    choices = [repr(key) for key in formatters.items_groups if key != "header"]
+    choices = [repr(key) for key in base_formatters.items_groups if key != "header"]
     return ",\n        ".join(choices)
 
 
