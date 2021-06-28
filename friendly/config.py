@@ -100,7 +100,7 @@ class _State:
         """Sets the default formatter. If no argument is given, the default
         formatter is used.
         """
-        if formatter is None or formatter == "bw":
+        if formatter is None or formatter == "repl":
             self.formatter = formatters.repl
         elif formatter == "docs":  # pragma: no cover
             self.formatter = formatters.docs

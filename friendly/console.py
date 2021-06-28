@@ -48,7 +48,7 @@ def rich_displayhook(value):
 
 class FriendlyTracebackConsole(InteractiveConsole):
     def __init__(
-        self, local_vars=None, formatter="bw", displayhook=None
+        self, local_vars=None, formatter="repl", displayhook=None
     ):
         """This class builds upon Python's code.InteractiveConsole
         so as to provide friendly tracebacks. It keeps track
@@ -174,7 +174,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
 
 def start_console(
     local_vars=None,
-    formatter="bw",
+    formatter="repl",
     include="friendly_tb",
     lang="en",
     banner=None,

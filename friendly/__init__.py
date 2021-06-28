@@ -133,7 +133,7 @@ def run(
     include=None,
     args=None,
     console=True,
-    formatter="bw",
+    formatter="repl",
     redirect=None,
 ):
     """Given a filename (relative or absolute path) ending with the ".py"
@@ -211,7 +211,7 @@ def set_formatter(formatter=None):
 
 def start_console(  # pragma: no cover
     local_vars=None,
-    formatter="bw",
+    formatter="repl",
     include="friendly_tb",
     lang="en",
     banner=None,
