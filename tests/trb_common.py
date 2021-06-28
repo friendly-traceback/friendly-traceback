@@ -9,7 +9,7 @@ from contextlib import redirect_stderr
 
 this_dir = os.path.dirname(__file__)
 sys.path.append(os.path.join(this_dir, ".."))
-import friendly
+import friendly_traceback
 
 
 def write(text):
@@ -81,7 +81,7 @@ def create_tracebacks(target, intro_text, formatter="pre", messages=None):
                             write(result)
                             nb_cases += 1
             except Exception:  # noqa
-                friendly.explain_traceback()
+                friendly_traceback.explain_traceback()
 
     print("    Number of cases in trb_common.py: ", nb_cases)
     if messages:

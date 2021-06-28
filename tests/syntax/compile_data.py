@@ -7,7 +7,7 @@ import os
 cur_dir = os.getcwd()
 sys.path.append(os.path.join(cur_dir, ".."))
 sys.path.append(os.path.join(cur_dir, "..", ".."))
-import friendly
+import friendly_traceback
 
 import catch_syntax_error
 
@@ -29,7 +29,7 @@ def _formatter(info, include=None):
     return str(items)  # formatter expect a string
 
 
-friendly.set_formatter(formatter=_formatter)
+friendly_traceback.set_formatter(formatter=_formatter)
 
 info = {}
 
@@ -37,8 +37,8 @@ for filename in catch_syntax_error.descriptions:
     try:
         exec("import %s" % filename)
     except Exception:
-        friendly.explain_traceback(redirect="capture")
-    out = eval(friendly.get_output())  # convert back to dict.
+        friendly_traceback.explain_traceback(redirect="capture")
+    out = eval(friendly_traceback.get_output())  # convert back to dict.
     info[filename] = out
 
 with open(out_file, "w", encoding="utf8") as f:

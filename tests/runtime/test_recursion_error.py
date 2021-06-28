@@ -1,4 +1,4 @@
-import friendly
+import friendly_traceback
 
 
 def test_Generic():
@@ -8,11 +8,11 @@ def test_Generic():
         a()
     except RecursionError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "RecursionError" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "too many times" in result
     return result, message
 

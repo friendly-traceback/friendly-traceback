@@ -1,5 +1,5 @@
 # More complex example than needed - used for documentation
-import friendly
+import friendly_traceback
 
 spam_missing_global = 1
 spam_missing_both = 1
@@ -27,11 +27,11 @@ def test_Missing_global():
         outer_missing_global()
     except UnboundLocalError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "local variable 'spam_missing_global' referenced" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert (
             "Did you forget to add `global spam_missing_global`?\n"
             in result
@@ -44,11 +44,11 @@ def test_Missing_nonlocal():
         outer_missing_nonlocal()
     except UnboundLocalError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "local variable 'spam_missing_nonlocal' referenced" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert (
             "Did you forget to add `nonlocal spam_missing_nonlocal`?\n"
             in result
@@ -61,11 +61,11 @@ def test_Missing_both():
         outer_missing_both()
     except UnboundLocalError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "local variable 'spam_missing_both' referenced" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert  "either `global spam_missing_both`" in result
         assert  "`nonlocal spam_missing_both`" in result
 
@@ -81,11 +81,11 @@ def test_Typo_in_local():
     try:
         test1()
     except UnboundLocalError:
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "local variable 'alpha2' referenced before assignment" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "similar name `alpha1` was found" in result
 
     def test2():
@@ -97,11 +97,11 @@ def test_Typo_in_local():
         test2()
     except UnboundLocalError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "local variable 'alpha3' referenced before assignment" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "perhaps you meant one of the following" in result
 
     return result, message

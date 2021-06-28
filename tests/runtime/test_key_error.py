@@ -1,5 +1,5 @@
-import friendly
-expected_in_result = friendly.utils.expected_in_result
+import friendly_traceback
+expected_in_result = friendly_traceback.utils.expected_in_result
 
 
 def test_Popitem_empty_dict():
@@ -8,11 +8,11 @@ def test_Popitem_empty_dict():
         d.popitem()
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "popitem(): dictionary is empty" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "You tried to retrieve an item from `d` which is an empty `dict`."
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -26,11 +26,11 @@ def test_Popitem_empty_ChainMap():
         alpha.popitem()
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "popitem(): dictionary is empty" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "You tried to retrieve an item from `alpha` which is an empty `ChainMap`."
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -44,11 +44,11 @@ def test_Generic_key_error():
         d["c"]
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "KeyError: 'c'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "The key `'c'` cannot be found in the dict `d`.\n"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -62,11 +62,11 @@ def test_ChainMap():
         d.pop(42)
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "KeyError: 42" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "The key `42` cannot be found in `d`, an object of type `ChainMap`."
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -79,11 +79,11 @@ def chain_map_string_by_mistake():
     try:
         beta.pop("(0, 0)")
     except KeyError as e:
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "KeyError: '(0, 0)'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "Did you convert `(0, 0)` into a string by mistake?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -98,11 +98,11 @@ def test_String_by_mistake():
         d["(0, 0)"]
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "KeyError: '(0, 0)'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "Did you convert `(0, 0)` into a string by mistake?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -115,11 +115,11 @@ def test_Forgot_to_convert_to_string():
         print(squares[2])
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
+        friendly_traceback.explain_traceback(redirect="capture")
 
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert "KeyError: 2" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "Did you forget to convert `2` into a string?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -132,10 +132,10 @@ def test_Similar_names():
         a = first["alpha1"]
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     assert "KeyError: 'alpha1'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "Did you mean `'alpha'`?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
@@ -145,10 +145,10 @@ def test_Similar_names():
         a = second["alpha"]
     except KeyError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     assert "KeyError: 'alpha'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         expected = "Did you mean `'alpha0'`?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff

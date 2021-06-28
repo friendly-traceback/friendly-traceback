@@ -14,7 +14,7 @@ import sys
 import platform
 this_dir = os.path.dirname(__file__)
 sys.path.append(os.path.join(this_dir, ".."))
-import friendly
+import friendly_traceback
 
 
 # Make it possible to find docs and tests source
@@ -25,9 +25,9 @@ assert os.path.isdir(docs_root_dir), "Separate docs repo need to exist"
 sys.path.append(os.path.join(this_dir, ".."))
 
 LANG = "en"
-friendly.install()
-friendly.set_lang(LANG)
-friendly.set_formatter("docs")
+friendly_traceback.install()
+friendly_traceback.set_lang(LANG)
+friendly_traceback.set_formatter("docs")
 
 sys.path.insert(0, this_dir)
 py_version = f"{sys.version_info.major}.{sys.version_info.minor}"
@@ -62,7 +62,7 @@ Friendly version: {friendly}
 Python version: {python}
 
 """.format(
-    friendly=friendly.__version__,
+    friendly=friendly_traceback.__version__,
     python=platform.python_version(),
     name=__file__,
 )

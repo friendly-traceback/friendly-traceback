@@ -4,12 +4,7 @@ parallel = true
 omit =
     .tox/*
     Fake_filename
-    *mu.py
-    *ipython.py
-    *idle/*
-    *jupyter.py
     *console.py
-    *theme/*
 
 [:report]
 skip_covered = True

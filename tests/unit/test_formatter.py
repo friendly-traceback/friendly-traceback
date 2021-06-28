@@ -10,7 +10,7 @@ def run(lang):
         [
             sys.executable,
             "-m",
-            "friendly",
+            "friendly_traceback",
             "--formatter",
             "tests.fake_formatter.get_cause",
             "tests/name_error.py",

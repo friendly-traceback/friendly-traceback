@@ -1,4 +1,4 @@
-import friendly
+import friendly_traceback
 
 # We can set a memory limit on Linux (and OSX?) using the
 # resource module; unfortunately, it is not available on Windows.
@@ -10,11 +10,11 @@ def test_Generic():
         raise MemoryError('Out of memory')
     except MemoryError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "MemoryError" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "a `MemoryError` occurs when Python" in result
     return result, message
 

@@ -7,14 +7,14 @@ environments such as in a Jupyter notebook.
 """
 # NOTE: __all__ is defined at the very bottom of this file
 import sys
-import friendly
+import friendly_traceback
 
-from friendly import debug_helper, formatters, __version__
-from friendly.config import session
-from friendly.info_generic import get_generic_explanation
-from friendly.path_info import show_paths
-from friendly.my_gettext import current_lang
-from friendly.utils import add_rich_repr
+from friendly_traceback import debug_helper, formatters, __version__
+from friendly_traceback.config import session
+from friendly_traceback.info_generic import get_generic_explanation
+from friendly_traceback.path_info import show_paths
+from friendly_traceback.my_gettext import current_lang
+from friendly_traceback.utils import add_rich_repr
 
 _ = current_lang.translate
 
@@ -34,8 +34,8 @@ def back():
     session.friendly.pop()
     if session.saved_info:
         info = session.saved_info[-1]
-        if info["lang"] != friendly.get_lang():
-            info["lang"] = friendly.get_lang()
+        if info["lang"] != friendly_traceback.get_lang():
+            info["lang"] = friendly_traceback.get_lang()
             session.friendly[-1].recompile_info()
 
 
@@ -44,10 +44,10 @@ def explain(include="explain"):
     with the option to specify different items to include.
     For example, ``explain("why")`` is equivalent to ``why()``.
     """
-    old_include = friendly.get_include()
-    friendly.set_include(include)
+    old_include = friendly_traceback.get_include()
+    friendly_traceback.set_include(include)
     session.show_traceback_info_again()
-    friendly.set_include(old_include)
+    friendly_traceback.set_include(old_include)
 
 
 def friendly_tb():
@@ -186,11 +186,11 @@ def www(site=None):  # pragma: no cover
         return
 
 
-get_lang = friendly.get_lang
-set_lang = friendly.set_lang
-get_include = friendly.get_include
-set_include = friendly.set_include
-set_formatter = friendly.set_formatter
+get_lang = friendly_traceback.get_lang
+set_lang = friendly_traceback.set_lang
+get_include = friendly_traceback.get_include
+set_include = friendly_traceback.set_include
+set_formatter = friendly_traceback.set_formatter
 
 
 # ===== Debugging functions are not unit tested by choice =====
@@ -341,7 +341,9 @@ _debug_helpers = {
     "_get_statement": _get_statement,
 }
 
-_debug_tb.help = lambda: "Shows the full traceback, including code from friendly."
+_debug_tb.help = (
+    lambda: "Shows the full traceback, including code from friendly_traceback."
+)
 _show_info.help = lambda: "Shows the all the items recorded in the traceback."
 _get_exception.help = lambda: "Returns the exception instance."
 _get_frame.help = lambda: "Returns the frame object where the exception occurred."

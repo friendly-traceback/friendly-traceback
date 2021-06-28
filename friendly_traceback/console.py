@@ -12,7 +12,7 @@ import traceback
 from code import InteractiveConsole
 import codeop  # need to import to exclude from tracebacks
 
-import friendly
+import friendly_traceback
 
 from . import source_cache
 from .console_helpers import helpers
@@ -25,7 +25,7 @@ def type_friendly():
 
 
 BANNER = "\nFriendly-traceback Console version {}. [Python version: {}]\n".format(
-    friendly.__version__, platform.python_version()
+    friendly_traceback.__version__, platform.python_version()
 )
 
 
@@ -54,10 +54,10 @@ class FriendlyTracebackConsole(InteractiveConsole):
         an individual source file.
         """
         _ = current_lang.translate
-        friendly.exclude_file_from_traceback(codeop.__file__)
+        friendly_traceback.exclude_file_from_traceback(codeop.__file__)
         self.fake_filename = "<friendly-console:%d>"
         self.counter = 1
-        friendly.set_formatter(formatter)
+        friendly_traceback.set_formatter(formatter)
         if displayhook is not None:
             sys.displayhook = displayhook
 
@@ -120,7 +120,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
             code = self.compile(source, filename, symbol)
         except (OverflowError, SyntaxError, ValueError):
             # Case 1
-            friendly.explain_traceback()
+            friendly_traceback.explain_traceback()
             return False
 
         if code is None:
@@ -134,7 +134,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
     def runcode(self, code):
         """Execute a code object.
 
-        When an exception occurs, friendly.explain_traceback() is called to
+        When an exception occurs, friendly_traceback.explain_traceback() is called to
         display a traceback.  All exceptions are caught except
         SystemExit, which, unlike the case for the original version in the
         standard library, cleanly exists the program. This is done
@@ -152,7 +152,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
             os._exit(1)  # noqa -pycharm
         except Exception:  # noqa
             try:
-                friendly.explain_traceback()
+                friendly_traceback.explain_traceback()
             except Exception:  # noqa
                 print("Friendly Internal Error")
                 print("-" * 60)
@@ -164,10 +164,10 @@ class FriendlyTracebackConsole(InteractiveConsole):
     # that can be used if an explicit call is desired for some reason.
 
     def showsyntaxerror(self, filename=None):
-        friendly.explain_traceback()
+        friendly_traceback.explain_traceback()
 
     def showtraceback(self):
-        friendly.explain_traceback()
+        friendly_traceback.explain_traceback()
 
 
 def start_console(
@@ -186,7 +186,7 @@ def start_console(
     if displayhook is None:
         displayhook = rich_displayhook
 
-    friendly.install(include=include, lang=lang)
+    friendly_traceback.install(include=include, lang=lang)
 
     if local_vars is not None:
         # Make sure we don't overwrite with our own functions

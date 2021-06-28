@@ -1,4 +1,4 @@
-import friendly
+import friendly_traceback
 
 # TODO: make sure that all these cases are captured in the documentation
 
@@ -24,11 +24,11 @@ def test_Generic():
         A.x  # testing type
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: type object 'A' has no attribute 'x'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "The object `A` has no attribute" in result
     return result, message
 
@@ -47,11 +47,11 @@ def test_Generic_different_frame():
         a.attr
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "AttributeError: 'A' object has no attribute 'attr'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "The object `a` has no attribute" in result
         assert "Did you mean `attr2`" in result
     return result, message
@@ -65,11 +65,11 @@ def test_Generic_instance():
         a.x
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: 'A' object has no attribute 'x'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "The object `a` has no attribute" in result
     return result, message
 
@@ -81,11 +81,11 @@ def test_Object_attribute_typo():
         a.appendh(4)
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: 'list' object has no attribute 'appendh'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `append`" in result
     return result, message
 
@@ -97,11 +97,11 @@ def test_Use_builtin():
         a.length()
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: 'list' object has no attribute 'length'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `len(a)`" in result
     return result, message
 
@@ -113,11 +113,11 @@ def test_Use_synonym():
         a.add(4)
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: 'list' object has no attribute 'add'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `append`" in result
     return result, message
 
@@ -129,11 +129,11 @@ def test_Module_attribute_typo():
     try:
         string.ascii_lowecase
     except AttributeError as e:
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: module 'string' has no attribute 'ascii_lowecase'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `ascii_lowercase`" in result
 
     import math
@@ -142,11 +142,11 @@ def test_Module_attribute_typo():
         math.cost
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: module 'math' has no attribute 'cost'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert (
             "Instead of writing `math.cost`, perhaps you meant to write one of"
             in result
@@ -163,11 +163,11 @@ def test_Shadow_stdlib_module():
         turtle.Pen
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "AttributeError: module 'turtle' has no attribute 'Pen'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert (
             "There is also a module named `turtle` in Python's standard library."
             in result
@@ -181,11 +181,11 @@ def test_Nonetype():
         a.b
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "'NoneType' object has no attribute 'b'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "for a variable whose value is `None`" in result
 
     return result, message
@@ -202,11 +202,11 @@ def test_Perhaps_comma():
     # fmt: on
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "'str' object has no attribute 'defg'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean to separate object names by a comma" in result
     return result, message
 
@@ -217,11 +217,11 @@ def test_Builtin_function():
         len.text
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "'builtin_function_or_method'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `len(text)`" in result
     return result, message
 
@@ -234,11 +234,11 @@ def test_Builtin_module_with_no_file():
         sys.foo
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "module 'sys' has no attribute 'foo'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Python tells us" in result
     return result, message
 
@@ -254,11 +254,11 @@ def test_Using_slots():
         f.b = 1
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "'F' object has no attribute 'b'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "object `f` uses `__slots__`" in result
     return result, message
 
@@ -269,11 +269,11 @@ def test_Tuple_by_accident():
         something.upper()
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "'tuple' object has no attribute 'upper'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you write a comma" in result
 
     return result, message
@@ -287,11 +287,11 @@ def test_Attribute_from_other_module():
         keyword.pi
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
+        friendly_traceback.explain_traceback(redirect="capture")
 
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert "module 'keyword' has no attribute 'pi'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `math`?" in result
 
     import cmath
@@ -299,10 +299,10 @@ def test_Attribute_from_other_module():
         keyword.pi
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
+        friendly_traceback.explain_traceback(redirect="capture")
 
-    result = friendly.get_output()
-    if friendly.get_lang() == "en":
+    result = friendly_traceback.get_output()
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean one of the following modules:" in result
 
     return result, message
@@ -313,29 +313,29 @@ def test_Use_join_with_str():
         a = ['a', '2'].join('abc') + ['b', '3'].join('\n')
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
+        friendly_traceback.explain_traceback(redirect="capture")
 
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert "'list' object has no attribute 'join'" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "something like `'abc'.join(['a', '2'])`" in result
     return result, message
 
 
 def test_Circular_import():
-    from friendly.runtime_errors import stdlib_modules
+    from friendly_traceback.runtime_errors import stdlib_modules
     stdlib_modules.names.append("my_turtle1")
     try:
        import my_turtle1
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
+        friendly_traceback.explain_traceback(redirect="capture")
 
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     # Different messages for python < 3.8
     assert ( "partially initialized module 'my_turtle1'" in result or
              "module 'my_turtle1' has no attribute 'something'" in result)
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "import a module with the same name" in result
         assert "from Python's standard library" in result
     stdlib_modules.names.pop()
@@ -346,16 +346,16 @@ def test_Circular_import_b():
         import circular_c
     except AttributeError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
+        friendly_traceback.explain_traceback(redirect="capture")
 
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
 
     assert (
         "module 'circular_c' has no attribute 'something'" in result or
         "partially initialized module 'circular_c' has no attribute 'something'"
         in result
     )
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "have a circular import." in result
     return result, message
 

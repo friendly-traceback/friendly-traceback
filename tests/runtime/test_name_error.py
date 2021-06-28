@@ -1,7 +1,7 @@
 import pydoc
 import tkinter
 
-import friendly
+import friendly_traceback
 from math import *
 
 def test_Generic():
@@ -9,11 +9,11 @@ def test_Generic():
         this = something
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "NameError: name 'something' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "In your program, no object with the name `something` exists." in result
     return result, message
 
@@ -24,11 +24,11 @@ def test_Annotated_variable():
         y = x
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "NameError: name 'x' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "x = 3" in result
     return result, message
 
@@ -39,61 +39,61 @@ def test_Synonym():
     try:
         a = i
     except NameError:
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "NameError: name 'i' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `1j`" in result
 
     try:
         a = j
     except NameError:
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "NameError: name 'j' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Did you mean `1j`" in result
 
     nabs = 1
     try:
         x = babs(-1)
     except NameError as e:
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "NameError: name 'babs' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "perhaps you meant one of the following" in result
 
     try:
         alphabets
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
-    if friendly.get_lang() == "en":
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    if friendly_traceback.get_lang() == "en":
         assert "The similar name `alphabet` was found in the global scope" in result
 
     try:
         char
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
-    if friendly.get_lang() == "en":
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    if friendly_traceback.get_lang() == "en":
         assert "The Python builtin `chr` has a similar name." in result
 
     try:
         cost  # wrote from math import * above
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "NameError: name 'cost' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "perhaps you meant one of the following" in result
     return result, message
 
@@ -105,11 +105,11 @@ def test_Missing_import():
         Tkinter.frame
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "NameError: name 'Tkinter' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Perhaps you forgot to import `tkinter`" in result
         assert "module is `tkinter` and not `Tkinter`." in result
 
@@ -118,22 +118,22 @@ def test_Missing_import():
         unknown.attribute
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "NameError: name 'unknown' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "I have no additional information for you." in result
 
     try:
         unicodedata.something
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "NameError: name 'unicodedata' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "Perhaps you forgot to import `unicodedata`" in result
     return result, message
 
@@ -149,11 +149,11 @@ def test_Free_variable_referenced():
         outer()
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "free variable 'var' referenced" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "that exists in an enclosing scope" in result
         assert "but has not yet been assigned a value." in result
     return result, message
@@ -163,11 +163,11 @@ def test_Custom_name():
         python
     except NameError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "NameError: name 'python' is not defined" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "You are already using Python!" in result
     return result, message
 

@@ -189,10 +189,7 @@ def run(
     )
     if console:  # pragma: no cover
         start_console(
-            local_vars=module_globals,
-            formatter=formatter,
-            banner="",
-            include=include,
+            local_vars=module_globals, formatter=formatter, banner="", include=include
         )
     else:
         return module_globals
@@ -210,11 +207,7 @@ def set_formatter(formatter=None):
 
 
 def start_console(  # pragma: no cover
-    local_vars=None,
-    formatter="repl",
-    include="friendly_tb",
-    lang="en",
-    banner=None,
+    local_vars=None, formatter="repl", include="friendly_tb", lang="en", banner=None
 ):
     """Starts a Friendly console."""
     from . import console

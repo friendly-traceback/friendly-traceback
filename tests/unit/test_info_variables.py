@@ -1,6 +1,6 @@
 import inspect
 
-import friendly as ft
+import friendly_traceback as ft
 
 global_a = 1
 global_b = 2

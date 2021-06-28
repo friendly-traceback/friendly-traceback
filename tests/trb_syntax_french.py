@@ -14,7 +14,7 @@ import sys
 import platform
 this_dir = os.path.dirname(__file__)
 sys.path.append(os.path.join(this_dir, ".."))
-import friendly
+import friendly_traceback
 
 
 # Make it possible to find docs and tests source
@@ -24,9 +24,9 @@ docs_root_dir = os.path.abspath(
 assert os.path.isdir(docs_root_dir), "Separate docs repo need to exist"
 
 LANG = "fr"
-friendly.install()
-friendly.set_lang(LANG)
-friendly.set_formatter("docs")
+friendly_traceback.install()
+friendly_traceback.set_lang(LANG)
+friendly_traceback.set_formatter("docs")
 
 sys.path.insert(0, this_dir)
 
@@ -47,7 +47,7 @@ Ci-dessous, on peut voir plusieurs exemples, uniquement pour les
 exceptions de type SyntaxError et des classes dérivées;
 les autres sont couvertes dans une autre page.
 Le but est de documenter ici tous les exemples possibles
-tels qu'interprétés par friendly.
+tels qu'interprétés par friendly_traceback.
 
 .. note::
 
@@ -65,7 +65,7 @@ Friendly version: {friendly}
 Python version: {python}
 
 """.format(
-    friendly=friendly.__version__,
+    friendly=friendly_traceback.__version__,
     python=platform.python_version(),
     name=__file__,
 )

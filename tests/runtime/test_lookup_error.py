@@ -1,4 +1,4 @@
-import friendly
+import friendly_traceback
 
 
 def test_Generic():
@@ -10,11 +10,11 @@ def test_Generic():
         raise LookupError("Fake message")
     except LookupError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "LookupError" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "`LookupError` is the base class for" in result
     return result, message
 

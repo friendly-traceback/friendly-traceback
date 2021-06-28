@@ -4,7 +4,7 @@ The exception hook at the heart of Friendly.
 
 You should not need to use any of the functions defined here;
 they are considered to be internal functions, subject to change at any
-time. If functions defined in friendly.__init__.py do not meet your needs,
+time. If functions defined in friendly_traceback.__init__.py do not meet your needs,
 please file an issue.
 """
 import inspect

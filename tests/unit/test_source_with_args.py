@@ -10,7 +10,7 @@ def run(*args):
         [
             sys.executable,
             "-m",
-            "friendly",
+            "friendly_traceback",
             "tests/adder.py",
             "--",
             *args,

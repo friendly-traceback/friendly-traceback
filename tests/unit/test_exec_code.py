@@ -8,7 +8,7 @@ change any existing error handling settings.
 
 """
 
-import friendly as ft
+import friendly_traceback as ft
 
 
 def test_exec_code():

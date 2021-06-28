@@ -1,16 +1,16 @@
 import math
 
-import friendly
+import friendly_traceback
 
-from friendly import console_helpers as helpers
+from friendly_traceback import console_helpers as helpers
 
 #  ====Important: ensure that we have a clean history after each test.
 
 def empty_history():
-    friendly.set_stream(redirect="capture")
+    friendly_traceback.set_stream(redirect="capture")
     nothing = "Nothing to show: no exception recorded."
     helpers.history()
-    return nothing in friendly.get_output()
+    return nothing in friendly_traceback.get_output()
 
 
 _hint = "Did you mean `pi`?"
@@ -25,16 +25,16 @@ def test_back():
         helpers.back()
     nothing_back = "Nothing to go back to: no exception recorded."
     helpers.back()
-    assert nothing_back in friendly.get_output()
+    assert nothing_back in friendly_traceback.get_output()
     try:
         a
     except NameError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.back()
-    assert nothing_back not in friendly.get_output()
+    assert nothing_back not in friendly_traceback.get_output()
     helpers.back()
-    assert nothing_back in friendly.get_output()
+    assert nothing_back in friendly_traceback.get_output()
     assert empty_history()
 
 
@@ -44,10 +44,10 @@ def test_friendly_tb():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.friendly_tb()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert _hint in result
     assert _message in result
     assert "File" in result
@@ -61,10 +61,10 @@ def test_hint():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.hint()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert _hint in result
     assert _message not in result
     assert "File" not in result
@@ -78,10 +78,10 @@ def test_history():
     try:
         a
     except NameError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.history()
-    assert "NameError" in friendly.get_output()
+    assert "NameError" in friendly_traceback.get_output()
     helpers.back()
     helpers.history()
     assert empty_history()
@@ -93,10 +93,10 @@ def test_python_tb():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.python_tb()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert "Did you mean `pi`" not in result
     assert "AttributeError" in result
     assert "File" in result
@@ -110,10 +110,10 @@ def test_what():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.what()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert _hint not in result
     assert _message not in result
     assert "File" not in result
@@ -130,10 +130,10 @@ def test_what_name():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.what('NameError')
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert _hint not in result
     assert _message not in result
     assert "File" not in result
@@ -151,10 +151,10 @@ def test_what_type():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.what(LookupError)
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert _hint not in result
     assert _message not in result
     assert "File" not in result
@@ -171,10 +171,10 @@ def test_where():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.where()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert _hint not in result
     assert _message not in result
     assert "File" not in result
@@ -191,10 +191,10 @@ def test_why():
     try:
         math.Pi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.why()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert _hint not in result
     assert _message not in result
     assert "File" not in result
@@ -213,13 +213,13 @@ def test_why_no_hint():
     try:
         math.PiPiPi
     except AttributeError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.why()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert "Python tells us" in result
     helpers.hint()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert "I have no suggestion to offer; try `why()`." in result
     helpers.back()
     assert empty_history()
@@ -230,13 +230,13 @@ def test_no_why():
     try:
         raise ArithmeticError
     except ArithmeticError:
-        friendly.explain_traceback(redirect="capture")
-        friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
     helpers.why()
-    result = friendly.get_output()
+    result = friendly_traceback.get_output()
     assert "I have no suggestion to offer." in result
     helpers.hint()
-    new_result = friendly.get_output()
+    new_result = friendly_traceback.get_output()
     assert "I have no suggestion to offer." in new_result
     helpers.back()
     assert empty_history()

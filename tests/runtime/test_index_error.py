@@ -1,4 +1,4 @@
-import friendly
+import friendly_traceback
 
 
 def test_Short_tuple():
@@ -8,11 +8,11 @@ def test_Short_tuple():
         print(a[3], b[2])
     except IndexError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "IndexError: tuple index out of range" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "The valid index values of" in result
     return result, message
 
@@ -24,11 +24,11 @@ def test_Long_list():
         print(a[60], b[0])
     except IndexError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "IndexError: list index out of range" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "The valid index values of" in result
     return result, message
 
@@ -38,11 +38,11 @@ def test_Empty():
         c = a[1]
     except IndexError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
 
     assert "IndexError: list index out of range" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "contains no item" in result
     return result, message
 

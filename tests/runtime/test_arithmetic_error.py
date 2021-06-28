@@ -1,4 +1,4 @@
-import friendly
+import friendly_traceback
 
 
 def test_Generic():
@@ -9,11 +9,11 @@ def test_Generic():
         raise ArithmeticError('error')
     except ArithmeticError as e:
         message = str(e)
-        friendly.explain_traceback(redirect="capture")
-    result = friendly.get_output()
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
     
     assert "ArithmeticError" in result
-    if friendly.get_lang() == "en":
+    if friendly_traceback.get_lang() == "en":
         assert "`ArithmeticError` is the base class" in result
     return result, message
 
