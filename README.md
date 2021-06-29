@@ -1,4 +1,11 @@
-# friendly
+# friendly-traceback and friends
+
+**Important** This is a new project (created on June 27) from an existing
+project. This README has been copied from the precursor project and
+needs to be updated.
+
+
+## Description
 
 Created with Python beginners in mind, but also useful for experienced users,
 **friendly** replaces standard tracebacks
