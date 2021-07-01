@@ -30,6 +30,7 @@ LANG = "en"
 friendly_traceback.install()
 friendly_traceback.set_lang(LANG)
 friendly_traceback.set_formatter("docs")
+friendly_traceback.debug_helper.DEBUG = False  # silence message about new cases
 
 sys.path.insert(0, this_dir)
 py_version = f"{sys.version_info.major}.{sys.version_info.minor}"

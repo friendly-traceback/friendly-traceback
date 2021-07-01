@@ -207,7 +207,12 @@ def set_formatter(formatter=None):
 
 
 def start_console(  # pragma: no cover
-    local_vars=None, formatter="repl", include="friendly_tb", lang="en", banner=None
+    local_vars=None,
+    formatter="repl",
+    include="friendly_tb",
+    lang="en",
+    banner=None,
+    displayhook=None,
 ):
     """Starts a Friendly console."""
     from . import console
@@ -218,6 +223,7 @@ def start_console(  # pragma: no cover
         include=include,
         lang=lang,
         banner=banner,
+        displayhook=displayhook,
     )
 
 
