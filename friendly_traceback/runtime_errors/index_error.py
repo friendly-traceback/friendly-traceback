@@ -7,7 +7,7 @@ import pure_eval
 
 from .. import debug_helper
 from .. import info_variables
-from ..my_gettext import current_lang, no_information, internal_error
+from ..ft_gettext import current_lang, no_information, internal_error
 
 
 def get_cause(value, frame, tb_data):

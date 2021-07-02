@@ -14,7 +14,7 @@ it can be determined if it should be added to the public API.
 import sys
 
 from .source_cache import cache
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 from .config import session
 
 

@@ -20,7 +20,7 @@ from . import info_variables
 from . import debug_helper
 from . import source_cache
 
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 
 from .path_info import is_excluded_file, EXCLUDED_FILE_PATH, path_utils
 from .runtime_errors import name_error

@@ -13,7 +13,7 @@ from friendly_traceback import debug_helper, base_formatters, __version__
 from friendly_traceback.config import session
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
-from friendly_traceback.my_gettext import current_lang
+from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.utils import add_rich_repr
 
 _ = current_lang.translate

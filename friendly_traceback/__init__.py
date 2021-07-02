@@ -39,7 +39,7 @@ from . import editors_helpers
 from . import base_formatters
 from . import path_info
 from .config import session
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 
 # Ensure that warnings are not shown to the end user, as they could
 # cause confusion.  Eventually, we might want to interpret them like
@@ -215,9 +215,9 @@ def start_console(  # pragma: no cover
     displayhook=None,
 ):
     """Starts a Friendly console."""
-    from . import console
+    from . import ft_console
 
-    console.start_console(
+    ft_console.start_console(
         local_vars=local_vars,
         formatter=formatter,
         include=include,

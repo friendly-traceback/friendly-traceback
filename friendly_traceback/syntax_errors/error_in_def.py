@@ -5,7 +5,7 @@ import platform
 import sys
 
 from . import fixers
-from ..my_gettext import current_lang, internal_error
+from ..ft_gettext import current_lang, internal_error
 from .. import debug_helper
 from .. import utils
 

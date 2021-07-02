@@ -2,7 +2,7 @@
 
 import re
 
-from ..my_gettext import current_lang, no_information
+from ..ft_gettext import current_lang, no_information
 from .. import info_variables
 from .. import debug_helper
 

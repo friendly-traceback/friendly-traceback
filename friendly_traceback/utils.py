@@ -8,7 +8,7 @@ import uuid
 
 import pure_eval
 from . import debug_helper
-from .my_gettext import no_information, internal_error
+from .ft_gettext import no_information, internal_error
 
 
 class RuntimeMessageParser:

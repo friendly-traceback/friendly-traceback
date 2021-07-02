@@ -7,7 +7,7 @@ providing a more detailed explanation.
 import inspect
 import re
 
-from ..my_gettext import current_lang
+from ..ft_gettext import current_lang
 from .. import info_variables
 from .. import token_utils
 from .. import utils

@@ -1,6 +1,6 @@
 import ast
 
-from ..my_gettext import current_lang, please_report
+from ..ft_gettext import current_lang, please_report
 from .. import info_variables
 from .. import utils
 

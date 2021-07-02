@@ -1,4 +1,4 @@
-from ..my_gettext import current_lang
+from ..ft_gettext import current_lang
 from .. import debug_helper
 from ..utils import RuntimeMessageParser
 

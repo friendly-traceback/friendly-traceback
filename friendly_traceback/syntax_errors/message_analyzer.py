@@ -14,7 +14,7 @@ from . import statement_analyzer
 from . import error_in_def
 from .. import debug_helper
 from .. import utils
-from ..my_gettext import current_lang
+from ..ft_gettext import current_lang
 
 MESSAGE_ANALYZERS = []
 

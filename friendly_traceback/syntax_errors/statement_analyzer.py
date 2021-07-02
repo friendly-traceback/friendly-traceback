@@ -8,7 +8,7 @@ import sys
 from . import error_in_def
 from . import fixers
 from . import syntax_utils
-from ..my_gettext import current_lang, internal_error
+from ..ft_gettext import current_lang, internal_error
 from .. import debug_helper
 from .. import token_utils
 from .. import utils

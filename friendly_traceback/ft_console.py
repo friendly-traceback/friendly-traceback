@@ -1,5 +1,5 @@
 """
-console.py
+ft_console.py
 ==========
 
 Adaptation of Python's console found in code.py so that it can be
@@ -16,7 +16,7 @@ import friendly_traceback
 
 from . import source_cache
 from .console_helpers import helpers
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 
 
 def type_friendly():

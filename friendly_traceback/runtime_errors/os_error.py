@@ -1,5 +1,5 @@
 """Only identifying failed connection to a server for now."""
-from ..my_gettext import current_lang, no_information
+from ..ft_gettext import current_lang, no_information
 
 
 def get_cause(_value, _frame, tb_data):

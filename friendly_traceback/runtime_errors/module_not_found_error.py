@@ -5,7 +5,7 @@ import sys
 
 from . import stdlib_modules
 from .. import debug_helper
-from ..my_gettext import current_lang
+from ..ft_gettext import current_lang
 from ..utils import get_similar_words, list_to_string, RuntimeMessageParser
 
 parser = RuntimeMessageParser()

@@ -1,4 +1,4 @@
-"""my_gettext.py
+"""ft_gettext.py
 
 The usual pattern when using gettext is to surround strings to be translated
 by a call to a function named _, as in

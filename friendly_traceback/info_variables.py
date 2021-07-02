@@ -11,7 +11,7 @@ from . import utils
 from . import token_utils
 
 from .path_info import path_utils
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 
 # third-party
 try:

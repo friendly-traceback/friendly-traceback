@@ -16,9 +16,9 @@ import sys
 from importlib import import_module
 from pathlib import Path
 
-from . import console
+from . import ft_console
 from . import debug_helper
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 
 from . import explain_traceback, exclude_file_from_traceback, install
 from . import set_formatter, __version__
@@ -169,12 +169,12 @@ def main():
         except Exception:  # noqa
             explain_traceback()
         if sys.flags.interactive:  # pragma: no cover
-            console.start_console(
+            ft_console.start_console(
                 local_vars=console_defaults, formatter=formatter, lang=args.lang
             )
 
     else:  # pragma: no cover
-        console.start_console(
+        ft_console.start_console(
             local_vars=console_defaults, formatter=formatter, lang=args.lang
         )
 

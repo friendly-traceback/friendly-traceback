@@ -5,7 +5,7 @@ import re
 import sys
 
 from .. import console_helpers
-from ..my_gettext import current_lang, no_information, please_report, internal_error
+from ..ft_gettext import current_lang, no_information, please_report, internal_error
 from ..utils import get_similar_words, list_to_string
 from ..path_info import path_utils
 from .. import info_variables

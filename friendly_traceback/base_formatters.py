@@ -30,7 +30,7 @@ This module currently contains 6 formatters:
   embedded as a code-block in a file (such as .rst). It can also be used
   to print the information in a traditional console.
 """
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 from . import debug_helper
 
 

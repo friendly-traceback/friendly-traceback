@@ -8,7 +8,7 @@ import re
 
 
 from . import debug_helper
-from .my_gettext import current_lang, internal_error
+from .ft_gettext import current_lang, internal_error
 
 
 get_cause = {}

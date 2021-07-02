@@ -1,6 +1,6 @@
 """This file contains various functions used for analysis of SyntaxErrors"""
 
-from ..my_gettext import current_lang
+from ..ft_gettext import current_lang
 
 
 def matching_brackets(bra, ket):

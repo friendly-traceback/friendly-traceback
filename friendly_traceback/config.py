@@ -7,7 +7,7 @@ import sys
 from . import core
 from . import debug_helper
 from . import base_formatters
-from .my_gettext import current_lang
+from .ft_gettext import current_lang
 
 
 def _write_err(text):  # pragma: no cover
