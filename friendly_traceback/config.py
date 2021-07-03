@@ -32,7 +32,6 @@ class _State:
         self.running_script = False
         self.saved_info = []
         self.formatter = base_formatters.repl
-        self.console = None
         self.friendly = []
         self.include = "explain"
         self.lang = "en"
@@ -105,7 +104,7 @@ class _State:
         elif formatter == "docs":  # pragma: no cover
             self.formatter = base_formatters.docs
         elif isinstance(formatter, str):  # pragma: no cover
-            print("Unknown formatter", formatter)
+            self.write_err(f"Unknown formatter: {formatter}\n")
             self.formatter = base_formatters.repl
         else:
             self.formatter = formatter  # could be provided as a function
@@ -125,7 +124,7 @@ class _State:
         self.installed = True
 
     def uninstall(self):
-        """Resets sys.excepthook to the Python default"""
+        """Resets sys.excepthook to the Python default."""
         self.installed = False
         sys.excepthook = sys.__excepthook__
 

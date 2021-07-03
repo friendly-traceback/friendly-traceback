@@ -25,7 +25,7 @@ if not valid_version:  # pragma: no cover
     sys.exit()
 
 del valid_version
-__version__ = "0.3.143"
+__version__ = "0.3.144"
 
 
 # ===========================================
@@ -135,7 +135,7 @@ def run(
     console=True,
     formatter="repl",
     redirect=None,
-):
+):  # sourcery skip: move-assign
     """Given a filename (relative or absolute path) ending with the ".py"
     extension, this function uses the
     more complex ``exec_code()`` to run a file.

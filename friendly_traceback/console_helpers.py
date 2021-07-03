@@ -67,11 +67,9 @@ def history():
     if not session.saved_info:
         session.write_err(_("Nothing to show: no exception recorded.") + "\n")
         return
-    session.rich_add_vspace = False
     for info in session.saved_info:
         message = session.formatter(info, include="message").replace("\n", "")
         session.write_err(message)
-    session.rich_add_vspace = True
 
 
 def python_tb():
@@ -255,7 +253,7 @@ def _get_tb_data():  # pragma: no cover
     return info["_tb_data"]
 
 
-def _set_debug(flag=True):  # pragma: no cover
+def set_debug(flag=True):  # pragma: no cover
     """This sets the value of the debug flag for the current session."""
     debug_helper.DEBUG = flag
 
@@ -315,6 +313,7 @@ other_helpers = {
     "get_include": get_include,
     "set_include": set_include,
     "set_formatter": set_formatter,
+    "set_debug": set_debug,
 }
 hint.help = lambda: _("Suggestion sometimes added to a friendly traceback.")
 python_tb.help = lambda: _("Shows a normal Python traceback.")
@@ -327,6 +326,8 @@ set_include.help = lambda: _(
 )
 get_lang.help = lambda: _("Returns the language currently used.")
 set_formatter.help = lambda: _("Sets the formatter to use for display.")
+set_debug.help = lambda: "Use True (default) or False to set the debug flag."
+
 add_rich_repr(other_helpers)
 
 helpers = {**basic_helpers, **other_helpers}
@@ -334,7 +335,6 @@ helpers = {**basic_helpers, **other_helpers}
 _debug_helpers = {
     "_debug_tb": _debug_tb,
     "_get_frame": _get_frame,
-    "_set_debug": _set_debug,
     "_show_info": _show_info,
     "_get_tb_data": _get_tb_data,
     "_get_exception": _get_exception,
@@ -349,7 +349,8 @@ _get_exception.help = lambda: "Returns the exception instance."
 _get_frame.help = lambda: "Returns the frame object where the exception occurred."
 _get_statement.help = lambda: "Returns the statement in which a SyntaxError occurred."
 _get_tb_data.help = lambda: "Return a special traceback object."
-_set_debug.help = lambda: "Use True (default) or False to set the debug flag."
+
+add_rich_repr(_debug_helpers)
 
 
 class FriendlyHelpers:
@@ -373,8 +374,10 @@ class FriendlyHelpers:
         self.__include_more = sorted(self.__include_more)  # first alphabetically
         # then by word length, as it is easier to read.
         self.include_in_help = sorted(self.__include_more, key=len)
-
         self.__class__.__name__ = "Friendly"  # For a nicer Rich repr
+
+        debug_helpers = sorted(list(_debug_helpers))
+        self.debug_helpers = sorted(debug_helpers, key=len)
 
     def __dir__(self):  # pragma: no cover
         """Only include useful friendly methods."""
@@ -414,6 +417,16 @@ class FriendlyHelpers:
             else:
                 print("Warning:", item, "has no help() method.")
 
+        if debug_helper.DEBUG:
+            more_header = "Debugging methods."
+            parts.append("\n" + more_header + "\n\n")
+            for item in self.debug_helpers:
+                parts.append("Friendly." + item + "(): ")
+                fn = getattr(Friendly, item)
+                if hasattr(fn, "help"):
+                    parts.append(getattr(Friendly, item).help() + "\n")
+                else:
+                    print("Warning:", item, "has no help() method.")
         return "".join(parts)
 
 
@@ -422,40 +435,6 @@ for helper in _debug_helpers:
 for helper in helpers:
     setattr(FriendlyHelpers, helper, staticmethod(helpers[helper]))
 
-# == Local version; this may need to be removed/modified in
-# some programming environments (e.g. Mu, Idle, etc.) which do not support Rich.
-
-
-class _FriendlyHelpers(FriendlyHelpers):  # local version
-    pass
-
-
-def dark():  # pragma: no cover
-    """Synonym of set_formatter('dark') designed to be used
-    within iPython/Jupyter programming environments or at a terminal.
-    """
-    set_formatter("dark")
-
-
-def light():  # pragma: no cover
-    """Synonym of set_formatter('light') designed to be used
-    within iPython/Jupyter programming environments or at a terminal.
-    """
-    set_formatter("light")
-
-
-dark.help = lambda: _("Sets a colour scheme designed for a black background.")
-light.help = lambda: _("Sets a colour scheme designed for a white background.")
-
-default_color_schemes = {"dark": dark, "light": light}
-
-add_rich_repr(default_color_schemes)
-
-Friendly = _FriendlyHelpers(default_color_schemes)
-for scheme in default_color_schemes:
-    setattr(_FriendlyHelpers, scheme, staticmethod(default_color_schemes[scheme]))
-
+Friendly = FriendlyHelpers()
 helpers["Friendly"] = Friendly
-
 __all__ = list(helpers.keys())
-__all__.extend(list(default_color_schemes))
