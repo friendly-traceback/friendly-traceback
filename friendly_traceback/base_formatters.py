@@ -20,7 +20,7 @@ A formatter is a function that takes two arguments:
 A formatter returns a single string. By default, this string will be
 written to stderr; however this can be changed by the calling program.
 
-This module currently contains 6 formatters:
+This module currently contains 2 formatters:
 
 * ``repl()``: This is used to print the information in a traditional console.
   The indentation of the traceback itself is chosen
@@ -85,12 +85,11 @@ def repl(info, include="friendly_tb"):
     The only change made to the content of "info" is
     some added indentation.
     """
-
+    if include == "message":
+        return info["message"]
     items_to_show = select_items(include)
     spacing = {"single": " " * 4, "double": " " * 8, "none": ""}
     result = [""]
-    if include == "message":
-        return info["message"]
     for item in items_to_show:
         if item in info:
             indentation = spacing[repl_indentation[item]]

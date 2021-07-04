@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-06-27 09:23-0300\n"
+"POT-Creation-Date: 2021-07-04 20:48-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -15,50 +15,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
 
-#: __init__.py:199 __main__.py:178 idle\_idle.py:210
+#: __init__.py:181 __main__.py:160
 msgid "The file {filename} does not exist."
 msgstr "Le fichier {filename} n'existe pas."
 
-#: config.py:72 config.py:198 console_helpers.py:68
+#: base_formatters.py:145 base_formatters.py:151
+msgid "I have no suggestion to offer."
+msgstr "Je n’ai aucune suggestion à offrir."
+
+#: base_formatters.py:149
+msgid "I have no suggestion to offer; try `why()`."
+msgstr "Je n’ai aucune suggestion à offrir; essayez `why()`."
+
+#: config.py:50 config.py:155 console_helpers.py:68
 msgid "Nothing to show: no exception recorded."
 msgstr "Rien à montrer: pas d’exception enregistrée."
-
-#: console.py:35
-msgid "Type 'Friendly' for help on special functions/methods."
-msgstr ""
-"Tapez \"Friendly\" pour obtenir de l'aide sur les fonctions ou méthodes "
-"spéciales."
-
-#: console.py:203
-msgid "Warning: you added a type hint to the python builtin `{name}`."
-msgstr ""
-"Attention : vous avez utilisé des annotations de type pour l'identifiant "
-"Python (builtin) `{name}`."
-
-#: console.py:206
-msgid ""
-"Warning: you used a type hint for a variable without assigning it a value.\n"
-msgstr ""
-"Attention : vous avez utilisé une annotation de type pour une variable sans "
-"lui attribuer une valeur.\n"
-
-#: console.py:209
-msgid "Instead of `{hint}`, perhaps you meant `{assignment}`."
-msgstr ""
-"Au lieu de `{hint}`, peut-être que vous vouliez plutôt écrire : `{assignment}"
-"`."
-
-#: console.py:280
-msgid "Warning: you have redefined the python builtin `{name}`."
-msgstr ""
-"Attention : vous avez redéfini l'identifiant Python (builtin) `{name}`."
 
 #: console_helpers.py:29
 msgid "Nothing to go back to: no exception recorded."
 msgstr ""
 "Impossible de revenir en arrière: il n'y a pas d’exception enregistrée."
 
-#: console_helpers.py:161
+#: console_helpers.py:159
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -66,78 +44,78 @@ msgstr ""
 "Argument non valide pour `www()`.\n"
 "Les arguments valides incluent `None` ou un des suivants : `{sites}`.\n"
 
-#: console_helpers.py:185
+#: console_helpers.py:183
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:298
+#: console_helpers.py:296
 msgid "Removes the last recorded traceback item."
 msgstr "Supprime le dernier élément de traceback enregistré."
 
-#: console_helpers.py:299
+#: console_helpers.py:297
 msgid "Shows all the information about the last traceback."
 msgstr "Affiche toutes les informations sur le dernier traceback."
 
-#: console_helpers.py:300
+#: console_helpers.py:298
 msgid "Shows a list of recorded traceback messages."
 msgstr "Affiche une liste des messages de traceback enregistrés."
 
-#: console_helpers.py:301
+#: console_helpers.py:299
 msgid "Sets the language to be used."
 msgstr "Définit la langue à utiliser."
 
-#: console_helpers.py:302
+#: console_helpers.py:300
 msgid "Shows the paths corresponding to synonyms used."
 msgstr "Affiche les chemins correspondant aux synonymes utilisés."
 
-#: console_helpers.py:303
+#: console_helpers.py:301
 msgid "Shows the generic meaning of a given exception"
 msgstr "Indique la signification générique d'une exception donnée"
 
-#: console_helpers.py:304
+#: console_helpers.py:302
 msgid "Shows where an exception was raised."
 msgstr "Indique où une exception a été levée."
 
-#: console_helpers.py:305
+#: console_helpers.py:303
 msgid "Shows the likely cause of the exception."
 msgstr "Indique la cause probable de l'exception."
 
-#: console_helpers.py:306
+#: console_helpers.py:304
 msgid "Opens a web browser at a useful location."
 msgstr "Ouvre un navigateur web à un endroit utile."
 
-#: console_helpers.py:319
+#: console_helpers.py:318
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr "Suggestion parfois ajoutée à un traceback simplifié."
 
-#: console_helpers.py:320
+#: console_helpers.py:319
 msgid "Shows a normal Python traceback."
 msgstr "Affiche un traceback Python normal."
 
-#: console_helpers.py:321
+#: console_helpers.py:320
 msgid "Shows a simplified Python traceback."
 msgstr "Affiche un traceback Python simplifié."
 
-#: console_helpers.py:322
+#: console_helpers.py:321
 msgid "Returns the current value used for items to include by default."
 msgstr ""
 "Renvoie la valeur actuelle utilisée pour les éléments à inclure par défaut."
 
-#: console_helpers.py:325
+#: console_helpers.py:324
 msgid "Sets the items to show by default when an exception is raised."
 msgstr ""
 "Définit les éléments à afficher par défaut lorsqu'une exception est levée."
 
-#: console_helpers.py:328
+#: console_helpers.py:327
 msgid "Returns the language currently used."
 msgstr "Renvoie la langue actuellement utilisée."
 
-#: console_helpers.py:329
+#: console_helpers.py:328
 msgid "Sets the formatter to use for display."
 msgstr "Définit le formateur à utiliser pour l'affichage."
 
-#: console_helpers.py:389
+#: console_helpers.py:394
 msgid ""
 "The following methods of the Friendly object might also be available as "
 "functions."
@@ -145,21 +123,13 @@ msgstr ""
 "Les méthodes suivantes de l'objet Friendly peuvent également être "
 "disponibles en tant que fonctions."
 
-#: console_helpers.py:394
+#: console_helpers.py:399
 msgid "Basic methods:"
 msgstr "Méthodes de base :"
 
-#: console_helpers.py:405
+#: console_helpers.py:410
 msgid "Less commonly used methods/functions."
 msgstr "Méthodes/fonctions moins couramment utilisées."
-
-#: console_helpers.py:445
-msgid "Sets a colour scheme designed for a black background."
-msgstr "Définit un schéma de couleurs conçu pour un fond noir."
-
-#: console_helpers.py:446
-msgid "Sets a colour scheme designed for a white background."
-msgstr "Définit un schéma de couleurs conçu pour un fond blanc."
 
 #: core.py:383
 msgid "More lines not shown."
@@ -187,23 +157,23 @@ msgstr ""
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:577
+#: core.py:575
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:583
+#: core.py:579
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:623
+#: core.py:615
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:642
+#: core.py:634
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
@@ -211,7 +181,7 @@ msgstr ""
 "`{filename}` n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:653
+#: core.py:645
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -221,7 +191,7 @@ msgstr ""
 "'{filename}'\n"
 "jusqu'à l'endroit indiqué par ^.\n"
 
-#: core.py:659
+#: core.py:651
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'.\n"
@@ -229,11 +199,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'.\n"
 
-#: core.py:871
+#: core.py:863
 msgid "Problem: source of `{filename}` is not available\n"
 msgstr "Problème : la source de `{filename}` n'est pas disponible.\n"
 
-#: core.py:913
+#: core.py:905
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -244,17 +214,38 @@ msgstr ""
 "Est-ce que vous utilisez une console Python plutôt que la console \"Friendly"
 "\" ?\n"
 
-#: formatters.py:203
-msgid "I do not know."
-msgstr "Je ne sais pas."
+#: ft_console.py:24
+msgid "Type 'Friendly' for help on special functions/methods."
+msgstr ""
+"Tapez \"Friendly\" pour obtenir de l'aide sur les fonctions ou méthodes "
+"spéciales."
 
-#: formatters.py:206 formatters.py:361
-msgid "I have no suggestion to offer; try `why()`."
-msgstr "Je n’ai aucune suggestion à offrir; essayez `why()`."
+#: ft_gettext.py:86
+msgid ""
+"Please report this example to https://github.com/aroberge/friendly/issues.\n"
+"If you are using a REPL, use `www('bug')` to do so.\n"
+"\n"
+msgstr ""
+"Veuillez signaler cet exemple à https://github.com/aroberge/friendly/"
+"issues.\n"
+"Si vous utilisez un REPL, utilisez `www('bug')` pour le faire.\n"
+"\n"
 
-#: formatters.py:208 formatters.py:357 formatters.py:363
-msgid "I have no suggestion to offer."
-msgstr "Je n’ai aucune suggestion à offrir."
+#: ft_gettext.py:97
+msgid "No information is known about this exception.\n"
+msgstr "Aucune information n’est disponible au sujet de cette exception.\n"
+
+#: ft_gettext.py:99
+msgid ""
+"If you are using the Friendly console, use `www()` to\n"
+"do an Internet search for this particular case.\n"
+msgstr ""
+"Si vous utilisez la console Friendly, utilisez `www()` pour\n"
+"faire une recherche sur Internet pour ce cas particulier.\n"
+
+#: ft_gettext.py:109
+msgid "Internal error for Friendly.\n"
+msgstr "Exception soulevée par Friendly.\n"
 
 #: info_generic.py:44
 msgid ""
@@ -607,49 +598,9 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: mu.py:23
-msgid "Colour scheme designed Mu's day theme."
-msgstr "Schéma de couleurs conçu sur le thème 'jour' de Mu."
-
-#: mu.py:35
-msgid "Colour scheme designed Mu's night theme."
-msgstr "Schéma de couleurs conçu sur le thème 'nuit' de Mu."
-
-#: mu.py:48
-msgid "Colour scheme designed Mu's high contrast theme."
-msgstr "Schéma de couleurs conçu sur le thème à contraste élevé de Mu."
-
-#: mu.py:71
-msgid "Friendly themes are only available in Mu's REPL.\n"
-msgstr ""
-"Les thèmes pour friendly ne peuvent être utilisés que dans le REPL de Mu.\n"
-
-#: my_gettext.py:86
-msgid ""
-"Please report this example to https://github.com/aroberge/friendly/issues.\n"
-"If you are using a REPL, use `www('bug')` to do so.\n"
-"\n"
-msgstr ""
-"Veuillez signaler cet exemple à https://github.com/aroberge/friendly/"
-"issues.\n"
-"Si vous utilisez un REPL, utilisez `www('bug')` pour le faire.\n"
-"\n"
-
-#: my_gettext.py:97
-msgid "No information is known about this exception.\n"
-msgstr "Aucune information n’est disponible au sujet de cette exception.\n"
-
-#: my_gettext.py:99
-msgid ""
-"If you are using the Friendly console, use `www()` to\n"
-"do an Internet search for this particular case.\n"
-msgstr ""
-"Si vous utilisez la console Friendly, utilisez `www()` pour\n"
-"faire une recherche sur Internet pour ce cas particulier.\n"
-
-#: my_gettext.py:109
-msgid "Internal error for Friendly.\n"
-msgstr "Exception soulevée par Friendly.\n"
+#: path_info.py:180
+msgid "The default directory is {dirname}."
+msgstr "Le répertoire par défaut est {dirname}."
 
 #: runtime_errors\attribute_error.py:54
 msgid ""
@@ -2028,7 +1979,7 @@ msgid "`{value}` is an invalid argument for `int()` in base `{base}`.\n"
 msgstr ""
 "`{value}` est un argument invalide pour `int()` dans la base `{base}`.\n"
 
-#: runtime_errors\value_error.py:157
+#: runtime_errors\value_error.py:159
 msgid ""
 "In base `{base}`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `{max_n}` into an integer.\n"
@@ -2037,7 +1988,7 @@ msgstr ""
 "chaîne de caractères\n"
 "contenant les chiffres `0` à `{max_n}` en un nombre entier.\n"
 
-#: runtime_errors\value_error.py:162
+#: runtime_errors\value_error.py:164
 msgid ""
 "In base `11`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letter `'a'` into an integer.\n"
@@ -2046,7 +1997,7 @@ msgstr ""
 "de caractères\n"
 "contenant les chiffres `0` à `9` et la lettre `'a'` en un entier.\n"
 
-#: runtime_errors\value_error.py:167
+#: runtime_errors\value_error.py:169
 msgid ""
 "In base `base`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letters\n"
@@ -2057,7 +2008,7 @@ msgstr ""
 "contenant les chiffres de `0` à `9` et les lettres\n"
 "de `'a'` à `'{max_n}'` en un nombre entier.\n"
 
-#: runtime_errors\value_error.py:173
+#: runtime_errors\value_error.py:175
 msgid ""
 "When base `0` is specified, `int()` expects the string argument to\n"
 "represent an integer literal.\n"
@@ -2065,11 +2016,11 @@ msgstr ""
 "Lorsque la base `0` est spécifiée, l'argument de `int()` doit représenter un "
 "entier littéral.\n"
 
-#: runtime_errors\value_error.py:185
+#: runtime_errors\value_error.py:188
 msgid "You need to convert `'{value}'` to a float first.\n"
 msgstr "Vous devez d'abord convertir `'{value}'` en un `float`.\n"
 
-#: runtime_errors\value_error.py:186
+#: runtime_errors\value_error.py:189
 msgid ""
 "The string `'{value}'` needs to be first converted using `float()`\n"
 "before the result can be converted into an integer using `int()`.\n"
@@ -2077,11 +2028,11 @@ msgstr ""
 "La chaîne `'{value}'` doit d’abord être convertie à l’aide de `float()`\n"
 "pour être ensuite convertie en entier à l’aide de `int()`.\n"
 
-#: runtime_errors\value_error.py:200
+#: runtime_errors\value_error.py:203
 msgid "Did you specify an invalid month?\n"
 msgstr "Avez-vous spécifié un mois inexistant ?\n"
 
-#: runtime_errors\value_error.py:201
+#: runtime_errors\value_error.py:204
 msgid ""
 "I am guessing that you specify an invalid value for a month\n"
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
@@ -2090,7 +2041,7 @@ msgstr ""
 "dans un objet de type `date`. Les valeurs valides sont les entiers de 1 à "
 "12.\n"
 
-#: runtime_errors\value_error.py:233
+#: runtime_errors\value_error.py:236
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
@@ -2098,7 +2049,7 @@ msgstr ""
 "Je ne reconnais pas ce message d’erreur.\n"
 "Je devine que le problème est avec la fonction `{name}`.\n"
 
-#: runtime_errors\value_error.py:239
+#: runtime_errors\value_error.py:242
 msgid ""
 "Its docstring is:\n"
 "\n"
@@ -2108,7 +2059,7 @@ msgstr ""
 "\n"
 "`'''{docstring}'''`\n"
 
-#: runtime_errors\value_error.py:243
+#: runtime_errors\value_error.py:246
 msgid "I have no more information.\n"
 msgstr "Je n’ai plus d’informations.\n"
 
@@ -4431,6 +4382,50 @@ msgstr "accolade `{`"
 #: syntax_errors\syntax_utils.py:22
 msgid "curly bracket `}`"
 msgstr "accolade `}`"
+
+#~ msgid "Warning: you added a type hint to the python builtin `{name}`."
+#~ msgstr ""
+#~ "Attention : vous avez utilisé des annotations de type pour l'identifiant "
+#~ "Python (builtin) `{name}`."
+
+#~ msgid ""
+#~ "Warning: you used a type hint for a variable without assigning it a "
+#~ "value.\n"
+#~ msgstr ""
+#~ "Attention : vous avez utilisé une annotation de type pour une variable "
+#~ "sans lui attribuer une valeur.\n"
+
+#~ msgid "Instead of `{hint}`, perhaps you meant `{assignment}`."
+#~ msgstr ""
+#~ "Au lieu de `{hint}`, peut-être que vous vouliez plutôt écrire : "
+#~ "`{assignment}`."
+
+#~ msgid "Warning: you have redefined the python builtin `{name}`."
+#~ msgstr ""
+#~ "Attention : vous avez redéfini l'identifiant Python (builtin) `{name}`."
+
+#~ msgid "Sets a colour scheme designed for a black background."
+#~ msgstr "Définit un schéma de couleurs conçu pour un fond noir."
+
+#~ msgid "Sets a colour scheme designed for a white background."
+#~ msgstr "Définit un schéma de couleurs conçu pour un fond blanc."
+
+#~ msgid "I do not know."
+#~ msgstr "Je ne sais pas."
+
+#~ msgid "Colour scheme designed Mu's day theme."
+#~ msgstr "Schéma de couleurs conçu sur le thème 'jour' de Mu."
+
+#~ msgid "Colour scheme designed Mu's night theme."
+#~ msgstr "Schéma de couleurs conçu sur le thème 'nuit' de Mu."
+
+#~ msgid "Colour scheme designed Mu's high contrast theme."
+#~ msgstr "Schéma de couleurs conçu sur le thème à contraste élevé de Mu."
+
+#~ msgid "Friendly themes are only available in Mu's REPL.\n"
+#~ msgstr ""
+#~ "Les thèmes pour friendly ne peuvent être utilisés que dans le REPL de "
+#~ "Mu.\n"
 
 #~ msgid "In your program, the key that cannot be found is `{key}`.\n"
 #~ msgstr "Dans votre programme, la clé inconnue est `{key}`.\n"

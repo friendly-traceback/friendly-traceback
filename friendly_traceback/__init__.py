@@ -25,7 +25,7 @@ if not valid_version:  # pragma: no cover
     sys.exit()
 
 del valid_version
-__version__ = "0.3.144"
+__version__ = "0.3.145"
 
 
 # ===========================================
@@ -37,8 +37,8 @@ from pathlib import Path
 from . import debug_helper
 from . import editors_helpers
 from . import base_formatters
-from . import path_info
 from .config import session
+from . import path_info
 from .ft_gettext import current_lang
 
 # Ensure that warnings are not shown to the end user, as they could
