@@ -468,7 +468,9 @@ class FriendlyTraceback:
         _ = current_lang.translate
 
         partial_source = record.partial_source_with_node_range
-        filename = path_utils.shorten_path(record.filename, frame=self.tb_data.exception_frame)
+        filename = path_utils.shorten_path(
+            record.filename, frame=self.tb_data.exception_frame
+        )
 
         unavailable = filename in ["<unknown>", "<string>"]
         if unavailable:
@@ -504,7 +506,9 @@ class FriendlyTraceback:
         _ = current_lang.translate
 
         partial_source = record.partial_source_with_node_range
-        filename = path_utils.shorten_path(record.filename, frame=self.tb_data.exception_frame)
+        filename = path_utils.shorten_path(
+            record.filename, frame=self.tb_data.exception_frame
+        )
 
         self.info["last_call_header"] = _(
             "Execution stopped on line {linenumber} of file {filename}.\n"
@@ -709,7 +713,9 @@ class FriendlyTraceback:
         for record in self.tb_data.records:
             partial_source = record.partial_source
             result.append(
-                '  File "{}", line {}, in {}'.format(record.filename, record.lineno, record.code.co_name)
+                '  File "{}", line {}, in {}'.format(
+                    record.filename, record.lineno, record.code.co_name
+                )
             )
             bad_line = partial_source["line"]
             if bad_line is not None:

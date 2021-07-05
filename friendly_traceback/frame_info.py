@@ -177,4 +177,6 @@ class FrameInfo(stack_data.FrameInfo):
 
     @cached_property
     def current_line(self):
-        return only(line for line in self.lines if isinstance(line, Line) and line.is_current)
+        return only(
+            line for line in self.lines if isinstance(line, Line) and line.is_current
+        )
