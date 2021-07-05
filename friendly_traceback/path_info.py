@@ -9,7 +9,6 @@ it might be desirable to exclude additional files.
 import os
 import asttokens  # Only use it to find site-packages
 
-from . import debug_helper
 from .ft_gettext import current_lang
 
 EXCLUDED_FILE_PATH = set()
@@ -98,15 +97,16 @@ class PathUtil:
         self.python = os.path.abspath(os.path.dirname(os.__file__))
         self.home = os.path.expanduser("~")
 
-    def shorten_path(self, path):  # pragma: no cover
+    def shorten_path(self, path, frame=None):  # pragma: no cover
         if path is None:  # can happen in some rare cases
             return path
+        orig_path = path
         path = path.replace("'", "")  # We might get passed a path repr
         path = os.path.abspath(path)
         path_lower = path.lower()
 
         if "ipykernel" in path:
-            new_path = self.shorten_jupyter_kernel(path)
+            new_path = self.shorten_jupyter_kernel(orig_path, frame=frame)
             if new_path:
                 return new_path
 
@@ -135,27 +135,28 @@ class PathUtil:
             path = "HOME:" + path[len(self.home) :]
         return path
 
-    @staticmethod
-    def shorten_jupyter_kernel(path):
+    def shorten_jupyter_kernel(self, path, frame=None):
         from .config import session
         from .source_cache import cache
 
-        if not session.saved_info:
-            debug_helper.log("shorten_jupyter_kernel was called but not saved tb.")
+        if frame is None and not session.saved_info:
             return ""
-        source = "".join(cache.get_source_lines(path)).strip()
+        lines = cache.get_source_lines(path)
+        source = "".join(lines)
+        source = source.strip()
         if not source:
             return ""
-        info = session.saved_info[-1]
-        frame = info["_frame"]
+        if frame is None:
+            info = session.saved_info[-1]
+            frame = info["_frame"]
         if "In" not in frame.f_globals:
-            debug_helper.log("No ipython inputs found in shorten_jupyter_kernel.")
             return ""
         ipython_inputs = frame.f_globals["In"]
         found = 0
         new_path = ""
         for index, inp in enumerate(ipython_inputs):
-            if source == inp.strip():
+            inp = inp.strip()
+            if source == inp:
                 new_path = f"[{index}]"
                 found += 1
         if found > 1:
@@ -172,7 +173,7 @@ def show_paths():  # pragma: no cover
     recognized synonyms. This function shows the path synonyms
     currently used.
     """
-    _ = current_lang.translate()
+    _ = current_lang.translate
     print("HOME =", path_utils.home)
     print("LOCAL =", SITE_PACKAGES)
     print("PYTHON_LIB =", path_utils.python)

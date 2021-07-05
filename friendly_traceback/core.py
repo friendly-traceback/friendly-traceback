@@ -568,7 +568,7 @@ class FriendlyTraceback:
         partial_source = get_partial_source(
             filename, linenumber, lines, index, self.tb_data.node_range
         )
-        filename = path_utils.shorten_path(filename)
+        filename = path_utils.shorten_path(filename, frame=self.tb_data.exception_frame)
 
         unavailable = filename in ["<unknown>", "<string>"]
         if unavailable:
@@ -610,7 +610,7 @@ class FriendlyTraceback:
         partial_source = get_partial_source(
             filename, linenumber, lines, index, self.tb_data.program_stopped_node_range
         )
-        filename = path_utils.shorten_path(filename)
+        filename = path_utils.shorten_path(filename, frame=self.tb_data.exception_frame)
 
         self.info["last_call_header"] = _(
             "Execution stopped on line {linenumber} of file {filename}.\n"
@@ -646,11 +646,19 @@ class FriendlyTraceback:
                 "Python could not understand the code in the file\n"
                 "'{filename}'\n"
                 "beyond the location indicated by ^.\n"
-            ).format(filename=path_utils.shorten_path(filepath))
+            ).format(
+                filename=path_utils.shorten_path(
+                    filepath, frame=self.tb_data.exception_frame
+                )
+            )
         elif filepath:  # could be None
             self.info["parsing_error"] = _(
                 "Python could not understand the code in the file\n" "'{filename}'.\n"
-            ).format(filename=path_utils.shorten_path(filepath))
+            ).format(
+                filename=path_utils.shorten_path(
+                    filepath, frame=self.tb_data.exception_frame
+                )
+            )
 
         self.info["parsing_error_source"] = f"{partial_source}\n"
 
@@ -752,7 +760,10 @@ class FriendlyTraceback:
             match = re.search(pattern, line)
             if match:
                 line = line.replace(
-                    match.group(1), path_utils.shorten_path(match.group(1))
+                    match.group(1),
+                    path_utils.shorten_path(
+                        match.group(1), frame=self.tb_data.exception_frame
+                    ),
                 )
             temp.append(line)
         return temp
