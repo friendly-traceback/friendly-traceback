@@ -115,10 +115,6 @@ class FrameInfo(stack_data.FrameInfo):
 
     @cached_property
     def node_info(self):
-        pass
-
-    @cached_property
-    def node_info(self):
         """Finds the 'node', that is the exact part of a line of code
         that is related to the cause of the problem.
         """
