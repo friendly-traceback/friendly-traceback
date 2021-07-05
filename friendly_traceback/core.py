@@ -12,6 +12,8 @@ import traceback
 from itertools import dropwhile
 from typing import List
 
+import stack_data
+
 from . import debug_helper
 from . import info_generic
 from . import info_specific
@@ -101,7 +103,13 @@ class TracebackData:
         from our own code that are included either at the beginning or
         at the end of the traceback.
         """
-        all_records = list(FrameInfo.stack_data(tb, collapse_repeated_frames=False))
+        all_records = list(
+            FrameInfo.stack_data(
+                tb,
+                collapse_repeated_frames=False,
+                options=stack_data.Options(max_lines_per_piece=999999),
+            )
+        )
         records = list(
             dropwhile(lambda record: is_excluded_file(record.filename), all_records)
         )
