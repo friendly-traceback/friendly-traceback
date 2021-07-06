@@ -21,7 +21,7 @@ call python compile_data.py
 call deactivate
 
 call python compare_data.py
-copy compare_data.html ..\..\..\friendly-traceback-docs\docs\source\compare_data.html
+copy compare_data.html ..\..\..\docs\source\compare_data.html
 del compare_data.html
 
 cd ..
@@ -55,11 +55,11 @@ call python trb_syntax_english.py
 call deactivate
 
 call python compare_messages.py
-copy compare_messages.html ..\..\friendly-traceback-docs\docs\source\compare_messages.html
+copy compare_messages.html ..\..\docs\source\compare_messages.html
 del compare_messages.html
 
-cd ..\..\friendly-traceback-docs\docs
+cd ..\..\docs
 call make html
-cd ..\..\friendly-traceback
+cd ..\friendly-traceback
 call venv-friendly-traceback-3.8\scripts\activate
 

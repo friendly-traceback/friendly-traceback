@@ -19,7 +19,7 @@ import friendly_traceback
 
 # Make it possible to find docs and tests source
 docs_root_dir = os.path.abspath(
-    os.path.join(this_dir, "..", "..", "friendly-traceback-docs")
+    os.path.join(this_dir, "..", "..", "docs")
 )
 assert os.path.isdir(docs_root_dir), "Separate docs repo need to exist"
 sys.path.append(os.path.join(this_dir, ".."))
@@ -38,7 +38,7 @@ sys.path.insert(0, this_dir)
 import trb_common
 
 target = os.path.normpath(
-    os.path.join(docs_root_dir, f"docs/source/tracebacks_{LANG}.rst")
+    os.path.join(docs_root_dir, f"source/tracebacks_{LANG}.rst")
 )
 
 intro_text = """
