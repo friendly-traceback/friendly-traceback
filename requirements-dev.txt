@@ -4,3 +4,4 @@ pytest-cov
 coverage
 flake8
 pre-commit
+stack_data
