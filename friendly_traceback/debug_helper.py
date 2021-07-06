@@ -13,7 +13,10 @@ import os
 # using the debug() command in the console.
 
 IS_PYDEV = bool(os.environ.get("PYTHONDEVMODE", False))
-IS_ANDRE = r"users\andre\github\friendly" in __file__.lower()
+IS_ANDRE = (
+    r"users\andre\github\friendly" in __file__.lower()
+    or r"users\andre\friendly-traceback" in __file__.lower()
+)
 DEBUG = IS_PYDEV or IS_ANDRE
 EXIT = False
 

@@ -259,6 +259,7 @@ def attribute_error_in_object(obj_type, attribute, tb_data, frame):
                     possible_objects.append((obj_name, _obj))
 
             if not possible_objects:
+                print("bad_line=", tb_data.bad_line)
                 cause = _(
                     "An object of type `{obj_type}` has no attribute named `{attr}`.\n\n"
                     "I cannot give additional information:\n"

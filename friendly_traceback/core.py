@@ -7,18 +7,17 @@ they are considered to be internal functions, subject to change at any
 time. If functions defined in friendly_traceback.__init__.py do not meet your needs,
 please file an issue.
 """
-import inspect
 import os
 import re
 import traceback
 
+import stack_data
 from itertools import dropwhile
 
 from . import info_generic
 from . import info_specific
 from . import info_variables
 from . import debug_helper
-from . import source_cache
 
 from .ft_gettext import current_lang
 
@@ -115,9 +114,11 @@ class TracebackData:
         from our own code that are included either at the beginning or
         at the end of the traceback.
         """
-        records = inspect.getinnerframes(tb, cache.context)
+        all_records = list(
+            stack_data.FrameInfo.stack_data(tb, collapse_repeated_frames=False)
+        )
         records = list(
-            dropwhile(lambda record: is_excluded_file(record.filename), records)
+            dropwhile(lambda record: is_excluded_file(record.filename), all_records)
         )
         records.reverse()
         records = list(
@@ -130,7 +131,7 @@ class TracebackData:
         # is in our own code - or that of the user who chose to exclude
         # some files. If so, we make sure to have something to analyze
         # and help identify the problem.
-        return inspect.getinnerframes(tb, cache.context)  # pragma: no cover
+        return all_records  # pragma: no cover
 
     def get_source_info(self):
         """Retrieves the file name and the line of code where the exception
@@ -161,14 +162,23 @@ class TracebackData:
             return
 
         if self.records:
-            self.exception_frame, self.filename, linenumber, _, _, _ = self.records[-1]
-            _, line = cache.get_formatted_partial_source(self.filename, linenumber)
+            record = self.records[-1]
+            self.exception_frame = record.frame
+            self.filename = record.filename
+            _, line = highlight_source(record.lines)
             self.bad_line = line.rstrip()
+            # protecting against https://github.com/alexmojaki/stack_data/issues/13
+            if not self.bad_line:
+                try:
+                    lines = cache.get_source_lines(record.filename)
+                    self.bad_line = lines[record.lineno - 1]
+                except Exception:  # noqa
+                    debug_helper.log("Could not get bad_line")
+
             if len(self.records) > 1:
-                self.program_stopped_frame, filename, linenumber, *_rest = self.records[
-                    0
-                ]
-                _, line = cache.get_formatted_partial_source(filename, linenumber)
+                record = self.records[0]
+                _, line = highlight_source(record.lines)
+                self.program_stopped_frame = record.frame
                 self.program_stopped_bad_line = line.rstrip()
             else:
                 self.program_stopped_bad_line = self.bad_line
@@ -558,17 +568,10 @@ class FriendlyTraceback:
         """
         _ = current_lang.translate
 
-        frame, filename, linenumber, _func, lines, index = record
-        if (
-            lines == ["\n"] and source_cache.idle_get_lines is not None
-        ):  # pragma: no cover
-            # skipcq: PYL-E1102
-            lines = source_cache.idle_get_lines(filename, linenumber - 1)
-
-        partial_source = get_partial_source(
-            filename, linenumber, lines, index, self.tb_data.node_range
+        partial_source = get_partial_source(record, text_range=self.tb_data.node_range)
+        filename = path_utils.shorten_path(
+            record.filename, frame=self.tb_data.exception_frame
         )
-        filename = path_utils.shorten_path(filename, frame=self.tb_data.exception_frame)
 
         unavailable = filename in ["<unknown>", "<string>"]
         if unavailable:
@@ -578,7 +581,7 @@ class FriendlyTraceback:
 
         self.info["exception_raised_header"] = _(
             "Exception raised on line {linenumber} of file {filename}.\n"
-        ).format(linenumber=linenumber, filename=filename)
+        ).format(linenumber=record.lineno, filename=filename)
 
         if unavailable:
             return
@@ -590,7 +593,7 @@ class FriendlyTraceback:
         else:
             line = partial_source["line"]
 
-        var_info = info_variables.get_var_info(line, frame)
+        var_info = info_variables.get_var_info(line, record.frame)
         if var_info:
             self.info["exception_raised_variables"] = var_info
 
@@ -602,22 +605,19 @@ class FriendlyTraceback:
         * last_call_variables
         """
         _ = current_lang.translate
-
-        frame, filename, linenumber, _func, lines, index = record
-        if lines == ["\n"] and source_cache.idle_get_lines is not None:
-            # skipcq: PYL-E1102
-            lines = source_cache.idle_get_lines(filename, linenumber - 1)
         partial_source = get_partial_source(
-            filename, linenumber, lines, index, self.tb_data.program_stopped_node_range
+            record, text_range=self.tb_data.program_stopped_node_range
         )
-        filename = path_utils.shorten_path(filename, frame=self.tb_data.exception_frame)
+        filename = path_utils.shorten_path(
+            record.filename, frame=self.tb_data.exception_frame
+        )
 
         self.info["last_call_header"] = _(
             "Execution stopped on line {linenumber} of file {filename}.\n"
-        ).format(linenumber=linenumber, filename=filename)
+        ).format(linenumber=record.lineno, filename=filename)
         self.info["last_call_source"] = partial_source["source"]
 
-        var_info = info_variables.get_var_info(partial_source["line"], frame)
+        var_info = info_variables.get_var_info(partial_source["line"], record.frame)
         if var_info:
             self.info["last_call_variables"] = var_info
 
@@ -697,7 +697,6 @@ class FriendlyTraceback:
             return
 
         python_tb = [line.rstrip() for line in self.tb_data.formatted_tb]
-
         tb = self.create_traceback()
         shortened_tb = self.shorten(tb)
 
@@ -813,10 +812,11 @@ class FriendlyTraceback:
         """
         result = []
         for record in self.tb_data.records:
-            frame, filename, linenumber, _func, lines, index = record
-            partial_source = get_partial_source(filename, linenumber, lines, index)
+            partial_source = get_partial_source(record)
             result.append(
-                '  File "{}", line {}, in {}'.format(filename, linenumber, _func)
+                '  File "{}", line {}, in {}'.format(
+                    record.filename, record.lineno, record.code.co_name
+                )
             )
             bad_line = partial_source["line"]
             if bad_line is not None:
@@ -864,37 +864,57 @@ class FriendlyTraceback:
         return result
 
 
-def get_partial_source(filename, linenumber, lines, index, text_range=None):
+def get_partial_source(record, text_range=None):
     """Gets the part of the source where an exception occurred,
     formatted in a pre-determined way, as well as the content
     of the specific line where the exception occurred.
     """
     _ = current_lang.translate
-
     file_not_found = _("Problem: source of `{filename}` is not available\n").format(
-        filename=filename
+        filename=record.filename
     )
-    if filename in cache.cache:
-        source, line = cache.get_formatted_partial_source(
-            filename, linenumber, text_range=text_range
-        )
-    elif filename and os.path.abspath(filename):
-        source, line = highlight_source(linenumber, index, lines, text_range=text_range)
-        if not source:  # pragma: no cover
-            line = ""
-            if filename == "<stdin>":
-                source = "\n"  # Using a normal Python REPL - source unavailable.
-                # An appropriate error message will have been given via
-                # cannot_analyze_stdin
-            else:
-                source = file_not_found
-                debug_helper.log("Problem in get_partial_source().")
-                debug_helper.log(file_not_found)
-    elif not filename:  # pragma: no cover
+    source = line = ""
+
+    lines = record.lines
+    if not lines and record.filename:
+        # protecting against https://github.com/alexmojaki/stack_data/issues/13
+        try:
+            lineno = record.lineno
+            s_lines = cache.get_source_lines(record.filename)
+
+            class FakeLineObject:
+                def __init__(self, line, linenumber, lineno):
+                    self.text = line
+                    self.lineno = linenumber + 1
+                    self.is_current = self.lineno == lineno
+
+            lines = []
+            linenumber = lineno - 2
+            for line in s_lines[linenumber : lineno + 1]:
+                lines.append(FakeLineObject(line, linenumber, lineno))
+                linenumber += 1
+        except Exception:  # noqa
+            pass
+
+    if lines:
+        source, line = highlight_source(lines, text_range=text_range)
+    elif record.filename and os.path.abspath(record.filename):
+        if record.filename == "<stdin>":
+            pass
+            # Using a normal Python REPL - source unavailable.
+            # An appropriate error message will have been given via
+            # cannot_analyze_stdin
+        else:
+            source = file_not_found
+            debug_helper.log("Problem in get_partial_source().")
+            debug_helper.log(file_not_found)
+            debug_helper.log(str(record))
+    elif not record.filename:  # pragma: no cover
         source = file_not_found
         line = ""
-        debug_helper.log("Problem in get_partial_source().")
+        debug_helper.log("Problem in get_partial_source(): no file name")
         debug_helper.log(file_not_found)
+        debug_helper.log(str(record))
     else:  # pragma: no cover
         source = line = ""
         debug_helper.log("Problem in get_partial_source().")
