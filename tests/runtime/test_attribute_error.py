@@ -192,6 +192,7 @@ def test_Nonetype():
 
 
 def test_Perhaps_comma():
+    import sys
     abcd = "hello"
     defg = "world"
 
@@ -204,7 +205,10 @@ def test_Perhaps_comma():
         message = str(e)
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
-    
+
+    if sys.version_info >= (3, 10):
+        result = "            Skipped test"
+        return result, message
     assert "'str' object has no attribute 'defg'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean to separate object names by a comma" in result

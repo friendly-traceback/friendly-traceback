@@ -199,7 +199,6 @@ def attribute_error_in_module(module, attribute, frame):
 def attribute_error_in_object(obj_type, attribute, tb_data, frame):
     """Attempts to find if object attribute might have been misspelled"""
     _ = current_lang.translate
-
     if obj_type == "builtin_function_or_method":
         obj_name = tb_data.bad_line.replace("." + attribute, "")
         # Confirm we have the right one
@@ -259,7 +258,7 @@ def attribute_error_in_object(obj_type, attribute, tb_data, frame):
                     possible_objects.append((obj_name, _obj))
 
             if not possible_objects:
-                print("bad_line=", tb_data.bad_line)
+                debug_helper.log(f"bad_line= {tb_data.bad_line}")
                 cause = _(
                     "An object of type `{obj_type}` has no attribute named `{attr}`.\n\n"
                     "I cannot give additional information:\n"

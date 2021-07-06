@@ -1,3 +1,4 @@
+import ast
 import re
 
 from ..ft_gettext import current_lang, no_information, internal_error
@@ -144,20 +145,7 @@ def is_stdlib_module(name, tb_data):
     'Turtle' which might be used in Turtle() ..."""
     _ = current_lang.translate
     if name != "Turtle":  # Turtle is a special case
-        try:
-            tokens = token_utils.get_significant_tokens(tb_data.bad_line)
-        except Exception:  # noqa  # pragma: no cover
-            debug_helper.log(
-                "Problem in getting significant tokens " "in is_stdlib_module()"
-            )
-            return {}
-
-        prev = "0"
-        for tok in tokens:
-            if tok == "." and prev == name:
-                break
-            prev = tok
-        else:
+        if tb_data.node and not isinstance(tb_data.node.parent, ast.Attribute):
             return {}
 
     # Some Python 2 libraries used names with uppercase letters.

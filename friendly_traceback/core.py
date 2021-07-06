@@ -7,23 +7,22 @@ they are considered to be internal functions, subject to change at any
 time. If functions defined in friendly_traceback.__init__.py do not meet your needs,
 please file an issue.
 """
-import os
 import re
 import traceback
 
-import stack_data
 from itertools import dropwhile
 
+from . import debug_helper
 from . import info_generic
 from . import info_specific
 from . import info_variables
-from . import debug_helper
 
+from .frame_info import FrameInfo
 from .ft_gettext import current_lang
 
 from .path_info import is_excluded_file, EXCLUDED_FILE_PATH, path_utils
 from .runtime_errors import name_error
-from .source_cache import cache, highlight_source
+from .source_cache import cache
 from .syntax_errors import analyze_syntax
 from .syntax_errors import indentation_error
 from .syntax_errors import source_info
@@ -107,16 +106,14 @@ class TracebackData:
             self.statement.bad_line = remove_space(self.statement.bad_line)
         else:
             self.statement = None
-            self.locate_error(tb)
+            self.locate_error()
 
     def get_records(self, tb):
         """Get the traceback frame history, excluding those originating
         from our own code that are included either at the beginning or
         at the end of the traceback.
         """
-        all_records = list(
-            stack_data.FrameInfo.stack_data(tb, collapse_repeated_frames=False)
-        )
+        all_records = list(FrameInfo.stack_data(tb, collapse_repeated_frames=False))
         records = list(
             dropwhile(lambda record: is_excluded_file(record.filename), all_records)
         )
@@ -165,7 +162,7 @@ class TracebackData:
             record = self.records[-1]
             self.exception_frame = record.frame
             self.filename = record.filename
-            _, line = highlight_source(record.lines)
+            _, line = record.highlighted_source  # noqa
             self.bad_line = line.rstrip()
             # protecting against https://github.com/alexmojaki/stack_data/issues/13
             if not self.bad_line:
@@ -177,7 +174,7 @@ class TracebackData:
 
             if len(self.records) > 1:
                 record = self.records[0]
-                _, line = highlight_source(record.lines)
+                _, line = record.highlighted_source  # noqa
                 self.program_stopped_frame = record.frame
                 self.program_stopped_bad_line = line.rstrip()
             else:
@@ -195,35 +192,46 @@ class TracebackData:
 
         _log_error()  # pragma: no cover
 
-    def locate_error(self, tb):
+    def locate_error(self):
         """Attempts to narrow down the location of the error so that,
         if possible, the problem code is highlighted with ^^^^."""
         if not self.records:  # pragma: no cover
             debug_helper.log("No records in locate_error().")
             return
 
-        if self.program_stopped_frame is not None:
-            exc_tb = self.find_tb_frame(tb, self.program_stopped_frame)
-            if exc_tb is not None:
-                _, self.program_stopped_node_range, _ = self.find_node(
-                    exc_tb, self.program_stopped_bad_line
-                )
-        if self.exception_name == "NameError":
-            # `executing` cannot give us the node location in this case
-            return self.locate_name_error()
+        node_info = self.records[-1].node_info  # noqa
+        if node_info:
+            self.node, _, self.node_text = node_info
+            if self.node_text.strip():
+                # Replacing the line that caused the exception by the text
+                # of the 'node' facilitates the process of identifying the cause.
+                # However, in a few cases, we do need to keep the entire original line.
+                self.original_bad_line = self.bad_line
+                self.bad_line = self.node_text
 
-        tb = self.find_tb_frame(tb, self.exception_frame)
-        if tb is None:
-            debug_helper.log("Exception frame could not be found.")  # pragma: no cover
-            return  # pragma: no cover
-
-        self.node, self.node_range, self.node_text = self.find_node(tb, self.bad_line)
-        if self.node_text.strip():
-            # Replacing the line that caused the exception by the text
-            # of the 'node' facilitates the process of identifying the cause.
-            # However, in a few cases, we do need to keep the entire original line.
-            self.original_bad_line = self.bad_line
-            self.bad_line = self.node_text
+        #
+        # if self.program_stopped_frame is not None:
+        #     exc_tb = self.find_tb_frame(tb, self.program_stopped_frame)
+        #     if exc_tb is not None:
+        #         _, self.program_stopped_node_range, _ = self.find_node(
+        #             exc_tb, self.program_stopped_bad_line
+        #         )
+        # if self.exception_name == "NameError":
+        #     # `executing` cannot give us the node location in this case
+        #     return self.locate_name_error()
+        #
+        # tb = self.find_tb_frame(tb, self.exception_frame)
+        # if tb is None:
+        #     debug_helper.log("Exception frame could not be found.")  # pragma: no cover
+        #     return  # pragma: no cover
+        #
+        # self.node, self.node_range, self.node_text = self.find_node(tb, self.bad_line)
+        # if self.node_text.strip():
+        #     # Replacing the line that caused the exception by the text
+        #     # of the 'node' facilitates the process of identifying the cause.
+        #     # However, in a few cases, we do need to keep the entire original line.
+        #     self.original_bad_line = self.bad_line
+        #     self.bad_line = self.node_text
 
     @staticmethod
     def find_tb_frame(tb, frame):
@@ -568,7 +576,8 @@ class FriendlyTraceback:
         """
         _ = current_lang.translate
 
-        partial_source = get_partial_source(record, text_range=self.tb_data.node_range)
+        # partial_source = get_partial_source(record, text_range=self.tb_data.node_range)
+        partial_source = record.partial_source_with_node_range
         filename = path_utils.shorten_path(
             record.filename, frame=self.tb_data.exception_frame
         )
@@ -605,9 +614,10 @@ class FriendlyTraceback:
         * last_call_variables
         """
         _ = current_lang.translate
-        partial_source = get_partial_source(
-            record, text_range=self.tb_data.program_stopped_node_range
-        )
+        partial_source = record.partial_source_with_node_range
+        # partial_source = get_partial_source(
+        #     record, text_range=self.tb_data.program_stopped_node_range
+        # )
         filename = path_utils.shorten_path(
             record.filename, frame=self.tb_data.exception_frame
         )
@@ -753,7 +763,7 @@ class FriendlyTraceback:
         and by using short synonyms for some common directories."""
         _ = current_lang.translate
         shortened_tb = tb[0:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
-        pattern = re.compile(r'^  File "(.*)", ')
+        pattern = re.compile(r'^  File "(.*)", ')  # noqa
         temp = []
         for line in shortened_tb:
             match = re.search(pattern, line)
@@ -812,7 +822,8 @@ class FriendlyTraceback:
         """
         result = []
         for record in self.tb_data.records:
-            partial_source = get_partial_source(record)
+            partial_source = record.partial_source  # noqa
+            # partial_source = get_partial_source(record)
             result.append(
                 '  File "{}", line {}, in {}'.format(
                     record.filename, record.lineno, record.code.co_name
@@ -864,67 +875,67 @@ class FriendlyTraceback:
         return result
 
 
-def get_partial_source(record, text_range=None):
-    """Gets the part of the source where an exception occurred,
-    formatted in a pre-determined way, as well as the content
-    of the specific line where the exception occurred.
-    """
-    _ = current_lang.translate
-    file_not_found = _("Problem: source of `{filename}` is not available\n").format(
-        filename=record.filename
-    )
-    source = line = ""
-
-    lines = record.lines
-    if not lines and record.filename:
-        # protecting against https://github.com/alexmojaki/stack_data/issues/13
-        try:
-            lineno = record.lineno
-            s_lines = cache.get_source_lines(record.filename)
-
-            class FakeLineObject:
-                def __init__(self, line, linenumber, lineno):
-                    self.text = line
-                    self.lineno = linenumber + 1
-                    self.is_current = self.lineno == lineno
-
-            lines = []
-            linenumber = lineno - 2
-            for line in s_lines[linenumber : lineno + 1]:
-                lines.append(FakeLineObject(line, linenumber, lineno))
-                linenumber += 1
-        except Exception:  # noqa
-            pass
-
-    if lines:
-        source, line = highlight_source(lines, text_range=text_range)
-    elif record.filename and os.path.abspath(record.filename):
-        if record.filename == "<stdin>":
-            pass
-            # Using a normal Python REPL - source unavailable.
-            # An appropriate error message will have been given via
-            # cannot_analyze_stdin
-        else:
-            source = file_not_found
-            debug_helper.log("Problem in get_partial_source().")
-            debug_helper.log(file_not_found)
-            debug_helper.log(str(record))
-    elif not record.filename:  # pragma: no cover
-        source = file_not_found
-        line = ""
-        debug_helper.log("Problem in get_partial_source(): no file name")
-        debug_helper.log(file_not_found)
-        debug_helper.log(str(record))
-    else:  # pragma: no cover
-        source = line = ""
-        debug_helper.log("Problem in get_partial_source().")
-        debug_helper.log("Should not have reached this option")
-        debug_helper.log_error()
-
-    if not source.endswith("\n"):
-        source += "\n"
-
-    return {"source": source, "line": line}
+# def get_partial_source(record, text_range=None):
+#     """Gets the part of the source where an exception occurred,
+#     formatted in a pre-determined way, as well as the content
+#     of the specific line where the exception occurred.
+#     """
+#     _ = current_lang.translate
+#     file_not_found = _("Problem: source of `{filename}` is not available\n").format(
+#         filename=record.filename
+#     )
+#     source = line = ""
+#
+#     lines = record.lines
+#     if not lines and record.filename:
+#         # protecting against https://github.com/alexmojaki/stack_data/issues/13
+#         try:
+#             lineno = record.lineno
+#             s_lines = cache.get_source_lines(record.filename)
+#
+#             class FakeLineObject:
+#                 def __init__(self, line, linenumber, lineno):
+#                     self.text = line
+#                     self.lineno = linenumber + 1
+#                     self.is_current = self.lineno == lineno
+#
+#             lines = []
+#             linenumber = lineno - 2
+#             for line in s_lines[linenumber : lineno + 1]:
+#                 lines.append(FakeLineObject(line, linenumber, lineno))
+#                 linenumber += 1
+#         except Exception:  # noqa
+#             pass
+#
+#     if lines:
+#         source, line = highlight_source(lines, text_range=text_range)
+#     elif record.filename and os.path.abspath(record.filename):
+#         if record.filename == "<stdin>":
+#             pass
+#             # Using a normal Python REPL - source unavailable.
+#             # An appropriate error message will have been given via
+#             # cannot_analyze_stdin
+#         else:
+#             source = file_not_found
+#             debug_helper.log("Problem in get_partial_source().")
+#             debug_helper.log(file_not_found)
+#             debug_helper.log(str(record))
+#     elif not record.filename:  # pragma: no cover
+#         source = file_not_found
+#         line = ""
+#         debug_helper.log("Problem in get_partial_source(): no file name")
+#         debug_helper.log(file_not_found)
+#         debug_helper.log(str(record))
+#     else:  # pragma: no cover
+#         source = line = ""
+#         debug_helper.log("Problem in get_partial_source().")
+#         debug_helper.log("Should not have reached this option")
+#         debug_helper.log_error()
+#
+#     if not source.endswith("\n"):
+#         source += "\n"
+#
+#     return {"source": source, "line": line}
 
 
 def cannot_analyze_stdin():  # pragma: no cover
