@@ -141,12 +141,10 @@ def flipfloperator():  # pragma: no cover
 
 def is_stdlib_module(name, tb_data):
     """Determine if an unknown name is to be found in the Python standard library.
-    We're looking for something like name.attribute ... with the exception of
-    'Turtle' which might be used in Turtle() ..."""
+    We're looking for something like name.attribute"""
     _ = current_lang.translate
-    if name != "Turtle":  # Turtle is a special case
-        if tb_data.node and not isinstance(tb_data.node.parent, ast.Attribute):
-            return {}
+    if tb_data.node and not isinstance(tb_data.node.parent, ast.Attribute):
+        return {}
 
     # Some Python 2 libraries used names with uppercase letters.
     lowercase = name.lower()
