@@ -12,7 +12,7 @@ def get_cause(_value, _frame, tb_data):
         or "requests.exception" in tb
     ):
         return handle_connection_error()
-    return no_information()
+    return {"cause": no_information()}
 
 
 def handle_connection_error():

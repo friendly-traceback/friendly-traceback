@@ -1,3 +1,4 @@
+import pytest
 import friendly_traceback
 
 
@@ -15,6 +16,16 @@ def test_Urllib_error():
         assert "An exception of type `URLError` is a subclass of `OSError`." in result
         assert "I suspect that you are trying to connect to a server" in result
     return result, message
+
+
+def test_no_information():
+    # simulate an unknown OSError
+    with pytest.raises(OSError) as exc_info:
+        raise OSError
+
+    ft_tb = friendly_traceback.core.FriendlyTraceback(exc_info.type, exc_info.value, exc_info.tb)
+    ft_tb.compile_info()
+    assert ft_tb.info["cause"] == friendly_traceback.ft_gettext.no_information()
 
 
 if __name__ == "__main__":
