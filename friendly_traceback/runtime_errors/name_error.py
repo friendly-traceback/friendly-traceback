@@ -17,9 +17,7 @@ def using_python():  # pragma: no cover
 # we currently use it in Mu.  It is meant to recognize names that
 # are intended as a single word command, or call to a function
 # that does is not available in a given environment.
-CUSTOM_NAMES = {}
-CUSTOM_NAMES["python"] = using_python
-CUSTOM_NAMES["python3"] = using_python
+CUSTOM_NAMES = {"python": using_python, "python3": using_python}
 
 
 def get_cause(value, frame, tb_data):

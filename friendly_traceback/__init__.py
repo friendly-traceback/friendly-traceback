@@ -25,7 +25,7 @@ if not valid_version:  # pragma: no cover
     sys.exit()
 
 del valid_version
-__version__ = "0.3.150"
+__version__ = "0.3.151"
 
 
 # ===========================================
@@ -198,10 +198,6 @@ def run(
 def set_formatter(formatter=None):
     """Sets the default formatter. If no argument is given, the default
     formatter is used.
-
-    A custom formatter must accept ``info`` as a required arguments
-    as well an additional argument whose value is subject to change.
-    See base_formatters.py for details.
     """
     session.set_formatter(formatter=formatter)
 
