@@ -145,9 +145,9 @@ def www(site=None):  # pragma: no cover
     import webbrowser
 
     urls = {
-        "friendly": "https://aroberge.github.io/friendly-traceback-docs/docs/html/",
+        "friendly": "https://friendly-traceback.github.io/docs/index.html",
         "python": "https://docs.python.org/3",
-        "bug": "https://github.com/aroberge/friendly/issues/new",
+        "bug": "https://github.com/friendly-traceback/friendly-traceback/issues/new",
         "email": "mailto:andre.roberge@gmail.com",
     }
     try:

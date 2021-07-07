@@ -85,7 +85,7 @@ def please_report():
     debug_helper.log("New case to consider.")
     return _(
         "Please report this example to "
-        "https://github.com/aroberge/friendly/issues.\n"
+        "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
         "If you are using a REPL, use `www('bug')` to do so.\n\n"
     )
 
