@@ -7,6 +7,7 @@ they are considered to be internal functions, subject to change at any
 time. If functions defined in friendly_traceback.__init__.py do not meet your needs,
 please file an issue.
 """
+import inspect
 import re
 import traceback
 
@@ -113,18 +114,33 @@ class TracebackData:
         from our own code that are included either at the beginning or
         at the end of the traceback.
         """
-        all_records = list(FrameInfo.stack_data(tb, collapse_repeated_frames=False))
-        records = list(
-            dropwhile(lambda record: is_excluded_file(record.filename), all_records)
-        )
-        records.reverse()
-        records = list(
-            dropwhile(lambda record: is_excluded_file(record.filename), records)
-        )
-        records.reverse()
-        if records or issubclass(self.exception_type, SyntaxError):
-            return records
-        # If all the records are removed, it means that all the error
+        try:
+            all_records = list(FrameInfo.stack_data(tb, collapse_repeated_frames=False))
+            records = list(
+                dropwhile(lambda record: is_excluded_file(record.filename), all_records)
+            )
+            records.reverse()
+            records = list(
+                dropwhile(lambda record: is_excluded_file(record.filename), records)
+            )
+            records.reverse()
+            if records or issubclass(self.exception_type, SyntaxError):
+                return records
+        except AssertionError:  # from stack_data
+            # problems may arise when SyntaxErrors are raise
+            # from a normal console like the one used in Mu.
+            records = inspect.getinnerframes(tb, cache.context)
+            records = list(
+                dropwhile(lambda record: is_excluded_file(record.filename), records)
+            )
+            records.reverse()
+            records = list(
+                dropwhile(lambda record: is_excluded_file(record.filename), records)
+            )
+            records.reverse()
+            if records or issubclass(self.exception_type, SyntaxError):
+                return records
+        # If all the records are removed, it likely means that all the error
         # is in our own code - or that of the user who chose to exclude
         # some files. If so, we make sure to have something to analyze
         # and help identify the problem.
