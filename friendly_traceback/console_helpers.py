@@ -140,6 +140,9 @@ def www(site=None):  # pragma: no cover
     * If the argument 'site' == "email",
       the default email client should open with Friendly's
       developer's address already filled in.
+
+    * If the argument 'site' == "warnings", a specific issue
+      on Github will be shown, inviting comments.
     """
     import urllib
     import webbrowser
@@ -149,6 +152,7 @@ def www(site=None):  # pragma: no cover
         "python": "https://docs.python.org/3",
         "bug": "https://github.com/friendly-traceback/friendly-traceback/issues/new",
         "email": "mailto:andre.roberge@gmail.com",
+        "warnings": "https://github.com/friendly-traceback/friendly-traceback/issues/7",
     }
     try:
         site = site.lower()
@@ -274,10 +278,13 @@ def _show_info():  # pragma: no cover
         else:
             print(f"{item}: ''")
 
-    print("=" * 56)
-    print("The following are not meant to be shown to the end user:\n")
+    header_printed = False
     for item in info:
         if item not in base_formatters.items_in_order:
+            if not header_printed:
+                print("=" * 56)
+                print("The following are not meant to be shown to the end user:\n")
+                header_printed = True
             print(f"{item}: {info[item]}")
 
 
