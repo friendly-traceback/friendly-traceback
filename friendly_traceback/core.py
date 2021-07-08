@@ -124,21 +124,21 @@ class TracebackData:
                 dropwhile(lambda record: is_excluded_file(record.filename), records)
             )
             records.reverse()
-            if records or issubclass(self.exception_type, SyntaxError):
+            if records or issubclass(self.exception_type, (SyntaxError, MemoryError)):
                 return records
         except AssertionError:  # from stack_data
             # problems may arise when SyntaxErrors are raise
             # from a normal console like the one used in Mu.
-            records = inspect.getinnerframes(tb, cache.context)
+            all_records = inspect.getinnerframes(tb, cache.context)
             records = list(
-                dropwhile(lambda record: is_excluded_file(record.filename), records)
+                dropwhile(lambda record: is_excluded_file(record.filename), all_records)
             )
             records.reverse()
             records = list(
                 dropwhile(lambda record: is_excluded_file(record.filename), records)
             )
             records.reverse()
-            if records or issubclass(self.exception_type, SyntaxError):
+            if records or issubclass(self.exception_type, (SyntaxError, MemoryError)):
                 return records
         # If all the records are removed, it likely means that all the error
         # is in our own code - or that of the user who chose to exclude
@@ -197,6 +197,9 @@ class TracebackData:
                 self.program_stopped_bad_line = self.bad_line
                 self.program_stopped_frame = self.exception_frame
             return
+        elif issubclass(self.exception_type, MemoryError):
+            self.bad_line = "<not available>"
+            return
 
         # We should never reach this stage.
         def _log_error():  # pragma: no cover
@@ -212,6 +215,8 @@ class TracebackData:
         """Attempts to narrow down the location of the error so that,
         if possible, the problem code is highlighted with ^^^^."""
         if not self.records:  # pragma: no cover
+            if issubclass(self.exception_type, MemoryError):
+                return
             debug_helper.log("No records in locate_error().")
             return
 
@@ -224,30 +229,6 @@ class TracebackData:
                 # However, in a few cases, we do need to keep the entire original line.
                 self.original_bad_line = self.bad_line
                 self.bad_line = self.node_text
-
-        #
-        # if self.program_stopped_frame is not None:
-        #     exc_tb = self.find_tb_frame(tb, self.program_stopped_frame)
-        #     if exc_tb is not None:
-        #         _, self.program_stopped_node_range, _ = self.find_node(
-        #             exc_tb, self.program_stopped_bad_line
-        #         )
-        # if self.exception_name == "NameError":
-        #     # `executing` cannot give us the node location in this case
-        #     return self.locate_name_error()
-        #
-        # tb = self.find_tb_frame(tb, self.exception_frame)
-        # if tb is None:
-        #     debug_helper.log("Exception frame could not be found.")  # pragma: no cover
-        #     return  # pragma: no cover
-        #
-        # self.node, self.node_range, self.node_text = self.find_node(tb, self.bad_line)
-        # if self.node_text.strip():
-        #     # Replacing the line that caused the exception by the text
-        #     # of the 'node' facilitates the process of identifying the cause.
-        #     # However, in a few cases, we do need to keep the entire original line.
-        #     self.original_bad_line = self.bad_line
-        #     self.bad_line = self.node_text
 
     @staticmethod
     def find_tb_frame(tb, frame):
@@ -575,6 +556,8 @@ class FriendlyTraceback:
 
         records = self.tb_data.records
         if not records:  # pragma: no cover
+            if issubclass(self.tb_data.exception_type, MemoryError):
+                return
             debug_helper.log("No record in assign_location().")
             return
 

@@ -20,13 +20,14 @@ def test_Urllib_error():
 
 def test_no_information():
     # simulate an unknown OSError
+    # We silence the message about a new case to consider
+    old_debug = friendly_traceback.debug_helper.DEBUG
+    friendly_traceback.debug_helper.DEBUG = False
     with pytest.raises(OSError) as exc_info:
         raise OSError
 
     ft_tb = friendly_traceback.core.FriendlyTraceback(exc_info.type, exc_info.value, exc_info.tb)
     ft_tb.compile_info()
     assert ft_tb.info["cause"] == friendly_traceback.ft_gettext.no_information()
+    friendly_traceback.debug_helper.DEBUG = old_debug
 
-
-if __name__ == "__main__":
-    print(test_Generic()[0])
