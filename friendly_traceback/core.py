@@ -947,4 +947,5 @@ def cannot_analyze_stdin():  # pragma: no cover
         "Unfortunately, no additional information is available:\n"
         "the content of file '<stdin>' is not accessible.\n"
         "Are you using a regular Python console instead of a Friendly-console?\n"
+        "Perhaps try: `start_console(local_vars=locals())`.\n"
     )

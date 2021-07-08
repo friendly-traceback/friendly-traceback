@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-07-07 14:52-0300\n"
+"POT-Creation-Date: 2021-07-08 16:14-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -36,7 +36,7 @@ msgid "Nothing to go back to: no exception recorded."
 msgstr ""
 "Impossible de revenir en arrière: il n'y a pas d’exception enregistrée."
 
-#: console_helpers.py:159
+#: console_helpers.py:163
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -44,78 +44,78 @@ msgstr ""
 "Argument non valide pour `www()`.\n"
 "Les arguments valides incluent `None` ou un des suivants : `{sites}`.\n"
 
-#: console_helpers.py:183
+#: console_helpers.py:187
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:296
+#: console_helpers.py:303
 msgid "Removes the last recorded traceback item."
 msgstr "Supprime le dernier élément de traceback enregistré."
 
-#: console_helpers.py:297
+#: console_helpers.py:304
 msgid "Shows all the information about the last traceback."
 msgstr "Affiche toutes les informations sur le dernier traceback."
 
-#: console_helpers.py:298
+#: console_helpers.py:305
 msgid "Shows a list of recorded traceback messages."
 msgstr "Affiche une liste des messages de traceback enregistrés."
 
-#: console_helpers.py:299
+#: console_helpers.py:306
 msgid "Sets the language to be used."
 msgstr "Définit la langue à utiliser."
 
-#: console_helpers.py:300
+#: console_helpers.py:307
 msgid "Shows the paths corresponding to synonyms used."
 msgstr "Affiche les chemins correspondant aux synonymes utilisés."
 
-#: console_helpers.py:301
+#: console_helpers.py:308
 msgid "Shows the generic meaning of a given exception"
 msgstr "Indique la signification générique d'une exception donnée"
 
-#: console_helpers.py:302
+#: console_helpers.py:309
 msgid "Shows where an exception was raised."
 msgstr "Indique où une exception a été levée."
 
-#: console_helpers.py:303
+#: console_helpers.py:310
 msgid "Shows the likely cause of the exception."
 msgstr "Indique la cause probable de l'exception."
 
-#: console_helpers.py:304
+#: console_helpers.py:311
 msgid "Opens a web browser at a useful location."
 msgstr "Ouvre un navigateur web à un endroit utile."
 
-#: console_helpers.py:318
+#: console_helpers.py:325
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr "Suggestion parfois ajoutée à un traceback simplifié."
 
-#: console_helpers.py:319
+#: console_helpers.py:326
 msgid "Shows a normal Python traceback."
 msgstr "Affiche un traceback Python normal."
 
-#: console_helpers.py:320
+#: console_helpers.py:327
 msgid "Shows a simplified Python traceback."
 msgstr "Affiche un traceback Python simplifié."
 
-#: console_helpers.py:321
+#: console_helpers.py:328
 msgid "Returns the current value used for items to include by default."
 msgstr ""
 "Renvoie la valeur actuelle utilisée pour les éléments à inclure par défaut."
 
-#: console_helpers.py:324
+#: console_helpers.py:331
 msgid "Sets the items to show by default when an exception is raised."
 msgstr ""
 "Définit les éléments à afficher par défaut lorsqu'une exception est levée."
 
-#: console_helpers.py:327
+#: console_helpers.py:334
 msgid "Returns the language currently used."
 msgstr "Renvoie la langue actuellement utilisée."
 
-#: console_helpers.py:328
+#: console_helpers.py:335
 msgid "Sets the formatter to use for display."
 msgstr "Définit le formateur à utiliser pour l'affichage."
 
-#: console_helpers.py:394
+#: console_helpers.py:401
 msgid ""
 "The following methods of the Friendly object might also be available as "
 "functions."
@@ -123,23 +123,23 @@ msgstr ""
 "Les méthodes suivantes de l'objet Friendly peuvent également être "
 "disponibles en tant que fonctions."
 
-#: console_helpers.py:399
+#: console_helpers.py:406
 msgid "Basic methods:"
 msgstr "Méthodes de base :"
 
-#: console_helpers.py:410
+#: console_helpers.py:417
 msgid "Less commonly used methods/functions."
 msgstr "Méthodes/fonctions moins couramment utilisées."
 
-#: core.py:417
+#: core.py:398
 msgid "More lines not shown."
 msgstr "Plus de lignes non affichées."
 
-#: core.py:418 core.py:458
+#: core.py:399 core.py:439
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:471
+#: core.py:452
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -153,27 +153,27 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:533
+#: core.py:514
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:603
+#: core.py:586
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:607
+#: core.py:590
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:641
+#: core.py:624
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:660
+#: core.py:643
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
@@ -181,7 +181,7 @@ msgstr ""
 "`{filename}` n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:671
+#: core.py:654
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -191,7 +191,7 @@ msgstr ""
 "'{filename}'\n"
 "jusqu'à l'endroit indiqué par ^.\n"
 
-#: core.py:681
+#: core.py:664
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'.\n"
@@ -199,16 +199,17 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'.\n"
 
-#: core.py:963
+#: core.py:946
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
 "Are you using a regular Python console instead of a Friendly-console?\n"
+"Perhaps try: `start_console(local_vars=locals())`.\n"
 msgstr ""
-"Malheureusement, aucune information supplémentaire n’est disponible:\n"
-"le contenu du fichier '<stdin>' n’est pas accessible.\n"
-"Est-ce que vous utilisez une console Python plutôt que la console \"Friendly"
-"\" ?\n"
+"Malheureusement, aucune information supplémentaire n'est disponible :\n"
+"le contenu du fichier \"<stdin>\" n'est pas accessible.\n"
+"Utilisez-vous une console Python normale au lieu d'une console Friendly ?\n"
+"Essayez peut-être : `start_console(local_vars=locals())`.\n"
 
 #: frame_info.py:30
 msgid "Problem: source of `{filename}` is not available\n"
