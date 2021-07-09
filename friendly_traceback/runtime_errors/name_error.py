@@ -6,6 +6,7 @@ from . import stdlib_modules
 from .. import info_variables
 from .. import debug_helper
 from .. import token_utils
+from .. import utils
 
 
 def using_python():  # pragma: no cover
@@ -207,7 +208,8 @@ def missing_self(unknown_name, frame, tb_data, hint):
     # TODO: revise this when looking at https://github.com/aroberge/friendly/issues/202
     message = ""
     try:
-        tokens = token_utils.get_significant_tokens(tb_data.original_bad_line)
+        bad_statement = utils.get_bad_statement(tb_data)
+        tokens = token_utils.get_significant_tokens(bad_statement)
     except Exception:  # noqa  # pragma: no cover
         debug_helper.log(
             "Exception raised in missing_self() while trying to get tokens"

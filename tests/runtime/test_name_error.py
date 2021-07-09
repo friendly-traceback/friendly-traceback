@@ -186,7 +186,8 @@ def test_Missing_self_1():
 
         def __str__(self):
             # self at the wrong place
-            toys_list = add_toy(self, 'something')
+            toys_list = add_toy(  # ensure that it can see 'self' on following line
+                                self, 'something')
             if self.toys:
                 return "{} has the following toys: {}".format(self.name, toys_list)
             else:

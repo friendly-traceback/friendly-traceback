@@ -6,6 +6,7 @@ import ast
 import difflib
 import uuid
 
+import executing
 import pure_eval
 from . import debug_helper
 from .ft_gettext import no_information, internal_error
@@ -160,3 +161,20 @@ def expected_in_result(expected, result):
         return False, "Only differences are different white spaces at the ends."
 
     return False, "\n" + "\n".join(difflib.ndiff([expected], [best_line]))
+
+
+def get_bad_statement(tb_data):
+    """ This function attempts to recover a complete statement
+    even if it spans multiple lines."""
+    try:
+        st = executing.executing.statement_containing_node(tb_data.node)
+        source = executing.executing.Source.for_frame(tb_data.exception_frame)
+        return source.asttokens().get_text(st)
+    except Exception as e:  # noqa
+        debug_helper.log("Could not get statement using executing.")
+        debug_helper.log(str(e))
+        if hasattr(tb_data, "original_bad_line"):
+            return tb_data.original_bad_line
+        elif hasattr(tb_data, "bad_line"):
+            return tb_data.bad_line
+        return ""

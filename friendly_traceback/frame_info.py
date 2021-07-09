@@ -76,6 +76,16 @@ class FrameInfo(stack_data.FrameInfo):
     def highlighted_source(self):
         return self._highlighted_source(with_node_range=False)
 
+    def problem_line(self):
+        if not self.lines:
+            return ""
+        for line_obj in self.lines:
+            if line_obj is stack_data.LINE_GAP:
+                continue
+            elif line_obj.is_current:
+                return str(line_obj.text)
+        return ""
+
     def _highlighted_source(self, with_node_range: bool):
         """Extracts a few relevant lines from a file content given as a list
         of lines, adding line number information and identifying
@@ -161,11 +171,6 @@ class FrameInfo(stack_data.FrameInfo):
         #            50], b[0])
         #
         # If that is the case, we rewrite the node as a single line.
-
-        # To start, we transform logical line (or parts thereof) into
-        # something that fits on a single physical line.
-        # \n could be a valid newline token or a character within
-        # a string; we only want to replace newline tokens.
         if not node_text:
             return
 
@@ -174,6 +179,10 @@ class FrameInfo(stack_data.FrameInfo):
             tokens = token_utils.tokenize(node_text)
             tokens = [tok for tok in tokens if tok != "\n"]
             node_text = "".join(tok.string for tok in tokens)
+            # node spans multiple lines; we only highlight
+            # part of a single line where a node is found.
+            return node, node_range, node_text
+
         bad_line = self.current_line.text
         bad_code = token_utils.strip_comment(bad_line)
         if (

@@ -178,7 +178,7 @@ class TracebackData:
             record = self.records[-1]
             self.exception_frame = record.frame
             self.filename = record.filename
-            _, line = record.highlighted_source  # noqa
+            line = record.problem_line()
             self.bad_line = line.rstrip()
             # protecting against https://github.com/alexmojaki/stack_data/issues/13
             if not self.bad_line:
@@ -190,7 +190,7 @@ class TracebackData:
 
             if len(self.records) > 1:
                 record = self.records[0]
-                _, line = record.highlighted_source  # noqa
+                line = record.problem_line()
                 self.program_stopped_frame = record.frame
                 self.program_stopped_bad_line = line.rstrip()
             else:
