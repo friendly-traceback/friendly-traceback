@@ -164,7 +164,7 @@ def expected_in_result(expected, result):
 
 
 def get_bad_statement(tb_data):
-    """ This function attempts to recover a complete statement
+    """This function attempts to recover a complete statement
     even if it spans multiple lines."""
     try:
         st = executing.executing.statement_containing_node(tb_data.node)
