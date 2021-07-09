@@ -36,6 +36,7 @@ class _State:
         self.include = "explain"
         self.lang = "en"
         self.install_gettext(self.lang)
+        self.numbered_prompt = False
 
     def show_traceback_info_again(self):
         """If has not been cleared, write the traceback info again, using

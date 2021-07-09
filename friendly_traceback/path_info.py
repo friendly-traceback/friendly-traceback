@@ -98,6 +98,8 @@ class PathUtil:
         self.home = os.path.expanduser("~")
 
     def shorten_path(self, path, frame=None):  # pragma: no cover
+        from .config import session
+
         if path is None:  # can happen in some rare cases
             return path
         orig_path = path
@@ -120,7 +122,12 @@ class PathUtil:
             parts = parts[1].split("-")
             path = "[" + parts[-2] + "]"
         elif "<friendly-console:" in path:
-            path = "<friendly-console:" + path.split("<friendly-console:")[1]
+            split_path = path.split("<friendly-console:")[1]
+            if session.numbered_prompt:
+                path = "[" + split_path[:-1] + "]"
+            else:
+                path = "<friendly-console:" + split_path
+
         elif path_lower.startswith(SITE_PACKAGES.lower()):
             path = "LOCAL:" + path[len(SITE_PACKAGES) :]
         elif path_lower.startswith(self.python.lower()):
