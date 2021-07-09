@@ -111,7 +111,8 @@ def name_not_defined(unknown_name, frame, tb_data):
     additional = type_hint + format_similar_names(unknown_name, similar)
     try:
         more, hint = missing_self(unknown_name, frame, tb_data, hint)
-        additional += more
+        if more:
+            additional += "\n" + more
     except Exception as e:  # pragma: no cover
         debug_helper.log("Problem in name_not_defined()")
         debug_helper.log_error(e)
@@ -206,7 +207,7 @@ def missing_self(unknown_name, frame, tb_data, hint):
     # TODO: revise this when looking at https://github.com/aroberge/friendly/issues/202
     message = ""
     try:
-        tokens = token_utils.get_significant_tokens(tb_data.bad_line)
+        tokens = token_utils.get_significant_tokens(tb_data.original_bad_line)
     except Exception:  # noqa  # pragma: no cover
         debug_helper.log(
             "Exception raised in missing_self() while trying to get tokens"
@@ -218,12 +219,20 @@ def missing_self(unknown_name, frame, tb_data, hint):
         return message, hint
 
     prev_token = tokens[0]
-    for token in tokens:
+    for index, token in enumerate(tokens):
         if token == unknown_name and prev_token != ".":
             break
         prev_token = token
     else:
         return message, hint
+
+    first_arg_self = False
+    if (
+        len(tokens) > index + 3
+        and tokens[index + 1] == "("
+        and tokens[index + 2] == "self"
+    ):
+        first_arg_self = True
 
     env = (("local", frame.f_locals), ("global", frame.f_globals))
 
@@ -235,21 +244,39 @@ def missing_self(unknown_name, frame, tb_data, hint):
                 obj = dict_copy[name]
                 known_attributes = dir(obj)
                 if unknown_name in known_attributes:
-                    suggest = _("Did you forget to add `self`?")
-                    if hint is None:
-                        hint = suggest
+                    suggest = ""
+                    obj_repr = info_variables.simplify_name(repr(obj))
+                    if first_arg_self and name == "self":
+                        suggest = _("Did you write `self` at the wrong place?\n")
+                        message = _(
+                            "The {scope} object `{obj}`\n"
+                            "has an attribute named `{unknown_name}`.\n"
+                            "Perhaps you should have written `self.{unknown_name}(...`\n"
+                            "instead of `{unknown_name}(self, ...`.\n"
+                        ).format(scope=scope, obj=obj_repr, unknown_name=unknown_name)
+                    elif name == "self":
+                        suggest = _("Did you forget to add `self.`?\n")
+                        message = _(
+                            "A {scope} object, `{obj}`,\n"
+                            "has an attribute named `{unknown_name}`.\n"
+                            "Perhaps you should have written `self.{unknown_name}`\n"
+                            "instead of `{unknown_name}`.\n"
+                        ).format(scope=scope, obj=obj_repr, unknown_name=unknown_name)
                     else:
-                        hint += " " + suggest
-                    message = _(
-                        "The {scope} object `{obj}`"
-                        " has an attribute named `{unknown_name}`.\n"
-                        "Perhaps you should have written `self.{unknown_name}`"
-                        " instead of `{unknown_name}`.\n"
-                    ).format(
-                        scope=scope,
-                        obj=info_variables.simplify_name(repr(obj)),
-                        unknown_name=unknown_name,
-                    )
-                    return message, hint
+                        suggest = _("Did you forget to add `{name}.`?\n").format(
+                            name=name
+                        )
+                        message = _(
+                            "The {scope} object `{name}`\n"
+                            "has an attribute named `{unknown_name}`.\n"
+                            "Perhaps you should have written `{name}.{unknown_name}`\n"
+                            "instead of `{unknown_name}`.\n"
+                        ).format(scope=scope, name=name, unknown_name=unknown_name)
+                    if suggest:
+                        if hint is None:
+                            hint = suggest
+                        else:
+                            hint += suggest
+                        return message, hint
 
     return message, hint

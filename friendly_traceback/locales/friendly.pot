@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-07-08 16:14-0300\n"
+"POT-Creation-Date: 2021-07-09 07:37-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1069,14 +1069,43 @@ msgstr ""
 msgid "*   Python builtins: "
 msgstr ""
 
-#: runtime_errors\name_error.py:238
-msgid "Did you forget to add `self`?"
+#: runtime_errors\name_error.py:245
+msgid ""
+"Did you write `self` at the wrong place?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:243
+#: runtime_errors\name_error.py:246
 msgid ""
-"The {scope} object `{obj}` has an attribute named `{unknown_name}`.\n"
-"Perhaps you should have written `self.{unknown_name}` instead of `{unknown_name}`.\n"
+"The {scope} object `{obj}`\n"
+"has an attribute named `{unknown_name}`.\n"
+"Perhaps you should have written `self.{unknown_name}(...`\n"
+"instead of `{unknown_name}(self, ...`.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:257
+msgid ""
+"Did you forget to add `self.`?\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:258
+msgid ""
+"A {scope} object, `{obj}`,\n"
+"has an attribute named `{unknown_name}`.\n"
+"Perhaps you should have written `self.{unknown_name}`\n"
+"instead of `{unknown_name}`.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:269
+msgid ""
+"Did you forget to add `{name}.`?\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:270
+msgid ""
+"The {scope} object `{name}`\n"
+"has an attribute named `{unknown_name}`.\n"
+"Perhaps you should have written `{name}.{unknown_name}`\n"
+"instead of `{unknown_name}`.\n"
 msgstr ""
 
 #: runtime_errors\os_error.py:20

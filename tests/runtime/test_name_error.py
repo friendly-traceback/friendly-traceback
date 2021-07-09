@@ -171,5 +171,90 @@ def test_Custom_name():
         assert "You are already using Python!" in result
     return result, message
 
+
+def test_Missing_self_1():
+    class Pet(object):
+        # Inspired by a StackOverflow question
+        def __init__(self, name=""):
+            self.name = name
+            self.toys = []
+
+        def add_toy(self, toy=None):
+            if toy is not None:
+                self.toys.append(toy)
+            return self.toys
+
+        def __str__(self):
+            # self at the wrong place
+            toys_list = add_toy(self, 'something')
+            if self.toys:
+                return "{} has the following toys: {}".format(self.name, toys_list)
+            else:
+                return "{} has no toys".format(self.name)
+
+    a = Pet('Fido')
+    try:
+        str(a)
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "NameError: name 'add_toy' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Perhaps you should have written `self.add_toy(...`" in result
+    return result, message
+
+
+def test_Missing_self_2():
+    class Pet(object):
+        # Inspired by a StackOverflow question
+        def __init__(self, name=""):
+            self.name = name
+            self.toys = []
+
+        def add_toy(self, toy=None):
+            if toy is not None:
+                self.toys.append(toy)
+            return self.toys
+
+        def __str__(self):
+            # Missing self.
+            toys_list = add_toy('something')
+            if self.toys:
+                return "{} has the following toys: {}".format(self.name, toys_list)
+            else:
+                return "{} has no toys".format(self.name)
+
+    a = Pet('Fido')
+    try:
+        str(a)
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "NameError: name 'add_toy' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Perhaps you should have written `self.add_toy`" in result
+    return result, message
+
+
+def test_Missing_module_name():
+    import tkinter
+    try:
+        frame = Frame()
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "NameError: name 'Frame' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Perhaps you should have written `tkinter.Frame`" in result
+    return result, message
+
+
+
 if __name__ == "__main__":
     print(test_Generic()[0])

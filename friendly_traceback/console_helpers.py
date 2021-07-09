@@ -428,7 +428,7 @@ class FriendlyHelpers:
             more_header = "Debugging methods."
             parts.append("\n" + more_header + "\n\n")
             for item in self.debug_helpers:
-                parts.append("Friendly." + item + "(): ")
+                parts.append(f"Friendly.{item}(): ")
                 fn = getattr(Friendly, item)
                 if hasattr(fn, "help"):
                     parts.append(getattr(Friendly, item).help() + "\n")
