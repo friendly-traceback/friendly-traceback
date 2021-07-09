@@ -171,8 +171,6 @@ def get_bad_statement(tb_data):
         source = executing.executing.Source.for_frame(tb_data.exception_frame)
         return source.asttokens().get_text(st)
     except Exception as e:  # noqa
-        debug_helper.log("Could not get statement using executing.")
-        debug_helper.log(str(e))
         if hasattr(tb_data, "original_bad_line"):
             return tb_data.original_bad_line
         elif hasattr(tb_data, "bad_line"):

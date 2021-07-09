@@ -127,7 +127,6 @@ class PathUtil:
                 path = "[" + split_path[:-1] + "]"
             else:
                 path = "<friendly-console:" + split_path
-
         elif path_lower.startswith(SITE_PACKAGES.lower()):
             path = "LOCAL:" + path[len(SITE_PACKAGES) :]
         elif path_lower.startswith(self.python.lower()):

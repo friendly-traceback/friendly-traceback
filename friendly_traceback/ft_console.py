@@ -17,6 +17,7 @@ import friendly_traceback
 from . import source_cache
 from .console_helpers import helpers
 from .ft_gettext import current_lang
+from .config import session
 
 
 def type_friendly():
@@ -47,7 +48,9 @@ def rich_displayhook(value):
 
 
 class FriendlyTracebackConsole(InteractiveConsole):
-    def __init__(self, local_vars=None, formatter="repl", displayhook=None):
+    def __init__(
+        self, local_vars=None, formatter="repl", displayhook=None, numbered_prompt=False
+    ):
         """This class builds upon Python's code.InteractiveConsole
         so as to provide friendly tracebacks. It keeps track
         of code fragment executed by treating each of them as
@@ -60,6 +63,10 @@ class FriendlyTracebackConsole(InteractiveConsole):
         friendly_traceback.set_formatter(formatter)
         if displayhook is not None:
             sys.displayhook = displayhook
+        self.numbered_prompt = numbered_prompt
+        if self.numbered_prompt:
+            session.numbered_prompt = True
+            sys.ps1 = "[1] "
 
         super().__init__(locals=local_vars)
 
@@ -91,6 +98,9 @@ class FriendlyTracebackConsole(InteractiveConsole):
         if not more:
             self.resetbuffer()
             self.counter += 1
+            if self.numbered_prompt:
+                sys.ps1 = f"\n[{self.counter}] "
+                sys.ps2 = "..." + " " * len(str(self.counter))
         return more
 
     def runsource(self, source, filename="<friendly-console>", symbol="single"):
@@ -177,6 +187,7 @@ def start_console(
     lang="en",
     banner=None,
     displayhook=None,
+    numbered_prompt=False,
 ):
     """Starts a console; modified from code.interact"""
     # from . import config
@@ -193,6 +204,9 @@ def start_console(
         helpers.update(local_vars)
 
     console = FriendlyTracebackConsole(
-        local_vars=helpers, formatter=formatter, displayhook=displayhook
+        local_vars=helpers,
+        formatter=formatter,
+        displayhook=displayhook,
+        numbered_prompt=numbered_prompt,
     )
     console.interact(banner=banner)

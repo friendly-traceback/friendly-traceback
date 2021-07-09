@@ -119,6 +119,14 @@ parser.add_argument(
 )
 
 
+parser.add_argument(
+    "-n",
+    "--numbered_prompt",
+    help="""Specifies that the console prompt must be of the form [number].""",
+    action="store_true",
+)
+
+
 def main():
     _ = current_lang.translate
     args = parser.parse_args()
@@ -170,12 +178,18 @@ def main():
             explain_traceback()
         if sys.flags.interactive:  # pragma: no cover
             ft_console.start_console(
-                local_vars=console_defaults, formatter=formatter, lang=args.lang
+                local_vars=console_defaults,
+                formatter=formatter,
+                lang=args.lang,
+                numbered_prompt=args.numbered_prompt,
             )
 
     else:  # pragma: no cover
         ft_console.start_console(
-            local_vars=console_defaults, formatter=formatter, lang=args.lang
+            local_vars=console_defaults,
+            formatter=formatter,
+            lang=args.lang,
+            numbered_prompt=args.numbered_prompt,
         )
 
 

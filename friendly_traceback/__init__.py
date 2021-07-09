@@ -25,7 +25,7 @@ if not valid_version:  # pragma: no cover
     sys.exit()
 
 del valid_version
-__version__ = "0.3.156"
+__version__ = "0.3.157"
 
 
 # ===========================================
@@ -135,6 +135,7 @@ def run(
     console=True,
     formatter="repl",
     redirect=None,
+    numbered_prompt=False,
 ):  # sourcery skip: move-assign
     """Given a filename (relative or absolute path) ending with the ".py"
     extension, this function uses the
@@ -189,7 +190,11 @@ def run(
     )
     if console:  # pragma: no cover
         start_console(
-            local_vars=module_globals, formatter=formatter, banner="", include=include
+            local_vars=module_globals,
+            formatter=formatter,
+            banner="",
+            include=include,
+            numbered_prompt=numbered_prompt,
         )
     else:
         return module_globals
@@ -209,6 +214,7 @@ def start_console(  # pragma: no cover
     lang="en",
     banner=None,
     displayhook=None,
+    numbered_prompt=False,
 ):
     """Starts a Friendly console."""
     from . import ft_console
@@ -220,6 +226,7 @@ def start_console(  # pragma: no cover
         lang=lang,
         banner=banner,
         displayhook=displayhook,
+        numbered_prompt=numbered_prompt,
     )
 
 
