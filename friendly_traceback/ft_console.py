@@ -49,7 +49,7 @@ def rich_displayhook(value):
 
 class FriendlyTracebackConsole(InteractiveConsole):
     def __init__(
-        self, local_vars=None, formatter="repl", displayhook=None, numbered_prompt=False
+        self, local_vars=None, formatter="repl", displayhook=None, ipython_prompt=False
     ):
         """This class builds upon Python's code.InteractiveConsole
         so as to provide friendly tracebacks. It keeps track
@@ -63,10 +63,10 @@ class FriendlyTracebackConsole(InteractiveConsole):
         friendly_traceback.set_formatter(formatter)
         if displayhook is not None:
             sys.displayhook = displayhook
-        self.numbered_prompt = numbered_prompt
-        if self.numbered_prompt:
-            session.numbered_prompt = True
-            sys.ps1 = "[1] "
+        self.ipython_prompt = ipython_prompt
+        if self.ipython_prompt:
+            session.ipython_prompt = True
+            sys.ps1 = "[1]: "
 
         super().__init__(locals=local_vars)
 
@@ -98,9 +98,9 @@ class FriendlyTracebackConsole(InteractiveConsole):
         if not more:
             self.resetbuffer()
             self.counter += 1
-            if self.numbered_prompt:
-                sys.ps1 = f"\n[{self.counter}] "
-                sys.ps2 = "..." + " " * len(str(self.counter))
+            if self.ipython_prompt:
+                sys.ps1 = f"\n[{self.counter}]: "
+                sys.ps2 = " " * (len(str(self.counter)) - 1) + "...:" + " "
         return more
 
     def runsource(self, source, filename="<friendly-console>", symbol="single"):
@@ -187,7 +187,7 @@ def start_console(
     lang="en",
     banner=None,
     displayhook=None,
-    numbered_prompt=False,
+    ipython_prompt=False,
 ):
     """Starts a console; modified from code.interact"""
     # from . import config
@@ -207,6 +207,6 @@ def start_console(
         local_vars=helpers,
         formatter=formatter,
         displayhook=displayhook,
-        numbered_prompt=numbered_prompt,
+        ipython_prompt=ipython_prompt,
     )
     console.interact(banner=banner)

@@ -120,8 +120,7 @@ parser.add_argument(
 
 
 parser.add_argument(
-    "-n",
-    "--numbered_prompt",
+    "--ipython_prompt",
     help="""Specifies that the console prompt must be of the form [number].""",
     action="store_true",
 )
@@ -181,7 +180,7 @@ def main():
                 local_vars=console_defaults,
                 formatter=formatter,
                 lang=args.lang,
-                numbered_prompt=args.numbered_prompt,
+                ipython_prompt=args.ipython_prompt,
             )
 
     else:  # pragma: no cover
@@ -189,7 +188,7 @@ def main():
             local_vars=console_defaults,
             formatter=formatter,
             lang=args.lang,
-            numbered_prompt=args.numbered_prompt,
+            ipython_prompt=args.ipython_prompt,
         )
 
 

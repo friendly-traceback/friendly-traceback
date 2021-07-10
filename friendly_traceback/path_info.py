@@ -123,7 +123,7 @@ class PathUtil:
             path = "[" + parts[-2] + "]"
         elif "<friendly-console:" in path:
             split_path = path.split("<friendly-console:")[1]
-            if session.numbered_prompt:
+            if session.ipython_prompt:
                 path = "[" + split_path[:-1] + "]"
             else:
                 path = "<friendly-console:" + split_path
