@@ -67,6 +67,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         if self.ipython_prompt:
             session.ipython_prompt = True
             sys.ps1 = "[1]: "
+            sys.ps2 = "...: "
 
         super().__init__(locals=local_vars)
 
