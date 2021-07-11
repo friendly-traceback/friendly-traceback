@@ -20,8 +20,8 @@ def get_likely_cause(etype, value, frame, tb_data):
     """
     _ = current_lang.translate
     try:
-        if etype.__name__ in get_cause:
-            return get_cause[etype.__name__](value, frame, tb_data)
+        if etype in get_cause:
+            return get_cause[etype](value, frame, tb_data)
     except Exception as e:  # noqa  # pragma: no cover
         debug_helper.log("Exception caught in get_likely_cause().")
         debug_helper.log_error(e)
@@ -30,7 +30,7 @@ def get_likely_cause(etype, value, frame, tb_data):
     try:
         # see if it could be the result of using socket, or urllib, urllib3, etc.
         if issubclass(etype, OSError):
-            return get_cause["OSError"](value, frame, tb_data)
+            return get_cause[OSError](value, frame, tb_data)
     except Exception:  # noqa  # pragma: no cover
         pass
 
@@ -46,14 +46,14 @@ def register(error_name):
     return add_exception
 
 
-@register("AttributeError")
+@register(AttributeError)
 def _attribute_error(value, frame, tb_data):
     from .runtime_errors import attribute_error
 
     return attribute_error.get_cause(value, frame, tb_data)
 
 
-@register("FileNotFoundError")
+@register(FileNotFoundError)
 def _file_not_found_error(value, *_args):
     _ = current_lang.translate
     # str(value) is expected to be something like
@@ -83,21 +83,21 @@ def _file_not_found_error(value, *_args):
     }
 
 
-@register("ImportError")
+@register(ImportError)
 def _import_error(value, frame, tb_data):
     from .runtime_errors import import_error
 
     return import_error.parser.get_cause(str(value), frame, tb_data)
 
 
-@register("IndexError")
+@register(IndexError)
 def _index_error(value, frame, tb_data):
     from .runtime_errors import index_error
 
     return index_error.get_cause(value, frame, tb_data)
 
 
-@register("KeyError")
+@register(KeyError)
 def _key_error(value, frame, tb_data):
     _ = current_lang.translate
     from .runtime_errors import key_error
@@ -105,7 +105,7 @@ def _key_error(value, frame, tb_data):
     return key_error.parser.get_cause(value, frame, tb_data)
 
 
-@register("ModuleNotFoundError")
+@register(ModuleNotFoundError)
 def _module_not_found_error(value, frame, tb_data):
 
     from .runtime_errors import module_not_found_error
@@ -113,7 +113,7 @@ def _module_not_found_error(value, frame, tb_data):
     return module_not_found_error.parser.get_cause(str(value), frame, tb_data)
 
 
-@register("NameError")
+@register(NameError)
 def _name_error(value, frame, tb_data):
 
     from .runtime_errors import name_error
@@ -121,7 +121,7 @@ def _name_error(value, frame, tb_data):
     return name_error.get_cause(value, frame, tb_data)
 
 
-@register("OSError")
+@register(OSError)
 def _os_error(value, frame, tb_data):
 
     from .runtime_errors import os_error
@@ -129,34 +129,34 @@ def _os_error(value, frame, tb_data):
     return os_error.get_cause(value, frame, tb_data)
 
 
-@register("OverflowError")
+@register(OverflowError)
 def _overflow_error(*_args):
     return {}
     # can be provided for real test cases
 
 
-@register("TypeError")
+@register(TypeError)
 def _type_error(value, frame, tb_data):
     from .runtime_errors import type_error
 
     return type_error.parser.get_cause(str(value), frame, tb_data)
 
 
-@register("ValueError")
+@register(ValueError)
 def _value_error(value, frame, tb_data):
     from .runtime_errors import value_error
 
     return value_error.parser.get_cause(str(value), frame, tb_data)
 
 
-@register("UnboundLocalError")
+@register(UnboundLocalError)
 def _unbound_local_error(value, frame, tb_data):
     from .runtime_errors import unbound_local_error
 
     return unbound_local_error.get_cause(value, frame, tb_data)
 
 
-@register("ZeroDivisionError")
+@register(ZeroDivisionError)
 def _zero_division_error(value, frame, tb_data):
     from .runtime_errors import zero_division_error
 
