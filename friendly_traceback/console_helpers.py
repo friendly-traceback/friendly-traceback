@@ -6,6 +6,7 @@ Functions that can be used in a friendly console or in other interactive
 environments such as in a Jupyter notebook.
 """
 # NOTE: __all__ is defined at the very bottom of this file
+import inspect
 import sys
 import friendly_traceback
 
@@ -90,9 +91,19 @@ def what(exception=None, pre=False):
         explain("what")
         return
 
-    if hasattr(exception, "__name__"):
-        exception = exception.__name__
-    result = get_generic_explanation(exception)
+    if inspect.isclass(exception) and issubclass(exception, BaseException):
+        result = get_generic_explanation(exception)
+    else:
+        try:
+            exc = eval(exception)
+            if inspect.isclass(exc) and issubclass(exc, BaseException):
+                result = get_generic_explanation(exc)
+            else:
+                result = _("{exception} is not an exception.").format(
+                    exception=exception
+                )
+        except Exception:  # noqa
+            result = _("{exception} is not an exception.").format(exception=exception)
 
     if pre:  # for documentation # pragma: no cover
         lines = result.split("\n")

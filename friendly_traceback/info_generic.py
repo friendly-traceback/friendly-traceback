@@ -2,6 +2,7 @@
 
 Generic information about Python exceptions.
 """
+import inspect
 from .ft_gettext import current_lang, no_information
 
 GENERIC = {}
@@ -14,21 +15,21 @@ def get_generic_explanation(exception_type):
         exception_name = exception_type.__name__
     else:
         exception_name = exception_type
-    if exception_name in GENERIC:
-        return GENERIC[exception_name]()
+    if exception_type in GENERIC:
+        return GENERIC[exception_type]()
     elif exception_name.endswith("Warning"):
         return GENERIC["UnknownWarning"]()
-    elif hasattr(exception_type, "__name__") and issubclass(exception_type, OSError):
-        return os_error_subclass(exception_type.__name__)
+    elif inspect.isclass(exception_type) and issubclass(exception_type, OSError):
+        return os_error_subclass(exception_type)
     else:
         return no_information()
 
 
-def register(error_name):
+def register(error_class):
     """Decorator used to record as available an explanation for a given exception"""
 
     def add_exception(function):
-        GENERIC[error_name] = function
+        GENERIC[error_class] = function
 
         def wrapper():
             return function()
@@ -38,7 +39,7 @@ def register(error_name):
     return add_exception
 
 
-@register("ArithmeticError")
+@register(ArithmeticError)
 def arithmetic_error():
     _ = current_lang.translate
     return _(
@@ -49,7 +50,7 @@ def arithmetic_error():
     )
 
 
-@register("AssertionError")
+@register(AssertionError)
 def assertion_error():
     _ = current_lang.translate
     return _(
@@ -60,7 +61,7 @@ def assertion_error():
     )
 
 
-@register("AttributeError")
+@register(AttributeError)
 def attribute_error():
     _ = current_lang.translate
     return _(
@@ -70,7 +71,7 @@ def attribute_error():
     )
 
 
-@register("EOFError")
+@register(EOFError)
 def eof_error():  # pragma: no cover
     _ = current_lang.translate
     return _(
@@ -79,7 +80,7 @@ def eof_error():  # pragma: no cover
     )
 
 
-@register("FileNotFoundError")
+@register(FileNotFoundError)
 def file_not_found_error():
     _ = current_lang.translate
     return _(
@@ -89,7 +90,7 @@ def file_not_found_error():
     )
 
 
-@register("ImportError")
+@register(ImportError)
 def import_error():
     _ = current_lang.translate
     return _(
@@ -99,7 +100,7 @@ def import_error():
     )
 
 
-@register("IndentationError")
+@register(IndentationError)
 def indentation_error():
     _ = current_lang.translate
     return _(
@@ -108,7 +109,7 @@ def indentation_error():
     )
 
 
-@register("IndexError")
+@register(IndexError)
 def index_error():
     _ = current_lang.translate
     return _(
@@ -119,7 +120,7 @@ def index_error():
     )
 
 
-@register("KeyError")
+@register(KeyError)
 def key_error():
     _ = current_lang.translate
     return _(
@@ -128,7 +129,7 @@ def key_error():
     )
 
 
-@register("LookupError")
+@register(LookupError)
 def lookup_error():
     _ = current_lang.translate
     return _(
@@ -138,7 +139,7 @@ def lookup_error():
     )
 
 
-@register("MemoryError")
+@register(MemoryError)
 def memory_error():
     _ = current_lang.translate
     return _(
@@ -148,7 +149,7 @@ def memory_error():
     )
 
 
-@register("ModuleNotFoundError")
+@register(ModuleNotFoundError)
 def module_not_found_error():
     _ = current_lang.translate
     return _(
@@ -159,7 +160,7 @@ def module_not_found_error():
     )
 
 
-@register("NameError")
+@register(NameError)
 def name_error():
     _ = current_lang.translate
     return _(
@@ -171,7 +172,7 @@ def name_error():
     )
 
 
-@register("OSError")
+@register(OSError)
 def os_error():
     _ = current_lang.translate
     return _(
@@ -181,15 +182,15 @@ def os_error():
     )
 
 
-def os_error_subclass(name):
+def os_error_subclass(error_type):
     _ = current_lang.translate
     explanation = _(
         "An exception of type `{name}` is a subclass of `OSError`.\n"
-    ).format(name=name)
+    ).format(name=error_type.__name__)
     return explanation + os_error()
 
 
-@register("OverflowError")
+@register(OverflowError)
 def overflow_error():
     _ = current_lang.translate
     return _(
@@ -198,7 +199,7 @@ def overflow_error():
     )
 
 
-@register("RecursionError")
+@register(RecursionError)
 def recursion_error():
     _ = current_lang.translate
     return _(
@@ -209,7 +210,7 @@ def recursion_error():
     )
 
 
-@register("StopIteration")
+@register(StopIteration)
 def stop_iteration():
     _ = current_lang.translate
     return _(
@@ -219,13 +220,13 @@ def stop_iteration():
     )
 
 
-@register("SyntaxError")
+@register(SyntaxError)
 def syntax_error():
     _ = current_lang.translate
     return _("A `SyntaxError` occurs when Python cannot understand your code.\n")
 
 
-@register("TabError")
+@register(TabError)
 def tab_error():
     _ = current_lang.translate
     return _(
@@ -238,7 +239,7 @@ def tab_error():
     )
 
 
-@register("TypeError")
+@register(TypeError)
 def type_error():
     _ = current_lang.translate
     return _(
@@ -249,7 +250,7 @@ def type_error():
     )
 
 
-@register("ValueError")
+@register(ValueError)
 def value_error():
     _ = current_lang.translate
     return _(
@@ -258,7 +259,7 @@ def value_error():
     )
 
 
-@register("UnboundLocalError")
+@register(UnboundLocalError)
 def unbound_local_error():
     _ = current_lang.translate
     return _(
@@ -279,7 +280,7 @@ def unknown_warning():
     return _("No information is available about this warning.\n")
 
 
-@register("ZeroDivisionError")
+@register(ZeroDivisionError)
 def zero_division_error():
     _ = current_lang.translate
     return _(
