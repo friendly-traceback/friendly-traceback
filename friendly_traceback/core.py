@@ -760,6 +760,8 @@ class FriendlyTraceback:
         """Shortens a traceback (as list of lines)
         by removing lines if it exceeds a certain length
         and by using short synonyms for some common directories."""
+        from .config import session
+
         _ = current_lang.translate
         shortened_tb = tb[0:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
         pattern = re.compile(r'^  File "(.*)", ')  # noqa
@@ -767,12 +769,17 @@ class FriendlyTraceback:
         for line in shortened_tb:
             match = re.search(pattern, line)
             if match:
-                line = line.replace(
-                    match.group(1),
-                    path_utils.shorten_path(
-                        match.group(1), frame=self.tb_data.exception_frame
-                    ),
+                filename = match.group(1)
+                short_filename = path_utils.shorten_path(
+                    filename, frame=self.tb_data.exception_frame
                 )
+                line = line.replace(filename, short_filename)
+                if (
+                    session.ipython_prompt
+                    and short_filename[0] == "["
+                    and short_filename[-1] == "]"
+                ):
+                    line = line.replace("  File", "  Code block")
             temp.append(line)
         return temp
 
