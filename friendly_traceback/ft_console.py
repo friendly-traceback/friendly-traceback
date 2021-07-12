@@ -25,9 +25,16 @@ def type_friendly():
     return _("Type 'Friendly' for help on special functions/methods.")
 
 
-BANNER = "\nFriendly-traceback Console version {}. [Python version: {}]\n".format(
-    friendly_traceback.__version__, platform.python_version()
-)
+try:
+    import friendly  # noqa
+
+    BANNER = "\nFriendly-traceback version {}\nFriendly version {}\nPython version {}\n".format(
+        friendly_traceback.__version__, friendly.__version__, platform.python_version()
+    )
+except Exception:
+    BANNER = "\nFriendly-traceback version {}. [Python version: {}]\n".format(
+        friendly_traceback.__version__, platform.python_version()
+    )
 
 
 _old_displayhook = sys.displayhook
