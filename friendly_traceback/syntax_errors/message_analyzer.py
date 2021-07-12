@@ -25,6 +25,13 @@ def add_python_message(func):
     """
     MESSAGE_ANALYZERS.append(func)
 
+    # The following is not normally needed; however, for debugging purpose
+    # we might wish to access the decorated function.
+    def wrapper(func):
+        return func(func)
+
+    return wrapper
+
 
 # The following has been taken from https://unicode-table.com/en/sets/quotation-marks/
 bad_quotation_marks = [
@@ -1203,8 +1210,12 @@ def leading_zeros_in_decimal_integers(message="", statement=None):
     ):
         return {}
 
-    prev_str = statement.prev_token.string
-    bad_str = statement.bad_token.string
+    if statement.bad_token.string[0] == "0":
+        prev_str = statement.bad_token.string
+        bad_str = statement.next_token.string
+    else:
+        prev_str = statement.prev_token.string
+        bad_str = statement.bad_token.string
     return proper_decimal_or_octal_number(prev_str, bad_str)
 
 
@@ -1345,7 +1356,7 @@ def invalid_decimal_literal(message="", statement=None):
 
     if message != "invalid decimal literal":  # new in Python 3.10
         return {}
-    if not statement.highlighted_tokens:
+    if not statement.highlighted_tokens or len(statement.highlighted_tokens) == 1:
         statement.highlighted_tokens = [statement.bad_token, statement.next_token]
 
     if statement.first_token == "def" or (
@@ -1364,7 +1375,7 @@ def invalid_imaginary_literal(message="", statement=None):
 
     if message != "invalid imaginary literal":  # new in Python 3.10
         return {}
-    if not statement.highlighted_tokens:
+    if not statement.highlighted_tokens or len(statement.highlighted_tokens) == 1:
         statement.highlighted_tokens = [statement.bad_token, statement.next_token]
 
     if statement.first_token == "def" or (
