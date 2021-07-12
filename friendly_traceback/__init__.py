@@ -25,7 +25,7 @@ if not valid_version:  # pragma: no cover
     sys.exit()
 
 del valid_version
-__version__ = "0.3.162"
+__version__ = "0.3.163"
 
 
 # ===========================================
@@ -135,7 +135,7 @@ def run(
     console=True,
     formatter="repl",
     redirect=None,
-    ipython_prompt=False,
+    ipython_prompt=True,
 ):  # sourcery skip: move-assign
     """Given a filename (relative or absolute path) ending with the ".py"
     extension, this function uses the
@@ -214,7 +214,7 @@ def start_console(  # pragma: no cover
     lang="en",
     banner=None,
     displayhook=None,
-    ipython_prompt=False,
+    ipython_prompt=True,
 ):
     """Starts a Friendly console."""
     from . import ft_console

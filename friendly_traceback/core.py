@@ -573,6 +573,8 @@ class FriendlyTraceback:
         * exception_raised_source
         * exception_raised_variables
         """
+        from .config import session
+
         _ = current_lang.translate
 
         # partial_source = get_partial_source(record, text_range=self.tb_data.node_range)
@@ -587,9 +589,14 @@ class FriendlyTraceback:
                 "{filename} is not a regular Python file whose contents can be analyzed.\n"
             ).format(filename=filename)
 
-        self.info["exception_raised_header"] = _(
-            "Exception raised on line {linenumber} of file {filename}.\n"
-        ).format(linenumber=record.lineno, filename=filename)
+        if session.ipython_prompt:
+            self.info["exception_raised_header"] = _(
+                "Exception raised on line {linenumber} of code block {filename}.\n"
+            ).format(linenumber=record.lineno, filename=filename)
+        else:
+            self.info["exception_raised_header"] = _(
+                "Exception raised on line {linenumber} of file {filename}.\n"
+            ).format(linenumber=record.lineno, filename=filename)
 
         if unavailable:
             return
@@ -612,6 +619,8 @@ class FriendlyTraceback:
         * exception_raised_source
         * last_call_variables
         """
+        from .config import session
+
         _ = current_lang.translate
         partial_source = record.partial_source_with_node_range
         # partial_source = get_partial_source(
@@ -621,9 +630,14 @@ class FriendlyTraceback:
             record.filename, frame=self.tb_data.exception_frame
         )
 
-        self.info["last_call_header"] = _(
-            "Execution stopped on line {linenumber} of file {filename}.\n"
-        ).format(linenumber=record.lineno, filename=filename)
+        if session.ipython_prompt:
+            self.info["last_call_header"] = _(
+                "Execution stopped on line {linenumber} of code block {filename}.\n"
+            ).format(linenumber=record.lineno, filename=filename)
+        else:
+            self.info["last_call_header"] = _(
+                "Execution stopped on line {linenumber} of file {filename}.\n"
+            ).format(linenumber=record.lineno, filename=filename)
         self.info["last_call_source"] = partial_source["source"]
 
         var_info = info_variables.get_var_info(partial_source["line"], record.frame)
@@ -636,6 +650,8 @@ class FriendlyTraceback:
         * parsing_error
         * parsing_source_error
         """
+        from .config import session
+
         _ = current_lang.translate
         value = self.tb_data.value
         filepath = value.filename
@@ -650,24 +666,25 @@ class FriendlyTraceback:
         statement.format_statement()
         partial_source = statement.formatted_partial_source
 
-        if "-->" in partial_source:
-            self.info["parsing_error"] = _(
-                "Python could not understand the code in the file\n"
-                "'{filename}'\n"
-                "beyond the location indicated by ^.\n"
-            ).format(
-                filename=path_utils.shorten_path(
-                    filepath, frame=self.tb_data.exception_frame
-                )
-            )
+        short_filename = path_utils.shorten_path(
+            filepath, frame=self.tb_data.exception_frame
+        )
+
+        if session.ipython_prompt:
+            could_not_understand = _(
+                "Python could not understand the code in the code block {filename}\n"
+            ).format(filename=short_filename)
+        else:
+            could_not_understand = _(
+                "Python could not understand the code in the file\n" "'{filename}'\n"
+            ).format(filename=short_filename)
+
+        if "-->" in partial_source and "^" in partial_source:
+            self.info["parsing_error"] = could_not_understand + _(
+                "at the location indicated by ^.\n"
+            ).format(filename=short_filename)
         elif filepath:  # could be None
-            self.info["parsing_error"] = _(
-                "Python could not understand the code in the file\n" "'{filename}'.\n"
-            ).format(
-                filename=path_utils.shorten_path(
-                    filepath, frame=self.tb_data.exception_frame
-                )
-            )
+            self.info["parsing_error"] = could_not_understand + ".\n"
 
         self.info["parsing_error_source"] = f"{partial_source}\n"
 
@@ -780,6 +797,7 @@ class FriendlyTraceback:
                     and short_filename[-1] == "]"
                 ):
                     line = line.replace("  File", "  Code block")
+                    line = line.replace('"[', "[").replace(']"', "]")
             temp.append(line)
         return temp
 

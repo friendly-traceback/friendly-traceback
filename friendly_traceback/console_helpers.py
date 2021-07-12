@@ -80,6 +80,28 @@ def python_tb():
     explain("python_tb")
 
 
+def set_prompt(prompt=None):
+    """Sets the default prompt to use in the console.
+
+    If the prompt argument is ">>>" or "python",
+    then the standard Python prompt will be used.
+    Note that the prompt argument will be stripped and is case-insensitive.
+
+    If any other argument is given, then the iPython style prompt will be used.
+    Setting this has also an effect on how the "friendly traceback" filename
+    are shown for code blocks.
+    """
+    session.ipython_prompt = True
+    if prompt is None:
+        return
+    try:
+        prompt = prompt.strip().lower()
+        if prompt in [">>>", "python"]:
+            session.ipython_prompt = False
+    except Exception:  # noqa
+        pass
+
+
 def what(exception=None, pre=False):
     """If known, shows the generic explanation about a given exception.
 
@@ -304,6 +326,7 @@ basic_helpers = {
     "explain": explain,
     "history": history,
     "set_lang": set_lang,
+    "set_prompt": set_prompt,
     "show_paths": show_paths,
     "what": what,
     "where": where,
@@ -315,6 +338,7 @@ back.help = lambda: _("Removes the last recorded traceback item.")
 explain.help = lambda: _("Shows all the information about the last traceback.")
 history.help = lambda: _("Shows a list of recorded traceback messages.")
 set_lang.help = lambda: _("Sets the language to be used.")
+set_prompt.help = lambda: _("Sets the prompt style to be used in the console.")
 show_paths.help = lambda: _("Shows the paths corresponding to synonyms used.")
 what.help = lambda: _("Shows the generic meaning of a given exception")
 where.help = lambda: _("Shows where an exception was raised.")

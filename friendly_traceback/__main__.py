@@ -120,8 +120,8 @@ parser.add_argument(
 
 
 parser.add_argument(
-    "--ipython_prompt",
-    help="""Specifies that the console prompt must be of the form [number].""",
+    "--python_prompt",
+    help="""Specifies that the console prompt must the standard python prompt.""",
     action="store_true",
 )
 
@@ -180,7 +180,7 @@ def main():
                 local_vars=console_defaults,
                 formatter=formatter,
                 lang=args.lang,
-                ipython_prompt=args.ipython_prompt,
+                ipython_prompt=not args.python_prompt,
             )
 
     else:  # pragma: no cover
@@ -188,7 +188,7 @@ def main():
             local_vars=console_defaults,
             formatter=formatter,
             lang=args.lang,
-            ipython_prompt=args.ipython_prompt,
+            ipython_prompt=not args.python_prompt,
         )
 
 

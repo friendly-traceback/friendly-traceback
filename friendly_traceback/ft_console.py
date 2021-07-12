@@ -56,7 +56,7 @@ def rich_displayhook(value):
 
 class FriendlyTracebackConsole(InteractiveConsole):
     def __init__(
-        self, local_vars=None, formatter="repl", displayhook=None, ipython_prompt=False
+        self, local_vars=None, formatter="repl", displayhook=None, ipython_prompt=True
     ):
         """This class builds upon Python's code.InteractiveConsole
         so as to provide friendly tracebacks. It keeps track
@@ -195,7 +195,7 @@ def start_console(
     lang="en",
     banner=None,
     displayhook=None,
-    ipython_prompt=False,
+    ipython_prompt=True,
 ):
     """Starts a console; modified from code.interact"""
     # from . import config
