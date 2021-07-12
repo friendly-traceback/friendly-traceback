@@ -619,8 +619,6 @@ class FriendlyTraceback:
         * exception_raised_source
         * last_call_variables
         """
-        from .config import session
-
         _ = current_lang.translate
         partial_source = record.partial_source_with_node_range
         # partial_source = get_partial_source(
@@ -630,7 +628,7 @@ class FriendlyTraceback:
             record.filename, frame=self.tb_data.exception_frame
         )
 
-        if session.ipython_prompt:
+        if "[" in filename:
             self.info["last_call_header"] = _(
                 "Execution stopped on line {linenumber} of code block {filename}.\n"
             ).format(linenumber=record.lineno, filename=filename)
@@ -650,8 +648,6 @@ class FriendlyTraceback:
         * parsing_error
         * parsing_source_error
         """
-        from .config import session
-
         _ = current_lang.translate
         value = self.tb_data.value
         filepath = value.filename
@@ -670,7 +666,7 @@ class FriendlyTraceback:
             filepath, frame=self.tb_data.exception_frame
         )
 
-        if session.ipython_prompt:
+        if "[" in short_filename:
             could_not_understand = _(
                 "Python could not understand the code in the code block {filename}\n"
             ).format(filename=short_filename)
