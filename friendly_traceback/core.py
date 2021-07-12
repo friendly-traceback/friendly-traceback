@@ -628,7 +628,7 @@ class FriendlyTraceback:
             record.filename, frame=self.tb_data.exception_frame
         )
 
-        if "[" in filename:
+        if filename and "[" in filename:
             self.info["last_call_header"] = _(
                 "Execution stopped on line {linenumber} of code block {filename}.\n"
             ).format(linenumber=record.lineno, filename=filename)
@@ -666,7 +666,7 @@ class FriendlyTraceback:
             filepath, frame=self.tb_data.exception_frame
         )
 
-        if "[" in short_filename:
+        if short_filename and "[" in short_filename:
             could_not_understand = _(
                 "Python could not understand the code in the code block {filename}\n"
             ).format(filename=short_filename)
