@@ -579,9 +579,7 @@ class FriendlyTraceback:
 
         # partial_source = get_partial_source(record, text_range=self.tb_data.node_range)
         partial_source = record.partial_source_with_node_range
-        filename = path_utils.shorten_path(
-            record.filename, frame=self.tb_data.exception_frame
-        )
+        filename = path_utils.shorten_path(record.filename)
 
         unavailable = filename in ["<unknown>", "<string>"]
         if unavailable:
@@ -624,9 +622,7 @@ class FriendlyTraceback:
         # partial_source = get_partial_source(
         #     record, text_range=self.tb_data.program_stopped_node_range
         # )
-        filename = path_utils.shorten_path(
-            record.filename, frame=self.tb_data.exception_frame
-        )
+        filename = path_utils.shorten_path(record.filename)
 
         if filename and "[" in filename:
             self.info["last_call_header"] = _(
@@ -662,9 +658,7 @@ class FriendlyTraceback:
         statement.format_statement()
         partial_source = statement.formatted_partial_source
 
-        short_filename = path_utils.shorten_path(
-            filepath, frame=self.tb_data.exception_frame
-        )
+        short_filename = path_utils.shorten_path(filepath)
 
         if short_filename and "[" in short_filename:
             could_not_understand = _(
@@ -791,9 +785,7 @@ class FriendlyTraceback:
             match = re.search(pattern, line)
             if match:
                 filename = match.group(1)
-                short_filename = path_utils.shorten_path(
-                    filename, frame=self.tb_data.exception_frame
-                )
+                short_filename = path_utils.shorten_path(filename)
                 line = line.replace(filename, short_filename)
                 if (
                     session.ipython_prompt

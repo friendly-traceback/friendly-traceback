@@ -97,7 +97,7 @@ class PathUtil:
         self.python = os.path.abspath(os.path.dirname(os.__file__))
         self.home = os.path.expanduser("~")
 
-    def shorten_path(self, path, frame=None):  # pragma: no cover
+    def shorten_path(self, path):  # pragma: no cover
         from .config import session
 
         if path is None:  # can happen in some rare cases
@@ -108,7 +108,7 @@ class PathUtil:
         path_lower = path.lower()
 
         if "ipykernel" in path:
-            new_path = self.shorten_jupyter_kernel(orig_path, frame=frame)
+            new_path = shorten_jupyter_kernel(orig_path)
             if new_path:
                 return new_path
 
@@ -141,33 +141,34 @@ class PathUtil:
             path = "HOME:" + path[len(self.home) :]
         return path
 
-    def shorten_jupyter_kernel(self, path, frame=None):
-        from .config import session
-        from .source_cache import cache
 
-        if frame is None and not session.saved_info:
-            return ""
-        lines = cache.get_source_lines(path)
-        source = "".join(lines)
-        source = source.strip()
-        if not source:
-            return ""
-        if frame is None:
-            info = session.saved_info[-1]
-            frame = info["_frame"]
-        if "In" not in frame.f_globals:
-            return ""
-        ipython_inputs = frame.f_globals["In"]
-        found = 0
-        new_path = ""
-        for index, inp in enumerate(ipython_inputs):
-            inp = inp.strip()
-            if source == inp:
-                new_path = f"[{index}]"
-                found += 1
-        if found > 1:
-            new_path = new_path + "?"
-        return new_path
+def shorten_jupyter_kernel(path):
+    from .config import session
+    from .source_cache import cache
+
+    if hasattr(session, "ipython_frame") and session.ipython_frame is not None:
+        frame = session.ipython_frame
+    else:
+        return ""
+
+    lines = cache.get_source_lines(path)
+    source = "".join(lines)
+    source = source.strip()
+    if not source:
+        return ""
+    if "In" not in frame.f_globals:
+        return ""
+    ipython_inputs = frame.f_globals["In"]
+    found = 0
+    new_path = ""
+    for index, inp in enumerate(ipython_inputs):
+        inp = inp.strip()
+        if source == inp:
+            new_path = f"[{index}]"
+            found += 1
+    if found > 1:
+        new_path = new_path + "?"
+    return new_path
 
 
 path_utils = PathUtil()
