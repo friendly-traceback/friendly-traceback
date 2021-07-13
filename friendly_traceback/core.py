@@ -723,13 +723,21 @@ class FriendlyTraceback:
         shortened_tb = self.shorten(tb)
 
         header = "Traceback (most recent call last):"  # not included in records
-        if (
-            python_tb[0].startswith(header)
-            and self.tb_data.filename is not None
-            and "<SyntaxError>" not in self.tb_data.filename  # Latest IDLE hack
-        ):
-            tb.insert(0, header)
-            shortened_tb.insert(0, header)
+        if python_tb[0].startswith(header) and self.tb_data.filename is not None:
+            if not issubclass(self.tb_data.exception_type, SyntaxError):
+                shortened_tb.insert(0, header)
+                tb.insert(0, header)
+            else:
+                # The special "Traceback ..." header is not normally shown when
+                # a SyntaxError occurs at an interactive prompt.
+                # In this case, the filename will normally be of the form "<...>"
+                # or we will have changed "File" to be "Code block"
+                for line in shortened_tb:
+                    if line.startswith("  File") and "<" not in line:
+                        # We have a true file in the traceback
+                        shortened_tb.insert(0, header)
+                        tb.insert(0, header)
+                        break
 
         if "RecursionError" in python_tb[-1]:
             tb = []
