@@ -31,7 +31,9 @@ def get_generic_explanation(exception_type: Type[BaseException]) -> str:
         return no_information()
 
 
-def register(error_class: Type[BaseException]) -> Callable[[GenericExplain], GenericExplain]:
+def register(
+    error_class: Type[BaseException],
+) -> Callable[[GenericExplain], GenericExplain]:
     """Decorator used to record as available an explanation for a given exception"""
 
     def add_exception(function):
