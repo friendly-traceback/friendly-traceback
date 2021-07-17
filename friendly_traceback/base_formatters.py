@@ -30,8 +30,43 @@ This module currently contains 2 formatters:
   embedded as a code-block in a file (such as .rst). It can also be used
   to print the information in a traditional console.
 """
+import sys
+from typing import List
+
 from .ft_gettext import current_lang
 from . import debug_helper
+
+
+if sys.version_info >= (3, 8):
+    from typing import Protocol, TypedDict
+
+    class Info(TypedDict, total=False):
+        message: str
+        original_python_traceback: str
+        simulated_python_traceback: str
+        shortened_traceback: str
+        suggest: str
+        generic: str
+        parsing_error: str
+        parsing_error_source: str
+        cause: str
+        last_call_header: str
+        last_call_source: str
+        last_call_variables: str
+        exception_raised_header: str
+        exception_raised_source: str
+        exception_raised_variables: str
+
+    class Formatter:
+        def __call__(self, info: Info, include: str = ...) -> str:
+            ...
+
+
+else:
+    from typing import Callable, Dict
+
+    Info = Dict[str, str]
+    Formatter = Callable[[Info, str], str]
 
 
 # The following is the order in which the various items, if they exist
@@ -79,7 +114,7 @@ repl_indentation = {
 }
 
 
-def repl(info, include="friendly_tb"):
+def repl(info: Info, include: str = "friendly_tb") -> str:
     """Default formatter, primarily for console usage.
 
     The only change made to the content of "info" is
@@ -102,7 +137,7 @@ def repl(info, include="friendly_tb"):
     return "\n".join(result)
 
 
-def docs(info, include="friendly_tb"):  # pragma: no cover
+def docs(info: Info, include: str = "friendly_tb") -> str:  # pragma: no cover
     """Formatter that produces an output that is suitable for
     insertion in a RestructuredText (.rst) code block,
     with pre-formatted indentation.
@@ -136,7 +171,7 @@ def docs(info, include="friendly_tb"):  # pragma: no cover
     return "\n".join(result)
 
 
-def no_result(info, include):
+def no_result(info: Info, include: str) -> str:
     """Should normally only be called if no result is available
     from either hint() or why().
     """
@@ -184,6 +219,6 @@ items_groups["no_tb"] = items_groups["explain"]  # used in check_syntax()
 items_groups["no_tb"].discard(items_groups["friendly_tb"])
 
 
-def select_items(group_name):
+def select_items(group_name: str) -> List[str]:
     items = items_groups[group_name]
     return [item for item in items_in_order if item in items]
