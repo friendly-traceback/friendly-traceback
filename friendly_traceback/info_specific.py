@@ -5,16 +5,26 @@ of a given exception.
 """
 
 import re
+from types import FrameType
+from typing import Callable, Dict, Type, TypeVar
 
 
 from . import debug_helper
+from .base_formatters import Info
+from .core import TracebackData
 from .ft_gettext import current_lang, internal_error
 
+_E = TypeVar("_E", bound=BaseException)
 
-get_cause = {}
+Explain = Callable[[_E, FrameType, TracebackData], Info]
 
 
-def get_likely_cause(etype, value, frame, tb_data):
+get_cause: Dict[Type[BaseException], Explain[BaseException]] = {}
+
+
+def get_likely_cause(
+    etype: Type[_E], value: _E, frame: FrameType, tb_data: TracebackData
+) -> Info:
     """Gets the likely cause of a given exception based on some information
     specific to a given exception.
     """
@@ -37,7 +47,7 @@ def get_likely_cause(etype, value, frame, tb_data):
     return {}
 
 
-def register(error_name):
+def register(error_name: Type[_E]) -> Callable[[Explain[_E]], Explain[_E]]:
     """Decorator used to record as available an explanation for a given exception"""
 
     def add_exception(function):
@@ -47,14 +57,16 @@ def register(error_name):
 
 
 @register(AttributeError)
-def _attribute_error(value, frame, tb_data):
+def _attribute_error(
+    value: AttributeError, frame: FrameType, tb_data: TracebackData
+) -> Info:
     from .runtime_errors import attribute_error
 
     return attribute_error.get_cause(value, frame, tb_data)
 
 
 @register(FileNotFoundError)
-def _file_not_found_error(value, *_args):
+def _file_not_found_error(value: FileNotFoundError, *_args) -> Info:
     _ = current_lang.translate
     # str(value) is expected to be something like
     #
@@ -84,21 +96,21 @@ def _file_not_found_error(value, *_args):
 
 
 @register(ImportError)
-def _import_error(value, frame, tb_data):
+def _import_error(value: ImportError, frame: FrameType, tb_data: TracebackData) -> Info:
     from .runtime_errors import import_error
 
     return import_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(IndexError)
-def _index_error(value, frame, tb_data):
+def _index_error(value: IndexError, frame: FrameType, tb_data: TracebackData) -> Info:
     from .runtime_errors import index_error
 
     return index_error.get_cause(value, frame, tb_data)
 
 
 @register(KeyError)
-def _key_error(value, frame, tb_data):
+def _key_error(value: KeyError, frame: FrameType, tb_data: TracebackData) -> Info:
     _ = current_lang.translate
     from .runtime_errors import key_error
 
@@ -106,7 +118,9 @@ def _key_error(value, frame, tb_data):
 
 
 @register(ModuleNotFoundError)
-def _module_not_found_error(value, frame, tb_data):
+def _module_not_found_error(
+    value: ModuleNotFoundError, frame: FrameType, tb_data: TracebackData
+) -> Info:
 
     from .runtime_errors import module_not_found_error
 
@@ -114,7 +128,7 @@ def _module_not_found_error(value, frame, tb_data):
 
 
 @register(NameError)
-def _name_error(value, frame, tb_data):
+def _name_error(value: NameError, frame: FrameType, tb_data: TracebackData) -> Info:
 
     from .runtime_errors import name_error
 
@@ -122,7 +136,7 @@ def _name_error(value, frame, tb_data):
 
 
 @register(OSError)
-def _os_error(value, frame, tb_data):
+def _os_error(value: OSError, frame: FrameType, tb_data: TracebackData) -> Info:
 
     from .runtime_errors import os_error
 
@@ -130,34 +144,38 @@ def _os_error(value, frame, tb_data):
 
 
 @register(OverflowError)
-def _overflow_error(*_args):
+def _overflow_error(*_args) -> Info:
     return {}
     # can be provided for real test cases
 
 
 @register(TypeError)
-def _type_error(value, frame, tb_data):
+def _type_error(value: TypeError, frame: FrameType, tb_data: TracebackData) -> Info:
     from .runtime_errors import type_error
 
     return type_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(ValueError)
-def _value_error(value, frame, tb_data):
+def _value_error(value: ValueError, frame: FrameType, tb_data: TracebackData) -> Info:
     from .runtime_errors import value_error
 
     return value_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(UnboundLocalError)
-def _unbound_local_error(value, frame, tb_data):
+def _unbound_local_error(
+    value: UnboundLocalError, frame: FrameType, tb_data: TracebackData
+) -> Info:
     from .runtime_errors import unbound_local_error
 
     return unbound_local_error.get_cause(value, frame, tb_data)
 
 
 @register(ZeroDivisionError)
-def _zero_division_error(value, frame, tb_data):
+def _zero_division_error(
+    value: ZeroDivisionError, frame: FrameType, tb_data: TracebackData
+) -> Info:
     from .runtime_errors import zero_division_error
 
     return zero_division_error.parser.get_cause(str(value), frame, tb_data)
