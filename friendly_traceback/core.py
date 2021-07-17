@@ -7,17 +7,20 @@ they are considered to be internal functions, subject to change at any
 time. If functions defined in friendly_traceback.__init__.py do not meet your needs,
 please file an issue.
 """
+import ast
 import inspect
 import re
 import traceback
+import types
+from typing import List, Optional, Sequence, Tuple, Type, TypeVar
 
 from itertools import dropwhile
 
 from . import debug_helper
 from . import info_generic
-from . import info_specific
 from . import info_variables
 
+from .base_formatters import Info
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
 
@@ -35,10 +38,13 @@ except ImportError:  # pragma: no cover
     pass  # ignore errors when processed by Sphinx
 
 
+_E = TypeVar("_E", bound=BaseException)
+
+
 STR_FAILED = "<exception str() failed>"  # Same as Python
 
 
-def convert_value_to_message(value):
+def convert_value_to_message(value: BaseException) -> str:
     """This converts the 'value' of an exception into a string, while
     being safe to use for custom exceptions which have been incorrectly
     defined. See issue #181 for an example.
@@ -59,7 +65,7 @@ class TracebackData:
     can be created.
     """
 
-    def __init__(self, etype, value, tb):
+    def __init__(self, etype: Type[_E], value: _E, tb: types.TracebackType) -> None:
         """This object is initialized with the standard values for a
         traceback::
 
@@ -88,15 +94,17 @@ class TracebackData:
         # The following attributes get their correct values in self.locate_error()
         self.node = None
         self.node_text = ""
-        self.node_range = None
+        self.node_range: Optional[Tuple[int, int]] = None
         self.original_bad_line = self.bad_line
         self.program_stopped_node_range = None
 
         if issubclass(etype, SyntaxError):
-            self.statement = source_info.Statement(self.value, self.bad_line)
+            self.statement: Optional[source_info.Statement] = source_info.Statement(
+                self.value, self.bad_line
+            )
             # Removing extra ending spaces for potentially shorter displays later on
 
-            def remove_space(text):
+            def remove_space(text: str) -> str:
                 if text.rstrip():
                     if text.endswith("\n"):
                         return text.rstrip() + "\n"
@@ -109,7 +117,7 @@ class TracebackData:
             self.statement = None
             self.locate_error()
 
-    def get_records(self, tb):
+    def get_records(self, tb: types.TracebackType) -> List[FrameInfo]:
         """Get the traceback frame history, excluding those originating
         from our own code that are included either at the beginning or
         at the end of the traceback.
@@ -146,7 +154,7 @@ class TracebackData:
         # and help identify the problem.
         return all_records  # pragma: no cover
 
-    def get_source_info(self):
+    def get_source_info(self) -> None:
         """Retrieves the file name and the line of code where the exception
         was raised.
         """
@@ -202,7 +210,7 @@ class TracebackData:
             return
 
         # We should never reach this stage.
-        def _log_error():  # pragma: no cover
+        def _log_error() -> None:  # pragma: no cover
             debug_helper.log("Internal error in TracebackData.get_source_info.")
             debug_helper.log("No records found.")
             debug_helper.log("self.exception_type:" + str(self.exception_type))
@@ -211,7 +219,7 @@ class TracebackData:
 
         _log_error()  # pragma: no cover
 
-    def locate_error(self):
+    def locate_error(self) -> None:
         """Attempts to narrow down the location of the error so that,
         if possible, the problem code is highlighted with ^^^^."""
         if not self.records:  # pragma: no cover
@@ -231,7 +239,9 @@ class TracebackData:
                 self.bad_line = self.node_text
 
     @staticmethod
-    def find_tb_frame(tb, frame):
+    def find_tb_frame(
+        tb: types.TracebackType, frame: types.FrameType
+    ) -> Optional[types.TracebackType]:
         """Find a traceback object where a given frame resides."""
         while True:
             if tb.tb_frame == frame:
@@ -241,7 +251,7 @@ class TracebackData:
                 debug_helper.log("No tb_frame found.")
                 return None
 
-    def locate_name_error(self):
+    def locate_name_error(self) -> None:
         """Finds the location of an unknown name"""
         name, _ignore = name_error.get_unknown_name(self.message)
 
@@ -253,12 +263,14 @@ class TracebackData:
             debug_helper.log("Could not locate unknown name.")
 
     @staticmethod
-    def find_node(tb, bad_line):
+    def find_node(
+        tb: types.TracebackType, bad_line: str
+    ) -> Optional[Tuple[ast.AST, Optional[Tuple[int, int]], str]]:
         """Finds the 'node', that is the exact part of a line of code
         that is related to the cause of the problem.
         """
         try:
-            ex = executing.Source.executing(tb)
+            ex: executing.Executing = executing.Source.executing(tb)
             node = ex.node
             node_text = ex.text()
         except Exception as e:  # pragma: no cover
@@ -379,7 +391,7 @@ class FriendlyTraceback:
     * what() shows the information compiled by assign_generic()
     """
 
-    def __init__(self, etype, value, tb):
+    def __init__(self, etype: Type[_E], value: _E, tb: types.TracebackType) -> None:
         """The basic argument are those generated after a traceback
         and obtained via::
 
@@ -396,7 +408,7 @@ class FriendlyTraceback:
             print("Please report this issue.")
             raise SystemExit
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
-        self.info = {"header": _("Python exception:")}
+        self.info: Info = {"header": _("Python exception:")}
         self.message = self.assign_message()  # language independent
         self.assign_tracebacks()
 
@@ -405,7 +417,7 @@ class FriendlyTraceback:
         self.info["_frame"] = self.tb_data.exception_frame
         self.info["_tb_data"] = self.tb_data
 
-    def assign_message(self):
+    def assign_message(self) -> str:
         """Assigns the error message, as the attribute ``message``
         which is something like::
 
@@ -421,7 +433,7 @@ class FriendlyTraceback:
             self.info["message"] = f"{exc_name}: {message}\n"
         return self.info["message"]
 
-    def compile_info(self):
+    def compile_info(self) -> None:
         """Compile all info that was not set in __init__."""
         self.assign_generic()
         self.assign_location()
@@ -431,7 +443,7 @@ class FriendlyTraceback:
         for key in to_remove:
             del self.info[key]
 
-    def recompile_info(self):
+    def recompile_info(self) -> None:
         """This is useful if we need to redisplay some information in a
         different language than what was originally used.
         """
@@ -440,7 +452,7 @@ class FriendlyTraceback:
         self.assign_tracebacks()
         self.compile_info()
 
-    def assign_cause(self):
+    def assign_cause(self) -> None:
         """Determine the cause of an exception, which is what is returned
         by ``why()``.
         """
@@ -461,7 +473,7 @@ class FriendlyTraceback:
         else:
             self.set_cause_runtime()
 
-    def set_cause_runtime(self):
+    def set_cause_runtime(self) -> None:
         """For exceptions other than SyntaxError and subclasses.
         Sets the value of the following attributes:
 
@@ -481,12 +493,14 @@ class FriendlyTraceback:
             self.info["cause"] = cannot_analyze_stdin()
             return
 
+        from . import info_specific
+
         cause = info_specific.get_likely_cause(
             etype, value, self.tb_data.exception_frame, self.tb_data
         )  # [3]
         self.info.update(**cause)
 
-    def set_cause_syntax(self):
+    def set_cause_syntax(self) -> None:
         """For SyntaxError and subclasses. Sets the value of the following
         attributes:
 
@@ -526,7 +540,7 @@ class FriendlyTraceback:
         cause = analyze_syntax.set_cause_syntax(value, self.tb_data)
         self.info.update(**cause)
 
-    def assign_generic(self):
+    def assign_generic(self) -> None:
         """Assigns the generic information about a given error. This is
         the answer to ``what()`` as in "What is a NameError?"
 
@@ -538,7 +552,7 @@ class FriendlyTraceback:
             self.tb_data.exception_type
         )
 
-    def assign_location(self):
+    def assign_location(self) -> None:
         """This sets the values of the answers to 'where()', that is
         the information about the location of the exception.
 
@@ -565,7 +579,7 @@ class FriendlyTraceback:
         if len(records) > 1:
             self.locate_last_call(records[0])
 
-    def locate_exception_raised(self, record):
+    def locate_exception_raised(self, record: FrameInfo) -> None:
         """Sets the values of the following attributes which are
         part of a friendly
 
@@ -610,7 +624,7 @@ class FriendlyTraceback:
         if var_info:
             self.info["exception_raised_variables"] = var_info
 
-    def locate_last_call(self, record):
+    def locate_last_call(self, record: FrameInfo) -> None:
         """Sets the values of the following attributes:
 
         * last_call_header
@@ -638,7 +652,7 @@ class FriendlyTraceback:
         if var_info:
             self.info["last_call_variables"] = var_info
 
-    def locate_parsing_error(self):
+    def locate_parsing_error(self) -> None:
         """Sets the values of the attributes:
 
         * parsing_error
@@ -678,7 +692,7 @@ class FriendlyTraceback:
 
         self.info["parsing_error_source"] = f"{partial_source}\n"
 
-    def assign_tracebacks(self):
+    def assign_tracebacks(self) -> None:
         """When required, a standard Python traceback might be required to be
         included as part of the information shown to the user.
         This function does the required formatting.
@@ -771,7 +785,7 @@ class FriendlyTraceback:
         # skipcq: PYL-W0201
         self.tb_data.simulated_python_traceback = "\n".join(tb) + "\n"
 
-    def shorten(self, tb):
+    def shorten(self, tb: Sequence[str]) -> List[str]:
         """Shortens a traceback (as list of lines)
         by removing lines if it exceeds a certain length
         and by using short synonyms for some common directories."""
@@ -798,7 +812,7 @@ class FriendlyTraceback:
         return temp
 
     @staticmethod
-    def process_exception_chain(etype, value):
+    def process_exception_chain(etype: Type[_E], value: _E) -> str:
         """Adds info about exceptions raised while treating other exceptions."""
         seen = set()
         lines = []
@@ -810,7 +824,7 @@ class FriendlyTraceback:
             "During handling of the above exception, another exception occurred:"
         )
 
-        def chain_exc(typ, exc, tb):
+        def chain_exc(typ: Type[_E], exc: _E, tb: Optional[types.TracebackType]) -> str:
             seen.add(id(exc))
             context = exc.__context__
             cause = exc.__cause__
@@ -835,7 +849,7 @@ class FriendlyTraceback:
         chain_exc(etype, value, None)
         return "".join(lines)
 
-    def create_traceback(self):
+    def create_traceback(self) -> List[str]:
         """Using records that exclude code from certain files,
         creates a list from which a standard-looking traceback can
         be created.
@@ -958,7 +972,7 @@ class FriendlyTraceback:
 #     return {"source": source, "line": line}
 
 
-def cannot_analyze_stdin():  # pragma: no cover
+def cannot_analyze_stdin() -> str:  # pragma: no cover
     """Typical case: friendly is imported in an ordinary Python
     interpreter (REPL), and the user does not activate the friendly
     console.
