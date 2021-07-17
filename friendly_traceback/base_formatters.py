@@ -57,7 +57,7 @@ if sys.version_info >= (3, 8):
         exception_raised_source: str
         exception_raised_variables: str
 
-    class Formatter:
+    class Formatter(Protocol):
         def __call__(self, info: Info, include: str = ...) -> str:
             ...
 
