@@ -391,6 +391,8 @@ class FriendlyTraceback:
     * what() shows the information compiled by assign_generic()
     """
 
+    info: Info
+
     def __init__(self, etype: Type[_E], value: _E, tb: types.TracebackType) -> None:
         """The basic argument are those generated after a traceback
         and obtained via::
@@ -408,7 +410,7 @@ class FriendlyTraceback:
             print("Please report this issue.")
             raise SystemExit
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
-        self.info: Info = {"header": _("Python exception:")}
+        self.info = {"header": _("Python exception:")}
         self.message = self.assign_message()  # language independent
         self.assign_tracebacks()
 
