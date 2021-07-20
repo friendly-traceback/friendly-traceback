@@ -215,7 +215,7 @@ items_groups["explain"] = (
     .union(items_groups["why"])
     .union(items_groups["where"])
 )
-items_groups["no_tb"] = items_groups["explain"]  # used in check_syntax()
+items_groups["no_tb"] = set(items_groups["explain"])  # used in check_syntax()
 for item in items_groups["friendly_tb"]:
     items_groups["no_tb"].discard(item)
 
