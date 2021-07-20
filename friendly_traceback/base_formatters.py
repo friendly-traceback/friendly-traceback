@@ -181,7 +181,8 @@ items_groups["explain"] = (
     .union(items_groups["where"])
 )
 items_groups["no_tb"] = items_groups["explain"]  # used in check_syntax()
-items_groups["no_tb"].discard(items_groups["friendly_tb"])
+for item in items_groups["friendly_tb"]:
+    items_groups["no_tb"].discard(item)
 
 
 def select_items(group_name):
