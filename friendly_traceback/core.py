@@ -18,6 +18,7 @@ from itertools import dropwhile
 
 from . import debug_helper
 from . import info_generic
+from . import info_specific
 from . import info_variables
 
 from .base_formatters import Info
@@ -494,8 +495,6 @@ class FriendlyTraceback:
         if self.tb_data.filename == "<stdin>":  # pragma: no cover
             self.info["cause"] = cannot_analyze_stdin()
             return
-
-        from . import info_specific
 
         cause = info_specific.get_likely_cause(
             etype, value, self.tb_data.exception_frame, self.tb_data
