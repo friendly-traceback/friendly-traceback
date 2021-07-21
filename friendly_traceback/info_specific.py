@@ -4,14 +4,13 @@ Attempts to provide some specific information about the likely cause
 of a given exception.
 """
 
-import sys
 import re
+import sys
 from types import FrameType
 from typing import TYPE_CHECKING, Callable, Dict, Type, TypeVar
 
 from . import debug_helper
 from .ft_gettext import current_lang, internal_error
-
 
 if TYPE_CHECKING:
     from .core import TracebackData
