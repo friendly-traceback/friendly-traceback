@@ -75,6 +75,15 @@ def test_check_syntax():
     ft.set_include(original_include)
 
 
+def test_no_tb_does_not_contain_friendly_tb_items():
+    """Verify items from ``"friendly_tb"`` are discarded in ``"no_tb"`` group."""
+    # Strictly speaking, this is not a unit test for check_syntax proper but
+    # this "include" option is only used in check_syntax.
+    no_tb_group = ft.base_formatters.items_groups["no_tb"]
+    friendly_tb_group = ft.base_formatters.items_groups["friendly_tb"]
+    assert not any(item in no_tb_group for item in friendly_tb_group)
+
+
 if __name__ == "__main__":
     test_check_syntax()
     print("Success!")
