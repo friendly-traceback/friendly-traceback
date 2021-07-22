@@ -40,7 +40,7 @@ from . import debug_helper
 if sys.version_info >= (3, 8):
     from typing import Literal, Protocol, TypedDict
 
-    InfoKind = Literal[
+    InclusionChoice = Literal[
         "message",
         "hint",
         "what",
@@ -71,16 +71,16 @@ if sys.version_info >= (3, 8):
         exception_raised_variables: str
 
     class Formatter(Protocol):
-        def __call__(self, info: Info, include: InfoKind = ...) -> str:
+        def __call__(self, info: Info, include: InclusionChoice = ...) -> str:
             ...
 
 
 else:
     from typing import Callable
 
-    InfoKind = str
+    InclusionChoice = str
     Info = Dict[str, str]
-    Formatter = Callable[[Info, InfoKind], str]
+    Formatter = Callable[[Info, InclusionChoice], str]
 
 
 # The following is the order in which the various items, if they exist
@@ -128,7 +128,7 @@ repl_indentation = {
 }
 
 
-def repl(info: Info, include: InfoKind = "friendly_tb") -> str:
+def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     """Default formatter, primarily for console usage.
 
     The only change made to the content of "info" is
@@ -151,7 +151,9 @@ def repl(info: Info, include: InfoKind = "friendly_tb") -> str:
     return "\n".join(result)
 
 
-def docs(info: Info, include: InfoKind = "friendly_tb") -> str:  # pragma: no cover
+def docs(
+    info: Info, include: InclusionChoice = "friendly_tb"
+) -> str:  # pragma: no cover
     """Formatter that produces an output that is suitable for
     insertion in a RestructuredText (.rst) code block,
     with pre-formatted indentation.
@@ -185,7 +187,7 @@ def docs(info: Info, include: InfoKind = "friendly_tb") -> str:  # pragma: no co
     return "\n".join(result)
 
 
-def no_result(info: Info, include: InfoKind) -> str:
+def no_result(info: Info, include: InclusionChoice) -> str:
     """Should normally only be called if no result is available
     from either hint() or why().
     """
@@ -204,7 +206,7 @@ def no_result(info: Info, include: InfoKind) -> str:
     )  # pragma: no cover
 
 
-items_groups: Dict[InfoKind, Set[str]] = {
+items_groups: Dict[InclusionChoice, Set[str]] = {
     "message": {"message"},  # Also included as last line of traceback
     "hint": {"suggest"},
     "what": {"generic"},
@@ -235,6 +237,6 @@ for item_ in items_groups["friendly_tb"]:
     items_groups["no_tb"].discard(item_)
 
 
-def select_items(group_name: InfoKind) -> List[str]:
+def select_items(group_name: InclusionChoice) -> List[str]:
     items = items_groups[group_name]
     return [item for item in items_in_order if item in items]
