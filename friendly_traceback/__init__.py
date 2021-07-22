@@ -117,7 +117,7 @@ def get_output(flush: bool = True) -> str:
 def install(
     lang: Optional[str] = None,
     redirect: Union[str, Writer, None] = None,
-    include: base_formatters.InfoKind = "explain",
+    include: base_formatters.InclusionChoice = "explain",
     _debug: Optional[bool] = None,
 ) -> None:
     """
@@ -154,7 +154,7 @@ def uninstall() -> None:
 def run(
     filename: StrPath,
     lang: Optional[str] = None,
-    include: Optional[base_formatters.InfoKind] = None,
+    include: Optional[base_formatters.InclusionChoice] = None,
     args: Optional[Sequence[str]] = None,
     console: bool = True,
     formatter: Union[str, base_formatters.Formatter] = "repl",
@@ -236,7 +236,7 @@ def set_formatter(
 def start_console(  # pragma: no cover
     local_vars: Optional[Mapping[str, Any]] = None,
     formatter: Union[str, base_formatters.Formatter] = "repl",
-    include: base_formatters.InfoKind = "friendly_tb",
+    include: base_formatters.InclusionChoice = "friendly_tb",
     lang: str = "en",
     banner: Optional[str] = None,
     displayhook: Optional[Callable[[object], Any]] = None,
@@ -293,7 +293,7 @@ def _include_choices() -> str:
     return ",\n        ".join(choices)
 
 
-def set_include(include: base_formatters.InfoKind) -> None:
+def set_include(include: base_formatters.InclusionChoice) -> None:
     """Specifies the information to include in the traceback.
 
     The allowed values are:
@@ -307,7 +307,7 @@ if set_include.__doc__ is not None:  # protect against -OO optimization
     set_include.__doc__ = set_include.__doc__.format(choices=_include_choices())
 
 
-def get_include() -> base_formatters.InfoKind:
+def get_include() -> base_formatters.InclusionChoice:
     """Retrieves the value used to determine what to include in the
     traceback. See ``set_include()`` for details.
     """
