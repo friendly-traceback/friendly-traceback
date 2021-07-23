@@ -6,8 +6,9 @@ thus restricting tracebacks to code written by the users.
 If Friendly-traceback is used by some other program,
 it might be desirable to exclude additional files.
 """
+import inspect
 import os
-import asttokens  # Only use it to find site-packages
+import asttokens  # Only use it as a representative to find site-packages
 from typing import TYPE_CHECKING, Set
 
 from .ft_gettext import current_lang
@@ -157,15 +158,24 @@ def shorten_jupyter_kernel(path):
 
     if hasattr(session, "ipython_frame") and session.ipython_frame is not None:
         frame = session.ipython_frame
-    else:
-        return ""
+    else:  # perhaps it was not initialized properly initially but can be done now.
+        session.ipython_frame = None
+        try:
+            frames = inspect.getouterframes(inspect.currentframe())
+            for frame_info in frames:
+                frame = frame_info.frame
+                if "In" in frame.f_locals or "In" in frame.f_globals:
+                    session.ipython_frame = frame
+                    break
+        except Exception:  # noqa
+            return ""
 
     lines = cache.get_source_lines(path)
     source = "".join(lines)
     source = source.strip()
     if not source:
         return ""
-    if "In" not in frame.f_globals:
+    if "In" not in frame.f_globals:  # noqa
         return ""
     ipython_inputs = frame.f_globals["In"]
     found = 0
