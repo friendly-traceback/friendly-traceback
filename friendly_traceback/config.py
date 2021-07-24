@@ -12,6 +12,8 @@ from .ft_gettext import current_lang
 
 def _write_err(text):  # pragma: no cover
     """Default writer"""
+    if text is None:
+        return
     if not text.strip():
         return
     if not text.endswith("\n"):
