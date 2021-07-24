@@ -8,6 +8,7 @@ Note that we monkeypatch Python's linecache.getlines.
 
 import linecache
 import time
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 import stack_data
 
@@ -17,11 +18,11 @@ old_getlines = linecache.getlines  # To be monkeypatched.
 class Cache:
     """Class used to store source of files and similar objects"""
 
-    def __init__(self):
-        self.cache = {}
+    def __init__(self) -> None:
+        self.cache: Dict[str, List[str]] = {}
         self.context = 4
 
-    def add(self, filename, source):
+    def add(self, filename: str, source: str) -> None:
         """Adds a source (received as a string) corresponding to a filename
         in the cache.
 
@@ -38,14 +39,16 @@ class Cache:
         linecache.cache[filename] = entry
         self.cache[filename] = lines
 
-    def remove(self, filename):
+    def remove(self, filename: str) -> None:
         """Removes an entry from the cache if it can be found."""
         if filename in self.cache:
             del self.cache[filename]
         if filename in linecache.cache:
             del linecache.cache[filename]
 
-    def get_source_lines(self, filename, module_globals=None):
+    def get_source_lines(
+        self, filename: str, module_globals: Optional[Dict[str, Any]] = None
+    ) -> List[str]:
         """Given a filename, returns the corresponding source, either
         from the cache or from actually opening the file.
 
@@ -71,7 +74,9 @@ cache = Cache()
 linecache.getlines = cache.get_source_lines
 
 
-def highlight_source(lines, text_range=None):
+def highlight_source(
+    lines: Sequence[stack_data.Line], text_range: Optional[Tuple[int, int]] = None
+) -> Tuple[str, str]:
     """Extracts a few relevant lines from a file content given as a list
     of lines, adding line number information and identifying
     a particular line.
