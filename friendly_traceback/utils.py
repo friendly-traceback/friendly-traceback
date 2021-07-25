@@ -4,12 +4,24 @@ A few useful objects which do not naturally fit anywhere else.
 """
 import ast
 import difflib
+import types
 import uuid
+from typing import TYPE_CHECKING, Any, Callable, Dict, Iterable, List, Tuple, Union
 
 import executing
 import pure_eval
+
 from . import debug_helper
-from .ft_gettext import no_information, internal_error
+from .ft_gettext import internal_error, no_information
+from .info_specific import CauseInfo
+
+if TYPE_CHECKING:
+    from .core import TracebackData
+
+
+Parser = Callable[
+    [Union[str, BaseException], types.FrameType, "TracebackData"], CauseInfo
+]
 
 
 class RuntimeMessageParser:
@@ -17,15 +29,20 @@ class RuntimeMessageParser:
     an attempt at finding the cause of an exception.
     """
 
-    def __init__(self):
-        self.parsers = []
-        self.current_parser = None
+    def __init__(self) -> None:
+        self.parsers: List[Parser] = []
+        self.current_parser: Parser = None
 
-    def add(self, func):
+    def add(self, func: Parser) -> None:
         """Use as a decorator to add a message parser"""
         self.parsers.append(func)
 
-    def get_cause(self, value_or_message, frame, tb_data):
+    def get_cause(
+        self,
+        value_or_message: Union[str, BaseException],
+        frame: types.FrameType,
+        tb_data: "TracebackData",
+    ) -> CauseInfo:
         """Called from info_specific.py where, depending on error type,
         the value could be converted into a message by calling str().
         """
@@ -36,7 +53,12 @@ class RuntimeMessageParser:
             debug_helper.log(f"in module {self.current_parser.__module__}")
             return {"cause": internal_error(e), "suggest": internal_error(e)}
 
-    def _get_cause(self, value_or_message, frame, tb_data):
+    def _get_cause(
+        self,
+        value_or_message: Union[str, BaseException],
+        frame: types.FrameType,
+        tb_data: "TracebackData",
+    ) -> CauseInfo:
         """Cycle through the parsers, looking for one that can find a cause."""
         for self.current_parser in self.parsers:
             # This could be simpler if we could use the walrus operator
@@ -46,7 +68,7 @@ class RuntimeMessageParser:
         return {"cause": no_information()}
 
 
-def add_rich_repr(functions):
+def add_rich_repr(functions: Dict[str, Callable[..., Any]]) -> None:
     """Given a dict whose content is of the form
     {function_name_string: function_obj}
     it adds a custom __rich__repr attribute for all such
@@ -58,14 +80,14 @@ def add_rich_repr(functions):
             setattr(func, "__rich_repr__", lambda func=func: (func.help(),))  # noqa
 
 
-def unique_variable_name():
+def unique_variable_name() -> str:
     """Creates a unique variable name. Useful when attempting to introduce
     a new token to see if it can fix specific cases of SyntaxError."""
     name = uuid.uuid4()
     return "_%s" % name.hex
 
 
-def eval_expr(expr, frame):
+def eval_expr(expr: str, frame: types.FrameType) -> Any:
     """Attempts to evaluate the expression 'expr' in a frame.
     Note that 'expr' might be a string containing leading spaces which need
     to be removed prior to being evaluated.
@@ -78,7 +100,7 @@ def eval_expr(expr, frame):
     return evaluator[node]  # can raise an exception
 
 
-def get_similar_words(word_with_typo, words):
+def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
     """Returns a list of similar words.
 
     The parameters we chose are based on experimenting with
@@ -134,21 +156,21 @@ def get_similar_words(word_with_typo, words):
     return result
 
 
-def list_to_string(list_, sep=", "):
+def list_to_string(list_: Iterable[str], sep: str = ", ") -> str:
     """Transforms a list of names, like ['a', 'b', 'c'], into a single
     string of names, like "a, b, c"."""
     result = ["{c}".format(c=c.replace("'", "")) for c in list_]
     return sep.join(result)
 
 
-def expected_in_result(expected, result):
+def expected_in_result(expected: str, result: str) -> Tuple[bool, str]:
     """Used in tests. Intended to help more quickly identify
     differences between what was expected and what was found."""
     if expected in result:
         return True, "Test is satisfied: 'expected' is found in 'result'."
     result = result.strip(" ")
     lines = result.splitlines()
-    best_ratio = 0
+    best_ratio = 0.0
     best_line = ""
     for line in lines:
         line = line.strip(" ")
@@ -163,7 +185,7 @@ def expected_in_result(expected, result):
     return False, "\n" + "\n".join(difflib.ndiff([expected], [best_line]))
 
 
-def get_bad_statement(tb_data):
+def get_bad_statement(tb_data: "TracebackData") -> str:
     """This function attempts to recover a complete statement
     even if it spans multiple lines."""
     try:

@@ -6,12 +6,16 @@ source code.
 """
 import ast
 import keyword
-import tokenize as py_tokenize
 import sys
-
+import tokenize as py_tokenize
 from io import StringIO
+from typing import Any, List, Iterable, Sequence, Tuple, Union
 
 from . import debug_helper
+
+_TokenInfo = Union[
+    py_tokenize.TokenInfo, Tuple[int, str, Tuple[int, int], Tuple[int, int], str]
+]
 
 _token_format = "type={type}  string={string}  start={start}  end={end}  line={line}"
 
@@ -34,18 +38,18 @@ class Token:
     to be transformed will be the string attribute.
     """
 
-    def __init__(self, token):
+    def __init__(self, token: _TokenInfo) -> None:
         self.type = token[0]
         self.string = token[1]
         self.start = self.start_row, self.start_col = token[2]
         self.end = self.end_row, self.end_col = token[3]
         self.line = token[4]
 
-    def copy(self):
+    def copy(self) -> "Token":
         """Makes a copy of a given token"""
         return Token((self.type, self.string, self.start, self.end, self.line))
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         """Compares a Token with another object; returns true if
         self.string == other.string or if self.string == other.
         """
@@ -59,7 +63,7 @@ class Token:
             "A token can only be compared to another token or to a string."
         )  # pragma: no cover
 
-    def __repr__(self):  # pragma: no cover
+    def __repr__(self) -> str:  # pragma: no cover
         """Nicely formatted token to help with debugging session.
 
         Note that it does **not** print a string representation that could be
@@ -75,15 +79,15 @@ class Token:
             line=repr(self.line),
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Returns the string attribute."""
         return self.string
 
-    def is_comment(self):
+    def is_comment(self) -> bool:
         """Returns True if the token is a comment."""
         return self.type == py_tokenize.COMMENT
 
-    def is_identifier(self):
+    def is_identifier(self) -> bool:
         """Returns ``True`` if the token represents a valid Python identifier
         excluding Python keywords.
 
@@ -92,35 +96,35 @@ class Token:
         """
         return self.string.isidentifier() and not self.is_keyword()
 
-    def is_name(self):
+    def is_name(self) -> bool:
         """Returns ``True`` if the token is a type NAME"""
         return self.type == py_tokenize.NAME
 
-    def is_keyword(self):
+    def is_keyword(self) -> bool:
         """Returns True if the token represents a Python keyword."""
         return keyword.iskeyword(self.string) or self.string in ["__debug__", "..."]
 
-    def is_number(self):
+    def is_number(self) -> bool:
         """Returns True if the token represents a number of any type"""
         return self.type == py_tokenize.NUMBER
 
-    def is_operator(self):
+    def is_operator(self) -> bool:
         """Returns true if the token is of type OP"""
         return self.type == py_tokenize.OP
 
-    def is_float(self):
+    def is_float(self) -> bool:
         """Returns True if the token represents a float"""
         return self.is_number() and isinstance(ast.literal_eval(self.string), float)
 
-    def is_integer(self):
+    def is_integer(self) -> bool:
         """Returns True if the token represents an integer"""
         return self.is_number() and isinstance(ast.literal_eval(self.string), int)
 
-    def is_complex(self):
+    def is_complex(self) -> bool:
         """Returns True if the token represents a complex number"""
         return self.is_number() and isinstance(ast.literal_eval(self.string), complex)
 
-    def is_space(self):
+    def is_space(self) -> bool:
         """Returns True if the token indicates a change in indentation,
         the end of a line, or the end of the source
         (``INDENT``, ``DEDENT``, ``NEWLINE``, ``NL``, and ``ENDMARKER``).
@@ -136,11 +140,11 @@ class Token:
             py_tokenize.ENDMARKER,
         )
 
-    def is_string(self):
+    def is_string(self) -> bool:
         """Returns True if the token is a string"""
         return self.type == py_tokenize.STRING
 
-    def immediately_before(self, other):
+    def immediately_before(self, other: Any) -> bool:
         """Return True if the current token is immediately before other,
         without any intervening space in between the two tokens.
         """
@@ -148,7 +152,7 @@ class Token:
             return False
         return self.end_row == other.start_row and self.end_col == other.start_col
 
-    def immediately_after(self, other):
+    def immediately_after(self, other: Any) -> bool:
         """Return True if the current token is immediately after other,
         without any intervening space in between the two tokens.
         """
@@ -157,7 +161,7 @@ class Token:
         return other.immediately_before(self)
 
 
-def is_assignment(op):
+def is_assignment(op: Union[str, Token]) -> bool:
     """Returns True if op (string or Token) is an assigment or augmented assignment."""
     ops = [
         "=",
@@ -180,19 +184,19 @@ def is_assignment(op):
     return op in ops or (hasattr(op, "string") and op.string in ops)
 
 
-def is_bitwise(op):
+def is_bitwise(op: Union[str, Token]) -> bool:
     """Returns True if op (string or Token) is a bitwise operator."""
     ops = ["^", "&", "|", "<<", ">>", "~"]
     return op in ops or (hasattr(op, "string") and op.string in ops)
 
 
-def is_comparison(op):
+def is_comparison(op: Union[str, Token]) -> bool:
     """Returns True if op (string or Token) is a comparison operator."""
     ops = ["<", ">", "<=", ">=", "==", "!="]
     return op in ops or (hasattr(op, "string") and op.string in ops)
 
 
-def is_math_op(op):
+def is_math_op(op: Union[str, Token]) -> bool:
     """Returns True if op (string or Token) is an operator that can be used
     as a binary operator in a mathematical operation.
     """
@@ -200,7 +204,7 @@ def is_math_op(op):
     return op in ops or (hasattr(op, "string") and op.string in ops)
 
 
-def is_operator(op):
+def is_operator(op: Union[str, Token]) -> bool:
     """Returns True if op (string or token) is or could be part of one
     of the following: assigment operator, mathematical operator,
     bitwise operator, comparison operator."""
@@ -215,7 +219,7 @@ def is_operator(op):
     )
 
 
-def fix_empty_line(source, tokens):
+def fix_empty_line(source: str, tokens: Sequence[Token]) -> None:
     """Python's tokenizer drops entirely a last line if it consists only of
     space characters and/or tab characters.  To ensure that we can always have::
 
@@ -232,7 +236,7 @@ def fix_empty_line(source, tokens):
     tokens[-1].string = source[-nb:]
 
 
-def tokenize(source):
+def tokenize(source: str) -> List[Token]:
     """Transforms a source (string) into a list of Tokens.
 
     If an exception is raised by Python's tokenize module, the list of tokens
@@ -270,7 +274,7 @@ def tokenize(source):
     return tokens
 
 
-def get_significant_tokens(source):
+def get_significant_tokens(source: str) -> List[Token]:
     """Gets a list of tokens from a source (str), ignoring comments
     as well as any token whose string value is either null or
     consists of spaces, newline or tab characters.
@@ -284,7 +288,7 @@ def get_significant_tokens(source):
     return remove_meaningless_tokens(tokens)
 
 
-def remove_meaningless_tokens(tokens):
+def remove_meaningless_tokens(tokens: Iterable[Token]) -> List[Token]:
     """Given a list of tokens, remove all space-like tokens and comments."""
     new_tokens = []
     for tok in tokens:
@@ -294,13 +298,13 @@ def remove_meaningless_tokens(tokens):
     return new_tokens
 
 
-def get_lines(source):
+def get_lines(source: str) -> List[List[Token]]:
     """Transforms a source (string) into a list of Tokens, with each
     (inner) list containing all the tokens found on a given line of code.
     """
-    lines = []
+    lines: List[List[Token]] = []
     current_row = -1
-    new_line = []
+    new_line: List[Token] = []
     try:
         for tok in py_tokenize.generate_tokens(StringIO(source).readline):
             token = Token(tok)
@@ -320,7 +324,7 @@ def get_lines(source):
     return lines
 
 
-def strip_comment(line):
+def strip_comment(line: str) -> str:
     """Removes comments from a line"""
     tokens = []
     try:
@@ -334,7 +338,7 @@ def strip_comment(line):
     return untokenize(tokens)
 
 
-def find_substring_index(main, substring):
+def find_substring_index(main: str, substring: str) -> int:
     """Somewhat similar to the find() method for strings,
     this function determines if the tokens for substring appear
     as a subsequence of the tokens for main. If so, the index
@@ -352,7 +356,7 @@ def find_substring_index(main, substring):
     return -1
 
 
-def dedent(tokens, nb):
+def dedent(tokens: Iterable[Union[str, Token]], nb: int) -> List[Token]:
     """Given a list of tokens, produces an equivalent list corresponding
     to a line of code with the first nb characters removed.
     """
@@ -361,7 +365,9 @@ def dedent(tokens, nb):
     return tokenize(line)
 
 
-def indent(tokens, nb, tab=False):
+def indent(
+    tokens: Iterable[Union[str, Token]], nb: int, tab: bool = False
+) -> List[Token]:
     """Given a list of tokens, produces an equivalent list corresponding
     to a line of code with nb space characters inserted at the beginning.
 
@@ -373,7 +379,7 @@ def indent(tokens, nb, tab=False):
     return tokenize(line)
 
 
-def untokenize(tokens):
+def untokenize(tokens: Iterable[Union[str, Token]]) -> str:
     """Return source code based on tokens.
 
     This is similar to Python's own tokenize.untokenize(), except that it
@@ -432,7 +438,10 @@ def untokenize(tokens):
     return "".join(words)
 
 
-def print_tokens(source):  # pragma: no cover
+TextOrTokens = Union[str, Sequence[Union[str, Token]]]
+
+
+def print_tokens(source: TextOrTokens) -> None:  # pragma: no cover
     """Prints tokens found in source, excluding spaces and comments.
 
     ``source`` is either a string to be tokenized, or a list of Token objects.
