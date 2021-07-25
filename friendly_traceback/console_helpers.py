@@ -368,7 +368,7 @@ set_include.help = lambda: _(
 )
 get_lang.help = lambda: _("Returns the language currently used.")
 set_formatter.help = lambda: _("Sets the formatter to use for display.")
-set_debug.help = lambda: "Use True (default) or False to set the debug flag."
+set_debug.help = lambda: _("Use True (default) or False to set the debug flag.")
 
 add_rich_repr(other_helpers)
 
@@ -460,7 +460,7 @@ class FriendlyHelpers:
                 print("Warning:", item, "has no help() method.")
 
         if debug_helper.DEBUG:
-            more_header = "Debugging methods."
+            more_header = "Debugging methods (English only by design)."
             parts.append("\n" + more_header + "\n\n")
             for item in self.debug_helpers:
                 parts.append(f"Friendly.{item}(): ")

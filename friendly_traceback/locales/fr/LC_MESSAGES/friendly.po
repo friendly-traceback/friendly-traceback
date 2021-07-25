@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-07-12 08:10-0300\n"
+"POT-Creation-Date: 2021-07-25 08:12-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -15,19 +15,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.0\n"
 
-#: __init__.py:182 __main__.py:167
+#: __init__.py:206 __main__.py:167
 msgid "The file {filename} does not exist."
 msgstr "Le fichier {filename} n'existe pas."
 
-#: base_formatters.py:145 base_formatters.py:151
+#: base_formatters.py:196 base_formatters.py:202
 msgid "I have no suggestion to offer."
 msgstr "Je n’ai aucune suggestion à offrir."
 
-#: base_formatters.py:149
+#: base_formatters.py:200
 msgid "I have no suggestion to offer; try `why()`."
 msgstr "Je n’ai aucune suggestion à offrir; essayez `why()`."
 
-#: config.py:51 config.py:156 console_helpers.py:69
+#: config.py:53 config.py:158 console_helpers.py:69
 msgid "Nothing to show: no exception recorded."
 msgstr "Rien à montrer: pas d’exception enregistrée."
 
@@ -123,6 +123,11 @@ msgstr "Renvoie la langue actuellement utilisée."
 msgid "Sets the formatter to use for display."
 msgstr "Définit le formateur à utiliser pour l'affichage."
 
+#: console_helpers.py:371
+msgid "Use True (default) or False to set the debug flag."
+msgstr ""
+"Utilisez True (par défaut) ou False pour définir l'indicateur de débogage."
+
 #: console_helpers.py:436
 msgid ""
 "The following methods of the Friendly object might also be available as "
@@ -139,15 +144,15 @@ msgstr "Méthodes de base :"
 msgid "Less commonly used methods/functions."
 msgstr "Méthodes/fonctions moins couramment utilisées."
 
-#: core.py:398
+#: core.py:413
 msgid "More lines not shown."
 msgstr "Plus de lignes non affichées."
 
-#: core.py:399 core.py:439
+#: core.py:414 core.py:454
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:452
+#: core.py:467
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -161,37 +166,37 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:514
+#: core.py:529
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:587
+#: core.py:601
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:592
+#: core.py:606
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du bloc de code {filename}.\n"
 
-#: core.py:596
+#: core.py:610
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:633
+#: core.py:643
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du block de code "
 "{filename}.\n"
 
-#: core.py:637
+#: core.py:647
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:658
+#: core.py:666
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
@@ -199,11 +204,11 @@ msgstr ""
 "`{filename}` n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:673
+#: core.py:679
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:679
+#: core.py:683
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -211,11 +216,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:686
+#: core.py:688
 msgid "at the location indicated by ^.\n"
 msgstr "à l'endroit indiqué par ^.\n"
 
-#: core.py:976
+#: core.py:982
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -265,7 +270,7 @@ msgstr ""
 msgid "Internal error for Friendly.\n"
 msgstr "Exception soulevée par Friendly.\n"
 
-#: info_generic.py:45
+#: info_generic.py:53
 msgid ""
 "`ArithmeticError` is the base class for those built-in exceptions\n"
 "that are raised for various arithmetic errors.\n"
@@ -277,7 +282,7 @@ msgstr ""
 "Il est inhabituel que vous voyiez cette exception;\n"
 "normalement, une exception plus spécifique aurait dû être soulevée.\n"
 
-#: info_generic.py:56
+#: info_generic.py:64
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -293,7 +298,7 @@ msgstr ""
 "Si `condition` est `False` ou son équivalent, une exception de type "
 "`AssertionError` est levée.\n"
 
-#: info_generic.py:67
+#: info_generic.py:75
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
@@ -305,7 +310,7 @@ msgstr ""
 "et `x` n’est pas une méthode ou un attribut (variable) appartenant à "
 "`objet`.\n"
 
-#: info_generic.py:77
+#: info_generic.py:85
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
@@ -314,7 +319,7 @@ msgstr ""
 "atteint\n"
 "une condition de fin de fichier (EOF) sans lire aucune données.\n"
 
-#: info_generic.py:86
+#: info_generic.py:94
 msgid ""
 "A `FileNotFoundError` exception indicates that you\n"
 "are trying to open a file that cannot be found by Python.\n"
@@ -325,7 +330,7 @@ msgstr ""
 "Cela pourrait être parce que vous fait une faute d'orthographe en\n"
 "écrivant le nom du fichier.\n"
 
-#: info_generic.py:96
+#: info_generic.py:104
 msgid ""
 "An `ImportError` exception indicates that a certain object could not\n"
 "be imported from a module or package. Most often, this is\n"
@@ -335,7 +340,7 @@ msgstr ""
 "être importé à partir d’un module ou d’un paquet. Très souvent, c’est\n"
 "parce que le nom de l’objet n’est pas écrit correctement.\n"
 
-#: info_generic.py:106
+#: info_generic.py:114
 msgid ""
 "An `IndentationError` occurs when a given line of code is\n"
 "not indented (aligned vertically with other lines) as expected.\n"
@@ -346,7 +351,7 @@ msgstr ""
 "lignes)\n"
 "de la façon attendue.\n"
 
-#: info_generic.py:115
+#: info_generic.py:123
 msgid ""
 "An `IndexError` occurs when you try to get an item from a list,\n"
 "a tuple, or a similar object (sequence), and use an index which\n"
@@ -360,7 +365,7 @@ msgstr ""
 "n’existe pas; typiquement, c’est parce que l’indice que vous donnez\n"
 "est plus grand que la longueur de la séquence.\n"
 
-#: info_generic.py:126
+#: info_generic.py:134
 msgid ""
 "A `KeyError` is raised when a value is not found as a\n"
 "key in a Python dict or in a similar object.\n"
@@ -368,7 +373,7 @@ msgstr ""
 "Une `KeyError` est levée lorsqu'une valeur n'est pas trouvée en tant que\n"
 "clé dans un dict Python ou dans un objet similaire.\n"
 
-#: info_generic.py:135
+#: info_generic.py:143
 msgid ""
 "`LookupError` is the base class for the exceptions that are raised\n"
 "when a key or index used on a mapping or sequence is invalid.\n"
@@ -379,7 +384,7 @@ msgstr ""
 "séquence est invalide.\n"
 "Elle peut également être levée directement par codecs.lookup().\n"
 
-#: info_generic.py:145
+#: info_generic.py:153
 msgid ""
 "Like the name indicates, a `MemoryError` occurs when Python\n"
 "runs out of memory. This can happen if you create an object\n"
@@ -391,7 +396,7 @@ msgstr ""
 "Cela peut se produire si vous créez un objet\n"
 "qui est trop grand, comme une liste avec trop d'éléments.\n"
 
-#: info_generic.py:155
+#: info_generic.py:163
 msgid ""
 "A `ModuleNotFoundError` exception indicates that you\n"
 "are trying to import a module that cannot be found by Python.\n"
@@ -404,7 +409,7 @@ msgstr ""
 "écrivant le nom du module, ou parce qu’il n’est pas installé sur votre "
 "ordinateur.\n"
 
-#: info_generic.py:166
+#: info_generic.py:174
 msgid ""
 "A `NameError` exception indicates that a variable or\n"
 "function name is not known to Python.\n"
@@ -418,7 +423,7 @@ msgstr ""
 "Cependant, cela peut également indiquer que le nom a été\n"
 "utilisé avant qu'on ne lui ait associé une valeur.\n"
 
-#: info_generic.py:178
+#: info_generic.py:186
 msgid ""
 "An `OSError` exception is usually raised by the Operating System\n"
 "to indicate that an operation is not allowed or that\n"
@@ -429,11 +434,11 @@ msgstr ""
 "pour indiquer qu’une opération n’est pas autorisée ou\n"
 "qu'une ressource n’est pas disponible.\n"
 
-#: info_generic.py:187
+#: info_generic.py:195
 msgid "An exception of type `{name}` is a subclass of `OSError`.\n"
 msgstr "Une exception de type `{name}` est une sous-classe de `OSError`.\n"
 
-#: info_generic.py:196
+#: info_generic.py:204
 msgid ""
 "An `OverflowError` is raised when the result of an arithmetic operation\n"
 "is too large to be handled by the computer's processor.\n"
@@ -442,7 +447,7 @@ msgstr ""
 "opération arithmétique\n"
 "est trop grand pour être manipulé par le processeur de l’ordinateur.\n"
 
-#: info_generic.py:205
+#: info_generic.py:213
 msgid ""
 "A `RecursionError` is raised when a function calls itself,\n"
 "directly or indirectly, too many times.\n"
@@ -456,7 +461,7 @@ msgstr ""
 "votre code\n"
 "et que votre programme ne terminerait jamais.\n"
 
-#: info_generic.py:216
+#: info_generic.py:224
 msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
@@ -467,13 +472,13 @@ msgstr ""
 "d'élément à fournir lorsque sa méthode `__next__` est invoquée par\n"
 "la fonction builtin `next()`.\n"
 
-#: info_generic.py:226
+#: info_generic.py:234
 msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr ""
 "Une exception de type `SyntaxError` se produit lorsque Python ne peut pas "
 "comprendre votre code.\n"
 
-#: info_generic.py:232
+#: info_generic.py:240
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -491,7 +496,7 @@ msgstr ""
 "La recommandation de Python est de toujours utiliser des espaces\n"
 "pour indenter votre code.\n"
 
-#: info_generic.py:245
+#: info_generic.py:253
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -504,7 +509,7 @@ msgstr ""
 "ou en tentant d'effectuer une opération non permise sur un type d'objet "
 "donné.\n"
 
-#: info_generic.py:256
+#: info_generic.py:264
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
@@ -512,7 +517,7 @@ msgstr ""
 "Une exception `ValueError` indique qu'une fonction ou une opération\n"
 "a reçu un argument du bon type, mais une valeur inappropriée.\n"
 
-#: info_generic.py:265
+#: info_generic.py:273
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -536,11 +541,11 @@ msgstr ""
 "qu’il s’agit d’une variable globale, sinon vous verrez une exception "
 "`UnboundLocalError`.\n"
 
-#: info_generic.py:280
+#: info_generic.py:288
 msgid "No information is available about this warning.\n"
 msgstr "Aucune information n’est disponible sur cet avertissement.\n"
 
-#: info_generic.py:286
+#: info_generic.py:294
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -549,7 +554,7 @@ msgstr ""
 "diviser une valeur\n"
 "par zéro soit directement ou en utilisant une autre opération mathématique.\n"
 
-#: info_specific.py:79
+#: info_specific.py:104
 msgid ""
 "In your program, the name of the\n"
 "file that cannot be found is `{filename}`.\n"
@@ -616,7 +621,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:188
+#: path_info.py:199
 msgid "The default directory is {dirname}."
 msgstr "Le répertoire par défaut est {dirname}."
 
