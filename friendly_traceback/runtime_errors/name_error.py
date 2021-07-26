@@ -133,7 +133,7 @@ def flipfloperator():  # pragma: no cover
     cause = _(
         "I am guessing that you tried to use (one of) the flipfloperators\n"
         "shown during the second Lightning Talk session of PyConAu 2018,\n"
-        "but that you forgot to import the module from PyPI.\n\n"
+        "but that you forgot to install the module from PyPI.\n\n"
         "#### Note that it is still a bad idea.\n"
     )
     return {"cause": cause, "suggest": hint}
