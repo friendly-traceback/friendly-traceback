@@ -9,7 +9,7 @@ it might be desirable to exclude additional files.
 import os
 import sys
 import asttokens  # Only use it as a representative to find site-packages
-from typing import TYPE_CHECKING, Set
+from typing import TYPE_CHECKING, Set, TypeVar
 
 from .ft_gettext import current_lang
 
@@ -103,11 +103,13 @@ def include_file_in_traceback(full_path: str) -> None:
 
 
 class PathUtil:
-    def __init__(self):
+    def __init__(self) -> None:
         self.python = os.path.abspath(os.path.dirname(os.__file__))
         self.home = os.path.expanduser("~")
 
-    def shorten_path(self, path):  # pragma: no cover
+    MaybeText = TypeVar("MaybeText", str, None)
+
+    def shorten_path(self, path: MaybeText) -> MaybeText:  # pragma: no cover
         from .config import session
 
         if path is None:  # can happen in some rare cases
@@ -152,7 +154,7 @@ class PathUtil:
         return path
 
 
-def shorten_jupyter_kernel(path):
+def shorten_jupyter_kernel(path: str) -> str:
     from .source_cache import cache
 
     if "__main__" in sys.modules:
@@ -184,7 +186,7 @@ def shorten_jupyter_kernel(path):
 path_utils = PathUtil()
 
 
-def show_paths():  # pragma: no cover
+def show_paths() -> None:  # pragma: no cover
     """To avoid displaying very long file paths to the user,
     Friendly-traceback tries to shorten them using some easily
     recognized synonyms. This function shows the path synonyms

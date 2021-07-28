@@ -3,14 +3,16 @@
 Keeps tabs of all settings.
 """
 import sys
+import types
+from typing import List, Optional, Type, TypeVar, Union
 
-from . import core
-from . import debug_helper
-from . import base_formatters
+from . import Writer, base_formatters, core, debug_helper
 from .ft_gettext import current_lang
 
+_E = TypeVar("_E", bound=BaseException)
 
-def _write_err(text):  # pragma: no cover
+
+def _write_err(text: Optional[str]) -> None:  # pragma: no cover
     """Default writer"""
     if text is None:
         return
@@ -26,21 +28,21 @@ class _State:
     to be instantiated only once.
     """
 
-    def __init__(self):
-        self._captured = []
+    def __init__(self) -> None:
+        self._captured: List[str] = []
         self.context = 3
-        self.write_err = _write_err
+        self.write_err: Writer = _write_err
         self.installed = False
         self.running_script = False
-        self.saved_info = []
-        self.formatter = base_formatters.repl
-        self.friendly = []
-        self.include = "explain"
+        self.saved_info: List[base_formatters.Info] = []
+        self.formatter: base_formatters.Formatter = base_formatters.repl
+        self.friendly: List[core.FriendlyTraceback] = []
+        self.include: base_formatters.InclusionChoice = "explain"
         self.lang = "en"
         self.install_gettext(self.lang)
         self.ipython_prompt = False
 
-    def show_traceback_info_again(self):
+    def show_traceback_info_again(self) -> None:
         """If has not been cleared, write the traceback info again, using
         the default stream.
 
@@ -57,18 +59,18 @@ class _State:
         # Do not combine with above as 'explanation' could be a list for IDLE
         self.write_err("\n")
 
-    def capture(self, txt):
+    def capture(self, txt: str) -> None:
         """Captures the output instead of writing to stderr."""
         self._captured.append(txt)
 
-    def get_captured(self, flush=True):
+    def get_captured(self, flush: bool = True) -> str:
         """Returns the result of captured output as a string"""
         result = "".join(self._captured)
         if flush:
             self._captured.clear()
         return result
 
-    def set_lang(self, lang):
+    def set_lang(self, lang: str) -> None:
         """Sets the language and, if it is not the current language
         and a traceback exists, the information is recompiled for the
         new target language.
@@ -85,20 +87,22 @@ class _State:
             self.friendly[-1].recompile_info()
             self.friendly[-1].info["lang"] = lang
 
-    def install_gettext(self, lang):
+    def install_gettext(self, lang: str) -> None:
         """Sets the current language for gettext."""
         current_lang.install(lang)
         self.lang = lang
 
-    def set_include(self, include):
+    def set_include(self, include: base_formatters.InclusionChoice) -> None:
         if include not in base_formatters.items_groups:  # pragma: no cover
             raise ValueError(f"{include} is not a valid value.")
         self.include = include
 
-    def get_include(self):
+    def get_include(self) -> base_formatters.InclusionChoice:
         return self.include
 
-    def set_formatter(self, formatter=None):
+    def set_formatter(
+        self, formatter: Union[str, None, base_formatters.Formatter] = None
+    ) -> None:
         """Sets the default formatter. If no argument is given, the default
         formatter is used.
         """
@@ -112,7 +116,12 @@ class _State:
         else:
             self.formatter = formatter  # could be provided as a function
 
-    def install(self, lang=None, redirect=None, include="explain"):
+    def install(
+        self,
+        lang: Optional[str] = None,
+        redirect: Union[str, Writer, None] = None,
+        include: base_formatters.InclusionChoice = "explain",
+    ) -> None:
         """Replaces sys.excepthook by friendly's own version."""
         _ = current_lang.translate
 
@@ -126,12 +135,12 @@ class _State:
         sys.excepthook = self.exception_hook
         self.installed = True
 
-    def uninstall(self):
+    def uninstall(self) -> None:
         """Resets sys.excepthook to the Python default."""
         self.installed = False
         sys.excepthook = sys.__excepthook__
 
-    def set_redirect(self, redirect=None):
+    def set_redirect(self, redirect: Union[str, Writer, None] = None) -> None:
         """Sets where the output is redirected."""
         if redirect == "capture":
             self.write_err = self.capture
@@ -140,7 +149,7 @@ class _State:
         else:
             self.write_err = _write_err
 
-    def explain_traceback(self, redirect=None):
+    def explain_traceback(self, redirect: Union[str, Writer, None] = None) -> None:
         """Replaces a standard traceback by a friendlier one, giving more
         information about a given exception than a standard traceback.
         Note that this excludes SystemExit and KeyboardInterrupt which
@@ -159,7 +168,13 @@ class _State:
             return
         self.exception_hook(etype, value, tb, redirect=redirect)
 
-    def exception_hook(self, etype, value, tb, redirect=None):
+    def exception_hook(
+        self,
+        etype: Type[_E],
+        value: _E,
+        tb: types.TracebackType,
+        redirect: Union[str, Writer, None] = None,
+    ) -> None:
         """Replaces a standard traceback by a friendlier one,
         except for SystemExit and KeyboardInterrupt which
         are re-raised.

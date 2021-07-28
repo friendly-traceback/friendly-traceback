@@ -22,16 +22,19 @@ gettext.translation() is the class-based API for gettext.
 
 import gettext
 import os
+from typing import Callable, Optional
 
 from . import debug_helper
 
+Translator = Callable[[str], str]
+
 
 class LangState:
-    def __init__(self):
-        self._translate = lambda text: text
+    def __init__(self) -> None:
+        self._translate: Translator = lambda text: text
         self.lang = "en"
 
-    def install(self, lang=None):
+    def install(self, lang: Optional[str] = None) -> None:
         """Sets the language to be used for translations"""
         if lang is None:
             lang = "en"
@@ -63,7 +66,7 @@ class LangState:
         self.lang = lang
         self._translate = _lang.gettext
 
-    def translate(self, text):
+    def translate(self, text: str) -> str:
         translation = self._translate(text)
         if self.lang == "en":
             return translation
@@ -80,7 +83,7 @@ current_lang = LangState()  # noqa
 # which will do the logging automatically.
 
 
-def please_report():
+def please_report() -> str:
     _ = current_lang.translate
     debug_helper.log("New case to consider.")
     return _(
@@ -90,7 +93,7 @@ def please_report():
     )
 
 
-def no_information():
+def no_information() -> str:
     _ = current_lang.translate
     debug_helper.log("New case to consider.")
     return (
@@ -103,7 +106,7 @@ def no_information():
     )
 
 
-def internal_error(e):
+def internal_error(e: Optional[BaseException]) -> str:
     _ = current_lang.translate
     debug_helper.log("--> Internal error: " + repr(e))
     return _("Internal error for Friendly.\n") + please_report()

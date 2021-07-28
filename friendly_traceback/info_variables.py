@@ -6,6 +6,8 @@ can be useful for beginners without overwhelming them.
 import ast
 import builtins
 import sys
+import types
+from typing import Any, Dict, List
 
 from . import utils
 from . import token_utils
@@ -21,11 +23,36 @@ except ImportError:  # pragma: no cover
     pass  # ignore errors when processed by Sphinx
 
 
+if sys.version_info >= (3, 8):
+    from typing import Literal, Tuple, TypedDict
+
+    ScopeKind = Literal["local", "global", "nonlocal"]
+
+    ObjectsInfo = TypedDict(
+        "ObjectsInfo",
+        {
+            "locals": List[Tuple[str, str, Any]],
+            "globals": List[Tuple[str, str, Any]],
+            "builtins": List[Tuple[str, str, Any]],
+            "expressions": List[Tuple[str, Any]],
+            "name, obj": List[Tuple[str, Any]],
+        },
+    )
+    SimilarNamesInfo = TypedDict(
+        "SimilarNamesInfo",
+        {"locals": List[str], "globals": List[str], "builtins": List[str], "best": Any},
+    )
+else:
+    ScopeKind = str
+    ObjectsInfo = Dict[str, List[Any]]
+    SimilarNamesInfo = Dict[str, List[str]]
+
+
 INDENT = " " * 8
 MAX_LENGTH = 65
 
 
-def convert_type(short_form):
+def convert_type(short_form: str) -> str:
     _ = current_lang.translate
 
     forms = {
@@ -44,7 +71,7 @@ def convert_type(short_form):
     return forms.get(short_form, short_form)
 
 
-def get_all_objects(line, frame):
+def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     """Given a (partial) line of code and a frame,
     obtains a dict containing all the relevant information about objects
     found on that line so that they can be formatted as part of the
@@ -60,7 +87,7 @@ def get_all_objects(line, frame):
     ('name', obj). It is only occasionally used in helping to make
     suggestions regarding the cause of some exception.
     """
-    objects = {
+    objects: ObjectsInfo = {
         "locals": [],
         "globals": [],
         "builtins": [],
@@ -119,7 +146,7 @@ def get_all_objects(line, frame):
     return objects
 
 
-def get_object_from_name(name, frame):
+def get_object_from_name(name: str, frame: types.FrameType) -> Any:
     """Given the name of an object, for example 'str', or 'A' for
     class A, returns a basic object of that type found in a frame,
     or None.
@@ -155,7 +182,9 @@ def get_object_from_name(name, frame):
     return None
 
 
-def get_variables_in_frame_by_scope(frame, scope):
+def get_variables_in_frame_by_scope(
+    frame: types.FrameType, scope: ScopeKind
+) -> Dict[str, Any]:
     """Returns a list of variables based on the provided scope, which must
     be one of 'local', 'global', or 'nonlocal'.
     """
@@ -178,7 +207,7 @@ def get_variables_in_frame_by_scope(frame, scope):
         return non_locals
 
 
-def get_definition_scope(variable_name, frame):
+def get_definition_scope(variable_name: str, frame: types.FrameType) -> List[ScopeKind]:
     """Returns a list of scopes ('local', 'global', 'nonlocal')
     in which a variable is defined.
     """
@@ -190,7 +219,7 @@ def get_definition_scope(variable_name, frame):
     return scopes
 
 
-def get_var_info(line, frame):
+def get_var_info(line: str, frame: types.FrameType) -> str:
     """Given a frame object, it obtains the value (repr) of the names
     found in the logical line (which may span many lines in the file)
     where the exception occurred.
@@ -227,7 +256,7 @@ def get_var_info(line, frame):
     return "\n".join(names_info)
 
 
-def simplify_name(name):
+def simplify_name(name: str) -> str:
     """Remove irrelevant memory location information from functions, etc."""
     # There are two reasons to do this:
     # 1. this information is essentially of no value for beginners
@@ -267,7 +296,7 @@ def simplify_name(name):
     return name
 
 
-def format_var_info(name, value, obj, _global=""):
+def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     """Formats the variable information so that it fits on a single line
     for each variable.
 
@@ -282,6 +311,7 @@ def format_var_info(name, value, obj, _global=""):
     others.
     """
     _ = current_lang.translate
+
     length_info = ""
     if _global:
         _global = "global "
@@ -320,12 +350,12 @@ def format_var_info(name, value, obj, _global=""):
     return result
 
 
-def get_similar_names(name, frame):
+def get_similar_names(name: str, frame: types.FrameType) -> SimilarNamesInfo:
     """This function looks for objects with names similar to 'name' in
     either the current locals() and globals() as well as in
     Python's builtins.
     """
-    similar = {}
+    similar: SimilarNamesInfo = {}
     # We need to first combine the candidates from all possible sources
     # so as to treat them on an equal footing.
     locals_ = list(frame.f_locals.keys())
@@ -356,7 +386,7 @@ def get_similar_names(name, frame):
     return similar
 
 
-def name_has_type_hint(name, frame):
+def name_has_type_hint(name: str, frame: types.FrameType) -> str:
     """Identifies if a variable name has a type hint associated with it.
 
     This can be useful if a user write something like::

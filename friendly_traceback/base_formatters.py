@@ -33,9 +33,8 @@ This module currently contains 2 formatters:
 import sys
 from typing import Dict, List, Set
 
-from .ft_gettext import current_lang
 from . import debug_helper
-
+from .ft_gettext import current_lang
 
 if sys.version_info >= (3, 8):
     from typing import Literal, Protocol, TypedDict
@@ -69,6 +68,7 @@ if sys.version_info >= (3, 8):
         exception_raised_header: str
         exception_raised_source: str
         exception_raised_variables: str
+        lang: str
 
     class Formatter(Protocol):
         def __call__(self, info: Info, include: InclusionChoice = ...) -> str:
