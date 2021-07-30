@@ -27,8 +27,8 @@ def add_python_message(func):
 
     # The following is not normally needed; however, for debugging purpose
     # we might wish to access the decorated function.
-    def wrapper(func):
-        return func(func)
+    def wrapper():
+        return func()
 
     return wrapper
 
@@ -397,7 +397,7 @@ def could_be_identifier(line):
                     return lhs
         return ""
     except Exception as e:  # pragma: no cover
-        debug_helper.log("Problem in could_be_idenfier:" + str(e))
+        debug_helper.log("Problem in could_be_identifier:" + str(e))
         return ""
 
 

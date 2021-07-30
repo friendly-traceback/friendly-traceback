@@ -765,6 +765,26 @@ descriptions = {
         cause: "fancy unicode quotation mark",
         title: "Invalid character (unicode quote)",
     },
+    "unicode_quote2": {
+        cause: "fancy unicode quotation mark",
+        title: "Invalid character (unicode quote2)",
+        "not in cause": ["you meant to write a less than sign"],
+    },
+    "unicode_quote3": {
+        cause: "fancy unicode quotation mark",
+        title: "Invalid character (mistaken <)",
+        "also in cause": ["you meant to write a less than sign"],
+    },
+    "unicode_quote4": {
+        cause: "fancy unicode quotation mark",
+        title: "Invalid character (mistaken >)",
+        "also in cause": ["you meant to write a greater than sign"],
+    },
+    "unicode_quote5": {
+        cause: "fancy unicode quotation mark",
+        title: "Invalid character (mistaken comma)",
+        "also in cause": ["you meant to write a comma"],
+    },
     "unmatched_closing_curly": {
         cause: "The closing curly bracket `}` on",
         title: "Unmatched closing curly bracket",
@@ -864,4 +884,8 @@ if sys.version_info >= (3, 10):
     descriptions["def_missing_colon"][
         "in cause"
     ] = "but forgot to add a colon `:` at the end"
+
+    # Temporary deletion
+    del descriptions["unicode_quote5"]
+
 
