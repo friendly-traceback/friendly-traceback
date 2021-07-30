@@ -603,11 +603,11 @@ def keyword_cannot_be_expression(message="", **_kwargs):
 @add_python_message
 def invalid_character_in_identifier(message="", statement=None):
     _ = current_lang.translate
-    copy_paste = _("Did you use copy-paste?\n")
     if "invalid character" not in message:
         return {}
 
-    bad_character = statement.bad_token
+    bad_character = statement.bad_token.string
+    copy_paste = _("Did you use copy-paste?\n")
     python_says = _(
         "Python indicates that you used the unicode character"
         " `{bad_character}`\n"
@@ -617,6 +617,11 @@ def invalid_character_in_identifier(message="", statement=None):
     potential_cause = syntax_utils.identify_bad_quote_char(
         bad_character, statement.bad_line
     )
+    if potential_cause:
+        potential_cause["cause"] = copy_paste + python_says + potential_cause["cause"]
+        return potential_cause
+
+    potential_cause = syntax_utils.identify_unicode_fraction(bad_character)
     if potential_cause:
         potential_cause["cause"] = copy_paste + python_says + potential_cause["cause"]
         return potential_cause

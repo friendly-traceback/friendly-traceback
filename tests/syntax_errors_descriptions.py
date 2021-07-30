@@ -761,6 +761,18 @@ descriptions = {
         cause: "The opening square bracket `[`",
         title: "Unexpected EOF while parsing",
     },
+    "unicode_fraction": {
+        cause: "that you meant to write the fraction",
+        title: "Invalid character (unicode fraction 3/4)",
+    },
+    "unicode_fraction2": {
+        cause: "that you meant to write the fraction",
+        title: "Invalid character (unicode fraction 1/2)",
+    },
+    "unicode_fraction3": {
+        cause: "but is different from the division operator",
+        title: "Invalid character (unicode fraction slash)",
+    },
     "unicode_quote": {
         cause: "fancy unicode quotation mark",
         title: "Invalid character (unicode quote)",
@@ -887,5 +899,6 @@ if sys.version_info >= (3, 10):
 
     # Temporary deletion
     del descriptions["unicode_quote5"]
+    del descriptions["unicode_fraction2"]
 
 
