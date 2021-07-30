@@ -33,34 +33,6 @@ def add_python_message(func):
     return wrapper
 
 
-# The following has been taken from https://unicode-table.com/en/sets/quotation-marks/
-bad_quotation_marks = [
-    "«",
-    "»",
-    "‹",
-    "›",
-    "„",
-    "“",
-    "‟",
-    "”",
-    "’",
-    "❝",
-    "❞",
-    "❮",
-    "❯",
-    "⹂",
-    "〝",
-    "〞",
-    "＂",
-    "‚",
-    "‛",
-    "‘",
-    "❛",
-    "❜",
-    "❟",
-]
-
-
 def analyze_message(message="", statement=None):
     for case in MESSAGE_ANALYZERS:
         cause = case(message=message, statement=statement)
@@ -642,18 +614,12 @@ def invalid_character_in_identifier(message="", statement=None):
         "which is not allowed.\n"
     ).format(bad_character=bad_character)
 
-    if bad_character in bad_quotation_marks:
-        hint = _("Did you mean to use a normal quote character, `'` or `\"`?\n")
-        cause = (
-            copy_paste
-            + python_says
-            + _(
-                "I suspect that you used a fancy unicode quotation mark\n"
-                "instead of a normal single or double quote for a string."
-                "\n"
-            )
-        )
-        return {"cause": cause, "suggest": hint}
+    potential_cause = syntax_utils.identify_bad_quote_char(
+        bad_character, statement.bad_line
+    )
+    if potential_cause:
+        potential_cause["cause"] = copy_paste + python_says + potential_cause["cause"]
+        return potential_cause
 
     return {"cause": python_says}
 
