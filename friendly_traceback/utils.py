@@ -138,7 +138,7 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
     # In the absence of results, we try see if the typos could have been
     # caused by using the wrong case; this works well also
     # for words of length 2, such as writing Pi instead of pi.
-    result = get(word_with_typo.lower(), words, n=1, cutoff=cutoff)
+    result = get(word_with_typo.casefold(), words, n=1, cutoff=cutoff)
     if result:
         return result
     result = get(word_with_typo.upper(), words, n=1, cutoff=cutoff)

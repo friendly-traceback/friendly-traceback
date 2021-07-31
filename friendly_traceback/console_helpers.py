@@ -95,7 +95,7 @@ def set_prompt(prompt=None):
     if prompt is None:
         return
     try:
-        prompt = prompt.strip().lower()
+        prompt = prompt.strip().casefold()
         if prompt in [">>>", "python"]:
             session.ipython_prompt = False
     except Exception:  # noqa
@@ -188,7 +188,7 @@ def www(site=None):  # pragma: no cover
         "warnings": "https://github.com/friendly-traceback/friendly-traceback/issues/7",
     }
     try:
-        site = site.lower()
+        site = site.casefold()
     except Exception:  # noqa
         pass
     if site not in urls and site is not None:

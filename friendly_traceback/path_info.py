@@ -117,7 +117,7 @@ class PathUtil:
         orig_path = path
         path = path.replace("'", "")  # We might get passed a path repr
         path = os.path.abspath(path)
-        path_lower = path.lower()
+        path_lower = path.casefold()
 
         if "ipykernel" in path:
             new_path = shorten_jupyter_kernel(orig_path)
@@ -139,17 +139,17 @@ class PathUtil:
                 path = "[" + split_path[:-1] + "]"
             else:
                 path = "<friendly-console:" + split_path
-        elif path_lower.startswith(SITE_PACKAGES.lower()):
+        elif path_lower.startswith(SITE_PACKAGES.casefold()):
             path = "LOCAL:" + path[len(SITE_PACKAGES) :]
-        elif path_lower.startswith(self.python.lower()):
+        elif path_lower.startswith(self.python.casefold()):
             path = "PYTHON_LIB:" + path[len(self.python) :]
-        elif path_lower.startswith(FRIENDLY.lower()):
+        elif path_lower.startswith(FRIENDLY.casefold()):
             path = "FRIENDLY:" + path[len(FRIENDLY) :]
-        elif path_lower.startswith(TESTS.lower()):
+        elif path_lower.startswith(TESTS.casefold()):
             path = "TESTS:" + path[len(TESTS) :]
         elif path.startswith(os.getcwd()):
             path = path[len(os.getcwd()) + 1 :]  # exclude separator
-        elif path_lower.startswith(self.home.lower()):
+        elif path_lower.startswith(self.home.casefold()):
             path = "HOME:" + path[len(self.home) :]
         return path
 
