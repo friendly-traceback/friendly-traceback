@@ -293,6 +293,7 @@ def _get_tb_data():  # pragma: no cover
 def set_debug(flag=True):  # pragma: no cover
     """This sets the value of the debug flag for the current session."""
     debug_helper.DEBUG = flag
+    debug_helper.SHOW_DEBUG_HELPER = flag
 
 
 def _show_info():  # pragma: no cover
@@ -459,7 +460,7 @@ class FriendlyHelpers:
             else:
                 print("Warning:", item, "has no help() method.")
 
-        if debug_helper.DEBUG:
+        if debug_helper.SHOW_DEBUG_HELPER:
             more_header = "Debugging methods (English only by design)."
             parts.append("\n" + more_header + "\n\n")
             for item in self.debug_helpers:

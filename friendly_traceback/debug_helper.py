@@ -19,6 +19,7 @@ IS_ANDRE = (
     or r"users\andre\friendly-traceback" in __file__.lower()
 )
 DEBUG = IS_PYDEV or IS_ANDRE
+SHOW_DEBUG_HELPER = False
 EXIT = False
 
 
