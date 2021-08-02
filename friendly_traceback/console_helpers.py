@@ -29,15 +29,15 @@ def back():
     if not session.saved_info:
         session.write_err(_("Nothing to go back to: no exception recorded.") + "\n")
         return
-    if not session.friendly:  # pragma: no cover
+    if not session.friendly_info:  # pragma: no cover
         debug_helper.log("Problem: saved info is not empty but friendly is")
     session.saved_info.pop()
-    session.friendly.pop()
+    session.friendly_info.pop()
     if session.saved_info:
         info = session.saved_info[-1]
         if info["lang"] != friendly_traceback.get_lang():
             info["lang"] = friendly_traceback.get_lang()
-            session.friendly[-1].recompile_info()
+            session.friendly_info[-1].recompile_info()
 
 
 def explain(include="explain"):
@@ -272,7 +272,7 @@ def _get_statement():  # pragma: no cover
         print("Nothing to show: no exception recorded.")
         return
     if isinstance(session.saved_info[-1]["_exc_instance"], SyntaxError):
-        return session.friendly[-1].tb_data.statement
+        return session.friendly_info[-1].tb_data.statement
     print("No statement: not a SyntaxError.")
     return
 

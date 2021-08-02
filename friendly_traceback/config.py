@@ -30,17 +30,26 @@ class _State:
 
     def __init__(self) -> None:
         self._captured: List[str] = []
-        self.context = 3
         self.write_err: Writer = _write_err
-        self.installed = False
-        self.running_script = False
-        self.saved_info: List[base_formatters.Info] = []
+        self.installed: bool = False
         self.formatter: base_formatters.Formatter = base_formatters.repl
-        self.friendly: List[core.FriendlyTraceback] = []
+        self.saved_info: List[base_formatters.Info] = []
+        self.friendly_info: List[core.FriendlyTraceback] = []
+        # TODO: is having both saved_info and friendly_info redundant?
         self.include: base_formatters.InclusionChoice = "explain"
-        self.lang = "en"
+        self.lang: str = "en"
         self.install_gettext(self.lang)
-        self.ipython_prompt = False
+        # Console; if ipython_prompt == True, prompt = '[digit]'
+        self.ipython_prompt: bool = False  # default prompt = '>>>'
+
+        # The following are not used by friendly-traceback but might be
+        # used by friendly. We include them here as documentation.
+        self.use_rich: bool = False
+        self.rich_add_vspace: bool = True
+        self.rich_width: Union[int, None] = None
+        self.rich_tb_width: Union[int, None] = None
+        self.is_jupyter: bool = False
+        self.jupyter_button_style: str = ""
 
     def show_traceback_info_again(self) -> None:
         """If has not been cleared, write the traceback info again, using
@@ -80,12 +89,12 @@ class _State:
         current_lang.install(lang)
         self.lang = lang
         if self.saved_info:
-            if not self.friendly:  # pragma: no cover
+            if not self.friendly_info:  # pragma: no cover
                 debug_helper.log(
                     "Problem: saved_info includes content but friendly doesn't."
                 )
-            self.friendly[-1].recompile_info()
-            self.friendly[-1].info["lang"] = lang
+            self.friendly_info[-1].recompile_info()
+            self.friendly_info[-1].info["lang"] = lang
 
     def install_gettext(self, lang: str) -> None:
         """Sets the current language for gettext."""
@@ -201,16 +210,16 @@ class _State:
             self.set_redirect(redirect=redirect)
 
         try:
-            self.friendly.append(core.FriendlyTraceback(etype, value, tb))
-            self.friendly[-1].compile_info()
-            info = self.friendly[-1].info
+            self.friendly_info.append(core.FriendlyTraceback(etype, value, tb))
+            self.friendly_info[-1].compile_info()
+            info = self.friendly_info[-1].info
             info["lang"] = self.lang
             self.saved_info.append(info)
             explanation = self.formatter(info, include=self.include)
         except Exception as e:  # pragma: no cover
             debug_helper.log("Exception raised in exception_hook().")
             try:
-                debug_helper.log(self.friendly[-1].tb_data.filename)
+                debug_helper.log(self.friendly_info[-1].tb_data.filename)
             except Exception:  # noqa
                 pass
             debug_helper.log_error(e)
