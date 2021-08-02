@@ -126,6 +126,7 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
     """
     if len(word_with_typo) == 1:
         return []
+    words = set(words)
     words = [word for word in words if len(word) > 1]
 
     get = difflib.get_close_matches
