@@ -170,6 +170,18 @@ class TracebackData:
                     self.value.offset + 1 if self.value.offset else 0
                 )
                 self.value.end_lineno = self.value.lineno
+
+            # Normally, when an error occurs entirely on a given line,
+            # the end offset should be at least one more than the offset.
+            # However, as noted in issue #34, that might not always be the case.
+            # To show the location of the error, we do need to have
+            # offset and end_offset be different.
+            if (
+                self.value.end_lineno == self.value.lineno
+                and self.value.end_offset == self.value.offset
+            ):
+                self.value.end_offset += 1
+
             if self.value.text is not None:
                 self.bad_line = self.value.text  # typically includes "\n"
                 return
