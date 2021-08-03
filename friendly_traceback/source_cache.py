@@ -36,15 +36,15 @@ class Cache:
         filename = str(filename)
         lines = [line + "\n" for line in source.splitlines()]
         entry = (len(source), time.time(), lines, filename)
-        linecache.cache[filename] = entry  # type: ignore
+        linecache.cache[filename] = entry
         self.cache[filename] = lines
 
     def remove(self, filename: str) -> None:
         """Removes an entry from the cache if it can be found."""
         if filename in self.cache:
             del self.cache[filename]
-        if filename in linecache.cache:  # type: ignore
-            del linecache.cache[filename]  # type: ignore
+        if filename in linecache.cache:
+            del linecache.cache[filename]
 
     def get_source_lines(
         self, filename: str, module_globals: Optional[Dict[str, Any]] = None
