@@ -504,6 +504,10 @@ descriptions = {
         cause: "unicode character",
         title: "Invalid character in identifier",
     },
+    "invalid_decimal_literal1": {
+        cause: "Valid names cannot begin with a number",
+        title: "Invalid decimal literal - 1",
+    },
     "invalid_encoding": {
         cause: "The encoding of the file was not valid.",
         title: "Invalid encoding"
@@ -896,9 +900,10 @@ if sys.version_info >= (3, 10):
     descriptions["def_missing_colon"][
         "in cause"
     ] = "but forgot to add a colon `:` at the end"
+    descriptions["print_is_a_function_3"]["also in cause"] = ['print(...)']
+    descriptions["print_is_a_function_5"]["also in cause"] = ['print(...)']
 
     # Temporary deletion
-    del descriptions["unicode_quote5"]
-    del descriptions["unicode_fraction2"]
+    del descriptions["comprehension_with_condition_no_else"]
 
 

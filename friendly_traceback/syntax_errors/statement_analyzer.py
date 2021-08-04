@@ -793,7 +793,7 @@ def invalid_name(statement):
 
     if second == "i" and not first.is_complex():
         hint = _("Did you mean `{number}j`?\n").format(number=first)
-        cause += _(
+        cause = _(
             "Perhaps you thought that `i` could be used to represent\n"
             "the square root of `-1`. In Python, the symbol used for this is `j`\n"
             "and the complex part is written as `some_number` immediately\n"
@@ -1235,9 +1235,9 @@ def impossible_binary_fstring(statement):
 
 def _add_comma_or_operator(tokens, tok, comma_first=True):
     if comma_first:
-        operators = ",", " +", " -", " *", " in "
+        operators = ", ", " + ", " - ", " * ", " in "
     else:
-        operators = " +", " -", " *", ",", " in "
+        operators = " + ", " - ", " * ", ", ", " in "
     results = []
     for operator in operators:
         if operator == " in " and results:

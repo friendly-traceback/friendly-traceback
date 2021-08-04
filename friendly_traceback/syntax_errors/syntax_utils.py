@@ -77,6 +77,44 @@ def identify_bad_quote_char(char, line):
     return {"cause": cause, "suggest": hint}
 
 
+def identify_bad_math_symbol(char, line):
+    """Similar to identify_bad_unicode_character except that it is analyzed when
+    we see an 'invalid decimal literal' message."""
+    _ = current_lang.translate
+    if char not in bad_quotation_marks:
+        return
+
+    char_name = unicodedata.name(char, "unknown")
+
+    cause = _(
+        "I suspect that you used a fancy unicode quotation mark\n"
+        "whose name is {name}.\n"
+        "\n"
+    ).format(name=char_name)
+    count = 0
+    for character in line:
+        if character in bad_quotation_marks:
+            count += 1
+
+    # In the absence of a matching quote, in some cases, perhaps another
+    # character was intended.
+    if count == 1:
+        hint = None
+        if char in ["‹", "❮"]:
+            cause += _("Perhaps, you meant to write a less than sign, `<`.\n")
+            hint = _("Did you mean to write a less than sign, `<`?\n")
+        elif char in ["›", "❯"]:
+            cause += _("Perhaps, you meant to write a greater than sign, `>`.\n")
+            hint = _("Did you mean to write a greater than sign, `>`?\n")
+        elif char in ["‚", "❟"]:
+            cause += _("Perhaps, you meant to write a comma.\n")
+            hint = _("Did you mean to write a comma?\n")
+        if hint:
+            return {"cause": cause, "suggest": hint}
+
+    return {}
+
+
 def identify_unicode_fraction(char):
     _ = current_lang.translate
     char_name = unicodedata.name(char, "unknown")

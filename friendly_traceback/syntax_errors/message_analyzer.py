@@ -1330,14 +1330,48 @@ def invalid_decimal_literal(message="", statement=None):
     if not statement.highlighted_tokens or len(statement.highlighted_tokens) == 1:
         statement.highlighted_tokens = [statement.bad_token, statement.next_token]
 
+    cause_prefix = _("Python tells us that you have written an invalid number.")
+    however = _("However, I think that the problem might be the following.")
+
     if statement.first_token == "def" or (
         statement.first_token == "async" and statement.tokens[1] == "def"
     ):
         cause = error_in_def.analyze_def_statement(statement)
         if cause:
+            cause["cause"] = cause_prefix + "\n" + however + "\n\n" + cause["cause"]
             return cause
 
-    return statement_analyzer.invalid_name(statement)
+    cause = statement_analyzer.invalid_name(statement)
+    if cause:
+        cause["cause"] = cause_prefix + "\n" + however + "\n\n" + cause["cause"]
+        return cause
+
+    if statement.next_token is not None and statement.bad_token.is_number():
+        bad_character = statement.next_token.string
+        potential_cause = syntax_utils.identify_bad_math_symbol(
+            bad_character, statement.bad_line
+        )
+        if potential_cause:
+            potential_cause["cause"] = (
+                cause_prefix + "\n" + however + "\n\n" + potential_cause["cause"]
+            )
+            return potential_cause
+
+        potential_cause = syntax_utils.identify_unicode_fraction(bad_character)
+        if potential_cause:
+            potential_cause["cause"] = (
+                cause_prefix + "\n" + however + "\n\n" + potential_cause["cause"]
+            )
+            return potential_cause
+
+    # todo: add unicode
+    # todo: add 1.e+ and 1.e-
+
+    return {
+        "cause": cause_prefix
+        + "\n"
+        + _("I have no suggestion to offer to fix this problem.\n")
+    }
 
 
 @add_python_message
