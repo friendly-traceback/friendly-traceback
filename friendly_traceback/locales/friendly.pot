@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-07-30 15:24-0300\n"
+"POT-Creation-Date: 2021-08-04 14:28-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,7 +27,7 @@ msgstr ""
 msgid "I have no suggestion to offer; try `why()`."
 msgstr ""
 
-#: config.py:55 config.py:167 console_helpers.py:69
+#: config.py:64 config.py:176 console_helpers.py:69
 msgid "Nothing to show: no exception recorded."
 msgstr ""
 
@@ -49,99 +49,99 @@ msgstr ""
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 
-#: console_helpers.py:337
+#: console_helpers.py:338
 msgid "Removes the last recorded traceback item."
 msgstr ""
 
-#: console_helpers.py:338
+#: console_helpers.py:339
 msgid "Shows all the information about the last traceback."
 msgstr ""
 
-#: console_helpers.py:339
+#: console_helpers.py:340
 msgid "Shows a list of recorded traceback messages."
 msgstr ""
 
-#: console_helpers.py:340
+#: console_helpers.py:341
 msgid "Sets the language to be used."
 msgstr ""
 
-#: console_helpers.py:341
+#: console_helpers.py:342
 msgid "Sets the prompt style to be used in the console."
 msgstr ""
 
-#: console_helpers.py:342
+#: console_helpers.py:343
 msgid "Shows the paths corresponding to synonyms used."
 msgstr ""
 
-#: console_helpers.py:343
+#: console_helpers.py:344
 msgid "Shows the generic meaning of a given exception"
 msgstr ""
 
-#: console_helpers.py:344
+#: console_helpers.py:345
 msgid "Shows where an exception was raised."
 msgstr ""
 
-#: console_helpers.py:345
+#: console_helpers.py:346
 msgid "Shows the likely cause of the exception."
 msgstr ""
 
-#: console_helpers.py:346
+#: console_helpers.py:347
 msgid "Opens a web browser at a useful location."
 msgstr ""
 
-#: console_helpers.py:360
+#: console_helpers.py:361
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr ""
 
-#: console_helpers.py:361
+#: console_helpers.py:362
 msgid "Shows a normal Python traceback."
 msgstr ""
 
-#: console_helpers.py:362
+#: console_helpers.py:363
 msgid "Shows a simplified Python traceback."
 msgstr ""
 
-#: console_helpers.py:363
+#: console_helpers.py:364
 msgid "Returns the current value used for items to include by default."
 msgstr ""
 
-#: console_helpers.py:366
+#: console_helpers.py:367
 msgid "Sets the items to show by default when an exception is raised."
 msgstr ""
 
-#: console_helpers.py:369
+#: console_helpers.py:370
 msgid "Returns the language currently used."
 msgstr ""
 
-#: console_helpers.py:370
+#: console_helpers.py:371
 msgid "Sets the formatter to use for display."
 msgstr ""
 
-#: console_helpers.py:371
+#: console_helpers.py:372
 msgid "Use True (default) or False to set the debug flag."
 msgstr ""
 
-#: console_helpers.py:436
+#: console_helpers.py:437
 msgid "The following methods of the Friendly object might also be available as functions."
 msgstr ""
 
-#: console_helpers.py:441
+#: console_helpers.py:442
 msgid "Basic methods:"
 msgstr ""
 
-#: console_helpers.py:452
+#: console_helpers.py:453
 msgid "Less commonly used methods/functions."
 msgstr ""
 
-#: core.py:413
+#: core.py:425
 msgid "More lines not shown."
 msgstr ""
 
-#: core.py:414 core.py:454
+#: core.py:426 core.py:466
 msgid "Python exception:"
 msgstr ""
 
-#: core.py:467
+#: core.py:479
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -150,59 +150,59 @@ msgid ""
 "raises an exception or does not return a string.\n"
 msgstr ""
 
-#: core.py:529
+#: core.py:541
 msgid ""
 "The encoding of the file was not valid.\n"
 msgstr ""
 
-#: core.py:601
+#: core.py:613
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 
-#: core.py:606
+#: core.py:618
 msgid ""
 "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr ""
 
-#: core.py:610
+#: core.py:622
 msgid ""
 "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr ""
 
-#: core.py:643
+#: core.py:655
 msgid ""
 "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 
-#: core.py:647
+#: core.py:659
 msgid ""
 "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 
-#: core.py:666
+#: core.py:678
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
 msgstr ""
 
-#: core.py:679
+#: core.py:691
 msgid ""
 "Python could not understand the code in the code block {filename}\n"
 msgstr ""
 
-#: core.py:683
+#: core.py:695
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr ""
 
-#: core.py:688
+#: core.py:700
 msgid ""
 "at the location indicated by ^.\n"
 msgstr ""
 
-#: core.py:982
+#: core.py:994
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -1921,7 +1921,7 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\error_in_def.py:297 syntax_errors\error_in_def.py:495
-#: syntax_errors\statement_analyzer.py:696
+#: syntax_errors\statement_analyzer.py:696 syntax_errors\syntax_utils.py:111
 msgid ""
 "Did you mean to write a comma?\n"
 msgstr ""
@@ -2811,6 +2811,19 @@ msgid ""
 "dict unpacking is to be used which is not allowed or does not make sense here.\n"
 msgstr ""
 
+#: syntax_errors\message_analyzer.py:1333
+msgid "Python tells us that you have written an invalid number."
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1334
+msgid "However, I think that the problem might be the following."
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1373
+msgid ""
+"I have no suggestion to offer to fix this problem.\n"
+msgstr ""
+
 #: syntax_errors\statement_analyzer.py:118
 msgid ""
 "The closing {bracket} on line {close_lineno} does not match the opening {open_bracket} on line {open_lineno}.\n"
@@ -3464,30 +3477,62 @@ msgid ""
 "Or perhaps, you meant to write a comma.\n"
 msgstr ""
 
-#: syntax_errors\syntax_utils.py:87
+#: syntax_errors\syntax_utils.py:89
 msgid ""
-"I suspect that you used a the unicode character known as\n"
+"I suspect that you used a fancy unicode quotation mark\n"
+"whose name is {name}.\n"
+"\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:104
+msgid ""
+"Perhaps, you meant to write a less than sign, `<`.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:105
+msgid ""
+"Did you mean to write a less than sign, `<`?\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:107
+msgid ""
+"Perhaps, you meant to write a greater than sign, `>`.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:108
+msgid ""
+"Did you mean to write a greater than sign, `>`?\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:110
+msgid ""
+"Perhaps, you meant to write a comma.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:125
+msgid ""
+"I suspect that you used the unicode character known as\n"
 "'FRACTION SLASH', which looks similar to\n"
 "but is different from the division operator `/`.\n"
 msgstr ""
 
-#: syntax_errors\syntax_utils.py:94
+#: syntax_errors\syntax_utils.py:132
 msgid ""
 "Did you use a unicode fraction?\n"
 msgstr ""
 
-#: syntax_errors\syntax_utils.py:95
+#: syntax_errors\syntax_utils.py:133
 msgid ""
 "I suspect that you used the unicode character `{char}`meant to represent a fraction.\n"
 "The name of this unicode character is {name}.\n"
 msgstr ""
 
-#: syntax_errors\syntax_utils.py:147
+#: syntax_errors\syntax_utils.py:174
 msgid ""
 "Did you mean `{num}/{denom}`?\n"
 msgstr ""
 
-#: syntax_errors\syntax_utils.py:148
+#: syntax_errors\syntax_utils.py:175
 msgid ""
 "You used the unicode character {char} which is known as\n"
 "{name}\n"
