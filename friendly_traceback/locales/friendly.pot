@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-04 14:28-0300\n"
+"POT-Creation-Date: 2021-08-05 07:50-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2819,9 +2819,19 @@ msgstr ""
 msgid "However, I think that the problem might be the following."
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1373
+#: syntax_errors\message_analyzer.py:1370
 msgid ""
 "I have no suggestion to offer to fix this problem.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1400
+msgid ""
+"Did you forget to add `else`?\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1401
+msgid ""
+"An `else some_value` clause was expected after the `if` expression.\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:118

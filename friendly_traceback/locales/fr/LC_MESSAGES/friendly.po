@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-04 14:28-0300\n"
+"POT-Creation-Date: 2021-08-05 07:50-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -3611,9 +3611,18 @@ msgstr "Python nous indique que vous avez écrit un nombre invalide."
 msgid "However, I think that the problem might be the following."
 msgstr "Cependant, je pense que le problème pourrait être le suivant."
 
-#: syntax_errors\message_analyzer.py:1373
+#: syntax_errors\message_analyzer.py:1370
 msgid "I have no suggestion to offer to fix this problem.\n"
 msgstr "Je n'ai aucune suggestion à proposer pour résoudre ce problème.\n"
+
+#: syntax_errors\message_analyzer.py:1400
+msgid "Did you forget to add `else`?\n"
+msgstr "Avez-vous oublié d’ajouter `else.` ?\n"
+
+#: syntax_errors\message_analyzer.py:1401
+msgid "An `else some_value` clause was expected after the `if` expression.\n"
+msgstr ""
+"Une clause `else valeur_quelconque` était attendue après l'expression `if`.\n"
 
 #: syntax_errors\statement_analyzer.py:118
 msgid ""
