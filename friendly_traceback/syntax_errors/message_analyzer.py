@@ -996,13 +996,26 @@ def too_many_nested_blocks(message="", **_kwargs):
     if message != "too many statically nested blocks":
         return {}
 
-    hint = _("Seriously?\n")
     cause = _(
-        "You cannot be serious!\n\n"
-        "In case this is a mistake in a real program, please\n"
-        "consider reducing the number of nested code blocks.\n"
+        "Your code is too complex for Python:\n"
+        "you need to reduce the number of indented code blocks\n"
+        "contained inside other code blocks.\n"
     )
-    return {"cause": cause, "suggest": hint}
+    return {"cause": cause}
+
+
+@add_python_message
+def too_many_nested_parenthesis(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "too many nested parentheses":  # python 3.89+
+        return {}
+
+    cause = _(
+        "Your code is too complex for Python:\n"
+        "you need to reduce the number of parentheses\n"
+        "contained inside other parentheses.\n"
+    )
+    return {"cause": cause}
 
 
 @add_python_message

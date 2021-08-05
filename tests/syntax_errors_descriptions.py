@@ -730,8 +730,15 @@ descriptions = {
         title: "Space in variable name",
     },
     "too_many_nested_blocks": {
-        cause: "Seriously",
+        cause: "you need to reduce the number",
         title: "Too many nested blocks",
+        # If the word "indented" appears in "cause" for unit tests, we expect
+        # that this signal an indentation error.
+        "also in cause": ["indented code blocks"]
+    },
+    "too_many_parentheses": {
+        cause: "you need to reduce the number of parentheses",
+        title: "Too many nested parentheses.",
     },
     "triple_equal": {
         cause: "the exact same object, use the operator `is`",
@@ -887,6 +894,9 @@ if sys.version_info < (3, 8):
     descriptions["def_star_arg_before_slash"][
         "in cause"
     ] = "This symbol can only be used with Python versions"
+
+if sys.version_info < (3, 9):
+    del descriptions["too_many_parentheses"]
 
 if sys.version_info >= (3, 9):
     descriptions["missing_code_block"]["in cause"] = "expected an indented block"

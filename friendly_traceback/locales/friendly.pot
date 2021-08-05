@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-05 07:50-0300\n"
+"POT-Creation-Date: 2021-08-05 08:41-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -539,7 +539,7 @@ msgstr ""
 #: runtime_errors\module_not_found_error.py:122
 #: runtime_errors\name_error.py:106 runtime_errors\unbound_local_error.py:51
 #: syntax_errors\message_analyzer.py:380
-#: syntax_errors\message_analyzer.py:1062
+#: syntax_errors\message_analyzer.py:1075
 #: syntax_errors\statement_analyzer.py:1209
 msgid ""
 "Did you mean `{name}`?\n"
@@ -1815,8 +1815,8 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\error_in_def.py:112 syntax_errors\error_in_def.py:140
-#: syntax_errors\message_analyzer.py:1210
-#: syntax_errors\message_analyzer.py:1222
+#: syntax_errors\message_analyzer.py:1223
+#: syntax_errors\message_analyzer.py:1235
 #: syntax_errors\statement_analyzer.py:1136
 #: syntax_errors\statement_analyzer.py:1158
 msgid ""
@@ -1841,7 +1841,7 @@ msgid ""
 "Did you forget to write a colon?\n"
 msgstr ""
 
-#: syntax_errors\error_in_def.py:169 syntax_errors\message_analyzer.py:1251
+#: syntax_errors\error_in_def.py:169 syntax_errors\message_analyzer.py:1264
 msgid ""
 "You wrote `{bad}` instead of a colon.\n"
 msgstr ""
@@ -2669,65 +2669,66 @@ msgstr ""
 
 #: syntax_errors\message_analyzer.py:999
 msgid ""
-"Seriously?\n"
+"Your code is too complex for Python:\n"
+"you need to reduce the number of indented code blocks\n"
+"contained inside other code blocks.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1000
+#: syntax_errors\message_analyzer.py:1013
 msgid ""
-"You cannot be serious!\n"
-"\n"
-"In case this is a mistake in a real program, please\n"
-"consider reducing the number of nested code blocks.\n"
+"Your code is too complex for Python:\n"
+"you need to reduce the number of parentheses\n"
+"contained inside other parentheses.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1015
+#: syntax_errors\message_analyzer.py:1028
 msgid ""
 "Did you forget something after `*`?\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1016
+#: syntax_errors\message_analyzer.py:1029
 msgid ""
 "Assuming you were defining a function, you need\n"
 "to replace `*` by either `*arguments` or\n"
 "by `*, named_argument=value`.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1030
+#: syntax_errors\message_analyzer.py:1043
 msgid ""
 "This is a message that was added in Python 3.9\n"
 "to prevent redefining `__peg_parser__`.\n"
 "It should not be present in other versions.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1047
+#: syntax_errors\message_analyzer.py:1060
 msgid ""
 "The available features are `{names}`.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1052
+#: syntax_errors\message_analyzer.py:1065
 msgid ""
 "When using a `from __future__ import` statement,\n"
 "you must import specific named features.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1063
+#: syntax_errors\message_analyzer.py:1076
 msgid ""
 "Instead of `{feature}`, perhaps you meant to import `{name}`.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1068
+#: syntax_errors\message_analyzer.py:1081
 msgid ""
 "`{feature}` is not a valid feature of module `__future__`.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1081
+#: syntax_errors\message_analyzer.py:1094
 msgid ""
 "A `from __future__ import` statement changes the way Python\n"
 "interprets the code in a file.\n"
 "It must appear at the beginning of the file."
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1095
+#: syntax_errors\message_analyzer.py:1108
 msgid ""
 "I suspect you wrote `from __future__ import braces` following\n"
 "someone else's suggestion. This will never work.\n"
@@ -2736,32 +2737,32 @@ msgid ""
 "their indentation level, and not by using some curly braces, like `{...}`.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1122
+#: syntax_errors\message_analyzer.py:1135
 msgid ""
 "You started writing a triple-quoted string but never wrote\n"
 "the triple quotes needed to end the string.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1141
-#: syntax_errors\message_analyzer.py:1151
+#: syntax_errors\message_analyzer.py:1154
+#: syntax_errors\message_analyzer.py:1164
 msgid ""
 "Did you mean `{num}`?\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1142
+#: syntax_errors\message_analyzer.py:1155
 msgid ""
 "Perhaps you meant to write the octal number `{num}`\n"
 "and forgot the letter 'o', or perhaps you meant to write\n"
 "a decimal integer and did not know that it could not start with zeros.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1152
+#: syntax_errors\message_analyzer.py:1165
 msgid ""
 "Perhaps you meant to write the integer `{num}`\n"
 "and did not know that it could not start with zeros.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1202
+#: syntax_errors\message_analyzer.py:1215
 #: syntax_errors\statement_analyzer.py:1108
 msgid ""
 "I am guessing that you were writing a comprehension or a generator expression\n"
@@ -2776,7 +2777,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1223
+#: syntax_errors\message_analyzer.py:1236
 #: syntax_errors\statement_analyzer.py:1159
 msgid ""
 "I am guessing that you wanted to use an `except` statement\n"
@@ -2784,52 +2785,52 @@ msgid ""
 "surround them with parentheses.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1244
+#: syntax_errors\message_analyzer.py:1257
 msgid ""
 "Did you forget a colon?\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1245
+#: syntax_errors\message_analyzer.py:1258
 msgid ""
 "Python expected a colon at the position indicated.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1275
+#: syntax_errors\message_analyzer.py:1288
 msgid ""
 "Python tells us that the {bracket} was never closed.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1278
+#: syntax_errors\message_analyzer.py:1291
 msgid ""
 "The {bracket} was never closed.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1296
+#: syntax_errors\message_analyzer.py:1309
 #: syntax_errors\statement_analyzer.py:620
 msgid ""
 "The double star operator `**` is likely interpreted to mean that\n"
 "dict unpacking is to be used which is not allowed or does not make sense here.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1333
+#: syntax_errors\message_analyzer.py:1346
 msgid "Python tells us that you have written an invalid number."
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1334
+#: syntax_errors\message_analyzer.py:1347
 msgid "However, I think that the problem might be the following."
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1370
+#: syntax_errors\message_analyzer.py:1383
 msgid ""
 "I have no suggestion to offer to fix this problem.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1400
+#: syntax_errors\message_analyzer.py:1413
 msgid ""
 "Did you forget to add `else`?\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1401
+#: syntax_errors\message_analyzer.py:1414
 msgid ""
 "An `else some_value` clause was expected after the `if` expression.\n"
 msgstr ""

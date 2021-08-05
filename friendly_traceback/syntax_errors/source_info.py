@@ -17,6 +17,7 @@ from .. import token_utils
 # not have to verify the existence of these neighbours.
 MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
 TOO_MANY_BLOCKS = "too many statically nested blocks"
+TOO_MANY_PARENTHESES = "too many nested parentheses"
 
 
 class Statement:

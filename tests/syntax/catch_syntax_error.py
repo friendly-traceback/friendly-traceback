@@ -13,6 +13,7 @@ def test_syntax_errors(filename):
     cause = descriptions[filename]["in cause"]
 
     try:
+        # __import__(filename)
         exec("from . import %s" % filename)
     except Exception:
         friendly_traceback.explain_traceback(redirect="capture")
