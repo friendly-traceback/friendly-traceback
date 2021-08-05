@@ -85,7 +85,7 @@ current_lang = LangState()  # noqa
 
 def please_report() -> str:
     _ = current_lang.translate
-    debug_helper.log("New case to consider.")
+    debug_helper.log("Friendly_traceback; please_report: New case to consider.")
     return _(
         "Please report this example to "
         "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"

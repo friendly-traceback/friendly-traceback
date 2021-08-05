@@ -510,7 +510,7 @@ descriptions = {
     },
     "invalid_encoding": {
         cause: "The encoding of the file was not valid.",
-        title: "Invalid encoding"
+        title: "Invalid encoding",
     },
     "invalid_hexadecimal": {
         cause: "Did you made a mistake in writing an hexadecimal integer",
@@ -900,10 +900,11 @@ if sys.version_info >= (3, 10):
     descriptions["def_missing_colon"][
         "in cause"
     ] = "but forgot to add a colon `:` at the end"
-    descriptions["print_is_a_function_3"]["also in cause"] = ['print(...)']
-    descriptions["print_is_a_function_5"]["also in cause"] = ['print(...)']
+    descriptions["print_is_a_function_3"]["also in cause"] = ["print(...)"]
+    descriptions["print_is_a_function_5"]["also in cause"] = ["print(...)"]
+    descriptions["comprehension_with_condition_no_else"][
+        cause
+    ] = "`else some_value` clause was expected after the `if` expression"
 
-    # Temporary deletion
-    del descriptions["comprehension_with_condition_no_else"]
-
-
+    # temporary deletion
+    del descriptions["unclosed_paren_3"]

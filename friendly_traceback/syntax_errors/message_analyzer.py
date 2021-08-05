@@ -14,7 +14,7 @@ from . import statement_analyzer
 from . import error_in_def
 from .. import debug_helper
 from .. import utils
-from ..ft_gettext import current_lang
+from ..ft_gettext import current_lang, please_report
 
 MESSAGE_ANALYZERS = []
 
@@ -1364,13 +1364,11 @@ def invalid_decimal_literal(message="", statement=None):
             )
             return potential_cause
 
-    # todo: add unicode
-    # todo: add 1.e+ and 1.e-
-
     return {
         "cause": cause_prefix
         + "\n"
         + _("I have no suggestion to offer to fix this problem.\n")
+        + please_report()
     }
 
 
@@ -1391,3 +1389,14 @@ def invalid_imaginary_literal(message="", statement=None):
             return cause
 
     return statement_analyzer.invalid_name(statement)
+
+
+@add_python_message
+def else_after_if(message="", statement=None):
+    _ = current_lang.translate
+    if message != "expected 'else' after 'if' expression":
+        return {}
+
+    hint = _("Did you forget to add `else`?\n")
+    cause = _("An `else some_value` clause was expected after the `if` expression.\n")
+    return {"cause": cause, "suggest": hint}
