@@ -168,13 +168,13 @@ def shorten_jupyter_kernel(path: str) -> str:
 
     lines = cache.get_source_lines(path)
     source = "".join(lines)
-    source = source.strip()
+    source = source.strip().replace("\r", "")
     if not source:
         return ""
     found = 0
     new_path = ""
     for index, inp in enumerate(ipython_inputs):
-        inp = inp.strip()
+        inp = inp.strip().replace("\r", "")
         if source == inp:
             new_path = f"[{index}]"
             found += 1
