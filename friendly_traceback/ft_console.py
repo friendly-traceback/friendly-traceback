@@ -9,18 +9,21 @@ import os
 import platform
 import sys
 import traceback
+import types
+from typing import Any, Callable, Mapping, Optional, Union
 from code import InteractiveConsole
 import codeop  # need to import to exclude from tracebacks
 
 import friendly_traceback
 
 from . import source_cache
+from .base_formatters import Formatter, InclusionChoice
 from .console_helpers import helpers
 from .ft_gettext import current_lang
 from .config import session
 
 
-def type_friendly():
+def type_friendly() -> str:
     _ = current_lang.translate
     return _("Type 'Friendly' for help on special functions/methods.")
 
@@ -33,7 +36,7 @@ BANNER = "\nFriendly-traceback version {}. [Python version: {}]\n".format(
 _old_displayhook = sys.displayhook
 
 
-def rich_displayhook(value):
+def rich_displayhook(value: Any) -> None:
     """Custom display hook intended to show some brief function descriptions
     that can be translated into various languages, for functions that have
     a custom '__rich_repr__' attribute.
@@ -49,8 +52,12 @@ def rich_displayhook(value):
 
 class FriendlyTracebackConsole(InteractiveConsole):
     def __init__(
-        self, local_vars=None, formatter="repl", displayhook=None, ipython_prompt=True
-    ):
+        self,
+        local_vars: Optional[Mapping[str, Any]] = None,
+        formatter: Union[str, Formatter] = "repl",
+        displayhook: Optional[Callable[[object], Any]] = None,
+        ipython_prompt: bool = True,
+    ) -> None:
         """This class builds upon Python's code.InteractiveConsole
         so as to provide friendly tracebacks. It keeps track
         of code fragment executed by treating each of them as
@@ -71,7 +78,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
 
         super().__init__(locals=local_vars)
 
-    def push(self, line):
+    def push(self, line: str) -> bool:
         """Push a line to the interpreter.
 
         The line should not have a trailing newline; it may have
@@ -104,7 +111,9 @@ class FriendlyTracebackConsole(InteractiveConsole):
                 sys.ps2 = " " * (len(str(self.counter)) - 1) + "...:" + " "
         return more
 
-    def runsource(self, source, filename="<friendly-console>", symbol="single"):
+    def runsource(
+        self, source: str, filename: str = "<friendly-console>", symbol: str = "single"
+    ) -> bool:
         """Compile and run some source in the interpreter.
 
         Arguments are as for compile_command().
@@ -142,7 +151,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         self.runcode(code)
         return False
 
-    def runcode(self, code):
+    def runcode(self, code: types.CodeType) -> None:
         """Execute a code object.
 
         When an exception occurs, friendly_traceback.explain_traceback() is called to
@@ -174,22 +183,22 @@ class FriendlyTracebackConsole(InteractiveConsole):
     # defined in the parent class. The following are the equivalent methods
     # that can be used if an explicit call is desired for some reason.
 
-    def showsyntaxerror(self, filename=None):
+    def showsyntaxerror(self, filename: Optional[str] = None) -> None:
         friendly_traceback.explain_traceback()
 
-    def showtraceback(self):
+    def showtraceback(self) -> None:
         friendly_traceback.explain_traceback()
 
 
 def start_console(
-    local_vars=None,
-    formatter="repl",
-    include="friendly_tb",
-    lang="en",
-    banner=None,
-    displayhook=None,
-    ipython_prompt=True,
-):
+    local_vars: Optional[Mapping[str, Any]] = None,
+    formatter: Union[str, Formatter] = "repl",
+    include: InclusionChoice = "friendly_tb",
+    lang: str = "en",
+    banner: Optional[str] = None,
+    displayhook: Optional[Callable[[object], Any]] = None,
+    ipython_prompt: bool = True,
+) -> None:
     """Starts a console; modified from code.interact"""
     # from . import config
 
