@@ -31,13 +31,17 @@ This module currently contains 2 formatters:
   to print the information in a traditional console.
 """
 import sys
-from typing import Dict, List, Set
+from typing import TYPE_CHECKING, Dict, List, Set
 
 from . import debug_helper
 from .ft_gettext import current_lang
 
+if TYPE_CHECKING:
+    from .core import TracebackData
+
 if sys.version_info >= (3, 8):
-    from typing import Literal, Protocol, TypedDict
+    from types import FrameType
+    from typing import Literal, Optional, Protocol, TypedDict
 
     InclusionChoice = Literal[
         "message",
@@ -69,6 +73,9 @@ if sys.version_info >= (3, 8):
         exception_raised_source: str
         exception_raised_variables: str
         lang: str
+        _exc_instance: BaseException
+        _frame: Optional[FrameType]
+        _tb_data: "TracebackData"
 
     class Formatter(Protocol):
         def __call__(self, info: Info, include: InclusionChoice = ...) -> str:
