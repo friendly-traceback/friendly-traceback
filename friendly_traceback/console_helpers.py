@@ -8,6 +8,8 @@ environments such as in a Jupyter notebook.
 # NOTE: __all__ is defined at the very bottom of this file
 import inspect
 import sys
+import types
+from typing import Any, Callable, Dict, Iterable, List, Optional, Union, Type
 import friendly_traceback
 
 from friendly_traceback import debug_helper, base_formatters, __version__
@@ -15,12 +17,22 @@ from friendly_traceback.config import session
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
 from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.syntax_errors.source_info import Statement
 from friendly_traceback.utils import add_rich_repr
+
+if sys.version_info >= (3, 8):
+    from typing import Literal
+    from friendly_traceback.core import TracebackData
+
+    Site = Literal["friendly", "python", "bug", "email", "warnings"]
+
+else:
+    Site = str
 
 _ = current_lang.translate
 
 
-def back():
+def back() -> None:
     """Removes the last recorded traceback item.
 
     The intention is to allow recovering from a typo when trying interactively
@@ -40,7 +52,7 @@ def back():
             session.friendly_info[-1].recompile_info()
 
 
-def explain(include="explain"):
+def explain(include: base_formatters.InclusionChoice = "explain") -> None:
     """Shows the previously recorded traceback info again,
     with the option to specify different items to include.
     For example, ``explain("why")`` is equivalent to ``why()``.
@@ -51,19 +63,19 @@ def explain(include="explain"):
     friendly_traceback.set_include(old_include)
 
 
-def friendly_tb():
+def friendly_tb() -> None:
     """Shows the a simplified Python traceback,
     which includes the hint/suggestion if available.
     """
     explain("friendly_tb")
 
 
-def hint():
+def hint() -> None:
     """Shows hint/suggestion if available."""
     explain("hint")
 
 
-def history():
+def history() -> None:
     """Prints the list of error messages recorded so far."""
     if not session.saved_info:
         session.write_err(_("Nothing to show: no exception recorded.") + "\n")
@@ -73,14 +85,14 @@ def history():
         session.write_err(message)
 
 
-def python_tb():
+def python_tb() -> None:
     """Shows the Python traceback, excluding files from friendly
     itself.
     """
     explain("python_tb")
 
 
-def set_prompt(prompt=None):
+def set_prompt(prompt: Optional[str] = None) -> None:
     """Sets the default prompt to use in the console.
 
     If the prompt argument is ">>>" or "python",
@@ -102,7 +114,10 @@ def set_prompt(prompt=None):
         pass
 
 
-def what(exception=None, pre=False):
+def what(
+    exception: Union[Type[BaseException], str, bytes, types.CodeType, None] = None,
+    pre: bool = False,
+) -> None:
     """If known, shows the generic explanation about a given exception.
 
     If the ``pre`` argument is set to ``True``, the output is
@@ -137,17 +152,17 @@ def what(exception=None, pre=False):
     return
 
 
-def where():
+def where() -> None:
     """Shows the information about where the exception occurred"""
     explain("where")
 
 
-def why():
+def why() -> None:
     """Shows the likely cause of the exception."""
     explain("why")
 
 
-def www(site=None):  # pragma: no cover
+def www(site: Optional[Site] = None) -> None:  # pragma: no cover
     """This uses the ``webbrowser`` module to open a tab (or window)
      in the default browser, linking to a specific url
      or opening the default email client.
@@ -177,10 +192,10 @@ def www(site=None):  # pragma: no cover
     * If the argument 'site' == "warnings", a specific issue
       on Github will be shown, inviting comments.
     """
-    import urllib
+    import urllib.parse
     import webbrowser
 
-    urls = {
+    urls: Dict[Site, str] = {
         "friendly": "https://friendly-traceback.github.io/docs/index.html",
         "python": "https://docs.python.org/3",
         "bug": "https://github.com/friendly-traceback/friendly-traceback/issues/new",
@@ -231,14 +246,14 @@ set_formatter = friendly_traceback.set_formatter
 # ===== Debugging functions are not unit tested by choice =====
 
 
-def _debug_tb():  # pragma: no cover
+def _debug_tb() -> None:  # pragma: no cover
     """Shows the true Python traceback, which includes
     files from friendly itself.
     """
     explain("debug_tb")
 
 
-def _get_exception():  # pragma: no cover
+def _get_exception() -> Optional[BaseException]:  # pragma: no cover
     """Debugging tool: returns the exception instance or None if no exception
     has been raised.
     """
@@ -249,7 +264,7 @@ def _get_exception():  # pragma: no cover
     return info["_exc_instance"]
 
 
-def _get_frame():  # pragma: no cover
+def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
     """This returns the frame in which the exception occurred.
 
     This is not intended for end-users but is useful in development.
@@ -261,7 +276,7 @@ def _get_frame():  # pragma: no cover
     return info["_frame"]
 
 
-def _get_statement():  # pragma: no cover
+def _get_statement() -> Optional[Statement]:  # pragma: no cover
     """This returns a 'Statement' instance obtained for SyntaxErrors and
     subclasses.  Such a Statement instance contains essentially all
     the known information about the statement where the error occurred.
@@ -277,7 +292,7 @@ def _get_statement():  # pragma: no cover
     return
 
 
-def _get_tb_data():  # pragma: no cover
+def _get_tb_data() -> Optional["TracebackData"]:  # pragma: no cover
     """This returns the TracebackData instance containing all the
     information we have obtained.
 
@@ -290,13 +305,13 @@ def _get_tb_data():  # pragma: no cover
     return info["_tb_data"]
 
 
-def set_debug(flag=True):  # pragma: no cover
+def set_debug(flag: bool = True) -> None:  # pragma: no cover
     """This sets the value of the debug flag for the current session."""
     debug_helper.DEBUG = flag
     debug_helper.SHOW_DEBUG_HELPER = flag
 
 
-def _show_info():  # pragma: no cover
+def _show_info() -> None:  # pragma: no cover
     """Debugging tool: shows the complete content of traceback info.
 
     Prints ``''`` for a given item if it is not present.
@@ -322,7 +337,7 @@ def _show_info():  # pragma: no cover
             print(f"{item}: {info[item]}")
 
 
-basic_helpers = {
+basic_helpers: Dict[str, Callable[..., None]] = {
     "back": back,
     "explain": explain,
     "history": history,
@@ -348,7 +363,9 @@ www.help = lambda: _("Opens a web browser at a useful location.")
 
 add_rich_repr(basic_helpers)
 
-other_helpers = {
+from typing import Callable
+
+other_helpers: Dict[str, Callable[..., Any]] = {
     "hint": hint,
     "get_lang": get_lang,
     "python_tb": python_tb,
@@ -375,7 +392,7 @@ add_rich_repr(other_helpers)
 
 helpers = {**basic_helpers, **other_helpers}
 
-_debug_helpers = {
+_debug_helpers: Dict[str, Callable[..., Any]] = {
     "_debug_tb": _debug_tb,
     "_get_frame": _get_frame,
     "_show_info": _show_info,
@@ -405,7 +422,9 @@ class FriendlyHelpers:
 
     version = __version__
 
-    def __init__(self, local_helpers=None):
+    __include_basic: List[str]
+
+    def __init__(self, local_helpers: Optional[Iterable[str]] = None) -> None:
         self.__include_basic = list(basic_helpers)
         if local_helpers is not None:
             self.__include_basic.extend(local_helpers)
@@ -422,11 +441,11 @@ class FriendlyHelpers:
         debug_helpers = sorted(list(_debug_helpers))
         self.debug_helpers = sorted(debug_helpers, key=len)
 
-    def __dir__(self):  # pragma: no cover
+    def __dir__(self) -> List[str]:  # pragma: no cover
         """Only include useful friendly methods."""
         return self.__include_basic + list(other_helpers) + list(_debug_helpers)
 
-    def __repr__(self):  # pragma: no cover
+    def __repr__(self) -> str:  # pragma: no cover
         """Shows a brief description in the default language of what
         each 'basic' function/method does.
 
