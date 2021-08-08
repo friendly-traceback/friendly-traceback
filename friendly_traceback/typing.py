@@ -17,7 +17,6 @@ _E = TypeVar("_E", bound=BaseException)
 
 
 if sys.version_info >= (3, 8):
-    from types import FrameType
     from typing import Literal, Optional, Protocol, TypedDict
 
     InclusionChoice = Literal[
