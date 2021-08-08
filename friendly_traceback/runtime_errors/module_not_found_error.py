@@ -2,17 +2,22 @@
 
 import re
 import sys
+from types import FrameType
 
 from . import stdlib_modules
 from .. import debug_helper
 from ..ft_gettext import current_lang
 from ..utils import get_similar_words, list_to_string, RuntimeMessageParser
+from ..core import TracebackData
+from ..typing import CauseInfo
 
 parser = RuntimeMessageParser()
 
 
 @parser.add
-def is_not_a_package(value, _frame, _tb_data):
+def is_not_a_package(
+    value: ModuleNotFoundError, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     message = str(value)
     pattern = re.compile(r"No module named '(.*)'; '(.*)' is not a package")
@@ -87,7 +92,7 @@ def is_not_a_package(value, _frame, _tb_data):
     return {"cause": cause}
 
 
-def curses_no_found():
+def curses_no_found() -> CauseInfo:
     _ = current_lang.translate
     if sys.platform.startswith("win"):
         hint = _("The curses module is rarely installed with Python on Windows.\n")
@@ -98,7 +103,9 @@ def curses_no_found():
 
 
 @parser.add
-def no_module_named(value, _frame, _tb_data):
+def no_module_named(
+    value: ModuleNotFoundError, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
 
     message = str(value)

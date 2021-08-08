@@ -2,15 +2,18 @@
 
 import ast
 import re
+from types import FrameType
 
 import pure_eval
 
 from .. import debug_helper
 from .. import info_variables
 from ..ft_gettext import current_lang, no_information, internal_error
+from ..core import TracebackData
+from ..typing import CauseInfo
 
 
-def get_cause(value, frame, tb_data):
+def get_cause(value: IndexError, frame: FrameType, tb_data: TracebackData) -> CauseInfo:
     try:
         return _get_cause(value, frame, tb_data)
     except Exception as e:  # pragma: no cover
@@ -18,7 +21,9 @@ def get_cause(value, frame, tb_data):
         return {"cause": internal_error(e)}
 
 
-def _get_cause(value, frame, tb_data):
+def _get_cause(
+    value: IndexError, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
 
     message = str(value)
@@ -32,7 +37,9 @@ def _get_cause(value, frame, tb_data):
     return {"cause": no_information()}  # pragma: no cover
 
 
-def index_out_of_range(obj_type, frame, tb_data):
+def index_out_of_range(
+    obj_type: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
 
     # first, try to identify object

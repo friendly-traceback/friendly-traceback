@@ -1,11 +1,18 @@
+from types import FrameType
+from typing import SupportsInt, Union
+
+from ..core import TracebackData
 from ..ft_gettext import current_lang
 from .. import debug_helper
 from ..utils import RuntimeMessageParser
+from ..typing import CauseInfo
 
 parser = RuntimeMessageParser()
 
 
-def expression_is_zero(expression, modulo=False):
+def expression_is_zero(
+    expression: Union[str, bytes, SupportsInt], modulo: bool = False
+) -> str:
     """Simpler message when the denominator is a literal 0."""
     _ = current_lang.translate
     try:
@@ -19,7 +26,9 @@ def expression_is_zero(expression, modulo=False):
 
 
 @parser.add
-def division_by_zero(message, _frame, tb_data):
+def division_by_zero(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     if message not in (
         "division by zero",
@@ -47,7 +56,9 @@ def division_by_zero(message, _frame, tb_data):
 
 
 @parser.add
-def integer_or_modulo(message, _frame, tb_data):
+def integer_or_modulo(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     if message != "integer division or modulo by zero":
         return {}
@@ -97,7 +108,9 @@ def integer_or_modulo(message, _frame, tb_data):
 
 
 @parser.add
-def zero_negative_power(message, *_ignore):
+def zero_negative_power(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     if message != "0.0 cannot be raised to a negative power":
         return {}
@@ -109,7 +122,7 @@ def zero_negative_power(message, *_ignore):
 
 
 @parser.add
-def float_modulo(message, _frame, tb_data):
+def float_modulo(message: str, _frame: FrameType, tb_data: TracebackData) -> CauseInfo:
     _ = current_lang.translate
     if message != "float modulo":
         return {}
@@ -134,7 +147,7 @@ def float_modulo(message, _frame, tb_data):
 
 
 @parser.add
-def float_divmod(message, *_ignore):
+def float_divmod(message: str, _frame: FrameType, _tb_data: TracebackData) -> CauseInfo:
     _ = current_lang.translate
     if message != "float divmod()":
         debug_helper.log("new case to consider")  # pragma: no cover

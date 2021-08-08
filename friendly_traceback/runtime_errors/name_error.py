@@ -1,5 +1,7 @@
 import ast
 import re
+from types import FrameType
+from typing import TYPE_CHECKING, Optional, Tuple
 
 from ..ft_gettext import current_lang, no_information, internal_error
 from . import stdlib_modules
@@ -7,9 +9,13 @@ from .. import info_variables
 from .. import debug_helper
 from .. import token_utils
 from .. import utils
+from ..typing import CauseInfo, Parser, SimilarNamesInfo
+
+if TYPE_CHECKING:
+    from ..core import TracebackData
 
 
-def using_python():  # pragma: no cover
+def using_python() -> str:  # pragma: no cover
     _ = current_lang.translate
     return _("You are already using Python!")
 
@@ -21,7 +27,9 @@ def using_python():  # pragma: no cover
 CUSTOM_NAMES = {"python": using_python, "python3": using_python}
 
 
-def get_cause(value, frame, tb_data):
+def get_cause(
+    value: NameError, frame: FrameType, tb_data: "TracebackData"
+) -> CauseInfo:
     try:
         return _get_cause(value, frame, tb_data)
     except Exception as e:  # pragma: no cover
@@ -29,7 +37,9 @@ def get_cause(value, frame, tb_data):
         return {"cause": internal_error(e), "suggest": internal_error(e)}
 
 
-def _get_cause(value, frame, tb_data):
+def _get_cause(
+    value: NameError, frame: FrameType, tb_data: "TracebackData"
+) -> CauseInfo:
 
     # We use a different approach in this module than the usual
     # way to loop over the messages, adding message parsers
@@ -42,7 +52,7 @@ def _get_cause(value, frame, tb_data):
     return {"cause": no_information()}  # pragma: no cover
 
 
-def get_unknown_name(message):
+def get_unknown_name(message: str) -> Tuple[Optional[str], Optional[Parser]]:
     """Retrieves the value of the unknown name from a message and identifies
     which function must be called for further processing.
 
@@ -63,7 +73,9 @@ def get_unknown_name(message):
     return None, None  # pragma: no cover
 
 
-def free_variable_referenced(unknown_name, *_args):
+def free_variable_referenced(
+    unknown_name: str, _frame: FrameType, _tb_data: "TracebackData"
+) -> CauseInfo:
     _ = current_lang.translate
     cause = _(
         "In your program, `{var_name}` is an unknown name\n"
@@ -73,7 +85,9 @@ def free_variable_referenced(unknown_name, *_args):
     return {"cause": cause}
 
 
-def name_not_defined(unknown_name, frame, tb_data):
+def name_not_defined(
+    unknown_name: str, frame: FrameType, tb_data: "TracebackData"
+) -> CauseInfo:
     _ = current_lang.translate
     cause = _("In your program, no object with the name `{var_name}` exists.\n").format(
         var_name=unknown_name
@@ -127,7 +141,7 @@ def name_not_defined(unknown_name, frame, tb_data):
     return cause
 
 
-def flipfloperator():  # pragma: no cover
+def flipfloperator() -> CauseInfo:  # pragma: no cover
     _ = current_lang.translate
     hint = _("You must be a fan of PyConAu!\n")
     cause = _(
@@ -139,7 +153,7 @@ def flipfloperator():  # pragma: no cover
     return {"cause": cause, "suggest": hint}
 
 
-def is_stdlib_module(name, tb_data):
+def is_stdlib_module(name: str, tb_data: "TracebackData") -> CauseInfo:
     """Determine if an unknown name is to be found in the Python standard library.
     We're looking for something like name.attribute"""
     _ = current_lang.translate
@@ -163,7 +177,7 @@ def is_stdlib_module(name, tb_data):
     return {}
 
 
-def format_similar_names(name, similar):
+def format_similar_names(name: str, similar: SimilarNamesInfo) -> str:
     """This function formats the names that were found to be similar"""
     _ = current_lang.translate
 
@@ -200,7 +214,9 @@ def format_similar_names(name, similar):
     return message
 
 
-def missing_self(unknown_name, frame, tb_data, hint):
+def missing_self(
+    unknown_name: str, frame: FrameType, tb_data: "TracebackData", hint: Optional[str]
+) -> Tuple[str, Optional[str]]:
     """If the unknown name is referred to with no '.' before it,
     and is an attribute of a known object, perhaps 'self.'
     is missing."""

@@ -3,6 +3,8 @@ import ast
 import builtins
 import re
 import sys
+from types import FrameType
+from typing import Any, Iterable, List, Optional, Sequence
 
 from .. import console_helpers
 from ..ft_gettext import current_lang, no_information, please_report, internal_error
@@ -12,8 +14,13 @@ from .. import info_variables
 from .. import debug_helper
 from . import stdlib_modules
 
+from ..core import TracebackData
+from ..typing import CauseInfo
 
-def get_cause(value, frame, tb_data):
+
+def get_cause(
+    value: AttributeError, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     try:
         return _get_cause(value, frame, tb_data)
     except Exception as e:  # pragma: no cover  # noqa
@@ -21,7 +28,9 @@ def get_cause(value, frame, tb_data):
         return {"cause": internal_error(e), "suggest": internal_error(e)}
 
 
-def _get_cause(value, frame, tb_data):
+def _get_cause(
+    value: AttributeError, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     message = str(value)
 
@@ -65,7 +74,7 @@ def _get_cause(value, frame, tb_data):
     return {"cause": no_information()}  # pragma: no cover
 
 
-def circular_import(module, message):
+def circular_import(module: str, message: str) -> CauseInfo:
     _ = current_lang.translate
     if module in stdlib_modules.names:
         hint = _("Did you give your program the same name as a Python module?\n")
@@ -94,7 +103,9 @@ def circular_import(module, message):
 # ======= Attribute error in module =========
 
 
-def attribute_error_in_module(module, attribute, frame):
+def attribute_error_in_module(
+    module: str, attribute: str, frame: FrameType
+) -> CauseInfo:
     """Attempts to find if a module attribute or module name might have been misspelled"""
     _ = current_lang.translate
     try:
@@ -196,7 +207,9 @@ def attribute_error_in_module(module, attribute, frame):
 # ======= Handle attribute error in object =========
 
 
-def attribute_error_in_object(obj_type, attribute, tb_data, frame):
+def attribute_error_in_object(
+    obj_type: str, attribute: str, tb_data: TracebackData, frame: FrameType
+) -> CauseInfo:
     """Attempts to find if object attribute might have been misspelled"""
     _ = current_lang.translate
     if obj_type == "builtin_function_or_method":
@@ -326,7 +339,9 @@ def attribute_error_in_object(obj_type, attribute, tb_data, frame):
     return {"cause": cause}
 
 
-def handle_attribute_typo(obj_name, attribute, similar):
+def handle_attribute_typo(
+    obj_name: str, attribute: str, similar: Sequence[str]
+) -> CauseInfo:
     """Takes care of misspelling of existing attribute of object whose
     name could be identified.
     """
@@ -351,7 +366,7 @@ def handle_attribute_typo(obj_name, attribute, similar):
     return {"cause": cause, "suggest": hint}
 
 
-def perhaps_builtin(attribute, known_attributes):
+def perhaps_builtin(attribute: str, known_attributes: Iterable[str]) -> Optional[str]:
     if attribute in ["min", "max", "sorted", "reversed", "sum"]:
         return attribute
     if (
@@ -361,7 +376,7 @@ def perhaps_builtin(attribute, known_attributes):
         return "len"
 
 
-def tuple_by_accident(obj, obj_name, attribute):
+def tuple_by_accident(obj: Any, obj_name: str, attribute: str) -> CauseInfo:
     _ = current_lang.translate
     if not (isinstance(obj, tuple) and len(obj) == 1):
         return {}
@@ -380,7 +395,7 @@ def tuple_by_accident(obj, obj_name, attribute):
     return {}
 
 
-def use_str_join(obj_name, tb_data):
+def use_str_join(obj_name: str, tb_data: TracebackData) -> CauseInfo:
     _ = current_lang.translate
     str_content = repr("...")
     hint = _("Did you mean `{str_content}.join({obj_name})`?\n")
@@ -404,7 +419,9 @@ def use_str_join(obj_name, tb_data):
     return {"cause": cause, "suggest": hint}
 
 
-def use_builtin_function(obj_name, attribute, known_builtin):
+def use_builtin_function(
+    obj_name: str, attribute: str, known_builtin: str
+) -> CauseInfo:
     _ = current_lang.translate
     hint = _("Did you mean `{known_builtin}({obj_name})`?\n").format(
         known_builtin=known_builtin, obj_name=obj_name
@@ -417,14 +434,17 @@ def use_builtin_function(obj_name, attribute, known_builtin):
     return {"cause": cause, "suggest": hint}
 
 
-def perhaps_join(obj):
+def perhaps_join(obj: Any) -> bool:
     if hasattr(obj, "__iter__") or (
         hasattr(obj, "__getitem__") and hasattr(obj, "__len__")
     ):
         return True
+    return False
 
 
-def perhaps_synonym(attribute, known_attributes):
+def perhaps_synonym(
+    attribute: str, known_attributes: Iterable[str]
+) -> Optional[List[str]]:
     synonyms = [
         ["add", "append", "extend", "insert", "push", "update", "union"],
         ["remove", "discard", "pop"],
@@ -434,7 +454,7 @@ def perhaps_synonym(attribute, known_attributes):
             return [attr for attr in syn_list if attr in known_attributes]
 
 
-def use_synonym(obj_name, attribute, synonyms):
+def use_synonym(obj_name: str, attribute: str, synonyms: Sequence[str]) -> CauseInfo:
     _ = current_lang.translate
 
     hint = _("Did you mean `{attr}`?\n").format(attr=synonyms[0])
@@ -454,7 +474,7 @@ def use_synonym(obj_name, attribute, synonyms):
     return {"cause": cause, "suggest": hint}
 
 
-def missing_comma(first, second):
+def missing_comma(first: str, second: str) -> CauseInfo:
     _ = current_lang.translate
 
     hint = _("Did you mean to separate object names by a comma?\n")

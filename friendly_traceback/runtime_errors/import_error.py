@@ -2,17 +2,23 @@
 
 import re
 import sys
+from types import FrameType
+from typing import List, Optional, Tuple
 
 from ..ft_gettext import current_lang, please_report
 from ..utils import get_similar_words, list_to_string, RuntimeMessageParser
 from ..path_info import path_utils
 from .. import debug_helper
+from ..core import TracebackData
+from ..typing import CauseInfo
 
 parser = RuntimeMessageParser()
 
 
 @parser.add
-def partially_initialized_module(message, _frame, tb_data):
+def partially_initialized_module(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     # Python 3.8+
     pattern = re.compile(
         r"cannot import name '(.*)' from partially initialized module '(.*)'"
@@ -32,7 +38,9 @@ def partially_initialized_module(message, _frame, tb_data):
 
 
 @parser.add
-def _cannot_import_name_from(message, _frame, tb_data):
+def _cannot_import_name_from(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     # Python 3.7+
     pattern = re.compile(r"cannot import name '(.*)' from '(.*)'")
     match = re.search(pattern, message)
@@ -42,7 +50,9 @@ def _cannot_import_name_from(message, _frame, tb_data):
 
 
 @parser.add
-def _cannot_import_name(message, _frame, tb_data):
+def _cannot_import_name(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     # Python 3.6 does not give us more information
     pattern = re.compile(r"cannot import name '(.*)'")
     match = re.search(pattern, message)
@@ -52,7 +62,9 @@ def _cannot_import_name(message, _frame, tb_data):
     return cannot_import_name(match.group(1), tb_data)
 
 
-def cannot_import_name_from(name, module, tb_data, add_circular_hint=True):
+def cannot_import_name_from(
+    name: str, module: str, tb_data: TracebackData, add_circular_hint: bool = True
+) -> CauseInfo:
     _ = current_lang.translate
 
     hint = None
@@ -125,7 +137,7 @@ def cannot_import_name_from(name, module, tb_data, add_circular_hint=True):
     return {"cause": cause, "suggest": hint}
 
 
-def cannot_import_name(name, tb_data):
+def cannot_import_name(name: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.6 does not give us the name of the module
     _ = current_lang.translate
     pattern = re.compile(r"from (.*) import")
@@ -143,7 +155,10 @@ def cannot_import_name(name, tb_data):
     return cannot_import_name_from(name, match.group(1), tb_data)
 
 
-def extract_import_data_from_traceback(tb_data):
+Modules = List[Tuple[str, str]]
+
+
+def extract_import_data_from_traceback(tb_data: TracebackData) -> Modules:
     """Attempts to extract the list of imported modules from the traceback information"""
     pattern_file = re.compile(r'^File "(.*)", line', re.M)
     pattern_from = re.compile(r"^from (.*) import", re.M)
@@ -177,7 +192,7 @@ def extract_import_data_from_traceback(tb_data):
     return modules_imported
 
 
-def find_circular_import(modules_imported):
+def find_circular_import(modules_imported: Modules) -> Optional[str]:
     """This attempts to find circular imports."""
     _ = current_lang.translate
 

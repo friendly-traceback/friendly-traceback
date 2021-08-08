@@ -93,6 +93,9 @@ else:
 
 Explain = Callable[[_E, FrameType, "TracebackData"], CauseInfo]
 GenericExplain = Callable[[], str]
-Parser = Callable[[Union[str, BaseException], FrameType, "TracebackData"], CauseInfo]
+Parser = Union[
+    Callable[[str, FrameType, "TracebackData"], CauseInfo],
+    Callable[[_E, FrameType, "TracebackData"], CauseInfo],
+]
 Translator = Callable[[str], str]
 Writer = Callable[[str], None]

@@ -1,13 +1,18 @@
 """UnboundLocalError cases"""
 
 import re
+from types import FrameType
 
 from ..ft_gettext import current_lang, no_information
 from .. import info_variables
 from .. import debug_helper
+from ..core import TracebackData
+from ..typing import CauseInfo, SimilarNamesInfo
 
 
-def get_cause(value, frame, _tb_data):
+def get_cause(
+    value: UnboundLocalError, frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     try:
         return _get_cause(value, frame)
     except Exception as e:  # pragma: no cover
@@ -15,7 +20,7 @@ def get_cause(value, frame, _tb_data):
         return {}
 
 
-def _get_cause(value, frame):
+def _get_cause(value: UnboundLocalError, frame: FrameType) -> CauseInfo:
     _ = current_lang.translate
 
     pattern = re.compile(r"local variable '(.*)' referenced before assignment")
@@ -28,7 +33,7 @@ def _get_cause(value, frame):
     return cause
 
 
-def local_variable_referenced(unknown_name, frame):
+def local_variable_referenced(unknown_name: str, frame: FrameType) -> CauseInfo:
     _ = current_lang.translate
     scopes = info_variables.get_definition_scope(unknown_name, frame)
     if not scopes:
@@ -90,7 +95,7 @@ def local_variable_referenced(unknown_name, frame):
     return {"cause": cause, "suggest": hint}
 
 
-def format_similar_names(unknown_name, similar):
+def format_similar_names(unknown_name: str, similar: SimilarNamesInfo) -> str:
     """This function formats the names that were found to be similar"""
     _ = current_lang.translate
 
