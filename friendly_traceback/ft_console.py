@@ -17,10 +17,10 @@ import codeop  # need to import to exclude from tracebacks
 import friendly_traceback
 
 from . import source_cache
-from .base_formatters import Formatter, InclusionChoice
 from .console_helpers import helpers
 from .ft_gettext import current_lang
 from .config import session
+from .typing import Formatter, InclusionChoice
 
 
 def type_friendly() -> str:

@@ -14,6 +14,7 @@ from . import token_utils
 
 from .path_info import path_utils
 from .ft_gettext import current_lang
+from .typing import ObjectsInfo, ScopeKind, SimilarNamesInfo
 
 # third-party
 try:
@@ -21,31 +22,6 @@ try:
     from pure_eval import Evaluator, group_expressions  # noqa
 except ImportError:  # pragma: no cover
     pass  # ignore errors when processed by Sphinx
-
-
-if sys.version_info >= (3, 8):
-    from typing import Literal, Tuple, TypedDict
-
-    ScopeKind = Literal["local", "global", "nonlocal"]
-
-    ObjectsInfo = TypedDict(
-        "ObjectsInfo",
-        {
-            "locals": List[Tuple[str, str, Any]],
-            "globals": List[Tuple[str, str, Any]],
-            "builtins": List[Tuple[str, str, Any]],
-            "expressions": List[Tuple[str, Any]],
-            "name, obj": List[Tuple[str, Any]],
-        },
-    )
-    SimilarNamesInfo = TypedDict(
-        "SimilarNamesInfo",
-        {"locals": List[str], "globals": List[str], "builtins": List[str], "best": Any},
-    )
-else:
-    ScopeKind = str
-    ObjectsInfo = Dict[str, List[Any]]
-    SimilarNamesInfo = Dict[str, List[str]]
 
 
 INDENT = " " * 8

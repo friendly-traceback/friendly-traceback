@@ -126,7 +126,7 @@ parser.add_argument(
 )
 
 
-def main():
+def main() -> None:
     _ = current_lang.translate
     args = parser.parse_args()
     if args.version:  # pragma: no cover

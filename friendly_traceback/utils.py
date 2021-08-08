@@ -13,15 +13,10 @@ import pure_eval
 
 from . import debug_helper
 from .ft_gettext import internal_error, no_information
-from .info_specific import CauseInfo
+from .typing import CauseInfo, Parser
 
 if TYPE_CHECKING:
     from .core import TracebackData
-
-
-Parser = Callable[
-    [Union[str, BaseException], types.FrameType, "TracebackData"], CauseInfo
-]
 
 
 class RuntimeMessageParser:

@@ -5,31 +5,15 @@ of a given exception.
 """
 
 import re
-import sys
 from types import FrameType
-from typing import TYPE_CHECKING, Callable, Dict, Type, TypeVar
+from typing import TYPE_CHECKING, Callable, Dict, Type
 
 from . import debug_helper
 from .ft_gettext import current_lang, internal_error
+from .typing import CauseInfo, Explain, _E
 
 if TYPE_CHECKING:
     from .core import TracebackData
-
-if sys.version_info >= (3, 8):
-    from typing import TypedDict
-
-    class CauseInfo(TypedDict, total=False):
-        cause: str
-        suggest: str
-
-
-else:
-    CauseInfo = Dict[str, str]
-
-
-_E = TypeVar("_E", bound=BaseException)
-
-Explain = Callable[[_E, FrameType, "TracebackData"], CauseInfo]
 
 
 get_cause: Dict[Type[BaseException], Explain[BaseException]] = {}

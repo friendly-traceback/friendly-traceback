@@ -30,64 +30,11 @@ This module currently contains 2 formatters:
   embedded as a code-block in a file (such as .rst). It can also be used
   to print the information in a traditional console.
 """
-import sys
-from typing import TYPE_CHECKING, Dict, List, Set
+from typing import Dict, List, Set
 
 from . import debug_helper
 from .ft_gettext import current_lang
-
-if TYPE_CHECKING:
-    from .core import TracebackData
-
-if sys.version_info >= (3, 8):
-    from types import FrameType
-    from typing import Literal, Optional, Protocol, TypedDict
-
-    InclusionChoice = Literal[
-        "message",
-        "hint",
-        "what",
-        "why",
-        "where",
-        "friendly_tb",
-        "python_tb",
-        "debug_tb",
-        "explain",
-        "no_tb",
-    ]
-
-    class Info(TypedDict, total=False):
-        message: str
-        original_python_traceback: str
-        simulated_python_traceback: str
-        shortened_traceback: str
-        suggest: str
-        generic: str
-        parsing_error: str
-        parsing_error_source: str
-        cause: str
-        last_call_header: str
-        last_call_source: str
-        last_call_variables: str
-        exception_raised_header: str
-        exception_raised_source: str
-        exception_raised_variables: str
-        lang: str
-        _exc_instance: BaseException
-        _frame: Optional[FrameType]
-        _tb_data: "TracebackData"
-
-    class Formatter(Protocol):
-        def __call__(self, info: Info, include: InclusionChoice = ...) -> str:
-            ...
-
-
-else:
-    from typing import Callable
-
-    InclusionChoice = str
-    Info = Dict[str, str]
-    Formatter = Callable[[Info, InclusionChoice], str]
+from .typing import InclusionChoice, Info
 
 
 # The following is the order in which the various items, if they exist

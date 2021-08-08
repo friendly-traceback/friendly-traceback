@@ -14,20 +14,14 @@ import friendly_traceback
 
 from friendly_traceback import debug_helper, base_formatters, __version__
 from friendly_traceback.config import session
+from friendly_traceback.core import TracebackData
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
 from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.syntax_errors.source_info import Statement
+from friendly_traceback.typing import InclusionChoice, Site
 from friendly_traceback.utils import add_rich_repr
 
-if sys.version_info >= (3, 8):
-    from typing import Literal
-    from friendly_traceback.core import TracebackData
-
-    Site = Literal["friendly", "python", "bug", "email", "warnings"]
-
-else:
-    Site = str
 
 _ = current_lang.translate
 
@@ -52,7 +46,7 @@ def back() -> None:
             session.friendly_info[-1].recompile_info()
 
 
-def explain(include: base_formatters.InclusionChoice = "explain") -> None:
+def explain(include: InclusionChoice = "explain") -> None:
     """Shows the previously recorded traceback info again,
     with the option to specify different items to include.
     For example, ``explain("why")`` is equivalent to ``why()``.
@@ -292,7 +286,7 @@ def _get_statement() -> Optional[Statement]:  # pragma: no cover
     return
 
 
-def _get_tb_data() -> Optional["TracebackData"]:  # pragma: no cover
+def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     """This returns the TracebackData instance containing all the
     information we have obtained.
 
