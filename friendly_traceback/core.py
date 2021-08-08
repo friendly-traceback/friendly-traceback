@@ -12,7 +12,7 @@ import inspect
 import re
 import traceback
 import types
-from typing import List, Optional, Sequence, Tuple, Type, TypeVar
+from typing import List, Optional, Sequence, Tuple, Type
 
 from itertools import dropwhile
 
@@ -21,7 +21,6 @@ from . import info_generic
 from . import info_specific
 from . import info_variables
 
-from .base_formatters import Info
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
 
@@ -32,14 +31,12 @@ from .syntax_errors import analyze_syntax
 from .syntax_errors import indentation_error
 from .syntax_errors import source_info
 from . import token_utils
+from .typing import Info, _E
 
 try:
     import executing  # noqa
 except ImportError:  # pragma: no cover
     pass  # ignore errors when processed by Sphinx
-
-
-_E = TypeVar("_E", bound=BaseException)
 
 
 STR_FAILED = "<exception str() failed>"  # Same as Python

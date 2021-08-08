@@ -9,16 +9,10 @@ it might be desirable to exclude additional files.
 import os
 import sys
 import asttokens  # Only use it as a representative to find site-packages
-from typing import TYPE_CHECKING, Set, TypeVar
+from typing import Set, TypeVar
 
 from .ft_gettext import current_lang
-
-if TYPE_CHECKING:
-    from _typeshed import StrPath
-else:
-    from typing import Union
-
-    StrPath = Union[str, os.PathLike]
+from .typing import StrPath
 
 
 EXCLUDED_FILE_PATH: Set[str] = set()

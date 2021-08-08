@@ -4,12 +4,11 @@ Keeps tabs of all settings.
 """
 import sys
 import types
-from typing import List, Optional, Type, TypeVar, Union
+from typing import List, Optional, Type, Union
 
-from . import Writer, base_formatters, core, debug_helper
+from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
-
-_E = TypeVar("_E", bound=BaseException)
+from .typing import Formatter, InclusionChoice, Info, Writer, _E
 
 
 def _write_err(text: Optional[str]) -> None:  # pragma: no cover
@@ -32,11 +31,11 @@ class _State:
         self._captured: List[str] = []
         self.write_err: Writer = _write_err
         self.installed: bool = False
-        self.formatter: base_formatters.Formatter = base_formatters.repl
-        self.saved_info: List[base_formatters.Info] = []
+        self.formatter: Formatter = base_formatters.repl
+        self.saved_info: List[Info] = []
         self.friendly_info: List[core.FriendlyTraceback] = []
         # TODO: is having both saved_info and friendly_info redundant?
-        self.include: base_formatters.InclusionChoice = "explain"
+        self.include: InclusionChoice = "explain"
         self.lang: str = "en"
         self.install_gettext(self.lang)
         # Console; if ipython_prompt == True, prompt = '[digit]'
@@ -101,17 +100,15 @@ class _State:
         current_lang.install(lang)
         self.lang = lang
 
-    def set_include(self, include: base_formatters.InclusionChoice) -> None:
+    def set_include(self, include: InclusionChoice) -> None:
         if include not in base_formatters.items_groups:  # pragma: no cover
             raise ValueError(f"{include} is not a valid value.")
         self.include = include
 
-    def get_include(self) -> base_formatters.InclusionChoice:
+    def get_include(self) -> InclusionChoice:
         return self.include
 
-    def set_formatter(
-        self, formatter: Union[str, None, base_formatters.Formatter] = None
-    ) -> None:
+    def set_formatter(self, formatter: Union[str, None, Formatter] = None) -> None:
         """Sets the default formatter. If no argument is given, the default
         formatter is used.
         """
@@ -129,7 +126,7 @@ class _State:
         self,
         lang: Optional[str] = None,
         redirect: Union[str, Writer, None] = None,
-        include: base_formatters.InclusionChoice = "explain",
+        include: InclusionChoice = "explain",
     ) -> None:
         """Replaces sys.excepthook by friendly's own version."""
         _ = current_lang.translate

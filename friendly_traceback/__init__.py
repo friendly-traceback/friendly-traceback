@@ -18,7 +18,6 @@ have as part of the public API, please let us know.
 """
 import sys
 from typing import (
-    TYPE_CHECKING,
     Any,
     Callable,
     Dict,
@@ -27,15 +26,6 @@ from typing import (
     Sequence,
     Union,
 )
-
-if TYPE_CHECKING:
-    from _typeshed import StrPath
-else:
-    import os
-
-    StrPath = Union[str, os.PathLike]
-
-Writer = Callable[[str], None]
 
 valid_version = sys.version_info.major >= 3 and sys.version_info.minor >= 6
 
@@ -59,6 +49,7 @@ from . import base_formatters
 from .config import session
 from . import path_info
 from .ft_gettext import current_lang
+from .typing import Formatter, InclusionChoice, StrPath, Writer
 
 # Ensure that warnings are not shown to the end user, as they could
 # cause confusion.  Eventually, we might want to interpret them like
@@ -117,7 +108,7 @@ def get_output(flush: bool = True) -> str:
 def install(
     lang: Optional[str] = None,
     redirect: Union[str, Writer, None] = None,
-    include: base_formatters.InclusionChoice = "explain",
+    include: InclusionChoice = "explain",
     _debug: Optional[bool] = None,
 ) -> None:
     """
@@ -154,10 +145,10 @@ def uninstall() -> None:
 def run(
     filename: StrPath,
     lang: Optional[str] = None,
-    include: Optional[base_formatters.InclusionChoice] = None,
+    include: Optional[InclusionChoice] = None,
     args: Optional[Sequence[str]] = None,
     console: bool = True,
-    formatter: Union[str, base_formatters.Formatter] = "repl",
+    formatter: Union[str, Formatter] = "repl",
     redirect: Union[str, Writer, None] = None,
     ipython_prompt: bool = True,
 ) -> Optional[Dict[str, Any]]:  # sourcery skip: move-assign
@@ -224,9 +215,7 @@ def run(
         return module_globals
 
 
-def set_formatter(
-    formatter: Union[str, None, base_formatters.Formatter] = None
-) -> None:
+def set_formatter(formatter: Union[str, None, Formatter] = None) -> None:
     """Sets the default formatter. If no argument is given, the default
     formatter is used.
     """
@@ -235,8 +224,8 @@ def set_formatter(
 
 def start_console(  # pragma: no cover
     local_vars: Optional[Mapping[str, Any]] = None,
-    formatter: Union[str, base_formatters.Formatter] = "repl",
-    include: base_formatters.InclusionChoice = "friendly_tb",
+    formatter: Union[str, Formatter] = "repl",
+    include: InclusionChoice = "friendly_tb",
     lang: str = "en",
     banner: Optional[str] = None,
     displayhook: Optional[Callable[[object], Any]] = None,
@@ -293,7 +282,7 @@ def _include_choices() -> str:
     return ",\n        ".join(choices)
 
 
-def set_include(include: base_formatters.InclusionChoice) -> None:
+def set_include(include: InclusionChoice) -> None:
     """Specifies the information to include in the traceback.
 
     The allowed values are:
@@ -307,7 +296,7 @@ if set_include.__doc__ is not None:  # protect against -OO optimization
     set_include.__doc__ = set_include.__doc__.format(choices=_include_choices())
 
 
-def get_include() -> base_formatters.InclusionChoice:
+def get_include() -> InclusionChoice:
     """Retrieves the value used to determine what to include in the
     traceback. See ``set_include()`` for details.
     """

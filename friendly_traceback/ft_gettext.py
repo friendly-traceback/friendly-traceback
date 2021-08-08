@@ -22,11 +22,10 @@ gettext.translation() is the class-based API for gettext.
 
 import gettext
 import os
-from typing import Callable, Optional
+from typing import Optional
 
 from . import debug_helper
-
-Translator = Callable[[str], str]
+from .typing import Translator
 
 
 class LangState:
