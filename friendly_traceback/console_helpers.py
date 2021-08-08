@@ -16,7 +16,7 @@ from friendly_traceback import __version__, base_formatters, debug_helper
 from friendly_traceback.config import session
 from friendly_traceback.core import TracebackData
 from friendly_traceback.ft_gettext import current_lang
-from friendly_traceback.functions_help import add_help_attribute, add_rich_repr
+from friendly_traceback.functions_help import add_help_attribute
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
 from friendly_traceback.syntax_errors.source_info import Statement
@@ -343,8 +343,6 @@ basic_helpers: Dict[str, Callable[..., None]] = {
     "www": www,
 }
 
-add_help_attribute(basic_helpers)
-
 other_helpers: Dict[str, Callable[..., Any]] = {
     "hint": hint,
     "get_lang": get_lang,
@@ -355,20 +353,6 @@ other_helpers: Dict[str, Callable[..., Any]] = {
     "set_formatter": set_formatter,
     "set_debug": set_debug,
 }
-hint.help = lambda: _("Suggestion sometimes added to a friendly traceback.")
-python_tb.help = lambda: _("Shows a normal Python traceback.")
-friendly_tb.help = lambda: _("Shows a simplified Python traceback.")
-get_include.help = lambda: _(
-    "Returns the current value used for items to include by default."
-)
-set_include.help = lambda: _(
-    "Sets the items to show by default when an exception is raised."
-)
-get_lang.help = lambda: _("Returns the language currently used.")
-set_formatter.help = lambda: _("Sets the formatter to use for display.")
-set_debug.help = lambda: _("Use True (default) or False to set the debug flag.")
-
-add_rich_repr(other_helpers)
 
 helpers = {**basic_helpers, **other_helpers}
 
@@ -380,17 +364,6 @@ _debug_helpers: Dict[str, Callable[..., Any]] = {
     "_get_exception": _get_exception,
     "_get_statement": _get_statement,
 }
-
-_debug_tb.help = (
-    lambda: "Shows the full traceback, including code from friendly_traceback."
-)
-_show_info.help = lambda: "Shows the all the items recorded in the traceback."
-_get_exception.help = lambda: "Returns the exception instance."
-_get_frame.help = lambda: "Returns the frame object where the exception occurred."
-_get_statement.help = lambda: "Returns the statement in which a SyntaxError occurred."
-_get_tb_data.help = lambda: "Return a special traceback object."
-
-add_rich_repr(_debug_helpers)
 
 
 class FriendlyHelpers:
@@ -460,7 +433,7 @@ class FriendlyHelpers:
                 print("Warning:", item, "has no help() method.")
 
         if debug_helper.SHOW_DEBUG_HELPER:
-            more_header = "Debugging methods (English only by design)."
+            more_header = "Debugging methods (English only)."
             parts.append("\n" + more_header + "\n\n")
             for item in self.debug_helpers:
                 parts.append(f"Friendly.{item}(): ")
@@ -472,10 +445,13 @@ class FriendlyHelpers:
         return "".join(parts)
 
 
-for helper in _debug_helpers:
-    setattr(FriendlyHelpers, helper, staticmethod(_debug_helpers[helper]))
+add_help_attribute(helpers)
+add_help_attribute(_debug_helpers)
+
 for helper in helpers:
     setattr(FriendlyHelpers, helper, staticmethod(helpers[helper]))
+for helper in _debug_helpers:
+    setattr(FriendlyHelpers, helper, staticmethod(_debug_helpers[helper]))
 
 Friendly = FriendlyHelpers()
 helpers["Friendly"] = Friendly

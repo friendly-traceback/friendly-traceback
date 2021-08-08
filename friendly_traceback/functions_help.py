@@ -19,6 +19,27 @@ short_description = {
     "where": lambda: _("Shows where an exception was raised."),
     "why": lambda: _("Shows the likely cause of the exception."),
     "www": lambda: _("Opens a web browser at a useful location."),
+    "hint": lambda: _("Suggestion sometimes added to a friendly traceback."),
+    "python_tb": lambda: _("Shows a normal Python traceback."),
+    "friendly_tb": lambda: _("Shows a simplified Python traceback."),
+    "get_include": lambda: _(
+        "Returns the current value used for items to include by default."
+    ),
+    "set_include": lambda: _(
+        "Sets the items to show by default when an exception is raised."
+    ),
+    "get_lang": lambda: _("Returns the language currently used."),
+    "set_formatter": lambda: _("Sets the formatter to use for display."),
+    "set_debug": lambda: _("Use True (default) or False to set the debug flag."),
+    # The following are not translated
+    "_debug_tb": (
+        lambda: "Shows the full traceback, including code from friendly_traceback."
+    ),
+    "_show_info": lambda: "Shows the all the items recorded in the traceback.",
+    "_get_exception": lambda: "Returns the exception instance.",
+    "_get_frame": lambda: "Returns the frame object where the exception occurred.",
+    "_get_statement": lambda: "Returns the statement in which a SyntaxError occurred.",
+    "_get_tb_data": lambda: "Return a special traceback object.",
 }
 
 
