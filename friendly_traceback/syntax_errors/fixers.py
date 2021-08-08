@@ -1,7 +1,6 @@
 """Various functions used to find fixes to SyntaxErrors"""
 
-from .. import debug_helper
-from .. import token_utils
+from .. import debug_helper, token_utils
 
 
 def replace_token(tokens, original_token, new_token_string):

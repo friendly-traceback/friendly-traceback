@@ -8,7 +8,7 @@ from typing import List, Optional, Type, Union
 
 from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
-from .typing import Formatter, InclusionChoice, Info, Writer, _E
+from .typing import _E, Formatter, InclusionChoice, Info, Writer
 
 
 def _write_err(text: Optional[str]) -> None:  # pragma: no cover

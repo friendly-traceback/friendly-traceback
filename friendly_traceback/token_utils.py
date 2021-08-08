@@ -9,7 +9,7 @@ import keyword
 import sys
 import tokenize as py_tokenize
 from io import StringIO
-from typing import Any, List, Iterable, Sequence, Tuple, Union
+from typing import Any, Iterable, List, Sequence, Tuple, Union
 
 from . import debug_helper
 

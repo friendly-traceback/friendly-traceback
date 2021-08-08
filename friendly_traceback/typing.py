@@ -3,11 +3,11 @@
 import os
 import sys
 from types import FrameType
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Union, Tuple, TypeVar
-
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Tuple, TypeVar, Union
 
 if TYPE_CHECKING:
     from _typeshed import StrPath
+
     from .core import TracebackData
 else:
     StrPath = Union[str, os.PathLike]

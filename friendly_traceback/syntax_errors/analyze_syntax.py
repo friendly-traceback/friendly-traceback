@@ -17,9 +17,9 @@ incorrect information.
 """
 
 from friendly_traceback.ft_gettext import current_lang, internal_error
-from . import statement_analyzer
-from . import message_analyzer
+
 from .. import debug_helper
+from . import message_analyzer, statement_analyzer
 
 
 def unknown_cause():

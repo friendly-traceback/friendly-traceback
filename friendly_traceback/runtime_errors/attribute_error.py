@@ -6,16 +6,13 @@ import sys
 from types import FrameType
 from typing import Any, Iterable, List, Optional, Sequence
 
-from .. import console_helpers
-from ..ft_gettext import current_lang, no_information, please_report, internal_error
-from ..utils import get_similar_words, list_to_string
-from ..path_info import path_utils
-from .. import info_variables
-from .. import debug_helper
-from . import stdlib_modules
-
+from .. import console_helpers, debug_helper, info_variables
 from ..core import TracebackData
+from ..ft_gettext import current_lang, internal_error, no_information, please_report
+from ..path_info import path_utils
 from ..typing import CauseInfo
+from ..utils import get_similar_words, list_to_string
+from . import stdlib_modules
 
 
 def get_cause(

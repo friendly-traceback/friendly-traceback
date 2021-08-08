@@ -9,11 +9,9 @@ import sys
 import types
 from typing import Any, Dict, List
 
-from . import utils
-from . import token_utils
-
-from .path_info import path_utils
+from . import token_utils, utils
 from .ft_gettext import current_lang
+from .path_info import path_utils
 from .typing import ObjectsInfo, ScopeKind, SimilarNamesInfo
 
 # third-party

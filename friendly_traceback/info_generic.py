@@ -8,7 +8,6 @@ from typing import Any, Callable, Dict, Type
 from .ft_gettext import current_lang, no_information
 from .typing import GenericExplain
 
-
 GENERIC: Dict[Type[BaseException], GenericExplain] = {}
 SUBCLASS: Dict[Any, Any] = {}
 

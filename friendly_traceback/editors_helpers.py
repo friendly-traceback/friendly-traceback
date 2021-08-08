@@ -13,9 +13,9 @@ it can be determined if it should be added to the public API.
 """
 import sys
 
-from .source_cache import cache
-from .ft_gettext import current_lang
 from .config import session
+from .ft_gettext import current_lang
+from .source_cache import cache
 
 
 def check_syntax(

@@ -17,15 +17,7 @@ If you find that some additional functionality would be useful to
 have as part of the public API, please let us know.
 """
 import sys
-from typing import (
-    Any,
-    Callable,
-    Dict,
-    Mapping,
-    Optional,
-    Sequence,
-    Union,
-)
+from typing import Any, Callable, Dict, Mapping, Optional, Sequence, Union
 
 valid_version = sys.version_info.major >= 3 and sys.version_info.minor >= 6
 
@@ -43,11 +35,8 @@ import inspect
 import warnings as _warnings
 from pathlib import Path
 
-from . import debug_helper
-from . import editors_helpers
-from . import base_formatters
+from . import base_formatters, debug_helper, editors_helpers, path_info
 from .config import session
-from . import path_info
 from .ft_gettext import current_lang
 from .typing import Formatter, InclusionChoice, StrPath, Writer
 

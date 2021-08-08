@@ -42,4 +42,3 @@ jobs:
       - name: run ${{ matrix.tox.env }}
         run: |
           tox -q -p all
-

@@ -20,3 +20,8 @@ warn_unused_ignores = true
 warn_return_any = true
 warn_unreachable = true
 show_error_codes = true
+
+[tool.isort]
+profile = "black"
+known_first_party = ["friendly", "friendly_traceback"]
+known_third_party = ["asttokens", "executing", "pure_eval", "stack_data"]

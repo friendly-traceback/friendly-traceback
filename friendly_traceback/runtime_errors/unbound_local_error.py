@@ -3,10 +3,9 @@
 import re
 from types import FrameType
 
-from ..ft_gettext import current_lang, no_information
-from .. import info_variables
-from .. import debug_helper
+from .. import debug_helper, info_variables
 from ..core import TracebackData
+from ..ft_gettext import current_lang, no_information
 from ..typing import CauseInfo, SimilarNamesInfo
 
 

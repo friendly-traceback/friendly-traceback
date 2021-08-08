@@ -9,19 +9,18 @@ environments such as in a Jupyter notebook.
 import inspect
 import sys
 import types
-from typing import Any, Callable, Dict, Iterable, List, Optional, Union, Type
-import friendly_traceback
+from typing import Any, Callable, Dict, Iterable, List, Optional, Type, Union
 
-from friendly_traceback import debug_helper, base_formatters, __version__
+import friendly_traceback
+from friendly_traceback import __version__, base_formatters, debug_helper
 from friendly_traceback.config import session
 from friendly_traceback.core import TracebackData
+from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
-from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.syntax_errors.source_info import Statement
 from friendly_traceback.typing import InclusionChoice, Site
 from friendly_traceback.utils import add_rich_repr
-
 
 _ = current_lang.translate
 

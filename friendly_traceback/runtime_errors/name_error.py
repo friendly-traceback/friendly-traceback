@@ -3,13 +3,10 @@ import re
 from types import FrameType
 from typing import TYPE_CHECKING, Optional, Tuple
 
-from ..ft_gettext import current_lang, no_information, internal_error
-from . import stdlib_modules
-from .. import info_variables
-from .. import debug_helper
-from .. import token_utils
-from .. import utils
+from .. import debug_helper, info_variables, token_utils, utils
+from ..ft_gettext import current_lang, internal_error, no_information
 from ..typing import CauseInfo, Parser, SimilarNamesInfo
+from . import stdlib_modules
 
 if TYPE_CHECKING:
     from ..core import TracebackData

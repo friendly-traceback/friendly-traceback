@@ -9,11 +9,9 @@ import re
 from types import FrameType
 from typing import Any, Optional, Tuple
 
-from ..ft_gettext import current_lang
-from .. import info_variables
-from .. import token_utils
-from .. import utils
+from .. import info_variables, token_utils, utils
 from ..core import TracebackData
+from ..ft_gettext import current_lang
 from ..typing import CauseInfo
 
 convert_type = info_variables.convert_type

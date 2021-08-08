@@ -6,10 +6,9 @@ from types import FrameType
 
 import pure_eval
 
-from .. import debug_helper
-from .. import info_variables
-from ..ft_gettext import current_lang, no_information, internal_error
+from .. import debug_helper, info_variables
 from ..core import TracebackData
+from ..ft_gettext import current_lang, internal_error, no_information
 from ..typing import CauseInfo
 
 
