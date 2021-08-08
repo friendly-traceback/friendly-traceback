@@ -1,8 +1,8 @@
 """Only identifying failed connection to a server for now."""
 from types import FrameType
 
-from ..ft_gettext import current_lang, no_information
 from ..core import TracebackData
+from ..ft_gettext import current_lang, no_information
 from ..typing import CauseInfo
 
 

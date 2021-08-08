@@ -1,11 +1,11 @@
 from types import FrameType
 from typing import SupportsInt, Union
 
+from .. import debug_helper
 from ..core import TracebackData
 from ..ft_gettext import current_lang
-from .. import debug_helper
-from ..utils import RuntimeMessageParser
 from ..typing import CauseInfo
+from ..utils import RuntimeMessageParser
 
 parser = RuntimeMessageParser()
 

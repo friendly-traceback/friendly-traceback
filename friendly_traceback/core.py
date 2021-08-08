@@ -12,26 +12,17 @@ import inspect
 import re
 import traceback
 import types
+from itertools import dropwhile
 from typing import List, Optional, Sequence, Tuple, Type
 
-from itertools import dropwhile
-
-from . import debug_helper
-from . import info_generic
-from . import info_specific
-from . import info_variables
-
+from . import debug_helper, info_generic, info_specific, info_variables, token_utils
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
-
-from .path_info import is_excluded_file, EXCLUDED_FILE_PATH, path_utils
+from .path_info import EXCLUDED_FILE_PATH, is_excluded_file, path_utils
 from .runtime_errors import name_error
 from .source_cache import cache
-from .syntax_errors import analyze_syntax
-from .syntax_errors import indentation_error
-from .syntax_errors import source_info
-from . import token_utils
-from .typing import Info, _E
+from .syntax_errors import analyze_syntax, indentation_error, source_info
+from .typing import _E, Info
 
 try:
     import executing  # noqa

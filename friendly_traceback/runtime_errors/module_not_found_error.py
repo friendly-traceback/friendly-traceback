@@ -4,12 +4,12 @@ import re
 import sys
 from types import FrameType
 
-from . import stdlib_modules
 from .. import debug_helper
-from ..ft_gettext import current_lang
-from ..utils import get_similar_words, list_to_string, RuntimeMessageParser
 from ..core import TracebackData
+from ..ft_gettext import current_lang
 from ..typing import CauseInfo
+from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
+from . import stdlib_modules
 
 parser = RuntimeMessageParser()
 

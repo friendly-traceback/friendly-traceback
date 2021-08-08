@@ -36,7 +36,6 @@ from . import debug_helper
 from .ft_gettext import current_lang
 from .typing import InclusionChoice, Info
 
-
 # The following is the order in which the various items, if they exist
 # and have been selected to be printed, would be printed.
 # If you are writing a custom formatter, this should be taken as the

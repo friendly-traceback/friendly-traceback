@@ -2,12 +2,10 @@ import ast
 from types import FrameType
 from typing import Any, Optional, Tuple
 
-from ..ft_gettext import current_lang, please_report
-from .. import info_variables
-from .. import utils
+from .. import info_variables, utils
 from ..core import TracebackData
+from ..ft_gettext import current_lang, please_report
 from ..typing import CauseInfo
-
 from ..utils import RuntimeMessageParser
 
 parser = RuntimeMessageParser()

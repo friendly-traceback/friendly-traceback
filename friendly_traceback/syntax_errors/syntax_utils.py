@@ -2,7 +2,6 @@
 
 import unicodedata
 
-
 from ..ft_gettext import current_lang
 
 

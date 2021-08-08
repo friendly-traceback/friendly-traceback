@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, Callable, Dict, Type
 
 from . import debug_helper
 from .ft_gettext import current_lang, internal_error
-from .typing import CauseInfo, Explain, _E
+from .typing import _E, CauseInfo, Explain
 
 if TYPE_CHECKING:
     from .core import TracebackData

@@ -4,10 +4,9 @@ associated with a 'def' statement.
 import platform
 import sys
 
-from . import fixers
+from .. import debug_helper, utils
 from ..ft_gettext import current_lang, internal_error
-from .. import debug_helper
-from .. import utils
+from . import fixers
 
 STATEMENT_ANALYZERS = []
 

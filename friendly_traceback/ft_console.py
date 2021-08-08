@@ -5,21 +5,21 @@ ft_console.py
 Adaptation of Python's console found in code.py so that it can be
 used to show some "friendly" tracebacks.
 """
+import codeop  # need to import to exclude from tracebacks
 import os
 import platform
 import sys
 import traceback
 import types
-from typing import Any, Callable, Mapping, Optional, Union
 from code import InteractiveConsole
-import codeop  # need to import to exclude from tracebacks
+from typing import Any, Callable, Mapping, Optional, Union
 
 import friendly_traceback
 
 from . import source_cache
+from .config import session
 from .console_helpers import helpers
 from .ft_gettext import current_lang
-from .config import session
 from .typing import Formatter, InclusionChoice
 
 

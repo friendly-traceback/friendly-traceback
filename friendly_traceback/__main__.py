@@ -12,17 +12,19 @@ import argparse
 import platform
 import runpy
 import sys
-
 from importlib import import_module
 from pathlib import Path
 
-from . import ft_console
-from . import debug_helper
+from . import (
+    __version__,
+    debug_helper,
+    exclude_file_from_traceback,
+    explain_traceback,
+    ft_console,
+    install,
+    set_formatter,
+)
 from .ft_gettext import current_lang
-
-from . import explain_traceback, exclude_file_from_traceback, install
-from . import set_formatter, __version__
-
 
 versions = "Friendly-traceback version {}. [Python version: {}]\n".format(
     __version__, platform.python_version()

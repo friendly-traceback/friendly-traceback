@@ -5,12 +5,12 @@ import sys
 from types import FrameType
 from typing import List, Optional, Tuple
 
-from ..ft_gettext import current_lang, please_report
-from ..utils import get_similar_words, list_to_string, RuntimeMessageParser
-from ..path_info import path_utils
 from .. import debug_helper
 from ..core import TracebackData
+from ..ft_gettext import current_lang, please_report
+from ..path_info import path_utils
 from ..typing import CauseInfo
+from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
 
 parser = RuntimeMessageParser()
 
