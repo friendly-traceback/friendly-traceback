@@ -1,6 +1,4 @@
-"""This module is intended to add help attributes to various functions.
-
-Note that it might be moved to friendly instead staying in this repository."""
+"""This module is intended to add help attributes to various functions."""
 from typing import Any, Callable, Dict
 
 from friendly_traceback import debug_helper
@@ -31,7 +29,7 @@ short_description = {
     "get_lang": lambda: _("Returns the language currently used."),
     "set_formatter": lambda: _("Sets the formatter to use for display."),
     "set_debug": lambda: _("Use True (default) or False to set the debug flag."),
-    # The following are not translated
+    # The following are not translated by choice.
     "_debug_tb": (
         lambda: "Shows the full traceback, including code from friendly_traceback."
     ),
@@ -56,15 +54,3 @@ def add_help_attribute(functions: Dict[str, Callable[..., Any]]) -> None:
         func = functions[name]
         setattr(func, "help", short_description[name])  # noqa
         setattr(func, "__rich_repr__", lambda func=func: (func.help(),))  # noqa
-
-
-def add_rich_repr(functions: Dict[str, Callable[..., Any]]) -> None:
-    """Given a dict whose content is of the form
-    {function_name_string: function_obj}
-    it adds a custom __rich__repr attribute for all such
-    function objects that have a help method.
-    """
-    for name in functions:
-        func = functions[name]
-        if hasattr(func, "help"):
-            setattr(func, "__rich_repr__", lambda func=func: (func.help(),))  # noqa

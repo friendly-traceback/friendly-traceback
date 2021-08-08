@@ -252,7 +252,7 @@ def _get_exception() -> Optional[BaseException]:  # pragma: no cover
     """
     if not session.saved_info:
         print("Nothing to show: no exception recorded.")
-        return
+        return None  # add explicit None here and elsewhere to silence mypy
     info = session.saved_info[-1]
     return info["_exc_instance"]
 
@@ -264,7 +264,7 @@ def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
     """
     if not session.saved_info:
         print("Nothing to show: no exception recorded.")
-        return
+        return None
     info = session.saved_info[-1]
     return info["_frame"]
 
@@ -278,11 +278,11 @@ def _get_statement() -> Optional[Statement]:  # pragma: no cover
     """
     if not session.saved_info:
         print("Nothing to show: no exception recorded.")
-        return
+        return None
     if isinstance(session.saved_info[-1]["_exc_instance"], SyntaxError):
         return session.friendly_info[-1].tb_data.statement
     print("No statement: not a SyntaxError.")
-    return
+    return None
 
 
 def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
@@ -293,7 +293,7 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     """
     if not session.saved_info:
         print("Nothing to show: no exception recorded.")
-        return
+        return None
     info = session.saved_info[-1]
     return info["_tb_data"]
 
