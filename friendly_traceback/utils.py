@@ -6,7 +6,7 @@ import ast
 import difflib
 import types
 import uuid
-from typing import TYPE_CHECKING, Any, Callable, Dict, Iterable, List, Tuple, Union
+from typing import TYPE_CHECKING, Any, Iterable, List, Tuple, Union
 
 import executing
 import pure_eval
@@ -61,18 +61,6 @@ class RuntimeMessageParser:
             if cause:
                 return cause
         return {"cause": no_information()}
-
-
-def add_rich_repr(functions: Dict[str, Callable[..., Any]]) -> None:
-    """Given a dict whose content is of the form
-    {function_name_string: function_obj}
-    it adds a custom __rich__repr attribute for all such
-    function objects that have a help method.
-    """
-    for name in functions:
-        func = functions[name]
-        if hasattr(func, "help"):
-            setattr(func, "__rich_repr__", lambda func=func: (func.help(),))  # noqa
 
 
 def unique_variable_name() -> str:

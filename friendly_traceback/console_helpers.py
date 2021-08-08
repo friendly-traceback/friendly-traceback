@@ -16,11 +16,11 @@ from friendly_traceback import __version__, base_formatters, debug_helper
 from friendly_traceback.config import session
 from friendly_traceback.core import TracebackData
 from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.functions_help import add_help_attribute, add_rich_repr
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
 from friendly_traceback.syntax_errors.source_info import Statement
 from friendly_traceback.typing import InclusionChoice, Site
-from friendly_traceback.utils import add_rich_repr
 
 _ = current_lang.translate
 
@@ -343,20 +343,7 @@ basic_helpers: Dict[str, Callable[..., None]] = {
     "www": www,
 }
 
-back.help = lambda: _("Removes the last recorded traceback item.")
-explain.help = lambda: _("Shows all the information about the last traceback.")
-history.help = lambda: _("Shows a list of recorded traceback messages.")
-set_lang.help = lambda: _("Sets the language to be used.")
-set_prompt.help = lambda: _("Sets the prompt style to be used in the console.")
-show_paths.help = lambda: _("Shows the paths corresponding to synonyms used.")
-what.help = lambda: _("Shows the generic meaning of a given exception")
-where.help = lambda: _("Shows where an exception was raised.")
-why.help = lambda: _("Shows the likely cause of the exception.")
-www.help = lambda: _("Opens a web browser at a useful location.")
-
-add_rich_repr(basic_helpers)
-
-from typing import Callable
+add_help_attribute(basic_helpers)
 
 other_helpers: Dict[str, Callable[..., Any]] = {
     "hint": hint,
