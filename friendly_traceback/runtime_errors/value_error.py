@@ -6,17 +6,21 @@ providing a more detailed explanation.
 
 import inspect
 import re
+from types import FrameType
+from typing import Any, Optional, Tuple
 
 from ..ft_gettext import current_lang
 from .. import info_variables
 from .. import token_utils
 from .. import utils
+from ..core import TracebackData
+from ..typing import CauseInfo
 
 convert_type = info_variables.convert_type
 parser = utils.RuntimeMessageParser()
 
 
-def _unpacking():
+def _unpacking() -> str:
     _ = current_lang.translate
     return _(
         "Unpacking is a convenient way to assign a name,\n"
@@ -24,7 +28,7 @@ def _unpacking():
     )
 
 
-def get_iterable(code, frame):
+def get_iterable(code: str, frame: FrameType) -> Tuple[Any, Optional[str]]:
     """gets an iterable object and its type as a string."""
     try:
         # As a ValueError exception has been raised, Python has already evaluated
@@ -50,7 +54,9 @@ def get_iterable(code, frame):
 
 
 @parser.add
-def not_enough_values_to_unpack(message, frame, tb_data):
+def not_enough_values_to_unpack(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern1 = re.compile(r"not enough values to unpack \(expected (\d+), got (\d+)\)")
     match1 = re.search(pattern1, message)
@@ -90,7 +96,9 @@ def not_enough_values_to_unpack(message, frame, tb_data):
 
 
 @parser.add
-def too_many_values_to_unpack(message, frame, tb_data):
+def too_many_values_to_unpack(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"too many values to unpack \(expected (\d+)\)")
     match = re.search(pattern, message)
@@ -127,7 +135,9 @@ def too_many_values_to_unpack(message, frame, tb_data):
 
 
 @parser.add
-def invalid_literal_for_int(message, *_args):
+def invalid_literal_for_int(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"invalid literal for int\(\) with base (\d+): '(.*)'")
     match = re.search(pattern, message)
@@ -182,7 +192,7 @@ def invalid_literal_for_int(message, *_args):
     return {"cause": begin_cause + cause}
 
 
-def _convert_to_float(value):
+def _convert_to_float(value: Any) -> CauseInfo:
     _ = current_lang.translate
 
     hint = _("You need to convert `'{value}'` to a float first.\n").format(value=value)
@@ -194,7 +204,9 @@ def _convert_to_float(value):
 
 
 @parser.add
-def date_month_must_be_between_1_and_12(message, *_args):
+def date_month_must_be_between_1_and_12(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
 
     if message != "month must be in 1..12":
@@ -209,7 +221,9 @@ def date_month_must_be_between_1_and_12(message, *_args):
 
 
 @parser.add
-def unrecognized_message(_value, frame, tb_data):
+def unrecognized_message(
+    _value: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     """This attempts to provide some help when a message is not recognized."""
     _ = current_lang.translate
     bad_line = tb_data.bad_line.strip()

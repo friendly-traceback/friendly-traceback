@@ -5,17 +5,23 @@ providing a more detailed explanation.
 """
 
 import re
+from types import FrameType
+from typing import Any, List, Optional, Tuple, Type
 
 from ..ft_gettext import current_lang, no_information
 from .. import info_variables
 from .. import token_utils
 from .. import utils
+from ..core import TracebackData
+from ..typing import CauseInfo
 
 convert_type = info_variables.convert_type
 parser = utils.RuntimeMessageParser()
 
 
-def _convert_str_to_number(obj_type1, obj_type2, frame, tb_data):
+def _convert_str_to_number(
+    obj_type1: str, obj_type2: str, frame: FrameType, tb_data: TracebackData
+) -> Tuple[Optional[str], Optional[str]]:
     """Determines if a suggestion should be made to convert a string to a
     number type; potentially useful for beginners that write programs
     that use input() and ask for numbers.
@@ -57,7 +63,9 @@ def _convert_str_to_number(obj_type1, obj_type2, frame, tb_data):
 
 
 @parser.add
-def parse_can_only_concatenate(message, frame, tb_data):
+def parse_can_only_concatenate(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     # example: can only concatenate str (not "int") to str
     pattern = re.compile(
@@ -84,7 +92,9 @@ def parse_can_only_concatenate(message, frame, tb_data):
 
 
 @parser.add
-def parse_must_be_str(message, frame, tb_data):
+def parse_must_be_str(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     # python 3.6 version: must be str, not int
     # example: can only concatenate str (not "int") to str
@@ -108,7 +118,9 @@ def parse_must_be_str(message, frame, tb_data):
 
 
 @parser.add
-def parse_unsupported_operand_type(message, frame, tb_data):
+def parse_unsupported_operand_type(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     more_cause = possible_hint = hint = None
     # example: unsupported operand type(s) for +: 'int' and 'str'
@@ -221,7 +233,9 @@ def parse_unsupported_operand_type(message, frame, tb_data):
 
 
 @parser.add
-def parse_order_comparison(message, frame, tb_data):
+def parse_order_comparison(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     # example: '<' not supported between instances of 'int' and 'str'
     pattern = re.compile(
@@ -266,7 +280,9 @@ def parse_order_comparison(message, frame, tb_data):
 
 
 @parser.add
-def bad_operand_type_for_unary(message, _frame, tb_data):
+def bad_operand_type_for_unary(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     # example: bad operand type for unary +: 'str'
     pattern = re.compile(r"bad operand type for unary (.+): [\'\"](\w+)[\'\"]")
@@ -306,7 +322,9 @@ def bad_operand_type_for_unary(message, _frame, tb_data):
 
 
 @parser.add
-def does_not_support_item_assignment(message, *_args):
+def does_not_support_item_assignment(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     # example: 'tuple' object does not support item assignment
     pattern = re.compile(r"[\'\"](\w+)[\'\"] object does not support item assignment")
@@ -332,7 +350,9 @@ def does_not_support_item_assignment(message, *_args):
 
 
 @parser.add
-def exception_derived_from_base_exception(message, *_args):
+def exception_derived_from_base_exception(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
 
     if "exceptions must derive from BaseException" in message:
@@ -343,7 +363,9 @@ def exception_derived_from_base_exception(message, *_args):
 
 
 @parser.add
-def incorrect_nb_positional_arguments(message, _frame, tb_data):
+def incorrect_nb_positional_arguments(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     missing_self = False
     # example: my_function() takes 0 positional arguments but x was/were given
@@ -389,7 +411,9 @@ def incorrect_nb_positional_arguments(message, _frame, tb_data):
 
 
 @parser.add
-def missing_positional_arguments(message, *_args):
+def missing_positional_arguments(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     # example: my_function() missing 1 required positional argument
     pattern = re.compile(r"(.*) missing (\d+) required positional argument")
@@ -407,7 +431,9 @@ def missing_positional_arguments(message, *_args):
 
 
 @parser.add
-def x_is_not_callable(message, frame, tb_data):
+def x_is_not_callable(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object is not callable")
     match = re.search(pattern, message)
@@ -507,7 +533,7 @@ def x_is_not_callable(message, frame, tb_data):
     return {"cause": cause}
 
 
-def forgot_to_convert_name_to_int(name):
+def forgot_to_convert_name_to_int(name: str) -> Tuple[str, str]:
     """Explanations common to many cases about converting a single
     name to an integer.
     """
@@ -520,7 +546,9 @@ def forgot_to_convert_name_to_int(name):
 
 
 @parser.add
-def cannot_multiply_by_str(message, frame, tb_data):
+def cannot_multiply_by_str(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
 
     if "can't multiply sequence by non-int of type 'str'" not in message:
@@ -559,7 +587,9 @@ def cannot_multiply_by_str(message, frame, tb_data):
     return {"cause": cause}
 
 
-def find_possible_integers(object_of_type, frame, line):
+def find_possible_integers(
+    object_of_type: Type[Any], frame: FrameType, line: str
+) -> List[str]:
     all_objects = info_variables.get_all_objects(line, frame)
     names = []
     for name, obj in all_objects["name, obj"]:
@@ -574,7 +604,9 @@ def find_possible_integers(object_of_type, frame, line):
 
 
 @parser.add
-def object_cannot_be_interpreted_as_an_integer(message, frame, tb_data):
+def object_cannot_be_interpreted_as_an_integer(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object cannot be interpreted as an integer")
     match = re.search(pattern, message)
@@ -618,7 +650,9 @@ def object_cannot_be_interpreted_as_an_integer(message, frame, tb_data):
 
 
 @parser.add
-def indices_must_be_integers_or_slices(message, frame, tb_data):
+def indices_must_be_integers_or_slices(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"(.*) indices must be integers or slices, not (.*)")
     match = re.search(pattern, message)
@@ -744,7 +778,9 @@ def indices_must_be_integers_or_slices(message, frame, tb_data):
 
 
 @parser.add
-def slice_indices_must_be_integers_or_none(message, *_args):
+def slice_indices_must_be_integers_or_none(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     if message != (
         "slice indices must be integers or None or have an __index__ method"
@@ -762,7 +798,9 @@ def slice_indices_must_be_integers_or_none(message, *_args):
 
 
 @parser.add
-def unhashable_type(message, *_args):
+def unhashable_type(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"unhashable type: '(.*)'")
     match = re.search(pattern, message)
@@ -790,7 +828,9 @@ def unhashable_type(message, *_args):
 
 
 @parser.add
-def object_is_not_subscriptable(message, frame, tb_data):
+def object_is_not_subscriptable(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object is not subscriptable")
     match = re.search(pattern, message)
@@ -838,7 +878,9 @@ def object_is_not_subscriptable(message, frame, tb_data):
 
 
 @parser.add
-def object_is_not_iterable(message, *_args):
+def object_is_not_iterable(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object is not iterable")
     match = re.search(pattern, message)
@@ -854,7 +896,9 @@ def object_is_not_iterable(message, *_args):
 
 
 @parser.add
-def cannot_unpack_non_iterable(message, *_args):
+def cannot_unpack_non_iterable(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile(r"cannot unpack non-iterable (.*) object")
     match = re.search(pattern, message)
@@ -874,7 +918,9 @@ def cannot_unpack_non_iterable(message, *_args):
 
 
 @parser.add
-def cannot_convert_dictionary_update_sequence(message, _frame, tb_data):
+def cannot_convert_dictionary_update_sequence(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     if "cannot convert dictionary update sequence element" not in message:
         return {}
@@ -908,7 +954,9 @@ def cannot_convert_dictionary_update_sequence(message, _frame, tb_data):
 
 
 @parser.add
-def builtin_callable_has_no_len(message, frame, tb_data):
+def builtin_callable_has_no_len(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     if message != "object of type 'builtin_function_or_method' has no len()":
         return {}
@@ -931,7 +979,9 @@ def builtin_callable_has_no_len(message, frame, tb_data):
 
 
 @parser.add
-def function_has_no_len(message, frame, tb_data):
+def function_has_no_len(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
     _ = current_lang.translate
     if message != "object of type 'function' has no len()":
         return {}
