@@ -33,6 +33,9 @@ def test_no_information():
 
 
 def test_invalid_argument():
+    import os
+    if os.name != "nt":
+        return "Windows test only", "No result"
     try:
         open("c:\test.txt")
     except OSError as e:
