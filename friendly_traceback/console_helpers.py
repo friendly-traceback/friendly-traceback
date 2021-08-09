@@ -9,7 +9,7 @@ environments such as in a Jupyter notebook.
 import inspect
 import sys
 import types
-from typing import Any, Callable, Dict, Iterable, List, Optional, Type, Union
+from typing import Any, Callable, Dict, List, Optional, Type, Union
 
 import friendly_traceback
 from friendly_traceback import __version__, base_formatters, debug_helper
@@ -229,12 +229,17 @@ def www(site: Optional[Site] = None) -> None:  # pragma: no cover
         return
 
 
+def set_debug(flag: bool = True) -> None:  # pragma: no cover
+    """This sets the value of the debug flag for the current session."""
+    debug_helper.DEBUG = flag
+    debug_helper.SHOW_DEBUG_HELPER = flag
+
+
 get_lang = friendly_traceback.get_lang
 set_lang = friendly_traceback.set_lang
 get_include = friendly_traceback.get_include
 set_include = friendly_traceback.set_include
 set_formatter = friendly_traceback.set_formatter
-
 
 # ===== Debugging functions are not unit tested by choice =====
 
@@ -298,12 +303,6 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     return info["_tb_data"]
 
 
-def set_debug(flag: bool = True) -> None:  # pragma: no cover
-    """This sets the value of the debug flag for the current session."""
-    debug_helper.DEBUG = flag
-    debug_helper.SHOW_DEBUG_HELPER = flag
-
-
 def _show_info() -> None:  # pragma: no cover
     """Debugging tool: shows the complete content of traceback info.
 
@@ -330,33 +329,29 @@ def _show_info() -> None:  # pragma: no cover
             print(f"{item}: {info[item]}")
 
 
-basic_helpers: Dict[str, Callable[..., None]] = {
-    "back": back,
-    "explain": explain,
-    "history": history,
-    "set_lang": set_lang,
-    "set_prompt": set_prompt,
-    "show_paths": show_paths,
+helpers: Dict[str, Callable[..., None]] = {
+    "why": why,
     "what": what,
     "where": where,
-    "why": why,
     "www": www,
-}
-
-other_helpers: Dict[str, Callable[..., Any]] = {
+    "explain": explain,
     "hint": hint,
-    "get_lang": get_lang,
-    "python_tb": python_tb,
+    "back": back,
+    "history": history,
     "friendly_tb": friendly_tb,
+    "python_tb": python_tb,
+    "set_prompt": set_prompt,
+    "show_paths": show_paths,
     "get_include": get_include,
     "set_include": set_include,
+    "get_lang": get_lang,
+    "set_lang": set_lang,
     "set_formatter": set_formatter,
     "set_debug": set_debug,
 }
+add_help_attribute(helpers)
 
-helpers = {**basic_helpers, **other_helpers}
-
-_debug_helpers: Dict[str, Callable[..., Any]] = {
+debug_helper_methods: Dict[str, Callable[..., Any]] = {
     "_debug_tb": _debug_tb,
     "_get_frame": _get_frame,
     "_show_info": _show_info,
@@ -364,6 +359,7 @@ _debug_helpers: Dict[str, Callable[..., Any]] = {
     "_get_exception": _get_exception,
     "_get_statement": _get_statement,
 }
+add_help_attribute(debug_helper_methods)
 
 
 class FriendlyHelpers:
@@ -375,84 +371,81 @@ class FriendlyHelpers:
 
     version = __version__
 
-    __include_basic: List[str]
-
-    def __init__(self, local_helpers: Optional[Iterable[str]] = None) -> None:
-        self.__include_basic = list(basic_helpers)
-        if local_helpers is not None:
-            self.__include_basic.extend(local_helpers)
-        self.__include_basic = sorted(self.__include_basic)  # first alphabetically
-        # then by word length, as it is easier to read.
-        self.include_in_rich_repr = sorted(self.__include_basic, key=len)
-
-        self.__include_more = list(other_helpers)
-        self.__include_more = sorted(self.__include_more)  # first alphabetically
-        # then by word length, as it is easier to read.
-        self.include_in_help = sorted(self.__include_more, key=len)
+    def __init__(self) -> None:
+        self.helpers = {}
         self.__class__.__name__ = "Friendly"  # For a nicer Rich repr
 
-        debug_helpers = sorted(list(_debug_helpers))
-        self.debug_helpers = sorted(debug_helpers, key=len)
+    def add_helper(self, name: str, function: Callable) -> None:  # pragma: no cover
+        """Adds a helper base on its name and the function it refers to."""
+        self.helpers[name] = function
+        setattr(self, name, function)
+
+    def remove_helper(self, name: str) -> None:  # pragma: no cover
+        """Removes a helper from the FriendlyHelpers object"""
+        if name in self.helpers:
+            del self.helpers[name]
+            delattr(self, name)
+        else:
+            debug_helper.log(f"Cannot remove {name}; it is not a known helper.")
 
     def __dir__(self) -> List[str]:  # pragma: no cover
         """Only include useful friendly methods."""
-        return self.__include_basic + list(other_helpers) + list(_debug_helpers)
+        return sorted(list(self.helpers))
 
     def __repr__(self) -> str:  # pragma: no cover
         """Shows a brief description in the default language of what
-        each 'basic' function/method does.
+        each function/method does.
 
-        'Advanced' and debugging helper functions are not included
-        in the display.
+        Debugging helper functions are only included if the DEBUG flag is set.
         """
-        header = (
-            _(
-                "The following methods of the Friendly object might also "
-                "be available as functions."
-            )
-            + "\n\n"
-            + _("Basic methods:")
+        basic_helpers = {}
+        _debug_helpers = {}
+        for name in self.helpers:
+            if name.startswith("_"):
+                _debug_helpers[name] = self.helpers[name]
+            else:
+                basic_helpers[name] = self.helpers[name]
+
+        # sort alphabetically, then by length name for nicer display
+        basic_helpers = sorted(list(basic_helpers))
+        basic_helpers = sorted(basic_helpers, key=len)
+        _debug_helpers = sorted(list(_debug_helpers))
+        _debug_helpers = sorted(_debug_helpers, key=len)
+
+        header = _(
+            "The following methods of the Friendly object should also "
+            "be available as functions."
         )
         parts = [header + "\n\n"]
-        for item in self.include_in_rich_repr:
-            parts.append(item + "(): ")
-            fn = getattr(Friendly, item)
+        for name in basic_helpers:
+            parts.append(name + "(): ")
+            fn = self.helpers[name]
             if hasattr(fn, "help"):
-                parts.append(getattr(Friendly, item).help() + "\n")
+                parts.append(fn.help() + "\n")
             else:
-                print("Warning:", item, "has no help() method.")
-
-        more_header = _("Less commonly used methods/functions.")
-        parts.append("\n" + more_header + "\n\n")
-        for item in self.include_in_help:
-            parts.append(item + "(): ")
-            fn = getattr(Friendly, item)
-            if hasattr(fn, "help"):
-                parts.append(getattr(Friendly, item).help() + "\n")
-            else:
-                print("Warning:", item, "has no help() method.")
+                print("Warning:", name, "has no help() method.")
 
         if debug_helper.SHOW_DEBUG_HELPER:
             more_header = "Debugging methods (English only)."
             parts.append("\n" + more_header + "\n\n")
-            for item in self.debug_helpers:
-                parts.append(f"Friendly.{item}(): ")
-                fn = getattr(Friendly, item)
+            for name in _debug_helpers:
+                parts.append(name + "(): ")
+                fn = self.helpers[name]
                 if hasattr(fn, "help"):
-                    parts.append(getattr(Friendly, item).help() + "\n")
+                    parts.append(fn.help() + "\n")
                 else:
-                    print("Warning:", item, "has no help() method.")
+                    print("Warning:", name, "has no help() method.")
         return "".join(parts)
 
 
-add_help_attribute(helpers)
-add_help_attribute(_debug_helpers)
-
-for helper in helpers:
-    setattr(FriendlyHelpers, helper, staticmethod(helpers[helper]))
-for helper in _debug_helpers:
-    setattr(FriendlyHelpers, helper, staticmethod(_debug_helpers[helper]))
-
 Friendly = FriendlyHelpers()
+for helper_name in helpers:
+    Friendly.add_helper(helper_name, helpers[helper_name])
+for helper_name in debug_helper_methods:
+    Friendly.add_helper(helper_name, debug_helper_methods[helper_name])
+
 helpers["Friendly"] = Friendly
+# We don't include the debug helpers in __all__ so that they do
+# not show when doing dir() at a console; we only make them
+# available as methods of the Friendly object.
 __all__ = list(helpers.keys())
