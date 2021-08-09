@@ -31,3 +31,16 @@ def test_no_information():
     assert ft_tb.info["cause"] == friendly_traceback.ft_gettext.no_information()
     friendly_traceback.debug_helper.DEBUG = old_debug
 
+
+def test_invalid_argument():
+    try:
+        open("c:\test.txt")
+    except OSError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+
+    result = friendly_traceback.get_output()
+    assert "Invalid argument" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "front of the filename or path, or replace all single backslash" in result
+    return result, message

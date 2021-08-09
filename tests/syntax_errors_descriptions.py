@@ -844,6 +844,10 @@ descriptions = {
         cause: "use the function `repr(x)`.",
         title: "Using the backquote character",
     },
+    "unicode_error": {
+        cause: "one backslash character, `\\` followed by an uppercase `U`",
+        title: "unicode error"
+    },
     "walrus_instead_of_equal": {
         cause: "You use the augmented assignment operator `:=` where",
         title: "Walrus instead of equal",

@@ -145,7 +145,7 @@ def _os_error(value: OSError, frame: FrameType, tb_data: "TracebackData") -> Cau
 
     from .runtime_errors import os_error
 
-    return os_error.get_cause(value, frame, tb_data)
+    return os_error.parser.get_cause(value, frame, tb_data)
 
 
 @register(OverflowError)

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-08 21:25-0300\n"
+"POT-Creation-Date: 2021-08-09 13:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1132,6 +1132,23 @@ msgid ""
 "\n"
 "If that is the case, check for typos in the URL\n"
 "and check your internet connectivity.\n"
+msgstr ""
+
+#: runtime_errors\os_error.py:44 syntax_errors\message_analyzer.py:1420
+msgid ""
+"Perhaps you need to double the backslash characters.\n"
+msgstr ""
+
+#: runtime_errors\os_error.py:45
+msgid ""
+"I suspect that you wrote a filename or path that contains\n"
+"at least one backslash character, `\\`.\n"
+"Python likely interpreted this as indicating the beginning of\n"
+"what is known as an escape sequence.\n"
+"To solve the problem, either write a so-called 'raw string'\n"
+"by adding the letter `r` as a prefix in\n"
+"front of the filename or path, or replace all single backslash\n"
+"characters, `\\`, by double ones: `\\\\`.\n"
 msgstr ""
 
 #: runtime_errors\type_error.py:52
@@ -2825,6 +2842,18 @@ msgstr ""
 #: syntax_errors\message_analyzer.py:1411
 msgid ""
 "An `else some_value` clause was expected after the `if` expression.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1421
+msgid ""
+"I suspect that you wrote a string that contains\n"
+"one backslash character, `\\` followed by an uppercase `U`\n"
+"and some more characters.\n"
+"Python likely interpreted this as indicating the beginning of\n"
+"what is known as an escape sequence for special unicode characters.\n"
+"To solve the problem, either write a so-called 'raw string'\n"
+"by adding the letter `r` as a prefix in\n"
+"front of the string, or replace `\\U`, by `\\\\U`.\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:114

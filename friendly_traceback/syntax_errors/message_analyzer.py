@@ -1410,3 +1410,22 @@ def else_after_if(message="", statement=None):
     hint = _("Did you forget to add `else`?\n")
     cause = _("An `else some_value` clause was expected after the `if` expression.\n")
     return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def unicode_error(message="", statement=None):
+    _ = current_lang.translate
+    if "unicode error" not in message or "truncated \\UXX" not in message:
+        return {}
+    hint = _("Perhaps you need to double the backslash characters.\n")
+    cause = _(
+        "I suspect that you wrote a string that contains\n"
+        "one backslash character, `\\` followed by an uppercase `U`\n"
+        "and some more characters.\n"
+        "Python likely interpreted this as indicating the beginning of\n"
+        "what is known as an escape sequence for special unicode characters.\n"
+        "To solve the problem, either write a so-called 'raw string'\n"
+        "by adding the letter `r` as a prefix in\n"
+        "front of the string, or replace `\\U`, by `\\\\U`.\n"
+    )
+    return {"cause": cause, "suggest": hint}
