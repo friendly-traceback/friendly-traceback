@@ -375,10 +375,10 @@ class FriendlyHelpers:
         self.helpers = {}
         self.__class__.__name__ = "Friendly"  # For a nicer Rich repr
 
-    def add_helper(self, name: str, function: Callable) -> None:  # pragma: no cover
+    def add_helper(self, function: Callable) -> None:  # pragma: no cover
         """Adds a helper base on its name and the function it refers to."""
-        self.helpers[name] = function
-        setattr(self, name, function)
+        self.helpers[function.__name__] = function
+        setattr(self, function.__name__, function)
 
     def remove_helper(self, name: str) -> None:  # pragma: no cover
         """Removes a helper from the FriendlyHelpers object"""
@@ -440,9 +440,9 @@ class FriendlyHelpers:
 
 Friendly = FriendlyHelpers()
 for helper_name in helpers:
-    Friendly.add_helper(helper_name, helpers[helper_name])
+    Friendly.add_helper(helpers[helper_name])
 for helper_name in debug_helper_methods:
-    Friendly.add_helper(helper_name, debug_helper_methods[helper_name])
+    Friendly.add_helper(debug_helper_methods[helper_name])
 
 helpers["Friendly"] = Friendly
 # We don't include the debug helpers in __all__ so that they do
