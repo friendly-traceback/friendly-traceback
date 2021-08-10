@@ -531,8 +531,18 @@ def print_as_statement(statement):
         "Now, `print` is a function; you need to use parentheses to call it.\n"
     )
     bad_line = statement.bad_line
+    valid = True
     if bad_line.count("(") == bad_line.count(")"):
         new_line = bad_line.replace("print", "", 1).strip()
+        possible_statement = f"print({new_line})"
+        valid = fixers.check_statement(possible_statement)
+        if not valid:
+            if '"' not in new_line:
+                new_line = f'"{new_line}"'
+            elif "'" not in new_line:
+                new_line = f"'{new_line}'"
+            else:
+                new_line = "..."
         if len(new_line) > 30:
             parts = new_line.split(" ")
             new_line = parts[0] + " ... " + parts[-1]
@@ -540,6 +550,8 @@ def print_as_statement(statement):
     else:
         new_line = "print(...)"
     hint = _("Did you mean `{new_line}`?\n").format(new_line=new_line)
+    if not valid:
+        cause += _("Note that arguments of `print` be separated by commas.\n")
     return {"cause": cause, "suggest": hint}
 
 

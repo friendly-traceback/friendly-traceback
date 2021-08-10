@@ -953,7 +953,12 @@ def python2_print(message="", **_kwargs):
     possible_statement = f"print({message})"
     valid = fixers.check_statement(possible_statement)
     if not valid:
-        message = f'"{message}"'
+        if '"' not in message:
+            message = f'"{message}"'
+        elif "'" not in message:
+            message = f"'{message}'"
+        else:
+            message = "'...'"
     if len(message) > 40:
         message = message[0:25] + " ... "
     cause = _(
@@ -963,7 +968,7 @@ def python2_print(message="", **_kwargs):
         "Now, `print` is a function; you need to use parentheses to call it.\n"
     ).format(message=message)
     if not valid:
-        cause += _("Note that each argument of `print` must be a string.\n")
+        cause += _("Note that arguments of `print` be separated by commas.\n")
     hint = _("Did you mean `print({message})`?\n").format(message=message)
     return {"cause": cause, "suggest": hint}
 
