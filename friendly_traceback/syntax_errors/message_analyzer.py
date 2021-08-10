@@ -968,7 +968,7 @@ def python2_print(message="", **_kwargs):
         "Now, `print` is a function; you need to use parentheses to call it.\n"
     ).format(message=message)
     if not valid:
-        cause += _("Note that arguments of `print` be separated by commas.\n")
+        cause += _("Note that arguments of `print` must be separated by commas.\n")
     hint = _("Did you mean `print({message})`?\n").format(message=message)
     return {"cause": cause, "suggest": hint}
 

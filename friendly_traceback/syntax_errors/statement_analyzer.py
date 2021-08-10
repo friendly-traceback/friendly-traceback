@@ -551,7 +551,7 @@ def print_as_statement(statement):
         new_line = "print(...)"
     hint = _("Did you mean `{new_line}`?\n").format(new_line=new_line)
     if not valid:
-        cause += _("Note that arguments of `print` be separated by commas.\n")
+        cause += _("Note that arguments of `print` must be separated by commas.\n")
     return {"cause": cause, "suggest": hint}
 
 
