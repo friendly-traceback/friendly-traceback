@@ -1,4 +1,3 @@
-"""Only identifying failed connection to a server for now."""
 from types import FrameType
 
 from ..core import TracebackData

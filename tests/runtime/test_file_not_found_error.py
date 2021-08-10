@@ -19,4 +19,4 @@ def test_Generic():
 
 
 if __name__ == "__main__":
-    print(test_file_not_found_error()[0])
+    print(test_Generic()[0])

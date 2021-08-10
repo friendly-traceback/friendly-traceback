@@ -3,8 +3,6 @@
 Attempts to provide some specific information about the likely cause
 of a given exception.
 """
-
-import re
 from types import FrameType
 from typing import TYPE_CHECKING, Callable, Dict, Type
 
@@ -63,33 +61,12 @@ def _attribute_error(
 
 
 @register(FileNotFoundError)
-def _file_not_found_error(value: FileNotFoundError, *_args) -> CauseInfo:
-    _ = current_lang.translate
-    # str(value) is expected to be something like
-    #
-    # fileNotFoundError: No module named 'does_not_exist'
-    # or
-    # [Error 2] No such file or directory: 'does_not_exist'
-    #
-    # By splitting value using ', we can extract the module name.
-    message = str(value)
-    pattern1 = re.compile("No module named '(.*)'")
-    match1 = re.search(pattern1, message)
-    pattern2 = re.compile("No such file or directory: '(.*)'")
-    match2 = re.search(pattern2, message)
-    if match1 is None:
-        if match2 is None:
-            return {}
-        filename = match2.group(1)
-    else:
-        filename = match1.group(1)
+def _file_not_found_error(
+    value: FileNotFoundError, frame: FrameType, tb_data: "TracebackData"
+) -> CauseInfo:
+    from .runtime_errors import file_not_found_error
 
-    return {
-        "cause": _(
-            "In your program, the name of the\n"
-            "file that cannot be found is `{filename}`.\n"
-        ).format(filename=filename)
-    }
+    return file_not_found_error.parser.get_cause(value, frame, tb_data)
 
 
 @register(ImportError)
