@@ -673,6 +673,16 @@ descriptions = {
         title: "print is a function 5",
         "also in cause": ["print(len('This ", " ... ", "line."],
     },
+    "print_non_paren_non_string1": {
+        cause: "In older version of Python, `print` was a keyword",
+        title: "print is a function 6",
+        "also in cause": ['print("hello world!")'],
+    },
+    "print_non_paren_non_string2": {
+        cause: "In older version of Python, `print` was a keyword",
+        title: "print is a function 7",
+        "also in cause": ['print(\'len("hello") hello\')'],
+    },
     "python_interpreter": {
         cause: " attempting to use Python to run a program",
         title: "Calling python from interpreter",
