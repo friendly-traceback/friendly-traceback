@@ -18,6 +18,7 @@ from .typing import StrPath
 EXCLUDED_FILE_PATH: Set[str] = set()
 EXCLUDED_DIR_NAMES: Set[str] = set()
 SITE_PACKAGES = os.path.abspath(os.path.join(os.path.dirname(asttokens.__file__), ".."))
+PYTHON_LIB = os.path.abspath(os.path.dirname(os.__file__))
 FRIENDLY = os.path.abspath(os.path.dirname(__file__))
 TESTS = os.path.abspath(os.path.join(FRIENDLY, "..", "tests"))
 
@@ -68,6 +69,10 @@ def is_excluded_file(full_path: StrPath) -> bool:
     for dirs in EXCLUDED_DIR_NAMES:
         if full_path.startswith(dirs):
             return True
+    # Design choice: we exclude all files from the Python standard library
+    # but not those that have been installed by the user.
+    if full_path.startswith(PYTHON_LIB) and not full_path.startswith(SITE_PACKAGES):
+        return True
     return full_path in EXCLUDED_FILE_PATH
 
 
@@ -98,7 +103,6 @@ def include_file_in_traceback(full_path: str) -> None:
 
 class PathUtil:
     def __init__(self) -> None:
-        self.python = os.path.abspath(os.path.dirname(os.__file__))
         self.home = os.path.expanduser("~")
 
     MaybeText = TypeVar("MaybeText", str, None)
@@ -135,8 +139,8 @@ class PathUtil:
                 path = "<friendly-console:" + split_path
         elif path_lower.startswith(SITE_PACKAGES.casefold()):
             path = "LOCAL:" + path[len(SITE_PACKAGES) :]
-        elif path_lower.startswith(self.python.casefold()):
-            path = "PYTHON_LIB:" + path[len(self.python) :]
+        elif path_lower.startswith(PYTHON_LIB.casefold()):
+            path = "PYTHON_LIB:" + path[len(PYTHON_LIB) :]
         elif path_lower.startswith(FRIENDLY.casefold()):
             path = "FRIENDLY:" + path[len(FRIENDLY) :]
         elif path_lower.startswith(TESTS.casefold()):
@@ -189,7 +193,7 @@ def show_paths() -> None:  # pragma: no cover
     _ = current_lang.translate
     print("HOME =", path_utils.home)
     print("LOCAL =", SITE_PACKAGES)
-    print("PYTHON_LIB =", path_utils.python)
+    print("PYTHON_LIB =", PYTHON_LIB)
     if FRIENDLY != SITE_PACKAGES:
         print("FRIENDLY = ", FRIENDLY)
     print(_("The default directory is {dirname}.").format(dirname=os.getcwd()))
