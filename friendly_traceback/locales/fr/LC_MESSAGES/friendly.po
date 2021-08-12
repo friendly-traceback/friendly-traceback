@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-12 08:06-0300\n"
+"POT-Creation-Date: 2021-08-12 08:29-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -954,6 +954,11 @@ msgstr "Vouliez-vous dire `{similar}` ?\n"
 #: runtime_errors\file_not_found_error.py:69
 msgid "The file `{similar}` has a similar name.\n"
 msgstr "Le fichier `{similar}` a un nom semblable.\n"
+
+#: runtime_errors\file_not_found_error.py:74
+msgid "Perhaps you meant one of the following files with similar names:\n"
+msgstr ""
+"Vous vouliez peut-être un des fichiers suivants ayant des noms semblables :\n"
 
 #: runtime_errors\file_not_found_error.py:81 runtime_errors\name_error.py:132
 msgid "I have no additional information for you.\n"

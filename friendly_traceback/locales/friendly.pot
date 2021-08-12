@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-12 08:06-0300\n"
+"POT-Creation-Date: 2021-08-12 08:29-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -751,6 +751,11 @@ msgstr ""
 #: runtime_errors\file_not_found_error.py:69
 msgid ""
 "The file `{similar}` has a similar name.\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:74
+msgid ""
+"Perhaps you meant one of the following files with similar names:\n"
 msgstr ""
 
 #: runtime_errors\file_not_found_error.py:81 runtime_errors\name_error.py:132

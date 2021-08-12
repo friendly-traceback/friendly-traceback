@@ -71,10 +71,10 @@ def no_such_file_or_directory(
             )
         else:
             cause += (
-                _(
-                    "Perhaps you meant one of the following files with similar names:\n"
-                    + str(all_similar)[1:-1].replace("'", "`")
-                ).format(all_similar=all_similar)
+                _("Perhaps you meant one of the following files with similar names:\n")
+                + str(all_similar)[1:-1]
+                .replace("'", "`")
+                .format(all_similar=all_similar)
                 + "\n"
             )
         return {"cause": cause, "suggest": hint}
