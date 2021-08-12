@@ -9,7 +9,7 @@ import sys
 import types
 from typing import Any, Dict, List
 
-from . import token_utils, utils
+from . import debug_helper, token_utils, utils
 from .ft_gettext import current_lang
 from .path_info import path_utils
 from .typing import ObjectsInfo, ScopeKind, SimilarNamesInfo
@@ -77,6 +77,8 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     names = set()
 
     tokens = token_utils.get_significant_tokens(line)
+    if not tokens:
+        return objects
     for tok in tokens:
         if tok.is_identifier():
             name = tok.string
@@ -96,9 +98,15 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                     objects["builtins"].append((name, repr(obj), obj))
                     objects["name, obj"].append((name, obj))
 
+    line = line.strip()
+    if line.startswith(("def", "if", "while", "class", "for")) and line.endswith(":"):
+        line += " pass"
     try:
-        atok = ASTTokens(line, parse=True)
-    except SyntaxError:  # this should not happen
+        atok = ASTTokens(line.strip(), parse=True)
+    except SyntaxError as e:
+        if "unexpected EOF" not in str(e):
+            debug_helper.log(f"problem with ASTTokens: {e}")
+            debug_helper.log(f"line: {line}")
         return objects
 
     if atok is not None:
@@ -107,7 +115,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
             pair for pair in evaluator.find_expressions(atok.tree)
         ):
             name = atok.get_text(nodes[0])
-            if name in names:
+            if not name or name in names:
                 continue
             names.add(name)
             objects["name, obj"].append((name, obj))
@@ -145,6 +153,7 @@ def get_object_from_name(name: str, frame: types.FrameType) -> Any:
     """
     # We must guard against people defining their own type with a
     # standard name by checking standard types last.
+
     if name in frame.f_locals:
         return frame.f_locals[name]
 

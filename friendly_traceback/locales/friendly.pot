@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-10 08:08-0300\n"
+"POT-Creation-Date: 2021-08-12 08:06-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -414,12 +414,6 @@ msgid ""
 "by zero either directly or by using some other mathematical operation.\n"
 msgstr ""
 
-#: info_specific.py:88
-msgid ""
-"In your program, the name of the\n"
-"file that cannot be found is `{filename}`.\n"
-msgstr ""
-
 #: info_variables.py:33
 msgid "a complex number"
 msgstr ""
@@ -460,7 +454,7 @@ msgstr ""
 msgid "a `tuple`"
 msgstr ""
 
-#: info_variables.py:384
+#: info_variables.py:393
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -727,6 +721,41 @@ msgid ""
 "However, both `{first}` and `{second}` are known objects.\n"
 "Perhaps you wrote a period to separate these two objects, \n"
 "instead of using a comma.\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:25
+#: runtime_errors\file_not_found_error.py:44
+#: runtime_errors\file_not_found_error.py:58
+msgid ""
+"In your program, the name of the\n"
+"file that cannot be found is `{filename}`.\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:52
+msgid ""
+"{directory}\n"
+"is not a valid directory.\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:63
+msgid ""
+"It was expected to be found in the\n"
+"`{directory}` directory.\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:67
+msgid ""
+"Did you mean `{similar}`?\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:69
+msgid ""
+"The file `{similar}` has a similar name.\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:81 runtime_errors\name_error.py:132
+msgid ""
+"I have no additional information for you.\n"
 msgstr ""
 
 #: runtime_errors\import_error.py:80
@@ -1018,11 +1047,6 @@ msgid ""
 "Did you use a colon instead of an equal sign?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:132
-msgid ""
-"I have no additional information for you.\n"
-msgstr ""
-
 #: runtime_errors\name_error.py:143
 msgid ""
 "You must be a fan of PyConAu!\n"
@@ -1125,7 +1149,7 @@ msgid ""
 "instead of `{unknown_name}`.\n"
 msgstr ""
 
-#: runtime_errors\os_error.py:24
+#: runtime_errors\os_error.py:23
 msgid ""
 "I suspect that you are trying to connect to a server and\n"
 "that a connection cannot be made.\n"
@@ -1134,12 +1158,12 @@ msgid ""
 "and check your internet connectivity.\n"
 msgstr ""
 
-#: runtime_errors\os_error.py:44 syntax_errors\message_analyzer.py:1431
+#: runtime_errors\os_error.py:43 syntax_errors\message_analyzer.py:1431
 msgid ""
 "Perhaps you need to double the backslash characters.\n"
 msgstr ""
 
-#: runtime_errors\os_error.py:45
+#: runtime_errors\os_error.py:44
 msgid ""
 "I suspect that you wrote a filename or path that contains\n"
 "at least one backslash character, `\\`.\n"

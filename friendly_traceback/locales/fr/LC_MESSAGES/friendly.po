@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-10 08:08-0300\n"
+"POT-Creation-Date: 2021-08-12 08:06-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -546,12 +546,6 @@ msgstr ""
 "diviser une valeur\n"
 "par zéro soit directement ou en utilisant une autre opération mathématique.\n"
 
-#: info_specific.py:88
-msgid ""
-"In your program, the name of the\n"
-"file that cannot be found is `{filename}`.\n"
-msgstr "Dans votre programme, le nom du fichier inconnu est `{filename}`.\n"
-
 #: info_variables.py:33
 msgid "a complex number"
 msgstr "un nombre complexe (`complex`)"
@@ -592,7 +586,7 @@ msgstr "une chaîne de caractères (`str`)"
 msgid "a `tuple`"
 msgstr "un `tuple`"
 
-#: info_variables.py:384
+#: info_variables.py:393
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -928,6 +922,42 @@ msgstr ""
 "Cependant, les objets `{first}` et `{second}` sont des objets connus.\n"
 "Peut-être avez-vous écrit une période pour séparer ces deux objets, \n"
 "au lieu d’utiliser une virgule.\n"
+
+#: runtime_errors\file_not_found_error.py:25
+#: runtime_errors\file_not_found_error.py:44
+#: runtime_errors\file_not_found_error.py:58
+msgid ""
+"In your program, the name of the\n"
+"file that cannot be found is `{filename}`.\n"
+msgstr "Dans votre programme, le nom du fichier inconnu est `{filename}`.\n"
+
+#: runtime_errors\file_not_found_error.py:52
+msgid ""
+"{directory}\n"
+"is not a valid directory.\n"
+msgstr ""
+"{directory}\n"
+"n'est pas un répertoire valide.\n"
+
+#: runtime_errors\file_not_found_error.py:63
+msgid ""
+"It was expected to be found in the\n"
+"`{directory}` directory.\n"
+msgstr ""
+"On s'attendait à ce qu'il soit trouvé dans le répertoire\n"
+"`{directory}`.\n"
+
+#: runtime_errors\file_not_found_error.py:67
+msgid "Did you mean `{similar}`?\n"
+msgstr "Vouliez-vous dire `{similar}` ?\n"
+
+#: runtime_errors\file_not_found_error.py:69
+msgid "The file `{similar}` has a similar name.\n"
+msgstr "Le fichier `{similar}` a un nom semblable.\n"
+
+#: runtime_errors\file_not_found_error.py:81 runtime_errors\name_error.py:132
+msgid "I have no additional information for you.\n"
+msgstr "Je n’ai pas d’informations supplémentaires pour vous.\n"
 
 #: runtime_errors\import_error.py:80
 msgid ""
@@ -1281,10 +1311,6 @@ msgstr ""
 msgid "Did you use a colon instead of an equal sign?\n"
 msgstr "Avez-vous utilisé deux points au lieu d’un signe égal ?\n"
 
-#: runtime_errors\name_error.py:132
-msgid "I have no additional information for you.\n"
-msgstr "Je n’ai pas d’informations supplémentaires pour vous.\n"
-
 #: runtime_errors\name_error.py:143
 msgid "You must be a fan of PyConAu!\n"
 msgstr "Vous devez être un fan de PyConAu!\n"
@@ -1398,7 +1424,7 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `{name}.{unknown_name}`\n"
 "au lieu de `{unknown_name}`.\n"
 
-#: runtime_errors\os_error.py:24
+#: runtime_errors\os_error.py:23
 msgid ""
 "I suspect that you are trying to connect to a server and\n"
 "that a connection cannot be made.\n"
@@ -1412,11 +1438,11 @@ msgstr ""
 "Si c’est le cas, vérifiez les fautes de frappe dans l’URL\n"
 "et vérifiez votre connectivité Internet.\n"
 
-#: runtime_errors\os_error.py:44 syntax_errors\message_analyzer.py:1431
+#: runtime_errors\os_error.py:43 syntax_errors\message_analyzer.py:1431
 msgid "Perhaps you need to double the backslash characters.\n"
 msgstr "Il faut peut-être doubler les caractères barres obliques inversées.\n"
 
-#: runtime_errors\os_error.py:45
+#: runtime_errors\os_error.py:44
 msgid ""
 "I suspect that you wrote a filename or path that contains\n"
 "at least one backslash character, `\\`.\n"
