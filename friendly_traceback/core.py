@@ -910,69 +910,6 @@ class FriendlyTraceback:
         return result
 
 
-# def get_partial_source(record, text_range=None):
-#     """Gets the part of the source where an exception occurred,
-#     formatted in a pre-determined way, as well as the content
-#     of the specific line where the exception occurred.
-#     """
-#     _ = current_lang.translate
-#     file_not_found = _("Problem: source of `{filename}` is not available\n").format(
-#         filename=record.filename
-#     )
-#     source = line = ""
-#
-#     lines = record.lines
-#     if not lines and record.filename:
-#         # protecting against https://github.com/alexmojaki/stack_data/issues/13
-#         try:
-#             lineno = record.lineno
-#             s_lines = cache.get_source_lines(record.filename)
-#
-#             class FakeLineObject:
-#                 def __init__(self, line, linenumber, lineno):
-#                     self.text = line
-#                     self.lineno = linenumber + 1
-#                     self.is_current = self.lineno == lineno
-#
-#             lines = []
-#             linenumber = lineno - 2
-#             for line in s_lines[linenumber : lineno + 1]:
-#                 lines.append(FakeLineObject(line, linenumber, lineno))
-#                 linenumber += 1
-#         except Exception:  # noqa
-#             pass
-#
-#     if lines:
-#         source, line = highlight_source(lines, text_range=text_range)
-#     elif record.filename and os.path.abspath(record.filename):
-#         if record.filename == "<stdin>":
-#             pass
-#             # Using a normal Python REPL - source unavailable.
-#             # An appropriate error message will have been given via
-#             # cannot_analyze_stdin
-#         else:
-#             source = file_not_found
-#             debug_helper.log("Problem in get_partial_source().")
-#             debug_helper.log(file_not_found)
-#             debug_helper.log(str(record))
-#     elif not record.filename:  # pragma: no cover
-#         source = file_not_found
-#         line = ""
-#         debug_helper.log("Problem in get_partial_source(): no file name")
-#         debug_helper.log(file_not_found)
-#         debug_helper.log(str(record))
-#     else:  # pragma: no cover
-#         source = line = ""
-#         debug_helper.log("Problem in get_partial_source().")
-#         debug_helper.log("Should not have reached this option")
-#         debug_helper.log_error()
-#
-#     if not source.endswith("\n"):
-#         source += "\n"
-#
-#     return {"source": source, "line": line}
-
-
 def cannot_analyze_stdin() -> str:  # pragma: no cover
     """Typical case: friendly is imported in an ordinary Python
     interpreter (REPL), and the user does not activate the friendly
