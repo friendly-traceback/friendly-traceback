@@ -238,6 +238,13 @@ class Statement:
             return
 
         last = self.tokens[-1].end_row  # meaningful tokens
+        # In some IndentationError cases, and possibly others,
+        # Python shows the ^ just before the first token
+        # Note that start_row from tokenize and self.offset differ in their origins.
+        offset_col = self.tokens[-1].start_col
+        if self.offset == offset_col:
+            self.offset += 1
+            self.end_offset += 1
 
         for index, statement in enumerate(self.all_statements):
             last_token = statement[-1]

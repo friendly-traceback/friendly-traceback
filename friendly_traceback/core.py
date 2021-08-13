@@ -904,6 +904,12 @@ class FriendlyTraceback:
                         nb_carets = value.end_offset - offset if value.end_offset else 1
                         continuation = ""
                     offset = offset - (len(_line) - len(bad_line))  # removing indent
+                    # In some IndentationError cases, and possibly others,
+                    # Python's computed offset would show the ^ just before the first token
+                    if offset < 1:
+                        offset = 1
+                        nb_carets = 1
+                        continuation = ""
                     result.append("    {}".format(bad_line))
                     result.append(" " * (3 + offset) + "^" * nb_carets + continuation)
         result.append(self.info["message"].strip())

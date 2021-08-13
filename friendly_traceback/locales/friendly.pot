@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-12 08:29-0300\n"
+"POT-Creation-Date: 2021-08-13 11:51-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,7 +122,7 @@ msgid ""
 "at the location indicated by ^.\n"
 msgstr ""
 
-#: core.py:982
+#: core.py:925
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -466,7 +466,7 @@ msgid ""
 "    {name} = {hint}\n"
 msgstr ""
 
-#: path_info.py:195
+#: path_info.py:199
 msgid "The default directory is {dirname}."
 msgstr ""
 
@@ -724,41 +724,40 @@ msgid ""
 msgstr ""
 
 #: runtime_errors\file_not_found_error.py:25
-#: runtime_errors\file_not_found_error.py:44
-#: runtime_errors\file_not_found_error.py:58
+#: runtime_errors\file_not_found_error.py:39
 msgid ""
 "In your program, the name of the\n"
 "file that cannot be found is `{filename}`.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:52
+#: runtime_errors\file_not_found_error.py:33
 msgid ""
 "{directory}\n"
 "is not a valid directory.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:63
+#: runtime_errors\file_not_found_error.py:44
 msgid ""
 "It was expected to be found in the\n"
 "`{directory}` directory.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:67
+#: runtime_errors\file_not_found_error.py:48
 msgid ""
 "Did you mean `{similar}`?\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:69
+#: runtime_errors\file_not_found_error.py:50
 msgid ""
 "The file `{similar}` has a similar name.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:74
+#: runtime_errors\file_not_found_error.py:55
 msgid ""
 "Perhaps you meant one of the following files with similar names:\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:81 runtime_errors\name_error.py:132
+#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:132
 msgid ""
 "I have no additional information for you.\n"
 msgstr ""
@@ -2169,21 +2168,20 @@ msgstr ""
 
 #: syntax_errors\indentation_error.py:10
 msgid ""
-"The line identified above is more indented than expected.\n"
+"Line `{number}` identified above is more indented than expected.\n"
 msgstr ""
 
-#: syntax_errors\indentation_error.py:12
+#: syntax_errors\indentation_error.py:13
 msgid ""
-"The line identified above\n"
-"was expected to begin a new indented block.\n"
+"Line `{number}` identified above was expected to begin a new indented block.\n"
 msgstr ""
 
-#: syntax_errors\indentation_error.py:17
+#: syntax_errors\indentation_error.py:18
 msgid ""
-"The line identified above is less indented than expected.\n"
+"Line `{number}` identified above is less indented than expected.\n"
 msgstr ""
 
-#: syntax_errors\indentation_error.py:27
+#: syntax_errors\indentation_error.py:29
 msgid ""
 "However, line {number}, which is identified as having a problem,\n"
 "consists of a single string which is also the case\n"

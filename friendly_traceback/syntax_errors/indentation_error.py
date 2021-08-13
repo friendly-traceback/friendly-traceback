@@ -7,14 +7,18 @@ def set_cause_indentation_error(value, statement):
 
     value = str(value)
     if "unexpected indent" in value:
-        this_case = _("The line identified above is more indented than expected.\n")
+        this_case = _(
+            "Line `{number}` identified above is more indented than expected.\n"
+        ).format(number=statement.linenumber)
     elif "expected an indented block" in value:
         this_case = _(
-            "The line identified above\n"
+            "Line `{number}` identified above "
             "was expected to begin a new indented block.\n"
-        )
+        ).format(number=statement.linenumber)
     else:
-        this_case = _("The line identified above is less indented than expected.\n")
+        this_case = _(
+            "Line `{number}` identified above is less indented than expected.\n"
+        ).format(number=statement.linenumber)
 
     if (
         len(statement.all_statements) > 1

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-12 08:29-0300\n"
+"POT-Creation-Date: 2021-08-13 11:51-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -137,7 +137,7 @@ msgstr ""
 msgid "at the location indicated by ^.\n"
 msgstr "à l'endroit indiqué par ^.\n"
 
-#: core.py:982
+#: core.py:925
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -607,7 +607,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:195
+#: path_info.py:199
 msgid "The default directory is {dirname}."
 msgstr "Le répertoire par défaut est {dirname}."
 
@@ -924,14 +924,13 @@ msgstr ""
 "au lieu d’utiliser une virgule.\n"
 
 #: runtime_errors\file_not_found_error.py:25
-#: runtime_errors\file_not_found_error.py:44
-#: runtime_errors\file_not_found_error.py:58
+#: runtime_errors\file_not_found_error.py:39
 msgid ""
 "In your program, the name of the\n"
 "file that cannot be found is `{filename}`.\n"
 msgstr "Dans votre programme, le nom du fichier inconnu est `{filename}`.\n"
 
-#: runtime_errors\file_not_found_error.py:52
+#: runtime_errors\file_not_found_error.py:33
 msgid ""
 "{directory}\n"
 "is not a valid directory.\n"
@@ -939,7 +938,7 @@ msgstr ""
 "{directory}\n"
 "n'est pas un répertoire valide.\n"
 
-#: runtime_errors\file_not_found_error.py:63
+#: runtime_errors\file_not_found_error.py:44
 msgid ""
 "It was expected to be found in the\n"
 "`{directory}` directory.\n"
@@ -947,20 +946,20 @@ msgstr ""
 "On s'attendait à ce qu'il soit trouvé dans le répertoire\n"
 "`{directory}`.\n"
 
-#: runtime_errors\file_not_found_error.py:67
+#: runtime_errors\file_not_found_error.py:48
 msgid "Did you mean `{similar}`?\n"
 msgstr "Vouliez-vous dire `{similar}` ?\n"
 
-#: runtime_errors\file_not_found_error.py:69
+#: runtime_errors\file_not_found_error.py:50
 msgid "The file `{similar}` has a similar name.\n"
 msgstr "Le fichier `{similar}` a un nom semblable.\n"
 
-#: runtime_errors\file_not_found_error.py:74
+#: runtime_errors\file_not_found_error.py:55
 msgid "Perhaps you meant one of the following files with similar names:\n"
 msgstr ""
 "Vous vouliez peut-être un des fichiers suivants ayant des noms semblables :\n"
 
-#: runtime_errors\file_not_found_error.py:81 runtime_errors\name_error.py:132
+#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:132
 msgid "I have no additional information for you.\n"
 msgstr "Je n’ai pas d’informations supplémentaires pour vous.\n"
 
@@ -2699,22 +2698,23 @@ msgstr ""
 "arguments nommés dans votre définition de fonction.\n"
 
 #: syntax_errors\indentation_error.py:10
-msgid "The line identified above is more indented than expected.\n"
-msgstr "La ligne indiquée ci-dessus par --> est plus indentée que prévu.\n"
+msgid "Line `{number}` identified above is more indented than expected.\n"
+msgstr "La ligne `{number}` indiquée ci-dessus est plus indentée que prévu.\n"
 
-#: syntax_errors\indentation_error.py:12
+#: syntax_errors\indentation_error.py:13
 msgid ""
-"The line identified above\n"
-"was expected to begin a new indented block.\n"
+"Line `{number}` identified above was expected to begin a new indented "
+"block.\n"
 msgstr ""
-"La ligne indiquée ci-dessus par --> devrait\n"
-"normalement commencer un nouveau bloc de code indenté.\n"
+"La ligne `{number}` identifiée ci-dessus était censée commencer un nouveau "
+"bloc indenté.\n"
 
-#: syntax_errors\indentation_error.py:17
-msgid "The line identified above is less indented than expected.\n"
-msgstr "La ligne indiquée ci-dessus par --> est moins indentée que prévu.\n"
+#: syntax_errors\indentation_error.py:18
+msgid "Line `{number}` identified above is less indented than expected.\n"
+msgstr ""
+"La ligne `{number}` identifiée ci-dessus est moins indentée que prévu.\n"
 
-#: syntax_errors\indentation_error.py:27
+#: syntax_errors\indentation_error.py:29
 msgid ""
 "However, line {number}, which is identified as having a problem,\n"
 "consists of a single string which is also the case\n"
