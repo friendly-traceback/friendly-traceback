@@ -60,7 +60,7 @@ dirname = os.path.abspath(os.path.dirname(__file__))
 exclude_directory_from_traceback(dirname)
 
 
-def is_excluded_file(full_path: StrPath) -> bool:
+def is_excluded_file(full_path: StrPath, python_excluded: bool = True) -> bool:
     """Determines if the file belongs to the group that is excluded from tracebacks."""
     # full_path could be a pathlib.Path instance
     full_path = str(full_path)
@@ -70,8 +70,12 @@ def is_excluded_file(full_path: StrPath) -> bool:
         if full_path.startswith(dirs):
             return True
     # Design choice: we exclude all files from the Python standard library
-    # but not those that have been installed by the user.
-    if full_path.startswith(PYTHON_LIB) and not full_path.startswith(SITE_PACKAGES):
+    # but not those that have been installed by the user if python_excluded is True.
+    if (
+        full_path.startswith(PYTHON_LIB)
+        and not full_path.startswith(SITE_PACKAGES)
+        and python_excluded
+    ):
         return True
     return full_path in EXCLUDED_FILE_PATH
 

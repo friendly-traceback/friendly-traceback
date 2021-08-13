@@ -18,7 +18,7 @@ from typing import List, Optional, Sequence, Tuple, Type
 from . import debug_helper, info_generic, info_specific, info_variables, token_utils
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
-from .path_info import EXCLUDED_FILE_PATH, is_excluded_file, path_utils
+from .path_info import is_excluded_file, path_utils
 from .runtime_errors import name_error
 from .source_cache import cache
 from .syntax_errors import analyze_syntax, indentation_error, source_info
@@ -71,6 +71,7 @@ class TracebackData:
         else:
             self.formatted_tb = traceback.format_exception(etype, value, tb)
             self.records = self.get_records(tb)
+            self.python_records = self.get_records(tb, python_excluded=False)
 
         # The following three attributes get their correct values in get_source_info()
         self.bad_line = "\n"
@@ -106,7 +107,9 @@ class TracebackData:
             self.statement = None
             self.locate_error()
 
-    def get_records(self, tb: types.TracebackType) -> List[FrameInfo]:
+    def get_records(
+        self, tb: types.TracebackType, python_excluded: bool = True
+    ) -> List[FrameInfo]:
         """Get the traceback frame history, excluding those originating
         from our own code that are included either at the beginning or
         at the end of the traceback.
@@ -114,11 +117,21 @@ class TracebackData:
         try:
             all_records = list(FrameInfo.stack_data(tb, collapse_repeated_frames=False))
             records = list(
-                dropwhile(lambda record: is_excluded_file(record.filename), all_records)
+                dropwhile(
+                    lambda record: is_excluded_file(
+                        record.filename, python_excluded=python_excluded
+                    ),
+                    all_records,
+                )
             )
             records.reverse()
             records = list(
-                dropwhile(lambda record: is_excluded_file(record.filename), records)
+                dropwhile(
+                    lambda record: is_excluded_file(
+                        record.filename, python_excluded=python_excluded
+                    ),
+                    records,
+                )
             )
             records.reverse()
             if records or issubclass(self.exception_type, (SyntaxError, MemoryError)):
@@ -128,11 +141,21 @@ class TracebackData:
             # from a normal console like the one used in Mu.
             all_records = inspect.getinnerframes(tb, cache.context)
             records = list(
-                dropwhile(lambda record: is_excluded_file(record.filename), all_records)
+                dropwhile(
+                    lambda record: is_excluded_file(
+                        record.filename, python_excluded=python_excluded
+                    ),
+                    all_records,
+                )
             )
             records.reverse()
             records = list(
-                dropwhile(lambda record: is_excluded_file(record.filename), records)
+                dropwhile(
+                    lambda record: is_excluded_file(
+                        record.filename, python_excluded=python_excluded
+                    ),
+                    records,
+                )
             )
             records.reverse()
             if records or issubclass(self.exception_type, (SyntaxError, MemoryError)):
@@ -727,15 +750,17 @@ class FriendlyTraceback:
             self.info["original_python_traceback"] = tb
             return
 
-        python_tb = [line.rstrip() for line in self.tb_data.formatted_tb]
-        tb = self.create_traceback()
+        # full_tb includes code from friendly-traceback itself
+        full_tb = [line.rstrip() for line in self.tb_data.formatted_tb]
+        python_tb = self.create_traceback(self.tb_data.python_records)
+        tb = self.create_traceback(self.tb_data.records)
         shortened_tb = self.shorten(tb)
 
         header = "Traceback (most recent call last):"  # not included in records
-        if python_tb[0].startswith(header) and self.tb_data.filename is not None:
+        if full_tb[0].startswith(header) and self.tb_data.filename is not None:
             if not issubclass(self.tb_data.exception_type, SyntaxError):
                 shortened_tb.insert(0, header)
-                tb.insert(0, header)
+                python_tb.insert(0, header)
             else:
                 # The special "Traceback ..." header is not normally shown when
                 # a SyntaxError occurs at an interactive prompt.
@@ -745,21 +770,14 @@ class FriendlyTraceback:
                     if line.startswith("  File") and "<" not in line:
                         # We have a true file in the traceback
                         shortened_tb.insert(0, header)
-                        tb.insert(0, header)
+                        python_tb.insert(0, header)
                         break
 
-        if "RecursionError" in python_tb[-1]:
-            tb = []
-            exclude = False
-            for line in python_tb:  # excluding our own code
-                if exclude and line.strip() == "exec(code, self.locals)":
-                    continue
-                exclude = any(filename in line for filename in EXCLUDED_FILE_PATH)
-                if exclude:
-                    continue
-                tb.append(line)
-            if len(tb) > 12:
-                tb = tb[0:4] + self.suppressed + tb[-5:]
+        if "RecursionError" in full_tb[-1]:
+            if len(shortened_tb) > 12:
+                shortened_tb = shortened_tb[0:5] + self.suppressed + shortened_tb[-5:]
+            if len(python_tb) > 12:
+                python_tb = python_tb[0:5] + self.suppressed + python_tb[-5:]
 
         exc = self.tb_data.value
         chain_info = ""
@@ -774,17 +792,17 @@ class FriendlyTraceback:
                 temp.append(part)
             short_chain_info = "\n\n".join(temp)
 
-        self.info["simulated_python_traceback"] = chain_info + "\n".join(tb) + "\n"
+        self.info["simulated_python_traceback"] = (
+            chain_info + "\n".join(python_tb) + "\n"
+        )
         self.info["shortened_traceback"] = (
             short_chain_info + "\n".join(shortened_tb) + "\n"
         )
-        self.info["original_python_traceback"] = (
-            chain_info + "\n".join(python_tb) + "\n"
-        )
+        self.info["original_python_traceback"] = chain_info + "\n".join(full_tb) + "\n"
         # The following is needed for some determining the cause in at
         # least one case.
         # skipcq: PYL-W0201
-        self.tb_data.simulated_python_traceback = "\n".join(tb) + "\n"
+        self.tb_data.simulated_python_traceback = "\n".join(python_tb) + "\n"
 
     def shorten(self, tb: Sequence[str]) -> List[str]:
         """Shortens a traceback (as list of lines)
@@ -850,15 +868,14 @@ class FriendlyTraceback:
         chain_exc(etype, value, None)
         return "".join(lines)
 
-    def create_traceback(self) -> List[str]:
+    def create_traceback(self, records: List[FrameInfo]) -> List[str]:
         """Using records that exclude code from certain files,
         creates a list from which a standard-looking traceback can
         be created.
         """
         result = []
-        for record in self.tb_data.records:
+        for record in records:
             partial_source = record.partial_source  # noqa
-            # partial_source = get_partial_source(record)
             result.append(
                 '  File "{}", line {}, in {}'.format(
                     record.filename, record.lineno, record.code.co_name
