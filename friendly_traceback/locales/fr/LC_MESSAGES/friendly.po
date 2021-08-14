@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-14 15:11-0300\n"
+"POT-Creation-Date: 2021-08-14 16:25-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -61,15 +61,15 @@ msgstr ""
 "Les méthodes suivantes de l'objet Friendly devraient également être "
 "disponibles en tant que fonctions."
 
-#: core.py:436
+#: core.py:439
 msgid "More lines not shown."
 msgstr "Plus de lignes non affichées."
 
-#: core.py:437 core.py:477
+#: core.py:440 core.py:480
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:490
+#: core.py:493
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -83,37 +83,37 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:552
+#: core.py:555
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:624
+#: core.py:627
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:629
+#: core.py:632
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du bloc de code {filename}.\n"
 
-#: core.py:633
+#: core.py:636
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:666
+#: core.py:669
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du block de code "
 "{filename}.\n"
 
-#: core.py:670
+#: core.py:673
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:689
+#: core.py:692
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
@@ -121,11 +121,11 @@ msgstr ""
 "`{filename}` n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:702
+#: core.py:705
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:706
+#: core.py:709
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -133,11 +133,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:711
+#: core.py:714
 msgid "at the location indicated by ^.\n"
 msgstr "à l'endroit indiqué par ^.\n"
 
-#: core.py:942
+#: core.py:945
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -172,8 +172,8 @@ msgstr ""
 "\n"
 
 #: ft_gettext.py:97
-msgid "Friendly-traceback does not recognize this error.\n"
-msgstr "Friendly-traceback ne reconnaît pas cette erreur.\n"
+msgid "Friendly-traceback does not know the cause of this error.\n"
+msgstr "Friendly-traceback ne connaît pas la cause de cette erreur.\n"
 
 #: ft_gettext.py:104
 msgid "No information is known about this exception.\n"
@@ -671,7 +671,7 @@ msgstr ""
 #: runtime_errors\attribute_error.py:141 runtime_errors\attribute_error.py:346
 #: runtime_errors\import_error.py:120 runtime_errors\key_error.py:199
 #: runtime_errors\key_error.py:206 runtime_errors\module_not_found_error.py:129
-#: runtime_errors\name_error.py:117 runtime_errors\unbound_local_error.py:55
+#: runtime_errors\name_error.py:87 runtime_errors\unbound_local_error.py:44
 #: syntax_errors\message_analyzer.py:391 syntax_errors\message_analyzer.py:1097
 #: syntax_errors\statement_analyzer.py:1217
 msgid "Did you mean `{name}`?\n"
@@ -963,7 +963,7 @@ msgid "Perhaps you meant one of the following files with similar names:\n"
 msgstr ""
 "Vous vouliez peut-être un des fichiers suivants ayant des noms semblables :\n"
 
-#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:132
+#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:102
 msgid "I have no additional information for you.\n"
 msgstr "Je n’ai pas d’informations supplémentaires pour vous.\n"
 
@@ -1284,11 +1284,11 @@ msgstr ""
 msgid "`{name}` is an existing module that has a similar name.\n"
 msgstr "`{name}` est un module existant qui a un nom similaire.\n"
 
-#: runtime_errors\name_error.py:17
+#: runtime_errors\name_error.py:15
 msgid "You are already using Python!"
 msgstr "Vous utilisez déjà Python!"
 
-#: runtime_errors\name_error.py:77
+#: runtime_errors\name_error.py:40
 msgid ""
 "In your program, `{var_name}` is an unknown name\n"
 "that exists in an enclosing scope,\n"
@@ -1298,16 +1298,16 @@ msgstr ""
 "qui existe dans une portée englobante,\n"
 "mais qui n'a pas encore reçu de valeur.\n"
 
-#: runtime_errors\name_error.py:89
+#: runtime_errors\name_error.py:59
 msgid "In your program, no object with the name `{var_name}` exists.\n"
 msgstr ""
 "Dans votre programme, aucun objet portant le nom `{var_name}` n'existe.\n"
 
-#: runtime_errors\name_error.py:107
+#: runtime_errors\name_error.py:77
 msgid "Did you mean `1j`?\n"
 msgstr "Vouliez-vous dire `1j` ?\n"
 
-#: runtime_errors\name_error.py:108
+#: runtime_errors\name_error.py:78
 msgid ""
 "However, sometimes `{name}` is intended to represent\n"
 "the square root of `-1` which is written as `1j` in Python.\n"
@@ -1315,15 +1315,15 @@ msgstr ""
 "Toutefois, parfois, `{name}` est utilisé pour représenter\n"
 "la racine carrée de `-1` qui est écrit `1j` en Python.\n"
 
-#: runtime_errors\name_error.py:119
+#: runtime_errors\name_error.py:89
 msgid "Did you use a colon instead of an equal sign?\n"
 msgstr "Avez-vous utilisé deux points au lieu d’un signe égal ?\n"
 
-#: runtime_errors\name_error.py:143
+#: runtime_errors\name_error.py:113
 msgid "You must be a fan of PyConAu!\n"
 msgstr "Vous devez être un fan de PyConAu!\n"
 
-#: runtime_errors\name_error.py:144
+#: runtime_errors\name_error.py:114
 msgid ""
 "I am guessing that you tried to use (one of) the flipfloperators\n"
 "shown during the second Lightning Talk session of PyConAu 2018,\n"
@@ -1337,11 +1337,11 @@ msgstr ""
 "\n"
 "#### Notez que c’est toujours une mauvaise idée.\n"
 
-#: runtime_errors\name_error.py:163
+#: runtime_errors\name_error.py:133
 msgid "Did you forget to import `{name}`?\n"
 msgstr "Avez-vous oublié d’importer `{name}` ?\n"
 
-#: runtime_errors\name_error.py:164
+#: runtime_errors\name_error.py:134
 msgid ""
 "The name `{name}` is not defined in your program.\n"
 "Perhaps you forgot to import `{lowercase}` which is found\n"
@@ -1351,45 +1351,45 @@ msgstr ""
 "Peut-être avez-vous oublié d’importer `{lowercase}` qui se trouve\n"
 "dans la bibliothèque standard de Python.\n"
 
-#: runtime_errors\name_error.py:170
+#: runtime_errors\name_error.py:140
 msgid "Note that the name of the module is `{lowercase}` and not `{name}`.\n"
 msgstr "Notez que le nom du module est `{lowercase}` et non `{name}`.\n"
 
-#: runtime_errors\name_error.py:187
+#: runtime_errors\name_error.py:157
 msgid "The similar name `{name}` was found in the local scope.\n"
 msgstr "Le nom semblable `{name}` a été trouvé dans la portée locale.\n"
 
-#: runtime_errors\name_error.py:188
+#: runtime_errors\name_error.py:158
 msgid "The similar name `{name}` was found in the global scope.\n"
 msgstr "Le nom semblable `{name}` a été trouvé dans la portée globale.\n"
 
-#: runtime_errors\name_error.py:190
+#: runtime_errors\name_error.py:160
 msgid "The Python builtin `{name}` has a similar name.\n"
 msgstr "L'identifiant Python (builtin) `{name}` a un nom semblable.\n"
 
-#: runtime_errors\name_error.py:199 runtime_errors\unbound_local_error.py:110
+#: runtime_errors\name_error.py:169 runtime_errors\unbound_local_error.py:97
 msgid "Instead of writing `{name}`, perhaps you meant one of the following:\n"
 msgstr ""
 "Au lieu d’écrire `{name}`, peut-être que vous vouliez écrire l'un des noms "
 "suivants :\n"
 
-#: runtime_errors\name_error.py:204 runtime_errors\unbound_local_error.py:114
+#: runtime_errors\name_error.py:174 runtime_errors\unbound_local_error.py:101
 msgid "*   Local scope: "
 msgstr "*    Portée locale : "
 
-#: runtime_errors\name_error.py:205
+#: runtime_errors\name_error.py:175
 msgid "*   Global scope: "
 msgstr "*    Portée globale : "
 
-#: runtime_errors\name_error.py:206
+#: runtime_errors\name_error.py:176
 msgid "*   Python builtins: "
 msgstr "*    Identifiant Python (builtins) : "
 
-#: runtime_errors\name_error.py:265
+#: runtime_errors\name_error.py:234
 msgid "Did you write `self` at the wrong place?\n"
 msgstr "Avez-vous écrit `self` au mauvais endroit ?\n"
 
-#: runtime_errors\name_error.py:266
+#: runtime_errors\name_error.py:235
 msgid ""
 "The {scope} object `{obj}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1400,11 +1400,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}(...`\n"
 "au lieu de `{unknown_name}(self, ...`.\n"
 
-#: runtime_errors\name_error.py:273
+#: runtime_errors\name_error.py:242
 msgid "Did you forget to add `self.`?\n"
 msgstr "Avez-vous oublié d’ajouter `self.` ?\n"
 
-#: runtime_errors\name_error.py:274
+#: runtime_errors\name_error.py:243
 msgid ""
 "A {scope} object, `{obj}`,\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1416,11 +1416,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}`\n"
 "au lieu de `{unknown_name}`.\n"
 
-#: runtime_errors\name_error.py:281
+#: runtime_errors\name_error.py:250
 msgid "Did you forget to add `{name}.`?\n"
 msgstr "Avez-vous oublié d’ajouter `{name}.` ?\n"
 
-#: runtime_errors\name_error.py:284
+#: runtime_errors\name_error.py:253
 msgid ""
 "The {scope} object `{name}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1980,7 +1980,7 @@ msgstr ""
 "Vous avez peut-être voulu écrire :\n"
 "`{line}`\n"
 
-#: runtime_errors\unbound_local_error.py:60
+#: runtime_errors\unbound_local_error.py:49
 msgid ""
 "The name `{var_name}` exists in both the global and nonlocal scope.\n"
 "This can be rather confusing and is not recommended.\n"
@@ -2007,7 +2007,7 @@ msgstr ""
 "\n"
 "comme la première ligne à l’intérieur de votre fonction.\n"
 
-#: runtime_errors\unbound_local_error.py:69
+#: runtime_errors\unbound_local_error.py:58
 msgid ""
 "Did you forget to add either `global {var_name}` or \n"
 "`nonlocal {var_name}`?\n"
@@ -2015,7 +2015,7 @@ msgstr ""
 "Avez-vous oublié d’ajouter soit `global {var_name}` ou \n"
 "`nonlocal {var_name}` ?\n"
 
-#: runtime_errors\unbound_local_error.py:85
+#: runtime_errors\unbound_local_error.py:74
 msgid ""
 "The name `{var_name}` exists in the {scope} scope.\n"
 "Perhaps the statement\n"
@@ -2032,11 +2032,11 @@ msgstr ""
 "aurait dû être incluse comme première ligne à l’intérieur de votre "
 "fonction.\n"
 
-#: runtime_errors\unbound_local_error.py:91
+#: runtime_errors\unbound_local_error.py:80
 msgid "Did you forget to add `{scope} {var_name}`?\n"
 msgstr "Avez-vous oublié d’ajouter `{scope} {var_name}` ?\n"
 
-#: runtime_errors\unbound_local_error.py:104
+#: runtime_errors\unbound_local_error.py:92
 msgid "The similar name `{name}` was found in the local scope. "
 msgstr "Le nom semblable `{name}` a été trouvé dans la portée locale. "
 

@@ -16,7 +16,7 @@ as often as possible what went wrong while trying to avoid giving
 incorrect information.
 """
 
-from friendly_traceback.ft_gettext import current_lang, internal_error
+from friendly_traceback.ft_gettext import current_lang, internal_error, unknown_case
 
 from .. import debug_helper
 from . import message_analyzer, statement_analyzer
@@ -98,4 +98,4 @@ def find_syntax_error_cause(value, tb_data):
     if cause:
         return cause
 
-    return {"cause": unknown_cause()}
+    return {"cause": unknown_cause(), "suggest": unknown_case()}
