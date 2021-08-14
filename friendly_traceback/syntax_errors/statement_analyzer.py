@@ -1446,6 +1446,19 @@ def from_import_as(statement):
 
 
 @add_statement_analyzer
+def delete_names_or_items(statement):
+    _ = current_lang.translate
+    if statement.first_token != "del":
+        return {}
+
+    cause = _(
+        "You can only delete names of objects, or items in mutable containers\n"
+        "such as `list`, `set`, or `dict`.\n"
+    )
+    return {"cause": cause}
+
+
+@add_statement_analyzer
 def duplicate_token(statement):
     _ = current_lang.translate
     if statement.bad_token != statement.prev_token:

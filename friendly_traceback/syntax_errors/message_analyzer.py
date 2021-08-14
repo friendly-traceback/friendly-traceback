@@ -122,6 +122,20 @@ def assign_to_conditional_expression(message="", **_kwargs):
 
 
 @add_python_message
+def assign_to_expression(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "cannot assign to expression":  # Python 3.10
+        return {}
+
+    hint = _("You can only assign objects to identifiers (variable names).\n")
+    cause = _(
+        "On the left-hand side of an equal sign, you have\n"
+        "an expression instead of the name of a variable.\n"
+    )
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
 def assign_to_function_call(message="", statement=None):
     _ = current_lang.translate
     if (

@@ -391,6 +391,10 @@ descriptions = {
         cause: "instead of deleting the function's name",
         title: "Cannot delete function call",
     },
+    "delete_names_or_items": {
+        cause: "You can only delete names of objects, or items in mutable containers",
+        title: "Delete only names or items",
+    },
     "delete_string_literal": {
         cause: "You cannot delete the literal",
         title: "Deleting string literal",
