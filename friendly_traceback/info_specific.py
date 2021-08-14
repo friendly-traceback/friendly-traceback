@@ -57,7 +57,7 @@ def _attribute_error(
 ) -> CauseInfo:
     from .runtime_errors import attribute_error
 
-    return attribute_error.parser.get_cause(value, frame, tb_data)
+    return attribute_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(FileNotFoundError)
@@ -84,7 +84,7 @@ def _index_error(
 ) -> CauseInfo:
     from .runtime_errors import index_error
 
-    return index_error.get_cause(value, frame, tb_data)
+    return index_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(KeyError)

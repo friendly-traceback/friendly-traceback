@@ -19,10 +19,9 @@ parser = RuntimeMessageParser()
 
 @parser.add
 def circular_import(
-    value: AttributeError, _frame: FrameType, _tb_data: TracebackData
+    message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     _ = current_lang.translate
-    message = str(value)
     pattern = re.compile(r"partially initialized module '(.*)' has")
     match = re.search(pattern, message)
     if not match:
@@ -58,11 +57,10 @@ def circular_import(
 
 @parser.add
 def attribute_error_in_module(
-    value: AttributeError, frame: FrameType, _tb_data: TracebackData
+    message: str, frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     """Attempts to find if a module attribute or module name might have been misspelled"""
     _ = current_lang.translate
-    message = str(value)
     pattern = re.compile(r"module '(.*)' has no attribute '(.*)'")
     match = re.search(pattern, message)
     if not match:
@@ -168,11 +166,10 @@ def attribute_error_in_module(
 
 @parser.add
 def type_object_has_no_attribute(
-    value: AttributeError, frame: FrameType, tb_data: TracebackData
+    message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
     """Attempts to find if a module attribute or module name might have been misspelled"""
     _ = current_lang.translate
-    message = str(value)
     pattern = re.compile(r"type object '(.*)' has no attribute '(.*)'")
     match = re.search(pattern, message)
     if not match:
@@ -183,10 +180,9 @@ def type_object_has_no_attribute(
 
 @parser.add
 def attribute_error_in_object(
-    value: AttributeError, frame: FrameType, tb_data: TracebackData
+    message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
     _ = current_lang.translate
-    message = str(value)
     pattern = re.compile(r"'(.*)' object has no attribute '(.*)'")
     match = re.search(pattern, message)
 

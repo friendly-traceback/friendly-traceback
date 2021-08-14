@@ -8,41 +8,23 @@ import pure_eval
 
 from .. import debug_helper, info_variables, utils
 from ..core import TracebackData
-from ..ft_gettext import current_lang, internal_error, no_information
+from ..ft_gettext import current_lang
 from ..typing import CauseInfo
 
 parser = utils.RuntimeMessageParser()
 
 
-def get_cause(value: IndexError, frame: FrameType, tb_data: TracebackData) -> CauseInfo:
-    try:
-        return _get_cause(value, frame, tb_data)
-    except Exception as e:  # pragma: no cover
-        debug_helper.log_error(e)
-        return {"cause": internal_error(e)}
-
-
-def _get_cause(
-    value: IndexError, frame: FrameType, tb_data: TracebackData
+@parser.add
+def attribute_error_in_object(
+    message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
     _ = current_lang.translate
-
-    message = str(value)
-
     pattern = re.compile(r"(.*) index out of range")
     match = re.search(pattern, message)
-    if match:
-        return index_out_of_range(match.group(1), frame, tb_data)
+    if not match:
+        return {}
 
-    debug_helper.log("New IndexError case to consider.")  # pragma: no cover
-    return {"cause": no_information()}  # pragma: no cover
-
-
-def index_out_of_range(
-    obj_type: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
-    _ = current_lang.translate
-
+    obj_type = match.group(1)
     # first, try to identify object
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)
     for name, sequence in all_objects["name, obj"]:
@@ -65,8 +47,7 @@ def index_out_of_range(
 
     length = len(sequence)
     evaluator = pure_eval.Evaluator.from_frame(frame)
-    # The information that we want may differ for different
-    # Python versions
+    # The information that we want may differ for different Python versions
     try:
         index = evaluator[node.slice.value]
     except Exception:  # noqa
