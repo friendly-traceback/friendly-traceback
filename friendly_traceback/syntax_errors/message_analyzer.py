@@ -1413,7 +1413,7 @@ def invalid_imaginary_literal(message="", statement=None):
 
 
 @add_python_message
-def else_after_if(message="", statement=None):
+def else_after_if(message="", **_kwargs):
     _ = current_lang.translate
     if message != "expected 'else' after 'if' expression":
         return {}
@@ -1424,7 +1424,7 @@ def else_after_if(message="", statement=None):
 
 
 @add_python_message
-def unicode_error(message="", statement=None):
+def unicode_error(message="", **_kwargs):
     _ = current_lang.translate
     if "unicode error" not in message or "truncated \\UXX" not in message:
         return {}
@@ -1443,7 +1443,7 @@ def unicode_error(message="", statement=None):
 
 
 @add_python_message
-def assignment_cannot_rebind_inside_comprehension(message="", statement=None):
+def assignment_cannot_rebind_inside_comprehension(message="", **_kwargs):
     _ = current_lang.translate
     if (
         "assignment expression cannot rebind comprehension iteration variable"
@@ -1460,4 +1460,16 @@ def assignment_cannot_rebind_inside_comprehension(message="", statement=None):
         "to a variable so that the variable can be reused later.\n"
         "This is not possible for variable `{var}`.\n"
     ).format(var=var)
+    return {"cause": cause}
+
+
+@add_python_message
+def star_assignment_target_must_be_list(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "starred assignment target must be in a list or tuple":
+        return {}
+
+    cause = _(
+        "A star assignment must be of the form:\n\n" "    ... *name = list_or_tuple\n\n"
+    )
     return {"cause": cause}

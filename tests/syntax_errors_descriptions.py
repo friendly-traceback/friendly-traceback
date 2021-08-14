@@ -743,6 +743,10 @@ descriptions = {
         cause: "You cannot have spaces in identifiers (variable names).",
         title: "Space in variable name",
     },
+    "star_assignment_target": {
+        cause: "list_or_tuple",
+        title: "Wrong target for star assignment",
+    },
     "too_many_nested_blocks": {
         cause: "you need to reduce the number",
         title: "Too many nested blocks",

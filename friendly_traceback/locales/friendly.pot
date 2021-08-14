@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-14 07:24-0300\n"
+"POT-Creation-Date: 2021-08-14 08:48-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2897,6 +2897,14 @@ msgid ""
 "The augmented assignment operator is normally used to assign a value\n"
 "to a variable so that the variable can be reused later.\n"
 "This is not possible for variable `{var}`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1472
+msgid ""
+"A star assignment must be of the form:\n"
+"\n"
+"    ... *name = list_or_tuple\n"
+"\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:114

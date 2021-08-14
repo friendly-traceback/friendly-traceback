@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-14 07:24-0300\n"
+"POT-Creation-Date: 2021-08-14 08:48-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -3718,6 +3718,18 @@ msgstr ""
 "valeur\n"
 "à une variable afin que cette dernière puisse être réutilisée ailleurs.\n"
 "Ceci n'est pas possible pour la variable `{var}`.\n"
+
+#: syntax_errors\message_analyzer.py:1472
+msgid ""
+"A star assignment must be of the form:\n"
+"\n"
+"    ... *name = list_or_tuple\n"
+"\n"
+msgstr ""
+"Une affectation utilisant l'opérateur étoile doit être de la forme :\n"
+"\n"
+"    ... *nom = liste_ou_tuple\n"
+"\n"
 
 #: syntax_errors\statement_analyzer.py:114
 msgid ""
