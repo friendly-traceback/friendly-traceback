@@ -12,7 +12,7 @@ parser = RuntimeMessageParser()
 
 @parser.add
 def no_such_file_or_directory(
-    value: OSError, frame: FrameType, tb_data: TracebackData
+    value: FileNotFoundError, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     _ = current_lang.translate
     pattern = re.compile("No such file or directory: '(.*)'")

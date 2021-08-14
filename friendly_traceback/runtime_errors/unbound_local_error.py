@@ -3,37 +3,26 @@
 import re
 from types import FrameType
 
-from .. import debug_helper, info_variables
+from .. import debug_helper, info_variables, utils
 from ..core import TracebackData
-from ..ft_gettext import current_lang, no_information
+from ..ft_gettext import current_lang
 from ..typing import CauseInfo, SimilarNamesInfo
 
+parser = utils.RuntimeMessageParser()
 
-def get_cause(
-    value: UnboundLocalError, frame: FrameType, _tb_data: TracebackData
+
+@parser.add
+def local_variable_referenced(
+    message: str, frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    try:
-        return _get_cause(value, frame)
-    except Exception as e:  # pragma: no cover
-        debug_helper.log_error(e)
-        return {}
-
-
-def _get_cause(value: UnboundLocalError, frame: FrameType) -> CauseInfo:
     _ = current_lang.translate
 
     pattern = re.compile(r"local variable '(.*)' referenced before assignment")
-    match = re.search(pattern, str(value))
-    if match:
-        cause = local_variable_referenced(match.group(1), frame)
-    else:
-        cause = {"cause": no_information()}
+    match = re.search(pattern, message)
+    if not match:
+        return {}
 
-    return cause
-
-
-def local_variable_referenced(unknown_name: str, frame: FrameType) -> CauseInfo:
-    _ = current_lang.translate
+    unknown_name = match.group(1)
     scopes = info_variables.get_definition_scope(unknown_name, frame)
     if not scopes:
         similar = info_variables.get_similar_names(unknown_name, frame)
@@ -97,7 +86,6 @@ def local_variable_referenced(unknown_name: str, frame: FrameType) -> CauseInfo:
 def format_similar_names(unknown_name: str, similar: SimilarNamesInfo) -> str:
     """This function formats the names that were found to be similar"""
     _ = current_lang.translate
-
     nb_similar_names = len(similar["locals"])
     if nb_similar_names == 1:
         return (
@@ -106,12 +94,10 @@ def format_similar_names(unknown_name: str, similar: SimilarNamesInfo) -> str:
             )
             + "\n"
         )
-
     message = _(
         "Instead of writing `{name}`, perhaps you meant one of the following:\n"
     ).format(name=unknown_name)
     message += (
         _("*   Local scope: ") + str(similar["locals"])[1:-1].replace("'", "`") + "\n"
     )
-
     return message

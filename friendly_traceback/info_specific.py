@@ -155,7 +155,7 @@ def _unbound_local_error(
 ) -> CauseInfo:
     from .runtime_errors import unbound_local_error
 
-    return unbound_local_error.get_cause(value, frame, tb_data)
+    return unbound_local_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(ZeroDivisionError)
