@@ -1464,6 +1464,27 @@ def assignment_cannot_rebind_inside_comprehension(message="", **_kwargs):
 
 
 @add_python_message
+def assignment_cannot_rebind_inside_comprehension_inner_loop(message="", **_kwargs):
+    _ = current_lang.translate
+    if (
+        "comprehension inner loop cannot rebind assignment expression target"
+        not in message
+    ):
+        return {}
+
+    var = message.split("'")[1]
+    cause = _(
+        "You are using the augmented assignment operator `:=` inside\n"
+        "a comprehension to assign a value to the iteration variable `{var}`.\n"
+        "This variable is meant to be used only inside the comprehension.\n"
+        "The augmented assignment operator is normally used to assign a value\n"
+        "to a variable so that the variable can be reused later.\n"
+        "This is not possible for variable `{var}`.\n"
+    ).format(var=var)
+    return {"cause": cause}
+
+
+@add_python_message
 def star_assignment_target_must_be_list(message="", **_kwargs):
     _ = current_lang.translate
     if message != "starred assignment target must be in a list or tuple":

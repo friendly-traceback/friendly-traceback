@@ -124,6 +124,10 @@ descriptions = {
         cause: "a comprehension to assign a value to the iteration variable",
         title: "Augmented assignment inside comprehension",
     },
+    "assignment_expression_cannot_rebind_2": {
+        cause: "a comprehension to assign a value to the iteration variable",
+        title: "Augmented assignment inside comprehension - inner loop",
+    },
     "async_def_missing_parens": {
         cause: "Did you forget parentheses?",
         title: "def: missing parentheses",
@@ -887,6 +891,9 @@ descriptions = {
 
 if sys.version_info < (3, 8):
     descriptions["assignment_expression_cannot_rebind"][
+        "in cause"
+    ] = "The augmented assignment operator is not allowed"
+    descriptions["assignment_expression_cannot_rebind_2"][
         "in cause"
     ] = "The augmented assignment operator is not allowed"
     descriptions["augmented_assigment_with_true"]["in cause"] = "walrus operator"
