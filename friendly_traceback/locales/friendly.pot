@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-13 11:51-0300\n"
+"POT-Creation-Date: 2021-08-14 07:24-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,15 +53,15 @@ msgstr ""
 msgid "The following methods of the Friendly object should also be available as functions."
 msgstr ""
 
-#: core.py:413
+#: core.py:436
 msgid "More lines not shown."
 msgstr ""
 
-#: core.py:414 core.py:454
+#: core.py:437 core.py:477
 msgid "Python exception:"
 msgstr ""
 
-#: core.py:467
+#: core.py:490
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -70,59 +70,59 @@ msgid ""
 "raises an exception or does not return a string.\n"
 msgstr ""
 
-#: core.py:529
+#: core.py:552
 msgid ""
 "The encoding of the file was not valid.\n"
 msgstr ""
 
-#: core.py:601
+#: core.py:624
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 
-#: core.py:606
+#: core.py:629
 msgid ""
 "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr ""
 
-#: core.py:610
+#: core.py:633
 msgid ""
 "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr ""
 
-#: core.py:643
+#: core.py:666
 msgid ""
 "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 
-#: core.py:647
+#: core.py:670
 msgid ""
 "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 
-#: core.py:666
+#: core.py:689
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
 msgstr ""
 
-#: core.py:679
+#: core.py:702
 msgid ""
 "Python could not understand the code in the code block {filename}\n"
 msgstr ""
 
-#: core.py:683
+#: core.py:706
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr ""
 
-#: core.py:688
+#: core.py:711
 msgid ""
 "at the location indicated by ^.\n"
 msgstr ""
 
-#: core.py:925
+#: core.py:942
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -466,7 +466,7 @@ msgid ""
 "    {name} = {hint}\n"
 msgstr ""
 
-#: path_info.py:199
+#: path_info.py:203
 msgid "The default directory is {dirname}."
 msgstr ""
 
@@ -2171,17 +2171,17 @@ msgid ""
 "Line `{number}` identified above is more indented than expected.\n"
 msgstr ""
 
-#: syntax_errors\indentation_error.py:13
+#: syntax_errors\indentation_error.py:14
 msgid ""
 "Line `{number}` identified above was expected to begin a new indented block.\n"
 msgstr ""
 
-#: syntax_errors\indentation_error.py:18
+#: syntax_errors\indentation_error.py:19
 msgid ""
 "Line `{number}` identified above is less indented than expected.\n"
 msgstr ""
 
-#: syntax_errors\indentation_error.py:29
+#: syntax_errors\indentation_error.py:31
 msgid ""
 "However, line {number}, which is identified as having a problem,\n"
 "consists of a single string which is also the case\n"
@@ -2887,6 +2887,16 @@ msgid ""
 "To solve the problem, either write a so-called 'raw string'\n"
 "by adding the letter `r` as a prefix in\n"
 "front of the string, or replace `\\U`, by `\\\\U`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1455
+msgid ""
+"You are using the augmented assignment operator `:=` inside\n"
+"a comprehension to assign a value to the iteration variable `{var}`.\n"
+"This variable is meant to be used only inside the comprehension.\n"
+"The augmented assignment operator is normally used to assign a value\n"
+"to a variable so that the variable can be reused later.\n"
+"This is not possible for variable `{var}`.\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:114

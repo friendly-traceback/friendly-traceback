@@ -120,6 +120,10 @@ descriptions = {
         cause: "only used to assign a value to a variable",
         title: "Assign to math operation",
     },
+    "assignment_expression_cannot_rebind": {
+        cause: "a comprehension to assign a value to the iteration variable",
+        title: "Augmented assignment inside comprehension",
+    },
     "async_def_missing_parens": {
         cause: "Did you forget parentheses?",
         title: "def: missing parentheses",
@@ -681,7 +685,7 @@ descriptions = {
     "print_non_paren_non_string2": {
         cause: "In older version of Python, `print` was a keyword",
         title: "print is a function 7",
-        "also in cause": ['print(\'len("hello") hello\')'],
+        "also in cause": ["print('len(\"hello\") hello')"],
     },
     "python_interpreter": {
         cause: " attempting to use Python to run a program",
@@ -744,7 +748,7 @@ descriptions = {
         title: "Too many nested blocks",
         # If the word "indented" appears in "cause" for unit tests, we expect
         # that this signal an indentation error.
-        "also in cause": ["indented code blocks"]
+        "also in cause": ["indented code blocks"],
     },
     "too_many_parentheses": {
         cause: "you need to reduce the number of parentheses",
@@ -856,7 +860,7 @@ descriptions = {
     },
     "unicode_error": {
         cause: "one backslash character, `\\` followed by an uppercase `U`",
-        title: "unicode error"
+        title: "unicode error",
     },
     "walrus_instead_of_equal": {
         cause: "You use the augmented assignment operator `:=` where",
@@ -878,6 +882,9 @@ descriptions = {
 }
 
 if sys.version_info < (3, 8):
+    descriptions["assignment_expression_cannot_rebind"][
+        "in cause"
+    ] = "The augmented assignment operator is not allowed"
     descriptions["augmented_assigment_with_true"]["in cause"] = "walrus operator"
     descriptions["augmented_assignment_to_literal"]["in cause"] = "walrus operator"
     descriptions["walrus_does_not_exist"] = {

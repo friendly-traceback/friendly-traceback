@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-13 11:51-0300\n"
+"POT-Creation-Date: 2021-08-14 07:24-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -61,15 +61,15 @@ msgstr ""
 "Les méthodes suivantes de l'objet Friendly devraient également être "
 "disponibles en tant que fonctions."
 
-#: core.py:413
+#: core.py:436
 msgid "More lines not shown."
 msgstr "Plus de lignes non affichées."
 
-#: core.py:414 core.py:454
+#: core.py:437 core.py:477
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:467
+#: core.py:490
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -83,37 +83,37 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:529
+#: core.py:552
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:601
+#: core.py:624
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:606
+#: core.py:629
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du bloc de code {filename}.\n"
 
-#: core.py:610
+#: core.py:633
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:643
+#: core.py:666
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du block de code "
 "{filename}.\n"
 
-#: core.py:647
+#: core.py:670
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:666
+#: core.py:689
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
@@ -121,11 +121,11 @@ msgstr ""
 "`{filename}` n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:679
+#: core.py:702
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:683
+#: core.py:706
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -133,11 +133,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:688
+#: core.py:711
 msgid "at the location indicated by ^.\n"
 msgstr "à l'endroit indiqué par ^.\n"
 
-#: core.py:925
+#: core.py:942
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -607,7 +607,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:199
+#: path_info.py:203
 msgid "The default directory is {dirname}."
 msgstr "Le répertoire par défaut est {dirname}."
 
@@ -2701,7 +2701,7 @@ msgstr ""
 msgid "Line `{number}` identified above is more indented than expected.\n"
 msgstr "La ligne `{number}` indiquée ci-dessus est plus indentée que prévu.\n"
 
-#: syntax_errors\indentation_error.py:13
+#: syntax_errors\indentation_error.py:14
 msgid ""
 "Line `{number}` identified above was expected to begin a new indented "
 "block.\n"
@@ -2709,12 +2709,12 @@ msgstr ""
 "La ligne `{number}` identifiée ci-dessus était censée commencer un nouveau "
 "bloc indenté.\n"
 
-#: syntax_errors\indentation_error.py:18
+#: syntax_errors\indentation_error.py:19
 msgid "Line `{number}` identified above is less indented than expected.\n"
 msgstr ""
 "La ligne `{number}` identifiée ci-dessus est moins indentée que prévu.\n"
 
-#: syntax_errors\indentation_error.py:29
+#: syntax_errors\indentation_error.py:31
 msgid ""
 "However, line {number}, which is identified as having a problem,\n"
 "consists of a single string which is also the case\n"
@@ -3700,6 +3700,24 @@ msgstr ""
 "Pour résoudre ce problème, écrivez une \"chaîne brute\" (raw string)\n"
 "en ajoutant la lettre `r` en tant que préfixe devant\n"
 "la chaîne de caractères, ou remplacez `\\U` par `\\\\U`.\n"
+
+#: syntax_errors\message_analyzer.py:1455
+msgid ""
+"You are using the augmented assignment operator `:=` inside\n"
+"a comprehension to assign a value to the iteration variable `{var}`.\n"
+"This variable is meant to be used only inside the comprehension.\n"
+"The augmented assignment operator is normally used to assign a value\n"
+"to a variable so that the variable can be reused later.\n"
+"This is not possible for variable `{var}`.\n"
+msgstr ""
+"Vous utilisez l'opérateur d'affectation augmenté `:=` à l'intérieur d'une\n"
+"compréhension pour assigner une valeur à la variable d'itération `{var}`.\n"
+"Cette variable est censée être utilisée uniquement à l'intérieur de la "
+"compréhension.\n"
+"L'opérateur d'affectation augmenté est normalement utilisé pour affecter une "
+"valeur\n"
+"à une variable afin que cette dernière puisse être réutilisée ailleurs.\n"
+"Ceci n'est pas possible pour la variable `{var}`.\n"
 
 #: syntax_errors\statement_analyzer.py:114
 msgid ""

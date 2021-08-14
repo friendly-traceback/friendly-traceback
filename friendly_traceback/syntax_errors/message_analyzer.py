@@ -1440,3 +1440,24 @@ def unicode_error(message="", statement=None):
         "front of the string, or replace `\\U`, by `\\\\U`.\n"
     )
     return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def assignment_cannot_rebind_inside_comprehension(message="", statement=None):
+    _ = current_lang.translate
+    if (
+        "assignment expression cannot rebind comprehension iteration variable"
+        not in message
+    ):
+        return {}
+
+    var = message.split("'")[1]
+    cause = _(
+        "You are using the augmented assignment operator `:=` inside\n"
+        "a comprehension to assign a value to the iteration variable `{var}`.\n"
+        "This variable is meant to be used only inside the comprehension.\n"
+        "The augmented assignment operator is normally used to assign a value\n"
+        "to a variable so that the variable can be reused later.\n"
+        "This is not possible for variable `{var}`.\n"
+    ).format(var=var)
+    return {"cause": cause}
