@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-14 13:05-0300\n"
+"POT-Creation-Date: 2021-08-14 13:58-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,18 +146,23 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ft_gettext.py:99
+#: ft_gettext.py:97
+msgid ""
+"Friendly-traceback does not recognize this error.\n"
+msgstr ""
+
+#: ft_gettext.py:104
 msgid ""
 "No information is known about this exception.\n"
 msgstr ""
 
-#: ft_gettext.py:101
+#: ft_gettext.py:106
 msgid ""
 "If you are using the Friendly console, use `www()` to\n"
 "do an Internet search for this particular case.\n"
 msgstr ""
 
-#: ft_gettext.py:111
+#: ft_gettext.py:116
 msgid ""
 "Internal error for Friendly.\n"
 msgstr ""

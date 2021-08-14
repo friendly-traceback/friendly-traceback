@@ -57,7 +57,7 @@ def _attribute_error(
 ) -> CauseInfo:
     from .runtime_errors import attribute_error
 
-    return attribute_error.get_cause(value, frame, tb_data)
+    return attribute_error.parser.get_cause(value, frame, tb_data)
 
 
 @register(FileNotFoundError)

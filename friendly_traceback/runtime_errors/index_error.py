@@ -6,10 +6,12 @@ from types import FrameType
 
 import pure_eval
 
-from .. import debug_helper, info_variables
+from .. import debug_helper, info_variables, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang, internal_error, no_information
 from ..typing import CauseInfo
+
+parser = utils.RuntimeMessageParser()
 
 
 def get_cause(value: IndexError, frame: FrameType, tb_data: TracebackData) -> CauseInfo:

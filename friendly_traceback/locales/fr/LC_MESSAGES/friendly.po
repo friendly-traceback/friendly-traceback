@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-14 13:05-0300\n"
+"POT-Creation-Date: 2021-08-14 13:58-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -171,11 +171,15 @@ msgstr ""
 "Si vous utilisez un REPL, utilisez `www('bug')` pour le faire.\n"
 "\n"
 
-#: ft_gettext.py:99
+#: ft_gettext.py:97
+msgid "Friendly-traceback does not recognize this error.\n"
+msgstr "Friendly-traceback ne reconnaît pas cette erreur.\n"
+
+#: ft_gettext.py:104
 msgid "No information is known about this exception.\n"
 msgstr "Aucune information n’est disponible au sujet de cette exception.\n"
 
-#: ft_gettext.py:101
+#: ft_gettext.py:106
 msgid ""
 "If you are using the Friendly console, use `www()` to\n"
 "do an Internet search for this particular case.\n"
@@ -183,7 +187,7 @@ msgstr ""
 "Si vous utilisez la console Friendly, utilisez `www()` pour\n"
 "faire une recherche sur Internet pour ce cas particulier.\n"
 
-#: ft_gettext.py:111
+#: ft_gettext.py:116
 msgid "Internal error for Friendly.\n"
 msgstr "Exception soulevée par Friendly.\n"
 
@@ -5381,9 +5385,6 @@ msgstr ""
 #~ "Je soupçonne que vous utilisez une\n"
 #~ "console Python après avoir importé Friendly-traceback.\n"
 #~ "Malheureusement, aucune autre information ne peut être fournie.\n"
-
-#~ msgid "Friendly-traceback: no information."
-#~ msgstr "Friendly-traceback: aucune information."
 
 #~ msgid "Perhaps you had a missing comma before the second tuple.\n"
 #~ msgstr ""

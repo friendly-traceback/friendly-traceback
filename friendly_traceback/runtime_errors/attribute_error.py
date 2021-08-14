@@ -8,71 +8,27 @@ from typing import Any, Iterable, List, Optional, Sequence
 
 from .. import console_helpers, debug_helper, info_variables
 from ..core import TracebackData
-from ..ft_gettext import current_lang, internal_error, no_information, please_report
+from ..ft_gettext import current_lang, please_report
 from ..path_info import path_utils
 from ..typing import CauseInfo
-from ..utils import get_similar_words, list_to_string
+from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
 from . import stdlib_modules
 
-
-def get_cause(
-    value: AttributeError, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
-    try:
-        return _get_cause(value, frame, tb_data)
-    except Exception as e:  # pragma: no cover  # noqa
-        debug_helper.log_error()
-        return {"cause": internal_error(e), "suggest": internal_error(e)}
+parser = RuntimeMessageParser()
 
 
-def _get_cause(
-    value: AttributeError, frame: FrameType, tb_data: TracebackData
+@parser.add
+def circular_import(
+    value: AttributeError, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     _ = current_lang.translate
     message = str(value)
+    pattern = re.compile(r"partially initialized module '(.*)' has")
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+    module = match.group(1)
 
-    pattern0 = re.compile(r"partially initialized module '(.*)' has")
-    match0 = re.search(pattern0, message)
-
-    pattern1 = re.compile(r"module '(.*)' has no attribute '(.*)'")
-    match1 = re.search(pattern1, message)
-
-    pattern2 = re.compile(r"type object '(.*)' has no attribute '(.*)'")
-    match2 = re.search(pattern2, message)
-
-    pattern3 = re.compile(r"'(.*)' object has no attribute '(.*)'")
-    match3 = re.search(pattern3, message)
-
-    if match0:
-        return circular_import(match0.group(1), message)
-
-    if match1:
-        return attribute_error_in_module(match1.group(1), match1.group(2), frame)
-
-    if match2:
-        return attribute_error_in_object(
-            match2.group(1), match2.group(2), tb_data, frame
-        )
-
-    if match3:
-        if match3.group(1) == "NoneType":
-            return {
-                "cause": _(
-                    "You are attempting to access the attribute `{attr}`\n"
-                    "for a variable whose value is `None`."
-                ).format(attr=match3.group(2))
-            }
-
-        return attribute_error_in_object(
-            match3.group(1), match3.group(2), tb_data, frame
-        )
-
-    debug_helper.log("New case to consider.")  # pragma: no cover
-    return {"cause": no_information()}  # pragma: no cover
-
-
-def circular_import(module: str, message: str) -> CauseInfo:
-    _ = current_lang.translate
     if module in stdlib_modules.names:
         hint = _("Did you give your program the same name as a Python module?\n")
         cause = _(
@@ -100,11 +56,20 @@ def circular_import(module: str, message: str) -> CauseInfo:
 # ======= Attribute error in module =========
 
 
+@parser.add
 def attribute_error_in_module(
-    module: str, attribute: str, frame: FrameType
+    value: AttributeError, frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     """Attempts to find if a module attribute or module name might have been misspelled"""
     _ = current_lang.translate
+    message = str(value)
+    pattern = re.compile(r"module '(.*)' has no attribute '(.*)'")
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+    module = match.group(1)
+    attribute = match.group(2)
+
     try:
         mod = sys.modules[module]
     except Exception:  # noqa
@@ -201,10 +166,45 @@ def attribute_error_in_module(
     return {"cause": cause}
 
 
-# ======= Handle attribute error in object =========
+@parser.add
+def type_object_has_no_attribute(
+    value: AttributeError, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    """Attempts to find if a module attribute or module name might have been misspelled"""
+    _ = current_lang.translate
+    message = str(value)
+    pattern = re.compile(r"type object '(.*)' has no attribute '(.*)'")
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+
+    return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
 
 
+@parser.add
 def attribute_error_in_object(
+    value: AttributeError, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    _ = current_lang.translate
+    message = str(value)
+    pattern = re.compile(r"'(.*)' object has no attribute '(.*)'")
+    match = re.search(pattern, message)
+
+    if match:
+        if match.group(1) == "NoneType":
+            return {
+                "cause": _(
+                    "You are attempting to access the attribute `{attr}`\n"
+                    "for a variable whose value is `None`."
+                ).format(attr=match.group(2))
+            }
+
+        return _attribute_error_in_object(
+            match.group(1), match.group(2), tb_data, frame
+        )
+
+
+def _attribute_error_in_object(
     obj_type: str, attribute: str, tb_data: TracebackData, frame: FrameType
 ) -> CauseInfo:
     """Attempts to find if object attribute might have been misspelled"""

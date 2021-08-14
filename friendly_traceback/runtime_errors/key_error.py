@@ -143,14 +143,16 @@ def missing_key_in_dict_like(
 def analyze_missing_key(key: Any, frame: FrameType, bad_line: str) -> CauseInfo:
     _ = current_lang.translate
     name, obj = find_missing_key_obj(key, frame, bad_line)
+    try:
+        key_repr = repr(key)
+    except Exception:  # noqa
+        return {}
     if name is None:
         cause = _(
             "A `dict` or a similar object which I cannot identify\n"
             "does not have `{key}` as a key.\n"
-        )
+        ).format(key=key_repr)
         return {"cause": cause}
-
-    key_repr = repr(key)
 
     if isinstance(obj, dict):
         begin_cause = _(

@@ -92,6 +92,11 @@ def please_report() -> str:
     )
 
 
+def unknown_case() -> str:
+    _ = current_lang.translate
+    return _("Friendly-traceback does not recognize this error.\n")
+
+
 def no_information() -> str:
     _ = current_lang.translate
     debug_helper.log("New case to consider.")

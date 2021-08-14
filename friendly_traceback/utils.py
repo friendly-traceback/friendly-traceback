@@ -12,7 +12,7 @@ import executing
 import pure_eval
 
 from . import debug_helper
-from .ft_gettext import internal_error, no_information
+from .ft_gettext import internal_error, no_information, unknown_case
 from .typing import CauseInfo, Parser
 
 if TYPE_CHECKING:
@@ -60,7 +60,7 @@ class RuntimeMessageParser:
             cause = self.current_parser(value_or_message, frame, tb_data)
             if cause:
                 return cause
-        return {"cause": no_information()}
+        return {"cause": no_information(), "suggest": unknown_case()}
 
 
 def unique_variable_name() -> str:
