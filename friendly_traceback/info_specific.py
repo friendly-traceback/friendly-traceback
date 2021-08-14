@@ -114,7 +114,7 @@ def _name_error(
 
     from .runtime_errors import name_error
 
-    return name_error.get_cause(value, frame, tb_data)
+    return name_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(OSError)

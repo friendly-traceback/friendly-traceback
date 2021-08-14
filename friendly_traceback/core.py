@@ -19,7 +19,6 @@ from . import debug_helper, info_generic, info_specific, info_variables, token_u
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
 from .path_info import is_excluded_file, path_utils
-from .runtime_errors import name_error
 from .source_cache import cache
 from .syntax_errors import analyze_syntax, indentation_error, source_info
 from .typing import _E, Info
@@ -277,9 +276,13 @@ class TracebackData:
 
     def locate_name_error(self) -> None:
         """Finds the location of an unknown name"""
-        name, _ignore = name_error.get_unknown_name(self.message)
+        parts = self.message.split("'")
+        if len(parts) < 2:
+            debug_helper.log("Could not extract name from NameError.message.")
+            return
+        name = parts[1]
 
-        if name is not None and name in self.bad_line:
+        if name and name in self.bad_line:
             begin = self.bad_line.find(name)
             end = begin + len(name)
             self.node_range = begin, end

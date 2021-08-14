@@ -1,15 +1,13 @@
 import ast
 import re
 from types import FrameType
-from typing import TYPE_CHECKING, Optional, Tuple
+from typing import Optional, Tuple
 
 from .. import debug_helper, info_variables, token_utils, utils
-from ..ft_gettext import current_lang, internal_error, no_information, unknown_case
-from ..typing import CauseInfo, Parser, SimilarNamesInfo
+from ..core import TracebackData
+from ..ft_gettext import current_lang
+from ..typing import CauseInfo, SimilarNamesInfo
 from . import stdlib_modules
-
-if TYPE_CHECKING:  # avoid circular import
-    from ..core import TracebackData
 
 
 def using_python() -> str:  # pragma: no cover
@@ -23,57 +21,22 @@ def using_python() -> str:  # pragma: no cover
 # that does is not available in a given environment.
 CUSTOM_NAMES = {"python": using_python, "python3": using_python}
 
-
-def get_cause(
-    value: NameError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    try:
-        return _get_cause(value, frame, tb_data)
-    except Exception as e:  # pragma: no cover
-        debug_helper.log_error(e)
-        return {"cause": internal_error(e), "suggest": internal_error(e)}
+parser = utils.RuntimeMessageParser()
 
 
-def _get_cause(
-    value: NameError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-
-    # We use a different approach in this module than the usual
-    # way to loop over the messages, adding message parsers
-    # for each case. This is because we need to access get_unknown_name
-    # from elsewhere.
-    name, fn = get_unknown_name(str(value))
-    if name is not None:
-        return fn(name, frame, tb_data)
-
-    return {"cause": no_information(), "suggest": unknown_case()}  # pragma: no cover
-
-
-def get_unknown_name(message: str) -> Tuple[Optional[str], Optional[Parser]]:
-    """Retrieves the value of the unknown name from a message and identifies
-    which function must be called for further processing.
-
-    Note that this function is also used in core.py, for a different purpose.
-    """
-    pattern = re.compile(r"name '(.*)' is not defined")
-    match = re.search(pattern, message)
-    if match:
-        return match.group(1), name_not_defined
-
-    pattern2 = re.compile(
-        r"free variable '(.*)' referenced before assignment in enclosing scope"
-    )
-    match = re.search(pattern2, message)
-    if match:
-        return match.group(1), free_variable_referenced
-
-    return None, None  # pragma: no cover
-
-
+@parser.add
 def free_variable_referenced(
-    unknown_name: str, _frame: FrameType, _tb_data: "TracebackData"
+    message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     _ = current_lang.translate
+    pattern = re.compile(
+        r"free variable '(.*)' referenced before assignment in enclosing scope"
+    )
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+
+    unknown_name = match.group(1)
     cause = _(
         "In your program, `{var_name}` is an unknown name\n"
         "that exists in an enclosing scope,\n"
@@ -82,10 +45,17 @@ def free_variable_referenced(
     return {"cause": cause}
 
 
+@parser.add
 def name_not_defined(
-    unknown_name: str, frame: FrameType, tb_data: "TracebackData"
+    message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
     _ = current_lang.translate
+    pattern = re.compile(r"name '(.*)' is not defined")
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+
+    unknown_name = match.group(1)
     cause = _("In your program, no object with the name `{var_name}` exists.\n").format(
         var_name=unknown_name
     )
@@ -218,7 +188,6 @@ def missing_self(
     and is an attribute of a known object, perhaps 'self.'
     is missing."""
     _ = current_lang.translate
-    # TODO: revise this when looking at https://github.com/aroberge/friendly/issues/202
     message = ""
     try:
         bad_statement = utils.get_bad_statement(tb_data)
