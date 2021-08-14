@@ -86,7 +86,7 @@ def please_report() -> str:
     _ = current_lang.translate
     debug_helper.log("Friendly_traceback; please_report: New case to consider.")
     return _(
-        "Please report this example to "
+        "Please report this example to\n"
         "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
         "If you are using a REPL, use `www('bug')` to do so.\n\n"
     )

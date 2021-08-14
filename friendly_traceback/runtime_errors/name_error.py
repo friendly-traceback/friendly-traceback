@@ -4,11 +4,11 @@ from types import FrameType
 from typing import TYPE_CHECKING, Optional, Tuple
 
 from .. import debug_helper, info_variables, token_utils, utils
-from ..ft_gettext import current_lang, internal_error, no_information
+from ..ft_gettext import current_lang, internal_error, no_information, unknown_case
 from ..typing import CauseInfo, Parser, SimilarNamesInfo
 from . import stdlib_modules
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # avoid circular import
     from ..core import TracebackData
 
 
@@ -46,7 +46,7 @@ def _get_cause(
     if name is not None:
         return fn(name, frame, tb_data)
 
-    return {"cause": no_information()}  # pragma: no cover
+    return {"cause": no_information(), "suggest": unknown_case()}  # pragma: no cover
 
 
 def get_unknown_name(message: str) -> Tuple[Optional[str], Optional[Parser]]:
