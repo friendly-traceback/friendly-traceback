@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-15 08:36-0300\n"
+"POT-Creation-Date: 2021-08-15 10:15-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -2007,6 +2007,23 @@ msgstr ""
 "`{name}`.\n"
 "Vous avez peut-être voulu écrire :\n"
 "`{line}`\n"
+
+#: runtime_errors\type_error.py:1011
+msgid ""
+"The function `vars` is used to list the content of the\n"
+"`__dict__` attribute of an object.\n"
+msgstr ""
+"La fonction `vars` est utilisée pour lister le contenu\n"
+"de l'attribut `__dict__` d'un objet.\n"
+
+#: runtime_errors\type_error.py:1020
+msgid "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
+msgstr "L'objet `{name}` utilise `__slots__` au lieu de `__dict__`.\n"
+
+#: runtime_errors\type_error.py:1024
+msgid ""
+"`{name}`, the argument of `vars`, is an object without such an attribute.\n"
+msgstr "`{name}`, l'argument de `vars`, est un objet sans un tel attribut.\n"
 
 #: runtime_errors\unbound_local_error.py:49
 msgid ""

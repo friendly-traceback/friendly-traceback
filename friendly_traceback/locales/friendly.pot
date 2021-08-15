@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-15 08:36-0300\n"
+"POT-Creation-Date: 2021-08-15 10:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1604,6 +1604,22 @@ msgid ""
 "I suspect that you forgot to add parentheses to call `{name}`.\n"
 "You might have meant to write:\n"
 "`{line}`\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1011
+msgid ""
+"The function `vars` is used to list the content of the\n"
+"`__dict__` attribute of an object.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1020
+msgid ""
+"Object `{name}` uses `__slots__` instead of `__dict__`.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1024
+msgid ""
+"`{name}`, the argument of `vars`, is an object without such an attribute.\n"
 msgstr ""
 
 #: runtime_errors\unbound_local_error.py:49

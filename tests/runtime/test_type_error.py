@@ -804,5 +804,50 @@ def test_function_has_no_len():
         assert 'Did you forget to call `bad`?' in result
     return result, message
 
+
+def test_vars_arg_must_have_dict():
+    class F:
+        __slots__ = []
+    f = F()
+    a = [1, 2]
+    vars_must = "vars() argument must have __dict__ attribute"
+    cause = "The function `vars` is used to list the content of the"
+    use_slots = "uses `__slots__` instead of `__dict__`."
+    no_slots = "is an object without such an attribute."
+    try:
+        vars(a)
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert vars_must in result
+    if friendly_traceback.get_lang() == "en":
+        assert cause in result
+        assert no_slots in result
+
+    try:
+        vars([1, 2])
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert vars_must in result
+    if friendly_traceback.get_lang() == "en":
+        assert cause in result
+        assert no_slots not in result
+        assert use_slots not in result
+
+    try:
+        vars(f)
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert vars_must in result
+    if friendly_traceback.get_lang() == "en":
+        assert cause in result
+        assert use_slots in result
+
+    return result, message
+
+
 if __name__ == "__main__":
     print(test_Not_an_integer()[0])

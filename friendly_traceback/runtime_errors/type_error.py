@@ -999,3 +999,30 @@ def function_has_no_len(
         "`{line}`\n"
     ).format(name=name, line=tb_data.bad_line.replace(name, name + "()"))
     return {"cause": cause, "suggest": hint}
+
+
+@parser.add
+def vars_arg_must_have_dict(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    _ = current_lang.translate
+    if message != "vars() argument must have __dict__ attribute":
+        return {}
+    cause = _(
+        "The function `vars` is used to list the content of the\n"
+        "`__dict__` attribute of an object.\n"
+    )
+    all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
+    if len(all_objects) == 2:
+        for name, obj in all_objects:
+            if name != "vars":
+                if hasattr(obj, "__slots__"):
+                    cause += _(
+                        "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
+                    ).format(name=name)
+                else:
+                    cause += _(
+                        "`{name}`, the argument of `vars`, is an object without such an attribute.\n"
+                    ).format(name=name)
+
+    return {"cause": cause}
