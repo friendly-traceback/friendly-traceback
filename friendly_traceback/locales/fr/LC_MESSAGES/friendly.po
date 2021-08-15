@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-15 10:15-0300\n"
+"POT-Creation-Date: 2021-08-15 10:38-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -2193,7 +2193,18 @@ msgstr ""
 "dans un objet de type `date`. Les valeurs valides sont les entiers de 1 à "
 "12.\n"
 
-#: runtime_errors\value_error.py:248
+#: runtime_errors\value_error.py:231
+msgid ""
+"The name `{var}` is used both as the name of a class variable\n"
+"and as a string item in the class `__slots__`;\n"
+"this is not allowed.\n"
+msgstr ""
+"Le nom `{var}` est utilisé à la fois comme nom d'une variable de classe\n"
+"et comme élément de chaîne de caractères dans l'attribut `__slots__` d'une "
+"classe ;\n"
+"ceci n'est pas autorisé.\n"
+
+#: runtime_errors\value_error.py:266
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
@@ -2201,7 +2212,7 @@ msgstr ""
 "Je ne reconnais pas ce message d’erreur.\n"
 "Je devine que le problème est avec la fonction `{name}`.\n"
 
-#: runtime_errors\value_error.py:254
+#: runtime_errors\value_error.py:272
 msgid ""
 "Its docstring is:\n"
 "\n"
@@ -2211,7 +2222,7 @@ msgstr ""
 "\n"
 "`'''{docstring}'''`\n"
 
-#: runtime_errors\value_error.py:258
+#: runtime_errors\value_error.py:276
 msgid "I have no more information.\n"
 msgstr "Je n’ai plus d’informations.\n"
 

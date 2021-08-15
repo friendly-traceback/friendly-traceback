@@ -67,5 +67,21 @@ def test_Date_invalid_month():
     return result, message
 
 
+def test_slots_conflicts_with_class_variable():
+    try:
+        class F:
+            __slots__ = ["a", "b"]
+            a = 1
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "'a' in __slots__ conflicts with class variable" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "is used both as the name of a class variable" in result
+    return result, message
+
+
 if __name__ == "__main__":
     print(test_Too_many_values_to_unpack()[0])

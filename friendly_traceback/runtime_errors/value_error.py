@@ -219,6 +219,24 @@ def date_month_must_be_between_1_and_12(
 
 
 @parser.add
+def slots_conflicts_with_class_variable(
+    value: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    _ = current_lang.translate
+    pattern = r"'(.*)' in __slots__ conflicts with class variable"
+    match = re.search(pattern, str(value))
+    if not match:
+        return {}
+    var = match.group(1)
+    cause = _(
+        "The name `{var}` is used both as the name of a class variable\n"
+        "and as a string item in the class `__slots__`;\n"
+        "this is not allowed.\n"
+    ).format(var=var)
+    return {"cause": cause}
+
+
+@parser.add
 def unrecognized_message(
     _value: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:

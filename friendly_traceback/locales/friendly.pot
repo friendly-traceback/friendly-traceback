@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-15 10:15-0300\n"
+"POT-Creation-Date: 2021-08-15 10:38-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1744,20 +1744,27 @@ msgid ""
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:248
+#: runtime_errors\value_error.py:231
+msgid ""
+"The name `{var}` is used both as the name of a class variable\n"
+"and as a string item in the class `__slots__`;\n"
+"this is not allowed.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:266
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:254
+#: runtime_errors\value_error.py:272
 msgid ""
 "Its docstring is:\n"
 "\n"
 "`'''{docstring}'''`\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:258
+#: runtime_errors\value_error.py:276
 msgid ""
 "I have no more information.\n"
 msgstr ""
