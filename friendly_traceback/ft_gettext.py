@@ -84,7 +84,7 @@ current_lang = LangState()  # noqa
 
 def please_report() -> str:
     _ = current_lang.translate
-    debug_helper.log("Friendly_traceback; please_report: New case to consider.")
+    debug_helper.log("Friendly_traceback; please_report; new case to consider.")
     return _(
         "Please report this example to\n"
         "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
@@ -99,7 +99,7 @@ def unknown_case() -> str:
 
 def no_information() -> str:
     _ = current_lang.translate
-    debug_helper.log("New case to consider.")
+    debug_helper.log("no_information: new case to consider.")
     return (
         _("No information is known about this exception.\n")
         + please_report()

@@ -42,7 +42,7 @@ def circular_import(
         hint = _("You have a circular import.\n")
     else:  # pragma: no cover
         # I thought a version did not include the mention of circular import.
-        debug_helper.log("New case to consider.")
+        debug_helper.log("New case to consider for circular_import.")
         hint = _("You likely have a circular import.\n")
     cause = _("Python indicated that the module `{module}` was not fully imported.\n")
     cause += _(

@@ -57,7 +57,6 @@ def _cannot_import_name(
     pattern = re.compile(r"cannot import name '(.*)'")
     match = re.search(pattern, message)
     if not match:  # pragma: no cover
-        debug_helper.log("New case to consider.")
         return {}
     return cannot_import_name(match.group(1), tb_data)
 
@@ -90,7 +89,7 @@ def cannot_import_name_from(
         return {"cause": cause + "\n" + circular_info, "suggest": hint}
 
     if not add_circular_hint:  # pragma: no cover
-        debug_helper.log("New case to consider")
+        debug_helper.log("New example to add")
         return {
             "cause": cause
             + "\n"
@@ -144,7 +143,7 @@ def cannot_import_name(name: str, tb_data: TracebackData) -> CauseInfo:
     match = re.search(pattern, tb_data.bad_line)
 
     if not match:  # pragma: no cover
-        debug_helper.log("New case to consider.")
+        debug_helper.log("New example to consider.")
         return {
             "cause": _("The object that could not be imported is `{name}`.\n").format(
                 name=name

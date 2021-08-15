@@ -82,7 +82,7 @@ def find_syntax_error_cause(value, tb_data):
             return cause
 
         if not cause:  # pragma: no cover
-            return {"cause": unknown_cause()}
+            return {"cause": unknown_cause(), "suggest": unknown_case()}
 
         notice = _(  # pragma: no cover
             "Python gave us the following informative message\n"
