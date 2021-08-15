@@ -6,7 +6,7 @@ import sys
 from types import FrameType
 from typing import Any, Iterable, List, Optional, Sequence
 
-from .. import console_helpers, debug_helper, info_variables
+from .. import console_helpers, debug_helper, info_variables, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang, please_report
 from ..path_info import path_utils
@@ -198,6 +198,60 @@ def attribute_error_in_object(
         return _attribute_error_in_object(
             match.group(1), match.group(2), tb_data, frame
         )
+
+
+@parser.add
+def object_attribute_is_read_only(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    _ = current_lang.translate
+    pattern = r"'(.*)' object attribute '(.*)' is read-only"
+    match = re.search(pattern, message)
+    if match is None:
+        return {}
+    obj_type = match.group(1)
+    attribute = match.group(2)
+    obj = info_variables.get_object_from_name(obj_type, frame)
+    if not hasattr(obj, "__slots__"):
+        return _(
+            "The value of attribute `{attribute}` of objects of type `{obj_type}`\n"
+            "cannot be changed.\n"
+            "I have no further information.\n"
+        ).format(attribute=attribute, obj_type=obj_type)
+
+    slots = getattr(obj, "__slots__")
+    all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
+    for obj_name, instance in all_objects:
+        try:
+            if isinstance(instance, obj) or instance == obj:
+                break
+        except Exception:  # noqa
+            continue
+    else:
+        obj_name = obj_type
+
+    if len(slots) == 0:
+        cause = _(
+            "Object `{name}` uses an empty `__slots__` to prevent the modification\n"
+            "of any of its attributes.\n"
+        ).format(name=obj_name, attribute=attribute)
+        return {"cause": cause}
+
+    cause = _(
+        "Object `{name}` uses `__slots__` to specify which attributes can\n"
+        "be changed. The value of attribute `{name}.{attribute}` cannot be changed.\n"
+    ).format(name=obj_name, attribute=attribute)
+    if len(slots) == 1:
+        cause += (
+            "The only attribute of `{name}` whose value can be changed is"
+            "`{attribute}`.\n"
+        ).format(name=obj_name, attribute=slots[0])
+    elif len(slots) < 10:
+        cause += (
+            "The only attributes of `{name}` whose value can be changed are:\n"
+            "`{attributes}`.\n"
+        ).format(name=obj_name, attributes=utils.list_to_string(slots))
+    return {"cause": cause}
 
 
 def _attribute_error_in_object(

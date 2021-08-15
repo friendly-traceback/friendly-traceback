@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-14 16:25-0300\n"
+"POT-Creation-Date: 2021-08-15 08:36-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -668,7 +668,7 @@ msgstr ""
 "Toutefois, il ne semble pas que le module `{module}` ait été importé.\n"
 
 #: runtime_errors\attribute_error.py:100 runtime_errors\attribute_error.py:108
-#: runtime_errors\attribute_error.py:141 runtime_errors\attribute_error.py:346
+#: runtime_errors\attribute_error.py:141 runtime_errors\attribute_error.py:400
 #: runtime_errors\import_error.py:120 runtime_errors\key_error.py:199
 #: runtime_errors\key_error.py:206 runtime_errors\module_not_found_error.py:129
 #: runtime_errors\name_error.py:87 runtime_errors\unbound_local_error.py:44
@@ -745,7 +745,35 @@ msgstr ""
 "Vous tentez d’accéder à l’attribut `{attr}`\n"
 "pour une variable dont la valeur est `None`."
 
-#: runtime_errors\attribute_error.py:212
+#: runtime_errors\attribute_error.py:216
+msgid ""
+"The value of attribute `{attribute}` of objects of type `{obj_type}`\n"
+"cannot be changed.\n"
+"I have no further information.\n"
+msgstr ""
+"La valeur de l'attribut `{attribute}` des objets de type `{obj_type}`\n"
+"ne peut pas être modifiée.\n"
+"Je n'ai pas d'autres informations.\n"
+
+#: runtime_errors\attribute_error.py:234
+msgid ""
+"Object `{name}` uses an empty `__slots__` to prevent the modification\n"
+"of any of its attributes.\n"
+msgstr ""
+"L'objet `{name}` utilise un `__slots__` vide pour empêcher la modification\n"
+"de ses attributs.\n"
+
+#: runtime_errors\attribute_error.py:240
+msgid ""
+"Object `{name}` uses `__slots__` to specify which attributes can\n"
+"be changed. The value of attribute `{name}.{attribute}` cannot be changed.\n"
+msgstr ""
+"L'objet `{name}` utilise `__slots__` pour spécifier quels attributs peuvent "
+"être\n"
+"être modifiés. La valeur de l'attribut `{name}.{attribute}` ne peut pas être "
+"modifiée.\n"
+
+#: runtime_errors\attribute_error.py:266
 msgid ""
 "`{obj_name}` is a function. Perhaps you meant to write\n"
 "`{obj_name}({attribute})`\n"
@@ -753,11 +781,11 @@ msgstr ""
 "`{obj_name}` est une fonction. Peut-être que vous vouliez écrire\n"
 "`{obj_name}({attribute})`\n"
 
-#: runtime_errors\attribute_error.py:216
+#: runtime_errors\attribute_error.py:270
 msgid "Did you mean `{obj_name}({attribute})`?\n"
 msgstr "Vouliez-vous dire `{obj_name}({attribute})` ?\n"
 
-#: runtime_errors\attribute_error.py:221
+#: runtime_errors\attribute_error.py:275
 msgid ""
 "`{obj_name}` is a Python built-in function or method\n"
 "which does not have an attribute named `{attribute}.`\n"
@@ -765,7 +793,7 @@ msgstr ""
 "`{obj_name}` est une fonction ou une méthode Python de type 'builtin'\n"
 "qui n’a pas d’attribut nommé `{attribute}`.\n"
 
-#: runtime_errors\attribute_error.py:240
+#: runtime_errors\attribute_error.py:294
 msgid ""
 "An object of type `{obj_type}` has no attribute named `{attr}`.\n"
 "Unfortunately I cannot find such an object on the line where\n"
@@ -775,7 +803,7 @@ msgstr ""
 "Malheureusement, je ne peux pas trouver un tel objet sur la ligne où\n"
 "le problème se produit.\n"
 
-#: runtime_errors\attribute_error.py:268
+#: runtime_errors\attribute_error.py:322
 msgid ""
 "An object of type `{obj_type}` has no attribute named `{attr}`.\n"
 "\n"
@@ -789,7 +817,7 @@ msgstr ""
 "J’ai trouvé un objet de ce type dans la portée actuelle\n"
 "mais il ne semble pas être l’objet à l’origine du problème.\n"
 
-#: runtime_errors\attribute_error.py:277
+#: runtime_errors\attribute_error.py:331
 msgid ""
 "An object of type `{obj_type}` has no attribute named `{attr}`.\n"
 "\n"
@@ -801,11 +829,11 @@ msgstr ""
 "Les objets suivants peuvent être la cause du problème : \n"
 "`{names}`.\n"
 
-#: runtime_errors\attribute_error.py:317
+#: runtime_errors\attribute_error.py:371
 msgid "The object `{obj}` has no attribute named `{attr}`.\n"
 msgstr "L’objet `{obj}` n’a pas d’attribut nommé `{attr}`.\n"
 
-#: runtime_errors\attribute_error.py:321
+#: runtime_errors\attribute_error.py:375
 msgid ""
 "Note that object `{obj}` uses `__slots__` which prevents\n"
 "the creation of new attributes.\n"
@@ -813,7 +841,7 @@ msgstr ""
 "Notez que l’objet `{obj}` utilise `__slots__` qui empêche\n"
 "la création de nouveaux attributs.\n"
 
-#: runtime_errors\attribute_error.py:329
+#: runtime_errors\attribute_error.py:383
 msgid ""
 "The following are some of its known attributes:\n"
 "`{names}`."
@@ -821,22 +849,22 @@ msgstr ""
 "Voici quelques-uns de ses attributs connus :\n"
 "`{names}`."
 
-#: runtime_errors\attribute_error.py:342
+#: runtime_errors\attribute_error.py:396
 msgid "The object `{obj_name}` has no attribute named `{attribute}`.\n"
 msgstr "L’objet `{obj_name}` n’a pas d’attribut nommé `{attribute}`.\n"
 
-#: runtime_errors\attribute_error.py:347
+#: runtime_errors\attribute_error.py:401
 msgid ""
 "Perhaps you meant to write `{obj}.{correct}` instead of `{obj}.{typo}`\n"
 msgstr ""
 "Peut-être que vous vouliez plutôt écrire : `{obj}.{correct}` au lieu de "
 "`{obj}.{typo}`.\n"
 
-#: runtime_errors\attribute_error.py:353 runtime_errors\import_error.py:127
+#: runtime_errors\attribute_error.py:407 runtime_errors\import_error.py:127
 msgid "Did you mean one of the following: `{names}`?\n"
 msgstr "Vouliez-vous dire l’un des éléments suivants: `{names}` ?\n"
 
-#: runtime_errors\attribute_error.py:354
+#: runtime_errors\attribute_error.py:408
 msgid ""
 "Instead of writing `{obj}.{typo}`, perhaps you meant to write one of \n"
 "the following names which are attributes of object `{obj}`:\n"
@@ -846,11 +874,11 @@ msgstr ""
 "l'un des attributs suivants de l'objet `{obj}` :\n"
 "{names}\n"
 
-#: runtime_errors\attribute_error.py:379
+#: runtime_errors\attribute_error.py:433
 msgid "Did you write a comma by mistake?\n"
 msgstr "Avez-vous écrit une virgule par erreur ?\n"
 
-#: runtime_errors\attribute_error.py:380
+#: runtime_errors\attribute_error.py:434
 msgid ""
 "`{obj_name}` is a tuple that contains a single item\n"
 "which does have `'{attribute}'` as an attribute.\n"
@@ -862,11 +890,11 @@ msgstr ""
 "Peut-être avez-vous ajouté une virgule par erreur à la fin de la ligne\n"
 "lorsque vous avez défini `{obj_name}`.\n"
 
-#: runtime_errors\attribute_error.py:394
+#: runtime_errors\attribute_error.py:448
 msgid "Did you mean `{str_content}.join({obj_name})`?\n"
 msgstr "Voulez-vous dire `{str_content}.join({obj_name})` ?\n"
 
-#: runtime_errors\attribute_error.py:395
+#: runtime_errors\attribute_error.py:449
 msgid ""
 "The object `{obj_name}` has no attribute named `join`.\n"
 "Perhaps you wanted something like `{str_content}.join({obj_name})`.\n"
@@ -875,11 +903,11 @@ msgstr ""
 "Vous vouliez peut-être plutôt écrire quelque chose comme `'...'."
 "join({obj_name})`.\n"
 
-#: runtime_errors\attribute_error.py:419
+#: runtime_errors\attribute_error.py:473
 msgid "Did you mean `{known_builtin}({obj_name})`?\n"
 msgstr "Vouliez-vous utiliser `{known_builtin}({obj_name})` ?\n"
 
-#: runtime_errors\attribute_error.py:422
+#: runtime_errors\attribute_error.py:476
 msgid ""
 "The object `{obj_name}` has no attribute named `{attribute}`.\n"
 "Perhaps you can use the Python builtin function `{known_builtin}` instead:\n"
@@ -890,20 +918,20 @@ msgstr ""
 "à la place:\n"
 "`{known_builtin}({obj_name})`."
 
-#: runtime_errors\attribute_error.py:453
+#: runtime_errors\attribute_error.py:507
 msgid "Did you mean `{attr}`?\n"
 msgstr "Vouliez-vous dire `{attr}` ?\n"
 
-#: runtime_errors\attribute_error.py:454
+#: runtime_errors\attribute_error.py:508
 msgid "The object `{name}` has no attribute named `{attribute}`.\n"
 msgstr "L’objet `{name}` n’a pas d’attribut nommé `{attribute}`.\n"
 
-#: runtime_errors\attribute_error.py:458
+#: runtime_errors\attribute_error.py:512
 msgid "However, `{attr}` is an attribute of `{name}` with a similar meaning.\n"
 msgstr ""
 "Cependant, `{attr}` est un attribut de `{name}` avec une sens similaire.\n"
 
-#: runtime_errors\attribute_error.py:462
+#: runtime_errors\attribute_error.py:516
 msgid ""
 "However, `{name}` has the following attributes with similar meanings:\n"
 "`{attributes}`.\n"
@@ -911,11 +939,11 @@ msgstr ""
 "Toutefois, `{name}` a les attributs suivants avec des sens similaires:\n"
 "'{attributes}'.\n"
 
-#: runtime_errors\attribute_error.py:473
+#: runtime_errors\attribute_error.py:527
 msgid "Did you mean to separate object names by a comma?\n"
 msgstr "Vouliez-vous séparer les noms d’objets par une virgule ?\n"
 
-#: runtime_errors\attribute_error.py:475
+#: runtime_errors\attribute_error.py:529
 msgid ""
 "`{second}` is not an attribute of `{first}`.\n"
 "However, both `{first}` and `{second}` are known objects.\n"

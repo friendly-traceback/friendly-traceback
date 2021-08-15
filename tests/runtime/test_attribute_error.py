@@ -267,6 +267,26 @@ def test_Using_slots():
     return result, message
 
 
+def test_Read_only():
+
+    class F:
+        __slots__ = ["a"]
+        b = 2
+
+    f = F()
+    try:
+        f.b = 1
+    except AttributeError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "'F' object attribute 'b' is read-only" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "The only attribute of `f` whose value can be changed is" in result
+    return result, message
+
+
 def test_Tuple_by_accident():
     something = "abc",  # note trailing comma
     try:
