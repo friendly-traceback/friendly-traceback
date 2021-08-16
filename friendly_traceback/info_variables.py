@@ -240,12 +240,17 @@ def get_var_info(line: str, frame: types.FrameType) -> str:
 
 
 def simplify_name(name: str) -> str:
-    """Remove irrelevant memory location information from functions, etc."""
-    # There are two reasons to do this:
+    """Remove irrelevant memory location information from functions, etc.
+
+    Does additional formatting in an attempt to make the names (repr)
+    more readable.
+    """
+    # There are two reasons to remove the memory location information:
     # 1. this information is essentially of no value for beginners
     # 2. Removing this information ensures that consecutive runs of
     #    script to create tracebacks for the documentation will yield
     #    exactly the same results. This makes it easier to spot changes/regressions.
+    bound_method = "bound method" in name and " of" in name and name.endswith(">>")
     if " at " in name:
         name = name.split(" at ")[0] + ">"
     elif " from " in name:  # example: module X from stdlib_path
@@ -256,16 +261,21 @@ def simplify_name(name: str) -> str:
             name = obj_repr + "> from " + path
         else:
             name = obj_repr + f">\n{INDENT}from " + path
-    # The following is done so that, when using rich, pygments
+    # The following replacement is done so that, when using rich, pygments
     # does not style the - and 'in' in a weird way.
     name = name.replace("built-in", "builtin")
     if name.startswith("<"):
         name = name.replace("'", "")
+    if bound_method:
+        name = name.replace(" of", "> of")
     if ".<locals>." in name:
+        count = name.count(".<locals>.")
         parts = name.split(".<locals>.")
         file_name = parts[0]
         obj_name = ".".join(parts[1:])
-        # file_name, obj_name = name.split(".<locals>.")
+        if "bound method " in file_name:
+            file_name = file_name.replace("bound method ", "")
+            obj_name = "bound method " + obj_name
         if name.startswith("<function "):
             start = "<function "
         elif name.startswith("<class "):
@@ -273,9 +283,14 @@ def simplify_name(name: str) -> str:
         else:
             start = "<"
         file_name = file_name.replace(start, "")
-        name = start + obj_name + " from " + file_name
+        if count == 1:
+            name = start + obj_name + " from " + file_name
+        else:
+            name = start + obj_name
+
     if "__main__." in name:  # pragma: no cover
-        name = name.replace("__main__.", "") + " from __main__"
+        name = name.split(" from ")[0]
+        name = name.replace("__main__.", "") + " (from __main__)"
     return name
 
 
