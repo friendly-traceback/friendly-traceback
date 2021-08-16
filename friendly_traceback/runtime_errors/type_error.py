@@ -1052,7 +1052,6 @@ def function_got_multiple_argument(
 
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
     for name, obj in all_objects:
-        print(name, obj)
         if (
             name == function_name
             or "." in name
