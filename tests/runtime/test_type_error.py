@@ -849,5 +849,51 @@ def test_vars_arg_must_have_dict():
     return result, message
 
 
+def test_function_got_multiple_argument():
+    def fn1(a):
+        pass
+    try:
+        fn1(0, a=1)
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert "got multiple values for argument" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "This function has only one argument" in result
+
+    def fn2(a, b=1):
+        pass
+    try:
+        fn2(0, a=1)
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert "got multiple values for argument" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "This function has the following arguments" in result
+
+    return result, message
+
+
+def test_method_got_multiple_argument():
+    class T:
+        def some_method(self, a):
+            pass
+    t = T()
+    try:
+        t.some_method(0, a=1)
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert "got multiple values for argument" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "This function has only one argument" in result
+
+    return result, message
+
+
 if __name__ == "__main__":
     print(test_Not_an_integer()[0])

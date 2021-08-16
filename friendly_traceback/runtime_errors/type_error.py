@@ -4,6 +4,7 @@ Collection of functions useful in parsing TypeError messages and
 providing a more detailed explanation.
 """
 
+import inspect
 import re
 from types import FrameType
 from typing import Any, List, Optional, Tuple, Type
@@ -1025,4 +1026,52 @@ def vars_arg_must_have_dict(
                         "`{name}`, the argument of `vars`, is an object without such an attribute.\n"
                     ).format(name=name)
 
+    return {"cause": cause}
+
+
+@parser.add
+def function_got_multiple_argument(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    _ = current_lang.translate
+
+    pattern = r"(.*)\(\) got multiple values for argument '(.*)'"
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+    function_name = match.group(1)
+    # Annoyingly, Python 3.10 inserts <locals> as part of the name of functions
+    # defined locally, which is what we often do in unit tests.
+    if ".<locals>." in function_name:
+        function_name = function_name.split(".<locals>.")[1]
+    argument = match.group(2)
+    cause = _(
+        "You have specified the value of argument `{argument}` more than once\n"
+        "when calling the function named `{function}`.\n"
+    )
+
+    all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
+    for name, obj in all_objects:
+        print(name, obj)
+        if (
+            name == function_name
+            or "." in name
+            and function_name in repr(obj)  # method of object
+        ):
+            function = obj
+            function_name = name
+            break
+    else:
+        return {"cause": cause.format(argument=argument, function=function_name)}
+
+    cause = cause.format(argument=argument, function=function_name)
+    arguments = inspect.signature(function)
+    if len(arguments.parameters) == 1:
+        cause += _("This function has only one argument: `{arguments}`\n").format(
+            function=function_name, arguments=str(arguments)[1:-1]
+        )
+    else:
+        cause += _(
+            "This function has the following arguments:\n`{arguments}`\n"
+        ).format(function=function_name, arguments=str(arguments)[1:-1])
     return {"cause": cause}
