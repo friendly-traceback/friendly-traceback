@@ -64,7 +64,10 @@ def test_simplify_repr():
     simplify = ft.info_variables.simplify_repr
     INDENT = ft.info_variables.INDENT
 
-    assert simplify(repr(math)) == "<module math (builtin)>"
+    simplified_math = simplify(repr(math))
+    assert simplified_math == "<module math (builtin)>" or (
+        "<module math>" in simplified_math and "PYTHON_LIB" in simplified_math
+    )
     # replace \ in path so that it works for all OSes
     assert (
         simplify(repr(tkinter)).replace("\\", "/")
