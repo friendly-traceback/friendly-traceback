@@ -239,7 +239,7 @@ def get_var_info(line: str, frame: types.FrameType) -> str:
     return "\n".join(names_info)
 
 
-def simplify_name(name: str) -> str:
+def simplify_repr(name: str) -> str:
     """Remove irrelevant memory location information from functions, etc.
 
     Does additional formatting in an attempt to make the names (repr)
@@ -315,7 +315,7 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
         _global = "global "
 
     if value.startswith("<") and value.endswith(">"):
-        value = simplify_name(value)
+        value = simplify_repr(value)
 
     if len(value) > MAX_LENGTH and not value.startswith("<"):
         # We reduce the length of the repr, indicate this by ..., but we

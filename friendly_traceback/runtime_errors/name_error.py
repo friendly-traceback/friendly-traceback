@@ -229,7 +229,7 @@ def missing_self(
                 known_attributes = dir(obj)
                 if unknown_name in known_attributes:
                     suggest = ""
-                    obj_repr = info_variables.simplify_name(repr(obj))
+                    obj_repr = info_variables.simplify_repr(repr(obj))
                     if first_arg_self and name == "self":
                         suggest = _("Did you write `self` at the wrong place?\n")
                         message = _(
