@@ -239,58 +239,84 @@ def get_var_info(line: str, frame: types.FrameType) -> str:
     return "\n".join(names_info)
 
 
-def simplify_repr(name: str) -> str:
+def simplify_repr(name: str, splitlines: bool = True) -> str:
     """Remove irrelevant memory location information from functions, etc.
 
     Does additional formatting in an attempt to make the names (repr)
     more readable.
     """
+    if not name.startswith("<"):
+        debug_helper.log("simplify_repr called on name that does not start with <")
     # There are two reasons to remove the memory location information:
     # 1. this information is essentially of no value for beginners
     # 2. Removing this information ensures that consecutive runs of
     #    script to create tracebacks for the documentation will yield
     #    exactly the same results. This makes it easier to spot changes/regressions.
-    bound_method = "bound method" in name and " of" in name and name.endswith(">>")
+
+    if name.endswith(">>"):
+        end_angle = ">>"
+    elif name.endswith(">"):
+        end_angle = ">"
+    else:
+        debug_helper.log(f"in simplify_repr, unexpected ending of {name}")
+        end_angle = ""
+    bound_method = "bound method" in name
     if " at " in name:
-        name = name.split(" at ")[0] + ">"
+        name = name.split(" at ")[0] + end_angle
     elif " from " in name:  # example: module X from stdlib_path
         obj_repr, path = name.split(" from ")
         path = path_utils.shorten_path(path[:-1])  # -1 removes >
         # Avoid lines that are too long
-        if len(obj_repr) + len(path) < MAX_LENGTH:
+        if len(obj_repr) + len(path) < MAX_LENGTH and splitlines:
             name = obj_repr + "> from " + path
         else:
             name = obj_repr + f">\n{INDENT}from " + path
     # The following replacement is done so that, when using rich, pygments
     # does not style the - and 'in' in a weird way.
     name = name.replace("built-in", "builtin")
-    if name.startswith("<"):
-        name = name.replace("'", "")
+    name = name.replace("'", "")
     if bound_method:
-        name = name.replace(" of", "> of")
-    if ".<locals>." in name:
-        count = name.count(".<locals>.")
+        name = simplify_bound_method(name, splitlines=splitlines)
+    elif ".<locals>." in name:
         parts = name.split(".<locals>.")
-        file_name = parts[0]
-        obj_name = ".".join(parts[1:])
-        if "bound method " in file_name:
-            file_name = file_name.replace("bound method ", "")
-            obj_name = "bound method " + obj_name
+        file_name = ".<locals>".join(parts[0:-1])
+        obj_name = parts[-1]
         if name.startswith("<function "):
             start = "<function "
         elif name.startswith("<class "):
             start = "<class "
         else:
             start = "<"
-        file_name = file_name.replace(start, "")
-        if count == 1:
-            name = start + obj_name + " from " + file_name
-        else:
-            name = start + obj_name
+        file_name = file_name.replace(start, "").replace(".locals>", ".<locals>.")
+        name = start + obj_name + " defined in <function " + file_name + ">"
+        if len(name) > MAX_LENGTH and splitlines:
+            name = (
+                start + obj_name + f"\n{INDENT}defined in <function " + file_name + ">"
+            )
 
     if "__main__." in name:  # pragma: no cover
-        name = name.split(" from ")[0]
-        name = name.replace("__main__.", "") + " (from __main__)"
+        name = name.replace("__main__.", "")
+    return name
+
+
+def simplify_bound_method(name: str, splitlines: bool = False) -> str:
+    name = name[0:-1]  # remove final >
+    if ".<locals>." in name:
+        method, obj = name.split(" of ")
+        parts = method.split(".<locals>.")
+        method = f"<bound method {parts[-1]}>"
+        obj_parts = obj.split(".<locals>.")
+        obj_name = obj_parts[-1]
+        file_name = ".<locals>".join(obj_parts[0:-1])
+        name = (
+            method + " of <" + obj_name + " defined in <function " + file_name[1:] + ">"
+        )
+        if len(name) > MAX_LENGTH and splitlines:
+            of_object = f"\n{INDENT}of <" + obj_name
+            defined_in = f"\n{INDENT}defined in <function " + file_name[1:] + ">"
+            name = method + of_object + defined_in
+    else:
+        name = name.replace(" of", "> of")
     return name
 
 
@@ -314,10 +340,12 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     if _global:
         _global = "global "
 
+    not_repr = True
     if value.startswith("<") and value.endswith(">"):
         value = simplify_repr(value)
+        not_repr = False
 
-    if len(value) > MAX_LENGTH and not value.startswith("<"):
+    if len(value) > MAX_LENGTH and not_repr:
         # We reduce the length of the repr, indicate this by ..., but we
         # also keep the last character so that the repr of a list still
         # ends with ], that of a tuple still ends with ), etc.
