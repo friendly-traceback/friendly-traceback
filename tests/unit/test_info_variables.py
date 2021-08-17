@@ -4,7 +4,7 @@ import friendly_traceback as ft
 
 global_a = 1
 global_b = 2
-global_annotated : "this"
+global_annotated: "this"
 
 
 def test_get_variables_in_frame_by_scope():
@@ -15,9 +15,11 @@ def test_get_variables_in_frame_by_scope():
     current_frame = None
 
     b = 2
+
     def outer():
         c = 3
         d = 4
+
         def inner():
             global global_a
             global global_b
@@ -26,6 +28,7 @@ def test_get_variables_in_frame_by_scope():
             e = 5
             global_b += 1
             current_frame = inspect.currentframe()
+
         inner()
 
     outer()
@@ -53,5 +56,46 @@ def test_get_variables_in_frame_by_scope():
 
     assert "e" in get(current_frame, "local")
 
-if __name__ == '__main__':
+
+def test_simplify_repr():
+    import math
+    import tkinter
+
+    simplify = ft.info_variables.simplify_repr
+    INDENT = ft.info_variables.INDENT
+
+    assert simplify(repr(math)) == "<module math (builtin)>"
+    # replace \ in path so that it works for all OSes
+    assert (
+        simplify(repr(tkinter)).replace("\\", "/")
+        == "<module tkinter> from PYTHON_LIB:/tkinter/__init__.py"
+    )
+    assert simplify(repr(open)) == "<builtin function open>"
+    assert simplify("<class 'AssertionError'>") == "<class AssertionError>"
+    assert (
+        simplify("<bound method ChainMap.pop of ChainMap({(0, 0): 'origin'}, {})>")
+        == "<bound method ChainMap.pop> of ChainMap({(0, 0): 'origin'}, {})"
+    )
+    assert (
+        simplify("<built-in method popitem of dict object at 0x00000267D1C96180>")
+        == "<builtin method popitem of dict object>"
+    )
+    assert (
+        simplify("<function test_Generic.<locals>.a at 0x00000267D28B0F70>")
+        == "<function a> defined in <function test_Generic>"
+    )
+    assert (
+        simplify(
+            "<bound method test_method_got_multiple_argument.<locals>.T.some_method"
+            " of <tests.runtime.test_type_error.test_method_got_multiple_argument."
+            "<locals>.T object at 0x00000179EE9CD7F0>>"
+        )
+        == "<bound method T.some_method>"
+        + f"\n{INDENT}of <T object>"
+        + f"\n{INDENT}defined in <function "
+        + "tests.runtime.test_type_error.test_method_got_multiple_argument>"
+    )
+
+
+if __name__ == "__main__":
     test_get_variables_in_frame_by_scope()

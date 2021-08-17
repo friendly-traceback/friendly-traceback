@@ -247,12 +247,6 @@ def simplify_repr(name: str, splitlines: bool = True) -> str:
     """
     if not name.startswith("<"):
         debug_helper.log("simplify_repr called on name that does not start with <")
-    # There are two reasons to remove the memory location information:
-    # 1. this information is essentially of no value for beginners
-    # 2. Removing this information ensures that consecutive runs of
-    #    script to create tracebacks for the documentation will yield
-    #    exactly the same results. This makes it easier to spot changes/regressions.
-
     if name.endswith(">>"):
         end_angle = ">>"
     elif name.endswith(">"):
@@ -262,19 +256,30 @@ def simplify_repr(name: str, splitlines: bool = True) -> str:
         end_angle = ""
     bound_method = "bound method" in name
     if " at " in name:
+        # There are two reasons to remove the memory location information:
+        # 1. this information is essentially of no value for beginners
+        # 2. Removing this information ensures that consecutive runs of
+        #    script to create tracebacks for the documentation will yield
+        #    exactly the same results.
+        #    This makes it easier to spot changes/regressions.
         name = name.split(" at ")[0] + end_angle
     elif " from " in name:  # example: module X from stdlib_path
         obj_repr, path = name.split(" from ")
         path = path_utils.shorten_path(path[:-1])  # -1 removes >
         # Avoid lines that are too long
-        if len(obj_repr) + len(path) < MAX_LENGTH and splitlines:
-            name = obj_repr + "> from " + path
-        else:
+        if len(obj_repr) + len(path) > MAX_LENGTH and splitlines:
             name = obj_repr + f">\n{INDENT}from " + path
+        else:
+            name = obj_repr + "> from " + path
+
+    # Replace some strings so that colour formatting is nicer
+    name = name.replace("<class '", "<class ")
+    name = name.replace("<module '", "<module ")
+    name = name.replace("'>", ">")
+    name = name.replace("' (built-in)", " (built-in)")
     # The following replacement is done so that, when using rich, pygments
     # does not style the - and 'in' in a weird way.
     name = name.replace("built-in", "builtin")
-    name = name.replace("'", "")
     if bound_method:
         name = simplify_bound_method(name, splitlines=splitlines)
     elif ".<locals>." in name:
