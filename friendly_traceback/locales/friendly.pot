@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-08-18 09:30-0300\n"
+"POT-Creation-Date: 2021-08-18 10:11-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2991,6 +2991,39 @@ msgstr ""
 
 #: syntax_errors\message_analyzer.py:1539
 msgid ""
+"Python indicates that you need to surround an expression\n"
+"ending with a comma by parentheses.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1548
+msgid ""
+"However, I suspect that you wrote the keyword `{boolean}` by mistake.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1552
+#: syntax_errors\statement_analyzer.py:1402
+msgid ""
+"The Python keyword `{boolean}` can only be used for boolean expressions.\n"
+"Perhaps you meant to write\n"
+"\n"
+"`{new_statement}`\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1558
+msgid ""
+"Perhaps you meant to write\n"
+"\n"
+"`{new_statement}`\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1564
+msgid ""
+"I have no additional suggestion to offer.\n"
+"Please feel free to report this case.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1576
+msgid ""
 "You can only use a `yield` statement inside a function.\n"
 msgstr ""
 
@@ -3543,15 +3576,7 @@ msgid ""
 "before or at the position indicated by ^.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1400
-msgid ""
-"The Python keyword `and` can only be used for boolean expressions.\n"
-"Perhaps you meant to write\n"
-"\n"
-"`{new_statement}`\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1435
+#: syntax_errors\statement_analyzer.py:1437
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -3564,40 +3589,40 @@ msgid ""
 "    from {module} import object_2 as name_2  # if needed\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1454
+#: syntax_errors\statement_analyzer.py:1456
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1467
+#: syntax_errors\statement_analyzer.py:1469
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1471
+#: syntax_errors\statement_analyzer.py:1473
 msgid ""
 "Did you write {bad_token} twice by mistake?\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1492
+#: syntax_errors\statement_analyzer.py:1494
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1496
+#: syntax_errors\statement_analyzer.py:1498
 msgid ""
 "Did you write {bad_token} by mistake?\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1519
+#: syntax_errors\statement_analyzer.py:1521
 msgid ""
 "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1525
+#: syntax_errors\statement_analyzer.py:1527
 msgid ""
 "If this is incorrect, please report this case.\n"
 msgstr ""

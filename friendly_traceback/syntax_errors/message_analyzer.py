@@ -1531,6 +1531,44 @@ def star_assignment_target_must_be_list(message="", **_kwargs):
 
 
 @add_python_message
+def trailing_comma_not_allowed(message="", statement=None):
+    _ = current_lang.translate
+    if message != "trailing comma not allowed without surrounding parentheses":
+        return {}
+
+    cause = _(
+        "Python indicates that you need to surround an expression\n"
+        "ending with a comma by parentheses.\n"
+    )
+
+    bad_token = statement.bad_token
+    if bad_token.is_keyword:
+        new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
+        if fixers.check_statement(new_statement):
+            cause += _(
+                "However, I suspect that you wrote the keyword `{boolean}` by mistake.\n"
+            ).format(boolean=bad_token)
+            if bad_token.string in ["and", "or"]:
+                cause += _(
+                    "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
+                    "Perhaps you meant to write\n\n"
+                    "`{new_statement}`\n"
+                ).format(new_statement=new_statement, boolean=bad_token)
+            else:
+                cause += _(
+                    "Perhaps you meant to write\n\n" "`{new_statement}`\n"
+                ).format(new_statement=new_statement)
+            return {"cause": cause}
+    debug_helper.log("new case to consider.")
+    cause += _(
+        "I have no additional suggestion to offer.\n"
+        "Please feel free to report this case.\n"
+    )
+
+    return {"cause": cause}
+
+
+@add_python_message
 def yield_outside_function(message="", **_kwargs):
     _ = current_lang.translate
     if message != "'yield' outside function":

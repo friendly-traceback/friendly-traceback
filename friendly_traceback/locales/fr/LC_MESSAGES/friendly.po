@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-18 09:30-0300\n"
+"POT-Creation-Date: 2021-08-18 10:11-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -3836,6 +3836,52 @@ msgstr ""
 "\n"
 
 #: syntax_errors\message_analyzer.py:1539
+msgid ""
+"Python indicates that you need to surround an expression\n"
+"ending with a comma by parentheses.\n"
+msgstr ""
+"Python indique que vous devez utiliser des parenthèses\n"
+"pour entourer une expression se terminant par une virgule.\n"
+
+#: syntax_errors\message_analyzer.py:1548
+msgid "However, I suspect that you wrote the keyword `{boolean}` by mistake.\n"
+msgstr ""
+"Cependant, je soupçonne que vous avez écrit le mot-clé `{boolean}` par "
+"erreur.\n"
+
+#: syntax_errors\message_analyzer.py:1552
+#: syntax_errors\statement_analyzer.py:1402
+msgid ""
+"The Python keyword `{boolean}` can only be used for boolean expressions.\n"
+"Perhaps you meant to write\n"
+"\n"
+"`{new_statement}`\n"
+msgstr ""
+"Le mot-clé Python `{boolean}` ne peut être utilisé que pour les expressions "
+"booléennes.\n"
+"Vous vouliez peut-être écrire\n"
+"\n"
+"`{new_statement}`\n"
+
+#: syntax_errors\message_analyzer.py:1558
+msgid ""
+"Perhaps you meant to write\n"
+"\n"
+"`{new_statement}`\n"
+msgstr ""
+"Peut-être que vous vouliez écrire\n"
+"\n"
+"`{new_statement}`\n"
+
+#: syntax_errors\message_analyzer.py:1564
+msgid ""
+"I have no additional suggestion to offer.\n"
+"Please feel free to report this case.\n"
+msgstr ""
+"Je n'ai pas de suggestion supplémentaire à offrir.\n"
+"N'hésitez pas à signaler ce cas.\n"
+
+#: syntax_errors\message_analyzer.py:1576
 msgid "You can only use a `yield` statement inside a function.\n"
 msgstr ""
 "Vous ne pouvez utiliser une instruction `yield` qu'à l'intérieur d'une "
@@ -4569,20 +4615,7 @@ msgstr ""
 "pour attribuer des valeurs à une clé d'un dictionnaire\n"
 "avant ou exactement à la position indiquée par ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1400
-msgid ""
-"The Python keyword `and` can only be used for boolean expressions.\n"
-"Perhaps you meant to write\n"
-"\n"
-"`{new_statement}`\n"
-msgstr ""
-"Le mot clé Python `and` ne peut être utilisé que pour les expressions "
-"booléennes.\n"
-"Peut-être que vous vouliez écrire\n"
-"\n"
-"`{new_statement}`\n"
-
-#: syntax_errors\statement_analyzer.py:1435
+#: syntax_errors\statement_analyzer.py:1437
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -4606,7 +4639,7 @@ msgstr ""
 "    from {module} import objet_1 as nom_1\n"
 "    from {module} import objet_2 as nom_2 # si nécessaire\n"
 
-#: syntax_errors\statement_analyzer.py:1454
+#: syntax_errors\statement_analyzer.py:1456
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
@@ -4614,7 +4647,7 @@ msgstr ""
 "Vous ne pouvez supprimer que les noms d'objets, ou d'éléments\n"
 "dans des conteneurs mutables comme `list`, `set`, ou `dict`.\n"
 
-#: syntax_errors\statement_analyzer.py:1467
+#: syntax_errors\statement_analyzer.py:1469
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
@@ -4622,11 +4655,11 @@ msgstr ""
 "Je suppose que vous avez écrit {bad_token} deux fois de suite par erreur.\n"
 "Si c’est le cas, vous devez supprimer le second.\n"
 
-#: syntax_errors\statement_analyzer.py:1471
+#: syntax_errors\statement_analyzer.py:1473
 msgid "Did you write {bad_token} twice by mistake?\n"
 msgstr "Avez-vous écrit {bad_token} deux fois par erreur ?\n"
 
-#: syntax_errors\statement_analyzer.py:1492
+#: syntax_errors\statement_analyzer.py:1494
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
@@ -4634,17 +4667,17 @@ msgstr ""
 "Je suppose que vous avez écrit {bad_token} par erreur.\n"
 "Écrire simplement `{line}` semble corriger l’erreur.\n"
 
-#: syntax_errors\statement_analyzer.py:1496
+#: syntax_errors\statement_analyzer.py:1498
 msgid "Did you write {bad_token} by mistake?\n"
 msgstr "Avez-vous écrit {bad_token} par erreur ?\n"
 
-#: syntax_errors\statement_analyzer.py:1519
+#: syntax_errors\statement_analyzer.py:1521
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr ""
 "Le symbole {bracket} à la ligne {linenumber} n'est pas fermé par le symbole "
 "correspondant.\n"
 
-#: syntax_errors\statement_analyzer.py:1525
+#: syntax_errors\statement_analyzer.py:1527
 msgid "If this is incorrect, please report this case.\n"
 msgstr "Si cela est incorrect, veuillez signaler ce cas.\n"
 

@@ -1390,31 +1390,31 @@ def equal_instead_of_colon_in_dict(statement):
 
 
 @add_statement_analyzer
-def and_instead_of_comma(statement):
+def boolean_instead_of_comma(statement):
     # Example: from math import sin and cos
+    # Includes cases where boolean added after comma
     _ = current_lang.translate
 
-    if statement.bad_token != "and":
+    if statement.bad_token.string not in ["and", "or"]:
         return {}
+    bad_token = statement.bad_token
 
     possible_cause = _(
-        "The Python keyword `and` can only be used for boolean expressions.\n"
+        "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
         "Perhaps you meant to write\n\n"
         "`{new_statement}`\n"
     )
 
     cause = None
-    new_statement = fixers.replace_token(
-        statement.statement_tokens, statement.bad_token, ","
-    )
+    new_statement = fixers.replace_token(statement.statement_tokens, bad_token, ",")
     if fixers.check_statement(new_statement):
-        cause = possible_cause.format(new_statement=new_statement)
+        cause = possible_cause.format(new_statement=new_statement, boolean=bad_token)
     else:  # 'and' following a comma
-        new_statement = fixers.replace_token(
-            statement.statement_tokens, statement.bad_token, ""
-        )
+        new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
         if fixers.check_statement(new_statement):
-            cause = possible_cause.format(new_statement=new_statement)
+            cause = possible_cause.format(
+                new_statement=new_statement, boolean=bad_token
+            )
 
     if cause:
         return {"cause": cause}
