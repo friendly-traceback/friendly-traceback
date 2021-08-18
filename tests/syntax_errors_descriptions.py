@@ -896,6 +896,10 @@ descriptions = {
         cause: "You do not need to declare variables in Python.",
         title: "Would-be variable declaration - 2",
     },
+    "yield_outside_function": {
+        cause: "You can only use a `yield`",
+        title: "Cannot use yield outside function"
+    }
 }
 
 if sys.version_info < (3, 8):

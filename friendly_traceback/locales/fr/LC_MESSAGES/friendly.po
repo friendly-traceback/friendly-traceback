@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-18 09:09-0300\n"
+"POT-Creation-Date: 2021-08-18 09:30-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -3834,6 +3834,12 @@ msgstr ""
 "\n"
 "    ... *nom = liste_ou_tuple\n"
 "\n"
+
+#: syntax_errors\message_analyzer.py:1539
+msgid "You can only use a `yield` statement inside a function.\n"
+msgstr ""
+"Vous ne pouvez utiliser une instruction `yield` qu'à l'intérieur d'une "
+"fonction.\n"
 
 #: syntax_errors\statement_analyzer.py:114
 msgid ""

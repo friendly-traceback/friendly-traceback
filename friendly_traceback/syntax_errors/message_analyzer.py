@@ -1528,3 +1528,13 @@ def star_assignment_target_must_be_list(message="", **_kwargs):
         "A star assignment must be of the form:\n\n" "    ... *name = list_or_tuple\n\n"
     )
     return {"cause": cause}
+
+
+@add_python_message
+def yield_outside_function(message="", **_kwargs):
+    _ = current_lang.translate
+    if message != "'yield' outside function":
+        return {}
+
+    cause = _("You can only use a `yield` statement inside a function.\n")
+    return {"cause": cause}
