@@ -120,6 +120,11 @@ descriptions = {
         cause: "only used to assign a value to a variable",
         title: "Assign to math operation",
     },
+    "assign_to_yield_expression": {
+        cause: "You wrote an expression that includes the `yield` keyword",
+        title: "Assign to yield expression",
+        "also in cause": ["You cannot assign a value to such an expression."],
+    },
     "assignment_expression_cannot_rebind": {
         cause: "a comprehension to assign a value to the iteration variable",
         title: "Augmented assignment inside comprehension",

@@ -213,6 +213,26 @@ def assign_to_f_expression(message="", statement=None):
 
 
 @add_python_message
+def assign_to_yield_expression(message="", **_kwargs):
+    _ = current_lang.translate
+    if message not in (
+        "can't assign to yield expression",
+        "cannot assign to yield expression",
+        "cannot assign to yield expression here. Maybe you meant '==' instead of '='?",
+    ):
+        return {}
+    hint = _("You can only assign objects to identifiers (variable names).\n")
+    cause = _(
+        "You wrote an expression that includes the `yield` keyword\n"
+        "on the left-hand side of the equal sign.\n"
+        "You cannot assign a value to such an expression.\n"
+        "Note that, like the keyword `return`,\n"
+        "`yield` can only be used inside a function.\n"
+    )
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
 def f_string_backslash(message="", **_kwargs):
     _ = current_lang.translate
     if message != "f-string expression part cannot include a backslash":
