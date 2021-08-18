@@ -1532,6 +1532,8 @@ def star_assignment_target_must_be_list(message="", **_kwargs):
 
 @add_python_message
 def trailing_comma_not_allowed(message="", statement=None):
+    # As far as I know, this is only in import statement; for example:
+    # from math import sin, cos,
     _ = current_lang.translate
     if message != "trailing comma not allowed without surrounding parentheses":
         return {}
@@ -1542,7 +1544,7 @@ def trailing_comma_not_allowed(message="", statement=None):
     )
 
     bad_token = statement.bad_token
-    if bad_token.is_keyword:
+    if bad_token.is_keyword():
         new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
         if fixers.check_statement(new_statement):
             cause += _(
@@ -1559,6 +1561,33 @@ def trailing_comma_not_allowed(message="", statement=None):
                     "Perhaps you meant to write\n\n" "`{new_statement}`\n"
                 ).format(new_statement=new_statement)
             return {"cause": cause}
+    elif bad_token == ",":  # Python 3.9+
+        new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
+        if fixers.check_statement(new_statement):
+            hint = _("Did you write a comma by mistake?\n")
+            cause += _(
+                "However, if you remove the last comma, there will be no syntax error.\n"
+            )
+            cause += _("Perhaps you meant to write\n\n" "`{new_statement}`\n").format(
+                new_statement=new_statement
+            )
+            return {"cause": cause, "suggest": hint}
+    elif (
+        statement.last_token == ","
+    ):  # Python 3.6 - 3.8   (bad_token is at beginning of items)
+        new_statement = fixers.replace_token(
+            statement.statement_tokens, statement.last_token, ""
+        )
+        if fixers.check_statement(new_statement):
+            hint = _("Did you write a comma by mistake?\n")
+            cause += _(
+                "However, if you remove the last comma, there will be no syntax error.\n"
+            )
+            cause += _("Perhaps you meant to write\n\n" "`{new_statement}`\n").format(
+                new_statement=new_statement
+            )
+            return {"cause": cause, "suggest": hint}
+
     debug_helper.log("new case to consider.")
     cause += _(
         "I have no additional suggestion to offer.\n"

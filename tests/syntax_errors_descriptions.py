@@ -771,6 +771,10 @@ descriptions = {
         cause: "you need to reduce the number of parentheses",
         title: "Too many nested parentheses.",
     },
+    "trailing_comma_in_import": {
+        cause: "However, if you remove the last comma, there will be no syntax error",
+        title: "Trailing comma in import statement",
+    },
     "triple_equal": {
         cause: "the exact same object, use the operator `is`",
         title: "Triple-equal sign",
