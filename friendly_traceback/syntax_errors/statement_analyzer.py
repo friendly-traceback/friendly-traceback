@@ -1506,7 +1506,7 @@ def unclosed_bracket(statement):
     if not statement.begin_brackets:
         return {}
 
-    bracket = statement.begin_brackets[0]
+    bracket = statement.begin_brackets[-1]
     # not statement_brackets -> all brackets are closed
     # bad_token match open bracket: problem is not with unclosed bracket
     if not statement.statement_brackets and syntax_utils.matching_brackets(

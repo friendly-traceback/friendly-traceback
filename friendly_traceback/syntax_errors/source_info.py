@@ -414,7 +414,8 @@ class Statement:
                 if not matching_brackets(open_bracket, token.string):
                     self.statement_brackets.append(open_bracket)
                     break
-
+                if self.begin_brackets and self.bad_token is None:
+                    self.begin_brackets.pop()
                 self.end_bracket = None
 
         if self.statement_tokens:  # Protecting against EOF while parsing
