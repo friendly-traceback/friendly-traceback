@@ -1507,6 +1507,13 @@ def unclosed_bracket(statement):
         return {}
 
     bracket = statement.begin_brackets[0]
+    # not statement_brackets -> all brackets are closed
+    # bad_token match open bracket: problem is not with unclosed bracket
+    if not statement.statement_brackets and syntax_utils.matching_brackets(
+        bracket, statement.bad_token
+    ):
+        return {}
+
     linenumber = bracket.start_row
     start_col = bracket.start_col
 
