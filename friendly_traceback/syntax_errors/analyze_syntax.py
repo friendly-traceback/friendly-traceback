@@ -64,7 +64,7 @@ def find_syntax_error_cause(value, tb_data):
     # raises a particular exception.
 
     if "invalid syntax" not in message:
-        cause = message_analyzer.analyze_message(message=message, statement=statement)
+        cause = message_analyzer.analyze_message(message, statement)
         if cause:
             return cause
 
