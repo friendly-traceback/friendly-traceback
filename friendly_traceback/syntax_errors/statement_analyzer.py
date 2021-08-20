@@ -20,6 +20,29 @@ def more_errors():
     )
 
 
+def _possibly_inside_dict(statement):
+    if statement.statement_brackets:
+        return False
+    for bracket in reversed(statement.begin_brackets):
+        if bracket == "{":
+            break
+    else:
+        return False
+    between_brackets = False
+    found_colon = False
+    for token in statement.tokens:
+        if token == bracket:
+            between_brackets = True
+        if between_brackets:
+            if token == ":":
+                found_colon = True
+            elif token.is_keyword():
+                return False
+            if token == "}":
+                return found_colon
+    return False
+
+
 def add_statement_analyzer(func):
     """A simple decorator that adds a function to the list
     of all functions that analyze a single statement."""
@@ -420,6 +443,18 @@ def consecutive_operators(statement):
             "or forgot to write something between them.\n"
         ).format(op=statement.prev_token)
     else:
+        if (
+            statement.prev_token == ":"
+            and statement.bad_token == "*"
+            and _possibly_inside_dict(statement)
+        ):
+            cause = _(
+                "You cannot have these two operators, `{first}` and `{second}`,\n"
+                "following each other.\n"
+                "It looks like you tried to use a starred expression as a dict value;\n"
+                "this is not allowed.\n"
+            ).format(first=statement.prev_token, second=statement.bad_token)
+            return {"cause": cause}
         cause = _(
             "You cannot have these two operators, `{first}` and `{second}`,\n"
             "following each other. Perhaps you wrote one of them by mistake\n"
@@ -1497,6 +1532,27 @@ def extra_token(statement):
         return {"cause": cause, "suggest": hint}
     else:
         return {}
+
+
+@add_statement_analyzer
+def missing_value_in_dict(statement):
+    _ = current_lang.translate
+    if not _possibly_inside_dict(statement):
+        return {}
+    if statement.bad_token.string not in [",", "}"]:
+        return {}
+    if statement.prev_token == ":":
+        cause = _(
+            "It looks like the error occurred as you were writing a Python dict.\n"
+            "Perhaps you forgot to write a value after a colon.\n"
+        )
+    else:
+        cause = _(
+            "It looks like the error occurred as you were writing a Python dict.\n"
+            "Perhaps wrote a dict key without writing the corresponding value.\n"
+        )
+    hint = _("Did you forget to write a dict value?\n")
+    return {"cause": cause, "suggest": hint}
 
 
 # Keep last

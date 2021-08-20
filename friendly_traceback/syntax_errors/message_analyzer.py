@@ -1607,3 +1607,29 @@ def yield_outside_function(message: str = "", _statement=None):
 
     cause = _("You can only use a `yield` statement inside a function.\n")
     return {"cause": cause}
+
+
+@add_python_message
+def colon_missing_after_dict_key(message: str = "", _statement=None):
+    _ = current_lang.translate
+    if message != "':' expected after dictionary key":
+        return {}
+    cause = _(
+        "It looks like the error occurred as you were writing a Python dict.\n"
+        "Perhaps you wrote a dict key without writing the corresponding value.\n"
+    )
+    hint = _("Did you forget to write a dict value?\n")
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def expression_missing_after_dict_key_and_colon(message: str = "", _statement=None):
+    _ = current_lang.translate
+    if message != "expression expected after dictionary key and ':'":
+        return {}
+    cause = _(
+        "It looks like the error occurred as you were writing a Python dict.\n"
+        "Perhaps you forgot to write a value after a colon.\n"
+    )
+    hint = _("Did you forget to write a dict value?\n")
+    return {"cause": cause, "suggest": hint}

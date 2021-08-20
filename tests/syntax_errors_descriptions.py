@@ -403,6 +403,22 @@ descriptions = {
         "in cause": "You cannot delete the literal",
         title: "Deleting string literal",
     },
+    "dict_value_missing_1": {
+        "in cause": "wrote a dict key without writing the corresponding value",
+        title: "Value missing in dict - 1"
+    },
+    "dict_value_missing_2": {
+        "in cause": "Perhaps you forgot to write a value after a colon.",
+        title: "Value missing in dict - 2"
+    },
+    "dict_value_missing_3": {
+        "in cause": "wrote a dict key without writing the corresponding value",
+        title: "Value missing in dict - 3"
+    },
+    "dict_value_missing_4": {
+        "in cause": "Perhaps you forgot to write a value after a colon.",
+        title: "Value missing in dict - 4"
+    },
     "different_operators_in_a_row": {
         "in cause": "You cannot have these two operators, `*` and `/`",
         title: "Different operators in a row",
