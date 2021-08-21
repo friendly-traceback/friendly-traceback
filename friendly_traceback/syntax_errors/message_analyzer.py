@@ -1023,9 +1023,21 @@ def cannot_use_starred_expression(message: str = "", statement=None):
         "to each item of an iterable, which does not make sense here.\n"
     )
     if statement.first_token == "del":
-        cause += (
-            "You can only delete names of objects, or items in mutable containers.\n"
+        cause += _(
+            "You can only delete names of objects, or items in mutable containers\n"
+            "such as `list`, `set`, or `dict`.\n"
         )
+    elif len(statement.tokens) > statement.bad_token_index + 2:
+        if (
+            statement.prev_token == "("
+            and statement.next_token.is_identifier()
+            and statement.tokens[statement.bad_token_index + 2] == ")"
+            and sys.version_info >= (3, 9)
+        ):
+            cause += "\n" + _(
+                "It looks like you surrounded a starred name by parentheses.\n"
+                "This was not considered a SyntaxError before Python version 3.9.\n"
+            )
 
     return {"cause": cause}
 
