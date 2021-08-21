@@ -1008,9 +1008,13 @@ def python2_print(message: str = "", _statement=None):
 
 
 @add_python_message
-def cannot_use_starred_expression(message: str = "", _statement=None):
+def cannot_use_starred_expression(message: str = "", statement=None):
     _ = current_lang.translate
-    if message != "can't use starred expression here":
+    if message not in [
+        "can't use starred expression here",
+        "cannot use starred expression here",
+        "cannot delete starred",
+    ]:
         return {}
 
     cause = _(
@@ -1018,6 +1022,10 @@ def cannot_use_starred_expression(message: str = "", _statement=None):
         "iterable unpacking is to be used to assign a name\n"
         "to each item of an iterable, which does not make sense here.\n"
     )
+    if statement.first_token == "del":
+        cause += (
+            "You can only delete names of objects, or items in mutable containers.\n"
+        )
 
     return {"cause": cause}
 

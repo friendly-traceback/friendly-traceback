@@ -164,7 +164,10 @@ descriptions = {
         "in cause": "The double star operator",
         title: "Cannot use double star operator",
     },
-    "class_missing_name": {"in cause": "A class needs a name.", title: "Missing class name"},
+    "class_missing_name": {
+        "in cause": "A class needs a name.",
+        title: "Missing class name",
+    },
     "comprehension_missing_tuple_paren": {
         "in cause": "and forgot to include parentheses around tuples",
         title: "Missing () for tuples in comprehension",
@@ -233,7 +236,10 @@ descriptions = {
         "in cause": "Did you write something by mistake after the colon",
         title: "def: semi-colon after colon",
     },
-    "def_extra_comma": {"in cause": "Did you mean to write `,`", title: "def: extra comma"},
+    "def_extra_comma": {
+        "in cause": "Did you mean to write `,`",
+        title: "def: extra comma",
+    },
     "def_forward_slash_1": {
         "in cause": "You have unspecified keyword arguments that appear before",
         title: "def: unspecified keywords before /",
@@ -387,6 +393,20 @@ descriptions = {
         "in cause": "You cannot have explicit tuples as function arguments.",
         title: "def: tuple as function argument - 2",
     },
+    "del_paren_star_1": {
+        "in cause": "The star operator `*`",
+        title: "Deleting star expression - 1",
+        "also in cause": [
+            "You can only delete names of objects, or items in mutable containers"
+        ],
+    },
+    "del_paren_star_2": {
+        "in cause": "The star operator `*`",
+        title: "Deleting star expression - 2",
+        "also in cause": [
+            "You can only delete names of objects, or items in mutable containers"
+        ],
+    },
     "delete_constant_keyword": {
         "in cause": "You cannot delete the constant",
         title: "Deleting constant/keyword",
@@ -405,19 +425,19 @@ descriptions = {
     },
     "dict_value_missing_1": {
         "in cause": "wrote a dict key without writing the corresponding value",
-        title: "Value missing in dict - 1"
+        title: "Value missing in dict - 1",
     },
     "dict_value_missing_2": {
         "in cause": "Perhaps you forgot to write a value after a colon.",
-        title: "Value missing in dict - 2"
+        title: "Value missing in dict - 2",
     },
     "dict_value_missing_3": {
         "in cause": "wrote a dict key without writing the corresponding value",
-        title: "Value missing in dict - 3"
+        title: "Value missing in dict - 3",
     },
     "dict_value_missing_4": {
         "in cause": "Perhaps you forgot to write a value after a colon.",
-        title: "Value missing in dict - 4"
+        title: "Value missing in dict - 4",
     },
     "different_operators_in_a_row": {
         "in cause": "You cannot have these two operators, `*` and `/`",
@@ -917,8 +937,8 @@ descriptions = {
     },
     "yield_outside_function": {
         "in cause": "You can only use a `yield`",
-        title: "Cannot use yield outside function"
-    }
+        title: "Cannot use yield outside function",
+    },
 }
 
 if sys.version_info < (3, 8):
