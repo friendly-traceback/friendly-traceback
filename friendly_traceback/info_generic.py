@@ -14,6 +14,7 @@ SUBCLASS: Dict[Any, Any] = {}
 
 def get_generic_explanation(exception_type: Type[BaseException]) -> str:
     """Provides a generic explanation about a particular exception."""
+    _ = current_lang.translate
     if hasattr(exception_type, "__name__"):
         exception_name = exception_type.__name__
     else:
@@ -22,9 +23,21 @@ def get_generic_explanation(exception_type: Type[BaseException]) -> str:
         return GENERIC[exception_type]()
     elif exception_name.endswith("Warning"):
         return GENERIC["UnknownWarning"]()
-    elif inspect.isclass(exception_type) and issubclass(exception_type, OSError):
-        return os_error_subclass(exception_type)
     else:
+        for known_exception_type in GENERIC:
+            if (
+                known_exception_type == BaseException
+                or known_exception_type == Exception
+                or not inspect.isclass(known_exception_type)
+            ):
+                continue
+            if inspect.isclass(exception_type) and issubclass(
+                exception_type, known_exception_type
+            ):
+                explanation = _(
+                    "An exception of type `{name}` is a subclass of `{parent}`.\n"
+                ).format(name=exception_name, parent=known_exception_type.__name__)
+                return explanation + GENERIC[known_exception_type]()
         return no_information()
 
 
@@ -185,14 +198,6 @@ def os_error() -> str:
         "to indicate that an operation is not allowed or that\n"
         "a resource is not available.\n"
     )
-
-
-def os_error_subclass(error_type: Type[OSError]) -> str:
-    _ = current_lang.translate
-    explanation = _(
-        "An exception of type `{name}` is a subclass of `OSError`.\n"
-    ).format(name=error_type.__name__)
-    return explanation + os_error()
 
 
 @register(OverflowError)
