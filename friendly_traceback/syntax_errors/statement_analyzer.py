@@ -10,10 +10,11 @@ from ..ft_gettext import current_lang, internal_error
 from . import error_in_def, fixers, syntax_utils
 
 STATEMENT_ANALYZERS = []
+_ = current_lang.translate
 
 
 def more_errors():
-    _ = current_lang.translate
+
     return "\n" + _(
         "However, making such a change would still not correct\n"
         "all the syntax errors in the code you wrote.\n"
@@ -93,7 +94,6 @@ def analyze_statement(statement):
 @add_statement_analyzer
 def mismatched_brackets(statement):
     """Detecting code that ends with an unmatched closing bracket"""
-    _ = current_lang.translate
     if not (statement.end_bracket and statement.bad_token == statement.last_token):
         return {}
 
@@ -151,8 +151,6 @@ def mismatched_brackets(statement):
 @add_statement_analyzer
 def copy_pasted_code(statement):
     """Detecting code that starts with a Python prompt"""
-    _ = current_lang.translate
-
     first_token = statement.first_token
     if first_token not in [">>", "..."]:
         return {}
@@ -187,7 +185,6 @@ def detect_backquote(statement):
     """Detecting if the error is due to using `x` which was allowed
     in Python 2.
     """
-    _ = current_lang.translate
     if statement.bad_token == "`":
         hint = _("You should not use the backquote character.\n")
         cause = _(
@@ -202,7 +199,6 @@ def detect_backquote(statement):
 
 @add_statement_analyzer
 def wrong_code_block(statement):
-    _ = current_lang.translate
     if not (
         statement.bad_token == ":"
         and statement.nb_tokens == 2
@@ -246,7 +242,6 @@ def wrong_code_block(statement):
 @add_statement_analyzer
 def keyword_as_attribute(statement):
     """Will identify something like  obj.True ..."""
-    _ = current_lang.translate
     if statement.prev_token != ".":
         return {}
 
@@ -264,7 +259,6 @@ def keyword_as_attribute(statement):
 
 @add_statement_analyzer
 def confused_elif(statement):
-    _ = current_lang.translate
     name = None
     # skipcq: PYL-R1714
     if statement.bad_token == "elseif" or statement.prev_token == "elseif":
@@ -284,7 +278,6 @@ def confused_elif(statement):
 
 @add_statement_analyzer
 def import_from(statement):
-    _ = current_lang.translate
     if statement.bad_token != "from" or statement.tokens[0] != "import":
         return {}
 
@@ -312,7 +305,6 @@ def misplaced_quote(statement):
     The clue we are looking for is a STRING token ('don')
     followed by something else than a string.
     """
-    _ = current_lang.translate
     if not statement.prev_token.is_string():
         return {}
 
@@ -335,7 +327,6 @@ def detect_walrus(statement):
     """Detecting if code uses named assignment operator := with an
     older version of Python.
     """
-    _ = current_lang.translate
     if sys.version_info >= (3, 8):
         return {}
 
@@ -367,8 +358,6 @@ def detect_walrus(statement):
 @add_statement_analyzer
 def inverted_operators(statement):
     """Detect if operators might have been inverted"""
-    _ = current_lang.translate
-
     is_op = token_utils.is_operator
     if not is_op(statement.bad_token):
         return {}
@@ -420,7 +409,6 @@ def inverted_operators(statement):
 
 @add_statement_analyzer
 def consecutive_operators(statement):
-    _ = current_lang.translate
     is_op = token_utils.is_operator
 
     if not (is_op(statement.bad_token) and is_op(statement.prev_token)):
@@ -471,7 +459,6 @@ def consecutive_operators(statement):
 
 def _walrus_instead_of_equal_39(statement):
     # Python version 3.9 identifies a token beyond :=
-    _ = current_lang.translate
     for tok in statement.statement_tokens[: statement.bad_token_index + 1]:
         if tok == ":=":
             return tok
@@ -481,8 +468,6 @@ def _walrus_instead_of_equal_39(statement):
 
 @add_statement_analyzer
 def walrus_instead_of_equal(statement):
-    _ = current_lang.translate
-
     if (3, 8) < sys.version_info < (3, 10):
         bad_token = _walrus_instead_of_equal_39(statement)
         if bad_token is None:
@@ -507,8 +492,6 @@ def walrus_instead_of_equal(statement):
 def assign_instead_of_equal(statement):
     """Checks to see if an assignment sign, '=', has been used instead of
     an equal sign, '==', in an if, elif or while statement."""
-    _ = current_lang.translate
-
     if statement.highlighted_tokens:  # Python 3.10
         bad_token = statement.next_token
     else:
@@ -546,8 +529,6 @@ def assign_instead_of_equal(statement):
 @add_statement_analyzer
 def print_as_statement(statement):
     # example: print len('hello')
-    _ = current_lang.translate
-
     if (  # Python 3.10
         statement.bad_token == statement.first_token == "print"
         and statement.highlighted_tokens is not None
@@ -592,7 +573,6 @@ def print_as_statement(statement):
 
 @add_statement_analyzer
 def calling_python_or_pip(statement):
-    _ = current_lang.translate
     if statement.first_token.string not in ("pip", "python", "python3"):
         return {}
     # A single token statement with 'python' or 'pip' should not have
@@ -623,8 +603,6 @@ def calling_python_or_pip(statement):
 
 @add_statement_analyzer
 def dot_followed_by_bracket(statement):
-    _ = current_lang.translate
-
     if statement.bad_token.string in "()[]{}" and statement.prev_token == ".":
         cause = _("You cannot have a dot `.` followed by `{bracket}`.\n").format(
             bracket=statement.bad_token
@@ -643,7 +621,6 @@ def dot_followed_by_bracket(statement):
 
 @add_statement_analyzer
 def raise_single_exception(statement):
-    _ = current_lang.translate
     if statement.first_token != "raise":
         return {}
 
@@ -657,8 +634,6 @@ def raise_single_exception(statement):
 
 @add_statement_analyzer
 def invalid_double_star_operator(statement):
-    _ = current_lang.translate
-
     if statement.bad_token == "**":
         cause = _(
             "The double star operator `**` is likely interpreted to mean that\n"
@@ -672,8 +647,6 @@ def invalid_double_star_operator(statement):
 @add_statement_analyzer
 def missing_colon(statement):
     """look for missing colon at the end of statement"""
-    _ = current_lang.translate
-
     # TODO: check all keywords listed here, with single keyword missing colon, like:
     # if
 
@@ -726,8 +699,6 @@ def missing_colon(statement):
 @add_statement_analyzer
 def semi_colon_instead_of_comma(statement):
     """Writing a semi colon as a typo"""
-    _ = current_lang.translate
-
     if statement.bad_token != ";":
         return {}
 
@@ -765,8 +736,6 @@ def semi_colon_instead_of_comma(statement):
 @add_statement_analyzer
 def invalid_hexadecimal(statement):
     """Identifies problem caused by invalid character in an hexadecimal number."""
-    _ = current_lang.translate
-
     if statement.highlighted_tokens:  # Python 3.10
         prev = statement.bad_token
         wrong = statement.next_token
@@ -791,8 +760,6 @@ def invalid_hexadecimal(statement):
 @add_statement_analyzer
 def invalid_octal(statement):
     """Identifies problem caused by invalid character in an octal number."""
-    _ = current_lang.translate
-
     prev = statement.prev_token
     wrong = statement.bad_token
     if not (prev.immediately_before(wrong) and prev.string.lower().startswith("0o")):
@@ -813,8 +780,6 @@ def invalid_octal(statement):
 @add_statement_analyzer
 def invalid_name(statement):
     """Identifies invalid identifiers when a name begins with a number"""
-    _ = current_lang.translate
-
     first = statement.prev_token
     second = statement.bad_token
     # New in Python 3.10
@@ -865,7 +830,6 @@ def invalid_name(statement):
 @add_statement_analyzer
 def debug_fstring(statement):
     """Detect debug feature of f-string introduced in Python 3.8"""
-    _ = current_lang.translate
     if sys.version_info >= (3, 8) or not statement.fstring_error:
         return {}
 
@@ -890,7 +854,6 @@ def debug_fstring(statement):
 @add_statement_analyzer
 def general_fstring_problem(statement):  # pragma: no cover
     # General f-string problems are outside of our main priorities.
-    _ = current_lang.translate
     if not statement.fstring_error:
         return {}
 
@@ -904,7 +867,6 @@ def general_fstring_problem(statement):  # pragma: no cover
 @add_statement_analyzer
 def assign_to_a_keyword(statement):
     """Checks to see if line is of the form 'keyword = ...'"""
-    _ = current_lang.translate
     hint = _("Python keywords cannot be used as identifiers (variable names).\n")
     possible_cause = _(
         "You were trying to assign a value to the Python keyword `{keyword}`.\n"
@@ -922,8 +884,6 @@ def assign_to_a_keyword(statement):
 
 @add_statement_analyzer
 def lambda_with_paren(statement):
-    _ = current_lang.translate
-
     if statement.bad_token != "(":
         return {}
 
@@ -955,8 +915,6 @@ def lambda_with_paren(statement):
 
 @add_statement_analyzer
 def wrong_type_declaration(statement):
-    _ = current_lang.translate
-
     if statement.highlighted_tokens:  # Python 3.10
         bad_token = statement.next_token
         prev_token = statement.bad_token
@@ -1003,7 +961,6 @@ def wrong_type_declaration(statement):
 def missing_comma_before_string_in_dict(statement):
     """Special case where keys and values in a dict are strings which are
     not separated by commas."""
-    _ = current_lang.translate
 
     # This is a bit of an usual case as the error occurred due to a forgotten comma
     # two tokens before the token flagged by Python.
@@ -1042,8 +999,6 @@ def missing_in_with_for(statement):
     Note that 'in' could be used with 'if' and 'while' as well, but here
     we only consider the simplest cases.
     """
-    _ = current_lang.translate
-
     index = statement.bad_token_index
     bad_token = statement.bad_token
     if statement.highlighted_tokens:  # Python 3.10 may highlight two tokens
@@ -1075,8 +1030,6 @@ def missing_in_with_for(statement):
 
 @add_statement_analyzer
 def missing_parens_for_range(statement):
-    _ = current_lang.translate
-
     if statement.prev_token != "range" or statement.last_token != ":":
         return {}
 
@@ -1115,8 +1068,6 @@ def _perhaps_misspelled_keyword(tokens, wrong):
 
 
 def misspelled_python_keyword(tokens, bad_token):
-    _ = current_lang.translate
-
     results = _perhaps_misspelled_keyword(tokens, bad_token)
     if not results:
         return {}
@@ -1133,7 +1084,6 @@ def misspelled_python_keyword(tokens, bad_token):
 
 @add_statement_analyzer
 def comprehension_condition_or_tuple(statement):
-    _ = current_lang.translate
     if not statement.begin_brackets:
         return {}
 
@@ -1189,8 +1139,6 @@ def comprehension_condition_or_tuple(statement):
 @add_statement_analyzer
 def parens_around_exceptions(statement):
     # keep in sync with message_analyzer.parens_around_exceptions
-    _ = current_lang.translate
-
     if statement.bad_token != "," or statement.first_token != "except":
         return {}
 
@@ -1209,8 +1157,6 @@ def parens_around_exceptions(statement):
 
 @add_statement_analyzer
 def current_is_misspelled_python_keyword(statement):
-    _ = current_lang.translate
-
     if not statement.bad_token.is_name():
         return {}
     return misspelled_python_keyword(statement.tokens, statement.bad_token)
@@ -1218,8 +1164,6 @@ def current_is_misspelled_python_keyword(statement):
 
 @add_statement_analyzer
 def previous_is_misspelled_python_keyword(statement):
-    _ = current_lang.translate
-
     if not statement.prev_token.is_name():
         return {}
     return misspelled_python_keyword(statement.tokens, statement.prev_token)
@@ -1229,8 +1173,6 @@ def previous_is_misspelled_python_keyword(statement):
 def space_in_variable_name(statement):
     # Looking for spaces in variable name assignments, like
     # my name = André
-    _ = current_lang.translate
-
     bad_token = statement.bad_token
     prev_token = statement.prev_token
     if statement.highlighted_tokens:  # Python 3.10
@@ -1262,7 +1204,6 @@ def space_in_variable_name(statement):
 
 @add_statement_analyzer
 def impossible_binary_fstring(statement):
-    _ = current_lang.translate
     if (
         statement.bad_token.is_string()
         and statement.prev_token.string in ("bf", "fb")
@@ -1293,7 +1234,6 @@ def _add_comma_or_operator(tokens, tok, comma_first=True):
 
 
 def _comma_first_cause(bracket):
-    _ = current_lang.translate
     if bracket == "(":
         return _(
             "It is possible that you "
@@ -1321,8 +1261,6 @@ def missing_comma_or_operator(statement):
     """Check to see if a comma or other operator
     is possibly missing between identifiers, or numbers, or both.
     """
-    _ = current_lang.translate
-
     bad_token = statement.bad_token
     prev_token = statement.prev_token
     if statement.highlighted_tokens:  # Python 3.10 may highlight two tokens
@@ -1406,8 +1344,6 @@ def missing_comma_or_operator(statement):
 
 @add_statement_analyzer
 def equal_instead_of_colon_in_dict(statement):
-    _ = current_lang.translate
-
     if not (
         statement.begin_brackets
         and statement.bad_token == "="
@@ -1428,8 +1364,6 @@ def equal_instead_of_colon_in_dict(statement):
 def boolean_instead_of_comma(statement):
     # Example: from math import sin and cos
     # Includes cases where boolean added after comma
-    _ = current_lang.translate
-
     if statement.bad_token.string not in ["and", "or"]:
         return {}
     bad_token = statement.bad_token
@@ -1459,7 +1393,6 @@ def boolean_instead_of_comma(statement):
 @add_statement_analyzer
 def from_import_as(statement):
     """from module import ... as ..., with 'as' flagged as the bad token"""
-    _ = current_lang.translate
     if not (
         statement.bad_token == "as"
         and statement.first_token == "from"
@@ -1482,7 +1415,6 @@ def from_import_as(statement):
 
 @add_statement_analyzer
 def delete_names_or_items(statement):
-    _ = current_lang.translate
     if statement.first_token != "del":
         return {}
 
@@ -1495,7 +1427,6 @@ def delete_names_or_items(statement):
 
 @add_statement_analyzer
 def duplicate_token(statement):
-    _ = current_lang.translate
     if statement.bad_token != statement.prev_token:
         return {}
     bad_token = "`{bad_token}`".format(bad_token=statement.bad_token)
@@ -1517,7 +1448,6 @@ def duplicate_token(statement):
 
 @add_statement_analyzer
 def extra_token(statement):
-    _ = current_lang.translate
     new_statement = fixers.replace_token(
         statement.statement_tokens, statement.bad_token, ""
     )
@@ -1536,7 +1466,6 @@ def extra_token(statement):
 
 @add_statement_analyzer
 def missing_value_in_dict(statement):
-    _ = current_lang.translate
     if not _possibly_inside_dict(statement):
         return {}
     if statement.bad_token.string not in [",", "}"]:
@@ -1558,7 +1487,6 @@ def missing_value_in_dict(statement):
 # Keep last
 @add_statement_analyzer
 def unclosed_bracket(statement):
-    _ = current_lang.translate
     if not statement.begin_brackets:
         return {}
 

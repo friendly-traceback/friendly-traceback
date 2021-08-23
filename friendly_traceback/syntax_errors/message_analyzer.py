@@ -14,6 +14,7 @@ from ..ft_gettext import current_lang, please_report
 from . import error_in_def, fixers, statement_analyzer, syntax_utils
 
 MESSAGE_ANALYZERS = []
+_ = current_lang.translate
 
 
 def add_python_message(func):
@@ -40,7 +41,6 @@ def analyze_message(message: str = "", statement=None):
 
 @add_python_message
 def assign_to_keyword(message: str = "", statement=None):
-    _ = current_lang.translate
     if message not in (
         "can't assign to keyword",  # Python 3.6, 3.7
         "assignment to keyword",  # Python 3.6, 3.7
@@ -104,7 +104,6 @@ def assign_to_keyword(message: str = "", statement=None):
 
 @add_python_message
 def assign_to_conditional_expression(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message not in (
         "can't assign to conditional expression",  # Python 3.6, 3.7
         "cannot assign to conditional expression",  # Python 3.8
@@ -123,7 +122,6 @@ def assign_to_conditional_expression(message: str = "", _statement=None):
 
 @add_python_message
 def assign_to_expression(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "cannot assign to expression":  # Python 3.10
         return {}
 
@@ -137,7 +135,6 @@ def assign_to_expression(message: str = "", _statement=None):
 
 @add_python_message
 def assign_to_function_call(message: str = "", statement=None):
-    _ = current_lang.translate
     if (
         message != "can't assign to function call"  # Python 3.6, 3.7
         and "cannot assign to function call" not in message
@@ -181,7 +178,6 @@ def assign_to_function_call(message: str = "", statement=None):
 
 @add_python_message
 def assign_to_generator_expression(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message not in (
         "can't assign to generator expression",  # Python 3.6, 3.7
         "cannot assign to generator expression",  # Python 3.8
@@ -198,8 +194,6 @@ def assign_to_generator_expression(message: str = "", _statement=None):
 
 @add_python_message
 def assign_to_f_expression(message: str = "", statement=None):
-    _ = current_lang.translate
-
     if "cannot assign to f-string expression" in message:
         hint = _("You can only assign objects to identifiers (variable names).\n")
         cause = _(
@@ -214,7 +208,6 @@ def assign_to_f_expression(message: str = "", statement=None):
 
 @add_python_message
 def assign_to_yield_expression(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message not in (
         "can't assign to yield expression",
         "cannot assign to yield expression",
@@ -234,7 +227,6 @@ def assign_to_yield_expression(message: str = "", _statement=None):
 
 @add_python_message
 def f_string_backslash(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "f-string expression part cannot include a backslash":
         return {}
 
@@ -252,8 +244,6 @@ def f_string_backslash(message: str = "", _statement=None):
 
 
 def what_kind_of_literal(literal):
-    _ = current_lang.translate
-
     try:
         a = ast.literal_eval(literal)
     except Exception:  # noqa
@@ -279,8 +269,6 @@ def what_kind_of_literal(literal):
 
 @add_python_message
 def annotated_name_cannot_be_global(message: str = "", _statement=None):
-    # annotated name 'x' can't be global
-    _ = current_lang.translate
     pattern1 = re.compile(r"annotated name '(.)' can't be global")
     match = re.search(pattern1, message)
     if not match:
@@ -295,7 +283,6 @@ def annotated_name_cannot_be_global(message: str = "", _statement=None):
 
 @add_python_message
 def assign_to_literal(message: str = "", statement=None):
-    _ = current_lang.translate
     if message not in (
         "can't assign to literal",  # Python 3.6, 3.7
         "cannot assign to literal",  # Python 3.8
@@ -392,7 +379,6 @@ def assign_to_literal(message: str = "", statement=None):
 
 @add_python_message
 def assign_to_operator(message: str = "", statement=None):
-    _ = current_lang.translate
     line = statement.bad_line.rstrip()
     if message not in (
         "can't assign to operator",  # Python 3.6, 3.7
@@ -434,7 +420,6 @@ def could_be_identifier(line):
 
 @add_python_message
 def augmented_assignment_with_literal(message: str = "", statement=None):
-    _ = current_lang.translate
     if message != "cannot use assignment expressions with literal":
         return {}
 
@@ -450,7 +435,6 @@ def augmented_assignment_with_literal(message: str = "", statement=None):
 
 @add_python_message
 def both_nonlocal_and_global(message: str = "", statement=None):
-    _ = current_lang.translate
     if "is nonlocal and global" in message:
         cause = _(
             "You declared `{name}` as being both a global and nonlocal variable.\n"
@@ -462,8 +446,6 @@ def both_nonlocal_and_global(message: str = "", statement=None):
 
 @add_python_message
 def break_outside_loop(message: str = "", _statement=None):
-    _ = current_lang.translate
-
     if "'break' outside loop" in message:
         cause = _(
             "The Python keyword `break` can only be used "
@@ -475,7 +457,6 @@ def break_outside_loop(message: str = "", _statement=None):
 
 @add_python_message
 def continue_outside_loop(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "'continue' not properly in loop" in message:
         cause = _(
             "The Python keyword `continue` can only be used "
@@ -487,7 +468,6 @@ def continue_outside_loop(message: str = "", _statement=None):
 
 @add_python_message
 def delete_function_call(message: str = "", statement=None):
-    _ = current_lang.translate
     if message not in (
         "can't delete function call",  # Python 3.6, 3.7
         "cannot delete function call",  # Python 3.8
@@ -507,7 +487,6 @@ def delete_function_call(message: str = "", statement=None):
 
 @add_python_message
 def delete_x(message: str = "", statement=None):
-    _ = current_lang.translate
     if message not in (
         "can't delete keyword",  # Python 3.6, 3.7
         "can't delete literal",
@@ -533,7 +512,6 @@ def delete_x(message: str = "", statement=None):
 
 @add_python_message
 def duplicate_argument_in_function_definition(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "duplicate argument" in message and "function definition" in message:
         name = message.split("'")[1]
         cause = _(
@@ -548,7 +526,6 @@ def duplicate_argument_in_function_definition(message: str = "", _statement=None
 
 @add_python_message
 def eol_while_scanning_string_literal(message: str = "", statement=None):
-    _ = current_lang.translate
     if (
         "EOL while scanning string literal" in message
         or "unterminated string literal" in message  # Python 3.10
@@ -574,7 +551,6 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
 
 @add_python_message
 def expression_cannot_contain_assignment(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "expression cannot contain assignment, perhaps you meant" not in message:
         return {}
     cause = _(
@@ -592,7 +568,6 @@ def expression_cannot_contain_assignment(message: str = "", _statement=None):
 
 @add_python_message
 def generator_expression_must_be_parenthesized(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "Generator expression must be parenthesized" not in message:
         return {}
     cause = _(
@@ -605,7 +580,6 @@ def generator_expression_must_be_parenthesized(message: str = "", _statement=Non
 
 @add_python_message
 def keyword_argument_repeated(message: str = "", statement=None):
-    _ = current_lang.translate
     if "keyword argument repeated" not in message:
         return {}
     cause = _(
@@ -617,7 +591,6 @@ def keyword_argument_repeated(message: str = "", statement=None):
 
 @add_python_message
 def keyword_cannot_be_expression(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "keyword can't be an expression" not in message:
         return {}
     cause = _(
@@ -633,7 +606,6 @@ def keyword_cannot_be_expression(message: str = "", _statement=None):
 
 @add_python_message
 def invalid_character_in_identifier(message: str = "", statement=None):
-    _ = current_lang.translate
     if "invalid character" not in message:
         return {}
 
@@ -662,9 +634,6 @@ def invalid_character_in_identifier(message: str = "", statement=None):
 
 @add_python_message
 def mismatched_parenthesis(message: str = "", statement=None):
-    # Python 3.8; something like:
-    # closing parenthesis ']' does not match opening parenthesis '(' on line
-    _ = current_lang.translate
     pattern1 = re.compile(
         r"closing parenthesis '(.)' does not match opening parenthesis '(.)' on line (\d+)"
     )
@@ -706,7 +675,6 @@ def mismatched_parenthesis(message: str = "", statement=None):
 
 @add_python_message
 def unterminated_f_string(message: str = "", statement=None):
-    _ = current_lang.translate
     if "f-string: unterminated string" not in message:
         return {}
 
@@ -738,7 +706,6 @@ def unterminated_f_string(message: str = "", statement=None):
 @add_python_message
 def name_is_parameter_and_global(message: str = "", statement=None):
     # something like: name 'x' is parameter and global
-    _ = current_lang.translate
     line = statement.entire_statement
     if "is parameter and global" not in message:
         return {}
@@ -763,7 +730,6 @@ def name_is_parameter_and_global(message: str = "", statement=None):
 @add_python_message
 def name_assigned_to_prior_global(message: str = "", _statement=None):
     # something like: name 'p' is assigned to before global declaration
-    _ = current_lang.translate
     if "is assigned to before global declaration" not in message:
         return {}
 
@@ -778,7 +744,6 @@ def name_assigned_to_prior_global(message: str = "", _statement=None):
 @add_python_message
 def name_used_prior_global(message: str = "", _statement=None):
     # something like: name 'p' is used prior to global declaration
-    _ = current_lang.translate
     if "is used prior to global declaration" not in message:
         return {}
 
@@ -792,7 +757,6 @@ def name_used_prior_global(message: str = "", _statement=None):
 @add_python_message
 def name_assigned_to_prior_nonlocal(message: str = "", _statement=None):
     # something like: name 'p' is assigned to before global declaration
-    _ = current_lang.translate
     if "is assigned to before nonlocal declaration" not in message:
         return {}
 
@@ -807,7 +771,6 @@ def name_assigned_to_prior_nonlocal(message: str = "", _statement=None):
 
 @add_python_message
 def name_is_parameter_and_nonlocal(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "is parameter and nonlocal" not in message:
         return {}
 
@@ -823,7 +786,6 @@ def name_is_parameter_and_nonlocal(message: str = "", _statement=None):
 @add_python_message
 def name_used_prior_nonlocal(message: str = "", _statement=None):
     # something like: name 'q' is used prior to nonlocal declaration
-    _ = current_lang.translate
     if "is used prior to nonlocal declaration" not in message:
         return {}
 
@@ -838,7 +800,6 @@ def name_used_prior_nonlocal(message: str = "", _statement=None):
 
 @add_python_message
 def nonlocal_at_module_level(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "nonlocal declaration not allowed at module level" not in message:
         return {}
     cause = _(
@@ -851,7 +812,6 @@ def nonlocal_at_module_level(message: str = "", _statement=None):
 
 @add_python_message
 def no_binding_for_nonlocal(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "no binding for nonlocal" not in message:
         return {}
 
@@ -865,7 +825,6 @@ def no_binding_for_nonlocal(message: str = "", _statement=None):
 
 @add_python_message
 def unexpected_character_after_continuation(message: str = "", statement=None):
-    _ = current_lang.translate
     if "unexpected character after line continuation character" not in message:
         return {}
 
@@ -905,8 +864,6 @@ def unexpected_character_after_continuation(message: str = "", statement=None):
 
 @add_python_message
 def unexpected_eof_while_parsing(message: str = "", statement=None):
-    # unexpected EOF while parsing
-    _ = current_lang.translate
     if "unexpected EOF while parsing" not in message:
         return {}
 
@@ -925,7 +882,6 @@ def unexpected_eof_while_parsing(message: str = "", statement=None):
 
 @add_python_message
 def unmatched_parenthesis(message: str = "", statement=None):
-    _ = current_lang.translate
     # Python 3.8
     if message == "unmatched ')'":
         bracket = syntax_utils.name_bracket(")")
@@ -943,7 +899,6 @@ def unmatched_parenthesis(message: str = "", statement=None):
 
 @add_python_message
 def position_argument_follows_keyword_arg(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "positional argument follows keyword argument" not in message:
         return {}
     cause = _(
@@ -961,7 +916,6 @@ def position_argument_follows_keyword_arg(message: str = "", _statement=None):
 
 @add_python_message
 def non_default_arg_follows_default_arg(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "non-default argument follows default argument" not in message:
         return {}
     cause = _(
@@ -979,7 +933,6 @@ def non_default_arg_follows_default_arg(message: str = "", _statement=None):
 
 @add_python_message
 def python2_print(message: str = "", _statement=None):
-    _ = current_lang.translate
     if not message.startswith(
         "Missing parentheses in call to 'print'. Did you mean print("
     ):
@@ -1010,7 +963,6 @@ def python2_print(message: str = "", _statement=None):
 
 @add_python_message
 def cannot_use_starred_expression(message: str = "", statement=None):
-    _ = current_lang.translate
     if message not in [
         "can't use starred expression here",
         "cannot use starred expression here",
@@ -1045,7 +997,6 @@ def cannot_use_starred_expression(message: str = "", statement=None):
 
 @add_python_message
 def return_outside_function(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "'return' outside function":
         return {}
 
@@ -1055,7 +1006,6 @@ def return_outside_function(message: str = "", _statement=None):
 
 @add_python_message
 def too_many_nested_blocks(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "too many statically nested blocks":
         return {}
 
@@ -1069,7 +1019,6 @@ def too_many_nested_blocks(message: str = "", _statement=None):
 
 @add_python_message
 def too_many_nested_parenthesis(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "too many nested parentheses":  # python 3.89+
         return {}
 
@@ -1083,7 +1032,6 @@ def too_many_nested_parenthesis(message: str = "", _statement=None):
 
 @add_python_message
 def named_arguments_must_follow_bare_star(message: str = "", _statement=None):
-    _ = current_lang.translate
     # TODO: revise this as it can be greatly improved
     if message != "named arguments must follow bare *":
         return {}
@@ -1099,7 +1047,6 @@ def named_arguments_must_follow_bare_star(message: str = "", _statement=None):
 
 @add_python_message
 def you_found_it(message: str = "", statement=None):  # pragma: no cover
-    _ = current_lang.translate
     if message != "You found it!" or statement.bad_token != "__peg_parser__":
         return {}
 
@@ -1113,7 +1060,6 @@ def you_found_it(message: str = "", statement=None):  # pragma: no cover
 
 @add_python_message
 def from__future__not_defined(message: str = "", _statement=None):
-    _ = current_lang.translate
     pattern = re.compile(r"future feature (.*) is not defined")
     match = re.search(pattern, message)
     if match is None:
@@ -1150,7 +1096,6 @@ def from__future__not_defined(message: str = "", _statement=None):
 
 @add_python_message
 def from__future__at_begin(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "from __future__ imports must occur at the beginning of the file":
         return {}
 
@@ -1164,7 +1109,6 @@ def from__future__at_begin(message: str = "", _statement=None):
 
 @add_python_message
 def import_braces(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "not a chance":
         return {}
 
@@ -1188,7 +1132,6 @@ def invalid_octal(message: str = "", statement=None):
 
 @add_python_message
 def eof_unclosed_triple_quoted(message: str = "", _statement=None):
-    _ = current_lang.translate
     if not (
         message == "EOF while scanning triple-quoted string literal"
         or "unterminated triple-quoted string literal" in message
@@ -1205,7 +1148,6 @@ def eof_unclosed_triple_quoted(message: str = "", _statement=None):
 
 def proper_decimal_or_octal_number(prev_str, bad_str):
     # see next two cases
-    _ = current_lang.translate
     if not (
         set(prev_str).issubset("_0") and prev_str.startswith("0")
     ):  # pragma: no cover
@@ -1237,7 +1179,6 @@ def proper_decimal_or_octal_number(prev_str, bad_str):
 @add_python_message
 def invalid_token(message: str = "", statement=None):
     # Seen this for Python 3.6, 3.7 for would-be decimal number starting with zero.
-    _ = current_lang.translate
     if message != "invalid token":
         return {}
 
@@ -1249,7 +1190,6 @@ def invalid_token(message: str = "", statement=None):
 @add_python_message
 def leading_zeros_in_decimal_integers(message: str = "", statement=None):
     # Same as previous case but for Python 3.8+
-    _ = current_lang.translate
     if not (
         message.startswith(
             "leading zeros in decimal integer literals are not permitted"
@@ -1269,7 +1209,6 @@ def leading_zeros_in_decimal_integers(message: str = "", statement=None):
 @add_python_message
 def forgot_paren_around_comprehension(message: str = "", _statement=None):
     # Python 3.10+
-    _ = current_lang.translate
     if message != "did you forget parentheses around the comprehension target?":
         return {}
 
@@ -1290,8 +1229,6 @@ def forgot_paren_around_comprehension(message: str = "", _statement=None):
 @add_python_message
 def parens_around_exceptions(message: str = "", _statement=None):
     # keep in sync with statement_analyzer.parens_around_exceptions
-    _ = current_lang.translate
-
     if message != "multiple exception types must be parenthesized":
         return {}
 
@@ -1306,8 +1243,6 @@ def parens_around_exceptions(message: str = "", _statement=None):
 
 @add_python_message
 def colon_expected(message: str = "", statement=None):
-    _ = current_lang.translate
-
     if message != "expected ':'":  # new in Python 3.10
         return {}
 
@@ -1341,8 +1276,6 @@ def colon_expected(message: str = "", statement=None):
 
 @add_python_message
 def bracket_was_expected(message: str = "", statement=None):
-    _ = current_lang.translate
-
     pattern = re.compile("'(.)' was never closed")  # new in Python 3.10
     match = re.search(pattern, message)
     if not match:
@@ -1362,8 +1295,6 @@ def bracket_was_expected(message: str = "", statement=None):
 
 @add_python_message
 def invalid_double_star_operator(message: str = "", _statement=None):
-    _ = current_lang.translate
-
     # Used to be "invalid syntax" prior to Python version 3.10
     if (
         message == "f-string: can't use double starred expression here"  # 3.10.0a7
@@ -1380,8 +1311,6 @@ def invalid_double_star_operator(message: str = "", _statement=None):
 
 @add_python_message
 def invalid_hexadecimal_literal(message: str = "", statement=None):
-    _ = current_lang.translate
-
     if message != "invalid hexadecimal literal":  # new in Python 3.10
         return {}
     if not statement.highlighted_tokens:
@@ -1399,8 +1328,6 @@ def invalid_hexadecimal_literal(message: str = "", statement=None):
 
 @add_python_message
 def invalid_decimal_literal(message: str = "", statement=None):
-    _ = current_lang.translate
-
     if message != "invalid decimal literal":  # new in Python 3.10
         return {}
     if not statement.highlighted_tokens or len(statement.highlighted_tokens) == 1:
@@ -1450,8 +1377,6 @@ def invalid_decimal_literal(message: str = "", statement=None):
 
 @add_python_message
 def invalid_imaginary_literal(message: str = "", statement=None):
-    _ = current_lang.translate
-
     if message != "invalid imaginary literal":  # new in Python 3.10
         return {}
     if not statement.highlighted_tokens or len(statement.highlighted_tokens) == 1:
@@ -1469,7 +1394,6 @@ def invalid_imaginary_literal(message: str = "", statement=None):
 
 @add_python_message
 def else_after_if(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "expected 'else' after 'if' expression":
         return {}
 
@@ -1480,7 +1404,6 @@ def else_after_if(message: str = "", _statement=None):
 
 @add_python_message
 def unicode_error(message: str = "", _statement=None):
-    _ = current_lang.translate
     if "unicode error" not in message or "truncated \\UXX" not in message:
         return {}
     hint = _("Perhaps you need to double the backslash characters.\n")
@@ -1499,7 +1422,6 @@ def unicode_error(message: str = "", _statement=None):
 
 @add_python_message
 def assignment_cannot_rebind_inside_comprehension(message: str = "", _statement=None):
-    _ = current_lang.translate
     if (
         "assignment expression cannot rebind comprehension iteration variable"
         not in message
@@ -1522,7 +1444,6 @@ def assignment_cannot_rebind_inside_comprehension(message: str = "", _statement=
 def assignment_cannot_rebind_inside_comprehension_inner_loop(
     message: str = "", _statement=None
 ):
-    _ = current_lang.translate
     if (
         "comprehension inner loop cannot rebind assignment expression target"
         not in message
@@ -1543,7 +1464,6 @@ def assignment_cannot_rebind_inside_comprehension_inner_loop(
 
 @add_python_message
 def star_assignment_target_must_be_list(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "starred assignment target must be in a list or tuple":
         return {}
 
@@ -1557,7 +1477,6 @@ def star_assignment_target_must_be_list(message: str = "", _statement=None):
 def trailing_comma_not_allowed(message: str = "", statement=None):
     # As far as I know, this is only in import statement; for example:
     # from math import sin, cos,
-    _ = current_lang.translate
     if message != "trailing comma not allowed without surrounding parentheses":
         return {}
 
@@ -1622,7 +1541,6 @@ def trailing_comma_not_allowed(message: str = "", statement=None):
 
 @add_python_message
 def yield_outside_function(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "'yield' outside function":
         return {}
 
@@ -1632,7 +1550,6 @@ def yield_outside_function(message: str = "", _statement=None):
 
 @add_python_message
 def colon_missing_after_dict_key(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "':' expected after dictionary key":
         return {}
     cause = _(
@@ -1645,7 +1562,6 @@ def colon_missing_after_dict_key(message: str = "", _statement=None):
 
 @add_python_message
 def expression_missing_after_dict_key_and_colon(message: str = "", _statement=None):
-    _ = current_lang.translate
     if message != "expression expected after dictionary key and ':'":
         return {}
     cause = _(
