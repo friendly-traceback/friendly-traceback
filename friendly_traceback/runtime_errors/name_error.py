@@ -156,7 +156,6 @@ def format_similar_names(name: str, similar: SimilarNamesInfo) -> str:
 
     found_local = _("The similar name `{name}` was found in the local scope.\n")
     found_global = _("The similar name `{name}` was found in the global scope.\n")
-    # name_found = _("The name `{name}` was found in the global scope.\n")
     builtin_similar = _("The Python builtin `{name}` has a similar name.\n")
 
     if nb_similar_names == 1:

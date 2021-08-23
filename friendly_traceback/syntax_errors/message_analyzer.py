@@ -687,20 +687,21 @@ def mismatched_parenthesis(message: str = "", statement=None):
     if cause:
         return cause
 
-    if True:  # pragma: no cover
-        debug_helper.log("statement_analyzer.mismatched_brackets failed.")
-        if lineno is not None:
-            cause = _(
-                "Python tells us that the closing `{closing}` on the last line shown\n"
-                "does not match the opening `{opening}` on line {lineno}.\n\n"
-            ).format(closing=closing, opening=opening, lineno=lineno)
-        else:
-            cause = _(
-                "Python tells us that the closing `{closing}` on the last line shown\n"
-                "does not match the opening `{opening}`.\n\n"
-            ).format(closing=closing, opening=opening)
+    debug_helper.log(
+        "statement_analyzer.mismatched_brackets failed."
+    )  # pragma: no cover
+    if lineno is not None:  # pragma: no cover
+        cause = _(
+            "Python tells us that the closing `{closing}` on the last line shown\n"
+            "does not match the opening `{opening}` on line {lineno}.\n\n"
+        ).format(closing=closing, opening=opening, lineno=lineno)
+    else:  # pragma: no cover
+        cause = _(
+            "Python tells us that the closing `{closing}` on the last line shown\n"
+            "does not match the opening `{opening}`.\n\n"
+        ).format(closing=closing, opening=opening)
 
-        return {"cause": cause}
+    return {"cause": cause}  # pragma: no cover
 
 
 @add_python_message
@@ -738,7 +739,7 @@ def unterminated_f_string(message: str = "", statement=None):
 def name_is_parameter_and_global(message: str = "", statement=None):
     # something like: name 'x' is parameter and global
     _ = current_lang.translate
-    line = statement.statement
+    line = statement.entire_statement
     if "is parameter and global" not in message:
         return {}
 
@@ -783,7 +784,7 @@ def name_used_prior_global(message: str = "", _statement=None):
 
     name = message.split("'")[1]
     cause = _(
-        "You used the variable `{name}`\n" "before declaring it as a global variable.\n"
+        "You used the variable `{name}`\nbefore declaring it as a global variable.\n"
     ).format(name=name)
     return {"cause": cause}
 
@@ -1027,17 +1028,17 @@ def cannot_use_starred_expression(message: str = "", statement=None):
             "You can only delete names of objects, or items in mutable containers\n"
             "such as `list`, `set`, or `dict`.\n"
         )
-    elif len(statement.tokens) > statement.bad_token_index + 2:
-        if (
-            statement.prev_token == "("
-            and statement.next_token.is_identifier()
-            and statement.tokens[statement.bad_token_index + 2] == ")"
-            and sys.version_info >= (3, 9)
-        ):
-            cause += "\n" + _(
-                "It looks like you surrounded a starred name by parentheses.\n"
-                "This was not considered a SyntaxError before Python version 3.9.\n"
-            )
+    elif (
+        len(statement.tokens) > statement.bad_token_index + 2
+        and statement.prev_token == "("
+        and statement.next_token.is_identifier()
+        and statement.tokens[statement.bad_token_index + 2] == ")"
+        and sys.version_info >= (3, 9)
+    ):
+        cause += "\n" + _(
+            "It looks like you surrounded a starred name by parentheses.\n"
+            "This was not considered a SyntaxError before Python version 3.9.\n"
+        )
 
     return {"cause": cause}
 
@@ -1547,7 +1548,7 @@ def star_assignment_target_must_be_list(message: str = "", _statement=None):
         return {}
 
     cause = _(
-        "A star assignment must be of the form:\n\n" "    ... *name = list_or_tuple\n\n"
+        "A star assignment must be of the form:\n\n    ... *name = list_or_tuple\n\n"
     )
     return {"cause": cause}
 
@@ -1579,9 +1580,9 @@ def trailing_comma_not_allowed(message: str = "", statement=None):
                     "`{new_statement}`\n"
                 ).format(new_statement=new_statement, boolean=bad_token)
             else:
-                cause += _(
-                    "Perhaps you meant to write\n\n" "`{new_statement}`\n"
-                ).format(new_statement=new_statement)
+                cause += _("Perhaps you meant to write\n\n`{new_statement}`\n").format(
+                    new_statement=new_statement
+                )
             return {"cause": cause}
     elif bad_token == ",":  # Python 3.9+
         new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
@@ -1590,7 +1591,7 @@ def trailing_comma_not_allowed(message: str = "", statement=None):
             cause += _(
                 "However, if you remove the last comma, there will be no syntax error.\n"
             )
-            cause += _("Perhaps you meant to write\n\n" "`{new_statement}`\n").format(
+            cause += _("Perhaps you meant to write\n\n`{new_statement}`\n").format(
                 new_statement=new_statement
             )
             return {"cause": cause, "suggest": hint}
@@ -1605,7 +1606,7 @@ def trailing_comma_not_allowed(message: str = "", statement=None):
             cause += _(
                 "However, if you remove the last comma, there will be no syntax error.\n"
             )
-            cause += _("Perhaps you meant to write\n\n" "`{new_statement}`\n").format(
+            cause += _("Perhaps you meant to write\n\n`{new_statement}`\n").format(
                 new_statement=new_statement
             )
             return {"cause": cause, "suggest": hint}

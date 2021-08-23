@@ -395,9 +395,9 @@ def keyword_arguments_in_def(statement):
                     kwargs=next_token
                 )
             return {"cause": cause, "suggest": hint}
-    else:  # pragma: no cover
-        debug_helper.log("New case to consider for * as bad token.")
-        return {"cause": hint, "suggest": hint}
+
+    debug_helper.log("New case to consider for * as bad token.")  # pragma: no cover
+    return {"cause": hint, "suggest": hint}  # pragma: no cover
 
 
 @add_statement_analyzer

@@ -149,31 +149,27 @@ def identify_unicode_fraction(char):
     else:
         return {"cause": cause, "suggest": hint}
 
-    if "HALF" == denom:
-        denom = 2
-    elif "THIRD" in denom:
-        denom = 3
-    elif "QUARTER" in denom:
-        denom = 4
-    elif "FIFTH" in denom:
-        denom = 5
-    elif "SIXTH" in denom:
-        denom = 6
-    elif "SEVENTH" in denom:
-        denom = 7
-    elif "EIGHTH" in denom:
-        denom = 8
-    elif "NINTH" in denom:
-        denom = 9
-    elif "TENTH" in denom:
-        denom = 10
+    possible_choices = (
+        ("HALF", 2),
+        ("THIRD", 3),
+        ("QUARTER", 4),
+        ("FIFTH", 5),
+        ("SIXTH", 6),
+        ("SEVENTH", 7),
+        ("EIGHTH", 8),
+        ("NINTH", 9),
+        ("TENTH", 10),
+    )
+    for string, denominator in possible_choices:
+        if string in denom:
+            break
     else:
         return {"cause": cause, "suggest": hint}
 
-    hint = _("Did you mean `{num}/{denom}`?\n").format(num=num, denom=denom)
+    hint = _("Did you mean `{num}/{denom}`?\n").format(num=num, denom=denominator)
     cause = _(
         "You used the unicode character {char} which is known as\n"
         "{name}\n"
         "I suspect that you meant to write the fraction `{num}/{denom}` instead.\n"
-    ).format(num=num, denom=denom, char=char, name=char_name)
+    ).format(num=num, denom=denominator, char=char, name=char_name)
     return {"cause": cause, "suggest": hint}

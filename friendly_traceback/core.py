@@ -100,7 +100,9 @@ class TracebackData:
                     return text.rstrip()
                 return text
 
-            self.statement.statement = remove_space(self.statement.statement)
+            self.statement.entire_statement = remove_space(
+                self.statement.entire_statement
+            )
             self.statement.bad_line = remove_space(self.statement.bad_line)
         else:
             self.statement = None
@@ -618,7 +620,6 @@ class FriendlyTraceback:
 
         _ = current_lang.translate
 
-        # partial_source = get_partial_source(record, text_range=self.tb_data.node_range)
         partial_source = record.partial_source_with_node_range
         filename = path_utils.shorten_path(record.filename)
 
@@ -660,9 +661,6 @@ class FriendlyTraceback:
         """
         _ = current_lang.translate
         partial_source = record.partial_source_with_node_range
-        # partial_source = get_partial_source(
-        #     record, text_range=self.tb_data.program_stopped_node_range
-        # )
         filename = path_utils.shorten_path(record.filename)
 
         if filename and "[" in filename:
@@ -707,7 +705,7 @@ class FriendlyTraceback:
             ).format(filename=short_filename)
         else:
             could_not_understand = _(
-                "Python could not understand the code in the file\n" "'{filename}'\n"
+                "Python could not understand the code in the file\n'{filename}'\n"
             ).format(filename=short_filename)
 
         if "-->" in partial_source and "^" in partial_source:

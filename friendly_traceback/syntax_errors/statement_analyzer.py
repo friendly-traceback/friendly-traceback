@@ -745,7 +745,7 @@ def semi_colon_instead_of_comma(statement):
             statement.statement_tokens, statement.last_token, ""
         )
     else:
-        new_statement = statement.statement
+        new_statement = statement.entire_statement
     while True:
         tokens = token_utils.tokenize(new_statement)
         for tok in tokens:

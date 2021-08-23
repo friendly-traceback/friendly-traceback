@@ -52,7 +52,6 @@ def set_cause_syntax(value, tb_data):
 
 def find_syntax_error_cause(value, tb_data):
     """Attempts to find the cause of a SyntaxError"""
-    # value = tb_data.value
     _ = current_lang.translate
     message = value.msg
     statement = tb_data.statement

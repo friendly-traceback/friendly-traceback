@@ -14,8 +14,6 @@ from .syntax_utils import matching_brackets
 # neighbours, the code for the analysis can be greatly simplified as we do
 # not have to verify the existence of these neighbours.
 MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
-TOO_MANY_BLOCKS = "too many statically nested blocks"
-TOO_MANY_PARENTHESES = "too many nested parentheses"
 
 
 class Statement:
@@ -67,7 +65,7 @@ class Statement:
         # of code identified by Python as being problematic.
         self.bad_line = bad_line  # previously obtained from the traceback
         # skipcq: PTC-W0052
-        self.statement = bad_line  # temporary assignment
+        self.entire_statement = bad_line  # temporary assignment
 
         # The following will be obtained using offset and bad_line
         self.bad_token = None
@@ -101,14 +99,19 @@ class Statement:
         self.using_friendly_console = False
         if self.filename is not None:
             self.using_friendly_console = self.filename.startswith("<friendly")
-        elif (
-            TOO_MANY_BLOCKS not in self.message
-            and "encoding problem" not in self.message
-        ):  # pragma: no cover
+        elif not self.exceptional_case():  # pragma: no cover
             debug_helper.log("filename is None in source_info.Statement")
             debug_helper.log("Add this as a new test.")
 
         self.get_token_info()
+
+    def exceptional_case(self):
+        """Returns True if a case that is known to not have all the required information
+        available, such as filename or linenumber."""
+        return (
+            "too many statically nested blocks" in self.message
+            or "encoding problem" in self.message
+        )
 
     def get_token_info(self):
         """Obtain all the relevant information about the tokens in
@@ -127,7 +130,7 @@ class Statement:
                 else:
                     self.tokens = [token_utils.tokenize("Internal_error")[0]]
 
-            self.statement = token_utils.untokenize(self.statement_tokens)
+            self.entire_statement = token_utils.untokenize(self.statement_tokens)
             if (
                 self.filename.startswith("<friendly-console")
                 and self.statement_brackets
@@ -167,19 +170,13 @@ class Statement:
                 last_token.string = last_token.line = add_token
                 self.tokens.append(last_token)
 
-        elif (
-            TOO_MANY_BLOCKS not in self.message
-            and "encoding problem" not in self.message
-        ):  # pragma: no cover
+        elif not self.exceptional_case():  # pragma: no cover
             debug_helper.log("linenumber is None in source_info.Statement")
             debug_helper.log("Add this as new test case")
 
         if self.tokens:
             self.assign_individual_token_values()
-        elif (
-            TOO_MANY_BLOCKS not in self.message
-            and "encoding problem" not in self.message
-        ):  # pragma: no cover
+        elif not self.exceptional_case():  # pragma: no cover
             debug_helper.log("No meaningful tokens in source_info.Statement")
 
     def get_source_tokens(self):
