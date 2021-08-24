@@ -468,8 +468,8 @@ class FriendlyTraceback:
         self.assign_generic()
         self.assign_location()
         self.assign_cause()
-        # removing null values
-        to_remove = [key for key in self.info if not self.info[key]]
+        # removing null values; mypy cannot figure out the type correctly here
+        to_remove = [key for key in self.info if not self.info[key]]  # type: ignore
         for key in to_remove:
             del self.info[key]
 

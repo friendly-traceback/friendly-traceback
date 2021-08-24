@@ -156,6 +156,7 @@ def no_result(info: Info, include: InclusionChoice) -> str:
     debug_helper.log(
         f"Internal error: include = {include} in base_formatters.no_result()"
     )  # pragma: no cover
+    return ""
 
 
 items_groups: Dict[InclusionChoice, Set[str]] = {

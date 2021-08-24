@@ -74,14 +74,13 @@ class LangState:
 
 
 current_lang = LangState()  # noqa
-
+_ = current_lang.translate
 
 # Todo: replace localized messages about new cases by the function below
 # which will do the logging automatically.
 
 
 def please_report() -> str:
-    _ = current_lang.translate
     debug_helper.log("Friendly_traceback; please_report; new case to consider.")
     return _(
         "Please report this example to\n"
@@ -91,12 +90,10 @@ def please_report() -> str:
 
 
 def unknown_case() -> str:
-    _ = current_lang.translate
     return _("Friendly-traceback does not know the cause of this error.\n")
 
 
 def no_information() -> str:
-    _ = current_lang.translate
     debug_helper.log("no_information: new case to consider.")
     return (
         _("No information is known about this exception.\n")
@@ -109,6 +106,5 @@ def no_information() -> str:
 
 
 def internal_error(e: Optional[BaseException]) -> str:
-    _ = current_lang.translate
     debug_helper.log("--> Internal error: " + repr(e))
     return _("Internal error for Friendly.\n") + please_report()

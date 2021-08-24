@@ -36,15 +36,16 @@ class Cache:
         filename = str(filename)
         lines = [line + "\n" for line in source.splitlines()]
         entry = (len(source), time.time(), lines, filename)
-        linecache.cache[filename] = entry
+        # mypy cannot get the type information from linecache in stdlib
+        linecache.cache[filename] = entry  # type: ignore
         self.local_cache[filename] = lines
 
     def remove(self, filename: str) -> None:
         """Removes an entry from the cache if it can be found."""
         if filename in self.local_cache:
             del self.local_cache[filename]
-        if filename in linecache.cache:
-            del linecache.cache[filename]
+        if filename in linecache.cache:  # type: ignore
+            del linecache.cache[filename]  # type: ignore
 
     def get_source_lines(
         self, filename: str, module_globals: Optional[Dict[str, Any]] = None

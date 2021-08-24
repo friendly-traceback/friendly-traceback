@@ -33,6 +33,7 @@ if sys.version_info >= (3, 8):
     ]
 
     class Info(TypedDict, total=False):
+        header: str
         message: str
         original_python_traceback: str
         simulated_python_traceback: str

@@ -24,7 +24,8 @@ from .typing import Formatter, InclusionChoice
 
 
 def type_friendly() -> str:
-    _ = current_lang.translate
+    # Explicit type as mypy cannot infer correctly the return type on its own here
+    _: Callable[[str], str] = current_lang.translate
     return _("Type 'Friendly' for help on special functions/methods.")
 
 
@@ -91,8 +92,9 @@ class FriendlyTracebackConsole(InteractiveConsole):
         value is True if more input is required, False if the line was dealt
         with in some way (this is the same as runsource()).
         """
-        self.buffer.append(line)
-        source = "\n".join(self.buffer)
+        # mypy cannot get the type information from InteractiveConsole in stdlib
+        self.buffer.append(line)  # type: ignore
+        source = "\n".join(self.buffer)  # type: ignore
 
         # Each valid code sample is saved with its own fake filename.
         # They are numbered consecutively to help understanding
@@ -137,7 +139,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         line.
         """
         try:
-            code = self.compile(source, filename, symbol)
+            code = self.compile(source, filename, symbol)  # type: ignore
         except (OverflowError, SyntaxError, ValueError):
             # Case 1
             friendly_traceback.explain_traceback()
@@ -167,7 +169,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         """
         _ = current_lang.translate
         try:
-            exec(code, self.locals)
+            exec(code, self.locals)  # type: ignore
         except SystemExit:
             os._exit(1)  # noqa -pycharm
         except Exception:  # noqa
