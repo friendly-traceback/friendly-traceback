@@ -12,13 +12,13 @@ from ..ft_gettext import current_lang
 from ..typing import CauseInfo
 
 parser = utils.RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add
 def attribute_error_in_object(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"(.*) index out of range")
     match = re.search(pattern, message)
     if not match:

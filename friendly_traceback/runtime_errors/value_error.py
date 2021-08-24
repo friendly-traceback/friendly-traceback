@@ -16,10 +16,10 @@ from ..typing import CauseInfo
 
 convert_type = info_variables.convert_type
 parser = utils.RuntimeMessageParser()
+_ = current_lang.translate
 
 
 def _unpacking() -> str:
-    _ = current_lang.translate
     return _(
         "Unpacking is a convenient way to assign a name,\n"
         "to each item of an iterable.\n"
@@ -55,7 +55,6 @@ def get_iterable(code: str, frame: FrameType) -> Tuple[Any, Optional[str]]:
 def not_enough_values_to_unpack(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern1 = re.compile(r"not enough values to unpack \(expected (\d+), got (\d+)\)")
     match1 = re.search(pattern1, message)
     pattern2 = re.compile(
@@ -97,7 +96,6 @@ def not_enough_values_to_unpack(
 def too_many_values_to_unpack(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"too many values to unpack \(expected (\d+)\)")
     match = re.search(pattern, message)
     if match is None:
@@ -136,7 +134,6 @@ def too_many_values_to_unpack(
 def invalid_literal_for_int(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"invalid literal for int\(\) with base (\d+): '(.*)'")
     match = re.search(pattern, message)
     if match is None:
@@ -191,8 +188,6 @@ def invalid_literal_for_int(
 
 
 def _convert_to_float(value: Any) -> CauseInfo:
-    _ = current_lang.translate
-
     hint = _("You need to convert `'{value}'` to a float first.\n").format(value=value)
     cause = _(
         "The string `'{value}'` needs to be first converted using `float()`\n"
@@ -205,8 +200,6 @@ def _convert_to_float(value: Any) -> CauseInfo:
 def date_month_must_be_between_1_and_12(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     if message != "month must be in 1..12":
         return {}
 
@@ -222,7 +215,6 @@ def date_month_must_be_between_1_and_12(
 def slots_conflicts_with_class_variable(
     value: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = r"'(.*)' in __slots__ conflicts with class variable"
     match = re.search(pattern, str(value))
     if not match:
@@ -241,7 +233,6 @@ def unrecognized_message(
     _value: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
     """This attempts to provide some help when a message is not recognized."""
-    _ = current_lang.translate
     bad_line = tb_data.bad_line.strip()
     if bad_line.startswith("raise ") or bad_line.startswith("raise\t"):
         try:

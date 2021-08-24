@@ -13,6 +13,7 @@ from ..typing import CauseInfo
 from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
 
 parser = RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add
@@ -64,8 +65,6 @@ def _cannot_import_name(
 def cannot_import_name_from(
     name: str, module: str, tb_data: TracebackData, add_circular_hint: bool = True
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     hint = None
     circular_info = None
 
@@ -138,7 +137,6 @@ def cannot_import_name_from(
 
 def cannot_import_name(name: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.6 does not give us the name of the module
-    _ = current_lang.translate
     pattern = re.compile(r"from (.*) import")
     match = re.search(pattern, tb_data.bad_line)
 
@@ -193,8 +191,6 @@ def extract_import_data_from_traceback(tb_data: TracebackData) -> Modules:
 
 def find_circular_import(modules_imported: Modules) -> Optional[str]:
     """This attempts to find circular imports."""
-    _ = current_lang.translate
-
     last_file, last_module = modules_imported[-1]
 
     for file, module in modules_imported[:-1]:

@@ -9,12 +9,11 @@ from ..ft_gettext import current_lang, internal_error
 from . import fixers
 
 STATEMENT_ANALYZERS = []
-
+_ = current_lang.translate
 ASYNC = 0
 
 
 def more_errors():
-    _ = current_lang.translate
     return "\n" + _(
         "However, making such a change would still not correct\n"
         "all the syntax errors in the code you wrote.\n"
@@ -22,7 +21,6 @@ def more_errors():
 
 
 def def_correct_syntax():
-    _ = current_lang.translate
     async_ = "" if ASYNC == 0 else "async "
     # fmt: off
     return _(
@@ -73,7 +71,6 @@ def analyze_def_statement(statement):
 def def_begin_code_block(statement):  #
     # Thinking of trying to use def to begin a code block, i.e.
     # def : ...
-    _ = current_lang.translate
     if statement.nb_tokens > 2 + ASYNC or statement.bad_token != ":":
         return {}
 
@@ -95,8 +92,6 @@ def def_begin_code_block(statement):  #
 def missing_parens(statement):
     # Something like
     # def test: ...
-    _ = current_lang.translate
-
     if (
         statement.bad_token != ":"
         and statement.nb_tokens >= 3 + ASYNC
@@ -123,8 +118,6 @@ def missing_parens(statement):
 def missing_parens_2(statement):
     # Something like
     # def test a, b:
-    _ = current_lang.translate
-
     if statement.bad_token_index != 2 + ASYNC and statement.last_token != ":":
         return {}
 
@@ -151,7 +144,6 @@ def missing_parens_2(statement):
 def missing_colon(statement):
     """look for missing colon at the end of statement; includes the case where
     something else has been written as a typo."""
-    _ = current_lang.translate
     if (
         statement.last_token == ":"
         or statement.bad_token != statement.last_token
@@ -195,7 +187,6 @@ def missing_colon(statement):
 def keyword_as_function_name(statement):
     # Something like
     # def pass(): ...
-    _ = current_lang.translate
     def_token = statement.tokens[ASYNC]
     if not (statement.bad_token.is_keyword() and statement.prev_token == def_token):
         return {}
@@ -216,7 +207,6 @@ def keyword_as_function_name(statement):
 
 @add_statement_analyzer
 def other_invalid_function_names(statement):
-    _ = current_lang.translate
     def_token = statement.tokens[ASYNC]
     if statement.bad_token.is_identifier() or not (statement.prev_token == def_token):
         return {}
@@ -241,7 +231,6 @@ def other_invalid_function_names(statement):
 
 @add_statement_analyzer
 def function_definition_missing_name(statement):
-    _ = current_lang.translate
     def_token = statement.tokens[ASYNC]
     if not (
         def_token == "def"
@@ -264,7 +253,6 @@ def function_definition_missing_name(statement):
 
 @add_statement_analyzer
 def keyword_not_allowed_as_function_argument(statement):
-    _ = current_lang.translate
     if not (statement.bad_token.is_keyword() and statement.begin_brackets):
         return {}
 
@@ -285,7 +273,6 @@ def keyword_not_allowed_as_function_argument(statement):
 
 @add_statement_analyzer
 def dotted_name_not_allowed(statement):
-    _ = current_lang.translate
     if not (statement.bad_token == "." and statement.prev_token.is_identifier()):
         return {}
 
@@ -303,8 +290,6 @@ def dotted_name_not_allowed(statement):
 
 @add_statement_analyzer
 def positional_arguments_in_def(statement):
-    _ = current_lang.translate
-
     if statement.bad_token != "/" or statement.prev_token.string not in "(,":
         return {}
 
@@ -359,7 +344,6 @@ def positional_arguments_in_def(statement):
 
 @add_statement_analyzer
 def keyword_arguments_in_def(statement):
-    _ = current_lang.translate
     if statement.bad_token != "*" or statement.prev_token != ",":
         return {}
 
@@ -402,8 +386,6 @@ def keyword_arguments_in_def(statement):
 
 @add_statement_analyzer
 def number_as_argument(statement):
-    _ = current_lang.translate
-
     if not (statement.bad_token.is_number() and statement.prev_token.string in "(,"):
         return {}
 
@@ -417,8 +399,6 @@ def number_as_argument(statement):
 
 @add_statement_analyzer
 def string_as_argument(statement):
-    _ = current_lang.translate
-
     if not (statement.bad_token.is_string() and statement.prev_token.string in "(,"):
         return {}
 
@@ -432,8 +412,6 @@ def string_as_argument(statement):
 
 @add_statement_analyzer
 def tuple_as_argument(statement):
-    _ = current_lang.translate
-
     if statement.bad_token != "(" or statement.prev_token.string not in "(,":
         return {}
 
@@ -449,7 +427,6 @@ def tuple_as_argument(statement):
 
 @add_statement_analyzer
 def list_as_argument(statement):
-    _ = current_lang.translate
     if statement.bad_token != "[" or statement.prev_token.string not in "(,":
         return {}
 
@@ -462,7 +439,6 @@ def list_as_argument(statement):
 
 @add_statement_analyzer
 def dict_or_set_as_argument(statement):
-    _ = current_lang.translate
     if statement.bad_token != "{" or statement.prev_token.string not in "(,":
         return {}
 
@@ -478,9 +454,8 @@ def operator_as_argument(statement):
     """This looks at various possible fixes when the bad token is an operator.
     The following cases are considered:
     1. operator instead of comma
-    1. operator instead of equal sign
+    2. operator instead of equal sign
     """
-    _ = current_lang.translate
     if not statement.bad_token.is_operator() or statement.prev_token == "def":
         return {}
 
@@ -569,8 +544,6 @@ def arg_after_kwarg(statement):
     the case where we have a positional argument after a named argument,
     (..., a=1, b, ...) gets a specific error message.
     """
-    _ = current_lang.translate
-
     if not (
         statement.bad_token.is_identifier()
         and statement.prev_token == ","

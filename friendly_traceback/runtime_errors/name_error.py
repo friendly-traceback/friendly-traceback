@@ -9,9 +9,11 @@ from ..ft_gettext import current_lang
 from ..typing import CauseInfo, SimilarNamesInfo
 from . import stdlib_modules
 
+parser = utils.RuntimeMessageParser()
+_ = current_lang.translate
+
 
 def using_python() -> str:  # pragma: no cover
-    _ = current_lang.translate
     return _("You are already using Python!")
 
 
@@ -21,14 +23,11 @@ def using_python() -> str:  # pragma: no cover
 # that does is not available in a given environment.
 CUSTOM_NAMES = {"python": using_python, "python3": using_python}
 
-parser = utils.RuntimeMessageParser()
-
 
 @parser.add
 def free_variable_referenced(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(
         r"free variable '(.*)' referenced before assignment in enclosing scope"
     )
@@ -49,7 +48,6 @@ def free_variable_referenced(
 def name_not_defined(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"name '(.*)' is not defined")
     match = re.search(pattern, message)
     if not match:
@@ -109,7 +107,6 @@ def name_not_defined(
 
 
 def flipfloperator() -> CauseInfo:  # pragma: no cover
-    _ = current_lang.translate
     hint = _("You must be a fan of PyConAu!\n")
     cause = _(
         "I am guessing that you tried to use (one of) the flipfloperators\n"
@@ -123,7 +120,6 @@ def flipfloperator() -> CauseInfo:  # pragma: no cover
 def is_stdlib_module(name: str, tb_data: "TracebackData") -> CauseInfo:
     """Determine if an unknown name is to be found in the Python standard library.
     We're looking for something like name.attribute"""
-    _ = current_lang.translate
     if tb_data.node and not isinstance(tb_data.node.parent, ast.Attribute):
         return {}
 
@@ -146,8 +142,6 @@ def is_stdlib_module(name: str, tb_data: "TracebackData") -> CauseInfo:
 
 def format_similar_names(name: str, similar: SimilarNamesInfo) -> str:
     """This function formats the names that were found to be similar"""
-    _ = current_lang.translate
-
     nb_similar_names = (
         len(similar["locals"]) + len(similar["globals"]) + len(similar["builtins"])
     )
@@ -186,7 +180,6 @@ def missing_self(
     """If the unknown name is referred to with no '.' before it,
     and is an attribute of a known object, perhaps 'self.'
     is missing."""
-    _ = current_lang.translate
     message = ""
     try:
         bad_statement = utils.get_bad_statement(tb_data)

@@ -12,13 +12,13 @@ from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
 from . import stdlib_modules
 
 parser = RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add
 def is_not_a_package(
     value: ModuleNotFoundError, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     message = str(value)
     pattern = re.compile(r"No module named '(.*)'; '(.*)' is not a package")
     match = re.search(pattern, message)
@@ -93,7 +93,6 @@ def is_not_a_package(
 
 
 def curses_no_found() -> CauseInfo:
-    _ = current_lang.translate
     if sys.platform.startswith("win"):
         hint = _("The curses module is rarely installed with Python on Windows.\n")
     else:  # pragma: no cover
@@ -106,8 +105,6 @@ def curses_no_found() -> CauseInfo:
 def no_module_named(
     value: ModuleNotFoundError, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     message = str(value)
     pattern = re.compile(r"No module named '(.*)'$")
     match = re.search(pattern, message)

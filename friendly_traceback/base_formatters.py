@@ -36,11 +36,11 @@ from . import debug_helper
 from .ft_gettext import current_lang
 from .typing import InclusionChoice, Info
 
+_ = current_lang.translate
 # The following is the order in which the various items, if they exist
 # and have been selected to be printed, would be printed.
 # If you are writing a custom formatter, this should be taken as the
 # authoritative list of items to consider.
-
 items_in_order = [
     "header",  # Currently unused by this project; used by HackInScience
     "message",  # The last line of a Python traceback
@@ -144,7 +144,6 @@ def no_result(info: Info, include: InclusionChoice) -> str:
     """Should normally only be called if no result is available
     from either hint() or why().
     """
-    _ = current_lang.translate
     if include == "why":
         return _("I have no suggestion to offer.")
 

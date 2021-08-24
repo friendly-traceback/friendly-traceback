@@ -21,9 +21,10 @@ from friendly_traceback.ft_gettext import current_lang, internal_error, unknown_
 from .. import debug_helper
 from . import message_analyzer, statement_analyzer
 
+_ = current_lang.translate
+
 
 def unknown_cause():
-    _ = current_lang.translate
     return _(
         "Currently, I cannot guess the likely cause of this error.\n"
         "Try to examine closely the line indicated as well as the line\n"
@@ -42,7 +43,6 @@ def set_cause_syntax(value, tb_data):
     """Gets the likely cause of a given exception based on some information
     specific to a given exception.
     """
-    _ = current_lang.translate
     try:
         return find_syntax_error_cause(value, tb_data)
     except Exception as e:  # pragma: no cover
@@ -52,7 +52,6 @@ def set_cause_syntax(value, tb_data):
 
 def find_syntax_error_cause(value, tb_data):
     """Attempts to find the cause of a SyntaxError"""
-    _ = current_lang.translate
     message = value.msg
     statement = tb_data.statement
 

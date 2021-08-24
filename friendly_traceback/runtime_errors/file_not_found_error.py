@@ -8,13 +8,13 @@ from ..typing import CauseInfo
 from ..utils import RuntimeMessageParser, get_similar_words
 
 parser = RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add
 def no_such_file_or_directory(
     value: FileNotFoundError, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile("No such file or directory: '(.*)'")
     match = re.search(pattern, str(value))
     if match is None:

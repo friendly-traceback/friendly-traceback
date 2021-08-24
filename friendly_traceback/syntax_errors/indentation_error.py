@@ -1,10 +1,10 @@
 from ..ft_gettext import current_lang
 from ..token_utils import remove_meaningless_tokens
 
+_ = current_lang.translate
+
 
 def set_cause_indentation_error(value, statement):
-    _ = current_lang.translate
-
     value = str(value)
     if "unexpected indent" in value:
         this_case = _(

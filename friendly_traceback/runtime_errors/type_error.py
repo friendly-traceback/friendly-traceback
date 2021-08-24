@@ -16,6 +16,7 @@ from ..typing import CauseInfo
 
 convert_type = info_variables.convert_type
 parser = utils.RuntimeMessageParser()
+_ = current_lang.translate
 
 
 def _convert_str_to_number(
@@ -25,7 +26,6 @@ def _convert_str_to_number(
     number type; potentially useful for beginners that write programs
     that use input() and ask for numbers.
     """
-    _ = current_lang.translate
     types = obj_type1, obj_type2
     if "int" in types:
         number_type = "int"
@@ -65,7 +65,6 @@ def _convert_str_to_number(
 def parse_can_only_concatenate(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     # example: can only concatenate str (not "int") to str
     pattern = re.compile(
         r"can only concatenate (\w+) \(not [\'\"](\w+)[\'\"]\) to (\w+)"
@@ -94,10 +93,8 @@ def parse_can_only_concatenate(
 def parse_must_be_str(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     # python 3.6 version: must be str, not int
     # example: can only concatenate str (not "int") to str
-
     pattern = re.compile(r"must be str, not (\w+)")
     match = re.search(pattern, message)
     if match is None:
@@ -120,7 +117,6 @@ def parse_must_be_str(
 def parse_unsupported_operand_type(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     more_cause = possible_hint = hint = None
     # example: unsupported operand type(s) for +: 'int' and 'str'
     pattern = re.compile(
@@ -235,7 +231,6 @@ def parse_unsupported_operand_type(
 def parse_order_comparison(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     # example: '<' not supported between instances of 'int' and 'str'
     pattern = re.compile(
         r"[\'\"](.+)[\'\"] not supported between instances of [\'\"](\w+)[\'\"] and [\'\"](\w+)[\'\"]"  # noqa
@@ -282,7 +277,6 @@ def parse_order_comparison(
 def bad_operand_type_for_unary(
     message: str, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     # example: bad operand type for unary +: 'str'
     pattern = re.compile(r"bad operand type for unary (.+): [\'\"](\w+)[\'\"]")
     match = re.search(pattern, message)
@@ -324,7 +318,6 @@ def bad_operand_type_for_unary(
 def does_not_support_item_assignment(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     # example: 'tuple' object does not support item assignment
     pattern = re.compile(r"[\'\"](\w+)[\'\"] object does not support item assignment")
     match = re.search(pattern, message)
@@ -352,8 +345,6 @@ def does_not_support_item_assignment(
 def exception_derived_from_base_exception(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     if "exceptions must derive from BaseException" in message:
         return {
             "cause": _("In Python 3, exceptions must be derived from BaseException.\n")
@@ -365,7 +356,6 @@ def exception_derived_from_base_exception(
 def incorrect_nb_positional_arguments(
     message: str, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     missing_self = False
     # example: my_function() takes 0 positional arguments but x was/were given
     pattern = re.compile(r"(.*) takes (\d+) positional argument[s]* but (\d+) ")
@@ -413,7 +403,6 @@ def incorrect_nb_positional_arguments(
 def missing_positional_arguments(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     # example: my_function() missing 1 required positional argument
     pattern = re.compile(r"(.*) missing (\d+) required positional argument")
     match = re.search(pattern, message)
@@ -433,7 +422,6 @@ def missing_positional_arguments(
 def x_is_not_callable(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object is not callable")
     match = re.search(pattern, message)
     if match is None:
@@ -536,7 +524,6 @@ def forgot_to_convert_name_to_int(name: str) -> Tuple[str, str]:
     """Explanations common to many cases about converting a single
     name to an integer.
     """
-    _ = current_lang.translate
     hint = _("Did you forget to convert `{name}` into an integer?\n").format(name=name)
     additional_cause = _(
         "Perhaps you forgot to convert `{name}` into an integer.\n"
@@ -548,8 +535,6 @@ def forgot_to_convert_name_to_int(name: str) -> Tuple[str, str]:
 def cannot_multiply_by_str(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     if "can't multiply sequence by non-int of type 'str'" not in message:
         return {}
 
@@ -606,7 +591,6 @@ def find_possible_integers(
 def object_cannot_be_interpreted_as_an_integer(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object cannot be interpreted as an integer")
     match = re.search(pattern, message)
     if match is None:
@@ -652,7 +636,6 @@ def object_cannot_be_interpreted_as_an_integer(
 def indices_must_be_integers_or_slices(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"(.*) indices must be integers or slices, not (.*)")
     match = re.search(pattern, message)
     if match is None:
@@ -780,7 +763,6 @@ def indices_must_be_integers_or_slices(
 def slice_indices_must_be_integers_or_none(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if message != (
         "slice indices must be integers or None or have an __index__ method"
     ):
@@ -800,7 +782,6 @@ def slice_indices_must_be_integers_or_none(
 def unhashable_type(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"unhashable type: '(.*)'")
     match = re.search(pattern, message)
     if match is None:
@@ -830,7 +811,6 @@ def unhashable_type(
 def object_is_not_subscriptable(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object is not subscriptable")
     match = re.search(pattern, message)
     if match is None:
@@ -880,7 +860,6 @@ def object_is_not_subscriptable(
 def object_is_not_iterable(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"'(.*)' object is not iterable")
     match = re.search(pattern, message)
     if match is None:
@@ -898,7 +877,6 @@ def object_is_not_iterable(
 def cannot_unpack_non_iterable(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     pattern = re.compile(r"cannot unpack non-iterable (.*) object")
     match = re.search(pattern, message)
     if match is None:
@@ -920,7 +898,6 @@ def cannot_unpack_non_iterable(
 def cannot_convert_dictionary_update_sequence(
     message: str, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if "cannot convert dictionary update sequence element" not in message:
         return {}
 
@@ -956,7 +933,6 @@ def cannot_convert_dictionary_update_sequence(
 def builtin_callable_has_no_len(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if message != "object of type 'builtin_function_or_method' has no len()":
         return {}
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
@@ -981,7 +957,6 @@ def builtin_callable_has_no_len(
 def function_has_no_len(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if message != "object of type 'function' has no len()":
         return {}
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
@@ -1006,7 +981,6 @@ def function_has_no_len(
 def vars_arg_must_have_dict(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if message != "vars() argument must have __dict__ attribute":
         return {}
     cause = _(
@@ -1033,8 +1007,6 @@ def vars_arg_must_have_dict(
 def function_got_multiple_argument(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     pattern = r"(.*)\(\) got multiple values for argument '(.*)'"
     match = re.search(pattern, message)
     if not match:

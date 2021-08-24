@@ -15,6 +15,7 @@ from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
 from . import stdlib_modules
 
 parser = RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add

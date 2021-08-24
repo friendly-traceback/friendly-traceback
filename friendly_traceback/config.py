@@ -10,6 +10,8 @@ from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
 from .typing import _E, Formatter, InclusionChoice, Info, Writer
 
+_ = current_lang.translate
+
 
 def _write_err(text: Optional[str]) -> None:  # pragma: no cover
     """Default writer"""
@@ -58,7 +60,6 @@ class _State:
         level and wishes to see a traceback reexplained without having
         to execute the code again.
         """
-        _ = current_lang.translate
         if not self.saved_info:
             print(_("Nothing to show: no exception recorded."))
             return
@@ -129,7 +130,6 @@ class _State:
         include: InclusionChoice = "explain",
     ) -> None:
         """Replaces sys.excepthook by friendly's own version."""
-        _ = current_lang.translate
 
         if lang is not None:
             self.install_gettext(lang)
@@ -167,7 +167,6 @@ class _State:
         is specified, the output goes to that stream, but without changing
         the global settings.
         """
-        _ = current_lang.translate
         etype, value, tb = sys.exc_info()
         if etype is None:
             print(_("Nothing to show: no exception recorded."))

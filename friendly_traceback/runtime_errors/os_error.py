@@ -6,13 +6,13 @@ from ..typing import CauseInfo
 from ..utils import RuntimeMessageParser
 
 parser = RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add
 def handle_connection_error(
     _value: OSError, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     tb = "\n".join(tb_data.formatted_tb)
     if (
         "socket.gaierror" in tb
@@ -34,7 +34,6 @@ def handle_connection_error(
 def invalid_argument(
     value: OSError, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if "Invalid argument:" not in str(value):
         return {}
     filename = value.filename

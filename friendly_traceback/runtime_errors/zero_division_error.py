@@ -8,13 +8,13 @@ from ..typing import CauseInfo
 from ..utils import RuntimeMessageParser
 
 parser = RuntimeMessageParser()
+_ = current_lang.translate
 
 
 def expression_is_zero(
     expression: Union[str, bytes, SupportsInt], modulo: bool = False
 ) -> str:
     """Simpler message when the denominator is a literal 0."""
-    _ = current_lang.translate
     try:
         if int(expression) == 0:
             if modulo:
@@ -29,7 +29,6 @@ def expression_is_zero(
 def division_by_zero(
     message: str, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if message not in (
         "division by zero",
         "float division by zero",
@@ -59,7 +58,6 @@ def division_by_zero(
 def integer_or_modulo(
     message: str, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if message != "integer division or modulo by zero":
         return {}
     expression = tb_data.bad_line
@@ -111,7 +109,6 @@ def integer_or_modulo(
 def zero_negative_power(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     if message != "0.0 cannot be raised to a negative power":
         return {}
     cause = _(
@@ -123,7 +120,6 @@ def zero_negative_power(
 
 @parser.add
 def float_modulo(message: str, _frame: FrameType, tb_data: TracebackData) -> CauseInfo:
-    _ = current_lang.translate
     if message != "float modulo":
         return {}
     expression = tb_data.bad_line
@@ -148,7 +144,6 @@ def float_modulo(message: str, _frame: FrameType, tb_data: TracebackData) -> Cau
 
 @parser.add
 def float_divmod(message: str, _frame: FrameType, _tb_data: TracebackData) -> CauseInfo:
-    _ = current_lang.translate
     if message != "float divmod()":
         debug_helper.log("new case to consider")  # pragma: no cover
         return {}  # pragma: no cover

@@ -9,14 +9,13 @@ from ..ft_gettext import current_lang
 from ..typing import CauseInfo, SimilarNamesInfo
 
 parser = utils.RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add
 def local_variable_referenced(
     message: str, frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     pattern = re.compile(r"local variable '(.*)' referenced before assignment")
     match = re.search(pattern, message)
     if not match:
@@ -85,7 +84,6 @@ def local_variable_referenced(
 
 def format_similar_names(unknown_name: str, similar: SimilarNamesInfo) -> str:
     """This function formats the names that were found to be similar"""
-    _ = current_lang.translate
     nb_similar_names = len(similar["locals"])
     if nb_similar_names == 1:
         return (

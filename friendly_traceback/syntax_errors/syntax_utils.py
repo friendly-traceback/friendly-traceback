@@ -4,6 +4,8 @@ import unicodedata
 
 from ..ft_gettext import current_lang
 
+_ = current_lang.translate
+
 
 def matching_brackets(bra, ket):
     return (
@@ -14,7 +16,6 @@ def matching_brackets(bra, ket):
 
 
 def name_bracket(bracket):
-    _ = current_lang.translate
     names = {
         "(": _("parenthesis `(`"),
         ")": _("parenthesis `)`"),
@@ -45,7 +46,6 @@ bad_quotation_marks = [
 
 
 def identify_bad_quote_char(char, line):
-    _ = current_lang.translate
     if char not in bad_quotation_marks:
         return
 
@@ -79,7 +79,6 @@ def identify_bad_quote_char(char, line):
 def identify_bad_math_symbol(char, line):
     """Similar to identify_bad_unicode_character except that it is analyzed when
     we see an 'invalid decimal literal' message."""
-    _ = current_lang.translate
     if char not in bad_quotation_marks:
         return
 
@@ -115,7 +114,6 @@ def identify_bad_math_symbol(char, line):
 
 
 def identify_unicode_fraction(char):
-    _ = current_lang.translate
     char_name = unicodedata.name(char, "unknown")
     if "FRACTION" not in char_name:
         return

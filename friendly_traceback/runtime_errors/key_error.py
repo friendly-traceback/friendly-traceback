@@ -9,13 +9,13 @@ from ..typing import CauseInfo
 from ..utils import RuntimeMessageParser
 
 parser = RuntimeMessageParser()
+_ = current_lang.translate
 
 
 @parser.add
 def popitem_from_empty_dict(
     value: KeyError, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
     message = str(value)
     if "popitem(): dictionary is empty" not in message:
         return {}
@@ -39,8 +39,6 @@ def popitem_from_empty_dict(
 def popitem_from_empty_chain_map(
     value: KeyError, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    _ = current_lang.translate
-
     message = str(value)
     if "No keys found in the first mapping." not in message:
         return {}
@@ -75,7 +73,6 @@ def missing_key_in_chain_map(
     It turns out that this is this second message we capture
     while the correct "bad_line" is identified correctly.
     """
-    _ = current_lang.translate
     message = str(value)
     if "Key not found in the first mapping: " not in message:
         return {}
@@ -141,7 +138,6 @@ def missing_key_in_dict_like(
 
 
 def analyze_missing_key(key: Any, frame: FrameType, bad_line: str) -> CauseInfo:
-    _ = current_lang.translate
     name, obj = find_missing_key_obj(key, frame, bad_line)
     try:
         key_repr = repr(key)
@@ -181,7 +177,6 @@ def analyze_missing_key(key: Any, frame: FrameType, bad_line: str) -> CauseInfo:
 
 
 def key_is_a_string(key: str, dict_name: str, obj: Any) -> CauseInfo:
-    _ = current_lang.translate
     keys = [str(k) for k in obj.keys()]
     if key in keys:
         additional = _(
