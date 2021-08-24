@@ -53,15 +53,7 @@ class Token:
         """Compares a Token with another object; returns true if
         self.string == other.string or if self.string == other.
         """
-        if hasattr(other, "string"):
-            return self.string == other.string
-
-        if isinstance(other, str):
-            return self.string == other
-
-        raise TypeError(
-            "A token can only be compared to another token or to a string."
-        )  # pragma: no cover
+        return self.string == str(other)
 
     def __repr__(self) -> str:  # pragma: no cover
         """Nicely formatted token to help with debugging session.
@@ -181,19 +173,19 @@ def is_assignment(op: Union[str, Token]) -> bool:
     ]
     if sys.version_info >= (3, 8):
         ops.append(":=")
-    return op in ops or (hasattr(op, "string") and op.string in ops)
+    return str(op) in ops
 
 
 def is_bitwise(op: Union[str, Token]) -> bool:
     """Returns True if op (string or Token) is a bitwise operator."""
     ops = ["^", "&", "|", "<<", ">>", "~"]
-    return op in ops or (hasattr(op, "string") and op.string in ops)
+    return str(op) in ops
 
 
 def is_comparison(op: Union[str, Token]) -> bool:
     """Returns True if op (string or Token) is a comparison operator."""
     ops = ["<", ">", "<=", ">=", "==", "!="]
-    return op in ops or (hasattr(op, "string") and op.string in ops)
+    return str(op) in ops
 
 
 def is_math_op(op: Union[str, Token]) -> bool:
@@ -201,7 +193,7 @@ def is_math_op(op: Union[str, Token]) -> bool:
     as a binary operator in a mathematical operation.
     """
     ops = ["+", "-", "*", "**", "@", "/", "//", "%"]
-    return op in ops or (hasattr(op, "string") and op.string in ops)
+    return str(op) in ops
 
 
 def is_operator(op: Union[str, Token]) -> bool:
@@ -214,8 +206,7 @@ def is_operator(op: Union[str, Token]) -> bool:
         or is_bitwise(op)
         or is_comparison(op)
         or is_math_op(op)
-        or op in part_ops
-        or (hasattr(op, "string") and op.string in part_ops)
+        or str(op) in part_ops
     )
 
 
@@ -451,7 +442,7 @@ def print_tokens(source: TextOrTokens) -> None:  # pragma: no cover
     if isinstance(source[0], Token):
         source = untokenize(source)
 
-    for lines in get_lines(source):
+    for lines in get_lines(source):  # type: ignore
         for token in lines:
             print(repr(token))
         print()
