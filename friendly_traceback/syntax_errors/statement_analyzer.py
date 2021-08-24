@@ -462,8 +462,7 @@ def _walrus_instead_of_equal_39(statement):
     for tok in statement.statement_tokens[: statement.bad_token_index + 1]:
         if tok == ":=":
             return tok
-    else:
-        return None
+    return None
 
 
 @add_statement_analyzer
@@ -1128,8 +1127,7 @@ def comprehension_condition_or_tuple(statement):
                     cause = cause_tuple
                     hint = _("Did you forget parentheses?\n")
                     return {"cause": cause, "suggest": hint}
-            else:  # skipcq: PYL-W0120
-                return {}
+            return {}
     else:
         return {}
 

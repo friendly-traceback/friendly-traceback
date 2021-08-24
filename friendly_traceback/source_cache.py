@@ -19,7 +19,7 @@ class Cache:
     """Class used to store source of files and similar objects"""
 
     def __init__(self) -> None:
-        self.cache: Dict[str, List[str]] = {}
+        self.local_cache: Dict[str, List[str]] = {}
         self.context = 4
 
     def add(self, filename: str, source: str) -> None:
@@ -37,12 +37,12 @@ class Cache:
         lines = [line + "\n" for line in source.splitlines()]
         entry = (len(source), time.time(), lines, filename)
         linecache.cache[filename] = entry
-        self.cache[filename] = lines
+        self.local_cache[filename] = lines
 
     def remove(self, filename: str) -> None:
         """Removes an entry from the cache if it can be found."""
-        if filename in self.cache:
-            del self.cache[filename]
+        if filename in self.local_cache:
+            del self.local_cache[filename]
         if filename in linecache.cache:
             del linecache.cache[filename]
 
@@ -60,8 +60,8 @@ class Cache:
         each line ending with a newline character.
         """
         lines = old_getlines(filename, module_globals=module_globals)
-        if not lines and filename in self.cache:
-            lines = self.cache[filename]
+        if not lines and filename in self.local_cache:
+            lines = self.local_cache[filename]
         if not lines:  # can happen for f-strings and frozen modules
             lines = []
         lines.append("\n")  # required when dealing with EOF errors

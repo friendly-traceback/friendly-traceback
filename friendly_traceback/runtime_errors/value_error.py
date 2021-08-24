@@ -32,7 +32,6 @@ def get_iterable(code: str, frame: FrameType) -> Tuple[Any, Optional[str]]:
         # As a ValueError exception has been raised, Python has already evaluated
         # all the relevant code parts. Thus, using eval should be completely safe.
         obj = utils.eval_expr(code, frame)
-        # obj = eval(code, frame.f_globals, frame.f_locals)
     except Exception:  # noqa
         return None, None
 

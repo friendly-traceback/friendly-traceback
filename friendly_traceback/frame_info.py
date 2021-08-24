@@ -50,12 +50,11 @@ class FrameInfo(stack_data.FrameInfo):
         if self.lines:
             source, line = self._highlighted_source(with_node_range)
         elif self.filename and os.path.abspath(self.filename):
-            if self.filename in ["<stdin>", "<string>"]:
-                pass
-                # Using a normal Python REPL - source unavailable.
+            if self.filename not in ["<stdin>", "<string>"]:
+                # When filename is "<stdin>", "<string>",
+                # using a normal Python REPL - source unavailable.
                 # An appropriate error message will have been given via
                 # cannot_analyze_stdin
-            else:
                 source = file_not_found
                 debug_helper.log("Problem in get_partial_source().")
                 debug_helper.log(file_not_found)

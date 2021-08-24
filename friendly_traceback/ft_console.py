@@ -200,7 +200,6 @@ def start_console(
     ipython_prompt: bool = True,
 ) -> None:
     """Starts a console; modified from code.interact"""
-    # from . import config
 
     if banner is None:
         banner = BANNER + type_friendly() + "\n"

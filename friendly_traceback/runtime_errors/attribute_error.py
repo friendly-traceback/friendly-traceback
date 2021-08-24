@@ -304,11 +304,11 @@ def _attribute_error_in_object(
             for obj_name, _obj in all_objects:
                 t = str(type(_obj))
                 if (
-                    t.endswith(f".{obj_type}'>") or t.endswith(f"'{obj_type}'>")
-                ) and not hasattr(_obj, attribute):
-                    possible_objects.append((obj_name, _obj))
-                elif obj_name == "Friendly" and isinstance(
-                    _obj, console_helpers.FriendlyHelpers
+                    (t.endswith(f".{obj_type}'>") or t.endswith(f"'{obj_type}'>"))
+                    and not hasattr(_obj, attribute)
+                ) or (
+                    obj_name == "Friendly"
+                    and isinstance(_obj, console_helpers.FriendlyHelpers)
                 ):
                     possible_objects.append((obj_name, _obj))
 
@@ -376,7 +376,7 @@ def _attribute_error_in_object(
         known_attributes = known_attributes[:9] + ["..."]
     if known_attributes:
         cause += _(
-            "The following are some of its known attributes:\n" "`{names}`."
+            "The following are some of its known attributes:\n`{names}`."
         ).format(names=", ".join(known_attributes))
     return {"cause": cause}
 

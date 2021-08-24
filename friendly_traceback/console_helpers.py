@@ -142,7 +142,6 @@ def what(
         session.write_err("\n")
     else:
         session.write_err(result)
-    return
 
 
 def where() -> None:

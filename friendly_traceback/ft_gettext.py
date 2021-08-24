@@ -67,9 +67,7 @@ class LangState:
 
     def translate(self, text: str) -> str:
         translation = self._translate(text)
-        if self.lang == "en":
-            return translation
-        if translation == text:  # pragma: no cover
+        if translation == text and self.lang != "en":  # pragma: no cover
             debug_helper.log(f"Potentially untranslated text for {self.lang}:")
             debug_helper.log(text)
         return translation

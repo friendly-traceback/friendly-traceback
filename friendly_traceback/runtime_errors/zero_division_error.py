@@ -54,6 +54,13 @@ def division_by_zero(
     return {"cause": cause}
 
 
+def expression_includes_division_by_zero(expression):
+    return _(
+        "The following mathematical expression includes a division by zero:\n\n"
+        "    {expression}\n"
+    ).format(expression=expression)
+
+
 @parser.add
 def integer_or_modulo(
     message: str, _frame: FrameType, tb_data: TracebackData
@@ -75,10 +82,7 @@ def integer_or_modulo(
                     "which is equal to zero.\n"
                 ).format(expression=expression)
         else:
-            cause = _(
-                "The following mathematical expression includes a division by zero:\n\n"
-                "    {expression}\n"
-            ).format(expression=expression)
+            cause = expression_includes_division_by_zero(expression)
     elif nb_mod and not (nb_div or nb_divmod):
         if nb_mod == 1:
             expression = expression.split("%")[1]
@@ -90,17 +94,11 @@ def integer_or_modulo(
                     "which is equal to zero.\n"
                 ).format(expression=expression)
         else:
-            cause = _(
-                "The following mathematical expression includes a division by zero:\n\n"
-                "    {expression}\n"
-            ).format(expression=expression)
+            cause = expression_includes_division_by_zero(expression)
     elif nb_divmod and not (nb_div or nb_mod):
         cause = _("The second argument of the `divmod()` function is zero.\n")
     else:
-        cause = _(
-            "The following mathematical expression includes a division by zero:\n\n"
-            "    {expression}\n"
-        ).format(expression=expression)
+        cause = expression_includes_division_by_zero(expression)
 
     return {"cause": cause}
 

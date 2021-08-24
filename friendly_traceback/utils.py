@@ -176,7 +176,7 @@ def get_bad_statement(tb_data: "TracebackData") -> str:
         st = executing.executing.statement_containing_node(tb_data.node)
         source = executing.executing.Source.for_frame(tb_data.exception_frame)
         return source.asttokens().get_text(st)
-    except Exception as e:  # noqa
+    except Exception:  # noqa
         if hasattr(tb_data, "original_bad_line"):
             return tb_data.original_bad_line
         elif hasattr(tb_data, "bad_line"):
