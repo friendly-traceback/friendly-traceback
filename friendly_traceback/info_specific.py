@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 
 get_cause: Dict[Type[BaseException], Explain[BaseException]] = {}
+_ = current_lang.translate
 
 
 def get_likely_cause(
@@ -23,7 +24,6 @@ def get_likely_cause(
     """Gets the likely cause of a given exception based on some information
     specific to a given exception.
     """
-    _ = current_lang.translate
     try:
         if etype in get_cause:
             return get_cause[etype](value, frame, tb_data)
@@ -91,7 +91,6 @@ def _index_error(
 def _key_error(
     value: KeyError, frame: FrameType, tb_data: "TracebackData"
 ) -> CauseInfo:
-    _ = current_lang.translate
     from .runtime_errors import key_error
 
     return key_error.parser.get_cause(value, frame, tb_data)

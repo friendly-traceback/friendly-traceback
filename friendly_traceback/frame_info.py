@@ -11,6 +11,8 @@ from . import debug_helper
 from .ft_gettext import current_lang
 from .source_cache import cache
 
+_ = current_lang.translate
+
 
 class FrameInfo(stack_data.FrameInfo):
     @cached_property
@@ -26,8 +28,6 @@ class FrameInfo(stack_data.FrameInfo):
         formatted in a pre-determined way, as well as the content
         of the specific line where the exception occurred.
         """
-        _ = current_lang.translate
-
         file_not_found = _("Problem: source of `{filename}` is not available\n").format(
             filename=self.filename
         )

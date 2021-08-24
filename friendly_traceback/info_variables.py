@@ -24,11 +24,10 @@ except ImportError:  # pragma: no cover
 
 INDENT = " " * 8
 MAX_LENGTH = 65
+_ = current_lang.translate
 
 
 def convert_type(short_form: str) -> str:
-    _ = current_lang.translate
-
     forms = {
         "complex": _("a complex number"),
         "dict": _("a dictionary (`dict`)"),
@@ -339,8 +338,6 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     This can be useful information in case of IndexError and possibly
     others.
     """
-    _ = current_lang.translate
-
     length_info = ""
     if _global:
         _global = "global "
@@ -435,9 +432,6 @@ def name_has_type_hint(name: str, frame: types.FrameType) -> str:
     HOWEVER, when an exception is raised, it seems that the only type hints
     that are picked up correctly are those found in the global scope.
     """
-
-    _ = current_lang.translate
-
     type_hint_found_in_scope = _(
         "A type hint found for `{name}` in the {scope} scope.\n"
         "Perhaps you had used a colon instead of an equal sign and wrote\n\n"

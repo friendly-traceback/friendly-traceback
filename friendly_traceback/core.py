@@ -30,6 +30,7 @@ except ImportError:  # pragma: no cover
 
 
 STR_FAILED = "<exception str() failed>"  # Same as Python
+_ = current_lang.translate
 
 
 def convert_value_to_message(value: BaseException) -> str:
@@ -37,7 +38,6 @@ def convert_value_to_message(value: BaseException) -> str:
     being safe to use for custom exceptions which have been incorrectly
     defined. See issue #181 for an example.
     """
-    _ = current_lang.translate
     try:
         message = str(value)
     except Exception:  # noqa
@@ -255,7 +255,7 @@ class TracebackData:
 
         node_info = self.records[-1].node_info  # noqa
         if node_info:
-            self.node, _, self.node_text = node_info
+            self.node, _ignore, self.node_text = node_info
             if self.node_text.strip():
                 # Replacing the line that caused the exception by the text
                 # of the 'node' facilitates the process of identifying the cause.
@@ -429,7 +429,6 @@ class FriendlyTraceback:
             etype, value, tb = sys.exc_info()
 
         The "header" key for the info dict is assigned here."""
-        _ = current_lang.translate
         try:
             self.tb_data = TracebackData(etype, value, tb)
         except Exception as e:  # pragma: no cover
@@ -478,7 +477,6 @@ class FriendlyTraceback:
         """This is useful if we need to redisplay some information in a
         different language than what was originally used.
         """
-        _ = current_lang.translate
         self.info["header"] = _("Python exception:")
         self.assign_tracebacks()
         self.compile_info()
@@ -487,7 +485,6 @@ class FriendlyTraceback:
         """Determine the cause of an exception, which is what is returned
         by ``why()``.
         """
-        _ = current_lang.translate
         if self.tb_data.filename in ["<unknown>", "<string>"]:
             return
 
@@ -517,7 +514,6 @@ class FriendlyTraceback:
 
         the latter being the "hint" appended to the friendly traceback.
         """
-        _ = current_lang.translate
         etype = self.tb_data.exception_type
         value = self.tb_data.value
         if self.tb_data.filename == "<stdin>":  # pragma: no cover
@@ -542,7 +538,6 @@ class FriendlyTraceback:
 
         the latter being the "hint" appended to the friendly traceback.
         """
-        _ = current_lang.translate
         etype = self.tb_data.exception_type
         value = self.tb_data.value
 
@@ -618,8 +613,6 @@ class FriendlyTraceback:
         """
         from .config import session
 
-        _ = current_lang.translate
-
         partial_source = record.partial_source_with_node_range
         filename = path_utils.shorten_path(record.filename)
 
@@ -659,7 +652,6 @@ class FriendlyTraceback:
         * exception_raised_source
         * last_call_variables
         """
-        _ = current_lang.translate
         partial_source = record.partial_source_with_node_range
         filename = path_utils.shorten_path(record.filename)
 
@@ -683,7 +675,6 @@ class FriendlyTraceback:
         * parsing_error
         * parsing_source_error
         """
-        _ = current_lang.translate
         value = self.tb_data.value
         filepath = value.filename
         if filepath in ["<unknown>", "<string>"]:
@@ -738,7 +729,6 @@ class FriendlyTraceback:
         * simulated_python_traceback
         * shortened_traceback
         """
-        _ = current_lang.translate
         if not hasattr(self, "message"):
             self.assign_message()
         if isinstance(self.tb_data.formatted_tb, str):
@@ -811,7 +801,6 @@ class FriendlyTraceback:
         and by using short synonyms for some common directories."""
         from .config import session
 
-        _ = current_lang.translate
         shortened_tb = tb[0:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
         pattern = re.compile(r'^  File "(.*)", ')  # noqa
         temp = []
@@ -939,7 +928,6 @@ def cannot_analyze_stdin() -> str:  # pragma: no cover
     interpreter (REPL), and the user does not activate the friendly
     console.
     """
-    _ = current_lang.translate
     return _(
         "Unfortunately, no additional information is available:\n"
         "the content of file '<stdin>' is not accessible.\n"

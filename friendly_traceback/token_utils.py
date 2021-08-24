@@ -250,7 +250,7 @@ def tokenize(source: str) -> List[Token]:
             tokens.append(token)
     except IndentationError as e:
         try:
-            _, linenumber, col, line = e.args[1]
+            _ignore, linenumber, col, line = e.args[1]
             type_ = py_tokenize.NAME  # Not really relevant what we set here
             # except that ERRORTOKEN would cause problems later on.
             start = (linenumber, col)
