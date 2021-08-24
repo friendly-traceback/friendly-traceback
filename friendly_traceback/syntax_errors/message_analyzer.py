@@ -1,3 +1,4 @@
+# type: ignore
 """message_analyser.py
 
 Collection of functions that examine SyntaxError messages and

@@ -114,6 +114,8 @@ venv-*/
 
 # mypy
 .mypy_cache/
+# mypy locally saved output
+mypy.out
 
 # PyCharm
 .idea

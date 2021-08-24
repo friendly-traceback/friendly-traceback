@@ -182,19 +182,18 @@ def attribute_error_in_object(
 ) -> CauseInfo:
     pattern = re.compile(r"'(.*)' object has no attribute '(.*)'")
     match = re.search(pattern, message)
+    if not match:
+        return {}
 
-    if match:
-        if match.group(1) == "NoneType":
-            return {
-                "cause": _(
-                    "You are attempting to access the attribute `{attr}`\n"
-                    "for a variable whose value is `None`."
-                ).format(attr=match.group(2))
-            }
+    if match.group(1) == "NoneType":
+        return {
+            "cause": _(
+                "You are attempting to access the attribute `{attr}`\n"
+                "for a variable whose value is `None`."
+            ).format(attr=match.group(2))
+        }
 
-        return _attribute_error_in_object(
-            match.group(1), match.group(2), tb_data, frame
-        )
+    return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
 
 
 @parser.add
@@ -209,11 +208,12 @@ def object_attribute_is_read_only(
     attribute = match.group(2)
     obj = info_variables.get_object_from_name(obj_type, frame)
     if not hasattr(obj, "__slots__"):
-        return _(
+        cause = _(
             "The value of attribute `{attribute}` of objects of type `{obj_type}`\n"
             "cannot be changed.\n"
             "I have no further information.\n"
         ).format(attribute=attribute, obj_type=obj_type)
+        return {"cause": cause}
 
     slots = getattr(obj, "__slots__")
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
@@ -410,11 +410,12 @@ def handle_attribute_typo(
 def perhaps_builtin(attribute: str, known_attributes: Iterable[str]) -> Optional[str]:
     if attribute in ["min", "max", "sorted", "reversed", "sum"]:
         return attribute
-    if (
+    elif (
         attribute in ["len", "length", "lenght", "size"]  # noqa
         and "__len__" in known_attributes
     ):
         return "len"
+    return None
 
 
 def tuple_by_accident(obj: Any, obj_name: str, attribute: str) -> CauseInfo:
@@ -450,7 +451,7 @@ def use_str_join(obj_name: str, tb_data: TracebackData) -> CauseInfo:
             try:
                 content = ast.literal_eval(content)
             except Exception:  # noqa
-                content = None
+                content = None  # type: ignore
             if isinstance(content, str):
                 str_content = repr(content)
     hint = hint.format(obj_name=obj_name, str_content=str_content)
@@ -490,6 +491,7 @@ def perhaps_synonym(
     for syn_list in synonyms:
         if attribute in syn_list:
             return [attr for attr in syn_list if attr in known_attributes]
+    return None
 
 
 def use_synonym(obj_name: str, attribute: str, synonyms: Sequence[str]) -> CauseInfo:

@@ -1,3 +1,4 @@
+# type: ignore
 """analyze_syntax.py
 
 Collection of functions useful attempting to determine the

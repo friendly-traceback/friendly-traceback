@@ -1,3 +1,4 @@
+# type: ignore
 """This file contains various functions used for analysis of SyntaxErrors"""
 
 import unicodedata

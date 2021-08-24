@@ -1,3 +1,4 @@
+# type: ignore
 """This module contains functions that are used to
    analyze a single statement which has been identified
    as containing a syntax error with the message "invalid syntax".

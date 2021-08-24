@@ -1,3 +1,4 @@
+# type: ignore
 """Various functions used to find fixes to SyntaxErrors"""
 
 from .. import debug_helper, token_utils

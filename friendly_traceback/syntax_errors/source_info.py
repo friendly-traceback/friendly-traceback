@@ -1,3 +1,4 @@
+# type: ignore
 """Contains a class that compiles and stores all the information that
 is relevant to the analysis of SyntaxErrors.
 """

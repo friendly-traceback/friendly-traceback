@@ -1,3 +1,4 @@
+# type: ignore
 """In this module, we try to identify a remedy to a syntax error
 associated with a 'def' statement.
 """
