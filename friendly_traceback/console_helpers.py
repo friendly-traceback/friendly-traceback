@@ -25,6 +25,10 @@ from friendly_traceback.typing import InclusionChoice, Site
 _ = current_lang.translate
 
 
+def _nothing_to_show():
+    return _("Nothing to show: no exception recorded.")
+
+
 def back() -> None:
     """Removes the last recorded traceback item.
 
@@ -71,7 +75,7 @@ def hint() -> None:
 def history() -> None:
     """Prints the list of error messages recorded so far."""
     if not session.saved_info:
-        session.write_err(_("Nothing to show: no exception recorded.") + "\n")
+        session.write_err(_nothing_to_show() + "\n")
         return
     for info in session.saved_info:
         message = session.formatter(info, include="message").replace("\n", "")
@@ -125,7 +129,7 @@ def what(
         result = get_generic_explanation(exception)
     else:
         try:
-            exc = eval(exception)
+            exc = eval(exception)  # skipcq PYL-W0123
             if inspect.isclass(exc) and issubclass(exc, BaseException):
                 result = get_generic_explanation(exc)
             else:
@@ -255,7 +259,7 @@ def _get_exception() -> Optional[BaseException]:  # pragma: no cover
     has been raised.
     """
     if not session.saved_info:
-        print("Nothing to show: no exception recorded.")
+        print(_nothing_to_show())
         return None  # add explicit None here and elsewhere to silence mypy
     info = session.saved_info[-1]
     return info["_exc_instance"]
@@ -267,7 +271,7 @@ def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
     This is not intended for end-users but is useful in development.
     """
     if not session.saved_info:
-        print("Nothing to show: no exception recorded.")
+        print(_nothing_to_show())
         return None
     info = session.saved_info[-1]
     return info["_frame"]
@@ -281,7 +285,7 @@ def _get_statement() -> Optional[Statement]:  # pragma: no cover
     This is not intended for end-users but is useful in development.
     """
     if not session.saved_info:
-        print("Nothing to show: no exception recorded.")
+        print(_nothing_to_show())
         return None
     if isinstance(session.saved_info[-1]["_exc_instance"], SyntaxError):
         return session.friendly_info[-1].tb_data.statement
@@ -296,7 +300,7 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     This is not intended for end-users but is useful in development.
     """
     if not session.saved_info:
-        print("Nothing to show: no exception recorded.")
+        print(_nothing_to_show())
         return None
     info = session.saved_info[-1]
     return info["_tb_data"]

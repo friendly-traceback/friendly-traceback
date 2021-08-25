@@ -642,10 +642,11 @@ def delete_x(message: str = "", statement=None):
         "cannot delete None",
         "cannot delete True",
         "cannot delete False",
+        "cannot delete __debug__",
     ):
         return {}
 
-    if statement.bad_token.string in ("None", "True", "False"):
+    if statement.bad_token.string in ("None", "True", "False", "__debug__"):
         cause = _("You cannot delete the constant `{constant}`.\n").format(
             constant=statement.bad_token
         )

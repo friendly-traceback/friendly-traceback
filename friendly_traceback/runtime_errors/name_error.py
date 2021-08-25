@@ -1,7 +1,7 @@
 import ast
 import re
 from types import FrameType
-from typing import Optional, Tuple
+from typing import Any, Tuple
 
 from .. import debug_helper, info_variables, token_utils, utils
 from ..core import TracebackData
@@ -60,6 +60,8 @@ def name_not_defined(
 
     if unknown_name == "ꓺ":  # pragma: no cover
         return flipfloperator()
+    elif unknown_name == "__debug__" and tb_data.bad_line.startswith("del "):
+        return delete_debug()
 
     known = is_stdlib_module(unknown_name, tb_data)
     if known:
@@ -86,7 +88,7 @@ def name_not_defined(
     elif type_hint:
         hint = _("Did you use a colon instead of an equal sign?\n")
     else:
-        hint = None
+        hint = ""
 
     additional = type_hint + format_similar_names(unknown_name, similar)
     try:
@@ -100,10 +102,20 @@ def name_not_defined(
         additional = _("I have no additional information for you.\n")
 
     cause = {"cause": cause + additional}
-    if hint is None:
+    if not hint:
         return cause
     cause["suggest"] = hint
     return cause
+
+
+def delete_debug() -> CauseInfo:
+    # https://bugs.python.org/issue45000
+    hint = _("`__debug__` is a constant.\n")
+    cause = _(
+        "`__debug__` is a constant that cannot be deleted.\n"
+        "In future Python versions, attempting to delete it will be a SyntaxError.\n"
+    )
+    return {"cause": cause, "suggest": hint}
 
 
 def flipfloperator() -> CauseInfo:  # pragma: no cover
@@ -117,7 +129,7 @@ def flipfloperator() -> CauseInfo:  # pragma: no cover
     return {"cause": cause, "suggest": hint}
 
 
-def is_stdlib_module(name: str, tb_data: "TracebackData") -> CauseInfo:
+def is_stdlib_module(name: str, tb_data: TracebackData) -> CauseInfo:
     """Determine if an unknown name is to be found in the Python standard library.
     We're looking for something like name.attribute"""
     if tb_data.node and not isinstance(tb_data.node.parent, ast.Attribute):
@@ -175,8 +187,8 @@ def format_similar_names(name: str, similar: SimilarNamesInfo) -> str:
 
 
 def missing_self(
-    unknown_name: str, frame: FrameType, tb_data: "TracebackData", hint: Optional[str]
-) -> Tuple[str, Optional[str]]:
+    unknown_name: str, frame: FrameType, tb_data: TracebackData, hint: str
+) -> Tuple[str, str]:
     """If the unknown name is referred to with no '.' before it,
     and is an attribute of a known object, perhaps 'self.'
     is missing."""
@@ -202,13 +214,11 @@ def missing_self(
     else:
         return message, hint
 
-    first_arg_self = False
-    if (
+    first_arg_self = (
         len(tokens) > index + 3
         and tokens[index + 1] == "("
         and tokens[index + 2] == "self"
-    ):
-        first_arg_self = True
+    )
 
     env = (("local", frame.f_locals), ("global", frame.f_globals))
 
@@ -220,39 +230,40 @@ def missing_self(
                 obj = dict_copy[name]
                 known_attributes = dir(obj)
                 if unknown_name in known_attributes:
-                    suggest = ""
-                    obj_repr = info_variables.simplify_repr(repr(obj), splitlines=False)
-                    if first_arg_self and name == "self":
-                        suggest = _("Did you write `self` at the wrong place?\n")
-                        message = _(
-                            "The {scope} object `{obj}`\n"
-                            "has an attribute named `{unknown_name}`.\n"
-                            "Perhaps you should have written `self.{unknown_name}(...`\n"
-                            "instead of `{unknown_name}(self, ...`.\n"
-                        ).format(scope=scope, obj=obj_repr, unknown_name=unknown_name)
-                    elif name == "self":
-                        suggest = _("Did you forget to add `self.`?\n")
-                        message = _(
-                            "A {scope} object, `{obj}`,\n"
-                            "has an attribute named `{unknown_name}`.\n"
-                            "Perhaps you should have written `self.{unknown_name}`\n"
-                            "instead of `{unknown_name}`.\n"
-                        ).format(scope=scope, obj=obj_repr, unknown_name=unknown_name)
-                    else:
-                        suggest = _("Did you forget to add `{name}.`?\n").format(
-                            name=name
-                        )
-                        message = _(
-                            "The {scope} object `{name}`\n"
-                            "has an attribute named `{unknown_name}`.\n"
-                            "Perhaps you should have written `{name}.{unknown_name}`\n"
-                            "instead of `{unknown_name}`.\n"
-                        ).format(scope=scope, name=name, unknown_name=unknown_name)
-                    if suggest:
-                        if hint is None:
-                            hint = suggest
-                        else:
-                            hint += suggest
-                        return message, hint
+                    return missing_self_cause(
+                        name, unknown_name, obj, scope, first_arg_self, hint
+                    )
+    return message, hint
 
+
+def missing_self_cause(
+    name: str, unknown_name: str, obj: Any, scope: str, first_arg_self: bool, hint: str
+) -> Tuple[str, str]:
+    obj_repr = info_variables.simplify_repr(repr(obj), splitlines=False)
+    if first_arg_self and name == "self":
+        suggest = _("Did you write `self` at the wrong place?\n")
+        message = _(
+            "The {scope} object `{obj}`\n"
+            "has an attribute named `{unknown_name}`.\n"
+            "Perhaps you should have written `self.{unknown_name}(...`\n"
+            "instead of `{unknown_name}(self, ...`.\n"
+        ).format(scope=scope, obj=obj_repr, unknown_name=unknown_name)
+    elif name == "self":
+        suggest = _("Did you forget to add `self.`?\n")
+        message = _(
+            "A {scope} object, `{obj}`,\n"
+            "has an attribute named `{unknown_name}`.\n"
+            "Perhaps you should have written `self.{unknown_name}`\n"
+            "instead of `{unknown_name}`.\n"
+        ).format(scope=scope, obj=obj_repr, unknown_name=unknown_name)
+    else:
+        suggest = _("Did you forget to add `{name}.`?\n").format(name=name)
+        message = _(
+            "The {scope} object `{name}`\n"
+            "has an attribute named `{unknown_name}`.\n"
+            "Perhaps you should have written `{name}.{unknown_name}`\n"
+            "instead of `{unknown_name}`.\n"
+        ).format(scope=scope, name=name, unknown_name=unknown_name)
+
+    hint += suggest
     return message, hint

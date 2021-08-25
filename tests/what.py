@@ -92,7 +92,7 @@ with open(target, "w", encoding="utf8") as out, redirect_stderr(out):
 
     for item in dir(builtins):
         try:
-            exc = eval(item)
+            exc = eval(item)  # skipcq PYL-W0123
         except Exception:  # noqa
             continue
         try:
@@ -109,7 +109,7 @@ with open(target, "w", encoding="utf8") as out, redirect_stderr(out):
 
     for item in dir(builtins):
         try:
-            exc = eval(item)
+            exc = eval(item)  # skipcq PYL-W0123
         except Exception:  # noqa
             continue
         try:
