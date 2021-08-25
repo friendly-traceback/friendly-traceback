@@ -1,5 +1,18 @@
 version = 1
 
+test_patterns = [
+    "tests/unit/**"
+]
+exclude_patterns = [
+    "tests/syntax/**",
+    "tests/runtime/**",
+    "tests/circular**",
+    "tests/name_error.py",
+    "tests/unit/test_clean**",
+    "tests/unbound**",
+    "tests/unit/test_flush.py"
+    ]
+
 [[analyzers]]
 name = "python"
 enabled = true
