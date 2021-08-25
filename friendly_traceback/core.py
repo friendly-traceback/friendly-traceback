@@ -230,7 +230,8 @@ class TracebackData:
                 self.program_stopped_bad_line = self.bad_line
                 self.program_stopped_frame = self.exception_frame
             return
-        elif issubclass(self.exception_type, MemoryError):
+
+        if issubclass(self.exception_type, MemoryError):
             self.bad_line = "<not available>"
             return
 

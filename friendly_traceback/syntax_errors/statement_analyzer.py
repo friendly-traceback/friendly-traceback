@@ -1441,8 +1441,7 @@ def duplicate_token(statement):
     )
     if fixers.check_statement(new_statement):
         return {"cause": cause, "suggest": hint}
-    else:
-        return {"cause": cause + more_errors(), "suggest": hint}
+    return {"cause": cause + more_errors(), "suggest": hint}
 
 
 @add_statement_analyzer
@@ -1459,8 +1458,7 @@ def extra_token(statement):
         ).format(bad_token=bad_token, line=new_statement)
         hint = _("Did you write {bad_token} by mistake?\n").format(bad_token=bad_token)
         return {"cause": cause, "suggest": hint}
-    else:
-        return {}
+    return {}
 
 
 @add_statement_analyzer

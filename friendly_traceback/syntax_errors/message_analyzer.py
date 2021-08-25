@@ -21,6 +21,18 @@ def _assign_to_identifiers_only():
     return _("You can only assign objects to identifiers (variable names).\n")  # noqa
 
 
+def _find_keyword(statement):
+    # used in assign_to_keyword
+    if statement.bad_token.is_keyword():
+        return statement.bad_token
+    else:  # something like name.constant = ?
+        for tok in statement.tokens[statement.bad_token_index :]:
+            if tok.is_keyword():
+                return tok
+        debug_helper.log(f"Case not covered: {statement.bad_line}")
+        return None
+
+
 def _what_kind_of_literal(literal):
     """Evaluates an expression to see if we can determine its type."""
     try:
@@ -227,16 +239,10 @@ def assign_to_keyword(message: str = "", statement=None):
         if word in message:
             break
     else:
-        if statement.bad_token.is_keyword():
-            word = statement.bad_token
-        else:  # something like name.constant = ?
-            for tok in statement.tokens[statement.bad_token_index :]:
-                if tok.is_keyword():
-                    word = tok
-                    break
-            else:  # pragma: no cover
-                debug_helper.log(f"Case not covered: {statement.bad_line}")
-                return {}
+        word = _find_keyword(statement)
+        if word is None:
+            return {}
+
     hint = _("You cannot assign a value to `{keyword}`.").format(keyword=word)
 
     if word in ["Ellipsis", "ellipsis"]:
@@ -276,23 +282,18 @@ def assign_to_literal(message: str = "", statement=None):
     # a for loop; we take care of this case first.
 
     tokens = statement.tokens[0 : statement.bad_token_index]
-    for_loop = False
     for tok in tokens[::-1]:
         if tok == "in":  # pragma: no cover
             debug_helper.log("New case for assign_to_literal")
             break
         elif tok == "for":
-            for_loop = True
-            break
-
-    if for_loop:
-        cause = _(
-            "A for loop must have the form:\n\n"
-            "    for ... in sequence:\n\n"
-            "where `...` must contain only identifiers (variable names)\n"
-            "and not literals like `{bad_token}`.\n"
-        ).format(bad_token=statement.bad_token)
-        return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+            cause = _(
+                "A for loop must have the form:\n\n"
+                "    for ... in sequence:\n\n"
+                "where `...` must contain only identifiers (variable names)\n"
+                "and not literals like `{bad_token}`.\n"
+            ).format(bad_token=statement.bad_token)
+            return {"cause": cause, "suggest": _assign_to_identifiers_only()}
 
     line = statement.bad_line.rstrip()
     info = line.split("=")
