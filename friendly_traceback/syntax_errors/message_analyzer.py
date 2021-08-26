@@ -565,12 +565,17 @@ def cannot_delete_expression(message: str = "", statement=None):
         "cannot delete expression",  # Python 3.10
     ):
         return {}
-
-    expression = statement.bad_line[3:].strip()  # remove del
+    if statement.first_token != "del":
+        debug_helper.log(
+            f"Expected first token to be 'del'; got {statement.first_token}"
+        )
+        cause = _("You cannot delete a Python expression.\n")
+    else:
+        expression = statement.bad_line[3:].strip()  # remove del
+        cause = _("You cannot delete the expression `{expression}`.\n").format(
+            expression=expression
+        )
     hint = _can_only_delete()
-    cause = _("You cannot delete the expression `{expression}`.\n").format(
-        expression=expression
-    )
     return {"cause": cause + _can_only_delete(), "suggest": hint}
 
 
@@ -608,6 +613,24 @@ def cannot_delete_literal(message: str = "", statement=None):
         + _can_only_delete()
     )
     return {"cause": cause}
+
+
+@add_python_message
+def cannot_delete_named_expression(message: str = "", statement=None):
+    if message not in ("cannot delete named expression",):  # Python 3.8 +
+        return {}
+    if statement.first_token != "del":
+        debug_helper.log(
+            f"Expected first token to be 'del'; got {statement.first_token}"
+        )
+        cause = _("You cannot delete a Python expression.\n")
+    else:
+        expression = statement.bad_line[3:].strip()  # remove del
+        cause = _("You cannot delete the named expression `{expression}`.\n").format(
+            expression=expression
+        )
+    hint = _can_only_delete()
+    return {"cause": cause + _can_only_delete(), "suggest": hint}
 
 
 @add_python_message
