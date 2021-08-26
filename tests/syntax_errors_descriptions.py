@@ -14,18 +14,24 @@ version_dependent/"version dependent" indicates that an exception will be raised
    The value corresponding to this key is a list of text fragments,
    at least one of which should appear in the explanation given by Friendly-traceback.
 
-In some cases, a SyntaxError will not be raised by a given Python version.
+   In this case, in_cause/"in cause" (mentioned below) is usually set to "ignored"
+   as catch_syntax_error.py needs a value for all cases.
+
+Note that, in some cases, a SyntaxError will not be raised by a given Python version.
 In this case, we delete the entry at the very bottom of this file.
 
-When the explanation is the same (or similar enough) for all Python versions,
+When the basic explanation is the same (or similar enough) for all Python versions,
 which is generally the case, the following is used instead:
 
 in_cause/"in cause" is some text that should be found in the explanation provided by
         Friendly-traceback when importing this file.
 
-also_in_cause/"also in cause" is a list of text fragments that should also be found in the explanation
+also_in_cause/"also in cause" is a list of text fragments that should
+    also be found in the explanation.  Note that this can sometimes be version dependent
+    in which case a change is made at the end of the file.
 
-not_in_cause/"not in cause" is a list of text fragments that should not be found in the explanation.
+not_in_cause/"not in cause" is a list of text fragments that should
+    not be found in the explanation.
 """
 import sys
 
@@ -147,23 +153,36 @@ descriptions = {
         also_in_cause: ["You cannot assign a value to such an expression."],
     },
     "assignment_expression_cannot_rebind": {
-        in_cause: "a comprehension to assign a value to the iteration variable",
+        version_dependent: [
+            "The augmented assignment operator is not allowed",
+            "a comprehension to assign a value to the iteration variable",
+        ],
+        in_cause: "ignored",
         title: "Augmented assignment inside comprehension",
     },
     "assignment_expression_cannot_rebind_2": {
-        in_cause: "a comprehension to assign a value to the iteration variable",
+        version_dependent: [
+            "The augmented assignment operator is not allowed",
+            "a comprehension to assign a value to the iteration variable",
+        ],
+        in_cause: "ignored",
         title: "Augmented assignment inside comprehension - inner loop",
     },
     "async_def_missing_parens": {
         in_cause: "Did you forget parentheses?",
         title: "def: missing parentheses",
     },
-    "augmented_assignment_to_literal": {  # May differ depending on Python version
-        in_cause: "the walrus operator, with literals like",
+    "augmented_assignment_to_literal": {
+        version_dependent: [
+            "walrus operator",
+            "the walrus operator, with literals like",
+        ],
+        in_cause: "ignored",
         title: "Augmented assignment to literal",
     },
-    "augmented_assigment_with_true": {  # May differ depending on Python version
-        in_cause: "`True` is a constant in Python",
+    "augmented_assigment_with_true": {
+        version_dependent: ["walrus operator", "`True` is a constant in Python"],
+        in_cause: "ignored",
         title: "Walrus/Named assignment depending on Python version",
     },
     "backslash_instead_of_slash": {
@@ -195,7 +214,11 @@ descriptions = {
         title: "Missing () for tuples in comprehension",
     },
     "comprehension_with_condition_no_else": {
-        in_cause: "The correct order depends if there is an `else` clause or not",
+        version_dependent: [
+            "`else some_value` clause was expected after the `if` expression",
+            "The correct order depends if there is an `else` clause or not",
+        ],
+        in_cause: "ignored",
         title: "Comprehension with condition (no else)",
     },
     "comprehension_with_condition_with_else": {
@@ -215,6 +238,10 @@ descriptions = {
         in_cause: "copy-pasted code from an interactive interpreter",
         title: "Copy/paste from interpreter - 2",
         also_in_cause: ["`...`"],
+    },
+    "debug_fstring_not_supported": {  # not allowed prior to Python 3.8
+        in_cause: "You are likely using a 'debug' syntax of f-strings",
+        title: "Debug-feature of f-string not supported",
     },
     "def_arg_after_kwarg": {
         in_cause: "Positional arguments must come before keyword argument",
@@ -263,22 +290,34 @@ descriptions = {
         title: "def: extra comma",
     },
     "def_forward_slash_1": {
-        version_dependent: [no_slash, "You have unspecified keyword arguments that appear before"],
+        version_dependent: [
+            no_slash,
+            "You have unspecified keyword arguments that appear before",
+        ],
         in_cause: "ignored",
         title: "def: unspecified keywords before /",
     },
     "def_forward_slash_2": {
-        version_dependent: [no_slash, "When they are used together, `/` must appear before `*`"],
+        version_dependent: [
+            no_slash,
+            "When they are used together, `/` must appear before `*`",
+        ],
         in_cause: "ignored",
         title: "def: / before star",
     },
     "def_forward_slash_3": {
-        version_dependent: [no_slash, "`*arg` must appear after `/` in a function definition"],
+        version_dependent: [
+            no_slash,
+            "`*arg` must appear after `/` in a function definition",
+        ],
         in_cause: "ignored",
         title: "def: / before star arg",
     },
     "def_forward_slash_4": {
-        version_dependent: [no_slash, "You can only use `/` once in a function definition"],
+        version_dependent: [
+            no_slash,
+            "You can only use `/` once in a function definition",
+        ],
         in_cause: "ignored",
         title: "def: / used twice",
     },
@@ -319,7 +358,8 @@ descriptions = {
         title: "def: list as argument - 2",
     },
     "def_missing_colon": {
-        in_cause: "Did you forget to write a colon",
+        version_dependent: ["but forgot to add a colon `:` at the end", "Did you forget to write a colon"],
+        in_cause: "ignored",
         title: "def: missing colon",
     },
     "def_missing_comma": {
@@ -379,7 +419,10 @@ descriptions = {
         title: "def: set as argument",
     },
     "def_star_arg_before_slash": {
-        version_dependent: ["This symbol can only be used with Python versions", "`*arg` must appear after `/` "],
+        version_dependent: [
+            "This symbol can only be used with Python versions",
+            "`*arg` must appear after `/` ",
+        ],
         in_cause: "ignored",
         title: "def: ``*arg`` before /",
     },
@@ -687,11 +730,13 @@ descriptions = {
         title: "IndentationError/SyntaxError depending on version",
     },
     "missing_colon_if": {
-        in_cause: "`if` but forgot to add a colon `:`",
+        version_dependent: ["Did you forget a colon", "`if` but forgot to add a colon `:`"],
+        in_cause: "ignored",
         title: "Missing colon - if",
     },
     "missing_colon_while": {
-        in_cause: "wrote a `while` loop but",
+        version_dependent: ["Did you forget a colon", "wrote a `while` loop but"],
+        in_cause: "ignored",
         title: "Missing colon - while",
     },
     "missing_comma_in_dict": {
@@ -765,7 +810,9 @@ descriptions = {
     "print_is_a_function_3": {
         in_cause: "In older version of Python, `print` was a keyword",
         title: "print is a function 3",
-        also_in_cause: ['print("""This is a very long'],
+        also_in_cause: [
+            'print("""This is a very long'
+        ],  # version dependent; see at end
     },
     "print_is_a_function_4": {
         in_cause: "In older version of Python, `print` was a keyword",
@@ -775,7 +822,11 @@ descriptions = {
     "print_is_a_function_5": {
         in_cause: "In older version of Python, `print` was a keyword",
         title: "print is a function 5",
-        also_in_cause: ["print(len('This ", " ... ", "line."],
+        also_in_cause: [
+            "print(len('This ",
+            " ... ",
+            "line.",
+        ],  # version dependent; see at end
     },
     "print_non_paren_non_string1": {
         in_cause: "In older version of Python, `print` was a keyword",
@@ -796,7 +847,8 @@ descriptions = {
         title: "problem with assigning a variable to Python",
     },
     "quote_inside_string": {
-        in_cause: "quote inside a string",
+        version_dependent: ["ended the string with another quote", "quote inside a string"],
+        in_cause: "ignored",
         title: "Quote inside a string",
     },
     "raise_multiple_exceptions": {
@@ -970,8 +1022,13 @@ descriptions = {
         in_cause: "one backslash character, `\\` followed by an uppercase `U`",
         title: "unicode error",
     },
+    "walrus_does_not_exist": {  # Python < 3.8
+        in_cause: "walrus operator",
+        title: "Walrus operator does not exist - yet",
+    },
     "walrus_instead_of_equal": {
-        in_cause: "You use the augmented assignment operator `:=` where",
+        version_dependent: ["walrus operator", "You use the augmented assignment operator `:=` where"],
+        in_cause: "ignored",
         title: "Walrus instead of equal",
         also_in_cause: ["the normal assignment operator `=` was required."],
     },
@@ -994,53 +1051,26 @@ descriptions = {
 }
 
 if sys.version_info < (3, 8):
-    descriptions["assignment_expression_cannot_rebind"][
-        in_cause
-    ] = "The augmented assignment operator is not allowed"
-    descriptions["assignment_expression_cannot_rebind_2"][
-        in_cause
-    ] = "The augmented assignment operator is not allowed"
-    descriptions["augmented_assigment_with_true"][in_cause] = "walrus operator"
-    descriptions["augmented_assignment_to_literal"][in_cause] = "walrus operator"
-    descriptions["walrus_does_not_exist"] = {
-        in_cause: "walrus operator",
-        title: "Walrus operator does not exist - yet",
-    }
-
-    descriptions["debug_fstring_not_supported"] = {
-        in_cause: "You are likely using a 'debug' syntax of f-strings",
-        title: "Debug-feature of f-string not supported",
-    }
 
     descriptions["fstring_assign_value"] = {
         in_cause: "You are likely trying to assign a value within an f-string.",
         title: "Cannot assign a value within an fstring",
     }
 
-    del descriptions["walrus_instead_of_equal"]
-    del descriptions["would_be_type_declaration_1"]
-    del descriptions["would_be_type_declaration_2"]
-    # descriptions["def_star_arg_before_slash"][
-    #     in_cause
-    # ] = "This symbol can only be used with Python versions"
+
+if sys.version_info >= (3, 8):
+    del descriptions["debug_fstring_not_supported"]  # introduced in Python 3.8
+    del descriptions["walrus_does_not_exist"]  # := introduced in Python 3.8
+
 
 if sys.version_info < (3, 9):
     del descriptions["too_many_parentheses"]  # will be a memory error instead
 
 if sys.version_info >= (3, 10):
-    descriptions["quote_inside_string"][
-        in_cause
-    ] = "ended the string with another quote"
-    descriptions["missing_colon_if"][in_cause] = "Did you forget a colon"
-    descriptions["missing_colon_while"][in_cause] = "Did you forget a colon"
-    descriptions["def_missing_colon"][
-        in_cause
-    ] = "but forgot to add a colon `:` at the end"
+
     descriptions["print_is_a_function_3"][also_in_cause] = ["print(...)"]
     descriptions["print_is_a_function_5"][also_in_cause] = ["print(...)"]
-    descriptions["comprehension_with_condition_no_else"][
-        in_cause
-    ] = "`else some_value` clause was expected after the `if` expression"
+
 
     # temporary deletion; message for 3.10.0rc1 still incorrect
     del descriptions["unclosed_paren_3"]
