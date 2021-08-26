@@ -21,6 +21,13 @@ def _assign_to_identifiers_only():
     return _("You can only assign objects to identifiers (variable names).\n")  # noqa
 
 
+def _can_only_delete():
+    return _(
+        "You can only delete names of objects, or items in mutable containers\n"
+        "such as `list`, `set`, or `dict`.\n"
+    )
+
+
 def _find_keyword(statement):
     # used in assign_to_keyword
     if statement.bad_token.is_keyword():
@@ -265,6 +272,24 @@ def assign_to_keyword(message: str = "", statement=None):
     return {"cause": cause, "suggest": hint}
 
 
+def _assign_to_literal_in_for_loop(statement):
+    # see assign_to_literal() below
+    tokens = statement.tokens[0 : statement.bad_token_index]
+    for tok in tokens[::-1]:
+        if tok == "in":  # pragma: no cover
+            debug_helper.log("New case for assign_to_literal")
+            break
+        elif tok == "for":
+            cause = _(
+                "A for loop must have the form:\n\n"
+                "    for ... in sequence:\n\n"
+                "where `...` must contain only identifiers (variable names)\n"
+                "and not literals like `{bad_token}`.\n"
+            ).format(bad_token=statement.bad_token)
+            return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+    return {}
+
+
 @add_python_message
 def assign_to_literal(message: str = "", statement=None):
     if message not in (
@@ -280,26 +305,15 @@ def assign_to_literal(message: str = "", statement=None):
 
     # This error can happen if we use a literal as an element of
     # a for loop; we take care of this case first.
-
-    tokens = statement.tokens[0 : statement.bad_token_index]
-    for tok in tokens[::-1]:
-        if tok == "in":  # pragma: no cover
-            debug_helper.log("New case for assign_to_literal")
-            break
-        elif tok == "for":
-            cause = _(
-                "A for loop must have the form:\n\n"
-                "    for ... in sequence:\n\n"
-                "where `...` must contain only identifiers (variable names)\n"
-                "and not literals like `{bad_token}`.\n"
-            ).format(bad_token=statement.bad_token)
-            return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+    literal_in_for_loop = _assign_to_literal_in_for_loop(statement)
+    if literal_in_for_loop:
+        return literal_in_for_loop
 
     line = statement.bad_line.rstrip()
-    info = line.split("=")
-    if len(info) == 2:
-        literal = info[0].strip()
-        name = info[1].strip()
+    parts = line.split("=")
+    if len(parts) == 2:
+        literal = parts[0].strip()
+        name = parts[1].strip()
         if sys.version_info < (3, 8) and (
             literal.startswith("f'{") or literal.startswith('f"{')
         ):
@@ -314,20 +328,20 @@ def assign_to_literal(message: str = "", statement=None):
         literal = None
         name = _("variable_name")
 
-    if len(info) == 2 and name.isidentifier():
+    if len(parts) == 2 and name.isidentifier():
         # fmt: off
         suggest = _(
             "Perhaps you meant to write:\n\n"
             "    {name} = {literal}\n"
             "\n"
         ).format(literal=literal, name=name)
-        hint = _(
-            "Perhaps you meant to write `{name} = {literal}`"
-        ).format(literal=literal, name=name)
         # fmt: on
+        hint = _("Perhaps you meant to write `{name} = {literal}`").format(
+            literal=literal, name=name
+        )
     else:
-        suggest = "\n"
         hint = _assign_to_identifiers_only()
+        suggest = "\n" + hint
 
     # Impose the right type when we know it.
     if message == "cannot assign to set display":
@@ -336,11 +350,10 @@ def assign_to_literal(message: str = "", statement=None):
         of_type = _what_kind_of_literal("{1:2}")
     else:
         of_type = _what_kind_of_literal(literal)
-    if of_type is None:
-        of_type = ""
 
     if literal is None:
         literal = "..."
+        of_type = ""
 
     cause = (
         _(
@@ -357,7 +370,7 @@ def assign_to_literal(message: str = "", statement=None):
 
 @add_python_message
 def assign_to_operator(message: str = "", statement=None):
-    line = statement.bad_line.rstrip()
+    bad_line = statement.bad_line.rstrip()
     if message not in (
         "can't assign to operator",  # Python 3.6, 3.7
         "cannot assign to operator",  # Python 3.8
@@ -384,7 +397,7 @@ def assign_to_operator(message: str = "", statement=None):
             debug_helper.log("Problem in could_be_identifier:" + str(e))
             return ""
 
-    name = _could_be_identifier(line)
+    name = _could_be_identifier(bad_line)
     if name:
         hint = _("Did you mean `{name}`?\n").format(name=name)
         cause += _(
@@ -525,6 +538,62 @@ def break_outside_loop(message: str = "", _statement=None):
 
 
 @add_python_message
+def cannot_delete_constant(message: str = "", statement=None):
+    if message not in (
+        "can't delete keyword",  # Python 3.6, 3.7
+        "cannot delete None",
+        "cannot delete True",
+        "cannot delete False",
+        "cannot delete __debug__",  # Python 3.10+
+    ):
+        return {}
+
+    cause = (
+        _("You cannot delete the constant `{constant}`.\n").format(
+            constant=statement.bad_token
+        )
+        + _can_only_delete()
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def cannot_delete_function_call(message: str = "", statement=None):
+    if message not in (
+        "can't delete function call",  # Python 3.6, 3.7
+        "cannot delete function call",  # Python 3.8
+    ):
+        return {}
+
+    line = statement.bad_line.rstrip()
+    correct = "del {name}".format(name=statement.bad_token)
+    cause = _(
+        "You attempted to delete a function call\n\n"
+        "    {line}\n"
+        "instead of deleting the function's name\n\n"
+        "    {correct}\n"
+    ).format(line=line, correct=correct)
+    return {"cause": cause}
+
+
+@add_python_message
+def cannot_delete_literal(message: str = "", statement=None):
+    if message not in (
+        "can't delete literal",  # Python 3.6, 3.7
+        "cannot delete literal",
+    ):
+        return {}
+
+    cause = (
+        _("You cannot delete the literal `{literal}`.\n").format(
+            literal=statement.bad_token
+        )
+        + _can_only_delete()
+    )
+    return {"cause": cause}
+
+
+@add_python_message
 def cannot_use_starred_expression(message: str = "", statement=None):
     if message not in [
         "can't use starred expression here",
@@ -539,10 +608,7 @@ def cannot_use_starred_expression(message: str = "", statement=None):
         "to each item of an iterable, which does not make sense here.\n"
     )
     if statement.first_token == "del":
-        cause += _(
-            "You can only delete names of objects, or items in mutable containers\n"
-            "such as `list`, `set`, or `dict`.\n"
-        )
+        cause += _can_only_delete()
     elif (
         len(statement.tokens) > statement.bad_token_index + 2
         and statement.prev_token == "("
@@ -612,51 +678,6 @@ def continue_outside_loop(message: str = "", _statement=None):
         )
         return {"cause": cause}
     return {}
-
-
-@add_python_message
-def delete_function_call(message: str = "", statement=None):
-    if message not in (
-        "can't delete function call",  # Python 3.6, 3.7
-        "cannot delete function call",  # Python 3.8
-    ):
-        return {}
-
-    line = statement.bad_line.rstrip()
-    correct = "del {name}".format(name=statement.bad_token)
-    cause = _(
-        "You attempted to delete a function call\n\n"
-        "    {line}\n"
-        "instead of deleting the function's name\n\n"
-        "    {correct}\n"
-    ).format(line=line, correct=correct)
-    return {"cause": cause}
-
-
-@add_python_message
-def delete_x(message: str = "", statement=None):
-    if message not in (
-        "can't delete keyword",  # Python 3.6, 3.7
-        "can't delete literal",
-        "cannot delete literal",
-        "cannot delete None",
-        "cannot delete True",
-        "cannot delete False",
-        "cannot delete __debug__",
-    ):
-        return {}
-
-    if statement.bad_token.string in ("None", "True", "False", "__debug__"):
-        cause = _("You cannot delete the constant `{constant}`.\n").format(
-            constant=statement.bad_token
-        )
-    else:
-        cause = _(
-            "You cannot delete the literal `{literal}`.\n"
-            "You can only delete the names of objects, or\n"
-            "individual items in a container.\n"
-        ).format(literal=statement.bad_token)
-    return {"cause": cause}
 
 
 @add_python_message
