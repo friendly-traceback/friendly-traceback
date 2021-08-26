@@ -409,7 +409,11 @@ descriptions = {
     },
     "delete_constant_keyword": {
         "in cause": "You cannot delete the constant",
-        title: "Deleting constant/keyword",
+        title: "Cannot delete a constant",
+    },
+    "delete_expression": {
+        "in cause": "You cannot delete the expression",
+        title: "Cannot delete expression",
     },
     "delete_function_call": {
         "in cause": "instead of deleting the function's name",

@@ -558,6 +558,23 @@ def cannot_delete_constant(message: str = "", statement=None):
 
 
 @add_python_message
+def cannot_delete_expression(message: str = "", statement=None):
+    if message not in (
+        "can't delete operator",  # Python 3.6
+        "cannot delete operator",  # Python 3.8
+        "cannot delete expression",  # Python 3.10
+    ):
+        return {}
+
+    expression = statement.bad_line[3:].strip()  # remove del
+    hint = _can_only_delete()
+    cause = _("You cannot delete the expression `{expression}`.\n").format(
+        expression=expression
+    )
+    return {"cause": cause + _can_only_delete(), "suggest": hint}
+
+
+@add_python_message
 def cannot_delete_function_call(message: str = "", statement=None):
     if message not in (
         "can't delete function call",  # Python 3.6, 3.7
