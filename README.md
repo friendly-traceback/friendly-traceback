@@ -1,19 +1,23 @@
-# friendly-traceback and friends
+![friendly-traceback logo](friendly_logo.png)
+# friendly/friendly-traceback
 
-**Important** This is a new project (created on June 27) from an existing
-project. This README has been copied from the precursor project and
-needs to be updated.
+- **friendly_traceback**: Helps understand Python traceback
+- **friendly**: Prettier version of the above with some additional enhancements.
 
+This code repository is for **friendly_traceback**.
+
+Unless specified otherwise, from here on, **Friendly** will refer to both
+**friendly** and **friendly_traceback**
 
 ## Description
 
 Created with Python beginners in mind, but also useful for experienced users,
-**friendly** replaces standard tracebacks
+**Friendly** replaces standard tracebacks
 by something easier to understand, translatable into various languages. 
-Currently, the information provided by **friendly** is only available
+Currently, the information provided by **Friendly** is only available
 in two languages: English and French.
 
-The additional information provided by **friendly** includes
+The additional information provided by **Friendly** includes
 `why()` a certain exception occurred,
 `what()` it means, exactly `where()` it occurred including
 the value of relevant variables, and
@@ -22,13 +26,16 @@ the value of relevant variables, and
 
 ![Example](https://raw.githubusercontent.com/aroberge/friendly/master/why_1.png)
 The screenshot above was taken on Windows. In some other operating systems
-you might need to type `python3` instead of `python`: **friendly**
+you might need to type `python3` instead of `python`: **Friendly**
 requires Python version 3.6 or newer.
 
-**friendly** used to be called **friendly-traceback**.
-
-
 ## Installation
+
+```
+python -m pip install friendly_traceback
+```
+
+Note that most users should install **friendly** instead of **friendly_traceback**,
 
 ```
 python -m pip install friendly
@@ -47,12 +54,12 @@ of installing Python packages, please consult the documentation.
 
 ## Documentation
 
-[The documentation is available by clicking here.](https://aroberge.github.io/friendly-traceback-docs/docs/html/)
+[The documentation is available by clicking here.](https://friendly-traceback.github.io/docs/index.html)
 
 ## Example
 
 The following example illustrates the information that can
-be provided by **friendly**.
+be provided by **Friendly**.
 
 ```
     Traceback (most recent call last):
@@ -89,19 +96,21 @@ be provided by **friendly**.
             global pi: 3.141592653589793
 ```
 
-## Projects using friendly
+## Projects using friendly_traceback
 
-The following sites or projects use **friendly**:
+The following sites or projects use **friendly_traceback**:
 
 - https://futurecoder.io/
 - https://www.hackinscience.org/
+- https://github.com/matan-h/ddebug
 
-Feel free to file an issue to add your site or project if it uses **friendly**.
+Feel free to file an issue to add your site or project
+if it uses either **friendly** or **friendly_traceback**.
 
 ## Contribute
 
 Contribute by making suggestions for improvements, pointing out mistakes either in
-the documentation or in the information provided by **friendly**, or finding bugs.
+the documentation or in the information provided by **Friendly**, or finding bugs.
 
 If you speak a language other than English or French and feel ambitious, you might
 want to work on translations into your own language.
@@ -125,4 +134,4 @@ are expected to do the same.
 We graciously acknowledge the support of [JetBrains](
 https://www.jetbrains.com/?from=friendly-traceback)
 which enables us to use the professional version
-of PyCharm for developing **friendly**.
+of PyCharm for developing **Friendly**.

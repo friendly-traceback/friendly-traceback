@@ -366,10 +366,13 @@ add_help_attribute(debug_helper_methods)
 
 
 class FriendlyHelpers:
-    """Helper class which can be used in a console if one of the
-    helper functions gets redefined.
+    """Helper class which can be used in a console as an alternative
+    to using the helper functions directly.
+    This can be helpful if one of the helper functions gets redefined.
 
-    For example, we can write Friendly.explain() as equivalent to explain().
+    It is usually instantiated using the name ``Friendly``.
+
+    For example, we can write ``Friendly.why()`` as equivalent to ``why()``.
     """
 
     version = __version__
