@@ -102,7 +102,7 @@ def install(
 ) -> None:
     """
     Replaces ``sys.excepthook`` by friendly's own version.
-    Intercepts, and provides an explanation for all Python exceptions except
+    Intercepts, and can provide an explanation for all Python exceptions except
     for ``SystemExist`` and ``KeyboardInterrupt``.
 
     The optional arguments are:
@@ -137,7 +137,7 @@ def run(
     include: Optional[InclusionChoice] = None,
     args: Optional[Sequence[str]] = None,
     console: bool = True,
-    formatter: Union[str, Formatter] = "repl",
+    formatter: Union[str, Formatter] = None,
     redirect: Union[str, Writer, None] = None,
     ipython_prompt: bool = True,
 ) -> Optional[Dict[str, Any]]:  # sourcery skip: move-assign
@@ -213,7 +213,7 @@ def set_formatter(formatter: Union[str, None, Formatter] = None) -> None:
 
 def start_console(  # pragma: no cover
     local_vars: Optional[Mapping[str, Any]] = None,
-    formatter: Union[str, Formatter] = "repl",
+    formatter: Union[str, Formatter] = None,
     include: InclusionChoice = "friendly_tb",
     lang: str = "en",
     banner: Optional[str] = None,
