@@ -563,6 +563,10 @@ descriptions = {
         title: "Parens around multiple exceptions",
     },
     "extra_token": {in_cause: "wrote `==` by mistake", title: "Extra token"},
+    "f_string_assign_value": {  # Python < 3.8
+        in_cause: "You are likely trying to assign a value within an f-string.",
+        title: "Cannot assign a value within an fstring",
+    },
     "f_string_binary": {
         in_cause: "`bf` is an illegal string prefix.",
         title: "Binary f-string not allowed",
@@ -1050,27 +1054,14 @@ descriptions = {
     },
 }
 
-if sys.version_info < (3, 8):
-
-    descriptions["fstring_assign_value"] = {
-        in_cause: "You are likely trying to assign a value within an f-string.",
-        title: "Cannot assign a value within an fstring",
-    }
-
-
 if sys.version_info >= (3, 8):
+    del descriptions["f_string_assign_value"]
     del descriptions["debug_fstring_not_supported"]  # introduced in Python 3.8
     del descriptions["walrus_does_not_exist"]  # := introduced in Python 3.8
-
 
 if sys.version_info < (3, 9):
     del descriptions["too_many_parentheses"]  # will be a memory error instead
 
 if sys.version_info >= (3, 10):
-
     descriptions["print_is_a_function_3"][also_in_cause] = ["print(...)"]
     descriptions["print_is_a_function_5"][also_in_cause] = ["print(...)"]
-
-
-    # temporary deletion; message for 3.10.0rc1 still incorrect
-    del descriptions["unclosed_paren_3"]
