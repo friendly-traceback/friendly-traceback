@@ -686,30 +686,29 @@ def indices_must_be_integers_or_slices(
             return {"cause": cause + additional_cause, "suggest": hint}
         return {"cause": cause}
 
-    index = tb_data.bad_line.replace(container, "", 1).strip()
-    if not (index.startswith("[") and index.endswith("]")):
+    not_index = tb_data.bad_line.replace(container, "", 1).strip()
+    if not (not_index.startswith("[") and not_index.endswith("]")):
         if additional_cause:
             return {"cause": cause + additional_cause, "suggest": hint}
         return {"cause": cause}
 
-    if container == index:
+    wrong_index = not_index[1:-1]
+    if container == not_index:
         additional_cause = "\n" + _(
             "Perhaps you have forgotten a comma between two identical lists\n"
             "`{container}`. The second list had been interpreted as\n"
             "the indexation of the first one by the index `{new_index}`\n"
-        ).format(container=container, new_index=f"({index[1:-1]})")
+        ).format(container=container, new_index=f"({wrong_index})")
     else:
         additional_cause = "\n" + _(
             "Perhaps you have forgotten a comma between the object `{container}`\n"
             "and the list `{index}`.  The list `{index}` had been interpreted as\n"
             "the indexation of object `{container}` by the index `{new_index}`\n"
-        ).format(container=container, index=index, new_index=f"({index[1:-1]})")
-        hint = _("Did you forget a comma before `{index}`?\n").format(index=index)
-
-    index = index[1:-1]
+        ).format(container=container, index=not_index, new_index=f"({wrong_index})")
+        hint = _("Did you forget a comma before `{index}`?\n").format(index=not_index)
 
     try:
-        index = utils.eval_expr(index, frame)
+        index = utils.eval_expr(wrong_index, frame)
         index_type = utils.eval_expr(index_type, frame)
     except Exception:  # noqa
         if additional_cause:
