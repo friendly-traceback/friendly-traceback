@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-08-26 10:47-0300\n"
+"POT-Creation-Date: 2021-10-03 14:12-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -53,7 +53,7 @@ msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:418
+#: console_helpers.py:421
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -1075,7 +1075,63 @@ msgstr ""
 "pour importer le module d’origine `{last_module}`\n"
 "une deuxième fois, avant que Python n’ait terminé la première importation.\n"
 
-#: runtime_errors\index_error.py:58
+#: runtime_errors\index_error.py:36
+msgid ""
+"You have tried to assign a value to an item of an object\n"
+"of type `{obj_type}` which I cannot identify.\n"
+"The index you gave was not an allowed value.\n"
+msgstr ""
+"Vous avez essayé d'assigner une valeur à un élément d'un objet\n"
+"de type `{obj_type}` que je ne peux pas identifier.\n"
+"L'indice que vous avez donné n'est pas une valeur permise.\n"
+
+#: runtime_errors\index_error.py:46
+msgid ""
+"You have tried to assign a value to index `{index}` of `{name}`,\n"
+"{obj_type} of length `{length}`.\n"
+msgstr ""
+"Vous avez essayé d'assigner une valeur à l'indice `{index}` de `{name}`,\n"
+"{obj_type} de longueur `{length}`.\n"
+
+#: runtime_errors\index_error.py:57 runtime_errors\index_error.py:142
+msgid ""
+"The valid index values of `{name}` are integers ranging from\n"
+"`{min}` to `{max}`.\n"
+msgstr ""
+"Les indices valides de `{name}` sont les entiers allant de `{min}` à `{max}"
+"`.\n"
+
+#: runtime_errors\index_error.py:62 runtime_errors\index_error.py:147
+msgid ""
+"Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
+msgstr ""
+"N’oubliez pas : le premier élément d'un objet de type `{obj_type}` est à "
+"l’indice 0\n"
+"et non pas à l'indice 1.\n"
+
+#: runtime_errors\index_error.py:67 runtime_errors\index_error.py:152
+msgid "`{name}` contains no item.\n"
+msgstr "`{name}` ne contient aucun élément.\n"
+
+#: runtime_errors\index_error.py:68
+msgid ""
+"You have tried to assign a value to index `{index}` of `{name}`,\n"
+"{obj_type} which contains no item.\n"
+msgstr ""
+"Vous avez essayé d'assigner une valeur à l'index `{index}` de `{name}`,\n"
+"{obj_type} qui ne contient aucun élément.\n"
+
+#: runtime_errors\index_error.py:95
+msgid ""
+"You have tried to get an item of an object\n"
+"of type `{obj_type}` which I cannot identify.\n"
+"The index you gave was not an allowed value.\n"
+msgstr ""
+"Vous avez essayé d'obtenir un élément d'un objet\n"
+"de type `{obj_type}` que je ne peux pas identifier.\n"
+"L'indice que vous avez donné n'est pas une valeur permise.\n"
+
+#: runtime_errors\index_error.py:122
 msgid ""
 "You have tried to get an item from `{name}`,\n"
 "{obj_type} of length `{length}`, by using a value for the index\n"
@@ -1085,7 +1141,7 @@ msgstr ""
 "{obj_type} de longueur `{length}`, en utilisant une valeur pour l’indice\n"
 "que je ne peux pas déterminer, mais qui n’est pas valide.\n"
 
-#: runtime_errors\index_error.py:67
+#: runtime_errors\index_error.py:131
 msgid ""
 "You have tried to get the item with index `{index}` of `{name}`,\n"
 "{obj_type} of length `{length}`.\n"
@@ -1093,27 +1149,7 @@ msgstr ""
 "Vous avez essayé d’obtenir l’élément avec l’indice `{index}` de `{name}`,\n"
 "{obj_type} de longueur `{length}`.\n"
 
-#: runtime_errors\index_error.py:78
-msgid ""
-"The valid index values of `{name}` are integers ranging from\n"
-"`{min}` to `{max}`.\n"
-msgstr ""
-"Les indices valides de `{name}` sont les entiers allant de `{min}` à `{max}"
-"`.\n"
-
-#: runtime_errors\index_error.py:83
-msgid ""
-"Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
-msgstr ""
-"N’oubliez pas : le premier élément d'un objet de type `{obj_type}` est à "
-"l’indice 0\n"
-"et non pas à l'indice 1.\n"
-
-#: runtime_errors\index_error.py:88
-msgid "`{name}` contains no item.\n"
-msgstr "`{name}` ne contient aucun élément.\n"
-
-#: runtime_errors\index_error.py:89
+#: runtime_errors\index_error.py:153
 msgid ""
 "You have tried to get the item with index `{index}` of `{name}`,\n"
 "{obj_type} which contains no item.\n"
@@ -1573,8 +1609,8 @@ msgstr ""
 "sur deux types d’objets incompatibles:\n"
 "{first} et {second}.\n"
 
-#: runtime_errors\type_error.py:181 runtime_errors\type_error.py:741
-#: runtime_errors\type_error.py:847 syntax_errors\statement_analyzer.py:1076
+#: runtime_errors\type_error.py:181 runtime_errors\type_error.py:740
+#: runtime_errors\type_error.py:846 syntax_errors\statement_analyzer.py:1076
 #: syntax_errors\statement_analyzer.py:1307
 msgid "Did you mean `{line}`?\n"
 msgstr "Vouliez-vous dire `{line}` ?\n"
@@ -1585,7 +1621,7 @@ msgstr ""
 "Ailleurs que dans Python, `^` est souvent utilisé pour indiquer "
 "l’exponentiation.\n"
 
-#: runtime_errors\type_error.py:185 runtime_errors\type_error.py:744
+#: runtime_errors\type_error.py:185 runtime_errors\type_error.py:743
 msgid "Perhaps you meant `{line}`.\n"
 msgstr "Peut-être que vous vouliez plutôt `{line}`.\n"
 
@@ -1710,7 +1746,7 @@ msgstr ""
 "Vous avez apparemment invoqué la fonction '{fn_name}' avec\n"
 "moins d'arguments positionnels qu'il n'en faut ({nb_required} manquent).\n"
 
-#: runtime_errors\type_error.py:432 runtime_errors\type_error.py:821
+#: runtime_errors\type_error.py:432 runtime_errors\type_error.py:820
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
@@ -1881,7 +1917,7 @@ msgstr ""
 msgid "Did you forget a comma?\n"
 msgstr "Avez-vous oublié une virgule ?\n"
 
-#: runtime_errors\type_error.py:696
+#: runtime_errors\type_error.py:697
 msgid ""
 "Perhaps you have forgotten a comma between two identical lists\n"
 "`{container}`. The second list had been interpreted as\n"
@@ -1891,7 +1927,7 @@ msgstr ""
 "`{container}`. La deuxième liste avait été interprétée comme\n"
 "l’indexation de la première par l’indice `{new_index}`\n"
 
-#: runtime_errors\type_error.py:702
+#: runtime_errors\type_error.py:703
 msgid ""
 "Perhaps you have forgotten a comma between the object `{container}`\n"
 "and the list `{index}`.  The list `{index}` had been interpreted as\n"
@@ -1901,11 +1937,11 @@ msgstr ""
 "et la liste `{index}`. La liste `{index}` avait été interprétée comme\n"
 "l’indexation de l’objet `{container}` par l’indice `{new_index}`\n"
 
-#: runtime_errors\type_error.py:707
+#: runtime_errors\type_error.py:708
 msgid "Did you forget a comma before `{index}`?\n"
 msgstr "Avez-vous oublié une virgule avant `{index}` ?\n"
 
-#: runtime_errors\type_error.py:771
+#: runtime_errors\type_error.py:770
 msgid ""
 "When using a slice to extract a range of elements\n"
 "from a sequence, that is something like\n"
@@ -1920,7 +1956,7 @@ msgstr ""
 "soit `None`,\n"
 "ou possiblement un autre objet ayant une méthode `__index__`.\n"
 
-#: runtime_errors\type_error.py:790
+#: runtime_errors\type_error.py:789
 msgid ""
 "Only hashable objects can be used\n"
 "as elements of `set` or keys of `dict`.\n"
@@ -1932,11 +1968,11 @@ msgstr ""
 "Les objets hachables sont des objets qui ne changent pas de valeur\n"
 "une fois qu’ils ont été créés."
 
-#: runtime_errors\type_error.py:800
+#: runtime_errors\type_error.py:799
 msgid "Instead of using {original}, consider using {replacement}.\n"
 msgstr "Au lieu d’utiliser {original}, envisagez d’utiliser {replacement}.\n"
 
-#: runtime_errors\type_error.py:827
+#: runtime_errors\type_error.py:826
 msgid ""
 "Subscriptable objects are typically containers from which\n"
 "you can retrieve item using the notation `[...]`.\n"
@@ -1944,7 +1980,7 @@ msgstr ""
 "Les objets subscriptibles sont généralement des conteneurs à partir\n"
 "desquels on peut tirer des éléments en utilisant la notation `[...]`.\n"
 
-#: runtime_errors\type_error.py:839
+#: runtime_errors\type_error.py:838
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from an object of type `{obj_type}` which is not allowed.\n"
@@ -1952,11 +1988,11 @@ msgstr ""
 "À l’aide de cette notation, vous avez tenté de tirer un élément\n"
 "d’un objet de type `{obj_type}`, ce qui n’est pas permis.\n"
 
-#: runtime_errors\type_error.py:848
+#: runtime_errors\type_error.py:847
 msgid "Perhaps you meant to write `{line}`.\n"
 msgstr "Peut-être que vous vouliez plutôt écrire `{line}`.\n"
 
-#: runtime_errors\type_error.py:851
+#: runtime_errors\type_error.py:850
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from `{name}`, an object of type `{obj_type}`. This is not allowed.\n"
@@ -1964,7 +2000,7 @@ msgstr ""
 "À l’aide de cette notation, vous avez tenté de tirer un élément\n"
 "de `{name}`, un objet de type `{obj_type}`. Ceci n’est pas permis.\n"
 
-#: runtime_errors\type_error.py:868
+#: runtime_errors\type_error.py:867
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables.\n"
@@ -1974,7 +2010,7 @@ msgstr ""
 "Les contenants python (`list, tuple, dict`, etc.) sont itérables.\n"
 "Une itérable est requis ici.\n"
 
-#: runtime_errors\type_error.py:885 runtime_errors\value_error.py:23
+#: runtime_errors\type_error.py:884 runtime_errors\value_error.py:23
 msgid ""
 "Unpacking is a convenient way to assign a name,\n"
 "to each item of an iterable.\n"
@@ -1982,7 +2018,7 @@ msgstr ""
 "Le dépaquetage ('unpack') est un moyen pratique d’attribuer un nom\n"
 "à chaque élément d’un itérable.\n"
 
-#: runtime_errors\type_error.py:889
+#: runtime_errors\type_error.py:888
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables,\n"
@@ -1992,7 +2028,7 @@ msgstr ""
 "Les contenants python (`list, tuple, dict`, etc.) sont itérables,\n"
 "mais pas les objets de type `{obj_type}`.\n"
 
-#: runtime_errors\type_error.py:904
+#: runtime_errors\type_error.py:903
 msgid ""
 "{function} does not accept a sequence as an argument.\n"
 "Instead of writing `{line}`\n"
@@ -2003,16 +2039,16 @@ msgstr ""
 "peut-être devriez-vous utiliser la méthode `dict.fromkeys()` : `{new_line}"
 "`.\n"
 
-#: runtime_errors\type_error.py:909
+#: runtime_errors\type_error.py:908
 msgid "Perhaps you need to use the `dict.fromkeys()` method.\n"
 msgstr ""
 "Peut-être que vous vouliez plutôt utiliser la méthode `dict.fromkeys()`.\n"
 
-#: runtime_errors\type_error.py:947 runtime_errors\type_error.py:971
+#: runtime_errors\type_error.py:946 runtime_errors\type_error.py:970
 msgid "Did you forget to call `{name}`?\n"
 msgstr "Avez-vous oublié d’invoquer `{name}` ?\n"
 
-#: runtime_errors\type_error.py:948 runtime_errors\type_error.py:972
+#: runtime_errors\type_error.py:947 runtime_errors\type_error.py:971
 msgid ""
 "I suspect that you forgot to add parentheses to call `{name}`.\n"
 "You might have meant to write:\n"
@@ -2023,7 +2059,7 @@ msgstr ""
 "Vous avez peut-être voulu écrire :\n"
 "`{line}`\n"
 
-#: runtime_errors\type_error.py:986
+#: runtime_errors\type_error.py:985
 msgid ""
 "The function `vars` is used to list the content of the\n"
 "`__dict__` attribute of an object.\n"
@@ -2031,16 +2067,16 @@ msgstr ""
 "La fonction `vars` est utilisée pour lister le contenu\n"
 "de l'attribut `__dict__` d'un objet.\n"
 
-#: runtime_errors\type_error.py:995
+#: runtime_errors\type_error.py:994
 msgid "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
 msgstr "L'objet `{name}` utilise `__slots__` au lieu de `__dict__`.\n"
 
-#: runtime_errors\type_error.py:999
+#: runtime_errors\type_error.py:998
 msgid ""
 "`{name}`, the argument of `vars`, is an object without such an attribute.\n"
 msgstr "`{name}`, l'argument de `vars`, est un objet sans un tel attribut.\n"
 
-#: runtime_errors\type_error.py:1020
+#: runtime_errors\type_error.py:1019
 msgid ""
 "You have specified the value of argument `{argument}` more than once\n"
 "when calling the function named `{function}`.\n"
@@ -2048,11 +2084,11 @@ msgstr ""
 "Vous avez spécifié la valeur de l'argument `{argument}` plus d'une fois\n"
 "lors de l'appel de la fonction nommée `{function}`.\n"
 
-#: runtime_errors\type_error.py:1041
+#: runtime_errors\type_error.py:1040
 msgid "This function has only one argument: `{arguments}`\n"
 msgstr "Cette fonction n'a qu'un seul argument : `{arguments}`\n"
 
-#: runtime_errors\type_error.py:1045
+#: runtime_errors\type_error.py:1044
 msgid ""
 "This function has the following arguments:\n"
 "`{arguments}`\n"

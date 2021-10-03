@@ -47,6 +47,41 @@ def test_Empty():
     return result, message
 
 
-if __name__ == "__main__":
-    print(test_index_error1()[0])
-    print(test_index_error2()[0])
+def test_Assignment():
+    a = list(range(10))
+    b = []
+
+    try:
+        c, b[1] = 1, 2
+    except IndexError:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "IndexError: list assignment index out of range"
+    if friendly_traceback.get_lang() == "en":
+        assert "You have tried to assign a value to an item of an object" in result
+        assert "of type `list` which I cannot identify" in result
+        assert "The index you gave was not an allowed value." in result
+
+    try:
+        b[1] = 1
+    except IndexError:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "IndexError: list assignment index out of range"
+    if friendly_traceback.get_lang() == "en":
+        assert "You have tried to assign a value to index `1` of `b`," in result
+        assert "a `list` which contains no item." in result
+
+    try:
+        a[13] = 1
+    except IndexError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "IndexError: list assignment index out of range"
+    if friendly_traceback.get_lang() == "en":
+        assert "You have tried to assign a value to index `13` of `a`," in result
+        assert "a `list` of length `10`." in result
+        assert "The valid index values of `a` are integers ranging from" in result
+        assert "`-10` to `9`." in result
+    return result, message

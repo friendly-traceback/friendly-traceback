@@ -8,7 +8,7 @@ import sys
 
 if hasattr(sys, "stdlib_module_names"):  # Python 3.10+
     # convert to list so we can append mocks for tests.
-    names = list(sys.stdlib_module_names)
+    names = list(sys.stdlib_module_names)  # type: ignore
 else:
     names = [
         "abc",

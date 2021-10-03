@@ -16,7 +16,66 @@ _ = current_lang.translate
 
 
 @parser.add
-def attribute_error_in_object(
+def object_assignment_out_of_range(
+    message: str, frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    pattern = re.compile(r"(.*) assignment index out of range")
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+
+    obj_type = match.group(1)
+    # first, try to identify object
+    left_hand_side = tb_data.bad_line.split("=")[0].strip()
+    all_objects = info_variables.get_all_objects(left_hand_side, frame)
+    for name, sequence in all_objects["name, obj"]:
+        truncated = left_hand_side.replace(name, "", 1)
+        if truncated.startswith("[") and truncated.endswith("]"):
+            break
+    else:  # pragma: no cover
+        cause = _(
+            "You have tried to assign a value to an item of an object\n"
+            "of type `{obj_type}` which I cannot identify.\n"
+            "The index you gave was not an allowed value.\n"
+        ).format(obj_type=obj_type)
+        return {"cause": cause}
+
+    index = truncated[1:-1]
+    length = len(sequence)
+
+    cause = _(
+        "You have tried to assign a value to index `{index}` of `{name}`,\n"
+        "{obj_type} of length `{length}`.\n"
+    ).format(
+        index=index,
+        name=name,
+        length=length,
+        obj_type=info_variables.convert_type(obj_type),
+    )
+
+    if length != 0:
+        cause += _(
+            "The valid index values of `{name}` are integers ranging from\n"
+            "`{min}` to `{max}`.\n"
+        ).format(name=name, min=-length, max=length - 1)
+        if index == length:
+            hint = _(
+                "Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
+            ).format(obj_type=info_variables.convert_type(obj_type))
+            return {"cause": cause, "suggest": hint}
+    else:
+        hint = _("`{name}` contains no item.\n").format(name=name)
+        cause = _(
+            "You have tried to assign a value to index `{index}` of `{name}`,\n"
+            "{obj_type} which contains no item.\n"
+        ).format(index=index, name=name, obj_type=info_variables.convert_type(obj_type))
+        return {"cause": cause, "suggest": hint}
+
+    return {"cause": cause}
+
+
+@parser.add
+def index_out_of_range(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
     pattern = re.compile(r"(.*) index out of range")
@@ -33,7 +92,12 @@ def attribute_error_in_object(
             break
     else:  # pragma: no cover
         debug_helper.log("Cannot identify object in index_out_of_range().")
-        return {}
+        cause = _(
+            "You have tried to get an item of an object\n"
+            "of type `{obj_type}` which I cannot identify.\n"
+            "The index you gave was not an allowed value.\n"
+        ).format(obj_type=obj_type)
+        return {"cause": cause}
 
     try:
         node = tb_data.node
@@ -49,7 +113,7 @@ def attribute_error_in_object(
     evaluator = pure_eval.Evaluator.from_frame(frame)
     # The information that we want may differ for different Python versions
     try:
-        index = evaluator[node.slice.value]
+        index = evaluator[node.slice.value]  # noqa
     except Exception:  # noqa
         try:
             index = evaluator[node.slice]
