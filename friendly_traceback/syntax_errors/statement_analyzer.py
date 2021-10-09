@@ -492,6 +492,8 @@ def walrus_instead_of_equal(statement):
 def assign_instead_of_equal(statement):
     """Checks to see if an assignment sign, '=', has been used instead of
     an equal sign, '==', in an if, elif or while statement."""
+    if statement.filename == "<fstring>":
+        return {}
     if statement.highlighted_tokens:  # Python 3.10
         bad_token = statement.next_token
     else:
@@ -500,30 +502,26 @@ def assign_instead_of_equal(statement):
     if bad_token != "=":
         return {}
 
-    if statement.first_token.string not in ("if", "elif", "while"):
-        return {}
-
     new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "==")
     if not fixers.check_statement(new_statement):
-        additional_cause = more_errors()
-    else:
-        additional_cause = ""
+        return {}
 
     new_statement = fixers.replace_token(statement.statement_tokens, bad_token, ":=")
+    walrus = fixers.check_statement(new_statement)
 
-    if sys.version_info < (3, 8) or not fixers.check_statement(new_statement):
+    if not walrus:
         hint = _("Perhaps you needed `==` instead of `=`.\n")
         cause = _(
             "You likely used an assignment operator `=` instead of an equality operator `==`.\n"
         )
-        return {"cause": cause + additional_cause, "suggest": hint}
+        return {"cause": cause, "suggest": hint}
 
     hint = _("Perhaps you needed `==` or `:=` instead of `=`.\n")
     cause = _(
         "You used an assignment operator `=`; perhaps you meant to use \n"
         "an equality operator, `==`, or the walrus operator `:=`.\n"
     )
-    return {"cause": cause + additional_cause, "suggest": hint}
+    return {"cause": cause, "suggest": hint}
 
 
 @add_statement_analyzer
