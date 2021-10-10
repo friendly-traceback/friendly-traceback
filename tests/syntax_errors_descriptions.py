@@ -60,6 +60,12 @@ descriptions = {
         in_cause: "and rename it using the Python keyword `as`",
         title: "Incorrect use of 'from module import ... as ...",
     },
+    "assign_instead_of_equal": {
+        in_cause: "Perhaps you needed `==`",
+        "version_dependent": ["`:=` instead of `=`.",
+                              "instead of `=`."],
+        title: "Assign instead of equal (or walrus)."
+    },
     "assign_name_before_global_1": {
         in_cause: "before declaring it as a global variable.",
         title: "Name assigned prior to global declaration",
