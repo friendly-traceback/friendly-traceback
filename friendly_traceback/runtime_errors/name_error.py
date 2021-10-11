@@ -31,7 +31,13 @@ def free_variable_referenced(
     pattern = re.compile(
         r"free variable '(.*)' referenced before assignment in enclosing scope"
     )
+    pattern3_11 = re.compile(
+        r"cannot access free variable '(.*)'"
+        + " where it is not associated with a value in enclosing scope"
+    )
     match = re.search(pattern, message)
+    if not match:
+        match = re.search(pattern3_11, message)
     if not match:
         return {}
 

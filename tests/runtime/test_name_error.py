@@ -152,11 +152,13 @@ def test_Free_variable_referenced():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
 
-    assert "free variable 'var' referenced" in result
+    assert ("free variable 'var' referenced" in result
+            or "cannot access free variable 'var'" in result)  # 3.11
     if friendly_traceback.get_lang() == "en":
         assert "that exists in an enclosing scope" in result
         assert "but has not yet been assigned a value." in result
     return result, message
+
 
 def test_Custom_name():
     try:

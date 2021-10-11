@@ -29,8 +29,9 @@ def test_Missing_global():
         message = str(e)
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
-    
-    assert "local variable 'spam_missing_global' referenced" in result
+
+    assert ("local variable 'spam_missing_global' referenced" in result or
+            "cannot access local variable 'spam_missing_global'" in result)  # 3.11
     if friendly_traceback.get_lang() == "en":
         assert (
             "Did you forget to add `global spam_missing_global`?\n"
@@ -47,7 +48,8 @@ def test_Missing_nonlocal():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
     
-    assert "local variable 'spam_missing_nonlocal' referenced" in result
+    assert ("local variable 'spam_missing_nonlocal' referenced" in result
+            or "cannot access local variable 'spam_missing_nonlocal'" in result) # 3.11
     if friendly_traceback.get_lang() == "en":
         assert (
             "Did you forget to add `nonlocal spam_missing_nonlocal`?\n"
@@ -64,7 +66,8 @@ def test_Missing_both():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
 
-    assert "local variable 'spam_missing_both' referenced" in result
+    assert ("local variable 'spam_missing_both' referenced" in result
+            or "cannot access local variable 'spam_missing_both'" in result) # 3.11
     if friendly_traceback.get_lang() == "en":
         assert  "either `global spam_missing_both`" in result
         assert  "`nonlocal spam_missing_both`" in result
@@ -84,7 +87,8 @@ def test_Typo_in_local():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
     
-    assert "local variable 'alpha2' referenced before assignment" in result
+    assert ("local variable 'alpha2' referenced before assignment" in result
+            or "cannot access local variable 'alpha2'" in result) # 3.11
     if friendly_traceback.get_lang() == "en":
         assert "similar name `alpha1` was found" in result
 
@@ -100,7 +104,8 @@ def test_Typo_in_local():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
 
-    assert "local variable 'alpha3' referenced before assignment" in result
+    assert ("local variable 'alpha3' referenced before assignment" in result
+            or "cannot access local variable 'alpha3'" in result)  # 3.11
     if friendly_traceback.get_lang() == "en":
         assert "perhaps you meant one of the following" in result
 

@@ -17,7 +17,13 @@ def local_variable_referenced(
     message: str, frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     pattern = re.compile(r"local variable '(.*)' referenced before assignment")
+    pattern3_11 = re.compile(
+        r"cannot access local variable '(.*)'"
+        + " where it is not associated with a value"
+    )
     match = re.search(pattern, message)
+    if not match:
+        match = re.search(pattern3_11, message)
     if not match:
         return {}
 
