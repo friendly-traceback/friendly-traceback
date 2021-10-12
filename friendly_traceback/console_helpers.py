@@ -155,7 +155,19 @@ def where() -> None:
 
 def why() -> None:
     """Shows the likely cause of the exception."""
-    explain("why")
+    # If no cause is found, and the exception name is not accompanied by a
+    # message, as in "StopIteration:", we use the same info for
+    # the cause as we used for the generic information as per issue #66
+    info = session.saved_info[-1]
+    if (
+        ("cause" not in info or not info["cause"])
+        and "message" in info
+        and len(info["message"].split(":")) > 1
+        and not info["message"].split(":")[1].strip()  # empty message
+    ):
+        explain("what")
+    else:
+        explain("why")
 
 
 def www(site: Optional[Site] = None) -> None:  # pragma: no cover

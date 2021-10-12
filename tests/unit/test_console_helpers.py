@@ -228,7 +228,7 @@ def test_no_why():
     while not empty_history():
         helpers.back()
     try:
-        raise ArithmeticError
+        raise ArithmeticError("unknown")
     except ArithmeticError:
         friendly_traceback.explain_traceback(redirect="capture")
         friendly_traceback.get_output()
@@ -238,5 +238,20 @@ def test_no_why():
     helpers.hint()
     new_result = friendly_traceback.get_output()
     assert "I have no suggestion to offer." in new_result
+    helpers.back()
+    assert empty_history()
+
+
+def test_no_why_no_message():
+    while not empty_history():
+        helpers.back()
+    try:
+        raise ArithmeticError  # no message
+    except ArithmeticError:
+        friendly_traceback.explain_traceback(redirect="capture")
+        friendly_traceback.get_output()
+    why = helpers.why()
+    what = helpers.what()
+    assert why == what
     helpers.back()
     assert empty_history()
