@@ -517,14 +517,13 @@ class FriendlyTraceback:
         """
         etype = self.tb_data.exception_type
         value = self.tb_data.value
-        if self.tb_data.filename == "<stdin>":  # pragma: no cover
-            self.info["cause"] = cannot_analyze_stdin()
-            return
 
         cause = info_specific.get_likely_cause(
             etype, value, self.tb_data.exception_frame, self.tb_data
         )  # [3]
         self.info.update(**cause)
+        if self.tb_data.filename == "<stdin>":  # pragma: no cover
+            self.info["cause"] += "\n" + cannot_analyze_stdin()
 
     def set_cause_syntax(self) -> None:
         """For SyntaxError and subclasses. Sets the value of the following
@@ -615,6 +614,8 @@ class FriendlyTraceback:
         from .config import session
 
         partial_source = record.partial_source_with_node_range
+        if partial_source["source"].strip() == "0:":
+            partial_source["source"] = ""
         filename = path_utils.shorten_path(record.filename)
 
         unavailable = filename in ["<unknown>", "<string>"]
@@ -933,5 +934,5 @@ def cannot_analyze_stdin() -> str:  # pragma: no cover
         "Unfortunately, no additional information is available:\n"
         "the content of file '<stdin>' is not accessible.\n"
         "Are you using a regular Python console instead of a Friendly-console?\n"
-        "Perhaps try: `start_console(local_vars=locals())`.\n"
+        "If so, to continue, try: `start_console(local_vars=locals())`.\n"
     )

@@ -232,3 +232,19 @@ class _State:
 
 
 session = _State()
+# It might sometimes be useful to import Friendly-traceback after an
+# exception occurred.
+try:
+    if sys.last_type is not None:
+        print(
+            _(
+                "An exception occurred before friendly-traceback was imported.\n"
+                "What follows is all the information available."
+            )
+        )
+        old_debug = debug_helper.DEBUG
+        debug_helper.DEBUG = False
+        session.exception_hook(sys.last_type, sys.last_value, sys.last_traceback)
+        debug_helper.DEBUG = old_debug
+except AttributeError:
+    pass

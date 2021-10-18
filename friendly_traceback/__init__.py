@@ -306,3 +306,7 @@ def set_stream(redirect: Union[str, Writer, None] = None) -> None:
 def get_stream() -> Writer:
     """Returns the value of the current stream used for output."""
     return session.write_err
+
+
+del Any, Callable, Dict, Mapping, Optional, Sequence, Union
+del Formatter, InclusionChoice, StrPath, Writer
