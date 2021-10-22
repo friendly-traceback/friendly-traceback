@@ -78,8 +78,10 @@ def history() -> None:
         session.write_err(_nothing_to_show() + "\n")
         return
     for info in session.saved_info:
-        message = session.formatter(info, include="message").replace("\n", "")
-        session.write_err(message)
+        message = session.formatter(info, include="message")
+        if message:
+            message = message.replace("\n", "")
+            session.write_err(message)
 
 
 def python_tb() -> None:

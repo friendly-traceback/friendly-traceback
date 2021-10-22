@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-10-18 18:40-0300\n"
+"POT-Creation-Date: 2021-10-22 14:43-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -27,17 +27,27 @@ msgstr "Je n’ai aucune suggestion à offrir."
 msgid "I have no suggestion to offer; try `why()`."
 msgstr "Je n’ai aucune suggestion à offrir; essayez `why()`."
 
-#: config.py:64 config.py:172 console_helpers.py:29
+#: config.py:43
+msgid ""
+"Are you using a regular Python console instead of a Friendly console?\n"
+"If so, to continue, try: `start_console(local_vars=locals())`.\n"
+"You will need to import `start_console` if you have not already done so.\n"
+msgstr ""
+"Utilisez-vous une console Python normale au lieu d'une console Friendly ?\n"
+"Si oui, pour continuer, essayez : `start_console(local_vars=locals())`.\n"
+"Vous devrez importer `start_console` si vous ne l'avez pas déjà fait.\n"
+
+#: config.py:72 config.py:181 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr "Rien à montrer: pas d’exception enregistrée."
 
-#: config.py:240
+#: config.py:305
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
-"What follows is all the information available."
+"Some information is available."
 msgstr ""
 "Une exception s'est produite avant l'importation de friendly-traceback.\n"
-"Ce qui suit est toute l'information disponible."
+"Certaines informations sont disponibles."
 
 #: console_helpers.py:39
 msgid "Nothing to go back to: no exception recorded."
@@ -145,17 +155,13 @@ msgstr ""
 msgid "at the location indicated by ^.\n"
 msgstr "à l'endroit indiqué par ^.\n"
 
-#: core.py:933
+#: core.py:935
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
-"Are you using a regular Python console instead of a Friendly-console?\n"
-"If so, to continue, try: `start_console(local_vars=locals())`.\n"
 msgstr ""
-"Malheureusement, aucune information supplémentaire n'est disponible :\n"
-"le contenu du fichier \"<stdin>\" n'est pas accessible.\n"
-"Utilisez-vous une console Python normale au lieu d'une console Friendly ?\n"
-"Si oui, pour continuer, essayez : `start_console(local_vars=locals())`.\n"
+"Malheureusement, aucune information supplémentaire n'est disponible :\n"
+"le contenu du fichier ''<stdin>n'est pas accessible.\n"
 
 #: frame_info.py:31
 msgid "Problem: source of `{filename}` is not available\n"
@@ -274,11 +280,11 @@ msgid "Use True (default) or False to set the debug flag."
 msgstr ""
 "Utilisez True (par défaut) ou False pour définir l'indicateur de débogage."
 
-#: info_generic.py:37
+#: info_generic.py:39
 msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
 msgstr "Une exception de type `{name}` est une sous-classe de `{parent}`.\n"
 
-#: info_generic.py:62
+#: info_generic.py:64
 msgid ""
 "`ArithmeticError` is the base class for those built-in exceptions\n"
 "that are raised for various arithmetic errors.\n"
@@ -290,7 +296,7 @@ msgstr ""
 "Il est inhabituel que vous voyiez cette exception;\n"
 "normalement, une exception plus spécifique aurait dû être soulevée.\n"
 
-#: info_generic.py:72
+#: info_generic.py:74
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -306,7 +312,7 @@ msgstr ""
 "Si `condition` est `False` ou son équivalent, une exception de type "
 "`AssertionError` est levée.\n"
 
-#: info_generic.py:82
+#: info_generic.py:84
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
@@ -318,7 +324,7 @@ msgstr ""
 "et `x` n’est pas une méthode ou un attribut (variable) appartenant à "
 "`objet`.\n"
 
-#: info_generic.py:91
+#: info_generic.py:93
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
@@ -327,7 +333,7 @@ msgstr ""
 "atteint\n"
 "une condition de fin de fichier (EOF) sans lire aucune données.\n"
 
-#: info_generic.py:99
+#: info_generic.py:101
 msgid ""
 "A `FileNotFoundError` exception indicates that you\n"
 "are trying to open a file that cannot be found by Python.\n"
@@ -338,7 +344,7 @@ msgstr ""
 "Cela pourrait être parce que vous fait une faute d'orthographe en\n"
 "écrivant le nom du fichier.\n"
 
-#: info_generic.py:108
+#: info_generic.py:110
 msgid ""
 "An `ImportError` exception indicates that a certain object could not\n"
 "be imported from a module or package. Most often, this is\n"
@@ -348,7 +354,7 @@ msgstr ""
 "être importé à partir d’un module ou d’un paquet. Très souvent, c’est\n"
 "parce que le nom de l’objet n’est pas écrit correctement.\n"
 
-#: info_generic.py:117
+#: info_generic.py:119
 msgid ""
 "An `IndentationError` occurs when a given line of code is\n"
 "not indented (aligned vertically with other lines) as expected.\n"
@@ -359,7 +365,7 @@ msgstr ""
 "lignes)\n"
 "de la façon attendue.\n"
 
-#: info_generic.py:125
+#: info_generic.py:127
 msgid ""
 "An `IndexError` occurs when you try to get an item from a list,\n"
 "a tuple, or a similar object (sequence), and use an index which\n"
@@ -373,7 +379,7 @@ msgstr ""
 "n’existe pas; typiquement, c’est parce que l’indice que vous donnez\n"
 "est plus grand que la longueur de la séquence.\n"
 
-#: info_generic.py:135
+#: info_generic.py:137
 msgid ""
 "A `KeyError` is raised when a value is not found as a\n"
 "key in a Python dict or in a similar object.\n"
@@ -381,7 +387,7 @@ msgstr ""
 "Une `KeyError` est levée lorsqu'une valeur n'est pas trouvée en tant que\n"
 "clé dans un dict Python ou dans un objet similaire.\n"
 
-#: info_generic.py:143
+#: info_generic.py:145
 msgid ""
 "`LookupError` is the base class for the exceptions that are raised\n"
 "when a key or index used on a mapping or sequence is invalid.\n"
@@ -392,7 +398,7 @@ msgstr ""
 "séquence est invalide.\n"
 "Elle peut également être levée directement par codecs.lookup().\n"
 
-#: info_generic.py:152
+#: info_generic.py:154
 msgid ""
 "Like the name indicates, a `MemoryError` occurs when Python\n"
 "runs out of memory. This can happen if you create an object\n"
@@ -404,7 +410,7 @@ msgstr ""
 "Cela peut se produire si vous créez un objet\n"
 "qui est trop grand, comme une liste avec trop d'éléments.\n"
 
-#: info_generic.py:161
+#: info_generic.py:163
 msgid ""
 "A `ModuleNotFoundError` exception indicates that you\n"
 "are trying to import a module that cannot be found by Python.\n"
@@ -417,7 +423,7 @@ msgstr ""
 "écrivant le nom du module, ou parce qu’il n’est pas installé sur votre "
 "ordinateur.\n"
 
-#: info_generic.py:171
+#: info_generic.py:173
 msgid ""
 "A `NameError` exception indicates that a variable or\n"
 "function name is not known to Python.\n"
@@ -431,7 +437,7 @@ msgstr ""
 "Cependant, cela peut également indiquer que le nom a été\n"
 "utilisé avant qu'on ne lui ait associé une valeur.\n"
 
-#: info_generic.py:182
+#: info_generic.py:184
 msgid ""
 "An `OSError` exception is usually raised by the Operating System\n"
 "to indicate that an operation is not allowed or that\n"
@@ -442,7 +448,7 @@ msgstr ""
 "pour indiquer qu’une opération n’est pas autorisée ou\n"
 "qu'une ressource n’est pas disponible.\n"
 
-#: info_generic.py:191
+#: info_generic.py:193
 msgid ""
 "An `OverflowError` is raised when the result of an arithmetic operation\n"
 "is too large to be handled by the computer's processor.\n"
@@ -451,7 +457,7 @@ msgstr ""
 "opération arithmétique\n"
 "est trop grand pour être manipulé par le processeur de l’ordinateur.\n"
 
-#: info_generic.py:199
+#: info_generic.py:201
 msgid ""
 "A `RecursionError` is raised when a function calls itself,\n"
 "directly or indirectly, too many times.\n"
@@ -465,7 +471,7 @@ msgstr ""
 "votre code\n"
 "et que votre programme ne terminerait jamais.\n"
 
-#: info_generic.py:209
+#: info_generic.py:211
 msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
@@ -476,13 +482,13 @@ msgstr ""
 "d'élément à fournir lorsque sa méthode `__next__` est invoquée par\n"
 "la fonction builtin `next()`.\n"
 
-#: info_generic.py:218
+#: info_generic.py:220
 msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr ""
 "Une exception de type `SyntaxError` se produit lorsque Python ne peut pas "
 "comprendre votre code.\n"
 
-#: info_generic.py:223
+#: info_generic.py:225
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -500,7 +506,7 @@ msgstr ""
 "La recommandation de Python est de toujours utiliser des espaces\n"
 "pour indenter votre code.\n"
 
-#: info_generic.py:235
+#: info_generic.py:237
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -513,7 +519,7 @@ msgstr ""
 "ou en tentant d'effectuer une opération non permise sur un type d'objet "
 "donné.\n"
 
-#: info_generic.py:245
+#: info_generic.py:247
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
@@ -521,7 +527,7 @@ msgstr ""
 "Une exception `ValueError` indique qu'une fonction ou une opération\n"
 "a reçu un argument du bon type, mais une valeur inappropriée.\n"
 
-#: info_generic.py:253
+#: info_generic.py:255
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -545,11 +551,11 @@ msgstr ""
 "qu’il s’agit d’une variable globale, sinon vous verrez une exception "
 "`UnboundLocalError`.\n"
 
-#: info_generic.py:267
+#: info_generic.py:269
 msgid "No information is available about this warning.\n"
 msgstr "Aucune information n’est disponible sur cet avertissement.\n"
 
-#: info_generic.py:272
+#: info_generic.py:274
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -1472,11 +1478,11 @@ msgstr "*    Portée globale : "
 msgid "*   Python builtins: "
 msgstr "*    Identifiant Python (builtins) : "
 
-#: runtime_errors\name_error.py:250
+#: runtime_errors\name_error.py:249
 msgid "Did you write `self` at the wrong place?\n"
 msgstr "Avez-vous écrit `self` au mauvais endroit ?\n"
 
-#: runtime_errors\name_error.py:251
+#: runtime_errors\name_error.py:250
 msgid ""
 "The {scope} object `{obj}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1487,11 +1493,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}(...`\n"
 "au lieu de `{unknown_name}(self, ...`.\n"
 
-#: runtime_errors\name_error.py:258
+#: runtime_errors\name_error.py:257
 msgid "Did you forget to add `self.`?\n"
 msgstr "Avez-vous oublié d’ajouter `self.` ?\n"
 
-#: runtime_errors\name_error.py:259
+#: runtime_errors\name_error.py:258
 msgid ""
 "A {scope} object, `{obj}`,\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1503,11 +1509,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}`\n"
 "au lieu de `{unknown_name}`.\n"
 
-#: runtime_errors\name_error.py:266
+#: runtime_errors\name_error.py:265
 msgid "Did you forget to add `{name}.`?\n"
 msgstr "Avez-vous oublié d’ajouter `{name}.` ?\n"
 
-#: runtime_errors\name_error.py:267
+#: runtime_errors\name_error.py:266
 msgid ""
 "The {scope} object `{name}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -4931,6 +4937,18 @@ msgstr ""
 "Je pense que vous vouliez plutôt écrire la fraction `{num}/{denom}`.\n"
 
 #~ msgid ""
+#~ "Unfortunately, no additional information is available:\n"
+#~ "the content of file '<stdin>' is not accessible.\n"
+#~ "Are you using a regular Python console instead of a Friendly-console?\n"
+#~ "If so, to continue, try: `start_console(local_vars=locals())`.\n"
+#~ msgstr ""
+#~ "Malheureusement, aucune information supplémentaire n'est disponible :\n"
+#~ "le contenu du fichier \"<stdin>\" n'est pas accessible.\n"
+#~ "Utilisez-vous une console Python normale au lieu d'une console "
+#~ "Friendly ?\n"
+#~ "Si oui, pour continuer, essayez : `start_console(local_vars=locals())`.\n"
+
+#~ msgid ""
 #~ "You cannot delete the literal `{literal}`.\n"
 #~ "You can only delete the names of objects, or\n"
 #~ "individual items in a container.\n"
@@ -5600,13 +5618,6 @@ msgstr ""
 
 #~ msgid "Known objects shown above:"
 #~ msgstr "Objets connus mentionnés ci-dessus :"
-
-#~ msgid ""
-#~ "Unfortunately, no additional information is available:\n"
-#~ "the content of file '<string>' is not accessible.\n"
-#~ msgstr ""
-#~ "Malheureusement, aucune information supplémentaire n’est disponible:\n"
-#~ "le contenu du fichier '<string>' n’est pas accessible.\n"
 
 #~ msgid ""
 #~ "You used an f-string that contains invalid Python code.\n"

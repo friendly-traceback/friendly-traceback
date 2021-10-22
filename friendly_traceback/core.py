@@ -930,9 +930,13 @@ def cannot_analyze_stdin() -> str:  # pragma: no cover
     interpreter (REPL), and the user does not activate the friendly
     console.
     """
-    return _(
+    from .config import session
+
+    message = _(
         "Unfortunately, no additional information is available:\n"
         "the content of file '<stdin>' is not accessible.\n"
-        "Are you using a regular Python console instead of a Friendly-console?\n"
-        "If so, to continue, try: `start_console(local_vars=locals())`.\n"
     )
+    if session.suggest_console:
+        print(session.suggest_console)
+        session.suggest_console = ""
+    return message

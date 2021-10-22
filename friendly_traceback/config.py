@@ -40,9 +40,16 @@ class _State:
         self.include: InclusionChoice = "explain"
         self.lang: str = "en"
         self.install_gettext(self.lang)
+        self.suggest_console: str = _(
+            "Are you using a regular Python console instead of a Friendly console?\n"
+            "If so, to continue, try: `start_console(local_vars=locals())`.\n"
+            "You will need to import `start_console` if you have not already done so.\n"
+        )
         # Console; if ipython_prompt == True, prompt = '[digit]'
         self.ipython_prompt: bool = False  # default prompt = '>>>'
         self.exception_before_import: bool = False
+        self.sys_last_type = None
+        self.sys_last_value = None
 
         # The following are not used by friendly-traceback but might be
         # used by friendly. We include them here as documentation.
@@ -173,7 +180,16 @@ class _State:
             if not self.exception_before_import:
                 print(_("Nothing to show: no exception recorded."))
                 return
-            info = self.saved_info[0]
+            if not (
+                self.sys_last_type == sys.last_type
+                and self.sys_last_value == sys.last_value
+            ):
+                session.get_traceback_info(
+                    sys.last_type, sys.last_value, sys.last_traceback
+                )
+                self.sys_last_type = sys.last_type
+                self.sys_last_value = sys.last_value
+            info = self.saved_info[-1]
             self.output_info(info)
             return
         else:
@@ -278,14 +294,13 @@ session = _State()
 # exception occurred.
 try:
     if sys.last_type is not None:
-        old_debug = debug_helper.DEBUG
-        debug_helper.DEBUG = False
         _info = session.get_traceback_info(
             sys.last_type, sys.last_value, sys.last_traceback
         )
-        debug_helper.DEBUG = old_debug
         if _info:
             session.exception_before_import = True
+            session.sys_last_type = sys.last_type
+            session.sys_last_value = sys.last_value
             print(
                 _(
                     "An exception occurred before friendly-traceback was imported.\n"

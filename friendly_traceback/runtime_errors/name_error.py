@@ -209,7 +209,6 @@ def missing_self(
         return message, hint
 
     if not tokens:  # pragma: no cover
-        debug_helper.log("No significant token found in missing_self()")
         return message, hint
 
     prev_token = tokens[0]

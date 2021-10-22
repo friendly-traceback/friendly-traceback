@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-10-18 18:40-0300\n"
+"POT-Creation-Date: 2021-10-22 14:43-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,14 +27,21 @@ msgstr ""
 msgid "I have no suggestion to offer; try `why()`."
 msgstr ""
 
-#: config.py:64 config.py:172 console_helpers.py:29
+#: config.py:43
+msgid ""
+"Are you using a regular Python console instead of a Friendly console?\n"
+"If so, to continue, try: `start_console(local_vars=locals())`.\n"
+"You will need to import `start_console` if you have not already done so.\n"
+msgstr ""
+
+#: config.py:72 config.py:181 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr ""
 
-#: config.py:240
+#: config.py:305
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
-"What follows is all the information available."
+"Some information is available."
 msgstr ""
 
 #: console_helpers.py:39
@@ -128,12 +135,10 @@ msgid ""
 "at the location indicated by ^.\n"
 msgstr ""
 
-#: core.py:933
+#: core.py:935
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
-"Are you using a regular Python console instead of a Friendly-console?\n"
-"If so, to continue, try: `start_console(local_vars=locals())`.\n"
 msgstr ""
 
 #: frame_info.py:31
@@ -246,12 +251,12 @@ msgstr ""
 msgid "Use True (default) or False to set the debug flag."
 msgstr ""
 
-#: info_generic.py:37
+#: info_generic.py:39
 msgid ""
 "An exception of type `{name}` is a subclass of `{parent}`.\n"
 msgstr ""
 
-#: info_generic.py:62
+#: info_generic.py:64
 msgid ""
 "`ArithmeticError` is the base class for those built-in exceptions\n"
 "that are raised for various arithmetic errors.\n"
@@ -259,7 +264,7 @@ msgid ""
 "normally, a more specific exception should have been raised.\n"
 msgstr ""
 
-#: info_generic.py:72
+#: info_generic.py:74
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -268,40 +273,40 @@ msgid ""
 "If `condition` is `False` or equivalent, an `AssertionError` is raised.\n"
 msgstr ""
 
-#: info_generic.py:82
+#: info_generic.py:84
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
 "and `x` is not a method or attribute (variable) belonging to `object`.\n"
 msgstr ""
 
-#: info_generic.py:91
+#: info_generic.py:93
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
 msgstr ""
 
-#: info_generic.py:99
+#: info_generic.py:101
 msgid ""
 "A `FileNotFoundError` exception indicates that you\n"
 "are trying to open a file that cannot be found by Python.\n"
 "This could be because you misspelled the name of the file.\n"
 msgstr ""
 
-#: info_generic.py:108
+#: info_generic.py:110
 msgid ""
 "An `ImportError` exception indicates that a certain object could not\n"
 "be imported from a module or package. Most often, this is\n"
 "because the name of the object is not spelled correctly.\n"
 msgstr ""
 
-#: info_generic.py:117
+#: info_generic.py:119
 msgid ""
 "An `IndentationError` occurs when a given line of code is\n"
 "not indented (aligned vertically with other lines) as expected.\n"
 msgstr ""
 
-#: info_generic.py:125
+#: info_generic.py:127
 msgid ""
 "An `IndexError` occurs when you try to get an item from a list,\n"
 "a tuple, or a similar object (sequence), and use an index which\n"
@@ -309,27 +314,27 @@ msgid ""
 "is greater than the length of the sequence.\n"
 msgstr ""
 
-#: info_generic.py:135
+#: info_generic.py:137
 msgid ""
 "A `KeyError` is raised when a value is not found as a\n"
 "key in a Python dict or in a similar object.\n"
 msgstr ""
 
-#: info_generic.py:143
+#: info_generic.py:145
 msgid ""
 "`LookupError` is the base class for the exceptions that are raised\n"
 "when a key or index used on a mapping or sequence is invalid.\n"
 "It can also be raised directly by codecs.lookup().\n"
 msgstr ""
 
-#: info_generic.py:152
+#: info_generic.py:154
 msgid ""
 "Like the name indicates, a `MemoryError` occurs when Python\n"
 "runs out of memory. This can happen if you create an object\n"
 "that is too big, like a list with too many items.\n"
 msgstr ""
 
-#: info_generic.py:161
+#: info_generic.py:163
 msgid ""
 "A `ModuleNotFoundError` exception indicates that you\n"
 "are trying to import a module that cannot be found by Python.\n"
@@ -337,7 +342,7 @@ msgid ""
 "or because it is not installed on your computer.\n"
 msgstr ""
 
-#: info_generic.py:171
+#: info_generic.py:173
 msgid ""
 "A `NameError` exception indicates that a variable or\n"
 "function name is not known to Python.\n"
@@ -346,20 +351,20 @@ msgid ""
 "before being defined or given a value.\n"
 msgstr ""
 
-#: info_generic.py:182
+#: info_generic.py:184
 msgid ""
 "An `OSError` exception is usually raised by the Operating System\n"
 "to indicate that an operation is not allowed or that\n"
 "a resource is not available.\n"
 msgstr ""
 
-#: info_generic.py:191
+#: info_generic.py:193
 msgid ""
 "An `OverflowError` is raised when the result of an arithmetic operation\n"
 "is too large to be handled by the computer's processor.\n"
 msgstr ""
 
-#: info_generic.py:199
+#: info_generic.py:201
 msgid ""
 "A `RecursionError` is raised when a function calls itself,\n"
 "directly or indirectly, too many times.\n"
@@ -367,19 +372,19 @@ msgid ""
 "and that your program would never stop.\n"
 msgstr ""
 
-#: info_generic.py:209
+#: info_generic.py:211
 msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
 "the `next()` builtin function.\n"
 msgstr ""
 
-#: info_generic.py:218
+#: info_generic.py:220
 msgid ""
 "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr ""
 
-#: info_generic.py:223
+#: info_generic.py:225
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -389,7 +394,7 @@ msgid ""
 "Python's recommendation is to always use spaces to indent your code.\n"
 msgstr ""
 
-#: info_generic.py:235
+#: info_generic.py:237
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -397,13 +402,13 @@ msgid ""
 "or by trying to do an operation not allowed on a given type of object.\n"
 msgstr ""
 
-#: info_generic.py:245
+#: info_generic.py:247
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
 msgstr ""
 
-#: info_generic.py:253
+#: info_generic.py:255
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -415,12 +420,12 @@ msgid ""
 "an `UnboundLocalError`.\n"
 msgstr ""
 
-#: info_generic.py:267
+#: info_generic.py:269
 msgid ""
 "No information is available about this warning.\n"
 msgstr ""
 
-#: info_generic.py:272
+#: info_generic.py:274
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -1183,12 +1188,12 @@ msgstr ""
 msgid "*   Python builtins: "
 msgstr ""
 
-#: runtime_errors\name_error.py:250
+#: runtime_errors\name_error.py:249
 msgid ""
 "Did you write `self` at the wrong place?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:251
+#: runtime_errors\name_error.py:250
 msgid ""
 "The {scope} object `{obj}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1196,12 +1201,12 @@ msgid ""
 "instead of `{unknown_name}(self, ...`.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:258
+#: runtime_errors\name_error.py:257
 msgid ""
 "Did you forget to add `self.`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:259
+#: runtime_errors\name_error.py:258
 msgid ""
 "A {scope} object, `{obj}`,\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1209,12 +1214,12 @@ msgid ""
 "instead of `{unknown_name}`.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:266
+#: runtime_errors\name_error.py:265
 msgid ""
 "Did you forget to add `{name}.`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:267
+#: runtime_errors\name_error.py:266
 msgid ""
 "The {scope} object `{name}`\n"
 "has an attribute named `{unknown_name}`.\n"
