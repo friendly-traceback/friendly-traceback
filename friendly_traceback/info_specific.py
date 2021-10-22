@@ -39,6 +39,9 @@ def get_likely_cause(
     except Exception:  # noqa  # pragma: no cover
         pass
 
+    if hasattr(etype, "__help_solution__"):
+        return {"cause": value.__help_solution__()}
+
     return {}
 
 

@@ -23,6 +23,8 @@ def get_generic_explanation(exception_type: Type[BaseException]) -> str:
         return GENERIC[exception_type]()
     elif exception_name.endswith("Warning"):
         return GENERIC["UnknownWarning"]()
+    elif hasattr(exception_type, "__help__"):
+        return exception_type.__help__
     else:
         for known_exception_type in GENERIC:
             if (

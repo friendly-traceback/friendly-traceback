@@ -42,6 +42,7 @@ class _State:
         self.install_gettext(self.lang)
         # Console; if ipython_prompt == True, prompt = '[digit]'
         self.ipython_prompt: bool = False  # default prompt = '>>>'
+        self.exception_before_import: bool = False
 
         # The following are not used by friendly-traceback but might be
         # used by friendly. We include them here as documentation.
@@ -169,8 +170,14 @@ class _State:
         """
         etype, value, tb = sys.exc_info()
         if etype is None:
-            print(_("Nothing to show: no exception recorded."))
+            if not self.exception_before_import:
+                print(_("Nothing to show: no exception recorded."))
+                return
+            info = self.saved_info[0]
+            self.output_info(info)
             return
+        else:
+            self.exception_before_import = False
         self.exception_hook(etype, value, tb, redirect=redirect)
 
     def exception_hook(
@@ -200,27 +207,28 @@ class _State:
         if etype.__name__ == "KeyboardInterrupt":  # pragma: no cover
             raise KeyboardInterrupt(str(value))
 
+        info = self.get_traceback_info(etype, value, tb)
+        if not info:
+            return
+        self.output_info(info, redirect=redirect)
+
+    def output_info(
+        self, info: dict, redirect: Union[str, Writer, None] = None
+    ) -> None:
+        """Outputs the information obtained from a traceback.
+
+        By default, the output goes to sys.stderr or to some other stream
+        set to be the default by another API call.  However, if
+           redirect = some_stream
+        is specified, the output goes to that stream for this call,
+        but the session settings is restored afterwards.
+        """
         saved_current_redirect = None
         if redirect is not None:
             saved_current_redirect = self.write_err
             self.set_redirect(redirect=redirect)
 
-        try:
-            self.friendly_info.append(core.FriendlyTraceback(etype, value, tb))
-            self.friendly_info[-1].compile_info()
-            info = self.friendly_info[-1].info
-            info["lang"] = self.lang
-            self.saved_info.append(info)
-            explanation = self.formatter(info, include=self.include)
-        except Exception as e:  # pragma: no cover
-            debug_helper.log("Exception raised in exception_hook().")
-            try:
-                debug_helper.log(self.friendly_info[-1].tb_data.filename)
-            except Exception:  # noqa
-                pass
-            debug_helper.log_error(e)
-            return
-
+        explanation = self.formatter(info, include=self.include)
         self.write_err(explanation)
 
         # Ensures that we start on a new line; essential for the console
@@ -230,21 +238,59 @@ class _State:
         if saved_current_redirect is not None:
             self.set_redirect(redirect=saved_current_redirect)
 
+    def get_traceback_info(
+        self,
+        etype: Type[_E],
+        value: _E,
+        tb: types.TracebackType,
+    ) -> Info:
+        """Obtains the information available after a traceback has been raised.
+
+        The values of the required arguments are typically the following:
+
+            etype, value, tb = sys.exc_info()
+
+        Returns a dict containing the available info.
+        """
+        try:
+            self.friendly_info.append(core.FriendlyTraceback(etype, value, tb))
+            self.friendly_info[-1].compile_info()
+            info = self.friendly_info[-1].info
+            info["lang"] = self.lang
+            self.saved_info.append(info)
+        except Exception as e:  # pragma: no cover
+            if not debug_helper.DEBUG:
+                print(
+                    "Exception raised by friendly-traceback. Please report this case."
+                )
+            debug_helper.log("Exception raised in get_traceback_info().")
+            try:
+                debug_helper.log(self.friendly_info[-1].tb_data.filename)
+            except Exception:  # noqa
+                pass
+            debug_helper.log_error(e)
+            return {}
+        return info
+
 
 session = _State()
 # It might sometimes be useful to import Friendly-traceback after an
 # exception occurred.
 try:
     if sys.last_type is not None:
-        print(
-            _(
-                "An exception occurred before friendly-traceback was imported.\n"
-                "What follows is all the information available."
-            )
-        )
         old_debug = debug_helper.DEBUG
         debug_helper.DEBUG = False
-        session.exception_hook(sys.last_type, sys.last_value, sys.last_traceback)
+        _info = session.get_traceback_info(
+            sys.last_type, sys.last_value, sys.last_traceback
+        )
         debug_helper.DEBUG = old_debug
-except AttributeError:
+        if _info:
+            session.exception_before_import = True
+            print(
+                _(
+                    "An exception occurred before friendly-traceback was imported.\n"
+                    "Some information is available."
+                )
+            )
+except AttributeError:  # sys.last_type only exists if an exception has been raised.
     pass
