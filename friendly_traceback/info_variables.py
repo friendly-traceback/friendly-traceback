@@ -194,10 +194,16 @@ def get_definition_scope(variable_name: str, frame: types.FrameType) -> List[Sco
     in which a variable is defined.
     """
     scopes = []
-    for scope in ["local", "global", "nonlocal"]:
-        in_scope = get_variables_in_frame_by_scope(frame, scope)
-        if variable_name in in_scope:
-            scopes.append(scope)
+    nonlocal_vars = get_variables_in_frame_by_scope(frame, "nonlocal")
+    if variable_name in frame.f_locals:
+        scopes.append("local")
+    if variable_name in frame.f_globals:
+        scopes.append("global")
+    if variable_name in nonlocal_vars and (
+        variable_name not in frame.f_globals
+        or nonlocal_vars[variable_name] != frame.f_globals[variable_name]
+    ):
+        scopes.append("nonlocal")
     return scopes
 
 

@@ -4,7 +4,7 @@ import friendly_traceback as ft
 
 global_a = 1
 global_b = 2
-global_annotated: "this"
+global_and_nonlocal_different = 1
 
 
 def test_get_variables_in_frame_by_scope():
@@ -15,6 +15,7 @@ def test_get_variables_in_frame_by_scope():
     current_frame = None
 
     b = 2
+    global_and_nonlocal_different = 2
 
     def outer():
         c = 3
@@ -37,6 +38,7 @@ def test_get_variables_in_frame_by_scope():
     # does not make it a local variable
     assert "global_a" in get(current_frame, "global")
     assert "global_a" not in get(current_frame, "local")
+    assert "global_a" not in get(current_frame, "nonlocal")
     assert "global_b" not in get(current_frame, "local")
 
     # nonlocal variable two frames removed is the same as one frame removed
@@ -55,6 +57,18 @@ def test_get_variables_in_frame_by_scope():
     assert "c" not in get(current_frame, "global")
 
     assert "e" in get(current_frame, "local")
+
+    assert "global_and_nonlocal_different" in get(current_frame, "nonlocal")
+    assert "global_and_nonlocal_different" in get(current_frame, "global")
+
+    # test other function after fixing bug (issue #69)
+    get_scopes = ft.info_variables.get_definition_scope
+    assert "nonlocal" in get_scopes("global_and_nonlocal_different", current_frame)
+    assert "global" in get_scopes("global_and_nonlocal_different", current_frame)
+    assert "nonlocal" not in get_scopes("global_a", current_frame)
+    assert "global" in get_scopes("global_a", current_frame)
+    assert "nonlocal" in get_scopes("b", current_frame)
+    assert "global" not in get_scopes("b", current_frame)
 
 
 def test_simplify_repr():
