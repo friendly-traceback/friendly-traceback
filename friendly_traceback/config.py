@@ -40,7 +40,7 @@ class _State:
         self.include: InclusionChoice = "explain"
         self.lang: str = "en"
         self.install_gettext(self.lang)
-        self.suggest_console: str = _(
+        self.suggest_console: str = "\n" + _(
             "Are you using a regular Python console instead of a Friendly console?\n"
             "If so, to continue, try: `start_console(local_vars=locals())`.\n"
             "You will need to import `start_console` if you have not already done so.\n"
