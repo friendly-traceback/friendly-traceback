@@ -433,10 +433,9 @@ class FriendlyTraceback:
         try:
             self.tb_data = TracebackData(etype, value, tb)
         except Exception as e:  # pragma: no cover
-            debug_helper.log("Uncaught exception in TracebackData.")
-            debug_helper.log_error(e)
-            print("Internal problem in Friendly.")
-            print("Please report this issue.")
+            debug_helper.log("Uncaught exception in TracebackData:")
+            print(f"Internal error caused by {e!r}")
+            debug_helper.handle_internal_error()
             raise SystemExit
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
         self.info = {"header": _("Python exception:")}
