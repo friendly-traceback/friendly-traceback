@@ -250,7 +250,7 @@ def assign_to_keyword(message: str = "", statement=None):
         if word is None:
             return {}
 
-    hint = _("You cannot assign a value to `{keyword}`.").format(keyword=word)
+    hint = _("You cannot assign a value to `{keyword}`.\n").format(keyword=word)
 
     if word in ["Ellipsis", "ellipsis"]:
         hint = _("You cannot assign a value to the ellipsis symbol [`...`].\n")
@@ -786,18 +786,36 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
 
 
 @add_python_message
-def expression_cannot_contain_assignment(message: str = "", _statement=None):
-    if "expression cannot contain assignment, perhaps you meant" not in message:
+def expression_cannot_contain_assignment(message: str = "", statement=None):
+    if (
+        "expression cannot contain assignment, perhaps you meant" not in message
+        and "keyword can't be an expression" not in message
+    ):
         return {}
+    if statement.bad_token.is_keyword() or statement.next_token.is_keyword():
+        if statement.bad_token.is_keyword():
+            keyword = statement.bad_token
+        else:
+            keyword = statement.next_token
+        hint = _("You cannot assign a value to `{keyword}`.\n").format(keyword=keyword)
+        cause = (
+            _(
+                "You likely called a function using the Python keyword"
+                " `{keyword}` as an argument:\n\n"
+                "    a_function({keyword}=something) \n\n"
+                "which Python interpreted as trying to assign a value to a Python keyword.\n"
+                "\n"
+            ).format(keyword=keyword)
+            + hint
+        )
+        return {"cause": cause, "suggest": hint}
+
     cause = _(
-        "One of the following two possibilities could be the cause:\n"
-        "1. You meant to do a comparison with == and wrote = instead.\n"
-        "2. You called a function with a named argument:\n\n"
-        "        a_function(invalid=...)\n\n"
-        "where `invalid` is not a valid identifier (variable name) in Python\n"
+        "You likely called a function with a named argument:\n\n"
+        "    a_function(invalid=something) \n\n"
+        "where `invalid` is not a valid variable name in Python\n"
         "either because it starts with a number, or is a string,\n"
         "or contains a period, etc.\n"
-        "\n"
     )
     return {"cause": cause}
 
@@ -1082,21 +1100,6 @@ def keyword_argument_repeated(message: str = "", statement=None):
         "You have called a function repeating the same keyword argument (`{arg}`).\n"
         "Each keyword argument should appear only once in a function call.\n"
     ).format(arg=statement.bad_token)
-    return {"cause": cause}
-
-
-@add_python_message
-def keyword_cannot_be_expression(message: str = "", _statement=None):
-    if "keyword can't be an expression" not in message:
-        return {}
-    cause = _(
-        "You likely called a function with a named argument:\n\n"
-        "    a_function(invalid=something) \n\n"
-        "where `invalid` is not a valid variable name in Python\n"
-        "either because it starts with a number, or is a string,\n"
-        "or contains a period, etc.\n"
-        "\n"
-    )
     return {"cause": cause}
 
 

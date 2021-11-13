@@ -702,6 +702,10 @@ descriptions = {
         in_cause: "where `invalid` is not a valid ",
         title: "Keyword can't be an expression",
     },
+    "invalid_keyword_argument_2": {
+        in_cause: "You cannot assign a value to `True`.",
+        title: "Named argument can't be a Python keyword",
+    },
     "invalid_octal": {
         in_cause: "Did you made a mistake in writing an octal integer",
         title: "Invalid octal number",
