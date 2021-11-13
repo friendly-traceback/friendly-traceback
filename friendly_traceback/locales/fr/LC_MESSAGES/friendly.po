@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-10-22 14:43-0300\n"
+"POT-Creation-Date: 2021-11-13 12:33-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -54,11 +54,11 @@ msgid "Nothing to go back to: no exception recorded."
 msgstr ""
 "Impossible de revenir en arrière: il n'y a pas d’exception enregistrée."
 
-#: console_helpers.py:136 console_helpers.py:140
+#: console_helpers.py:138 console_helpers.py:142
 msgid "{exception} is not an exception."
 msgstr "{exception} n'est pas une exception."
 
-#: console_helpers.py:219
+#: console_helpers.py:221
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -66,12 +66,12 @@ msgstr ""
 "Argument non valide pour `www()`.\n"
 "Les arguments valides incluent `None` ou un des suivants : `{sites}`.\n"
 
-#: console_helpers.py:243
+#: console_helpers.py:245
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:433
+#: console_helpers.py:435
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -79,15 +79,15 @@ msgstr ""
 "Les méthodes suivantes de l'objet Friendly devraient également être "
 "disponibles en tant que fonctions."
 
-#: core.py:441
+#: core.py:440
 msgid "More lines not shown."
 msgstr "Plus de lignes non affichées."
 
-#: core.py:442 core.py:481
+#: core.py:441 core.py:480
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:493
+#: core.py:492
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -101,37 +101,37 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:552
+#: core.py:551
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:623
+#: core.py:622
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:628
+#: core.py:627
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du bloc de code {filename}.\n"
 
-#: core.py:632
+#: core.py:631
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:661
+#: core.py:660
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du block de code "
 "{filename}.\n"
 
-#: core.py:665
+#: core.py:664
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:683
+#: core.py:682
 msgid ""
 "`{filename}` is not a regular Python file whose contents\n"
 "can be analyzed.\n"
@@ -139,11 +139,11 @@ msgstr ""
 "`{filename}` n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:696
+#: core.py:695
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:700
+#: core.py:699
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -151,11 +151,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:705
+#: core.py:704
 msgid "at the location indicated by ^.\n"
 msgstr "à l'endroit indiqué par ^.\n"
 
-#: core.py:935
+#: core.py:934
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -604,7 +604,7 @@ msgstr "une chaîne de caractères (`str`)"
 msgid "a `tuple`"
 msgstr "un `tuple`"
 
-#: info_variables.py:435
+#: info_variables.py:441
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -625,7 +625,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:203
+#: path_info.py:208
 msgid "The default directory is {dirname}."
 msgstr "Le répertoire par défaut est {dirname}."
 
@@ -4806,13 +4806,27 @@ msgstr ""
 "Vous avez peut-être écrit une clé de `dict` sans écrire la valeur "
 "correspondante.\n"
 
-#: syntax_errors\statement_analyzer.py:1505
+#: syntax_errors\statement_analyzer.py:1513
+msgid "You used square brackets, `[...]` instead of parentheses.\n"
+msgstr "Vous avez utilisé des crochets, `[...]` au lieu de parenthèses.\n"
+
+#: syntax_errors\statement_analyzer.py:1517
+msgid ""
+"Write the following instead:\n"
+"\n"
+"{new_statement}"
+msgstr ""
+"Écrivez plutôt ce qui suit :\n"
+"\n"
+"{new_statement}"
+
+#: syntax_errors\statement_analyzer.py:1561
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr ""
 "Le symbole {bracket} à la ligne {linenumber} n'est pas fermé par le symbole "
 "correspondant.\n"
 
-#: syntax_errors\statement_analyzer.py:1511
+#: syntax_errors\statement_analyzer.py:1567
 msgid "If this is incorrect, please report this case.\n"
 msgstr "Si cela est incorrect, veuillez signaler ce cas.\n"
 

@@ -137,7 +137,7 @@ class Token:
         return self.type == py_tokenize.STRING
 
     def immediately_before(self, other: Any) -> bool:
-        """Return True if the current token is immediately before other,
+        """Returns True if the current token is immediately before other,
         without any intervening space in between the two tokens.
         """
         if not isinstance(other, Token):  # pragma: no cover
@@ -145,7 +145,7 @@ class Token:
         return self.end_row == other.start_row and self.end_col == other.start_col
 
     def immediately_after(self, other: Any) -> bool:
-        """Return True if the current token is immediately after other,
+        """Returns True if the current token is immediately after other,
         without any intervening space in between the two tokens.
         """
         if not isinstance(other, Token):  # pragma: no cover

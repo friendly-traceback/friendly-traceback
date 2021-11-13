@@ -28,12 +28,14 @@ def exclude_file_from_traceback(full_path: StrPath) -> None:
     Friendly-traceback.  Note that this does not apply to
     the true Python traceback obtained using "debug_tb".
     """
+    # full_path could be a pathlib.Path instance
+    full_path = str(full_path)
+    # full_path could be a relative path; see issue #81
+    full_path = os.path.abspath(full_path)
     if not os.path.isfile(full_path):
         raise RuntimeError(
             f"{full_path} is not a valid file path; it cannot be excluded."
         )
-    # full_path could be a pathlib.Path instance
-    full_path = str(full_path)
     EXCLUDED_FILE_PATH.add(full_path)
 
 
@@ -64,6 +66,7 @@ def is_excluded_file(full_path: StrPath, python_excluded: bool = True) -> bool:
     """Determines if the file belongs to the group that is excluded from tracebacks."""
     # full_path could be a pathlib.Path instance
     full_path = str(full_path)
+    full_path = os.path.abspath(full_path)
     if full_path.startswith("<frozen "):
         return True
     for dirs in EXCLUDED_DIR_NAMES:
@@ -102,6 +105,8 @@ def include_file_in_traceback(full_path: str) -> None:
                  include_file_in_traceback(some_module.__file__)
 
     """
+    full_path = str(full_path)
+    full_path = os.path.abspath(full_path)
     EXCLUDED_FILE_PATH.discard(full_path)
 
 

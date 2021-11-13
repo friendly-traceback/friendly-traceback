@@ -1479,6 +1479,48 @@ def missing_value_in_dict(statement):
     return {"cause": cause, "suggest": hint}
 
 
+@add_statement_analyzer
+def bracket_instead_of_paren(statement):
+    if statement.statement_brackets or not statement.begin_brackets:
+        return {}
+    for tok in statement.begin_brackets:
+        if tok == "[":
+            break
+    else:
+        return {}
+    begin_square_brackets = []
+    end_square_brackets = []
+    for tok in statement.tokens[0 : statement.bad_token_index]:
+        if tok == "[":
+            begin_square_brackets.append(tok)
+        elif tok == "]":
+            begin_square_brackets.pop()
+    for tok in reversed(statement.tokens[statement.bad_token_index :]):
+        if tok == "]":
+            end_square_brackets.append(tok)
+        elif tok == "[":
+            end_square_brackets.pop
+
+    for first, second in zip(begin_square_brackets, end_square_brackets):
+        new_statement = fixers.replace_two_tokens(
+            statement.statement_tokens,
+            first,
+            first_string="(",
+            second_token=second,
+            second_string=")",
+        )
+        if fixers.check_statement(new_statement):
+            hint = _("You used square brackets, `[...]` instead of parentheses.\n")
+            lines = new_statement.split("\n")
+            new_lines = ["    " + line for line in lines]
+            new_statement = "\n".join(new_lines)
+            cause = hint + _("Write the following instead:\n\n{new_statement}").format(
+                new_statement=new_statement
+            )
+            return {"cause": cause, "suggest": hint}
+    return {}
+
+
 # Last resort as it can catch odd cases where an unmatched open
 # bracket on one statement matches closing bracket on following
 # statement. Typically, the flagged token will be the first token
