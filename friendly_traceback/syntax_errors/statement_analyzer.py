@@ -1479,7 +1479,13 @@ def missing_value_in_dict(statement):
     return {"cause": cause, "suggest": hint}
 
 
-# Keep last
+# Last resort as it can catch odd cases where an unmatched open
+# bracket on one statement matches closing bracket on following
+# statement. Typically, the flagged token will be the first token
+# on a line, which Python detects as starting a new statement,
+# or the last statement on the line.
+# The method I use to identify a statement can get matching
+# brackets from what is another Python statement.
 @add_statement_analyzer
 def unclosed_bracket(statement):
     if not statement.begin_brackets:
@@ -1490,6 +1496,14 @@ def unclosed_bracket(statement):
     # bad_token match open bracket: problem is not with unclosed bracket
     if not statement.statement_brackets and syntax_utils.matching_brackets(
         bracket, statement.bad_token
+    ):
+        return {}
+    # No unmatched brackets and Python did not identify a bad token as
+    # either ending a statement or beginning a new statement
+    if (
+        not statement.statement_brackets
+        and statement.bad_token.start_row == statement.prev_token.start_row
+        and statement.bad_token.start_row == statement.next_token.start_row
     ):
         return {}
 
