@@ -1336,6 +1336,11 @@ def missing_comma_or_operator(statement):
             "some of them might raise other types of exceptions.\n"
         )
 
+        possible_cause = bracket_instead_of_paren(statement)
+        if possible_cause:
+            cause += "\n" + _("There is an additional possibility.\n")
+            cause += possible_cause["cause"]
+
     return {"cause": cause, "suggest": hint}
 
 
@@ -1481,27 +1486,21 @@ def missing_value_in_dict(statement):
 
 @add_statement_analyzer
 def bracket_instead_of_paren(statement):
-    if statement.statement_brackets or not statement.begin_brackets:
+    if statement.statement_brackets:
         return {}
-    for tok in statement.begin_brackets:
-        if tok == "[":
-            break
-    else:
-        return {}
-    begin_square_brackets = []
-    end_square_brackets = []
-    for tok in statement.tokens[0 : statement.bad_token_index]:
-        if tok == "[":
-            begin_square_brackets.append(tok)
-        elif tok == "]":
-            begin_square_brackets.pop()
-    for tok in reversed(statement.tokens[statement.bad_token_index :]):
-        if tok == "]":
-            end_square_brackets.append(tok)
-        elif tok == "[":
-            end_square_brackets.pop
 
-    for first, second in zip(begin_square_brackets, end_square_brackets):
+    matching_pairs = []
+    square_brackets = []
+    for tok in statement.tokens:
+        if tok == "[":
+            square_brackets.append(tok)
+        elif tok == "]":
+            open_bracket = square_brackets.pop()
+            matching_pairs.append((open_bracket, tok))
+    if not matching_pairs:
+        return {}
+
+    for first, second in matching_pairs:
         new_statement = fixers.replace_two_tokens(
             statement.statement_tokens,
             first,

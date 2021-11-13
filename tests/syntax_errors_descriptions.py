@@ -195,6 +195,10 @@ descriptions = {
         in_cause: "Did you mean to divide",
         title: "Backslash instead of slash",
     },
+    "bracket_instead_of_paren": {
+        in_cause: "You used square brackets, `[...]` instead of parentheses.",
+        title: "Brackets instead of parentheses",
+    },
     "break_outside_loop": {
         in_cause: "The Python keyword `break` can only be used",
         title: "break outside loop",

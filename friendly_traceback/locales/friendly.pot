@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-11-13 12:33-0400\n"
+"POT-Creation-Date: 2021-11-13 16:35-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2308,7 +2308,7 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:25
-#: syntax_errors\statement_analyzer.py:1418
+#: syntax_errors\statement_analyzer.py:1423
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
@@ -2615,7 +2615,7 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:708 syntax_errors\message_analyzer.py:813
-#: syntax_errors\statement_analyzer.py:1478
+#: syntax_errors\statement_analyzer.py:1483
 msgid ""
 "Did you forget to write a dict value?\n"
 msgstr ""
@@ -2687,7 +2687,7 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:809
-#: syntax_errors\statement_analyzer.py:1469
+#: syntax_errors\statement_analyzer.py:1474
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you forgot to write a value after a colon.\n"
@@ -3665,14 +3665,19 @@ msgid ""
 "some of them might raise other types of exceptions.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1351
+#: syntax_errors\statement_analyzer.py:1341
+msgid ""
+"There is an additional possibility.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1356
 msgid ""
 "It is possible that you used an equal sign `=` instead of a colon `:`\n"
 "to assign values to keys in a dict\n"
 "before or at the position indicated by ^.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1368
+#: syntax_errors\statement_analyzer.py:1373
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 "Perhaps you meant to write\n"
@@ -3680,7 +3685,7 @@ msgid ""
 "`{new_statement}`\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1400
+#: syntax_errors\statement_analyzer.py:1405
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -3693,52 +3698,52 @@ msgid ""
 "    from {module} import object_2 as name_2  # if needed\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1430
+#: syntax_errors\statement_analyzer.py:1435
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1434
+#: syntax_errors\statement_analyzer.py:1439
 msgid ""
 "Did you write {bad_token} twice by mistake?\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1453
+#: syntax_errors\statement_analyzer.py:1458
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1457
+#: syntax_errors\statement_analyzer.py:1462
 msgid ""
 "Did you write {bad_token} by mistake?\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1474
+#: syntax_errors\statement_analyzer.py:1479
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps wrote a dict key without writing the corresponding value.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1513
+#: syntax_errors\statement_analyzer.py:1512
 msgid ""
 "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1517
+#: syntax_errors\statement_analyzer.py:1516
 msgid ""
 "Write the following instead:\n"
 "\n"
 "{new_statement}"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1561
+#: syntax_errors\statement_analyzer.py:1560
 msgid ""
 "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1567
+#: syntax_errors\statement_analyzer.py:1566
 msgid ""
 "If this is incorrect, please report this case.\n"
 msgstr ""
