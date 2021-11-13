@@ -112,5 +112,23 @@ def test_Typo_in_local():
     return result, message
 
 
+def test_Using_name_of_builtin():
+    def dist(points):
+        max = max(points)
+        min = min(points)
+        return max - min
+    try:
+        dist([])
+    except UnboundLocalError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert ("local variable 'max' referenced" in result
+            or "cannot access local variable 'max'" in result)
+    if friendly_traceback.get_lang() == "en":
+        assert "`max` is a Python builtin function." in result
+    return result, message
+
 if __name__ == "__main__":
     print(test_Missing_global()[0])

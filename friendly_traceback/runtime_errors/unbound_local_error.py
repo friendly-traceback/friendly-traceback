@@ -1,5 +1,6 @@
 """UnboundLocalError cases"""
 
+import builtins
 import re
 from types import FrameType
 
@@ -70,6 +71,16 @@ def local_variable_referenced(
         scope = "global"
     elif "nonlocal" in scopes:
         scope = "nonlocal"
+    elif unknown_name in dir(builtins):
+        return {
+            "cause": _(
+                "`{name}` is a Python builtin function.\n"
+                "You have tried to assign a value to `{name}` inside a function\n"
+                "while also using its original meaning in the function.\n\n"
+                "Note that it is generally not a good idea to give a local variable\n"
+                "the same name as a Python builtin function (like `{name}`).\n"
+            ).format(name=unknown_name)
+        }
     else:  # pragma: no cover
         debug_helper.log("problem in local_variable_referenced().")
         debug_helper.log("We have found variables in scopes")
