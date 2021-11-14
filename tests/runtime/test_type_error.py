@@ -792,6 +792,7 @@ def test_Builtin_has_no_len():
 def test_function_has_no_len():
     def bad():
         pass
+
     try:
         len(bad)
     except TypeError as e:
@@ -801,13 +802,14 @@ def test_function_has_no_len():
 
     assert "TypeError: object of type 'function' has no len()" in result
     if friendly_traceback.get_lang() == "en":
-        assert 'Did you forget to call `bad`?' in result
+        assert "Did you forget to call `bad`?" in result
     return result, message
 
 
 def test_vars_arg_must_have_dict():
     class F:
         __slots__ = []
+
     f = F()
     a = [1, 2]
     vars_must = "vars() argument must have __dict__ attribute"
@@ -852,6 +854,7 @@ def test_vars_arg_must_have_dict():
 def test_function_got_multiple_argument():
     def fn1(a):
         pass
+
     try:
         fn1(0, a=1)
     except TypeError as e:
@@ -864,6 +867,7 @@ def test_function_got_multiple_argument():
 
     def fn2(a, b=1):
         pass
+
     try:
         fn2(0, a=1)
     except TypeError as e:
@@ -881,6 +885,7 @@ def test_method_got_multiple_argument():
     class T:
         def some_method(self, a):
             pass
+
     t = T()
     try:
         t.some_method(0, a=1)
@@ -891,6 +896,36 @@ def test_method_got_multiple_argument():
     assert "got multiple values for argument" in result
     if friendly_traceback.get_lang() == "en":
         assert "This function has only one argument" in result
+
+    return result, message
+
+
+def test_getattr_attribute_name_must_be_string():
+    # we also test for hasattr
+    try:
+        hasattr("__repr__", 1)
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "hasattr(): attribute name must be string" in result
+    if friendly_traceback.get_lang() == "en":
+        assert (
+            "The second argument of the function `hasattr()` must be a string."
+            in result
+        )
+
+    try:
+        getattr("__repr__", 1)  # as reported in issue #77
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert "getattr(): attribute name must be string" in result
+    if friendly_traceback.get_lang() == "en":
+        assert (
+            "The second argument of the function `getattr()` must be a string."
+            in result
+        )
 
     return result, message
 

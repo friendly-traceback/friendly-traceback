@@ -62,6 +62,26 @@ def _convert_str_to_number(
 
 
 @parser.add
+def getattr_attribute_name_must_be_string(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
+    if "getattr(): attribute name must be string" not in message:
+        return {}
+    cause = _("The second argument of the function `getattr()` must be a string.\n")
+    return {"cause": cause}
+
+
+@parser.add
+def hasattr_attribute_name_must_be_string(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
+    if "hasattr(): attribute name must be string" not in message:
+        return {}
+    cause = _("The second argument of the function `hasattr()` must be a string.\n")
+    return {"cause": cause}
+
+
+@parser.add
 def parse_can_only_concatenate(
     message: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
