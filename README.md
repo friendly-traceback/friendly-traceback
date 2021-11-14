@@ -1,4 +1,4 @@
-![friendly-traceback logo](friendly_logo.png)
+![friendly-traceback logo](images/friendly_logo.png)
 # friendly/friendly-traceback
 
 - **friendly_traceback**: Helps understand Python traceback
