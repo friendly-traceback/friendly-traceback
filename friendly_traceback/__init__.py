@@ -16,6 +16,11 @@ or newer.
 If you find that some additional functionality would be useful to
 have as part of the public API, please let us know.
 """
+try:
+    import readline  # noqa issue 80
+except ModuleNotFoundError:
+    pass
+
 import sys
 from typing import Any, Callable, Dict, Mapping, Optional, Sequence, Union
 
@@ -26,7 +31,7 @@ if not valid_version:  # pragma: no cover
     sys.exit()
 
 del valid_version
-__version__ = "0.4.69"
+__version__ = "0.4.70"
 
 
 # ===========================================
