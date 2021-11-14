@@ -282,5 +282,6 @@ def time_strptime_incorrect_format(
         "in both the data provided and the format you specified.\n"
         "The following table might be useful:\n"
         "https://docs.python.org/3/library/time.html#time.strftime\n"
+        "The following site might also be useful: https://www.strfti.me/\n"
     )
     return {"cause": cause}

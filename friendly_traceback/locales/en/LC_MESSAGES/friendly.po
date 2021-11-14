@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-14 10:08-0400\n"
-"PO-Revision-Date: 2021-11-14 10:10-0400\n"
+"POT-Creation-Date: 2021-11-14 10:32-0400\n"
+"PO-Revision-Date: 2021-11-14 10:32-0400\n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: __init__.py:186 __main__.py:169
+#: __init__.py:191 __main__.py:169
 msgid "The file {filename} does not exist."
 msgstr "The file {filename} does not exist."
 
@@ -2256,6 +2256,7 @@ msgid ""
 "in both the data provided and the format you specified.\n"
 "The following table might be useful:\n"
 "https://docs.python.org/3/library/time.html#time.strftime\n"
+"The following site might also be useful: https://www.strfti.me/\n"
 msgstr ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
@@ -2263,6 +2264,7 @@ msgstr ""
 "in both the data provided and the format you specified.\n"
 "The following table might be useful:\n"
 "https://docs.python.org/3/library/time.html#time.strftime\n"
+"The following site might also be useful: https://www.strfti.me/\n"
 
 #: runtime_errors\zero_division_error.py:21
 msgid "Using the modulo operator, you are dividing by zero.\n"
