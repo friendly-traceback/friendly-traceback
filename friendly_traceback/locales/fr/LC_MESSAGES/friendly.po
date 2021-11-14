@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-14 08:45-0400\n"
+"POT-Creation-Date: 2021-11-14 09:43-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -2339,6 +2339,19 @@ msgstr ""
 #: runtime_errors\value_error.py:266
 msgid "I have no more information.\n"
 msgstr "Je n’ai plus d’informations.\n"
+
+#: runtime_errors\value_error.py:278
+msgid ""
+"The value you gave for the time is not in the format you specified.\n"
+"Make sure to use the same separator between items\n"
+"(for example, between day and month) and keep the order the same\n"
+"in both the data provided and the format you specified.\n"
+msgstr ""
+"La valeur que vous avez écrite pour le temps n'est pas dans le format que "
+"vous avez spécifié.\n"
+"Veillez à utiliser le même séparateur entre les éléments\n"
+"(par exemple, entre le jour et le mois) et conservez le même ordre\n"
+"dans les données fournies et dans le format que vous avez spécifié.\n"
 
 #: runtime_errors\zero_division_error.py:21
 msgid "Using the modulo operator, you are dividing by zero.\n"

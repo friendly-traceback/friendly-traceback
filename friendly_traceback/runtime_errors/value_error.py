@@ -265,3 +265,20 @@ def unrecognized_message(
     else:
         cause += _("I have no more information.\n")
     return {"cause": cause}
+
+
+@parser.add
+def time_strptime_incorrect_format(
+    value: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
+    pattern = r"time data '(.*)' does not match format '(.*)'"
+    match = re.search(pattern, str(value))
+    if not match:
+        return {}
+    cause = _(
+        "The value you gave for the time is not in the format you specified.\n"
+        "Make sure to use the same separator between items\n"
+        "(for example, between day and month) and keep the order the same\n"
+        "in both the data provided and the format you specified.\n"
+    )
+    return {"cause": cause}

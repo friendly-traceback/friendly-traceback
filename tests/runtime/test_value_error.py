@@ -83,5 +83,21 @@ def test_slots_conflicts_with_class_variable():
     return result, message
 
 
+def test_time_strptime_incorrect_format():
+    import time
+    try:
+        time.strptime("2020-01-01", "%d %m %Y")
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "time data '2020-01-01' does not match format '%d %m %Y'" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "The value you gave for the time is not in the format you specified." in result
+
+    return result, message
+
+
+
 if __name__ == "__main__":
     print(test_Too_many_values_to_unpack()[0])
