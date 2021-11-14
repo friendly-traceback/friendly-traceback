@@ -280,5 +280,7 @@ def time_strptime_incorrect_format(
         "Make sure to use the same separator between items\n"
         "(for example, between day and month) and keep the order the same\n"
         "in both the data provided and the format you specified.\n"
+        "The following table might be useful:\n"
+        "https://docs.python.org/3/library/time.html#time.strftime\n"
     )
     return {"cause": cause}
