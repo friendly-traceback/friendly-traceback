@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-14 10:32-0400\n"
+"POT-Creation-Date: 2021-11-15 19:28-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -4850,11 +4850,28 @@ msgstr ""
 "Vous avez peut-être écrit une clé de `dict` sans écrire la valeur "
 "correspondante.\n"
 
-#: syntax_errors\statement_analyzer.py:1512
+#: syntax_errors\statement_analyzer.py:1495
+msgid ""
+"The `else` keyword does not begin a code block that matches\n"
+"a valid code block, possibly because `else` is not indented correctly.\n"
+msgstr ""
+"Le mot-clé `else` ne commence pas un bloc de code qui correspond à\n"
+"un bloc de code valide, peut-être parce que `else` n'est pas indenté "
+"correctement.\n"
+
+#: syntax_errors\statement_analyzer.py:1510
+msgid ""
+"The `elif` keyword does not begin a code block that matches\n"
+"an `if` block, possibly because `elif` is not indented correctly.\n"
+msgstr ""
+"Le mot clé `elif` ne commence pas un bloc de code qui correspond à un bloc\n"
+"un bloc `if`, peut-être parce que `elif` n'est pas indenté correctement.\n"
+
+#: syntax_errors\statement_analyzer.py:1542
 msgid "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr "Vous avez utilisé des crochets, `[...]` au lieu de parenthèses.\n"
 
-#: syntax_errors\statement_analyzer.py:1516
+#: syntax_errors\statement_analyzer.py:1546
 msgid ""
 "Write the following instead:\n"
 "\n"
@@ -4864,13 +4881,13 @@ msgstr ""
 "\n"
 "{new_statement}"
 
-#: syntax_errors\statement_analyzer.py:1560
+#: syntax_errors\statement_analyzer.py:1590
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr ""
 "Le symbole {bracket} à la ligne {linenumber} n'est pas fermé par le symbole "
 "correspondant.\n"
 
-#: syntax_errors\statement_analyzer.py:1566
+#: syntax_errors\statement_analyzer.py:1596
 msgid "If this is incorrect, please report this case.\n"
 msgstr "Si cela est incorrect, veuillez signaler ce cas.\n"
 

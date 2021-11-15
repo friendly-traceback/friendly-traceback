@@ -109,7 +109,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
             self.counter += 1
             if self.ipython_prompt:
                 sys.ps1 = f"\n[{self.counter}]: "
-                sys.ps2 = " " * (len(str(self.counter)) - 1) + "...:" + " "
+                sys.ps2 = " " * (len(str(self.counter)) - 1) + "...: "
         return more
 
     def runsource(

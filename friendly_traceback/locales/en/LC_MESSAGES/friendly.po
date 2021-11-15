@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-14 10:32-0400\n"
-"PO-Revision-Date: 2021-11-14 10:32-0400\n"
+"POT-Creation-Date: 2021-11-15 19:28-0400\n"
+"PO-Revision-Date: 2021-11-15 19:30-0400\n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -4625,11 +4625,27 @@ msgstr ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps wrote a dict key without writing the corresponding value.\n"
 
-#: syntax_errors\statement_analyzer.py:1512
+#: syntax_errors\statement_analyzer.py:1495
+msgid ""
+"The `else` keyword does not begin a code block that matches\n"
+"a valid code block, possibly because `else` is not indented correctly.\n"
+msgstr ""
+"The `else` keyword does not begin a code block that matches\n"
+"a valid code block, possibly because `else` is not indented correctly.\n"
+
+#: syntax_errors\statement_analyzer.py:1510
+msgid ""
+"The `elif` keyword does not begin a code block that matches\n"
+"an `if` block, possibly because `elif` is not indented correctly.\n"
+msgstr ""
+"The `elif` keyword does not begin a code block that matches\n"
+"an `if` block, possibly because `elif` is not indented correctly.\n"
+
+#: syntax_errors\statement_analyzer.py:1542
 msgid "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr "You used square brackets, `[...]` instead of parentheses.\n"
 
-#: syntax_errors\statement_analyzer.py:1516
+#: syntax_errors\statement_analyzer.py:1546
 msgid ""
 "Write the following instead:\n"
 "\n"
@@ -4639,11 +4655,11 @@ msgstr ""
 "\n"
 "{new_statement}"
 
-#: syntax_errors\statement_analyzer.py:1560
+#: syntax_errors\statement_analyzer.py:1590
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr "The opening {bracket} on line {linenumber} is not closed.\n"
 
-#: syntax_errors\statement_analyzer.py:1566
+#: syntax_errors\statement_analyzer.py:1596
 msgid "If this is incorrect, please report this case.\n"
 msgstr "If this is incorrect, please report this case.\n"
 

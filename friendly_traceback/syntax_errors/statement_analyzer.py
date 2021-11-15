@@ -1485,6 +1485,36 @@ def missing_value_in_dict(statement):
 
 
 @add_statement_analyzer
+def else_with_no_match(statement):
+    if not (
+        statement.bad_token == statement.first_token == "else"
+        and statement.next_token == statement.last_token == ":"
+    ):
+        return {}
+
+    cause = _(
+        "The `else` keyword does not begin a code block that matches\n"
+        "a valid code block, possibly because `else` is not indented correctly.\n"
+    )
+    return {"cause": cause}
+
+
+@add_statement_analyzer
+def elif_with_no_matching_if(statement):
+    if not (
+        statement.bad_token == statement.first_token == "elif"
+        and statement.last_token == ":"
+    ):
+        return {}
+
+    cause = _(
+        "The `elif` keyword does not begin a code block that matches\n"
+        "an `if` block, possibly because `elif` is not indented correctly.\n"
+    )
+    return {"cause": cause}
+
+
+@add_statement_analyzer
 def bracket_instead_of_paren(statement):
     if statement.statement_brackets:
         return {}

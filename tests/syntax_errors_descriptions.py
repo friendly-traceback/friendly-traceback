@@ -552,6 +552,14 @@ descriptions = {
         in_cause: "wrote `,` twice in a row by mistake",
         title: "Extra token",
     },
+    "elif_not_matching_if": {
+        in_cause: "The `elif` keyword does not begin a code block that matches",
+        title: "elif with no matching if",
+    },
+    "else_no_matching_statement": {
+        in_cause: "The `else` keyword does not begin a code block that matches",
+        title: "else with no matching statement",
+    },
     "else_if_instead_of_elif": {
         in_cause: "wrote `else if` instead",
         title: "Write elif, not else if",
