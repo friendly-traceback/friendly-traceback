@@ -735,6 +735,10 @@ descriptions = {
         title: "Inverted operators 2",
         also_in_cause: ["all the syntax errors in the code you wrote"],
     },
+    "iteration_unpacking_in_comprehension": {
+        in_cause: "You cannot use the `*` operator to unpack the iteration variable",
+        title: "Iteration variable unpacking in comprehension"
+    },
     "keyword_arg_repeated": {
         in_cause: "keyword argument should appear only once in a function call",
         title: "Keyword arg only once in function call",

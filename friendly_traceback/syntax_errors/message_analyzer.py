@@ -1106,6 +1106,30 @@ def invalid_octal(message: str = "", statement=None):
 
 
 @add_python_message
+def iterable_unpacking_cannot_be_used_in_comprehension(
+    message: str = "", statement=None
+):
+    if message != "iterable unpacking cannot be used in comprehension":
+        return {}
+    cause = _(
+        "You cannot use the `*` operator to unpack the iteration variable\n"
+        "in a comprehension.\n"
+    )
+    if statement.bad_token == "*":
+        bad_token = statement.bad_token
+    elif statement.next_token == "*":
+        bad_token = statement.next_token
+    else:
+        return {"cause": cause}
+    new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
+    if fixers.check_statement(new_statement):
+        cause += "\n" + _(
+            "The following statement has no syntax error:\n\n    {statement}\n"
+        ).format(statement=new_statement)
+    return {"cause": cause}
+
+
+@add_python_message
 def invalid_token(message: str = "", statement=None):
     # Seen this for Python 3.6, 3.7 for would-be decimal number starting with zero.
     if message != "invalid token":
