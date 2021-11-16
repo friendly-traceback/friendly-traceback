@@ -45,8 +45,8 @@ class _State:
             "If so, to continue, try: `start_console(local_vars=locals())`.\n"
             "You will need to import `start_console` if you have not already done so.\n"
         )
-        # Console; if ipython_prompt == True, prompt = '[digit]'
-        self.ipython_prompt: bool = False  # default prompt = '>>>'
+        # Console; if ipython_prompt == True, prompt = '[digit]: '; False: '>>> '
+        self.ipython_prompt: bool = True  # default iPython style prompt
         self.exception_before_import: bool = False
         self.sys_last_type = None
         self.sys_last_value = None

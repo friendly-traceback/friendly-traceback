@@ -91,26 +91,9 @@ def python_tb() -> None:
     explain("python_tb")
 
 
-def set_prompt(prompt: Optional[str] = None) -> None:
-    """Sets the default prompt to use in the console.
-
-    If the prompt argument is ">>>" or "python",
-    then the standard Python prompt will be used.
-    Note that the prompt argument will be stripped and is case-insensitive.
-
-    If any other argument is given, then the iPython style prompt will be used.
-    Setting this has also an effect on how the "friendly traceback" filename
-    are shown for code blocks.
-    """
-    session.ipython_prompt = True
-    if prompt is None:
-        return
-    try:
-        prompt = prompt.strip().casefold()
-        if prompt in [">>>", "python"]:
-            session.ipython_prompt = False
-    except Exception:  # noqa
-        pass
+def toggle_prompt() -> None:
+    """Toggles the style of prompt to use in the console."""
+    session.ipython_prompt = not session.ipython_prompt
 
 
 def what(
@@ -357,7 +340,7 @@ helpers: Dict[str, Callable[..., None]] = {
     "history": history,
     "friendly_tb": friendly_tb,
     "python_tb": python_tb,
-    "set_prompt": set_prompt,
+    "toggle_prompt": toggle_prompt,
     "show_paths": show_paths,
     "get_include": get_include,
     "set_include": set_include,

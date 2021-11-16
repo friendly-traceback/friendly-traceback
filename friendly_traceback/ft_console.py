@@ -71,9 +71,8 @@ class FriendlyTracebackConsole(InteractiveConsole):
         friendly_traceback.set_formatter(formatter)
         if displayhook is not None:
             sys.displayhook = displayhook
-        self.ipython_prompt = ipython_prompt
-        if self.ipython_prompt:
-            session.ipython_prompt = True
+        session.ipython_prompt = ipython_prompt
+        if session.ipython_prompt:
             sys.ps1 = "[1]: "
             sys.ps2 = "...: "
         super().__init__(locals=local_vars)
@@ -107,9 +106,12 @@ class FriendlyTracebackConsole(InteractiveConsole):
         if not more:
             self.resetbuffer()
             self.counter += 1
-            if self.ipython_prompt:
+            if session.ipython_prompt:
                 sys.ps1 = f"\n[{self.counter}]: "
                 sys.ps2 = " " * (len(str(self.counter)) - 1) + "...: "
+            else:
+                sys.ps1 = ">>> "
+                sys.ps2 = "... "
         return more
 
     def runsource(
