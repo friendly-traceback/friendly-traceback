@@ -851,6 +851,30 @@ def f_string_backslash(message: str = "", _statement=None):
 
 
 @add_python_message
+def f_string_curly_not_allowed(message: str = "", _statement=None):
+    if message != "f-string: single '}' is not allowed":
+        return {}
+    cause = _(
+        "You have written an f-string which has an unmatched `}`.\n"
+        "If you want to print a single `}`, you need to write `}}` in the f-string;\n"
+        "otherwise, you need to add an opening `{`.\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
+def f_string_expecting_curly(message: str = "", _statement=None):
+    if message != "f-string: expecting '}'":
+        return {}
+    cause = _(
+        "You have written an f-string which has an unmatched `{`.\n"
+        "If you want to print a single `{`, you need to write `{{` in the f-string;\n"
+        "otherwise, you need to add a closing `}`.\n"
+    )
+    return {"cause": cause}
+
+
+@add_python_message
 def forgot_paren_around_comprehension(message: str = "", _statement=None):
     # Python 3.10+
     if message != "did you forget parentheses around the comprehension target?":

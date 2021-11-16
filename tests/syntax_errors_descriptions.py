@@ -589,6 +589,14 @@ descriptions = {
         in_cause: "`bf` is an illegal string prefix.",
         title: "Binary f-string not allowed",
     },
+    "f_string_curly_not_allowed" : {
+        in_cause: "You have written an f-string which has an unmatched `}`",
+        title: "f-string: closing } not allowed"
+    },
+    "f_string_expected_curly": {
+        in_cause: "You have written an f-string which has an unmatched `{`.",
+        title: "f-string: missing closing }",
+    },
     "f_string_unterminated": {
         in_cause: "you have another string, which starts with either",
         title: "f-string: unterminated string",
