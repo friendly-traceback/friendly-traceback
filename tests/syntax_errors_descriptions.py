@@ -202,6 +202,10 @@ descriptions = {
         in_cause: "The Python keyword `break` can only be used",
         title: "break outside loop",
     },
+    "cannot_assign_to_attribute_here" : {
+        in_cause: "You likely used an assignment operator `=` instead of an equality operator `==`",
+        title: "Cannot assign to attribute here.",
+    },
     "cannot_guess_the_cause": {
         in_cause: "Currently, I cannot guess the likely cause of this error.",
         title: "Cannot guess the cause",

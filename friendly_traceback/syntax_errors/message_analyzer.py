@@ -538,6 +538,27 @@ def break_outside_loop(message: str = "", _statement=None):
 
 
 @add_python_message
+def cannot_assign_to_attribute(message: str = "", statement=None):
+    if "cannot assign to attribute here" not in message:  # new in Python 3.10
+        return {}
+    hint = _("Perhaps you needed `==` instead of `=`.\n")
+    cause = _(
+        "You likely used an assignment operator `=` instead of an equality operator `==`.\n"
+    )
+
+    for tok in statement.tokens[statement.bad_token_index :]:
+        if tok == "=":
+            new_statement = fixers.replace_token(statement.statement_tokens, tok, "==")
+            if fixers.check_statement(new_statement):
+                cause += _(
+                    "The following statement would not contain a syntax error:\n\n"
+                    "    {new_statement}"
+                ).format(new_statement=new_statement)
+
+    return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
 def cannot_delete_constant(message: str = "", statement=None):
     if message not in (
         "can't delete keyword",  # Python 3.6, 3.7
