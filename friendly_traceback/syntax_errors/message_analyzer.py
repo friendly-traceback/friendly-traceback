@@ -686,6 +686,13 @@ def cannot_use_starred_expression(message: str = "", statement=None):
 
 
 @add_python_message
+def cannot_delete_something_else(message: str = "", statement=None):
+    if not message.startswith("cannot delete"):
+        return {}
+    return {"cause": _can_only_delete()}
+
+
+@add_python_message
 def colon_expected(message: str = "", statement=None):
     if message != "expected ':'":  # new in Python 3.10
         return {}
