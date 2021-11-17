@@ -124,10 +124,14 @@ class Statement:
             # self.all_statements and self.statement_tokens are set in the following
             self.obtain_statement(source_tokens)
             self.tokens = self.remove_meaningless_tokens()
+            current_statement_index = len(self.all_statements) - 1
             if not self.tokens:
-                if len(self.all_statements) > 1:  # pragma: no cover
-                    self.statement_tokens = self.all_statements[-2]
+                while current_statement_index > 0:
+                    self.statement_tokens = self.all_statements[current_statement_index]
+                    current_statement_index -= 1
                     self.tokens = self.remove_meaningless_tokens()
+                    if self.tokens:
+                        break
                 else:
                     self.tokens = [token_utils.tokenize("Internal_error")[0]]
 

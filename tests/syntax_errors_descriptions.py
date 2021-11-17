@@ -62,9 +62,8 @@ descriptions = {
     },
     "assign_instead_of_equal": {
         in_cause: "Perhaps you needed `==`",
-        "version_dependent": ["`:=` instead of `=`.",
-                              "instead of `=`."],
-        title: "Assign instead of equal (or walrus)."
+        "version_dependent": ["`:=` instead of `=`.", "instead of `=`."],
+        title: "Assign instead of equal (or walrus).",
     },
     "assign_name_before_global_1": {
         in_cause: "before declaring it as a global variable.",
@@ -368,7 +367,10 @@ descriptions = {
         title: "def: list as argument - 2",
     },
     "def_missing_colon": {
-        version_dependent: ["but forgot to add a colon `:` at the end", "Did you forget to write a colon"],
+        version_dependent: [
+            "but forgot to add a colon `:` at the end",
+            "Did you forget to write a colon",
+        ],
         in_cause: "ignored",
         title: "def: missing colon",
     },
@@ -589,9 +591,9 @@ descriptions = {
         in_cause: "`bf` is an illegal string prefix.",
         title: "Binary f-string not allowed",
     },
-    "f_string_curly_not_allowed" : {
+    "f_string_curly_not_allowed": {
         in_cause: "You have written an f-string which has an unmatched `}`",
-        title: "f-string: closing } not allowed"
+        title: "f-string: closing } not allowed",
     },
     "f_string_expected_curly": {
         in_cause: "You have written an f-string which has an unmatched `{`.",
@@ -737,7 +739,7 @@ descriptions = {
     },
     "iteration_unpacking_in_comprehension": {
         in_cause: "You cannot use the `*` operator to unpack the iteration variable",
-        title: "Iteration variable unpacking in comprehension"
+        title: "Iteration variable unpacking in comprehension",
     },
     "keyword_arg_repeated": {
         in_cause: "keyword argument should appear only once in a function call",
@@ -767,8 +769,22 @@ descriptions = {
         in_cause: "it reached the end of the file and expected more content.",
         title: "IndentationError/SyntaxError depending on version",
     },
+    "missing_code_block_2": {
+        version_dependent: [
+            "unexpected EOF while parsing",
+            # do not include 'indented' below as this results in the test
+            # assuming that an Indention error is raised, which is not
+            # true for earlier Python versions.s
+            "Line `6` identified above was expected to begin a",
+        ],
+        in_cause: "ignored",
+        title: "IndentationError/SyntaxError depending on version - 2",
+    },
     "missing_colon_if": {
-        version_dependent: ["Did you forget a colon", "`if` but forgot to add a colon `:`"],
+        version_dependent: [
+            "Did you forget a colon",
+            "`if` but forgot to add a colon `:`",
+        ],
         in_cause: "ignored",
         title: "Missing colon - if",
     },
@@ -885,7 +901,10 @@ descriptions = {
         title: "problem with assigning a variable to Python",
     },
     "quote_inside_string": {
-        version_dependent: ["ended the string with another quote", "quote inside a string"],
+        version_dependent: [
+            "ended the string with another quote",
+            "quote inside a string",
+        ],
         in_cause: "ignored",
         title: "Quote inside a string",
     },
@@ -1069,7 +1088,10 @@ descriptions = {
         title: "Walrus operator does not exist - yet",
     },
     "walrus_instead_of_equal": {
-        version_dependent: ["walrus operator", "You use the augmented assignment operator `:=` where"],
+        version_dependent: [
+            "walrus operator",
+            "You use the augmented assignment operator `:=` where",
+        ],
         in_cause: "ignored",
         title: "Walrus instead of equal",
         also_in_cause: ["the normal assignment operator `=` was required."],

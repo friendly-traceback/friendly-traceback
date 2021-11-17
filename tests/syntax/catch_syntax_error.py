@@ -26,7 +26,7 @@ def test_syntax_errors(filename):
             "IndentationError identified incorrectly; %s" % filename
         )
     else:
-        assert "SyntaxError" in result, (
+        assert "SyntaxError" in result or "IndentationError" in result, (
             "SyntaxError identified incorrectly; %s" % filename
         )
 
