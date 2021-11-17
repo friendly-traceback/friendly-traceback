@@ -1446,6 +1446,26 @@ def star_assignment_target_must_be_list(message: str = "", _statement=None):
 
 
 @add_python_message
+def starred_expression_in_dict_value(message: str = "", statement=None):
+    if message != "cannot use a starred expression in a dictionary value":
+        return {}
+    cause = _(
+        "It looks like you tried to use a starred expression as a dict value;\n"
+        "this is not allowed.\n"
+    )
+    if statement.bad_token == "*":
+        bad_token = statement.bad_token
+    else:
+        return {"cause": cause}
+    new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
+    if fixers.check_statement(new_statement):
+        cause += "\n" + _(
+            "The following statement has no syntax error:\n\n    {statement}\n"
+        ).format(statement=new_statement)
+    return {"cause": cause}
+
+
+@add_python_message
 def too_many_nested_blocks(message: str = "", _statement=None):
     if message != "too many statically nested blocks":
         return {}

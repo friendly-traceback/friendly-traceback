@@ -1040,6 +1040,10 @@ descriptions = {
         in_cause: "The closing square bracket `]` on line",
         title: "Unmatched brackets - 3",
     },
+    "unpacking_dict_value": {
+        in_cause: "It looks like you tried to use a starred expression as a dict value",
+        title: "Unpacking a dict value",
+    },
     "unterminated_triple_quote_string": {
         in_cause: "You started writing a triple-quoted string",
         title: "Unterminated triple quoted string",

@@ -443,6 +443,13 @@ def consecutive_operators(statement):
                 "It looks like you tried to use a starred expression as a dict value;\n"
                 "this is not allowed.\n"
             ).format(first=statement.prev_token, second=statement.bad_token)
+            new_statement = fixers.replace_token(
+                statement.statement_tokens, statement.bad_token, ""
+            )
+            if fixers.check_statement(new_statement):
+                cause += "\n" + _(
+                    "The following statement has no syntax error:\n\n    {statement}\n"
+                ).format(statement=new_statement)
             return {"cause": cause}
         cause = _(
             "You cannot have these two operators, `{first}` and `{second}`,\n"
