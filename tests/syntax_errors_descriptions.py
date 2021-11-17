@@ -774,8 +774,10 @@ descriptions = {
             "unexpected EOF while parsing",
             # do not include 'indented' below as this results in the test
             # assuming that an Indention error is raised, which is not
-            # true for earlier Python versions.s
-            "Line `6` identified above was expected to begin a",
+            # true for earlier Python versions.
+            # Also do not include line number shown in the message
+            # as it can be off by 1 on Github automated tests for this case.
+            "identified above was expected to begin a",
         ],
         in_cause: "ignored",
         title: "IndentationError/SyntaxError depending on version - 2",
