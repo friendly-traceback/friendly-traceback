@@ -129,9 +129,12 @@ def assign_to_conditional_expression(message: str = "", _statement=None):
         "On the left-hand side of an equal sign, you have a\n"
         "conditional expression instead of the name of a variable.\n"
         "A conditional expression has the following form:\n\n"
-        "    variable = object if condition else other_object"
+        "    variable = object if condition else other_object\n"
     )
-    return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+    return {
+        "cause": cause + _assign_to_identifiers_only(),
+        "suggest": _assign_to_identifiers_only(),
+    }
 
 
 @add_python_message
@@ -143,7 +146,10 @@ def assign_to_expression(message: str = "", _statement=None):
         "On the left-hand side of an equal sign, you have\n"
         "an expression instead of the name of a variable.\n"
     )
-    return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+    return {
+        "cause": cause + _assign_to_identifiers_only(),
+        "suggest": _assign_to_identifiers_only(),
+    }
 
 
 @add_python_message
@@ -152,10 +158,6 @@ def assign_to_function_call(message: str = "", statement=None):
         message != "can't assign to function call"  # Python 3.6, 3.7
         and "cannot assign to function call" not in message
     ):
-        # if message not in (
-        #     "can't assign to function call",  # Python 3.6, 3.7
-        #     "cannot assign to function call",  # Python 3.8
-        # ):
         return {}
 
     hint = _assign_to_identifiers_only()
@@ -175,7 +177,7 @@ def assign_to_function_call(message: str = "", statement=None):
             "a function call and not the name of a variable.\n"
         ).format(fn_call=fn_call, value=value)
 
-        return {"cause": cause, "suggest": hint}
+        return {"cause": cause + hint, "suggest": hint}
 
     info = line.split("=")
     fn_call = info[0].strip()
@@ -186,7 +188,7 @@ def assign_to_function_call(message: str = "", statement=None):
         "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
         "or includes a function call and is not simply the name of a variable.\n"
     ).format(fn_call=fn_call, value=value)
-    return {"cause": cause, "suggest": hint}
+    return {"cause": cause + hint, "suggest": hint}
 
 
 @add_python_message
@@ -201,7 +203,8 @@ def assign_to_generator_expression(message: str = "", _statement=None):
         "On the left-hand side of an equal sign, you have a\n"
         "generator expression instead of the name of a variable.\n"
     )
-    return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+    hint = _assign_to_identifiers_only()
+    return {"cause": cause + hint, "suggest": hint}
 
 
 @add_python_message
@@ -213,7 +216,8 @@ def assign_to_f_expression(message: str = "", statement=None):
             "An f-string should only appear on the right-hand "
             "side of an equal sign.\n"
         ).format(fstring=statement.bad_token)
-        return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+        hint = _assign_to_identifiers_only()
+        return {"cause": cause + hint, "suggest": hint}
     return {}
 
 
@@ -683,13 +687,6 @@ def cannot_use_starred_expression(message: str = "", statement=None):
         )
 
     return {"cause": cause}
-
-
-@add_python_message
-def cannot_delete_something_else(message: str = "", statement=None):
-    if not message.startswith("cannot delete"):
-        return {}
-    return {"cause": _can_only_delete()}
 
 
 @add_python_message
@@ -1724,3 +1721,21 @@ def you_found_it(message: str = "", statement=None):  # pragma: no cover
         "It should not be present in other versions.\n"
     )
     return {"cause": cause}
+
+
+# Generic cases not covered in previous specific ones.
+
+
+@add_python_message
+def cannot_delete_something_else(message: str = "", statement=None):
+    if not message.startswith("cannot delete"):
+        return {}
+    return {"cause": _can_only_delete()}
+
+
+@add_python_message
+def assign_to_others(message: str = "", statement=None):
+    if not message.startswith("cannot assign to"):
+        return {}
+    hint = _assign_to_identifiers_only()
+    return {"cause": hint, "suggest": hint}
