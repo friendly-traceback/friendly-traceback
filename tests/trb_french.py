@@ -51,12 +51,12 @@ conviviales que les fameux **tracebacks** de Python lorsqu'une exception survien
 .. note::
 
      Le contenu de cette page a été généré par l'exécution de
-     {name} situé dans le répertoire ``tests/``.
+     `{name}` situé dans le répertoire ``tests/``.
      Ceci a besoin d'être fait de manière explicite lorsqu'on veut
      faire des corrections ou des ajouts, avant de faire la mise
      à jour du reste de la documentation avec Sphinx.
 
-Friendly version: {friendly}
+Friendly-traceback version: {friendly}
 Python version: {python}
 
 """.format(
