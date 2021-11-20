@@ -46,7 +46,7 @@ Friendly aims to provide friendlier feedback when an exception
 is raised than what is done by Python.
 This file contains only examples of SyntaxError and its sub-classes.
 Some tests may appear to be repetitive to a human reader
-but they are may be included to ensure more complete test coverage..
+but they are may be included to ensure more complete test coverage.
 
 .. note::
 
@@ -64,7 +64,7 @@ Python version: {python}
 """.format(
     friendly=friendly_traceback.__version__,
     python=platform.python_version(),
-    name=__file__,
+    name=sys.argv[0],
 )
 
 print(f"Python version: {platform.python_version()}; English")

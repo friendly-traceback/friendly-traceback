@@ -556,7 +556,7 @@ def cannot_assign_to_attribute(message: str = "", statement=None):
             if fixers.check_statement(new_statement):
                 cause += _(
                     "The following statement would not contain a syntax error:\n\n"
-                    "    {new_statement}"
+                    "    {new_statement}\n"
                 ).format(new_statement=new_statement)
 
     return {"cause": cause, "suggest": hint}

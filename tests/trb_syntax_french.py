@@ -67,7 +67,7 @@ Python version: {python}
 """.format(
     friendly=friendly_traceback.__version__,
     python=platform.python_version(),
-    name=__file__,
+    name=sys.argv[0],
 )
 
 print(f"Python version: {platform.python_version()}; French")
