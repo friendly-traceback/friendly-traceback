@@ -623,7 +623,7 @@ class FriendlyTraceback:
                 "{filename} is not a regular Python file whose contents can be analyzed.\n"
             ).format(filename=filename)
 
-        if session.ipython_prompt:
+        if session.ipython_prompt and filename.startswith("["):
             self.info["exception_raised_header"] = _(
                 "Exception raised on line {linenumber} of code block {filename}.\n"
             ).format(linenumber=record.lineno, filename=filename)
