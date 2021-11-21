@@ -110,6 +110,7 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
     if len(word_with_typo) == 1:
         return []
     words = set(words)  # removes duplicates
+    words = sorted(list(words))  # get predictable order for tests
 
     if 2 <= len(word_with_typo) <= 4:
         words = [word for word in words if 2 <= len(word) <= 5]
