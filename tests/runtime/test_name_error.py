@@ -138,6 +138,33 @@ def test_Missing_import():
     return result, message
 
 
+def test_missing_import2():
+    try:
+        ABCMeta
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "NameError: name 'ABCMeta' is not defined"
+    if friendly_traceback.get_lang() == "en":
+        assert "Perhaps you forgot to import `ABCMeta` from one of these modules." in result
+    return result, message
+
+
+def test_missing_import3():
+    try:
+        AF_APPLETALK
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "NameError: name 'AF_APPLETALK' is not defined" in result
+    assert "from socket import AF_APPLETALK." in result
+    return result, message
+
+
 def test_Free_variable_referenced():
     def outer():
         def inner():
