@@ -39,7 +39,7 @@ target = os.path.normpath(
 )
 
 intro_text = """
-Friendly tracebacks - en español
+Friendly tracebacks - in italiano
 ======================================
 
 Friendly aims to provide friendlier feedback when an exception
