@@ -81,32 +81,17 @@ def name_not_defined(
         return {}
 
     unknown_name = match.group(1)
+    is_special_name = perhaps_special_name(unknown_name, tb_data)
+    if is_special_name:
+        return is_special_name
+
     cause = _("In your program, no object with the name `{var_name}` exists.\n").format(
         var_name=unknown_name
     )
 
-    if unknown_name == "ꓺ":  # pragma: no cover
-        return flipfloperator()
-    elif unknown_name == "__debug__" and tb_data.bad_line.startswith("del "):
-        return delete_debug()
-
     known = is_stdlib_module(unknown_name, tb_data)
     if known:
         return known
-
-    if unknown_name in CUSTOM_NAMES:
-        bad_line = tb_data.bad_line.replace("(", "").replace(")", "").strip()
-        if bad_line == unknown_name:
-            cause = CUSTOM_NAMES[unknown_name]()
-            return {"cause": cause, "suggest": cause}
-
-    if unknown_name in ["i", "j"]:
-        hint = _("Did you mean `1j`?\n")
-        cause += _(
-            "However, sometimes `{name}` is intended to represent\n"
-            "the square root of `-1` which is written as `1j` in Python.\n"
-        ).format(name=unknown_name)
-        return {"cause": cause, "suggest": hint}
 
     type_hint = info_variables.name_has_type_hint(unknown_name, frame)
     similar = info_variables.get_similar_names(unknown_name, frame)
@@ -136,6 +121,29 @@ def name_not_defined(
         return cause
     cause["suggest"] = hint
     return cause
+
+
+def perhaps_special_name(name: str, tb_data: TracebackData) -> CauseInfo:
+    if name == "ꓺ":  # pragma: no cover
+        return flipfloperator()
+    if name == "__debug__" and tb_data.bad_line.startswith("del "):
+        return delete_debug()
+    if name in {"i", "j"}:
+        hint = _("Did you mean `1j`?\n")
+        cause = _(
+            "In your program, no object with the name `{var_name}` exists.\n"
+        ).format(var_name=name)
+        cause += _(
+            "However, sometimes `{name}` is intended to represent\n"
+            "the square root of `-1` which is written as `1j` in Python.\n"
+        ).format(name=name)
+        return {"cause": cause, "suggest": hint}
+    if name in CUSTOM_NAMES:
+        bad_line = tb_data.bad_line.replace("(", "").replace(")", "").strip()
+        if bad_line == name:
+            cause = CUSTOM_NAMES[name]()
+            return {"cause": cause, "suggest": cause}
+    return {}
 
 
 def delete_debug() -> CauseInfo:
