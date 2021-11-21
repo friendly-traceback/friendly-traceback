@@ -161,7 +161,7 @@ def test_missing_import3():
     result = friendly_traceback.get_output()
 
     assert "NameError: name 'AF_APPLETALK' is not defined" in result
-    assert "from socket import AF_APPLETALK." in result
+    assert "from socket import AF_APPLETALK" in result
     return result, message
 
 
