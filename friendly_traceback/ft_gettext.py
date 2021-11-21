@@ -40,7 +40,7 @@ class LangState:
         try:
             # We first look for the exact language requested.
             _lang = gettext.translation(
-                "friendly",
+                "friendly_tb_" + lang,
                 localedir=os.path.normpath(
                     os.path.join(os.path.dirname(__file__), "locales")
                 ),
@@ -53,7 +53,7 @@ class LangState:
             # generic version, such as fr, defined by a two-letter code.
             lang = lang[:2]
             _lang = gettext.translation(
-                "friendly",
+                "friendly_tb_" + lang,
                 localedir=os.path.normpath(
                     os.path.join(os.path.dirname(__file__), "locales")
                 ),
