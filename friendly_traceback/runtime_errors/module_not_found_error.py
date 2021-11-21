@@ -25,6 +25,7 @@ def is_not_a_package(
     if not match:
         return {}
 
+    hint = ""
     dotted_path = match.group(1)
     name = match.group(2)
     rest = dotted_path.replace(name + ".", "")
@@ -89,6 +90,8 @@ def is_not_a_package(
             rest=rest, name=name
         )
 
+    if hint:
+        return {"cause": cause, "suggest": hint}
     return {"cause": cause}
 
 

@@ -151,7 +151,7 @@ def test_Module_attribute_typo():
             "Instead of writing `math.cost`, perhaps you meant to write one of"
             in result
         )
-    assert "cos, cosh" in result
+    assert "cos, cosh" in result or "cosh, cos" in result
     assert not "acosh" in result
     return result, message
 

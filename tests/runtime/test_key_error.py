@@ -152,7 +152,14 @@ def test_Similar_names():
         expected = "Did you mean `'alpha0'`?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
-        expected = "'alpha0', 'alpha12', 'alpha11'"
+        # The order for alpha11 and alpha12 could vary
+        expected = "'alpha0'"
+        ok, diff = expected_in_result(expected, result)
+        assert ok, diff
+        expected = "'alpha11'"
+        ok, diff = expected_in_result(expected, result)
+        assert ok, diff
+        expected = "'alpha12'"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
 

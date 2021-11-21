@@ -9,7 +9,8 @@ def multiple_choices():
     result = friendly_traceback.get_output()
     assert "ImportError: cannot import name 'bsin'" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Did you mean one of the following: `sin" in result
+        assert "Did you mean one of the following:" in result
+        assert "sin, asin" in result or "asin, sin" in result
 
 
 def no_suggestion():

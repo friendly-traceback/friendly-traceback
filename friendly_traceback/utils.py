@@ -109,35 +109,118 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
     """
     if len(word_with_typo) == 1:
         return []
-    words = set(words)
-    words = [word for word in words if len(word) > 1]
+    words = set(words)  # removes duplicates
 
-    get = difflib.get_close_matches
+    if 2 <= len(word_with_typo) <= 4:
+        words = [word for word in words if 2 <= len(word) <= 5]
+        max_dist = 1
+    elif 5 <= len(word_with_typo) <= 8:
+        words = [word for word in words if 4 <= len(word) <= 10]
+        max_dist = 2
+    else:
+        words = [word for word in words if len(word) >= 7]
+        max_dist = 3
 
-    cutoff = min(0.8, 0.63 + 0.01 * len(word_with_typo))
-    if len(word_with_typo) > 2:
-        result = get(word_with_typo, words, n=5, cutoff=cutoff)
-        if result:
-            return result
-    # In the absence of results, we try see if the typos could have been
-    # caused by using the wrong case; this works well also
-    # for words of length 2, such as writing Pi instead of pi.
-    result = get(word_with_typo.casefold(), words, n=1, cutoff=cutoff)
-    if result:
-        return result
-    result = get(word_with_typo.upper(), words, n=1, cutoff=cutoff)
-    if result:
-        return result
+    similar_words = {}
+    for word in words:
+        distance = _leven(word_with_typo, word, max_dist + 1)
+        if distance <= max_dist:
+            if distance in similar_words:
+                similar_words[distance].append(word)
+            else:
+                similar_words[distance] = [word]
 
-    # Finally, for words of length 2, such as writing 'it' instead of 'if',
-    # we lower the cutoff but make sure that the matched words
-    # are not too long: difflib finds that 'with' is much more similar to
-    # 'it' than 'if' would be!
-    if len(word_with_typo) == 2:
-        cutoff = 0.5
-        words = [word for word in words if len(word) <= 3]
-        result = get(word_with_typo, words, n=5, cutoff=cutoff)
-    return result
+    similar = []
+    for distance in range(1, max_dist + 1):
+        if distance in similar_words and similar_words[distance]:
+            similar.extend(similar_words[distance])
+    return similar
+
+
+# The following code, including comments, has been adapted from
+# https://gist.github.com/giststhebearbear/4145811
+
+
+def _leven(s1, s2, max_distance):
+    #  get smallest string so our rows are minimized
+    s1, s2 = (s1, s2) if len(s1) <= len(s2) else (s2, s1)
+    #  set lengths
+    l1, l2 = len(s1), len(s2)
+
+    #  We are simulating an NM matrix where n is the longer string
+    #  and m is the shorter string. By doing this we can minimize
+    #  memory usage to O(M).
+    #  Since we are simulating the matrix we only maintain two rows
+    #  at a time the current row and the previous rows.
+    #  A move from the current cell looking at the cell before it indicates
+    #  consideration of an insert operation.
+    #  A move from the current cell looking at the cell above it indicates
+    #  consideration of a deletion
+    #  Both operations are cost 1
+    #  A move from the current cell to the cell up and to the left indicates
+    #  an edit operation of 0 cost for a matching character and a 1 cost for
+    #  a non matching characters
+    #  no row has been previously computed yet, set empty row
+    #  Since this is also a Damerau-Levenshtein calculation transposition
+    #  costs will be taken into account. These look back 2 characters to
+    #  determine optimal cost based on a possible transposition
+    #  example: aei -> aie with Levensthein has a cost of 2
+    #  match a, change e->i change i->e => aie
+    #  Damarau-Levenshtein has a cost of 1
+    #  match a, transpose ei to ie => aie
+    prev_row = None
+
+    #  build first leven matrix row
+    #  The first row represents transformation from an empty string
+    #  to the shorter string making it static [0-n]
+    #  since this row is static we can set it as
+    #  cur_row and start computation at the second row or index 1
+    cur_row = [x for x in range(l1 + 1)]
+
+    # use second length to loop through all the rows being built
+    # we start at row one
+    for row_num in range(1, l2 + 1):
+        #  set transposition, previous, and current
+        #  because the row_num always increments by one
+        #  we can use row_num to set the value representing
+        #  the first column which is indicative of transforming TO
+        #  the empty string from our longer string
+        #  transposition row maintains an extra row so that it is possible
+        #  for us to apply Damarau's formula
+        transposition_row, prev_row, cur_row = prev_row, cur_row, [row_num] + [0] * l1
+
+        #  consider if we have passed the max distance if all paths through
+        #  the transposition row are larger than the max we can stop calculating
+        #  distance and return the last element in that row and return the max
+        if transposition_row and all(
+            cell_value > max_distance for cell_value in transposition_row
+        ):
+            return max_distance
+
+        for col_num in range(1, l1 + 1):
+            insertion_cost = cur_row[col_num - 1] + 1
+            deletion_cost = prev_row[col_num] + 1
+            change_cost = prev_row[col_num - 1] + (
+                0 if s1[col_num - 1] == s2[row_num - 1] else 1
+            )
+            #  set the cell value - min distance to reach this
+            #  position
+            cur_row[col_num] = min(insertion_cost, deletion_cost, change_cost)
+
+            #  test for a possible transposition optimization
+            #  check to see if we have at least 2 characters
+            if 1 < row_num <= col_num:  # sourcery skip
+                #  test for possible transposition
+                if (
+                    s1[col_num - 1] == s2[col_num - 2]
+                    and s2[col_num - 1] == s1[col_num - 2]
+                ):
+                    cur_row[col_num] = min(
+                        cur_row[col_num], transposition_row[col_num - 2] + 1
+                    )
+
+    #  the last cell of the matrix is ALWAYS the shortest distance between the two strings
+    return cur_row[-1]
 
 
 def list_to_string(list_: Iterable[str], sep: str = ", ") -> str:

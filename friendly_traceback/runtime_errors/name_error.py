@@ -1,4 +1,3 @@
-import ast
 import re
 from types import FrameType
 from typing import Any, Tuple
@@ -7,7 +6,9 @@ from .. import debug_helper, info_variables, token_utils, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang
 from ..typing import CauseInfo, SimilarNamesInfo
+from ..utils import list_to_string
 from . import stdlib_modules
+from .modules_attributes import attribute_names
 
 parser = utils.RuntimeMessageParser()
 _ = current_lang.translate
@@ -25,18 +26,13 @@ CUSTOM_NAMES = {"python": using_python, "python3": using_python}
 
 
 def is_module_attribute(name):
-    # attribute_names is a fairly big module which we should only import when needed
-    from ..utils import list_to_string  # noqa
-    from .modules_attributes import attribute_names  # noqa
-
     if name not in attribute_names:
         return ""
-
     names = attribute_names[name]
     if len(names) == 1:
         return _(
             "`{name}` is a name found in module `{mod}`.\n"
-            "Perhaps you forgot to write\n\n    from {mod} import {name}.\n"
+            "Perhaps you forgot to write\n\n    from {mod} import {name}\n"
         ).format(name=name, mod=names[0])
     return _(
         "`{name}` is a name found in the following modules from the standard library:\n"
@@ -89,18 +85,20 @@ def name_not_defined(
         var_name=unknown_name
     )
 
-    known = is_stdlib_module(unknown_name, tb_data)
-    if known:
-        return known
+    hint = ""
+    known_module = is_stdlib_module(unknown_name, tb_data)
+    if known_module:
+        cause = known_module["cause"]
+        hint = known_module["suggest"]
 
     type_hint = info_variables.name_has_type_hint(unknown_name, frame)
     similar = info_variables.get_similar_names(unknown_name, frame)
-    if similar["best"] is not None:
+    if "lowercase" in known_module:
+        hint = _("Did you mean `{name}`?\n").format(name=unknown_name.lower())
+    elif similar["best"] is not None:
         hint = _("Did you mean `{name}`?\n").format(name=similar["best"])
     elif type_hint:
         hint = _("Did you use a colon instead of an equal sign?\n")
-    else:
-        hint = ""
 
     additional = type_hint + format_similar_names(unknown_name, similar)
     try:
@@ -110,17 +108,21 @@ def name_not_defined(
     except Exception as e:  # pragma: no cover
         debug_helper.log("Problem in name_not_defined()")
         debug_helper.log_error(e)
+
+    forgot_import = is_module_attribute(unknown_name)
+    if forgot_import:
+        if additional:
+            additional += "\n" + forgot_import
+        else:
+            additional = forgot_import
     if not additional:
         additional = _("I have no additional information for you.\n")
-        forgot_import = is_module_attribute(unknown_name)
-        if forgot_import:
-            additional = forgot_import
 
-    cause = {"cause": cause + additional}
+    explanation = {"cause": cause + additional}
     if not hint:
-        return cause
-    cause["suggest"] = hint
-    return cause
+        return explanation
+    explanation["suggest"] = hint
+    return explanation
 
 
 def perhaps_special_name(name: str, tb_data: TracebackData) -> CauseInfo:
@@ -170,22 +172,27 @@ def flipfloperator() -> CauseInfo:  # pragma: no cover
 def is_stdlib_module(name: str, tb_data: TracebackData) -> CauseInfo:
     """Determine if an unknown name is to be found in the Python standard library.
     We're looking for something like name.attribute"""
-    if tb_data.node and not isinstance(tb_data.node.parent, ast.Attribute):
-        return {}
-
     # Some Python 2 libraries used names with uppercase letters.
     lowercase = name.lower()
     if name in stdlib_modules.names or lowercase in stdlib_modules.names:
         hint = _("Did you forget to import `{name}`?\n").format(name=lowercase)
-        cause = _(
-            "The name `{name}` is not defined in your program.\n"
-            "Perhaps you forgot to import `{lowercase}` which is found\n"
-            "in Python's standard library.\n"
-        ).format(name=name, lowercase=lowercase)
+        cause = (
+            "\n"
+            + _(
+                "The name `{name}` is not defined in your program.\n"
+                "Perhaps you forgot to import `{lowercase}` which is found\n"
+                "in Python's standard library.\n"
+            ).format(name=name, lowercase=lowercase)
+            + "\n"
+        )
         if name != lowercase:
-            cause += _(
-                "Note that the name of the module is `{lowercase}` and not `{name}`.\n"
-            ).format(lowercase=lowercase, name=name)
+            cause += (
+                _(
+                    "Note that the name of the module is `{lowercase}` and not `{name}`.\n"
+                ).format(lowercase=lowercase, name=name)
+                + "\n"
+            )
+            return {"cause": cause, "suggest": hint, "lowercase": True}
         return {"cause": cause, "suggest": hint}
     return {}
 
