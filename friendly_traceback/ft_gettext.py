@@ -76,9 +76,6 @@ class LangState:
 current_lang = LangState()  # noqa
 _ = current_lang.translate
 
-# Todo: replace localized messages about new cases by the function below
-# which will do the logging automatically.
-
 
 def please_report() -> str:
     debug_helper.log("New case to consider (from please_report()).")

@@ -24,6 +24,27 @@ def using_python() -> str:  # pragma: no cover
 CUSTOM_NAMES = {"python": using_python, "python3": using_python}
 
 
+def is_module_attribute(name):
+    # attribute_names is a fairly big module which we should only import when needed
+    from ..utils import list_to_string  # noqa
+    from .modules_attributes import attribute_names  # noqa
+
+    if name not in attribute_names:
+        return ""
+
+    names = attribute_names[name]
+    if len(names) == 1:
+        return _(
+            "`{name}` is a name found in module `{mod}`.\n"
+            "Perhaps you forgot to write\n\n    from {mod} import {name}.\n"
+        ).format(name=name, mod=names[0])
+    return _(
+        "`{name}` is a name found in the following modules from the standard library:\n"
+        "{modules}.\n"
+        "Perhaps you forgot to import `{name}` from one of these modules.\n"
+    ).format(name=name, modules=list_to_string(names))
+
+
 @parser.add
 def free_variable_referenced(
     message: str, _frame: FrameType, _tb_data: TracebackData
@@ -106,6 +127,9 @@ def name_not_defined(
         debug_helper.log_error(e)
     if not additional:
         additional = _("I have no additional information for you.\n")
+        forgot_import = is_module_attribute(unknown_name)
+        if forgot_import:
+            additional = forgot_import
 
     cause = {"cause": cause + additional}
     if not hint:
