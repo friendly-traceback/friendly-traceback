@@ -259,7 +259,7 @@ def unrecognized_message(
     ).format(name=name)
 
     if hasattr(fn_obj, "__doc__") and fn_obj.__doc__ is not None:
-        cause += _("Its docstring is:\n\n`'''{docstring}'''`\n").format(
+        cause += _("Its docstring is:\n\n{docstring}\n").format(
             docstring=fn_obj.__doc__
         )
     else:
