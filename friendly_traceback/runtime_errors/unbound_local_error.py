@@ -29,6 +29,11 @@ def local_variable_referenced(
         return {}
 
     unknown_name = match.group(1)
+    basic_cause = _(
+        "You're trying to use the name `{name}` identified by Python as being\n"
+        "in the local scope of a function before having assigned it a value.\n"
+    ).format(name=unknown_name)
+
     scopes = info_variables.get_definition_scope(unknown_name, frame)
     if not scopes:
         similar = info_variables.get_similar_names(unknown_name, frame)
@@ -52,15 +57,19 @@ def local_variable_referenced(
                 return {"cause": cause, "suggest": hint}
 
     if "global" in scopes and "nonlocal" in scopes:
-        cause = _(
-            "The name `{var_name}` exists in both the global and nonlocal scope.\n"
-            "This can be rather confusing and is not recommended.\n"
-            "Depending on which variable you wanted to refer to, you needed to add either\n\n"
-            "    global {var_name}\n\n"
-            "or\n\n"
-            "    nonlocal {var_name}\n\n"
-            "as the first line inside your function.\n"
-        ).format(var_name=unknown_name)
+        cause = (
+            basic_cause
+            + "\n"
+            + _(
+                "The name `{var_name}` exists in both the global and nonlocal scope.\n"
+                "This can be rather confusing and is not recommended.\n"
+                "Depending on which variable you wanted to refer to, you needed to add either\n\n"
+                "    global {var_name}\n\n"
+                "or\n\n"
+                "    nonlocal {var_name}\n\n"
+                "as the first line inside your function.\n"
+            ).format(var_name=unknown_name)
+        )
         hint = _(
             "Did you forget to add either `global {var_name}` or \n"
             "`nonlocal {var_name}`?\n"
@@ -87,12 +96,16 @@ def local_variable_referenced(
         debug_helper.log("yet not in global nor nonlocal.")
         return {}
 
-    cause = _(
-        "The name `{var_name}` exists in the {scope} scope.\n"
-        "Perhaps the statement\n\n"
-        "    {scope} {var_name}\n\n"
-        "should have been included as the first line inside your function.\n"
-    ).format(var_name=unknown_name, scope=scope)
+    cause = (
+        basic_cause
+        + "\n"
+        + _(
+            "The name `{var_name}` exists in the {scope} scope.\n"
+            "Perhaps the statement\n\n"
+            "    {scope} {var_name}\n\n"
+            "should have been included as the first line inside your function.\n"
+        ).format(var_name=unknown_name, scope=scope)
+    )
     hint = _("Did you forget to add `{scope} {var_name}`?\n").format(
         var_name=unknown_name, scope=scope
     )

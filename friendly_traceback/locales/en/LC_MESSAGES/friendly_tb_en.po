@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-21 17:18-0400\n"
-"PO-Revision-Date: 2021-11-21 17:46-0400\n"
+"POT-Creation-Date: 2021-11-22 07:21-0400\n"
+"PO-Revision-Date: 2021-11-22 07:23-0400\n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -643,7 +643,7 @@ msgstr ""
 #: runtime_errors\import_error.py:118 runtime_errors\key_error.py:194
 #: runtime_errors\key_error.py:201 runtime_errors\module_not_found_error.py:129
 #: runtime_errors\name_error.py:97 runtime_errors\name_error.py:99
-#: runtime_errors\unbound_local_error.py:50
+#: runtime_errors\unbound_local_error.py:55
 #: syntax_errors\message_analyzer.py:406 syntax_errors\message_analyzer.py:958
 #: syntax_errors\statement_analyzer.py:1208
 msgid "Did you mean `{name}`?\n"
@@ -1423,11 +1423,11 @@ msgstr "The similar name `{name}` was found in the global scope.\n"
 msgid "The Python builtin `{name}` has a similar name.\n"
 msgstr "The Python builtin `{name}` has a similar name.\n"
 
-#: runtime_errors\name_error.py:219 runtime_errors\unbound_local_error.py:112
+#: runtime_errors\name_error.py:219 runtime_errors\unbound_local_error.py:125
 msgid "Instead of writing `{name}`, perhaps you meant one of the following:\n"
 msgstr "Instead of writing `{name}`, perhaps you meant one of the following:\n"
 
-#: runtime_errors\name_error.py:224 runtime_errors\unbound_local_error.py:116
+#: runtime_errors\name_error.py:224 runtime_errors\unbound_local_error.py:129
 msgid "*   Local scope: "
 msgstr "*   Local scope: "
 
@@ -2063,7 +2063,15 @@ msgstr ""
 "This function has the following arguments:\n"
 "`{arguments}`\n"
 
-#: runtime_errors\unbound_local_error.py:55
+#: runtime_errors\unbound_local_error.py:32
+msgid ""
+"You're trying to use the name `{name}` identified by Python as being\n"
+"in the local scope of a function before having assigned it a value.\n"
+msgstr ""
+"You're trying to use the name `{name}` identified by Python as being\n"
+"in the local scope of a function before having assigned it a value.\n"
+
+#: runtime_errors\unbound_local_error.py:63
 msgid ""
 "The name `{var_name}` exists in both the global and nonlocal scope.\n"
 "This can be rather confusing and is not recommended.\n"
@@ -2091,7 +2099,7 @@ msgstr ""
 "\n"
 "as the first line inside your function.\n"
 
-#: runtime_errors\unbound_local_error.py:64
+#: runtime_errors\unbound_local_error.py:73
 msgid ""
 "Did you forget to add either `global {var_name}` or \n"
 "`nonlocal {var_name}`?\n"
@@ -2099,7 +2107,7 @@ msgstr ""
 "Did you forget to add either `global {var_name}` or \n"
 "`nonlocal {var_name}`?\n"
 
-#: runtime_errors\unbound_local_error.py:76
+#: runtime_errors\unbound_local_error.py:85
 msgid ""
 "`{name}` is a Python builtin function.\n"
 "You have tried to assign a value to `{name}` inside a function\n"
@@ -2115,7 +2123,7 @@ msgstr ""
 "Note that it is generally not a good idea to give a local variable\n"
 "the same name as a Python builtin function (like `{name}`).\n"
 
-#: runtime_errors\unbound_local_error.py:90
+#: runtime_errors\unbound_local_error.py:102
 msgid ""
 "The name `{var_name}` exists in the {scope} scope.\n"
 "Perhaps the statement\n"
@@ -2131,11 +2139,11 @@ msgstr ""
 "\n"
 "should have been included as the first line inside your function.\n"
 
-#: runtime_errors\unbound_local_error.py:96
+#: runtime_errors\unbound_local_error.py:109
 msgid "Did you forget to add `{scope} {var_name}`?\n"
 msgstr "Did you forget to add `{scope} {var_name}`?\n"
 
-#: runtime_errors\unbound_local_error.py:107
+#: runtime_errors\unbound_local_error.py:120
 msgid "The similar name `{name}` was found in the local scope. "
 msgstr "The similar name `{name}` was found in the local scope. "
 
