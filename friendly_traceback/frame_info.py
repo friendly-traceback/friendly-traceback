@@ -40,7 +40,7 @@ class FrameInfo(stack_data.FrameInfo):
                 s_lines = cache.get_source_lines(self.filename)
                 self.lines = []  # noqa
                 with_node_range = False
-                linenumber = lineno - 2
+                linenumber = max(lineno - 2, 0)
                 for line in s_lines[linenumber : lineno + 1]:
                     self.lines.append(FakeLineObject(line, linenumber, lineno))
                     linenumber += 1
