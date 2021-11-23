@@ -12,7 +12,10 @@ if TYPE_CHECKING:
 else:
     StrPath = Union[str, os.PathLike]
 
-
+# TODO see https://www.daan.fyi/writings/python-protocols and define
+# a more general exception that could include all possible fields
+# declared as optional
+# including new ones for SyntaxError in Python 3.10+
 _E = TypeVar("_E", bound=BaseException)
 
 

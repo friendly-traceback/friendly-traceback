@@ -544,17 +544,16 @@ def assign_instead_of_equal(statement):
 @add_statement_analyzer
 def print_as_statement(statement):
     # example: print len('hello')
-    if (  # Python 3.10
-        statement.bad_token == statement.first_token == "print"
-        and statement.highlighted_tokens is not None
+    if not (
+        (  # Python 3.10+
+            statement.bad_token == statement.first_token == "print"
+            and statement.highlighted_tokens is not None
+        )
+        or (  # Python < 3.10
+            statement.prev_token == statement.first_token == "print"
+            and statement.bad_token != "("
+        )
     ):
-        pass
-    elif (  # Python < 3.10
-        statement.prev_token == statement.first_token == "print"
-        and statement.bad_token != "("
-    ):
-        pass
-    else:
         return {}
 
     cause = _(
@@ -1571,7 +1570,7 @@ def bracket_instead_of_paren(statement):
 # bracket on one statement matches closing bracket on following
 # statement. Typically, the flagged token will be the first token
 # on a line, which Python detects as starting a new statement,
-# or the last statement on the line.
+# or the last token on the line.
 # The method I use to identify a statement can get matching
 # brackets from what is another Python statement.
 @add_statement_analyzer
@@ -1609,6 +1608,44 @@ def unclosed_bracket(statement):
         )
         + source
     )
-    if not statement.statement_brackets:
-        cause += _("If this is incorrect, please report this case.\n")
+    if statement.statement_brackets:
+        return {"cause": cause}
+
+    cause = (
+        _(
+            "The opening {bracket} on line {linenumber} is not closed correctly.\n"
+        ).format(bracket=bracket_name, linenumber=linenumber)
+        + source
+    )
+
+    first_column = statement.first_token.start_col
+    for tok in statement.tokens[1:-1]:
+        if tok.start_col <= first_column:
+            cause += "\n" + _("If this is incorrect, please report this case.\n")
+            return {"cause": cause}
+
+    if fixers.check_statement(statement.bad_line):
+        tokens = token_utils.tokenize(statement.bad_line.strip())
+        tokens = token_utils.remove_meaningless_tokens(tokens)
+        if tokens[0].string in ["for", "if"] and tokens[-1] == ":":
+            if bracket == "(":
+                cause += "\n" + _(
+                    "Perhaps you wrote a statement beginning a code block\n"
+                    "intended to be part of a generator expression.\n"
+                    "You cannot have separate code blocks inside generator expressions.\n"
+                )
+            elif bracket == "[":
+                cause += "\n" + _(
+                    "Perhaps you wrote a statement beginning a code block\n"
+                    "intended to be part of a list comprehension.\n"
+                    "You cannot have separate code blocks inside list comprehensions.\n"
+                )
+            else:
+                cause += "\n" + _(
+                    "Perhaps you wrote a statement beginning a code block\n"
+                    "intended to be part of a dict or set comprehension.\n"
+                    "You cannot have separate code blocks inside dict or set comprehensions.\n"
+                )
+
+    cause += "\n" + _("If this is incorrect, please report this case.\n")
     return {"cause": cause}
