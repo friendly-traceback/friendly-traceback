@@ -126,7 +126,7 @@ def check_statement(statement):
 
     statement = token_utils.strip_comment(statement)
     try:
-        if statement.endswith(":"):
+        if statement.rstrip().endswith(":"):
             statement += " pass"
 
         if statement.startswith("elif") or statement.startswith("else"):
@@ -136,6 +136,9 @@ def check_statement(statement):
         elif statement.startswith("except") or statement.startswith("finally"):
             statement = try_block % statement
 
+        # The statement might have been indented in the original Python file
+        # so we remove the indentation of that first line
+        statement = statement.lstrip()
         try:
             compile(statement, "fake-file", "exec")
             return True
