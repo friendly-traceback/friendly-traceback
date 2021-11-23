@@ -1608,44 +1608,44 @@ def unclosed_bracket(statement):
         )
         + source
     )
-    if statement.statement_brackets:
+    if statement.statement_brackets:  # no closing bracket
         return {"cause": cause}
 
-    cause = (
-        _(
-            "The opening {bracket} on line {linenumber} is not closed correctly.\n"
-        ).format(bracket=bracket_name, linenumber=linenumber)
-        + source
-    )
-
+    # assume that the code is properly indented. If we go back to the same
+    # level of indentation (or less) than the original statement, then
+    # we definitely have an unclosed bracket
     first_column = statement.first_token.start_col
     for tok in statement.tokens[1:-1]:
         if tok.start_col <= first_column:
             cause += "\n" + _("If this is incorrect, please report this case.\n")
             return {"cause": cause}
 
-    if fixers.check_statement(statement.bad_line):
-        tokens = token_utils.tokenize(statement.bad_line.strip())
-        tokens = token_utils.remove_meaningless_tokens(tokens)
-        if tokens[0].string in ["for", "if"] and tokens[-1] == ":":
-            if bracket == "(":
-                cause += "\n" + _(
-                    "Perhaps you wrote a statement beginning a code block\n"
-                    "intended to be part of a generator expression.\n"
-                    "You cannot have separate code blocks inside generator expressions.\n"
-                )
-            elif bracket == "[":
-                cause += "\n" + _(
-                    "Perhaps you wrote a statement beginning a code block\n"
-                    "intended to be part of a list comprehension.\n"
-                    "You cannot have separate code blocks inside list comprehensions.\n"
-                )
-            else:
-                cause += "\n" + _(
-                    "Perhaps you wrote a statement beginning a code block\n"
-                    "intended to be part of a dict or set comprehension.\n"
-                    "You cannot have separate code blocks inside dict or set comprehensions.\n"
-                )
+    # If the line flagged is not a valid statement, then we likely have other
+    # problems.
+    if not fixers.check_statement(statement.bad_line):
+        return {}
 
-    cause += "\n" + _("If this is incorrect, please report this case.\n")
+    tokens = token_utils.tokenize(statement.bad_line.strip())
+    tokens = token_utils.remove_meaningless_tokens(tokens)
+    if tokens[0].string in ["for", "if"] and tokens[-1] == ":":
+        if bracket == "(":
+            cause = _(
+                "Perhaps you wrote a statement beginning a code block\n"
+                "intended to be part of a generator expression.\n"
+                "You cannot have separate code blocks inside generator expressions.\n"
+            )
+        elif bracket == "[":
+            cause = _(
+                "Perhaps you wrote a statement beginning a code block\n"
+                "intended to be part of a list comprehension.\n"
+                "You cannot have separate code blocks inside list comprehensions.\n"
+            )
+        else:
+            cause = _(
+                "Perhaps you wrote a statement beginning a code block\n"
+                "intended to be part of a dict or set comprehension.\n"
+                "You cannot have separate code blocks inside dict or set comprehensions.\n"
+            )
+
+    cause += "\n" + _("If this explanation is incorrect, please report this case.\n")
     return {"cause": cause}
