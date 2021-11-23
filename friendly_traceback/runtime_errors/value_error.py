@@ -150,12 +150,13 @@ def invalid_literal_for_int(
     ).format(value=repr(value), base=base)
 
     try:
-        _value = float(value)  # noqa
+        float(value)  # noqa
+    except ValueError:
+        pass
+    else:
         cause = _convert_to_float(value)
         cause["cause"] = begin_cause + cause["cause"]
         return cause
-    except ValueError:
-        pass
 
     valid = "0123456789abcdefghijiklmnopqrstuvwxyz"
 
@@ -212,7 +213,7 @@ def date_month_must_be_between_1_and_12(
 
 @parser.add
 def slots_conflicts_with_class_variable(
-    value: str, frame: FrameType, tb_data: TracebackData
+    value: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     pattern = r"'(.*)' in __slots__ conflicts with class variable"
     match = re.search(pattern, str(value))
@@ -237,7 +238,7 @@ def unrecognized_message(
         try:
             name = inspect.getframeinfo(frame).function
             fn_obj = frame.f_globals[name]
-        except Exception:
+        except Exception:  # noqa
             return {}
     else:
         all_objects = info_variables.get_all_objects(bad_line, frame)["name, obj"]
