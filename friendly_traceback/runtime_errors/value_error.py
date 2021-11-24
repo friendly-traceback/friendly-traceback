@@ -6,10 +6,11 @@ providing a more detailed explanation.
 
 import inspect
 import re
+import unicodedata
 from types import FrameType
 from typing import Any, Optional, Tuple
 
-from .. import info_variables, token_utils, utils
+from .. import debug_helper, info_variables, token_utils, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang
 from ..typing import CauseInfo
@@ -137,8 +138,9 @@ def invalid_literal_for_int(
     match = re.search(pattern, message)
     if match is None:
         return {}
+
     base, value = int(match.group(1)), match.group(2)
-    if not value:
+    if not value.strip():
         cause = _(
             "`int()` expects an argument that looks like a number in base `{base}`\n"
             "but you gave it an empty string.\n"
@@ -149,18 +151,37 @@ def invalid_literal_for_int(
         "`{value}` is an invalid argument for `int()` in base `{base}`.\n"
     ).format(value=repr(value), base=base)
 
-    try:
-        float(value)  # noqa
-    except ValueError:
-        pass
-    else:
-        cause = _convert_to_float(value)
-        cause["cause"] = begin_cause + cause["cause"]
-        return cause
+    valid = "0123456789abcdefghijiklmnopqrstuvwxyz"[:base]
+    invalid = []
+    for index, char in enumerate(value.strip()):
+        if index == 0 and char in ["+", "-"]:
+            continue
+        if char.isalpha():
+            convert = char.lower()
+        else:
+            convert = unicodedata.numeric(char, None)
+            if convert is not None:
+                convert = str(int(convert))
+        if convert not in valid and char not in invalid:
+            invalid.append(char)
+    invalid = _("The following characters are not allowed: `{invalid}`.\n").format(
+        invalid=utils.list_to_string(invalid)
+    )
+    if base == 10:
+        try:
+            int(float(value))
+        except ValueError:
+            pass
+        else:
+            return _convert_to_float(value)
 
-    valid = "0123456789abcdefghijiklmnopqrstuvwxyz"
-
-    if 2 <= base <= 10:
+    if base == 0:
+        cause = _(
+            "When base `0` is specified, `int()` expects the argument\n"
+            "to be an integer literal, written in\n"
+            "base 2 (`0b...`), 8 (`0o...`), 10, or 16 (`0x...`).\n"
+        )
+    elif 2 <= base <= 10:
         cause = _(
             "In base `{base}`, `int()` is most often use to convert a string\n"
             "containing the digits `0` to `{max_n}` into an integer.\n"
@@ -176,13 +197,12 @@ def invalid_literal_for_int(
             "containing the digits `0` to `9` and the letters\n"
             "from `'a'` to `'{max_n}'` into an integer.\n"
         ).format(base=base, max_n=valid[base - 1])
-    elif base == 0:
-        cause = _(
-            "When base `0` is specified, `int()` expects the string argument to\n"
-            "represent an integer literal.\n"
-        )
-    else:
+    else:  # pragma: no cover
+        debug_helper.log(f"Invalid base argument caught by mistake {base}")
         return {}
+
+    if base != 0:
+        cause += invalid
 
     return {"cause": begin_cause + cause}
 

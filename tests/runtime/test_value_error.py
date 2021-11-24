@@ -107,6 +107,56 @@ def test_time_strptime_incorrect_format():  # issue 78
     return result, message
 
 
+def test_Convert_to_int():
+    english = friendly_traceback.get_lang() == "en"
+    try:
+        int('13a', base=0)
+    except ValueError:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "ValueError: invalid literal for int() with base" in result
+    if english:
+        assert "When base `0` is specified, `int()` expects" in result
+
+    try:
+        int("13x", base=16)
+    except ValueError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "ValueError: invalid literal for int() with base" in result
+    if english:
+        assert "The following characters are not allowed: `x`" in result
+
+    try:
+        int("1898", base=5)
+    except ValueError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "ValueError: invalid literal for int() with base" in result
+    if english:
+        assert "The following characters are not allowed: `8, 9`" in result
+
+    try:
+        int('1e6')
+    except ValueError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "ValueError: invalid literal for int() with base" in result
+    if english:
+        assert "needs to be first converted using `float()`" in result
+
+    try:
+        int('13a')
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "ValueError: invalid literal for int() with base" in result
+    if english:
+        assert "The following characters are not allowed: `a`" in result
+
+    return result, message
+
 
 if __name__ == "__main__":
     print(test_Too_many_values_to_unpack()[0])

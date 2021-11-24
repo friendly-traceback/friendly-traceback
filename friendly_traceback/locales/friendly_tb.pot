@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-11-23 16:32-0400\n"
+"POT-Creation-Date: 2021-11-24 09:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1644,7 +1644,7 @@ msgid ""
 "An iterable is required here.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:904 runtime_errors\value_error.py:23
+#: runtime_errors\type_error.py:904 runtime_errors\value_error.py:24
 msgid ""
 "Unpacking is a convenient way to assign a name,\n"
 "to each item of an iterable.\n"
@@ -1770,114 +1770,120 @@ msgstr ""
 msgid "The similar name `{name}` was found in the local scope. "
 msgstr ""
 
-#: runtime_errors\value_error.py:72 runtime_errors\value_error.py:81
+#: runtime_errors\value_error.py:73 runtime_errors\value_error.py:82
 msgid ""
 "In this instance, there are more names ({nb_names})\n"
 "than {length}, the length of the iterable.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:87
+#: runtime_errors\value_error.py:88
 msgid ""
 "In this instance, there are more names ({nb_names})\n"
 "than the length of the iterable, {iter_type} of length {length}.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:106 runtime_errors\value_error.py:116
+#: runtime_errors\value_error.py:107 runtime_errors\value_error.py:117
 msgid ""
 "In this instance, there are fewer names ({nb_names})\n"
 "than the length of the iterable.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:122
+#: runtime_errors\value_error.py:123
 msgid ""
 "In this instance, there are fewer names ({nb_names})\n"
 "than the length of the iterable, {iter_type} of length {length}.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:142
+#: runtime_errors\value_error.py:144
 msgid ""
 "`int()` expects an argument that looks like a number in base `{base}`\n"
 "but you gave it an empty string.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:148
+#: runtime_errors\value_error.py:150
 msgid ""
 "`{value}` is an invalid argument for `int()` in base `{base}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:164
+#: runtime_errors\value_error.py:167
+msgid ""
+"The following characters are not allowed: `{invalid}`.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:179
+msgid ""
+"When base `0` is specified, `int()` expects the argument\n"
+"to be an integer literal, written in\n"
+"base 2 (`0b...`), 8 (`0o...`), 10, or 16 (`0x...`).\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:185
 msgid ""
 "In base `{base}`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `{max_n}` into an integer.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:169
+#: runtime_errors\value_error.py:190
 msgid ""
 "In base `11`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letter `'a'` into an integer.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:174
+#: runtime_errors\value_error.py:195
 msgid ""
 "In base `base`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letters\n"
 "from `'a'` to `'{max_n}'` into an integer.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:180
-msgid ""
-"When base `0` is specified, `int()` expects the string argument to\n"
-"represent an integer literal.\n"
-msgstr ""
-
-#: runtime_errors\value_error.py:191
+#: runtime_errors\value_error.py:211
 msgid ""
 "You need to convert `'{value}'` to a float first.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:192
+#: runtime_errors\value_error.py:212
 msgid ""
 "The string `'{value}'` needs to be first converted using `float()`\n"
 "before the result can be converted into an integer using `int()`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:206
+#: runtime_errors\value_error.py:226
 msgid ""
 "Did you specify an invalid month?\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:207
+#: runtime_errors\value_error.py:227
 msgid ""
 "I am guessing that you specify an invalid value for a month\n"
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:223
+#: runtime_errors\value_error.py:243
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
 "this is not allowed.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:257
+#: runtime_errors\value_error.py:277
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:263
+#: runtime_errors\value_error.py:283
 msgid ""
 "Its docstring is:\n"
 "\n"
 "{docstring}\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:267
+#: runtime_errors\value_error.py:287
 msgid ""
 "I have no more information.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:279
+#: runtime_errors\value_error.py:299
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
@@ -3859,28 +3865,28 @@ msgid ""
 "If this is incorrect, please report this case.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1633
+#: syntax_errors\statement_analyzer.py:1632
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a generator expression.\n"
 "You cannot have separate code blocks inside generator expressions.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1639
+#: syntax_errors\statement_analyzer.py:1638
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a list comprehension.\n"
 "You cannot have separate code blocks inside list comprehensions.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1645
+#: syntax_errors\statement_analyzer.py:1644
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a dict or set comprehension.\n"
 "You cannot have separate code blocks inside dict or set comprehensions.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:1651
+#: syntax_errors\statement_analyzer.py:1650
 msgid ""
 "If this explanation is incorrect, please report this case.\n"
 msgstr ""

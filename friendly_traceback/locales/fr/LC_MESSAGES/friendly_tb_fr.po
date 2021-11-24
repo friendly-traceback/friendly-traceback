@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-23 16:32-0400\n"
+"POT-Creation-Date: 2021-11-24 09:33-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -2061,7 +2061,7 @@ msgstr ""
 "Les contenants python (`list, tuple, dict`, etc.) sont itérables.\n"
 "Une itérable est requis ici.\n"
 
-#: runtime_errors\type_error.py:904 runtime_errors\value_error.py:23
+#: runtime_errors\type_error.py:904 runtime_errors\value_error.py:24
 msgid ""
 "Unpacking is a convenient way to assign a name,\n"
 "to each item of an iterable.\n"
@@ -2234,7 +2234,7 @@ msgstr "Avez-vous oublié d’ajouter `{scope} {var_name}` ?\n"
 msgid "The similar name `{name}` was found in the local scope. "
 msgstr "Le nom semblable `{name}` a été trouvé dans la portée locale. "
 
-#: runtime_errors\value_error.py:72 runtime_errors\value_error.py:81
+#: runtime_errors\value_error.py:73 runtime_errors\value_error.py:82
 msgid ""
 "In this instance, there are more names ({nb_names})\n"
 "than {length}, the length of the iterable.\n"
@@ -2242,7 +2242,7 @@ msgstr ""
 "Dans ce cas-ci, il y a plus de noms ({nb_names})\n"
 "que {length}, la longueur de l’itérable.\n"
 
-#: runtime_errors\value_error.py:87
+#: runtime_errors\value_error.py:88
 msgid ""
 "In this instance, there are more names ({nb_names})\n"
 "than the length of the iterable, {iter_type} of length {length}.\n"
@@ -2250,7 +2250,7 @@ msgstr ""
 "Dans ce cas-ci, il y a plus de noms ({nb_names})\n"
 "que la longueur de l’itérable, {iter_type} de longueur {length}.\n"
 
-#: runtime_errors\value_error.py:106 runtime_errors\value_error.py:116
+#: runtime_errors\value_error.py:107 runtime_errors\value_error.py:117
 msgid ""
 "In this instance, there are fewer names ({nb_names})\n"
 "than the length of the iterable.\n"
@@ -2258,7 +2258,7 @@ msgstr ""
 "Dans ce cas-ci, il y a moins de noms ({nb_names})\n"
 "que la longueur de l’itérable.\n"
 
-#: runtime_errors\value_error.py:122
+#: runtime_errors\value_error.py:123
 msgid ""
 "In this instance, there are fewer names ({nb_names})\n"
 "than the length of the iterable, {iter_type} of length {length}.\n"
@@ -2266,7 +2266,7 @@ msgstr ""
 "Dans ce cas-ci, il y a moins de noms ({nb_names})\n"
 "que la longueur de l’itérable, {iter_type} de longueur {length}.\n"
 
-#: runtime_errors\value_error.py:142
+#: runtime_errors\value_error.py:144
 msgid ""
 "`int()` expects an argument that looks like a number in base `{base}`\n"
 "but you gave it an empty string.\n"
@@ -2275,12 +2275,26 @@ msgstr ""
 "`{base}`\n"
 "mais vous lui avez donné une chaîne vide.\n"
 
-#: runtime_errors\value_error.py:148
+#: runtime_errors\value_error.py:150
 msgid "`{value}` is an invalid argument for `int()` in base `{base}`.\n"
 msgstr ""
 "`{value}` est un argument invalide pour `int()` dans la base `{base}`.\n"
 
-#: runtime_errors\value_error.py:164
+#: runtime_errors\value_error.py:167
+msgid "The following characters are not allowed: `{invalid}`.\n"
+msgstr "Les caractères suivants ne sont pas permis : `{invalid}`.\n"
+
+#: runtime_errors\value_error.py:179
+msgid ""
+"When base `0` is specified, `int()` expects the argument\n"
+"to be an integer literal, written in\n"
+"base 2 (`0b...`), 8 (`0o...`), 10, or 16 (`0x...`).\n"
+msgstr ""
+"Lorsque la base `0` est spécifiée, `int()` s'attend à ce que l'argument\n"
+"soit un entier littéral, écrit en\n"
+"base 2 (`0b...`), 8 (`0o...`), 10, ou 16 (`0x...`).\n"
+
+#: runtime_errors\value_error.py:185
 msgid ""
 "In base `{base}`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `{max_n}` into an integer.\n"
@@ -2289,7 +2303,7 @@ msgstr ""
 "chaîne de caractères\n"
 "contenant les chiffres `0` à `{max_n}` en un nombre entier.\n"
 
-#: runtime_errors\value_error.py:169
+#: runtime_errors\value_error.py:190
 msgid ""
 "In base `11`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letter `'a'` into an integer.\n"
@@ -2298,7 +2312,7 @@ msgstr ""
 "de caractères\n"
 "contenant les chiffres `0` à `9` et la lettre `'a'` en un entier.\n"
 
-#: runtime_errors\value_error.py:174
+#: runtime_errors\value_error.py:195
 msgid ""
 "In base `base`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letters\n"
@@ -2309,19 +2323,11 @@ msgstr ""
 "contenant les chiffres de `0` à `9` et les lettres\n"
 "de `'a'` à `'{max_n}'` en un nombre entier.\n"
 
-#: runtime_errors\value_error.py:180
-msgid ""
-"When base `0` is specified, `int()` expects the string argument to\n"
-"represent an integer literal.\n"
-msgstr ""
-"Lorsque la base `0` est spécifiée, l'argument de `int()` doit représenter un "
-"entier littéral.\n"
-
-#: runtime_errors\value_error.py:191
+#: runtime_errors\value_error.py:211
 msgid "You need to convert `'{value}'` to a float first.\n"
 msgstr "Vous devez d'abord convertir `'{value}'` en un `float`.\n"
 
-#: runtime_errors\value_error.py:192
+#: runtime_errors\value_error.py:212
 msgid ""
 "The string `'{value}'` needs to be first converted using `float()`\n"
 "before the result can be converted into an integer using `int()`.\n"
@@ -2329,11 +2335,11 @@ msgstr ""
 "La chaîne `'{value}'` doit d’abord être convertie à l’aide de `float()`\n"
 "pour être ensuite convertie en entier à l’aide de `int()`.\n"
 
-#: runtime_errors\value_error.py:206
+#: runtime_errors\value_error.py:226
 msgid "Did you specify an invalid month?\n"
 msgstr "Avez-vous spécifié un mois inexistant ?\n"
 
-#: runtime_errors\value_error.py:207
+#: runtime_errors\value_error.py:227
 msgid ""
 "I am guessing that you specify an invalid value for a month\n"
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
@@ -2342,7 +2348,7 @@ msgstr ""
 "dans un objet de type `date`. Les valeurs valides sont les entiers de 1 à "
 "12.\n"
 
-#: runtime_errors\value_error.py:223
+#: runtime_errors\value_error.py:243
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
@@ -2353,7 +2359,7 @@ msgstr ""
 "classe ;\n"
 "ceci n'est pas autorisé.\n"
 
-#: runtime_errors\value_error.py:257
+#: runtime_errors\value_error.py:277
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
@@ -2361,7 +2367,7 @@ msgstr ""
 "Je ne reconnais pas ce message d’erreur.\n"
 "Je devine que le problème est avec la fonction `{name}`.\n"
 
-#: runtime_errors\value_error.py:263
+#: runtime_errors\value_error.py:283
 msgid ""
 "Its docstring is:\n"
 "\n"
@@ -2371,11 +2377,11 @@ msgstr ""
 "\n"
 "{docstring}\n"
 
-#: runtime_errors\value_error.py:267
+#: runtime_errors\value_error.py:287
 msgid "I have no more information.\n"
 msgstr "Je n’ai plus d’informations.\n"
 
-#: runtime_errors\value_error.py:279
+#: runtime_errors\value_error.py:299
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
@@ -4999,7 +5005,7 @@ msgstr ""
 msgid "If this is incorrect, please report this case.\n"
 msgstr "Si cela est incorrect, veuillez signaler ce cas.\n"
 
-#: syntax_errors\statement_analyzer.py:1633
+#: syntax_errors\statement_analyzer.py:1632
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a generator expression.\n"
@@ -5010,7 +5016,7 @@ msgstr ""
 "Vous ne pouvez pas avoir de blocs de code distincts à l'intérieur des "
 "expressions génératrices.\n"
 
-#: syntax_errors\statement_analyzer.py:1639
+#: syntax_errors\statement_analyzer.py:1638
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a list comprehension.\n"
@@ -5021,7 +5027,7 @@ msgstr ""
 "Vous ne pouvez pas avoir de blocs de code séparés à l'intérieur des "
 "compréhensions de liste.\n"
 
-#: syntax_errors\statement_analyzer.py:1645
+#: syntax_errors\statement_analyzer.py:1644
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a dict or set comprehension.\n"
@@ -5032,7 +5038,7 @@ msgstr ""
 "Vous ne pouvez pas avoir de blocs de code séparés à l'intérieur des "
 "compréhensions de type dict ou set.\n"
 
-#: syntax_errors\statement_analyzer.py:1651
+#: syntax_errors\statement_analyzer.py:1650
 msgid "If this explanation is incorrect, please report this case.\n"
 msgstr "Si cette explication est incorrecte, veuillez signaler ce cas.\n"
 
