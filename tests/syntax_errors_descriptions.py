@@ -934,6 +934,10 @@ descriptions = {
         in_cause: "You wrote semi-colons, `;`, where commas were expected.",
         title: "Semi-colon instead of commas - 3",
     },
+    "should_be_comprehension": {
+        in_cause: "You cannot have separate code blocks inside list comprehensions.",
+        title: "Code block inside comprehension",
+    },
     "single_equal_with_if": {
         in_cause: "Perhaps you needed `==`",
         title: "Single = instead of double == with if",
