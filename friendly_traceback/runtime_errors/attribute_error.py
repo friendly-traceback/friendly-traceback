@@ -10,7 +10,7 @@ from .. import console_helpers, debug_helper, info_variables, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang, please_report
 from ..path_info import path_utils
-from ..typing import CauseInfo
+from ..typing_info import CauseInfo
 from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
 from . import stdlib_modules
 

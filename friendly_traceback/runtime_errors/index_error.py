@@ -9,7 +9,7 @@ import pure_eval
 from .. import debug_helper, info_variables, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing import CauseInfo
+from ..typing_info import CauseInfo
 
 parser = utils.RuntimeMessageParser()
 _ = current_lang.translate

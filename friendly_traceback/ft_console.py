@@ -20,7 +20,7 @@ from . import source_cache
 from .config import session
 from .console_helpers import helpers
 from .ft_gettext import current_lang
-from .typing import Formatter, InclusionChoice
+from .typing_info import Formatter, InclusionChoice
 
 
 def type_friendly() -> str:

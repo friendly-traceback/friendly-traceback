@@ -8,7 +8,7 @@ from typing import List, Optional, Type, Union
 
 from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
-from .typing import _E, Formatter, InclusionChoice, Info, Writer
+from .typing_info import _E, Formatter, InclusionChoice, Info, Writer
 
 _ = current_lang.translate
 

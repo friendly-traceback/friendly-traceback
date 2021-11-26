@@ -43,7 +43,7 @@ from pathlib import Path
 from . import base_formatters, debug_helper, editors_helpers, path_info
 from .config import session
 from .ft_gettext import current_lang
-from .typing import Formatter, InclusionChoice, StrPath, Writer
+from .typing_info import Formatter, InclusionChoice, StrPath, Writer
 
 # Ensure that warnings are not shown to the end user, as they could
 # cause confusion.  Eventually, we might want to interpret them like

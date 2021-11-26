@@ -5,7 +5,7 @@ from typing import Any, Optional, Tuple
 from .. import info_variables, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang, please_report
-from ..typing import CauseInfo
+from ..typing_info import CauseInfo
 from ..utils import RuntimeMessageParser
 
 parser = RuntimeMessageParser()

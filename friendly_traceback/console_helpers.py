@@ -20,7 +20,7 @@ from friendly_traceback.functions_help import add_help_attribute
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
 from friendly_traceback.syntax_errors.source_info import Statement
-from friendly_traceback.typing import InclusionChoice, Site
+from friendly_traceback.typing_info import InclusionChoice, Site
 
 _ = current_lang.translate
 

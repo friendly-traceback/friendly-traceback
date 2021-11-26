@@ -13,7 +13,7 @@ import pure_eval
 
 from . import debug_helper
 from .ft_gettext import internal_error, no_information, unknown_case
-from .typing import CauseInfo, Parser
+from .typing_info import CauseInfo, Parser
 
 if TYPE_CHECKING:
     from .core import TracebackData

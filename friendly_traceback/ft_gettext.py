@@ -25,7 +25,7 @@ import os
 from typing import Optional
 
 from . import debug_helper
-from .typing import Translator
+from .typing_info import Translator
 
 
 class LangState:

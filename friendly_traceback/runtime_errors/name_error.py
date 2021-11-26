@@ -5,7 +5,7 @@ from typing import Any, Tuple
 from .. import debug_helper, info_variables, token_utils, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing import CauseInfo, SimilarNamesInfo
+from ..typing_info import CauseInfo, SimilarNamesInfo
 from ..utils import list_to_string
 from . import stdlib_modules
 from .modules_attributes import attribute_names

@@ -21,7 +21,7 @@ from .ft_gettext import current_lang
 from .path_info import is_excluded_file, path_utils
 from .source_cache import cache
 from .syntax_errors import analyze_syntax, indentation_error, source_info
-from .typing import _E, Info
+from .typing_info import _E, Info
 
 try:
     import executing  # noqa

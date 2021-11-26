@@ -4,7 +4,7 @@ from typing import SupportsInt, Union
 from .. import debug_helper
 from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing import CauseInfo
+from ..typing_info import CauseInfo
 from ..utils import RuntimeMessageParser
 
 parser = RuntimeMessageParser()

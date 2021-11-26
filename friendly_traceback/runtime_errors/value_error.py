@@ -13,7 +13,7 @@ from typing import Any, Optional, Tuple
 from .. import debug_helper, info_variables, token_utils, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing import CauseInfo
+from ..typing_info import CauseInfo
 
 convert_type = info_variables.convert_type
 parser = utils.RuntimeMessageParser()

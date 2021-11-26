@@ -34,7 +34,7 @@ from typing import Dict, List, Set
 
 from . import debug_helper
 from .ft_gettext import current_lang
-from .typing import InclusionChoice, Info
+from .typing_info import InclusionChoice, Info
 
 _ = current_lang.translate
 # The following is the order in which the various items, if they exist
