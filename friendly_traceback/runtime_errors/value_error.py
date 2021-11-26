@@ -284,6 +284,15 @@ def slots_conflicts_with_class_variable(
 
 
 @parser.add
+def pow_third_arg_cannot_be_zero(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
+    if message != "pow() 3rd argument cannot be 0":
+        return {}
+    return {"cause": _("The third argument of the function `pow()` cannot be zero.\n")}
+
+
+@parser.add
 def unrecognized_message(
     _value: str, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
@@ -316,7 +325,7 @@ def unrecognized_message(
 
     if hasattr(fn_obj, "__doc__") and fn_obj.__doc__ is not None:
         cause += _("Its docstring is:\n\n{docstring}\n").format(
-            docstring=fn_obj.__doc__
+            docstring="'''" + fn_obj.__doc__ + "'''"
         )
     else:
         cause += _("I have no more information.\n")

@@ -67,7 +67,7 @@ def test_Date_invalid_month():
     return result, message
 
 
-def test_slots_conflicts_with_class_variable():
+def test_Slots_conflicts_with_class_variable():
     try:
         class F:
             __slots__ = ["a", "b"]
@@ -83,7 +83,7 @@ def test_slots_conflicts_with_class_variable():
     return result, message
 
 
-def test_could_not_convert_to_float():
+def test_Could_not_convert_to_float():
     try:
         float("42b")
     except ValueError as e:
@@ -94,6 +94,21 @@ def test_could_not_convert_to_float():
     assert "could not convert string to float: '42b'" in result
     if friendly_traceback.get_lang() == "en":
         assert "The string `42b` cannot be converted to a `float`" in result
+    return result, message
+
+
+def test_Pow_third_arg_cannot_be_zero():
+    a = 0
+    try:
+        pow(2, 4, a)
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "pow() 3rd argument cannot be 0" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "The third argument of the function `pow()` cannot be zero" in result
     return result, message
 
 
