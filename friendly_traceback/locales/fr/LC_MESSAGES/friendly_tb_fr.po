@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-26 08:02-0400\n"
+"POT-Creation-Date: 2021-11-26 08:41-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -2360,7 +2360,13 @@ msgstr ""
 "dans un objet de type `date`. Les valeurs valides sont les entiers de 1 à "
 "12.\n"
 
-#: runtime_errors\value_error.py:260
+#: runtime_errors\value_error.py:263
+msgid "The string `{string}` cannot be converted to a `float`.\n"
+msgstr ""
+"La chaîne `{string}` ne peut pas être convertie en un nombre décimal "
+"(`float`).\n"
+
+#: runtime_errors\value_error.py:278
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
@@ -2371,7 +2377,7 @@ msgstr ""
 "classe ;\n"
 "ceci n'est pas autorisé.\n"
 
-#: runtime_errors\value_error.py:294
+#: runtime_errors\value_error.py:312
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
@@ -2379,7 +2385,7 @@ msgstr ""
 "Je ne reconnais pas ce message d’erreur.\n"
 "Je devine que le problème est avec la fonction `{name}`.\n"
 
-#: runtime_errors\value_error.py:300
+#: runtime_errors\value_error.py:318
 msgid ""
 "Its docstring is:\n"
 "\n"
@@ -2389,11 +2395,11 @@ msgstr ""
 "\n"
 "{docstring}\n"
 
-#: runtime_errors\value_error.py:304
+#: runtime_errors\value_error.py:322
 msgid "I have no more information.\n"
 msgstr "Je n’ai plus d’informations.\n"
 
-#: runtime_errors\value_error.py:316
+#: runtime_errors\value_error.py:334
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"

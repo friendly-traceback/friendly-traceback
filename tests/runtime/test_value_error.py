@@ -83,6 +83,20 @@ def test_slots_conflicts_with_class_variable():
     return result, message
 
 
+def test_could_not_convert_to_float():
+    try:
+        float("42b")
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "could not convert string to float: '42b'" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "The string `42b` cannot be converted to a `float`" in result
+    return result, message
+
+
 def test_time_strptime_incorrect_format():  # issue 78
     import os
 

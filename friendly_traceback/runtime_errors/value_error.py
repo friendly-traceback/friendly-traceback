@@ -249,11 +249,29 @@ def date_month_must_be_between_1_and_12(
 
 
 @parser.add
+def could_not_convert_to_float(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
+    if not message.startswith("could not convert string to float: "):
+        return {}
+    pattern = re.compile(r"could not convert string to float: '(.*)'")
+    match = re.search(pattern, message)
+    if match is None:
+        debug_helper.log("Could not find match in could_not_convert_to_float.")
+        return {}
+    string = match.group(1)
+    cause = _("The string `{string}` cannot be converted to a `float`.\n").format(
+        string=string
+    )
+    return {"cause": cause}
+
+
+@parser.add
 def slots_conflicts_with_class_variable(
-    value: str, _frame: FrameType, _tb_data: TracebackData
+    message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:
     pattern = r"'(.*)' in __slots__ conflicts with class variable"
-    match = re.search(pattern, str(value))
+    match = re.search(pattern, message)
     if not match:
         return {}
     var = match.group(1)
