@@ -217,6 +217,23 @@ def _convert_to_float(value: Any) -> CauseInfo:
 
 
 @parser.add
+def base_for_int(message: str, _frame: FrameType, tb_data: TracebackData) -> CauseInfo:
+    if message != "int() base must be >= 2 and <= 36, or 0":
+        return {}
+    pattern = re.compile(r",\s*base\s*=(\d+)\s*\)")
+    cause = _(
+        "The argument `base` of `int()` must be either zero\n"
+        "or any integer from 2 to 36.\n"
+    )
+    match = re.search(pattern, tb_data.bad_line)
+    if match is None:
+        return {"cause": cause}
+    base_arg = match.group(1)
+    cause += _("You wrote {base} which is not allowed.\n").format(base=base_arg)
+    return {"cause": cause}
+
+
+@parser.add
 def date_month_must_be_between_1_and_12(
     message: str, _frame: FrameType, _tb_data: TracebackData
 ) -> CauseInfo:

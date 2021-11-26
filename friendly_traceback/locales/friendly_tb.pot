@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-11-24 09:33-0400\n"
+"POT-Creation-Date: 2021-11-26 08:02-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1847,43 +1847,54 @@ msgid ""
 "before the result can be converted into an integer using `int()`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:226
+#: runtime_errors\value_error.py:224
+msgid ""
+"The argument `base` of `int()` must be either zero\n"
+"or any integer from 2 to 36.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:232
+msgid ""
+"You wrote {base} which is not allowed.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:243
 msgid ""
 "Did you specify an invalid month?\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:227
+#: runtime_errors\value_error.py:244
 msgid ""
 "I am guessing that you specify an invalid value for a month\n"
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:243
+#: runtime_errors\value_error.py:260
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
 "this is not allowed.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:277
+#: runtime_errors\value_error.py:294
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:283
+#: runtime_errors\value_error.py:300
 msgid ""
 "Its docstring is:\n"
 "\n"
 "{docstring}\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:287
+#: runtime_errors\value_error.py:304
 msgid ""
 "I have no more information.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:299
+#: runtime_errors\value_error.py:316
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"

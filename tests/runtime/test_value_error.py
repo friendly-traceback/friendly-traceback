@@ -158,5 +158,20 @@ def test_Convert_to_int():
     return result, message
 
 
+def test_int_base_not_in_range():
+    try:
+        int('18', base=37)
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "int() base must be >= 2 and <= 36, or 0" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "You wrote 37 which is not allowed." in result
+
+    return result, message
+
+
+
 if __name__ == "__main__":
     print(test_Too_many_values_to_unpack()[0])

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-24 09:33-0400\n"
+"POT-Creation-Date: 2021-11-26 08:02-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -2335,11 +2335,23 @@ msgstr ""
 "La chaîne `'{value}'` doit d’abord être convertie à l’aide de `float()`\n"
 "pour être ensuite convertie en entier à l’aide de `int()`.\n"
 
-#: runtime_errors\value_error.py:226
+#: runtime_errors\value_error.py:224
+msgid ""
+"The argument `base` of `int()` must be either zero\n"
+"or any integer from 2 to 36.\n"
+msgstr ""
+"L'argument `base` de `int()` doit être soit zéro\n"
+"ou un nombre entier de 2 à 36.\n"
+
+#: runtime_errors\value_error.py:232
+msgid "You wrote {base} which is not allowed.\n"
+msgstr "Vous avez écrit {base}, ce qui n'est pas valide.\n"
+
+#: runtime_errors\value_error.py:243
 msgid "Did you specify an invalid month?\n"
 msgstr "Avez-vous spécifié un mois inexistant ?\n"
 
-#: runtime_errors\value_error.py:227
+#: runtime_errors\value_error.py:244
 msgid ""
 "I am guessing that you specify an invalid value for a month\n"
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
@@ -2348,7 +2360,7 @@ msgstr ""
 "dans un objet de type `date`. Les valeurs valides sont les entiers de 1 à "
 "12.\n"
 
-#: runtime_errors\value_error.py:243
+#: runtime_errors\value_error.py:260
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
@@ -2359,7 +2371,7 @@ msgstr ""
 "classe ;\n"
 "ceci n'est pas autorisé.\n"
 
-#: runtime_errors\value_error.py:277
+#: runtime_errors\value_error.py:294
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
@@ -2367,7 +2379,7 @@ msgstr ""
 "Je ne reconnais pas ce message d’erreur.\n"
 "Je devine que le problème est avec la fonction `{name}`.\n"
 
-#: runtime_errors\value_error.py:283
+#: runtime_errors\value_error.py:300
 msgid ""
 "Its docstring is:\n"
 "\n"
@@ -2377,11 +2389,11 @@ msgstr ""
 "\n"
 "{docstring}\n"
 
-#: runtime_errors\value_error.py:287
+#: runtime_errors\value_error.py:304
 msgid "I have no more information.\n"
 msgstr "Je n’ai plus d’informations.\n"
 
-#: runtime_errors\value_error.py:299
+#: runtime_errors\value_error.py:316
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
