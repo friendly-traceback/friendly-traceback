@@ -222,10 +222,6 @@ msgid "Sets the language to be used."
 msgstr "Establece el idioma a utilizar."
 
 #: functions_help.py:14
-msgid "Sets the prompt style to be used in the console."
-msgstr "Establece el estilo de indicación que se utilizará en la consola."
-
-#: functions_help.py:14
 msgid "Shows the paths corresponding to synonyms used."
 msgstr "Muestra las rutas correspondientes a los sinónimos utilizados."
 
@@ -2312,14 +2308,6 @@ msgstr "En base `base`, `int()` se utiliza más a menudo para convertir una cade
 "desde `'a'` hasta `'{max_n}'` en un número entero.\n"
 ""
 
-#: runtime_errors\value_error.py:179
-msgid "When base `0` is specified, `int()` expects the string argument to\n"
-"represent an integer literal.\n"
-""
-msgstr "Cuando se especifica la base `0`, `int()` espera que el argumento de la cadena\n"
-"represente un literal entero.\n"
-""
-
 #: runtime_errors\value_error.py:211
 msgid "You need to convert `'{value}'` to a float first.\n"
 ""
@@ -2358,7 +2346,7 @@ msgstr "El nombre `{var}` se utiliza tanto como nombre de una variable de clase\
 "esto no está permitido.\n"
 ""
 
-#: runtime_errors\value_error.py:312
+#: runtime_errors\value_error.py:321
 msgid "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
 ""
@@ -2366,17 +2354,7 @@ msgstr "No reconozco este mensaje de error.\n"
 "Supongo que el problema está en la función `{name}`.\n"
 ""
 
-#: runtime_errors\value_error.py:262
-msgid "Its docstring is:\n"
-"\n"
-"`'''{docstring}'''`\n"
-""
-msgstr "Su docstring es:\n"
-"\n"
-"`'''{docstring}'''`\n"
-""
-
-#: runtime_errors\value_error.py:322
+#: runtime_errors\value_error.py:331
 msgid "I have no more information.\n"
 ""
 msgstr "No tengo mas información.\n"
@@ -3058,18 +3036,6 @@ msgstr "Tal vez usted quiso escribir el número entero `{num}`\n"
 "y no sabía que no podía empezar con ceros.\n"
 ""
 
-#: syntax_errors\message_analyzer.py:128
-msgid "On the left-hand side of an equal sign, you have a\n"
-"conditional expression instead of the name of a variable.\n"
-"A conditional expression has the following form:\n"
-"\n"
-"    variable = object if condition else other_object"
-msgstr "En el lado izquierdo de un signo igual, tiene una\n"
-"expresión condicional en lugar del nombre de una variable.\n"
-"Una expresión condicional tiene la siguiente forma:\n"
-"\n"
-"    variable = objeto if condición else otro_objeto"
-
 #: syntax_errors\message_analyzer.py:145
 msgid "On the left-hand side of an equal sign, you have\n"
 "an expression instead of the name of a variable.\n"
@@ -3131,10 +3097,6 @@ msgstr "Has escrito una expresión que tiene la f-string `{fstring}`` en el lado
 "en el lado izquierdo del signo igual.\n"
 "Una f-string sólo debe aparecer en el lado derecho de un signo igual.\n"
 ""
-
-#: syntax_errors\message_analyzer.py:253
-msgid "You cannot assign a value to `{keyword}`."
-msgstr "No se puede asignar un valor a `{keyword}`."
 
 #: syntax_errors\message_analyzer.py:260
 msgid "You cannot assign a value to the ellipsis symbol [`...`].\n"
@@ -3472,30 +3434,6 @@ msgid "Did you forget to escape a backslash character?\n"
 msgstr "¿Olvidaste escapar un carácter de barra invertida?\n"
 ""
 
-#: syntax_errors\message_analyzer.py:792
-msgid "One of the following two possibilities could be the cause:\n"
-"1. You meant to do a comparison with == and wrote = instead.\n"
-"2. You called a function with a named argument:\n"
-"\n"
-"        a_function(invalid=...)\n"
-"\n"
-"where `invalid` is not a valid identifier (variable name) in Python\n"
-"either because it starts with a number, or is a string,\n"
-"or contains a period, etc.\n"
-"\n"
-""
-msgstr "Una de las dos posibilidades siguientes podría ser la causa:\n"
-"1. Has querido hacer una comparación con == y has escrito = en su lugar.\n"
-"2. Has llamado a una función con un argumento con nombre:\n"
-"\n"
-"        una_función(inválido=...)\n"
-"\n"
-"donde `inválido` no es un identificador válido (nombre de variable) en Python\n"
-"ya sea porque comienza con un número, o es una cadena\n"
-"o contiene un punto, etc.\n"
-"\n"
-""
-
 #: syntax_errors\message_analyzer.py:852
 #: syntax_errors\statement_analyzer.py:1490
 msgid "It looks like the error occurred as you were writing a Python dict.\n"
@@ -3662,26 +3600,6 @@ msgid "You have called a function repeating the same keyword argument (`{arg}`).
 ""
 msgstr "Ha llamado a una función repitiendo el mismo argumento de palabra clave (`{arg}`).\n"
 "Cada argumento de palabra clave debe aparecer sólo una vez en una llamada a una función.\n"
-""
-
-#: syntax_errors\message_analyzer.py:1092
-msgid "You likely called a function with a named argument:\n"
-"\n"
-"    a_function(invalid=something) \n"
-"\n"
-"where `invalid` is not a valid variable name in Python\n"
-"either because it starts with a number, or is a string,\n"
-"or contains a period, etc.\n"
-"\n"
-""
-msgstr "Es probable que hayas llamado a una función con un argumento con nombre:\n"
-"\n"
-"    una_función(inválido=algo) \n"
-"\n"
-"donde `inválido` no es un nombre de variable válido en Python\n"
-"ya sea porque comienza con un número, o es una cadena\n"
-"o contiene un punto, etc.\n"
-"\n"
 ""
 
 #: syntax_errors\message_analyzer.py:1226
@@ -5172,7 +5090,7 @@ msgstr "Hay una posibilidad adicional."
 msgid "Changes the prompt style to be used in the console."
 msgstr "Cambia el estilo del indicador de consola que será utilizado."
 
-#: runtime_errors\value_error.py:334
+#: runtime_errors\value_error.py:343
 msgid "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
 "(for example, between day and month) and keep the order the same\n"
@@ -5315,7 +5233,7 @@ msgstr "Estás tratando de usar el nombre `{name}` identificado por Python como 
 "en el ámbito local de una función antes de haberle asignado un valor.\n"
 ""
 
-#: runtime_errors\value_error.py:318
+#: runtime_errors\value_error.py:327
 msgid "Its docstring is:\n"
 "\n"
 "{docstring}\n"
@@ -5394,5 +5312,11 @@ msgstr "Tal vez usted escribió una declaración que comienza un bloque de códi
 msgid "If this explanation is incorrect, please report this case.\n"
 ""
 msgstr "Si esta explicación es incorrecta, por favor informe de este caso.\n"
+""
+
+#: runtime_errors\value_error.py:292
+msgid "The third argument of the function `pow()` cannot be zero.\n"
+""
+msgstr " El tercer argumento de la función `pow()` no puede ser cero.\n"
 ""
 
