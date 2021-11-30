@@ -268,7 +268,11 @@ class Statement:
         no_mark = "       {:%d}: " % nb_digits
         with_mark = "    -->{:%d}: " % nb_digits
 
-        offset_mark = " " * (8 + nb_digits + self.offset) + "^"
+        if self.end_offset is not None and self.end_offset > self.offset:
+            nb_carets = self.end_offset - self.offset
+        else:
+            nb_carets = 1
+        offset_mark = " " * (8 + nb_digits + self.offset) + "^" * nb_carets
 
         marked = False
         for i, line in enumerate(lines, start):
