@@ -157,6 +157,15 @@ def test_Convert_to_int():
         assert "The following characters are not allowed: `x`" in result
 
     try:
+        int("1 2")  # issue 90
+    except ValueError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "ValueError: invalid literal for int() with base" in result
+    if english:
+        assert "The following characters are not allowed: ` `." in result
+
+    try:
         int("1898", base=5)
     except ValueError as e:
         friendly_traceback.explain_traceback(redirect="capture")

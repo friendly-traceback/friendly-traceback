@@ -162,6 +162,8 @@ def invalid_literal_for_int(
             convert = unicodedata.numeric(char, None)
             if convert is not None:
                 convert = str(int(convert))
+            else:
+                convert = char
         if convert not in valid and char not in invalid:
             invalid.append(char)
     invalid = _("The following characters are not allowed: `{invalid}`.\n").format(
