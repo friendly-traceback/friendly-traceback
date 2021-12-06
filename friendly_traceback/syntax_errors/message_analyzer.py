@@ -45,7 +45,7 @@ def _what_kind_of_literal(literal):
     try:
         a = ast.literal_eval(literal)
     except Exception:  # noqa
-        return None
+        return ""
 
     kinds = (
         (int, _("of type `int`")),
@@ -62,7 +62,7 @@ def _what_kind_of_literal(literal):
             return result
 
     debug_helper.log("New kind of literal" + str(a))  # pragma: no cover
-    return None  # pragma: no cover
+    return ""  # pragma: no cover
 
 
 def _proper_decimal_or_octal_number(prev_str, bad_str):
@@ -96,7 +96,7 @@ def _proper_decimal_or_octal_number(prev_str, bad_str):
 
 
 def add_python_message(func):
-    """A simple decorator that adds a function the the list of functions
+    """A simple decorator that adds a function the list of functions
     that process a message given by Python.
     """
     MESSAGE_ANALYZERS.append(func)
@@ -352,12 +352,11 @@ def assign_to_literal(message: str = "", statement=None):
         of_type = _what_kind_of_literal("{1}")
     elif message == "cannot assign to dict display":
         of_type = _what_kind_of_literal("{1:2}")
-    else:
-        of_type = _what_kind_of_literal(literal)
-
-    if literal is None:
+    elif literal is None:
         literal = "..."
         of_type = ""
+    else:
+        of_type = _what_kind_of_literal(literal)
 
     cause = (
         _(
