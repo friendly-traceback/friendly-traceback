@@ -127,9 +127,6 @@ def too_many_values_to_unpack(
     return {"cause": cause}
 
 
-# TODO: complete the work below; note noqa to be removed
-
-
 @parser.add
 def invalid_literal_for_int(
     message: str, _frame: FrameType, _tb_data: TracebackData
