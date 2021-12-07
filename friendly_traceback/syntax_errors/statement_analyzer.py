@@ -167,17 +167,15 @@ def copy_pasted_code(statement):
             "The Python prompt, `>>>`, should not be included in your code.\n"
         )
         return {"cause": cause, "suggest": hint}
-    elif first_token == "...":
-        if statement.highlighted_tokens is not None:  # Python 3.10
-            is_ellipsis = statement.bad_token
-        else:
-            is_ellipsis = statement.prev_token
-        if is_ellipsis == first_token:
-            cause = _(
-                "It looks like you copy-pasted code from an interactive interpreter.\n"
-                "The Python prompt, `...`, should not be included in your code.\n"
-            )
-            return {"cause": cause, "suggest": hint}
+    elif (
+        statement.first_token == statement.bad_token
+        or statement.prev_token == statement.first_token
+    ):
+        cause = _(
+            "It looks like you copy-pasted code from an interactive interpreter.\n"
+            "The Python prompt, `...`, should not be included in your code.\n"
+        )
+        return {"cause": cause, "suggest": hint}
     return {}  # pragma: no cover
 
 
@@ -929,7 +927,7 @@ def lambda_with_paren(statement):
 
 @add_statement_analyzer
 def wrong_type_declaration(statement):
-    if statement.highlighted_tokens:  # Python 3.10
+    if statement.highlighted_tokens and len(statement.highlighted_tokens) > 1:
         bad_token = statement.next_token
         prev_token = statement.bad_token
     else:
@@ -1188,13 +1186,14 @@ def space_in_variable_name(statement):
     # my name = André
     bad_token = statement.bad_token
     prev_token = statement.prev_token
-    if statement.highlighted_tokens:  # Python 3.10
+    # TODO: revise this when 3.11.0a3 is out
+    if statement.highlighted_tokens and len(statement.highlighted_tokens) == 2:
         bad_token = statement.next_token
         prev_token = statement.bad_token
 
     if not (
         bad_token.is_identifier()
-        and prev_token.is_identifier
+        and prev_token.is_identifier()
         and prev_token is statement.first_token
     ):
         return {}

@@ -870,9 +870,6 @@ descriptions = {
     "print_is_a_function_3": {
         in_cause: "In older version of Python, `print` was a keyword",
         title: "print is a function 3",
-        also_in_cause: [
-            'print("""This is a very long'
-        ],  # version dependent; see at end
     },
     "print_is_a_function_4": {
         in_cause: "In older version of Python, `print` was a keyword",
@@ -882,21 +879,14 @@ descriptions = {
     "print_is_a_function_5": {
         in_cause: "In older version of Python, `print` was a keyword",
         title: "print is a function 5",
-        also_in_cause: [
-            "print(len('This ",
-            " ... ",
-            "line.",
-        ],  # version dependent; see at end
     },
     "print_non_paren_non_string1": {
         in_cause: "In older version of Python, `print` was a keyword",
         title: "print is a function 6",
-        also_in_cause: ['print("hello world!")'],
     },
     "print_non_paren_non_string2": {
         in_cause: "In older version of Python, `print` was a keyword",
         title: "print is a function 7",
-        also_in_cause: ["print('len(\"hello\") hello')"],
     },
     "python_interpreter": {
         in_cause: " attempting to use Python to run a program",
@@ -1132,6 +1122,6 @@ if sys.version_info >= (3, 8):
 if sys.version_info < (3, 9):
     del descriptions["too_many_parentheses"]  # will be a memory error instead
 
-if sys.version_info >= (3, 10):
-    descriptions["print_is_a_function_3"][also_in_cause] = ["print(...)"]
-    descriptions["print_is_a_function_5"][also_in_cause] = ["print(...)"]
+
+if (3, 9) < sys.version_info < (3, 11):
+    del descriptions["missing_in_with_for"]  # problem with 3.10.1
