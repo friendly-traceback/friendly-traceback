@@ -203,9 +203,6 @@ def test_Custom_name():
 
 
 def test_Missing_self_1():
-    if sys.version_info >= (3, 11):
-        print("temporarily skipping test_Missign_self_1 for Python 3.11")
-        return "temporarily skipping test_Missign_self_1 for Python 3.11", "no message"
     class Pet(object):
         # Inspired by a StackOverflow question
         def __init__(self, name=""):
@@ -236,7 +233,7 @@ def test_Missing_self_1():
 
     assert "NameError: name 'add_toy' is not defined" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Perhaps you should have written `self.add_toy(...`" in result
+        assert "Perhaps you should have written `self.add_toy`" in result
     return result, message
 
 

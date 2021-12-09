@@ -90,7 +90,11 @@ def find_syntax_error_cause(value, tb_data):
             "However, I do not recognize this information and I have\n"
             "to guess what caused the problem, but I might be wrong.\n\n"
         ).format(message=message)
-        debug_helper.log("This message is not known: " + message)
+        debug_helper.log("\n.. This message is not known: " + message)
+        filename = statement.filename
+        if "\\tests\\" in filename:
+            filename = "tests" + filename.split("tests")[1]
+        debug_helper.log(f"   file: {filename}")
         cause["cause"] = notice + cause["cause"]  # pragma: no cover
         return cause  # pragma: no cover
 

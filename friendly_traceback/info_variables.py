@@ -104,8 +104,8 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
         atok = ASTTokens(line.strip(), parse=True)
     except SyntaxError as e:
         if "unexpected EOF" not in str(e):
-            debug_helper.log(f"problem with ASTTokens: {e}")
-            debug_helper.log(f"line: {line}")
+            debug_helper.log(f"\n.. Problem with ASTTokens: {e}")
+            debug_helper.log(f"   line: {line}")
         return objects
 
     if atok is not None:
@@ -319,7 +319,12 @@ def simplify_bound_method(name: str, splitlines: bool = False) -> str:
         obj_name = obj_parts[-1]
         file_name = ".<locals>".join(obj_parts[0:-1])
         name = (
-            method + " of <" + obj_name + " defined in <function " + file_name[1:] + ">"
+            method
+            + " of <"
+            + obj_name
+            + "` defined in `<function "
+            + file_name[1:]
+            + ">"
         )
         if len(name) > MAX_LENGTH and splitlines:
             of_object = f"\n{INDENT}of <" + obj_name
