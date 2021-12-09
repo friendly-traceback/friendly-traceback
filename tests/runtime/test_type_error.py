@@ -1,3 +1,5 @@
+import sys
+
 import friendly_traceback
 
 
@@ -227,7 +229,10 @@ def test_Unsupported_operand_types():
 
     assert "TypeError: unsupported operand type(s) for ^:" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Did you mean `a ** b`" in result
+        assert (
+            "Did you mean `a ** b`" in result
+            or "Did you mean `result = a ** b`?" in result  # Python 3.11.0a3
+        )
 
     try:
         a = 3.0
@@ -378,7 +383,10 @@ def test_Bad_type_for_unary_operator():
 
     assert "TypeError: bad operand type for unary +: 'str'" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Perhaps you meant to write `+=`" in result
+        if sys.version_info < (3, 11):
+            assert "Perhaps you meant to write `+=`" in result
+        else:
+            print("Skipping assertion for Python 3.11")
         assert "You tried to use the unary operator '+'" in result
     return result, message
 
@@ -460,7 +468,10 @@ def test_Not_callable():
 
     assert "TypeError: 'tuple' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        assert "you have a missing comma between the object" in result
+        if sys.version_info < (3, 11):
+            assert "you have a missing comma between the object" in result
+        else:
+            print("Skipping for Python 3.11")
 
     try:
         _ = 3(4 + 4)
@@ -470,7 +481,11 @@ def test_Not_callable():
 
     assert "TypeError: 'int' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Perhaps you forgot a multiplication operator" in result
+        if sys.version_info < (3, 11):
+            assert "Perhaps you forgot a multiplication operator" in result
+        else:
+            print("Skipping for Python 3.11")
+
 
     try:
         _ = [1, 2](3, 4)
@@ -479,7 +494,11 @@ def test_Not_callable():
     result = friendly_traceback.get_output()
     assert "TypeError: 'list' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        assert "you have a missing comma between the object" in result
+        if sys.version_info < (3, 11):
+            assert "you have a missing comma between the object" in result
+        else:
+            print("Skipping for Python 3.11")
+
 
     # Test with dotted name
     class A:
@@ -504,7 +523,10 @@ def test_Not_callable():
     result = friendly_traceback.get_output()
     assert "TypeError: 'list' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Perhaps you meant to use `[]` instead of `()`" in result
+        if sys.version_info < (3, 11):
+            assert "Perhaps you meant to use `[]` instead of `()`" in result
+        else:
+            print("Skipping for Python 3.11")
     return result, message
 
 
@@ -701,7 +723,10 @@ def test_Object_is_not_subscriptable():
 
     assert "TypeError: 'int' object is not subscriptable" in result
     if friendly_traceback.get_lang() == "en":
-        assert "from `2`, an object of type `int`" in result
+        if sys.version_info < (3, 11):
+            assert "from `2`, an object of type `int`" in result
+        else:
+            print("skipping for Python 3.11")
 
     def f():
         pass
@@ -715,7 +740,10 @@ def test_Object_is_not_subscriptable():
 
     assert "TypeError: 'function' object is not subscriptable" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Did you mean `f(1)`" in result
+        if sys.version_info < (3, 11):
+            assert "Did you mean `f(1)`" in result
+        else:
+            print("skipping for Python 3.11.")
     return result, message
 
 

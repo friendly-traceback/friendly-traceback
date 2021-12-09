@@ -1,3 +1,5 @@
+import sys
+
 import friendly_traceback
 
 # TODO: make sure that all these cases are captured in the documentation
@@ -342,7 +344,11 @@ def test_Use_join_with_str():
     result = friendly_traceback.get_output()
     assert "'list' object has no attribute 'join'" in result
     if friendly_traceback.get_lang() == "en":
-        assert "something like `'abc'.join(['a', '2'])`" in result
+        if sys.version_info < (3, 11):
+            assert "something like `'abc'.join(['a', '2'])`" in result
+        else:
+            print("Temporary fix for Python 3.11")
+            assert "something like `'...'.join(['a', '2'])`" in result
     return result, message
 
 

@@ -1013,7 +1013,8 @@ def missing_in_with_for(statement):
     """
     index = statement.bad_token_index
     bad_token = statement.bad_token
-    if statement.highlighted_tokens:  # Python 3.10 may highlight two tokens
+    # Python 3.10 may highlight two tokens
+    if statement.highlighted_tokens and len(statement.highlighted_tokens) > 1:
         index += 1
         bad_token = statement.next_token
 

@@ -212,7 +212,7 @@ class TracebackData:
             self.exception_frame = record.frame
             self.filename = record.filename
             line = record.problem_line()
-            self.bad_line = line.rstrip()
+            self.bad_line = line.strip()  # fix for 3.11
             # protecting against https://github.com/alexmojaki/stack_data/issues/13
             if not self.bad_line:
                 try:
