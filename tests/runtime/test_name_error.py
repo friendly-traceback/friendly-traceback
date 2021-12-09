@@ -233,7 +233,7 @@ def test_Missing_self_1():
 
     assert "NameError: name 'add_toy' is not defined" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Perhaps you should have written `self.add_toy`" in result
+        assert "Perhaps you should have written `self.add_toy" in result
     return result, message
 
 
