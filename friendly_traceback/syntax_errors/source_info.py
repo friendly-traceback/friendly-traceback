@@ -297,23 +297,42 @@ class Statement:
         nb_digits = len(str(self.linenumber))
         no_mark = "       {:%d}: " % nb_digits
         with_mark = "    -->{:%d}: " % nb_digits
+        leading_spaces = " " * (8 + nb_digits)
 
-        if self.end_offset is not None and self.end_offset > self.offset:
-            nb_carets = self.end_offset - self.offset
-        else:
-            nb_carets = 1
-        offset_mark = " " * (8 + nb_digits + self.offset) + "^" * nb_carets
+        self.create_location_markers()
 
         for i, line in lines:
-            if i == self.linenumber:
+            if i in self.location_markers:
                 num = with_mark.format(i)
                 new_lines.append(num + line)
-                new_lines.append(offset_mark)
+                new_lines.append(leading_spaces + self.location_markers[i])
             else:
                 num = no_mark.format(i)
                 new_lines.append(num + line)
 
         self.formatted_partial_source = "\n".join(new_lines)
+
+    def create_location_markers(self):
+        # In some cases, the location markers are determined while analysing
+        # the statement to find the cause.
+        if hasattr(self, "location_markers"):
+            return
+
+        # We go with the information obtained by Python.
+        nb_carets = 1  # Python default
+        if self.end_offset is not None and self.end_offset > self.offset:
+            nb_carets = self.end_offset - self.offset
+        # However, note that end_offset might not have been set up by
+        # cPython but earlier by us to correspond to the default
+        # used by Python; if that is the case, it is
+        # simply set to 1 more than offset.
+        if nb_carets == 1:
+            nb_carets = len(self.bad_token.string)
+            # In some cases/python version, the end of the token was
+            # used to signal the location of the error.
+            self.offset = self.bad_token.start_col + 1
+        offset_mark = " " * (self.offset) + "^" * nb_carets
+        self.location_markers = {self.linenumber: offset_mark}
 
     def obtain_statement(self, source_tokens):
         """This method scans the source searching for the statement that
