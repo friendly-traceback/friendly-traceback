@@ -530,7 +530,7 @@ def x_is_not_callable(
         cause = cause + _(
             "However, both `{obj_name}` and `{fn_call}` are numbers.\n"
             "Perhaps you forgot a multiplication operator, `*`,\n"
-            "and meant to write `{obj_name} * {fn_call}`\n."
+            "and meant to write `{obj_name} * {fn_call}`.\n"
         ).format(fn_call=fn_call, obj_name=obj_name)
         hint = _("Did you mean `{obj_name} * {fn_call}`?\n").format(
             fn_call=fn_call, obj_name=obj_name
