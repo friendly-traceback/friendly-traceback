@@ -247,6 +247,13 @@ class Statement:
             self.offset += 1
             self.end_offset += 1
 
+        lines = self.get_lines_to_show()
+        self.annotate_lines(lines)
+
+    def get_lines_to_show(self):
+        """Restricts the lines of code to be included when showing the location
+        of the error.
+        """
         last_linenumber_included = -1
         lines = []
         prev_token = self.all_statements[0][0]
@@ -282,7 +289,10 @@ class Statement:
         if self.linenumber > last_linenumber_included:
             # The problem line was an empty line
             lines.append((last_linenumber_included + 1, ""))
+        return lines
 
+    def annotate_lines(self, lines):
+        """Adds the caret marks used to show the location of the error"""
         new_lines = []
         nb_digits = len(str(self.linenumber))
         no_mark = "       {:%d}: " % nb_digits
