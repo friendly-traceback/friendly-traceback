@@ -239,7 +239,6 @@ class Statement:
             self.formatted_partial_source = ""
             return
 
-        last = self.tokens[-1].end_row  # meaningful tokens
         # In some IndentationError cases, and possibly others,
         # Python shows the ^ just before the first token
         # Note that start_row from tokenize and self.offset differ in their origins.
@@ -248,23 +247,44 @@ class Statement:
             self.offset += 1
             self.end_offset += 1
 
-        for index, statement in enumerate(self.all_statements):
-            last_token = statement[-1]
-            if last - last_token.end_row < 5:
-                break
+        last_linenumber_included = -1
+        lines = []
+        prev_token = self.all_statements[0][0]
+        end_docstring = False
+        for statement in self.all_statements:
+            for token in statement:
+                current_linenumber = token.start_row
+                current_line = token.line.rstrip()
+                if lines and prev_token.end_row == current_linenumber:
+                    continue
+                if self.linenumber < current_linenumber:
+                    break
+                if self.linenumber - current_linenumber < 5:
+                    if end_docstring == current_line:
+                        end_docstring = False
+                        continue
+                    if "\n" in current_line:
+                        text = current_line.split("\n")  # handle docstring
+                        for line in text:
+                            lines.append((current_linenumber, line))
+                            current_linenumber += 1
+                        end_docstring = text[-1]
+                        current_linenumber -= 1
+                    else:
+                        lines.append((current_linenumber, current_line))
+                    last_linenumber_included = current_linenumber
+                else:
+                    if "\n" in current_line:
+                        text = current_line.split("\n")
+                        end_docstring = text[-1]
+                prev_token = token
 
-        keep = self.all_statements[index:]  # noqa - warnings about index not defined
-        start = keep[0][0].start_row
+        if self.linenumber > last_linenumber_included:
+            # The problem line was an empty line
+            lines.append((last_linenumber_included + 1, ""))
 
-        tokens = []
-        for statement in keep:
-            tokens.extend(statement)
-
-        partial_source = token_utils.untokenize(tokens)
-        lines = partial_source.split("\n")
-        nb_lines = len(lines)
         new_lines = []
-        nb_digits = len(str(start + nb_lines))
+        nb_digits = len(str(self.linenumber))
         no_mark = "       {:%d}: " % nb_digits
         with_mark = "    -->{:%d}: " % nb_digits
 
@@ -274,24 +294,14 @@ class Statement:
             nb_carets = 1
         offset_mark = " " * (8 + nb_digits + self.offset) + "^" * nb_carets
 
-        marked = False
-        for i, line in enumerate(lines, start):
+        for i, line in lines:
             if i == self.linenumber:
                 num = with_mark.format(i)
-                new_lines.append(num + line.rstrip())
+                new_lines.append(num + line)
                 new_lines.append(offset_mark)
-                marked = True
-            elif marked:
-                if not line.strip():  # do not add empty lines after problem line
-                    break
-                num = no_mark.format(i)
-                new_lines.append(num + line.rstrip())
-            elif i > self.linenumber + 5:
-                # avoid printing to the end of the file if we have an unclosed bracket
-                break
             else:
                 num = no_mark.format(i)
-                new_lines.append(num + line.rstrip())
+                new_lines.append(num + line)
 
         self.formatted_partial_source = "\n".join(new_lines)
 

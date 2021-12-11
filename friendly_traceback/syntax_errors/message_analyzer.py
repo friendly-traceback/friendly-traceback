@@ -749,9 +749,9 @@ def duplicate_argument_in_function_definition(message: str = "", _statement=None
     if "duplicate argument" in message and "function definition" in message:
         name = message.split("'")[1]
         cause = _(
-            "You have defined a function repeating the keyword argument\n\n"
+            "You have defined a function repeating the argument\n\n"
             "    {name}\n"
-            "twice; each keyword argument should appear only once"
+            "twice; each argument should appear only once"
             " in a function definition.\n"
         ).format(name=name)
         return {"cause": cause}

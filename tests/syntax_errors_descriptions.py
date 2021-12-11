@@ -291,8 +291,8 @@ descriptions = {
         title: "def: dict as argument",
     },
     "def_duplicate_arg": {
-        in_cause: "keyword argument should appear only once in a function definition",
-        title: "def: Keyword arg only once in function definition",
+        in_cause: "argument should appear only once in a function definition",
+        title: "def: arguments must be unique in function definition",
     },
     "def_extra_semi_colon": {
         in_cause: "Did you write something by mistake after the colon",
