@@ -466,8 +466,10 @@ class FriendlyTraceback:
     def compile_info(self) -> None:
         """Compile all info that was not set in __init__."""
         self.assign_generic()
-        self.assign_location()
+        # For SyntaxError, assigning the cause may result in better location
+        # information.
         self.assign_cause()
+        self.assign_location()
         # removing null values; mypy cannot figure out the type correctly here
         to_remove = [key for key in self.info if not self.info[key]]  # type: ignore
         for key in to_remove:

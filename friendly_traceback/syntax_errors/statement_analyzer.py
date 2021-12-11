@@ -124,15 +124,20 @@ def mismatched_brackets(statement):
 
     source = f"\n    {open_lineno}: {statement.source_lines[open_lineno - 1]}"
     shift = len(str(open_lineno)) + open_bracket.start_col + 6
+    statement.location_markers = {}
     if open_lineno == end_lineno:
         source += " " * shift + "^"
+        statement.location_markers[open_lineno] = " " * open_bracket.start_col + " ^"
         shift = end_bracket.start_col - open_bracket.start_col - 1
         source += " " * shift + "^\n"
+        statement.location_markers[open_lineno] += " " * shift + "^"
     else:
         source += " " * shift + "^\n"
+        statement.location_markers[open_lineno] = " " * open_bracket.start_col + " ^"
         source += f"    {end_lineno}: {statement.source_lines[end_lineno - 1]}"
         shift = len(str(end_lineno)) + end_bracket.start_col + 6
         source += " " * shift + "^\n"
+        statement.location_markers[end_lineno] = " " * end_bracket.start_col + " ^"
 
     cause = (
         _(
