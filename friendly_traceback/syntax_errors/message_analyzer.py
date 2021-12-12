@@ -711,8 +711,10 @@ def colon_expected(message: str = "", statement=None):
         )
         return {"cause": cause, "suggest": hint}
 
-    new_statement = fixers.modify_token(
-        statement.statement_tokens, statement.bad_token, append=":"
+    new_statement = fixers.replace_token(
+        statement.statement_tokens,
+        statement.bad_token,
+        statement.bad_token.string + ":",
     )
     if fixers.check_statement(new_statement):  # pragma: no cover
         debug_helper.log("New case for colon_expected.")

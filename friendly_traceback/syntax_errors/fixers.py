@@ -4,49 +4,13 @@
 from .. import debug_helper, token_utils
 
 
-def replace_token(tokens, original_token, new_token_string):
+def replace_token(tokens, original_token, new_token_string=" "):
     """Replaces a single token string to produce a new source.
     More specifically, given::
 
-        tokens: a list of tokens
-        original_token: single token to be replaced
-        replace: new string to replace original_token.string
-
-    It creates a new list of tokens with the replacement having been done,
-    untokenize it to produce a modified source which is stripped of
-    leading and ending spaces so that it could be inserted in a
-    code sample at the beginning of a line with no indentation.
-    """
-    return _modify_source(tokens, original_token, replace=new_token_string)
-
-
-def modify_token(tokens, original_token, prepend="", append=""):
-    """Replaces a single token string to produce a new source.
-    More specifically, given::
-
-        tokens: a list of tokens
-        original_token: single token to be replaced
-        append: string to append to original_token.string
-        prepend: string to prepend to original_token.string
-
-    It creates a new list of tokens with the replacement having been done,
-    untokenize it to produce a modified source which is stripped of
-    leading and ending spaces so that it could be inserted in a
-    code sample at the beginning of a line with no indentation.
-    """
-    return _modify_source(
-        tokens, original_token, original_token.string, prepend=prepend, append=append
-    )
-
-
-def _modify_source(tokens, original_token, replace="", append="", prepend=""):
-    """Replaces a single token string to produce a new source.
-    More specifically, given::
-
-        tokens: a list of tokens
-        original_token: single token to be replaced
-        string: new string to use
-        add: if True, the new string is added to the existing one
+        * tokens: a list of tokens
+        * original_token: single token to be replaced
+        * replace: new string to replace original_token.string
 
     It creates a new list of tokens with the replacement having been done,
     untokenize it to produce a modified source which is stripped of
@@ -54,7 +18,7 @@ def _modify_source(tokens, original_token, replace="", append="", prepend=""):
     code sample at the beginning of a line with no indentation.
     """
     if not tokens:  # pragma: no cover
-        debug_helper.log("Problem in fixers._modify_source().")
+        debug_helper.log("Problem in fixers.replace_token().")
         debug_helper.log("Empty token list was received")
         debug_helper.log_error()
         return "?"
@@ -70,7 +34,7 @@ def _modify_source(tokens, original_token, replace="", append="", prepend=""):
         for tok in tokens:
             if tok is original_token:
                 new_token = original_token.copy()
-                new_token.string = prepend + replace + append
+                new_token.string = new_token_string
                 new_tokens.append(new_token)
             else:
                 new_tokens.append(tok)
@@ -136,7 +100,7 @@ def check_statement(statement):
         elif statement.startswith("except") or statement.startswith("finally"):
             statement = try_block % statement
 
-        # The statement might have been indented in the original Python file
+        # The statement might have been indented in the original Python file,
         # so we remove the indentation of that first line
         statement = statement.lstrip()
         try:

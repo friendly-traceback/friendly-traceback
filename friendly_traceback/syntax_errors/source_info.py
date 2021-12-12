@@ -259,6 +259,8 @@ class Statement:
         prev_token = self.all_statements[0][0]
         end_docstring = False
         for statement in self.all_statements:
+            # TODO: simplify this to use first and last token to determine if statement
+            # should be kept.
             for token in statement:
                 current_linenumber = token.start_row
                 current_line = token.line.rstrip()

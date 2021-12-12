@@ -687,8 +687,10 @@ def missing_colon(statement):
     ):
         return {}
 
-    new_statement = fixers.modify_token(
-        statement.statement_tokens, statement.bad_token, append=":"
+    new_statement = fixers.replace_token(
+        statement.statement_tokens,
+        statement.bad_token,
+        statement.bad_token.string + ":",
     )
     if not fixers.check_statement(new_statement):
         return {}
@@ -990,8 +992,10 @@ def missing_comma_before_string_in_dict(statement):
     ):
         return {}
 
-    new_statement = fixers.modify_token(
-        statement.statement_tokens, statement.prev_token, prepend=","
+    new_statement = fixers.replace_token(
+        statement.statement_tokens,
+        statement.prev_token,
+        "," + statement.prev_token.string,
     )
     if not fixers.check_statement(new_statement):
         return {}
@@ -1000,8 +1004,11 @@ def missing_comma_before_string_in_dict(statement):
         "I am guessing that you forgot a comma between two strings\n"
         "when defining a dict.\n\n"
     ).format(kwd=statement.bad_token)
-    new_statement = fixers.modify_token(
-        statement.statement_tokens, statement.prev_token, prepend=" «,» "
+    # TODO: Use custom marker instead
+    new_statement = fixers.replace_token(
+        statement.statement_tokens,
+        statement.prev_token,
+        " «,» " + statement.prev_token.string,
     )
     cause += "```\n" + new_statement + "\n```"
     hint = _("Did you forget a comma?\n")
@@ -1244,9 +1251,8 @@ def _add_comma_or_operator(tokens, tok, comma_first=True):
     for operator in operators:
         if operator == " in " and results:
             break
-        new_statement = fixers.modify_token(tokens, tok, append=operator)
+        new_statement = fixers.replace_token(tokens, tok, tok.string + operator)
         if fixers.check_statement(new_statement):
-
             results.append((operator.strip(), new_statement))
     return results
 

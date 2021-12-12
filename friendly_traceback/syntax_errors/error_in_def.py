@@ -100,8 +100,10 @@ def missing_parens(statement):
     ):
         return {}
 
-    new_statement = fixers.modify_token(
-        statement.statement_tokens, statement.bad_token, prepend="()"
+    new_statement = fixers.replace_token(
+        statement.statement_tokens,
+        statement.bad_token,
+        "()" + statement.bad_token.string,
     )
     if fixers.check_statement(new_statement):
         hint = _("Did you forget parentheses?\n")
@@ -164,7 +166,7 @@ def missing_colon(statement):
         return {"cause": cause, "suggest": hint}
 
     new_statement = fixers.replace_token(
-        statement.statement_tokens, statement.bad_token, ""
+        statement.statement_tokens, statement.bad_token, " "
     )
     if fixers.check_statement(new_statement):
         hint = _("Did you write something by mistake after the colon?\n")
@@ -174,8 +176,10 @@ def missing_colon(statement):
         )
         return {"cause": cause, "suggest": hint}
 
-    new_statement = fixers.modify_token(
-        statement.statement_tokens, statement.bad_token, append=":"
+    new_statement = fixers.replace_token(
+        statement.statement_tokens,
+        statement.bad_token,
+        statement.bad_token.string + ":",
     )
     if fixers.check_statement(new_statement):
         hint = _("Did you forget to write a colon?\n")
