@@ -266,7 +266,7 @@ class Statement:
                 current_line = token.line.rstrip()
                 if lines and prev_token.end_row == current_linenumber:
                     continue
-                if self.linenumber < current_linenumber:
+                if self.linenumber < current_linenumber and token == statement[0]:
                     break
                 if self.linenumber - current_linenumber < 5:
                     if end_docstring == current_line:
