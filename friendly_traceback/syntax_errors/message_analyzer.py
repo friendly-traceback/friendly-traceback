@@ -1010,6 +1010,20 @@ def from__future__not_defined(message: str = "", _statement=None):
 
 
 @add_python_message
+def function_parameters_cannot_be_paren(message: str = "", statement=None):
+    if message != "Function parameters cannot be parenthesized":
+        return {}
+
+    if statement.first_token == "def" or (
+        statement.first_token == "async" and statement.tokens[1] == "def"
+    ):
+        cause = error_in_def.analyze_def_statement(statement)
+        if cause:
+            return cause
+    return {}
+
+
+@add_python_message
 def generator_expression_must_be_parenthesized(message: str = "", _statement=None):
     if "Generator expression must be parenthesized" not in message:
         return {}
@@ -1215,6 +1229,17 @@ def keyword_argument_repeated(message: str = "", statement=None):
         "Each keyword argument should appear only once in a function call.\n"
     ).format(arg=statement.bad_token)
     return {"cause": cause}
+
+
+@add_python_message
+def lambda_expression_parameters_cannot_be_paren(message: str = "", statement=None):
+    if message != "Lambda expression parameters cannot be parenthesized":
+        return {}
+
+    cause = statement_analyzer.lambda_with_paren(statement)
+    if cause:
+        return cause
+    return {}
 
 
 @add_python_message
