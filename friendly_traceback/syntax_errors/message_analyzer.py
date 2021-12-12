@@ -838,6 +838,20 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
 
 
 @add_python_message
+def expected_paren(message: str = "", statement=None):
+    if message != "expected '('":
+        return {}
+
+    if statement.first_token == "def" or (
+        statement.first_token == "async" and statement.tokens[1] == "def"
+    ):
+        cause = error_in_def.analyze_def_statement(statement)
+        if cause:
+            return cause
+    return {}
+
+
+@add_python_message
 def expression_cannot_contain_assignment(message: str = "", statement=None):
     if (
         "expression cannot contain assignment, perhaps you meant" not in message
