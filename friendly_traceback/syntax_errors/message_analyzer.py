@@ -747,17 +747,43 @@ def continue_outside_loop(message: str = "", _statement=None):
 
 
 @add_python_message
-def duplicate_argument_in_function_definition(message: str = "", _statement=None):
+def duplicate_argument_in_function_definition(message: str = "", statement=None):
     if "duplicate argument" in message and "function definition" in message:
         name = message.split("'")[1]
         cause = _(
             "You have defined a function repeating the argument\n\n"
             "    {name}\n"
-            "twice; each argument should appear only once"
-            " in a function definition.\n"
+            "Each argument should appear only once in a function definition.\n"
         ).format(name=name)
+        locate_duplicate_arguments(statement, name)
         return {"cause": cause}
     return {}
+
+
+def locate_duplicate_arguments(statement, name):
+    # Make sure that we do not include the function name
+    begin_args = False
+    args = []
+    for token in statement.tokens:
+        if token == "(":
+            begin_args = True
+        if not begin_args:
+            continue
+        if token == name:
+            args.append(token)
+
+    markers = {}
+    for token in args:
+        if token.start_row not in markers:
+            markers[token.start_row] = " " * (token.start_col + 1) + "^" * len(
+                token.string
+            )
+            prev_token = token
+        else:
+            markers[token.start_row] += " " * (
+                token.start_col - prev_token.end_col  # noqa
+            ) + "^" * len(token.string)
+    statement.location_markers = markers
 
 
 @add_python_message

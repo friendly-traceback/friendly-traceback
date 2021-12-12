@@ -441,7 +441,11 @@ class Statement:
 
             previous_token = token
 
-            if self.bad_token in should_begin_statement and self.statement_brackets:
+            if (
+                self.bad_token in should_begin_statement
+                and self.bad_token != self.statement_tokens[0]
+                and self.statement_brackets
+            ):
                 break  # we almost certainly have an unclosed bracket
             # Note: '' in 'any string' == True
             # careful to not accidentally include null strings as brackets
