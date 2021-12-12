@@ -834,8 +834,10 @@ def invalid_name(statement):
             "[Note: `{first} * {second}` would also be valid\n"
             "since `{first}` is a complex number.]\n"
         ).format(first=first, second=second)
-        second.string = first.string[-1] + second.string
-        first.string = first.string[:-1]
+        # Do not modify the token themselves; reuse names and create pure strings
+        # otherwise the location shown by where() will be incorrect.
+        second = first.string[-1] + second.string
+        first = first.string[:-1]
     else:
         note = ""
 
