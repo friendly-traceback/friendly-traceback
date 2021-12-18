@@ -34,6 +34,7 @@ class Cache:
         # filename could be a Path object,
         # which does not have a startswith() method used below
         filename = str(filename)
+        self.remove(filename)
         lines = [line + "\n" for line in source.splitlines()]
         entry = (len(source), time.time(), lines, filename)
         # mypy cannot get the type information from linecache in stdlib
@@ -46,6 +47,8 @@ class Cache:
             del self.local_cache[filename]
         if filename in linecache.cache:  # type: ignore
             del linecache.cache[filename]  # type: ignore
+        # clear stack_data cache so it pulls fresh lines from linecache
+        stack_data.Source._class_local("__source_cache", {}).pop(filename, None)
 
     def get_source_lines(
         self, filename: str, module_globals: Optional[Dict[str, Any]] = None
