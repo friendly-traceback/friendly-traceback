@@ -77,6 +77,24 @@ def test_exec_code():
     ft.set_include(original_include)
 
 
+def test_source_cache():
+    """
+    Test that all relevant caches are updated by `source_cache.cache.add`.
+    This test would fail without the clearing of the stack_data cache.
+    """
+
+    ft.set_stream("capture")
+    try:
+        for n in range(5):
+            source = f"{n}/0"
+            ft.editors_helpers.exec_code(source=source)
+            result = ft.get_output()
+            assert source in result
+    finally:
+        ft.set_stream(None)
+
+
 if __name__ == "__main__":
     test_exec_code()
+    test_source_cache()
     print("Success!")
