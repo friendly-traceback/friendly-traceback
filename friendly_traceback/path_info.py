@@ -154,8 +154,6 @@ class PathUtil:
             path = "FRIENDLY:" + path[len(FRIENDLY) :]
         elif path_lower.startswith(TESTS.casefold()):
             path = "TESTS:" + path[len(TESTS) :]
-        elif path.startswith(os.getcwd()):
-            path = path[len(os.getcwd()) + 1 :]  # exclude separator
         elif path_lower.startswith(self.home.casefold()):
             path = "HOME:" + path[len(self.home) :]
         return path
