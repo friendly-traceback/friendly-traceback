@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2021-12-12 16:24-0400\n"
+"POT-Creation-Date: 2021-12-19 18:55-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -455,6 +455,13 @@ msgstr ""
 
 #: info_generic.py:211
 msgid ""
+"A `RuntimeError` is raised when an error is detected that doesn't fall in "
+"any\n"
+"of the more specific exception types defined by Python.\n"
+msgstr ""
+
+#: info_generic.py:219
+msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
 "the `next()` builtin function.\n"
@@ -463,11 +470,11 @@ msgstr ""
 "elementos para proporcionar cuando su método `__next__` es llamado por\n"
 "la función incorporada `next()`.\n"
 
-#: info_generic.py:220
+#: info_generic.py:228
 msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr "Un `SyntaxError` ocurre cuando Python no puede entender tu código.\n"
 
-#: info_generic.py:225
+#: info_generic.py:233
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -485,7 +492,7 @@ msgstr ""
 "La recomendación de Python es utilizar siempre espacios para sangrar el "
 "código.\n"
 
-#: info_generic.py:237
+#: info_generic.py:245
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -498,7 +505,7 @@ msgstr ""
 "o por intentar realizar una operación no permitida en un tipo de objeto "
 "determinado.\n"
 
-#: info_generic.py:247
+#: info_generic.py:255
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
@@ -506,7 +513,7 @@ msgstr ""
 "Un `ValueError` indica que una función o una operación\n"
 "recibió un argumento del tipo correcto, pero un valor inapropiado.\n"
 
-#: info_generic.py:255
+#: info_generic.py:263
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -527,11 +534,11 @@ msgstr ""
 "Python que se trata de una variable global, de lo contrario verá\n"
 "un `UnboundLocalError`.\n"
 
-#: info_generic.py:269
+#: info_generic.py:277
 msgid "No information is available about this warning.\n"
 msgstr "No hay información disponible sobre esta advertencia.\n"
 
-#: info_generic.py:274
+#: info_generic.py:282
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -601,7 +608,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:208
+#: path_info.py:206
 msgid "The default directory is {dirname}."
 msgstr "El directorio por defecto es {dirname}."
 
@@ -1557,6 +1564,28 @@ msgstr ""
 "delante del nombre del archivo o de la ruta, o reemplazar todas las barras "
 "invertidas\n"
 "simples, \"barra invertida\", por otras dobles: `\\\\`.\n"
+
+#: runtime_errors\runtime_error.py:50
+msgid ""
+"While you were iterating over the items of `{name}` ({container_type})\n"
+"in a `{for_while}` loop, you either tried to add or remove items from it.\n"
+"Suggestion: start by making a copy of `{name}` and iterate over the items\n"
+"of that copy if you want to change `{name}` inside a loop.\n"
+"You might want to do this as follows:\n"
+"\n"
+"    my_{name} = {name}.copy()\n"
+"    for item in my_{name}:\n"
+"        # Change {name}\n"
+msgstr ""
+
+#: runtime_errors\runtime_error.py:61
+msgid ""
+"While you were iterating over the items of a container ({container_type})\n"
+"in a `{for_while}` loop, you either tried to add or remove items from it.\n"
+"Suggestion: start by making a copy of the container and iterate over the "
+"items\n"
+"of that copy if you want to change that container inside a loop.\n"
+msgstr ""
 
 #: runtime_errors\type_error.py:53
 msgid "Did you forget to convert the string `{name}` into {number_type}?\n"
