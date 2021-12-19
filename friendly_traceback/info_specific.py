@@ -133,6 +133,16 @@ def _overflow_error(*_args) -> CauseInfo:
     # can be provided for real test cases
 
 
+@register(RuntimeError)
+def _runtime_error(
+    value: RuntimeError, frame: FrameType, tb_data: "TracebackData"
+) -> CauseInfo:
+
+    from .runtime_errors import runtime_error
+
+    return runtime_error.parser.get_cause(str(value), frame, tb_data)
+
+
 @register(TypeError)
 def _type_error(
     value: TypeError, frame: FrameType, tb_data: "TracebackData"

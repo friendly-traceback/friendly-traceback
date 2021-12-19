@@ -206,6 +206,14 @@ def recursion_error() -> str:
     )
 
 
+@register(RuntimeError)
+def runtime_error() -> str:
+    return _(
+        "A `RuntimeError` is raised when an error is detected that doesn't fall in any\n"
+        "of the more specific exception types defined by Python.\n"
+    )
+
+
 @register(StopIteration)
 def stop_iteration() -> str:
     return _(
