@@ -118,7 +118,7 @@ def test_time_strptime_incorrect_format():  # issue 78
     # For some reason, this test takes a long time on github.
     # This should have been fixed by requiring stack_data >= 0.1.3
     # but it apparently has not.
-    if "andre" not in os.getcwd():
+    if "andre" not in os.getcwd().lower():
         print("test for issue #78 skipped")
         return
 
