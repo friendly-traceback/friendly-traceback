@@ -1621,7 +1621,7 @@ msgstr ""
 "Vous pouvez procéder de la manière suivante :\n"
 "\n"
 "    mon_{name} = {name}.copy()\n"
-"    for item in my_{name} :\n"
+"    for item in mon_{name} :\n"
 "        # Changez {name}\n"
 
 #: runtime_errors\runtime_error.py:61
