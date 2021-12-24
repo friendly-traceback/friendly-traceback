@@ -143,7 +143,10 @@ def why() -> None:
     # If no cause is found, and the exception name is not accompanied by a
     # message, as in "StopIteration:", we use the same info for
     # the cause as we used for the generic information as per issue #66
-    info = session.saved_info[-1]
+    try:
+        info = session.saved_info[-1]
+    except IndexError:
+        info = []
     if (
         ("cause" not in info or not info["cause"])
         and "message" in info
