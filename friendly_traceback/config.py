@@ -8,8 +8,6 @@ import sys
 import types
 from typing import List, Optional, Type, Union
 
-from appdirs import user_config_dir
-
 from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
 from .typing_info import _E, Formatter, InclusionChoice, Info, Writer
@@ -22,6 +20,12 @@ def _get_lang():
     # We avoid using information saved by friendly when running
     # a local version of friendly-traceback that is not installed as a dependency.
     if "-packages" not in __file__:
+        return "en"
+
+    # Currently, Github tests fail when trying to import appdirs.
+    try:
+        from appdirs import user_config_dir
+    except ImportError:
         return "en"
 
     app_name = "Friendly"
