@@ -2,13 +2,43 @@
 
 Keeps tabs of all settings.
 """
+import configparser
+import os
 import sys
 import types
 from typing import List, Optional, Type, Union
 
+from appdirs import user_config_dir
+
 from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
 from .typing_info import _E, Formatter, InclusionChoice, Info, Writer
+
+
+def _get_lang():
+    """Gets the current saved language"""
+    # Friendly-traceback does not save the language information;
+    # however, friendly does.
+    # We avoid using information saved by friendly when running
+    # a local version of friendly-traceback that is not installed as a dependency.
+    if "-packages" not in __file__:
+        return "en"
+
+    app_name = "Friendly"
+    app_author = (
+        "AndreRoberge"  # No accent on André in case it messes with local encoding
+    )
+    config_dir = user_config_dir(app_name, app_author)
+    filename = os.path.join(config_dir, "friendly.ini")
+    if not os.path.exists(filename):
+        return "en"
+
+    config = configparser.ConfigParser()
+    config.read(filename)
+    if "common" in config and "lang" in config["common"]:
+        return config["common"]["lang"]
+    return "en"
+
 
 _ = current_lang.translate
 
@@ -38,7 +68,7 @@ class _State:
         self.friendly_info: List[core.FriendlyTraceback] = []
         # TODO: is having both saved_info and friendly_info redundant?
         self.include: InclusionChoice = "explain"
-        self.lang: str = "en"
+        self.lang: str = _get_lang()
         self.install_gettext(self.lang)
         self.suggest_console: str = "\n" + _(
             "Are you using a regular Python console instead of a Friendly console?\n"
@@ -292,8 +322,28 @@ class _State:
 session = _State()
 # It might sometimes be useful to import Friendly-traceback after an
 # exception occurred.
-try:
-    if sys.last_type is not None:
+
+
+def did_exception_occur_before() -> bool:
+    """If an exception occurred before friendly-traceback was imported, it captures
+    the information and prints an informative message to the user.
+
+    Returns True if such information was captures, False otherwise.
+    """
+    # Note that if an exception occurred while friendly-traceback was imported,
+    # this will not capture the information.
+    # For example, suppose we try to do:
+    #
+    #    from friendly.python import *
+    #
+    # This will generate a traceback with no information being captured.
+    # By calling did_exception_occur_before(), we might be able to see if an exception
+    # had been raised and that there is some information available.
+    if (
+        hasattr(sys, "last_type")
+        and hasattr(sys, "last_type")
+        and hasattr(sys, "last_traceback")
+    ):
         _info = session.get_traceback_info(
             sys.last_type, sys.last_value, sys.last_traceback
         )
@@ -307,5 +357,8 @@ try:
                     "Some information is available."
                 )
             )
-except AttributeError:  # sys.last_type only exists if an exception has been raised.
-    pass
+            return True
+    return False
+
+
+did_exception_occur_before()
