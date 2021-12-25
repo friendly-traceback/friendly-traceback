@@ -2,4 +2,4 @@ asttokens >= 2.0.4
 executing >= 0.8.0
 pure_eval >= 0.2.1
 stack_data >= 0.1.3
-appdirs
+appdirs >= 1.4.4
