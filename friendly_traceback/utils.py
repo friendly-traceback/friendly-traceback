@@ -135,6 +135,11 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
     for distance in range(1, max_dist + 1):
         if distance in similar_words and similar_words[distance]:
             similar.extend(similar_words[distance])
+    if not similar:  # example PI -> pi
+        if word_with_typo.lower() in words:
+            similar.append(word_with_typo.lower())
+        elif word_with_typo.upper() in words:
+            similar.append(word_with_typo.upper())
     return similar
 
 

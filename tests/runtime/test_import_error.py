@@ -35,11 +35,22 @@ def multiple_import_on_same_line():
         assert "likely caused by what is known as a 'circular import'." in result
 
 
+def wrong_case():
+    try:
+        from math import PI
+    except ImportError:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    if friendly_traceback.get_lang() == "en":
+        assert "Did you mean `pi`" in result
+
+
 
 def test_Simple_import_error():
     multiple_choices()  # do not record in documentation
     no_suggestion()
     multiple_import_on_same_line()
+    wrong_case()
 
     try:
         from math import Pi
