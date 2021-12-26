@@ -527,8 +527,6 @@ class FriendlyTraceback:
             etype, value, self.tb_data.exception_frame, self.tb_data
         )  # [3]
         self.info.update(**cause)
-        if self.tb_data.filename == "<stdin>":  # pragma: no cover
-            self.info["cause"] += "\n" + cannot_analyze_stdin()
 
     def set_cause_syntax(self) -> None:
         """For SyntaxError and subclasses. Sets the value of the following
@@ -548,10 +546,6 @@ class FriendlyTraceback:
 
         if self.tb_data.filename == "<unknown>":
             return
-
-        # if self.tb_data.filename == "<stdin>" and value.lineno != 1:  # pragma: no cover
-        #     self.info["cause"] = cannot_analyze_stdin()
-        #     return
 
         if "encoding problem" in str(self.tb_data.value):
             self.info["cause"] = _("The encoding of the file was not valid.\n")
@@ -617,6 +611,11 @@ class FriendlyTraceback:
         * exception_raised_variables
         """
         from .config import session
+
+        if self.tb_data.filename == "<stdin>":
+            self.info["exception_raised_source"] = cannot_analyze_stdin()
+            self.info["exception_raised_header"] = ""
+            return
 
         partial_source = record.partial_source_with_node_range
         if partial_source["source"].strip() == "0:":
