@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2021-12-19 18:55-0400\n"
+"POT-Creation-Date: 2021-12-26 07:47-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,18 +27,18 @@ msgstr ""
 msgid "I have no suggestion to offer; try `why()`."
 msgstr ""
 
-#: config.py:43
+#: config.py:77
 msgid ""
 "Are you using a regular Python console instead of a Friendly console?\n"
 "If so, to continue, try: `start_console(local_vars=locals())`.\n"
 "You will need to import `start_console` if you have not already done so.\n"
 msgstr ""
 
-#: config.py:72 config.py:181 console_helpers.py:29
+#: config.py:106 config.py:215 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr ""
 
-#: config.py:305
+#: config.py:359
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -52,17 +52,17 @@ msgstr ""
 msgid "{exception} is not an exception."
 msgstr ""
 
-#: console_helpers.py:204
+#: console_helpers.py:207
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
 msgstr ""
 
-#: console_helpers.py:228
+#: console_helpers.py:231
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 
-#: console_helpers.py:418
+#: console_helpers.py:421
 msgid "The following methods of the Friendly object should also be available as functions."
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Python exception:"
 msgstr ""
 
-#: core.py:494
+#: core.py:498
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -83,59 +83,58 @@ msgid ""
 "raises an exception or does not return a string.\n"
 msgstr ""
 
-#: core.py:553
+#: core.py:557
 msgid ""
 "The encoding of the file was not valid.\n"
 msgstr ""
 
-#: core.py:624
+#: core.py:628
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 
-#: core.py:629
+#: core.py:633
 msgid ""
 "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr ""
 
-#: core.py:633
+#: core.py:637
 msgid ""
 "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr ""
 
-#: core.py:662
+#: core.py:666
 msgid ""
 "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 
-#: core.py:666
+#: core.py:670
 msgid ""
 "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 
-#: core.py:684
+#: core.py:687
 msgid ""
-"`{filename}` is not a regular Python file whose contents\n"
-"can be analyzed.\n"
+"The entire content of `{filename}` is not available.\n"
 msgstr ""
 
-#: core.py:697
+#: core.py:701
 msgid ""
 "Python could not understand the code in the code block {filename}\n"
 msgstr ""
 
-#: core.py:701
+#: core.py:705
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr ""
 
-#: core.py:706
+#: core.py:710
 msgid ""
 "at the location indicated by ^.\n"
 msgstr ""
 
-#: core.py:936
+#: core.py:942
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -489,7 +488,7 @@ msgid ""
 "    {name} = {hint}\n"
 msgstr ""
 
-#: path_info.py:206
+#: path_info.py:208
 msgid "The default directory is {dirname}."
 msgstr ""
 

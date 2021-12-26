@@ -60,7 +60,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         ipython_prompt: bool = True,
     ) -> None:
         """This class builds upon Python's code.InteractiveConsole
-        so as to provide friendly tracebacks. It keeps track
+        to provide friendly tracebacks. It keeps track
         of code fragment executed by treating each of them as
         an individual source file.
         """
@@ -95,10 +95,10 @@ class FriendlyTracebackConsole(InteractiveConsole):
         source = "\n".join(self.buffer)  # type: ignore
 
         # Each valid code sample is saved with its own fake filename.
-        # They are numbered consecutively to help understanding
+        # They are numbered consecutively to help understand
         # the traceback history.
         # If self.counter was not updated, it means that the previous
-        # code sample was not valid and we reuse the same file name
+        # code sample was not valid, and we reuse the same file name
         filename = self.fake_filename % self.counter
         source_cache.cache.add(filename, source)
 
@@ -161,8 +161,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         display a traceback.  All exceptions are caught except
         SystemExit, which, unlike the case for the original version in the
         standard library, cleanly exists the program. This is done
-        so as to avoid our Friendly's exception hook to intercept
-        it and confuse the users.
+        to avoid our Friendly's exception hook to intercept it and confuse the users.
 
         A note about KeyboardInterrupt: this exception may occur
         elsewhere in this code, and may not always be caught.  The

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-12-19 18:55-0400\n"
+"POT-Creation-Date: 2021-12-26 07:47-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -27,7 +27,7 @@ msgstr "Je n’ai aucune suggestion à offrir."
 msgid "I have no suggestion to offer; try `why()`."
 msgstr "Je n’ai aucune suggestion à offrir; essayez `why()`."
 
-#: config.py:43
+#: config.py:77
 msgid ""
 "Are you using a regular Python console instead of a Friendly console?\n"
 "If so, to continue, try: `start_console(local_vars=locals())`.\n"
@@ -37,11 +37,11 @@ msgstr ""
 "Si oui, pour continuer, essayez : `start_console(local_vars=locals())`.\n"
 "Vous devrez importer `start_console` si vous ne l'avez pas déjà fait.\n"
 
-#: config.py:72 config.py:181 console_helpers.py:29
+#: config.py:106 config.py:215 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr "Rien à montrer: pas d’exception enregistrée."
 
-#: config.py:305
+#: config.py:359
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -58,7 +58,7 @@ msgstr ""
 msgid "{exception} is not an exception."
 msgstr "{exception} n'est pas une exception."
 
-#: console_helpers.py:204
+#: console_helpers.py:207
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -66,12 +66,12 @@ msgstr ""
 "Argument non valide pour `www()`.\n"
 "Les arguments valides incluent `None` ou un des suivants : `{sites}`.\n"
 
-#: console_helpers.py:228
+#: console_helpers.py:231
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:418
+#: console_helpers.py:421
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -87,7 +87,7 @@ msgstr "Plus de lignes non affichées."
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:494
+#: core.py:498
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -101,49 +101,45 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:553
+#: core.py:557
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:624
+#: core.py:628
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:629
+#: core.py:633
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du bloc de code {filename}.\n"
 
-#: core.py:633
+#: core.py:637
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:662
+#: core.py:666
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du block de code "
 "{filename}.\n"
 
-#: core.py:666
+#: core.py:670
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:684
-msgid ""
-"`{filename}` is not a regular Python file whose contents\n"
-"can be analyzed.\n"
-msgstr ""
-"`{filename}` n’est pas un fichier Python dont le contenu\n"
-"peut être analysé.\n"
+#: core.py:687
+msgid "The entire content of `{filename}` is not available.\n"
+msgstr "Le contenu de `{filename}` n'est pas entièrement disponible.\n"
 
-#: core.py:697
+#: core.py:701
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:701
+#: core.py:705
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -151,11 +147,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:706
+#: core.py:710
 msgid "at the location indicated by ^.\n"
 msgstr "à l'endroit indiqué par ^.\n"
 
-#: core.py:936
+#: core.py:942
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -635,7 +631,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:206
+#: path_info.py:208
 msgid "The default directory is {dirname}."
 msgstr "Le répertoire par défaut est {dirname}."
 
@@ -5231,6 +5227,13 @@ msgstr ""
 "Vous avez utilisé le caractère unicode {char} qui est connu sous le nom de\n"
 "{name}\n"
 "Je pense que vous vouliez plutôt écrire la fraction `{num}/{denom}`.\n"
+
+#~ msgid ""
+#~ "`{filename}` is not a regular Python file whose contents\n"
+#~ "can be analyzed.\n"
+#~ msgstr ""
+#~ "`{filename}` n’est pas un fichier Python dont le contenu\n"
+#~ "peut être analysé.\n"
 
 #~ msgid ""
 #~ "One of the following two possibilities could be the cause:\n"

@@ -196,6 +196,9 @@ class Statement:
                 self.linenumber = 1
         if not source.strip():
             self.source_lines = cache.get_source_lines(self.filename)
+            if self.source_lines == ["\n"]:
+                self.source_lines = ["...\n"] * (self.linenumber - 1)
+                self.source_lines.append(self.bad_line)
             source = "".join(self.source_lines)
             if not source.strip():
                 source = self.bad_line or "\n"

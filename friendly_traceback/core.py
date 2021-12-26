@@ -549,9 +549,9 @@ class FriendlyTraceback:
         if self.tb_data.filename == "<unknown>":
             return
 
-        if self.tb_data.filename == "<stdin>" and value.lineno != 1:  # pragma: no cover
-            self.info["cause"] = cannot_analyze_stdin()
-            return
+        # if self.tb_data.filename == "<stdin>" and value.lineno != 1:  # pragma: no cover
+        #     self.info["cause"] = cannot_analyze_stdin()
+        #     return
 
         if "encoding problem" in str(self.tb_data.value):
             self.info["cause"] = _("The encoding of the file was not valid.\n")
@@ -684,13 +684,11 @@ class FriendlyTraceback:
         """
         value = self.tb_data.value
         filepath = value.filename
-        if filepath == "<unknown>" or (
-            filepath in ["<string>", "<stdin>"] and value.lineno != 1
-        ):
-            self.info["parsing_error"] = _(
-                "`{filename}` is not a regular Python file whose contents\n"
-                "can be analyzed.\n"
-            ).format(filename=filepath)
+        not_regular_file = _(
+            "The entire content of `{filename}` is not available.\n"
+        ).format(filename=filepath)
+        if filepath == "<unknown>":
+            self.info["parsing_error"] = not_regular_file
             return
 
         statement = self.tb_data.statement
@@ -712,6 +710,8 @@ class FriendlyTraceback:
             self.info["parsing_error"] = could_not_understand + _(
                 "at the location indicated by ^.\n"
             ).format(filename=short_filename)
+            if filepath in ["<string>", "<stdin>"] and self.tb_data.value.lineno != 1:
+                self.info["parsing_error"] += not_regular_file
         elif filepath:  # could be None
             self.info["parsing_error"] = could_not_understand + ".\n"
 
