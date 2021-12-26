@@ -161,7 +161,7 @@ msgid ""
 "the content of file '<stdin>' is not accessible.\n"
 msgstr ""
 "Malheureusement, aucune information supplémentaire n'est disponible :\n"
-"le contenu du fichier ''<stdin>n'est pas accessible.\n"
+"le contenu du fichier '<stdin>' n'est pas accessible.\n"
 
 #: frame_info.py:31
 msgid "Problem: source of `{filename}` is not available\n"

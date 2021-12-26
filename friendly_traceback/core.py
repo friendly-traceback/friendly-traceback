@@ -487,7 +487,11 @@ class FriendlyTraceback:
         """Determine the cause of an exception, which is what is returned
         by ``why()``.
         """
-        if self.tb_data.filename in ["<unknown>", "<string>"]:
+        if self.tb_data.filename == "<unknown>" or (
+            self.tb_data.filename == "<string>"
+            and self.tb_data.value.lineno != 1
+            and not issubclass(self.tb_data.exception_type, SyntaxError)
+        ):
             return
 
         if STR_FAILED in self.message:
@@ -545,7 +549,7 @@ class FriendlyTraceback:
         if self.tb_data.filename == "<unknown>":
             return
 
-        if self.tb_data.filename == "<stdin>":  # pragma: no cover
+        if self.tb_data.filename == "<stdin>" and value.lineno != 1:  # pragma: no cover
             self.info["cause"] = cannot_analyze_stdin()
             return
 
@@ -680,7 +684,9 @@ class FriendlyTraceback:
         """
         value = self.tb_data.value
         filepath = value.filename
-        if filepath in ["<unknown>", "<string>"]:
+        if filepath == "<unknown>" or (
+            filepath in ["<string>", "<stdin>"] and value.lineno != 1
+        ):
             self.info["parsing_error"] = _(
                 "`{filename}` is not a regular Python file whose contents\n"
                 "can be analyzed.\n"

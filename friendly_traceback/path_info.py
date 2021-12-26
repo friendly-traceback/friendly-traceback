@@ -121,6 +121,8 @@ class PathUtil:
 
         if path is None:  # can happen in some rare cases
             return path
+        if path in ["<stdin>", "<string>"]:
+            return path
         orig_path = path
         path = path.replace("'", "")  # We might get passed a path repr
         path = os.path.abspath(path)
