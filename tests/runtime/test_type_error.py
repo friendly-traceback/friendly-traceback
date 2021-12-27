@@ -386,7 +386,7 @@ def test_Bad_type_for_unary_operator():
         if sys.version_info < (3, 11):
             assert "Perhaps you meant to write `+=`" in result
         else:
-            print("\n.. Skipping test_Bad_type_for_unary_operator for Python 3.11")
+            print("Skipping test_Bad_type_for_unary_operator for Python 3.11")
         assert "You tried to use the unary operator '+'" in result
     return result, message
 
@@ -471,7 +471,7 @@ def test_Not_callable():
         if sys.version_info < (3, 11):
             assert "you have a missing comma between the object" in result
         else:
-            print("\n.. Skipping test_Not_callable for Python 3.11")
+            print("Skipping test_Not_callable for Python 3.11")
 
     try:
         _ = 3(4 + 4)
@@ -484,7 +484,7 @@ def test_Not_callable():
         if sys.version_info < (3, 11):
             assert "Perhaps you forgot a multiplication operator" in result
         else:
-            print("\n.. Skipping test_Not_callable for Python 3.11")
+            print("Skipping test_Not_callable for Python 3.11")
 
 
     try:
@@ -497,7 +497,7 @@ def test_Not_callable():
         if sys.version_info < (3, 11):
             assert "you have a missing comma between the object" in result
         else:
-            print("\n.. Skipping test_Not_callable for Python 3.11")
+            print("Skipping test_Not_callable for Python 3.11")
 
 
     # Test with dotted name
@@ -526,7 +526,7 @@ def test_Not_callable():
         if sys.version_info < (3, 11):
             assert "Perhaps you meant to use `[]` instead of `()`" in result
         else:
-            print("\n.. Skipping test_Not_callable for Python 3.11")
+            print("Skipping test_Not_callable for Python 3.11")
     return result, message
 
 
@@ -726,7 +726,7 @@ def test_Object_is_not_subscriptable():
         if sys.version_info < (3, 11):
             assert "from `2`, an object of type `int`" in result
         else:
-            print("\n.. Skipping test_Object_is_not_subscriptable for Python 3.11")
+            print("Skipping test_Object_is_not_subscriptable for Python 3.11")
 
     def f():
         pass
@@ -743,7 +743,7 @@ def test_Object_is_not_subscriptable():
         if sys.version_info < (3, 11):
             assert "Did you mean `f(1)`" in result
         else:
-            print("\n.. Skipping test_Object_is_not_subscriptable for Python 3.11.")
+            print("Skipping test_Object_is_not_subscriptable for Python 3.11.")
     return result, message
 
 

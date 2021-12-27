@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2021-12-26 07:47-0400\n"
+"POT-Creation-Date: 2021-12-27 07:31-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -96,66 +96,74 @@ msgstr ""
 "Questo può accadere se un metodo `__repr__` oppure `__str__` solleva una "
 "eccezione e non viene restituito un valore non di tipo \"stringa\". \n"
 
-#: core.py:557
+#: core.py:551
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encoding del file non è valido.\n"
 
-#: core.py:628
+#: core.py:627
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} non è un file in formato Python. Il contenuto non può essere "
 "analizzato\n"
 
-#: core.py:633
+#: core.py:632
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "Eccezione rilevata alla linea {linenumber} della porzione di codice "
 "{filename}.\n"
 
-#: core.py:637
+#: core.py:636
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Eccezione rilevata alla linea {linenumber} del file {filename}.\n"
 
-#: core.py:666
+#: core.py:665
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'esecuzione si è arrestata alla linea {linenumber} della porzione di codice "
 "{filename}.\n"
 
-#: core.py:670
+#: core.py:669
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'esecuzione si è arrestata alla linea {linenumber} del file {filename}.\n"
 
-#: core.py:687
+#: core.py:686
 #, fuzzy
 #| msgid "Problem: source of `{filename}` is not available\n"
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr "Problema: il codice sorgente del file `{filename}` non è disponibile\n"
 
-#: core.py:701
+#: core.py:700
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "L'interprete Python non comprende la porzione di codice {filename}.\n"
 
-#: core.py:705
+#: core.py:704
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr ""
 "Python non riesce ad interpretare il codice contenuto nel file '{filename}'\n"
 
-#: core.py:710
+#: core.py:709
 msgid "at the location indicated by ^.\n"
 msgstr "al punto indicato da ^.\n"
 
-#: core.py:942
+#: core.py:941
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
 msgstr ""
 "Ci dispiace, ma non sono disponibili informazioni aggiuntive:\n"
 "il contenuto del file '<stdin>' non è accessibile.\n"
+
+#: debug_helper.py:51
+msgid "Please report this issue."
+msgstr ""
+
+#: debug_helper.py:72
+msgid "Fatal error - aborting"
+msgstr ""
 
 #: frame_info.py:31
 msgid "Problem: source of `{filename}` is not available\n"

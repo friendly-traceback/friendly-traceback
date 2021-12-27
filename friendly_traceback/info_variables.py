@@ -104,7 +104,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
         atok = ASTTokens(line.strip(), parse=True)
     except SyntaxError as e:
         if "unexpected EOF" not in str(e):
-            debug_helper.log(f"\n.. Problem with ASTTokens: {e}")
+            debug_helper.log(f"Problem with ASTTokens: {e}")
             debug_helper.log(f"   line: {line}")
         return objects
 

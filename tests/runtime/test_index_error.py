@@ -18,7 +18,7 @@ def test_Short_tuple():
         if sys.version_info < (3, 11):
             assert "The valid index values of" in result
         else:
-            print("\n.. Skipping test_Short_tuple for Python 3.11")
+            print("Skipping test_Short_tuple for Python 3.11")
     return result, message
 
 
@@ -37,7 +37,7 @@ def test_Long_list():
         if sys.version_info < (3, 11):
             assert "The valid index values of" in result
         else:
-            print("\n.. Skipping test_Long_list for Python 3.11")
+            print("Skipping test_Long_list for Python 3.11")
     return result, message
 
 def test_Empty():
@@ -54,7 +54,7 @@ def test_Empty():
         if sys.version_info < (3, 11):
             assert "contains no item" in result
         else:
-            print("\n.. Skipping test_Empty for Python 3.11")
+            print("Skipping test_Empty for Python 3.11")
     return result, message
 
 

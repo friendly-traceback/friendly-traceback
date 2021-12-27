@@ -347,7 +347,7 @@ def test_Use_join_with_str():
         if sys.version_info < (3, 11):
             assert "something like `'abc'.join(['a', '2'])`" in result
         else:
-            print("\n.. Temporary fix in test_Use_join_with_str for Python 3.11")
+            print("Temporary fix in test_Use_join_with_str for Python 3.11")
             assert "something like `'...'.join(['a', '2'])`" in result
     return result, message
 

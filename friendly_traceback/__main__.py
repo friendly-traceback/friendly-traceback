@@ -35,7 +35,7 @@ def import_function(dotted_path: str) -> type:
     """Import a function from a module, given its dotted path.
 
     This is a utility function currently used when a custom formatter
-    is used using a command line argument::
+    is selected using a command line argument::
 
         python -m friendly --formatter custom_formatter
     """
