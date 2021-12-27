@@ -56,7 +56,7 @@ def handle_internal_error() -> None:
     result = get_output()
     dependencies = [
         item
-        for item in ["appdirs", "executing", "stack_data", "asttokens", "pure_eval"]
+        for item in ["executing", "stack_data", "asttokens", "pure_eval"]
         if item in result
     ]
 

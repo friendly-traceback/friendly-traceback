@@ -1,9 +1,7 @@
 """config.py
 
-Keeps tabs of all settings.
+Keep tabs of all settings.
 """
-import configparser
-import os
 import sys
 import types
 from typing import List, Optional, Type, Union
@@ -11,38 +9,6 @@ from typing import List, Optional, Type, Union
 from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
 from .typing_info import _E, Formatter, InclusionChoice, Info, Writer
-
-
-def _get_lang():
-    """Gets the current saved language"""
-    # Friendly-traceback does not save the language information;
-    # however, friendly does.
-    # We avoid using information saved by friendly when running
-    # a local version of friendly-traceback that is not installed as a dependency.
-    if "-packages" not in __file__:
-        return "en"
-
-    # Currently, Github tests fail when trying to import appdirs.
-    try:
-        from appdirs import user_config_dir
-    except ImportError:
-        return "en"
-
-    app_name = "Friendly"
-    app_author = (
-        "AndreRoberge"  # No accent on André in case it messes with local encoding
-    )
-    config_dir = user_config_dir(app_name, app_author)
-    filename = os.path.join(config_dir, "friendly.ini")
-    if not os.path.exists(filename):
-        return "en"
-
-    config = configparser.ConfigParser()
-    config.read(filename)
-    if "common" in config and "lang" in config["common"]:
-        return config["common"]["lang"]
-    return "en"
-
 
 _ = current_lang.translate
 
@@ -72,7 +38,7 @@ class _State:
         self.friendly_info: List[core.FriendlyTraceback] = []
         # TODO: is having both saved_info and friendly_info redundant?
         self.include: InclusionChoice = "explain"
-        self.lang: str = _get_lang()
+        self.lang: str = "en"
         self.install_gettext(self.lang)
         self.suggest_console: str = "\n" + _(
             "Are you using a regular Python console instead of a Friendly console?\n"
