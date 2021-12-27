@@ -309,6 +309,12 @@ def did_exception_occur_before() -> bool:
     # This will generate a traceback with no information being captured.
     # By calling did_exception_occur_before(), we might be able to see if an exception
     # had been raised and that there is some information available.
+    def _exception_occurred():
+        return _(
+            "An exception occurred before friendly-traceback was imported.\n"
+            "Some information is available."
+        )
+
     if (
         hasattr(sys, "last_type")
         and hasattr(sys, "last_type")
@@ -318,15 +324,11 @@ def did_exception_occur_before() -> bool:
             sys.last_type, sys.last_value, sys.last_traceback
         )
         if _info:
-            session.exception_before_import = True
             session.sys_last_type = sys.last_type
             session.sys_last_value = sys.last_value
-            print(
-                _(
-                    "An exception occurred before friendly-traceback was imported.\n"
-                    "Some information is available."
-                )
-            )
+            if not session.exception_before_import:
+                print(_exception_occurred())
+            session.exception_before_import = True
             return True
     return False
 
