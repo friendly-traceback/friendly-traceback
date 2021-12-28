@@ -17,8 +17,8 @@ If you find that some additional functionality would be useful to
 have as part of the public API, please let us know.
 """
 try:
-    import readline  # noqa issue 80
-except ModuleNotFoundError:
+    import readline  # noqa issue 80; ImportError added for Pypy.
+except (ModuleNotFoundError, ImportError):
     pass
 
 import sys
@@ -31,7 +31,7 @@ if not valid_version:  # pragma: no cover
     sys.exit()
 
 del valid_version
-__version__ = "0.4.110"
+__version__ = "0.4.111"
 
 
 # ===========================================
