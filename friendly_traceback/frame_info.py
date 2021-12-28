@@ -172,7 +172,9 @@ class FrameInfo(stack_data.FrameInfo):
         #
         # If that is the case, we rewrite the node as a single line.
         if not node_text:
-            return
+            node_text = self.handle_special_cases()
+            if not node_text:
+                return
 
         node_range = None
         if "\n" in node_text:
@@ -200,6 +202,22 @@ class FrameInfo(stack_data.FrameInfo):
         return only(
             line for line in self.lines if isinstance(line, Line) and line.is_current
         )
+
+    def handle_special_cases(self):
+        """Hack to try to identify a problematic text when node_text is None"""
+        try:
+            exec(self.current_line.text)
+        except Exception as exc:
+            saved_exc = exc
+        if not hasattr(saved_exc, "msg"):
+            return ""
+        message = saved_exc.msg
+        if message.startswith("cannot import name '"):
+            return message.split("'")[1]
+        elif message.startswith("No module named '"):
+            return message.split("'")[1]
+
+        return ""
 
 
 class FakeLineObject:
