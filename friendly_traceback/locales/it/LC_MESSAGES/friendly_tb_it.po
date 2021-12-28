@@ -129,10 +129,8 @@ msgstr ""
 "L'esecuzione si è arrestata alla linea {linenumber} del file {filename}.\n"
 
 #: core.py:686
-#, fuzzy
-#| msgid "Problem: source of `{filename}` is not available\n"
 msgid "The entire content of `{filename}` is not available.\n"
-msgstr "Problema: il codice sorgente del file `{filename}` non è disponibile\n"
+msgstr "L'intero contenuto di `{filename}` non è disponibile.\n"
 
 #: core.py:700
 msgid "Python could not understand the code in the code block {filename}\n"
