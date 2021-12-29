@@ -171,8 +171,10 @@ class FrameInfo(stack_data.FrameInfo):
         #            50], b[0])
         #
         # If that is the case, we rewrite the node as a single line.
+        special_case = False
         if not node_text:
             node_text = self.handle_special_cases()
+            special_case = True
             if not node_text:
                 return
 
@@ -195,6 +197,9 @@ class FrameInfo(stack_data.FrameInfo):
             begin = bad_line.find(node_text)
             end = begin + len(node_text)
             node_range = begin, end
+        if special_case:  # use the entire bad_line to determine the cause
+            # use node_range to highlight.
+            return node, node_range, bad_line
         return node, node_range, node_text
 
     @cached_property
@@ -204,7 +209,11 @@ class FrameInfo(stack_data.FrameInfo):
         )
 
     def handle_special_cases(self):
-        """Hack to try to identify a problematic text when node_text is None"""
+        """Hack to try to identify a problematic text when node_text is None.
+
+        We just use the information to highlight where in a statement
+        the error is located.
+        """
         try:
             exec(self.current_line.text)
         except Exception as exc:
