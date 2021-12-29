@@ -118,7 +118,7 @@ def analyze_message(message: str = "", statement=None):
 
 
 @add_python_message
-def assign_to_conditional_expression(message: str = "", _statement=None):
+def assign_to_conditional_expression(message: str = "", statement=None):
     if message not in (
         "can't assign to conditional expression",  # Python 3.6, 3.7
         "cannot assign to conditional expression",  # Python 3.8
@@ -131,6 +131,19 @@ def assign_to_conditional_expression(message: str = "", _statement=None):
         "A conditional expression has the following form:\n\n"
         "    variable = object if condition else other_object\n"
     )
+    prev_token = None
+    last_token = None
+    nb_equal = 0
+    for tok in statement.tokens:
+        if tok == "=":
+            last_token = prev_token
+            nb_equal += 1
+        prev_token = tok
+    if nb_equal == 1 and statement.first_token.start_row == last_token.start_row:
+        statement.location_markers = syntax_utils.highlight_range(
+            statement.first_token, last_token
+        )
+
     return {
         "cause": cause + _assign_to_identifiers_only(),
         "suggest": _assign_to_identifiers_only(),
@@ -273,6 +286,13 @@ def assign_to_keyword(message: str = "", statement=None):
             "This is not allowed.\n"
             "\n"
         ).format(keyword=word)
+
+    # Ensure that the bad token is highlighted; for example: a.__debug__ = 1
+    if statement.bad_token != word:
+        for tok in statement.tokens:
+            if tok == word:
+                statement.location_markers = syntax_utils.highlight_single_token(tok)
+                break
     return {"cause": cause, "suggest": hint}
 
 

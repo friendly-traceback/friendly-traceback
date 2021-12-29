@@ -198,3 +198,9 @@ def highlight_two_tokens(first, second, first_marker="^", second_marker="^"):
     mark_1 = " " * (first.start_col + 1) + first_marker * len(first.string)
     mark_2 = " " * (second.start_col + 1) + second_marker * len(second.string)
     return {first.start_row: mark_1, second.start_row: mark_2}
+
+
+def highlight_range(first, last):
+    """Highlight multiple tokens with ^, from first to last."""
+    mark = " " * (first.start_col + 1) + "^" * (last.end_col - first.start_col)
+    return {first.start_row: mark}
