@@ -473,8 +473,8 @@ def assignment_cannot_rebind_inside_comprehension_inner_loop(
 
 
 @add_python_message
-def annotated_name_cannot_be_global(message: str = "", _statement=None):
-    pattern1 = re.compile(r"annotated name '(.)' can't be global")
+def annotated_name_cannot_be_global(message: str = "", statement=None):
+    pattern1 = re.compile(r"annotated name '(.*)' can't be global")
     match = re.search(pattern1, message)
     if not match:
         return {}
@@ -482,7 +482,11 @@ def annotated_name_cannot_be_global(message: str = "", _statement=None):
         "The object named `{name}` is defined with type annotation\n"
         "as a local variable. It cannot be declared to be a global variable.\n"
     ).format(name=match.group(1))
-
+    # Ensure that only the variable gets highlighted for consistency
+    # across all Python versions.
+    statement.location_markers = syntax_utils.highlight_single_token(
+        statement.bad_token
+    )
     return {"cause": cause}
 
 
@@ -512,7 +516,7 @@ def both_nonlocal_and_global(message: str = "", statement=None):
 
 @add_python_message
 def bracket_was_expected(message: str = "", statement=None):
-    pattern = re.compile("'(.)' was never closed")  # new in Python 3.10
+    pattern = re.compile("'(.*)' was never closed")  # new in Python 3.10
     match = re.search(pattern, message)
     if not match:
         return {}
@@ -1264,13 +1268,13 @@ def leading_zeros_in_decimal_integers(message: str = "", statement=None):
 @add_python_message
 def mismatched_parenthesis(message: str = "", statement=None):
     pattern1 = re.compile(
-        r"closing parenthesis '(.)' does not match opening parenthesis '(.)' on line (\d+)"
+        r"closing parenthesis '(.*)' does not match opening parenthesis '(.*)' on line (\d+)"
     )
     match = re.search(pattern1, message)
     if match is None:
         lineno = None
         pattern2 = re.compile(
-            r"closing parenthesis '(.)' does not match opening parenthesis '(.)'"
+            r"closing parenthesis '(.*)' does not match opening parenthesis '(.*)'"
         )
         match = re.search(pattern2, message)
         if match is None:
@@ -1318,7 +1322,7 @@ def named_arguments_must_follow_bare_star(message: str = "", _statement=None):
 
 
 @add_python_message
-def name_assigned_to_prior_global(message: str = "", _statement=None):
+def name_assigned_to_prior_global(message: str = "", statement=None):
     # something like: name 'p' is assigned to before global declaration
     if "is assigned to before global declaration" not in message:
         return {}
@@ -1328,11 +1332,23 @@ def name_assigned_to_prior_global(message: str = "", _statement=None):
         "You assigned a value to the variable `{name}`\n"
         "before declaring it as a global variable.\n"
     ).format(name=name)
+    # Highlight global and variable name individually
+    first, second = "", ""
+    for tok in statement.tokens:
+        if tok.string == "global":
+            first = tok
+        elif tok.string == name:
+            second = tok
+            break
+    if first and second:
+        statement.location_markers = syntax_utils.highlight_two_tokens(
+            first, second, first_marker="-"
+        )
     return {"cause": cause}
 
 
 @add_python_message
-def name_assigned_to_prior_nonlocal(message: str = "", _statement=None):
+def name_assigned_to_prior_nonlocal(message: str = "", statement=None):
     # something like: name 'p' is assigned to before global declaration
     if "is assigned to before nonlocal declaration" not in message:
         return {}
@@ -1343,6 +1359,19 @@ def name_assigned_to_prior_nonlocal(message: str = "", _statement=None):
         "You assigned a value to the variable `{name}`\n"
         "before declaring it as a nonlocal variable.\n"
     ).format(name=name)
+    # Highlight nonlocal and variable name individually
+    first, second = "", ""
+    for tok in statement.tokens:
+        if tok.string == "nonlocal":
+            first = tok
+        elif tok.string == name:
+            second = tok
+            break
+
+    if first and second:
+        statement.location_markers = syntax_utils.highlight_two_tokens(
+            first, second, first_marker="-"
+        )
     return {"cause": cause, "suggest": hint}
 
 
@@ -1385,7 +1414,7 @@ def name_is_parameter_and_nonlocal(message: str = "", _statement=None):
 
 
 @add_python_message
-def name_used_prior_global(message: str = "", _statement=None):
+def name_used_prior_global(message: str = "", statement=None):
     # something like: name 'p' is used prior to global declaration
     if "is used prior to global declaration" not in message:
         return {}
@@ -1394,11 +1423,24 @@ def name_used_prior_global(message: str = "", _statement=None):
     cause = _(
         "You used the variable `{name}`\nbefore declaring it as a global variable.\n"
     ).format(name=name)
+    # Highlight global and variable name individually
+    first, second = "", ""
+    for tok in statement.tokens:
+        if tok.string == "global":
+            first = tok
+        elif tok.string == name:
+            second = tok
+            break
+
+    if first and second:
+        statement.location_markers = syntax_utils.highlight_two_tokens(
+            first, second, first_marker="-"
+        )
     return {"cause": cause}
 
 
 @add_python_message
-def name_used_prior_nonlocal(message: str = "", _statement=None):
+def name_used_prior_nonlocal(message: str = "", statement=None):
     # something like: name 'q' is used prior to nonlocal declaration
     if "is used prior to nonlocal declaration" not in message:
         return {}
@@ -1409,6 +1451,19 @@ def name_used_prior_nonlocal(message: str = "", _statement=None):
         "You used the variable `{name}`\n"
         "before declaring it as a nonlocal variable.\n"
     ).format(name=name)
+    # Highlight nonlocal and variable name individually
+    first, second = "", ""
+    for tok in statement.tokens:
+        if tok.string == "nonlocal":
+            first = tok
+        elif tok.string == name:
+            second = tok
+            break
+
+    if first and second:
+        statement.location_markers = syntax_utils.highlight_two_tokens(
+            first, second, first_marker="-"
+        )
     return {"cause": cause, "suggest": hint}
 
 

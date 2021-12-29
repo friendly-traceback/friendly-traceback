@@ -3,5 +3,5 @@
 
 
 def fn():
-    print(r)
-    global r
+    print(var)
+    global var

@@ -172,3 +172,29 @@ def identify_unicode_fraction(char):
         "I suspect that you meant to write the fraction `{num}/{denom}` instead.\n"
     ).format(num=num, denom=denominator, char=char, name=char_name)
     return {"cause": cause, "suggest": hint}
+
+
+def highlight_single_token(token):
+    """Restrict the highlighting with ^ to a single token.
+
+    This is done to maintain consistency between Python versions.
+    """
+    return {token.start_row: " " * (token.start_col + 1) + "^" * len(token.string)}
+
+
+def highlight_two_tokens(first, second, first_marker="^", second_marker="^"):
+    """Restrict the highlighting with ^ to two individual tokens.
+
+    This is done to maintain consistency between Python versions.
+    """
+    if first.start_row == second.start_row:
+        mark = (
+            " " * (first.start_col + 1)
+            + first_marker * len(first.string)
+            + " " * (second.start_col - first.end_col)
+            + second_marker * len(second.string)
+        )
+        return {first.start_row: mark}
+    mark_1 = " " * (first.start_col + 1) + first_marker * len(first.string)
+    mark_2 = " " * (second.start_col + 1) + second_marker * len(second.string)
+    return {first.start_row: mark_1, second.start_row: mark_2}

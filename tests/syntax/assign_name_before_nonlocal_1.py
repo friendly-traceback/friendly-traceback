@@ -2,8 +2,10 @@
 
 
 def f():
-    q = 1
+    pp = 0
+    qq = 1
+
 
     def g():
-        print(q)
-        nonlocal q
+        print(qq)
+        nonlocal pp, qq

@@ -70,7 +70,7 @@ descriptions = {
         title: "Name assigned prior to global declaration",
     },
     "assign_name_before_global_2": {
-        in_cause: "You used the variable `r`",
+        in_cause: "You used the variable `var`",
         title: "Name used prior to global declaration",
     },
     "assign_name_before_nonlocal_1": {

@@ -1,7 +1,7 @@
-# SyntaxError: annotated name 'x' can't be global
+# SyntaxError: annotated name 'var' can't be global
 def foo():
-    global x
-    x:int = 1
+    global var
+    var:int = 1
 
-x = 0
+var = 0
 foo()
