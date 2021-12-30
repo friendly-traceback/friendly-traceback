@@ -5,6 +5,7 @@ omit =
     .tox/*
     Fake_filename
     *console.py
+    */_attribute_getter.py
 
 [:report]
 skip_covered = True

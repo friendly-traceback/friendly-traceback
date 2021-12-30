@@ -7,7 +7,6 @@ they are considered to be internal functions, subject to change at any
 time. If functions defined in friendly_traceback.__init__.py do not meet your needs,
 please file an issue.
 """
-import ast
 import inspect
 import re
 import traceback
@@ -15,7 +14,7 @@ import types
 from itertools import dropwhile
 from typing import List, Optional, Sequence, Tuple, Type
 
-from . import debug_helper, info_generic, info_specific, info_variables, token_utils
+from . import debug_helper, info_generic, info_specific, info_variables
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
 from .path_info import is_excluded_file, path_utils
@@ -263,90 +262,6 @@ class TracebackData:
                 # However, in a few cases, we do need to keep the entire original line.
                 self.original_bad_line = self.bad_line
                 self.bad_line = self.node_text
-
-    @staticmethod
-    def find_tb_frame(
-        tb: types.TracebackType, frame: types.FrameType
-    ) -> Optional[types.TracebackType]:
-        """Find a traceback object where a given frame resides."""
-        while True:
-            if tb.tb_frame == frame:
-                return tb
-            tb = tb.tb_next
-            if not tb:  # pragma: no cover
-                debug_helper.log("No tb_frame found.")
-                return None
-
-    def locate_name_error(self) -> None:
-        """Finds the location of an unknown name"""
-        parts = self.message.split("'")
-        if len(parts) < 2:
-            debug_helper.log("Could not extract name from NameError.message.")
-            return
-        name = parts[1]
-
-        if name and name in self.bad_line:
-            begin = self.bad_line.find(name)
-            end = begin + len(name)
-            self.node_range = begin, end
-        else:  # pragma: no cover
-            debug_helper.log("Could not locate unknown name.")
-
-    @staticmethod
-    def find_node(
-        tb: types.TracebackType, bad_line: str
-    ) -> Optional[Tuple[ast.AST, Optional[Tuple[int, int]], str]]:
-        """Finds the 'node', that is the exact part of a line of code
-        that is related to the cause of the problem.
-        """
-        try:
-            ex: executing.Executing = executing.Source.executing(tb)
-            node = ex.node
-            node_text = ex.text()
-        except Exception as e:  # pragma: no cover
-            debug_helper.log("Exception raised in TracebackData.use_executing.")
-            debug_helper.log(str(e))
-            return
-        # If we can find the precise location (node) on a line of code
-        # causing the exception, we note this location
-        # so that we can indicate it later with ^^^^^, something like:
-        #
-        #    20:     b = tuple(range(50))
-        #    21:     try:
-        # -->22:         print(a[50], b[0])
-        #                      ^^^^^
-        #    23:     except Exception as e:
-        #
-        # If the node spans the entire line, we do not bother to indicate
-        # its specific location.
-        #
-        # Sometimes, a node will span multiple lines. For example,
-        # line 22 shown above might have been written as:
-        #
-        #    print(a[
-        #            50], b[0])
-        #
-        # If that is the case, we rewrite the node as a single line.
-
-        # To start, we transform logical line (or parts thereof) into
-        # something that fits on a single physical line.
-        # \n could be a valid newline token or a character within
-        # a string; we only want to replace newline tokens.
-        node_range = None
-        if "\n" in node_text:
-            tokens = token_utils.tokenize(node_text)
-            tokens = [tok for tok in tokens if tok != "\n"]
-            node_text = "".join(tok.string for tok in tokens)
-        bad_code = token_utils.strip_comment(bad_line)
-        if (
-            node_text
-            and node_text in bad_line
-            and node_text.strip() != bad_code.strip()
-        ):
-            begin = bad_line.find(node_text)
-            end = begin + len(node_text)
-            node_range = begin, end
-        return node, node_range, node_text
 
 
 # ====================

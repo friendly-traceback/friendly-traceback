@@ -81,6 +81,8 @@ of the existing batch files.
 Install pytest-cov and run the following:
 
      $ python -m pytest --cov=friendly_traceback --cov-report html
+     $ switch environment for another python version.
+     $ python -m pytest --cov=friendly_traceback --cov-append --cov-report html
 
 ## Running a single test
 

@@ -161,7 +161,7 @@ class PathUtil:
         return path
 
 
-def shorten_jupyter_kernel(path: str) -> str:
+def shorten_jupyter_kernel(path: str) -> str:  # pragma: no cover
     from .source_cache import cache
 
     if "__main__" in sys.modules:

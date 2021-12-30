@@ -48,9 +48,11 @@ def add_help_attribute(functions: Dict[str, Callable[..., Any]]) -> None:
     function objects.
     """
     for name in functions:
-        if name not in short_description:
+        if name not in short_description:  # pragma: no cover
             debug_helper.log(f"Missing description for {name}.")
             continue
         func = functions[name]
         setattr(func, "help", short_description[name])  # noqa
-        setattr(func, "__rich_repr__", lambda func=func: (func.help(),))  # noqa
+        setattr(
+            func, "__rich_repr__", lambda func=func: (func.help(),)
+        )  # pragma: no cover
