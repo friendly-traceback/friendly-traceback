@@ -3,6 +3,7 @@
 
 import unicodedata
 
+from .. import token_utils
 from ..ft_gettext import current_lang
 
 _ = current_lang.translate
@@ -204,3 +205,75 @@ def highlight_range(first, last):
     """Highlight multiple tokens with ^, from first to last."""
     mark = " " * (first.start_col + 1) + "^" * (last.end_col - first.start_col)
     return {first.start_row: mark}
+
+
+def get_previous_token_before_marker(bad_token, tokens, token_after):
+    first = bad_token
+    brackets = []
+    prev = first
+    found_first = False
+    for tok in tokens:
+        if tok == bad_token:
+            found_first = True
+        if not found_first:
+            continue
+        if tok.string in "([{":
+            brackets.append(tok.string)
+        elif tok.string in ")]}":
+            if not brackets:
+                return first, None  # should not happen; unmatched bracket
+            bra = brackets.pop()
+            if not matching_brackets(bra, tok.string):
+                return first, None  # should not happen; unmatched bracket
+        elif not brackets and tok == token_after:
+            return first, prev
+        if tok.start_row != first.start_row:  # statement continue on next line
+            return first, (prev,)
+        prev = tok
+
+    return first, None
+
+
+def highlight_before_token(bad_token, tokens, token_after):
+    first, last = get_previous_token_before_marker(bad_token, tokens, token_after)
+    if last is None:
+        return {first.start_row: " " * (first.start_col + 1) + "^" * len(first.string)}
+    elif isinstance(last, tuple):  # statement continue on next line
+        last = last[0]
+        marker = highlight_range(first, last)
+        mark = marker[first.start_row]
+        mark = mark[:-1] + "-->"
+        return {first.start_row: mark}
+
+    return highlight_range(first, last)
+
+
+def get_expression_before_token(bad_token, tokens, token_after):
+    first, last = get_previous_token_before_marker(bad_token, tokens, token_after)
+    if last is None:
+        return None
+    statement_continue = False
+    if isinstance(last, tuple):  # statement continue on next line
+        last = last[0]
+        statement_continue = True
+    new_tokens = []
+    found_bad = False
+    for tok in tokens:
+        if tok == bad_token:
+            found_bad = True
+        if not found_bad:
+            clone = tok.copy()
+            clone.string = ""
+            new_tokens.append(clone)
+            continue
+        if tok is last:  # == would only compare string values
+            if statement_continue:
+                tok = tok.copy()
+                if tok.string == "(":
+                    tok.string = "(...)"
+                else:
+                    tok.string = "...)"
+            new_tokens.append(tok)
+            break
+        new_tokens.append(tok)
+    return token_utils.untokenize(new_tokens).strip()

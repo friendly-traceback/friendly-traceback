@@ -175,32 +175,33 @@ def assign_to_function_call(message: str = "", statement=None):
 
     hint = _assign_to_identifiers_only()
 
-    fn_call = statement.bad_token.string + "(...)"
-    line = statement.bad_line
-
-    if line.count("=") != 1 or line.count("(") != line.count(")"):
-        # we have something like  fn(a=1) = 2
-        # or fn(a) = 1 = 2, etc., and we cannot determine what is a function
-        # argument and what is the value assigned
-        value = _("some value")
+    fn_call = syntax_utils.get_expression_before_token(
+        statement.bad_token, statement.tokens, "="
+    )
+    if fn_call is None:
+        fn_call = statement.bad_token.string + "(...)"
         cause = _(
-            "You wrote an expression like\n\n"
-            "    {fn_call} = {value}\n\n"
-            "where `{fn_call}`, on the left-hand side of the equal sign, is\n"
-            "a function call and not the name of a variable.\n"
-        ).format(fn_call=fn_call, value=value)
-
-        return {"cause": cause + hint, "suggest": hint}
-
-    info = line.split("=")
-    fn_call = info[0].strip()
-    value = info[1].strip()
-    cause = _(
-        "You wrote the expression\n\n"
-        "    {fn_call} = {value}\n\n"
-        "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
-        "or includes a function call and is not simply the name of a variable.\n"
-    ).format(fn_call=fn_call, value=value)
+            "You wrote the expression\n\n"
+            "    {fn_call} = ...\n"
+            "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
+            "or includes a function call and is not simply the name of a variable.\n"
+        ).format(
+            fn_call=fn_call,
+        )
+    else:
+        statement.location_markers = syntax_utils.highlight_before_token(
+            statement.bad_token, statement.tokens, "="
+        )
+        cause = _(
+            "You wrote the expression\n\n"
+            "    {fn_call} = ...\n"
+            "    {mark}\n"
+            "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
+            "or includes a function call and is not simply the name of a variable.\n"
+        ).format(
+            fn_call=fn_call,
+            mark=statement.location_markers[statement.first_token.start_row].strip(),
+        )
     return {"cause": cause + hint, "suggest": hint}
 
 

@@ -322,21 +322,26 @@ class Statement:
         # the statement to find the cause.
         if hasattr(self, "location_markers"):
             return
-
         # We go with the information obtained by Python.
         nb_carets = 1  # Python default
-        if self.end_offset is not None and self.end_offset > self.offset:
-            nb_carets = self.end_offset - self.offset
+        continuation = ""
+        if self.end_offset is not None:
+            if self.end_offset > self.offset and self.linenumber == self.end_linenumber:
+                nb_carets = self.end_offset - self.offset
+            elif self.linenumber != self.end_linenumber:
+                continuation = "-->"
+                if self.bad_token != self.first_token:
+                    self.offset -= 1
         # However, note that end_offset might not have been set up by
         # cPython but earlier by us to correspond to the default
         # used by Python; if that is the case, it is
         # simply set to 1 more than offset.
-        if nb_carets == 1:
+        if nb_carets == 1 and not continuation:
             nb_carets = len(self.bad_token.string)
             # In some cases/python version, the end of the token was
             # used to signal the location of the error.
             self.offset = self.bad_token.start_col + 1
-        offset_mark = " " * (self.offset) + "^" * nb_carets
+        offset_mark = " " * (self.offset) + "^" * nb_carets + continuation
         self.location_markers = {self.linenumber: offset_mark}
 
     def obtain_statement(self, source_tokens):
@@ -391,7 +396,7 @@ class Statement:
             # A new statement will typically start on a new line and will be
             # preceded by valid statements.
 
-            # An initial version was based on the assumption that any semi-colon
+            # An initial version was based on the assumption that any semicolon
             # would be used correctly and would indicate the end of a statement;
             # however, I am guessing that it more likely indicates
             # a typo, and that the user wanted to write a comma or a colon, so I

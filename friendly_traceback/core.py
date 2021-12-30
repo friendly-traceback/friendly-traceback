@@ -467,7 +467,7 @@ class FriendlyTraceback:
         """Compile all info that was not set in __init__."""
         self.assign_generic()
         # For SyntaxError, assigning the cause may result in better location
-        # information.
+        # information; so we need to do this first.
         self.assign_cause()
         self.assign_location()
         # removing null values; mypy cannot figure out the type correctly here

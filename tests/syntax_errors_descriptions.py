@@ -107,9 +107,9 @@ descriptions = {
         also_in_cause: ["len('a')"],
     },
     "assign_to_function_call_2": {
-        in_cause: "function call and not the name of a variable",
+        in_cause: "function call and is not simply the name of a variable",
         title: "Cannot assign to function call: two = signs",
-        also_in_cause: ["func(...)"],
+        also_in_cause: ["^^^^^^^^^^^^"],
     },
     "assign_to_generator": {
         in_cause: "generator expression instead of the name of a variable",
