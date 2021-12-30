@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2021-12-28 06:50-0400\n"
+"POT-Creation-Date: 2021-12-30 08:42-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
 "Language-Team: \n"
@@ -673,7 +673,7 @@ msgstr ""
 #: runtime_errors\key_error.py:201 runtime_errors\module_not_found_error.py:129
 #: runtime_errors\name_error.py:97 runtime_errors\name_error.py:99
 #: runtime_errors\unbound_local_error.py:55
-#: syntax_errors\message_analyzer.py:405 syntax_errors\message_analyzer.py:999
+#: syntax_errors\message_analyzer.py:426 syntax_errors\message_analyzer.py:1024
 #: syntax_errors\statement_analyzer.py:1221
 msgid "Did you mean `{name}`?\n"
 msgstr "¿Quieres decir `{name}`?\n"
@@ -873,8 +873,8 @@ msgstr ""
 "los siguientes nombres que son atributos del objeto `{obj}`:\n"
 "`{names}`\n"
 
-#: runtime_errors\attribute_error.py:427 syntax_errors\message_analyzer.py:1619
-#: syntax_errors\message_analyzer.py:1632
+#: runtime_errors\attribute_error.py:427 syntax_errors\message_analyzer.py:1695
+#: syntax_errors\message_analyzer.py:1708
 msgid "Did you write a comma by mistake?\n"
 msgstr "¿Escribiste una coma por error?\n"
 
@@ -1544,7 +1544,7 @@ msgstr ""
 "Si ese es el caso, verifique que la URL sea correcta\n"
 "y compruebe su conectividad a Internet.\n"
 
-#: runtime_errors\os_error.py:42 syntax_errors\message_analyzer.py:1709
+#: runtime_errors\os_error.py:42 syntax_errors\message_analyzer.py:1785
 msgid "Perhaps you need to double the backslash characters.\n"
 msgstr "Tal vez sea necesario duplicar las barras invertidas.\n"
 
@@ -2567,7 +2567,7 @@ msgstr ""
 "correcta.\n"
 
 #: syntax_errors\error_in_def.py:109 syntax_errors\error_in_def.py:135
-#: syntax_errors\message_analyzer.py:959 syntax_errors\message_analyzer.py:1463
+#: syntax_errors\message_analyzer.py:984 syntax_errors\message_analyzer.py:1539
 #: syntax_errors\statement_analyzer.py:1156
 #: syntax_errors\statement_analyzer.py:1175
 msgid "Did you forget parentheses?\n"
@@ -2594,7 +2594,7 @@ msgstr ""
 msgid "Did you forget to write a colon?\n"
 msgstr "¿Olvidaste escribir dos puntos?\n"
 
-#: syntax_errors\error_in_def.py:163 syntax_errors\message_analyzer.py:709
+#: syntax_errors\error_in_def.py:163 syntax_errors\message_analyzer.py:734
 msgid "You wrote `{bad}` instead of a colon.\n"
 msgstr "Has escrito `{bad}` en lugar de dos puntos.\n"
 
@@ -2673,7 +2673,7 @@ msgid "Perhaps you meant to write a comma.\n"
 msgstr "Tal vez querías escribir una coma.\n"
 
 #: syntax_errors\error_in_def.py:288 syntax_errors\error_in_def.py:474
-#: syntax_errors\statement_analyzer.py:729 syntax_errors\syntax_utils.py:110
+#: syntax_errors\statement_analyzer.py:729 syntax_errors\syntax_utils.py:111
 msgid "Did you mean to write a comma?\n"
 msgstr "¿Querías escribir una coma?\n"
 
@@ -3036,7 +3036,7 @@ msgstr ""
 "\n"
 "    variable = objeto if condición else otro_objeto\n"
 
-#: syntax_errors\message_analyzer.py:145
+#: syntax_errors\message_analyzer.py:158
 msgid ""
 "On the left-hand side of an equal sign, you have\n"
 "an expression instead of the name of a variable.\n"
@@ -3044,44 +3044,41 @@ msgstr ""
 "En el lado izquierdo de un signo igual, tiene\n"
 "una expresión en lugar del nombre de una variable.\n"
 
-#: syntax_errors\message_analyzer.py:172
-msgid "some value"
-msgstr "algún valor"
-
-#: syntax_errors\message_analyzer.py:173
-msgid ""
-"You wrote an expression like\n"
-"\n"
-"    {fn_call} = {value}\n"
-"\n"
-"where `{fn_call}`, on the left-hand side of the equal sign, is\n"
-"a function call and not the name of a variable.\n"
-msgstr ""
-"Has escrito una expresión como\n"
-"\n"
-"    {fn_call} = {value}\n"
-"\n"
-"en donde `{fn_call}`, a la izquierda del signo de igualdad, es\n"
-"una llamada a una función y no el nombre de una variable.\n"
-
-#: syntax_errors\message_analyzer.py:185
+#: syntax_errors\message_analyzer.py:183
 msgid ""
 "You wrote the expression\n"
 "\n"
-"    {fn_call} = {value}\n"
+"    {fn_call} = ...\n"
+"where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
+"or includes a function call and is not simply the name of a variable.\n"
+msgstr ""
+"Has escrito una expresión como\n"
 "\n"
+"    {fn_call} = ...\n"
+"\n"
+"donde `{fn_call}`, a la izquierda del signo igual, es\n"
+"o incluye una llamada a una función y no es simplemente el nombre de una "
+"variable.\n"
+
+#: syntax_errors\message_analyzer.py:195
+msgid ""
+"You wrote the expression\n"
+"\n"
+"    {fn_call} = ...\n"
+"    {mark}\n"
 "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
 "or includes a function call and is not simply the name of a variable.\n"
 msgstr ""
 "Has escrito una expresión como\n"
 "\n"
 "    {fn_call} = {value}\n"
+"    {mark}\n"
 "\n"
 "donde `{fn_call}`, a la izquierda del signo igual, es\n"
 "o incluye una llamada a una función y no es simplemente el nombre de una "
 "variable.\n"
 
-#: syntax_errors\message_analyzer.py:202
+#: syntax_errors\message_analyzer.py:216
 msgid ""
 "On the left-hand side of an equal sign, you have a\n"
 "generator expression instead of the name of a variable.\n"
@@ -3089,7 +3086,7 @@ msgstr ""
 "En el lado izquierdo de un signo igual, tiene una expresión generadora\n"
 "en lugar del nombre de una variable.\n"
 
-#: syntax_errors\message_analyzer.py:213 syntax_errors\message_analyzer.py:324
+#: syntax_errors\message_analyzer.py:227 syntax_errors\message_analyzer.py:345
 msgid ""
 "You wrote an expression that has the f-string `{fstring}`\n"
 "on the left-hand side of the equal sign.\n"
@@ -3100,15 +3097,15 @@ msgstr ""
 "en el lado izquierdo del signo igual.\n"
 "Una f-string sólo debe aparecer en el lado derecho de un signo igual.\n"
 
-#: syntax_errors\message_analyzer.py:257 syntax_errors\message_analyzer.py:866
+#: syntax_errors\message_analyzer.py:271 syntax_errors\message_analyzer.py:891
 msgid "You cannot assign a value to `{keyword}`.\n"
 msgstr "No se puede asignar un valor a `{keyword}`.\n"
 
-#: syntax_errors\message_analyzer.py:260
+#: syntax_errors\message_analyzer.py:274
 msgid "You cannot assign a value to the ellipsis symbol [`...`].\n"
 msgstr "No se puede asignar un valor al símbolo de elipsis [`...`].\n"
 
-#: syntax_errors\message_analyzer.py:261
+#: syntax_errors\message_analyzer.py:275
 msgid ""
 "The ellipsis symbol `...` is a constant in Python;you cannot assign it a "
 "different value.\n"
@@ -3116,7 +3113,7 @@ msgstr ""
 "El símbolo de la elipsis `...` es una constante en Python; no se le puede "
 "asignar un valor diferente.\n"
 
-#: syntax_errors\message_analyzer.py:266
+#: syntax_errors\message_analyzer.py:280
 msgid ""
 "`{keyword}` is a constant in Python; you cannot assign it a different "
 "value.\n"
@@ -3124,7 +3121,7 @@ msgstr ""
 "{keyword}` es una constante en Python; no puedes asignarle un valor "
 "diferente.\n"
 
-#: syntax_errors\message_analyzer.py:271
+#: syntax_errors\message_analyzer.py:285
 #: syntax_errors\statement_analyzer.py:892
 msgid ""
 "You were trying to assign a value to the Python keyword `{keyword}`.\n"
@@ -3135,7 +3132,7 @@ msgstr ""
 "Esto no está permitido.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:287
+#: syntax_errors\message_analyzer.py:308
 msgid ""
 "A for loop must have the form:\n"
 "\n"
@@ -3151,11 +3148,11 @@ msgstr ""
 "donde `...` debe contener sólo identificadores (nombres de variables)\n"
 "y no literales como `{bad_token}`.\n"
 
-#: syntax_errors\message_analyzer.py:333
+#: syntax_errors\message_analyzer.py:354
 msgid "variable_name"
 msgstr "nombre_de_variable"
 
-#: syntax_errors\message_analyzer.py:337
+#: syntax_errors\message_analyzer.py:358
 msgid ""
 "Perhaps you meant to write:\n"
 "\n"
@@ -3167,11 +3164,11 @@ msgstr ""
 "    {name} = {literal}\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:343
+#: syntax_errors\message_analyzer.py:364
 msgid "Perhaps you meant to write `{name} = {literal}`"
 msgstr "Tal vez querías escribir `{name} = {literal}`"
 
-#: syntax_errors\message_analyzer.py:362
+#: syntax_errors\message_analyzer.py:383
 msgid ""
 "You wrote an expression like\n"
 "\n"
@@ -3187,7 +3184,7 @@ msgstr ""
 "es o incluye un objeto real {of_type}\n"
 "y no es simplemente el nombre de una variable.\n"
 
-#: syntax_errors\message_analyzer.py:384
+#: syntax_errors\message_analyzer.py:405
 msgid ""
 "You wrote an expression that includes some mathematical operations\n"
 "on the left-hand side of the equal sign which should be\n"
@@ -3197,16 +3194,16 @@ msgstr ""
 "en el lado izquierdo del signo igual que debería ser\n"
 "sólo utilizarse para asignar un valor a una variable.\n"
 
-#: syntax_errors\message_analyzer.py:406
+#: syntax_errors\message_analyzer.py:427
 msgid "Perhaps you meant to write `{name}` instead of `{original}`\n"
 msgstr "Tal vez quiso escribir `{name}` en lugar de `{original}`.\n"
 
-#: syntax_errors\message_analyzer.py:411 syntax_errors\message_analyzer.py:547
+#: syntax_errors\message_analyzer.py:432 syntax_errors\message_analyzer.py:572
 #: syntax_errors\statement_analyzer.py:523
 msgid "Perhaps you needed `==` instead of `=`.\n"
 msgstr "Tal vez necesitabas `==` en lugar de `=`.\n"
 
-#: syntax_errors\message_analyzer.py:423
+#: syntax_errors\message_analyzer.py:444
 msgid ""
 "You wrote an expression that includes the `yield` keyword\n"
 "on the left-hand side of the equal sign.\n"
@@ -3220,7 +3217,7 @@ msgstr ""
 "Tenga en cuenta que, al igual que la palabra clave `return`,\n"
 "`yield` sólo puede usarse dentro de una función.\n"
 
-#: syntax_errors\message_analyzer.py:442 syntax_errors\message_analyzer.py:464
+#: syntax_errors\message_analyzer.py:463 syntax_errors\message_analyzer.py:485
 msgid ""
 "You are using the augmented assignment operator `:=` inside\n"
 "a comprehension to assign a value to the iteration variable `{var}`.\n"
@@ -3237,7 +3234,7 @@ msgstr ""
 "a una variable para poder reutilizarla posteriormente.\n"
 "Esto no es posible para la variable `{var}`.\n"
 
-#: syntax_errors\message_analyzer.py:481
+#: syntax_errors\message_analyzer.py:502
 msgid ""
 "The object named `{name}` is defined with type annotation\n"
 "as a local variable. It cannot be declared to be a global variable.\n"
@@ -3245,7 +3242,7 @@ msgstr ""
 "El objeto llamado `{name}` se define con la anotación de tipo\n"
 "como una variable local. No se puede declarar como una variable global.\n"
 
-#: syntax_errors\message_analyzer.py:494
+#: syntax_errors\message_analyzer.py:519
 msgid ""
 "You cannot use the augmented assignment operator `:=`,\n"
 "sometimes called the walrus operator, with literals like `{bad_token}`.\n"
@@ -3255,7 +3252,7 @@ msgstr ""
 "a veces llamado operador morsa, con literales como `{bad_token}`.\n"
 "Sólo se pueden asignar objetos a identificadores (nombres de variables).\n"
 
-#: syntax_errors\message_analyzer.py:505
+#: syntax_errors\message_analyzer.py:530
 msgid ""
 "You declared `{name}` as being both a global and nonlocal variable.\n"
 "A variable can be global, or nonlocal, but not both at the same time.\n"
@@ -3263,15 +3260,15 @@ msgstr ""
 "Has declarado que {name}` es una variable global y no local.\n"
 "Una variable puede ser global o no local, pero no ambas cosas a la vez.\n"
 
-#: syntax_errors\message_analyzer.py:520
+#: syntax_errors\message_analyzer.py:545
 msgid "Python tells us that the {bracket} was never closed.\n"
 msgstr "Python nos dice que el {bracket} nunca fue cerrado.\n"
 
-#: syntax_errors\message_analyzer.py:523
+#: syntax_errors\message_analyzer.py:548
 msgid "The {bracket} was never closed.\n"
 msgstr "El {bracket} nunca fue cerrado.\n"
 
-#: syntax_errors\message_analyzer.py:535
+#: syntax_errors\message_analyzer.py:560
 msgid ""
 "The Python keyword `break` can only be used inside a `for` loop or inside a "
 "`while` loop.\n"
@@ -3279,7 +3276,7 @@ msgstr ""
 "La palabra clave de Python `break` sólo puede utilizarse dentro de un bucle "
 "`for` o dentro de un bucle `while`.\n"
 
-#: syntax_errors\message_analyzer.py:548
+#: syntax_errors\message_analyzer.py:573
 #: syntax_errors\statement_analyzer.py:524
 msgid ""
 "You likely used an assignment operator `=` instead of an equality operator "
@@ -3288,7 +3285,7 @@ msgstr ""
 "Es probable que hayas utilizado un operador de asignación `=` en lugar de un "
 "operador de igualdad `==`.\n"
 
-#: syntax_errors\message_analyzer.py:556
+#: syntax_errors\message_analyzer.py:581
 msgid ""
 "The following statement would not contain a syntax error:\n"
 "\n"
@@ -3298,19 +3295,19 @@ msgstr ""
 "\n"
 "    {new_statement}\n"
 
-#: syntax_errors\message_analyzer.py:576
+#: syntax_errors\message_analyzer.py:601
 msgid "You cannot delete the constant `{constant}`.\n"
 msgstr "No se puede eliminar la constante `{constant}`.\n"
 
-#: syntax_errors\message_analyzer.py:596 syntax_errors\message_analyzer.py:650
+#: syntax_errors\message_analyzer.py:621 syntax_errors\message_analyzer.py:675
 msgid "You cannot delete a Python expression.\n"
 msgstr "No se puede borrar una expresión de Python.\n"
 
-#: syntax_errors\message_analyzer.py:599
+#: syntax_errors\message_analyzer.py:624
 msgid "You cannot delete the expression `{expression}`.\n"
 msgstr "No se puede eliminar la expresión `{expression}`.\n"
 
-#: syntax_errors\message_analyzer.py:616
+#: syntax_errors\message_analyzer.py:641
 msgid ""
 "You attempted to delete a function call\n"
 "\n"
@@ -3326,15 +3323,15 @@ msgstr ""
 "\n"
 "    {correct}\n"
 
-#: syntax_errors\message_analyzer.py:634
+#: syntax_errors\message_analyzer.py:659
 msgid "You cannot delete the literal `{literal}`.\n"
 msgstr "No se puede eliminar el literal `{literal}`.\n"
 
-#: syntax_errors\message_analyzer.py:653
+#: syntax_errors\message_analyzer.py:678
 msgid "You cannot delete the named expression `{expression}`.\n"
 msgstr "No se puede eliminar la expresión con nombre `{expression}`.\n"
 
-#: syntax_errors\message_analyzer.py:669
+#: syntax_errors\message_analyzer.py:694
 msgid ""
 "The star operator `*` is interpreted to mean that\n"
 "iterable unpacking is to be used to assign a name\n"
@@ -3344,7 +3341,7 @@ msgstr ""
 "el desempaquetado de un iterable debe ser usado para asignar un nombre\n"
 "a cada elemento de un iterable, lo que no tiene sentido aquí.\n"
 
-#: syntax_errors\message_analyzer.py:683
+#: syntax_errors\message_analyzer.py:708
 msgid ""
 "It looks like you surrounded a starred name by parentheses.\n"
 "This was not considered a SyntaxError before Python version 3.9.\n"
@@ -3352,15 +3349,15 @@ msgstr ""
 "Parece que has rodeado un nombre con asteriscos con paréntesis.\n"
 "Esto no se consideraba un SyntaxError antes de la versión 3.9 de Python.\n"
 
-#: syntax_errors\message_analyzer.py:702
+#: syntax_errors\message_analyzer.py:727
 msgid "Did you forget a colon?\n"
 msgstr "¿Olvidaste los dos puntos?\n"
 
-#: syntax_errors\message_analyzer.py:703
+#: syntax_errors\message_analyzer.py:728
 msgid "Python expected a colon at the position indicated.\n"
 msgstr "Python esperaba dos puntos en la posición indicada.\n"
 
-#: syntax_errors\message_analyzer.py:730
+#: syntax_errors\message_analyzer.py:755
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you wrote a dict key without writing the corresponding value.\n"
@@ -3368,12 +3365,12 @@ msgstr ""
 "Parece que el error se produjo mientras escribías un dict de Python.\n"
 "Quizás escribiste una clave de dict sin escribir el valor correspondiente.\n"
 
-#: syntax_errors\message_analyzer.py:734 syntax_errors\message_analyzer.py:897
+#: syntax_errors\message_analyzer.py:759 syntax_errors\message_analyzer.py:922
 #: syntax_errors\statement_analyzer.py:1512
 msgid "Did you forget to write a dict value?\n"
 msgstr "¿Olvidaste escribir el valor del dict?\n"
 
-#: syntax_errors\message_analyzer.py:741
+#: syntax_errors\message_analyzer.py:766
 msgid ""
 "The Python keyword `continue` can only be used inside a `for` loop or inside "
 "a `while` loop.\n"
@@ -3381,7 +3378,7 @@ msgstr ""
 "La palabra clave de Python `continue` sólo puede usarse dentro de un bucle "
 "`for` o dentro de un bucle `while`.\n"
 
-#: syntax_errors\message_analyzer.py:753
+#: syntax_errors\message_analyzer.py:778
 msgid ""
 "You have defined a function repeating the argument\n"
 "\n"
@@ -3393,16 +3390,16 @@ msgstr ""
 "    {name}\n"
 "Cada argumento debe aparecer sólo una vez en la definición de una función.\n"
 
-#: syntax_errors\message_analyzer.py:794
+#: syntax_errors\message_analyzer.py:819
 msgid "Did you forget to add `else`?\n"
 msgstr "¿Olvidaste añadir `else`?\n"
 
-#: syntax_errors\message_analyzer.py:795
+#: syntax_errors\message_analyzer.py:820
 msgid "An `else some_value` clause was expected after the `if` expression.\n"
 msgstr ""
 "Se esperaba una cláusula `else algún_valor` después de la expresión `if`.\n"
 
-#: syntax_errors\message_analyzer.py:807
+#: syntax_errors\message_analyzer.py:832
 msgid ""
 "You started writing a triple-quoted string but never wrote\n"
 "the triple quotes needed to end the string.\n"
@@ -3410,11 +3407,11 @@ msgstr ""
 "Empezó a escribir una cadena con comillas triples pero nunca escribió\n"
 "las comillas triples necesarias para terminar la cadena.\n"
 
-#: syntax_errors\message_analyzer.py:821
+#: syntax_errors\message_analyzer.py:846
 msgid "Did you forget a closing quote?\n"
 msgstr "¿Olvidaste la comilla de cierre?\n"
 
-#: syntax_errors\message_analyzer.py:822
+#: syntax_errors\message_analyzer.py:847
 msgid ""
 "You started writing a string with a single or double quote\n"
 "but never ended the string with another quote on that line.\n"
@@ -3422,7 +3419,7 @@ msgstr ""
 "Ha empezado a escribir una cadena con una comilla simple o doble\n"
 "pero nunca terminó la cadena con otra comilla en esa línea.\n"
 
-#: syntax_errors\message_analyzer.py:829
+#: syntax_errors\message_analyzer.py:854
 msgid ""
 "Perhaps you meant to write the backslash character, `\\`\n"
 "as the last character in the string and forgot that you\n"
@@ -3432,11 +3429,11 @@ msgstr ""
 "como el último carácter de la cadena y se olvidó de que\n"
 "que necesitaba escapar escribiendo dos `\\` seguidas.\n"
 
-#: syntax_errors\message_analyzer.py:834
+#: syntax_errors\message_analyzer.py:859
 msgid "Did you forget to escape a backslash character?\n"
 msgstr "¿Olvidaste escapar un carácter de barra invertida?\n"
 
-#: syntax_errors\message_analyzer.py:868
+#: syntax_errors\message_analyzer.py:893
 msgid ""
 "You likely called a function using the Python keyword `{keyword}` as an "
 "argument:\n"
@@ -3455,7 +3452,7 @@ msgstr ""
 "clave de Python.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:879
+#: syntax_errors\message_analyzer.py:904
 msgid ""
 "You likely called a function with a named argument:\n"
 "\n"
@@ -3473,7 +3470,7 @@ msgstr ""
 "ya sea porque comienza con un número, o es una cadena\n"
 "o contiene un punto, etc.\n"
 
-#: syntax_errors\message_analyzer.py:893
+#: syntax_errors\message_analyzer.py:918
 #: syntax_errors\statement_analyzer.py:1503
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
@@ -3482,7 +3479,7 @@ msgstr ""
 "Parece que el error se produjo mientras escribías un dict de Python.\n"
 "Tal vez se olvidó de escribir un valor después de dos puntos.\n"
 
-#: syntax_errors\message_analyzer.py:906
+#: syntax_errors\message_analyzer.py:931
 msgid ""
 "You have written an f-string whose content `{...}`\n"
 "includes a backslash; this is not allowed.\n"
@@ -3508,7 +3505,7 @@ msgstr ""
 "    hola = 'hola\\n'\n"
 "    f\"{... hola ...}\"\n"
 
-#: syntax_errors\message_analyzer.py:923
+#: syntax_errors\message_analyzer.py:948
 msgid ""
 "You have written an f-string which has an unmatched `}`.\n"
 "If you want to print a single `}`, you need to write `}}` in the f-string;\n"
@@ -3518,7 +3515,7 @@ msgstr ""
 "Si quieres imprimir un solo `}`, tienes que escribir `}}` en la f-string;\n"
 "de lo contrario, es necesario añadir una apertura `{`.\n"
 
-#: syntax_errors\message_analyzer.py:935
+#: syntax_errors\message_analyzer.py:960
 msgid ""
 "You have written an f-string which has an unmatched `{`.\n"
 "If you want to print a single `{`, you need to write `{{` in the f-string;\n"
@@ -3528,7 +3525,7 @@ msgstr ""
 "Si quieres imprimir un solo `{`, tienes que escribir `{{` en la f-string;\n"
 "de lo contrario, es necesario añadir un cierre `}`.\n"
 
-#: syntax_errors\message_analyzer.py:951
+#: syntax_errors\message_analyzer.py:976
 #: syntax_errors\statement_analyzer.py:1128
 msgid ""
 "I am guessing that you were writing a comprehension or a generator "
@@ -3554,7 +3551,7 @@ msgstr ""
 "    [(i, i**2) for i in range(10)]\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:968
+#: syntax_errors\message_analyzer.py:993
 msgid ""
 "A `from __future__ import` statement changes the way Python\n"
 "interprets the code in a file.\n"
@@ -3564,11 +3561,11 @@ msgstr ""
 "interpreta el código de un archivo.\n"
 "Debe aparecer al principio del archivo."
 
-#: syntax_errors\message_analyzer.py:984
+#: syntax_errors\message_analyzer.py:1009
 msgid "The available features are `{names}`.\n"
 msgstr "Las características disponibles son `{names}`.\n"
 
-#: syntax_errors\message_analyzer.py:989
+#: syntax_errors\message_analyzer.py:1014
 msgid ""
 "When using a `from __future__ import` statement,\n"
 "you must import specific named features.\n"
@@ -3576,15 +3573,15 @@ msgstr ""
 "Cuando se utiliza una sentencia `from __future__ import`,\n"
 "debe importar características específicas por su nombre.\n"
 
-#: syntax_errors\message_analyzer.py:1000
+#: syntax_errors\message_analyzer.py:1025
 msgid "Instead of `{feature}`, perhaps you meant to import `{name}`.\n"
 msgstr "En lugar de `{feature}`, tal vez querías importar `{name}`.\n"
 
-#: syntax_errors\message_analyzer.py:1005
+#: syntax_errors\message_analyzer.py:1030
 msgid "`{feature}` is not a valid feature of module `__future__`.\n"
 msgstr "`{feature}` no es una característica válida del módulo `__future__`.\n"
 
-#: syntax_errors\message_analyzer.py:1030
+#: syntax_errors\message_analyzer.py:1055
 msgid ""
 "You are using a generator expression, something of the form\n"
 "\n"
@@ -3598,7 +3595,7 @@ msgstr ""
 "\n"
 "Debes añadir paréntesis encerrando esa expresión.\n"
 
-#: syntax_errors\message_analyzer.py:1043
+#: syntax_errors\message_analyzer.py:1068
 msgid ""
 "I suspect you wrote `from __future__ import braces` following\n"
 "someone else's suggestion. This will never work.\n"
@@ -3613,12 +3610,12 @@ msgstr ""
 "Python se definen por\n"
 "su nivel de indentación, y no por el uso de algunas llaves, como `{...}`.\n"
 
-#: syntax_errors\message_analyzer.py:1058
+#: syntax_errors\message_analyzer.py:1083
 #: syntax_errors\statement_analyzer.py:164
 msgid "Did you use copy-paste?\n"
 msgstr "¿Usaste copiar y pegar?\n"
 
-#: syntax_errors\message_analyzer.py:1059
+#: syntax_errors\message_analyzer.py:1084
 msgid ""
 "Python indicates that you used the unicode character `{bad_character}`\n"
 "which is not allowed.\n"
@@ -3626,19 +3623,19 @@ msgstr ""
 "Python indica que has utilizado el carácter unicode `{bad_character}`\n"
 "que no está permitido.\n"
 
-#: syntax_errors\message_analyzer.py:1087
+#: syntax_errors\message_analyzer.py:1112
 msgid "Python tells us that you have written an invalid number."
 msgstr "Python nos dice que has escrito un número no válido."
 
-#: syntax_errors\message_analyzer.py:1088
+#: syntax_errors\message_analyzer.py:1113
 msgid "However, I think that the problem might be the following."
 msgstr "Sin embargo, creo que el problema puede ser el siguiente."
 
-#: syntax_errors\message_analyzer.py:1124
+#: syntax_errors\message_analyzer.py:1149
 msgid "I have no suggestion to offer to fix this problem.\n"
 msgstr "No tengo una sugerencia para arreglar este problema.\n"
 
-#: syntax_errors\message_analyzer.py:1136
+#: syntax_errors\message_analyzer.py:1161
 #: syntax_errors\statement_analyzer.py:655
 msgid ""
 "The double star operator `**` is likely interpreted to mean that\n"
@@ -3649,7 +3646,7 @@ msgstr ""
 "que se va a utilizar el desempaquetado del dictado, lo cual no está "
 "permitido o no tiene sentido en este caso.\n"
 
-#: syntax_errors\message_analyzer.py:1194
+#: syntax_errors\message_analyzer.py:1219
 msgid ""
 "You cannot use the `*` operator to unpack the iteration variable\n"
 "in a comprehension.\n"
@@ -3658,8 +3655,8 @@ msgstr ""
 "iteración\n"
 "en una comprensión.\n"
 
-#: syntax_errors\message_analyzer.py:1206
-#: syntax_errors\message_analyzer.py:1553
+#: syntax_errors\message_analyzer.py:1231
+#: syntax_errors\message_analyzer.py:1629
 #: syntax_errors\statement_analyzer.py:453
 msgid ""
 "The following statement has no syntax error:\n"
@@ -3670,7 +3667,7 @@ msgstr ""
 "\n"
 "    {statement}\n"
 
-#: syntax_errors\message_analyzer.py:1227
+#: syntax_errors\message_analyzer.py:1252
 msgid ""
 "You have called a function repeating the same keyword argument (`{arg}`).\n"
 "Each keyword argument should appear only once in a function call.\n"
@@ -3680,7 +3677,7 @@ msgstr ""
 "Cada argumento de palabra clave debe aparecer sólo una vez en una llamada a "
 "una función.\n"
 
-#: syntax_errors\message_analyzer.py:1292
+#: syntax_errors\message_analyzer.py:1317
 msgid ""
 "Python tells us that the closing `{closing}` on the last line shown\n"
 "does not match the opening `{opening}` on line {lineno}.\n"
@@ -3690,7 +3687,7 @@ msgstr ""
 "no coincide con la apertura `{opening}` de la línea {lineno}.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1297
+#: syntax_errors\message_analyzer.py:1322
 msgid ""
 "Python tells us that the closing `{closing}` on the last line shown\n"
 "does not match the opening `{opening}`.\n"
@@ -3700,11 +3697,11 @@ msgstr ""
 "no coincide con la apertura `{opening}`.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1311
+#: syntax_errors\message_analyzer.py:1336
 msgid "Did you forget something after `*`?\n"
 msgstr "¿Olvidaste algo después de `*`?\n"
 
-#: syntax_errors\message_analyzer.py:1312
+#: syntax_errors\message_analyzer.py:1337
 msgid ""
 "Assuming you were defining a function, you need\n"
 "to replace `*` by either `*arguments` or\n"
@@ -3714,7 +3711,7 @@ msgstr ""
 "sustituir `*` por `*argumentos` o\n"
 "por `*, argumento_nombrado=valor`.\n"
 
-#: syntax_errors\message_analyzer.py:1327
+#: syntax_errors\message_analyzer.py:1352
 msgid ""
 "You assigned a value to the variable `{name}`\n"
 "before declaring it as a global variable.\n"
@@ -3722,11 +3719,11 @@ msgstr ""
 "Usted asignó un valor a la variable `{name}`.\n"
 "antes de declararla como variable global.\n"
 
-#: syntax_errors\message_analyzer.py:1341
+#: syntax_errors\message_analyzer.py:1378
 msgid "Did you forget to add `nonlocal`?\n"
 msgstr "¿Olvidó añadir `nonlocal`?\n"
 
-#: syntax_errors\message_analyzer.py:1342
+#: syntax_errors\message_analyzer.py:1379
 msgid ""
 "You assigned a value to the variable `{name}`\n"
 "before declaring it as a nonlocal variable.\n"
@@ -3734,7 +3731,7 @@ msgstr ""
 "Ha asignado un valor a la variable `{name}`\n"
 "antes de declararla como variable no local.\n"
 
-#: syntax_errors\message_analyzer.py:1362
+#: syntax_errors\message_analyzer.py:1412
 msgid ""
 "You are including the statement\n"
 "\n"
@@ -3754,7 +3751,7 @@ msgstr ""
 "función, indicando así que debe ser una variable conocida sólo\n"
 "dentro de esa función, que es lo contrario de lo que implica `global`.\n"
 
-#: syntax_errors\message_analyzer.py:1379
+#: syntax_errors\message_analyzer.py:1429
 msgid ""
 "You used `{name}` as a parameter for a function\n"
 "before declaring it also as a nonlocal variable:\n"
@@ -3764,7 +3761,7 @@ msgstr ""
 "antes de declararla también como variable no local:\n"
 "{name}` no puede ser ambas cosas a la vez.\n"
 
-#: syntax_errors\message_analyzer.py:1394
+#: syntax_errors\message_analyzer.py:1444
 msgid ""
 "You used the variable `{name}`\n"
 "before declaring it as a global variable.\n"
@@ -3772,11 +3769,11 @@ msgstr ""
 "Ha utilizado la variable `{name}`\n"
 "antes de declararla como variable global.\n"
 
-#: syntax_errors\message_analyzer.py:1406
+#: syntax_errors\message_analyzer.py:1469
 msgid "Did you forget to write `nonlocal` first?\n"
 msgstr "¿Olvidó escribir primero `nonlocal`?\n"
 
-#: syntax_errors\message_analyzer.py:1408
+#: syntax_errors\message_analyzer.py:1471
 msgid ""
 "You used the variable `{name}`\n"
 "before declaring it as a nonlocal variable.\n"
@@ -3784,7 +3781,7 @@ msgstr ""
 "Ha utilizado la variable `{name}`\n"
 "antes de declararla como variable no local.\n"
 
-#: syntax_errors\message_analyzer.py:1421
+#: syntax_errors\message_analyzer.py:1497
 msgid ""
 "You declared the variable `{name}` as being a\n"
 "nonlocal variable but it cannot be found.\n"
@@ -3792,7 +3789,7 @@ msgstr ""
 "Ha declarado la variable `{name}` como una variable\n"
 "variable no local, pero no se puede encontrar.\n"
 
-#: syntax_errors\message_analyzer.py:1432
+#: syntax_errors\message_analyzer.py:1508
 msgid ""
 "You used the nonlocal keyword at a module level.\n"
 "The nonlocal keyword refers to a variable inside a function\n"
@@ -3802,7 +3799,7 @@ msgstr ""
 "La palabra clave nonlocal se refiere a una variable dentro de una función\n"
 "con un valor fuera de esa función."
 
-#: syntax_errors\message_analyzer.py:1444
+#: syntax_errors\message_analyzer.py:1520
 msgid ""
 "In Python, you can define functions with only positional arguments\n"
 "\n"
@@ -3836,7 +3833,7 @@ msgstr ""
 "Según Python, has utilizado argumentos posicionales después de los de "
 "palabra clave.\n"
 
-#: syntax_errors\message_analyzer.py:1464
+#: syntax_errors\message_analyzer.py:1540
 #: syntax_errors\statement_analyzer.py:1176
 msgid ""
 "I am guessing that you wanted to use an `except` statement\n"
@@ -3847,7 +3844,7 @@ msgstr ""
 "con múltiples tipos de excepción. Si ese es el caso, debes\n"
 "rodearlas con paréntesis.\n"
 
-#: syntax_errors\message_analyzer.py:1476
+#: syntax_errors\message_analyzer.py:1552
 msgid ""
 "In Python, you can call functions with only positional arguments\n"
 "\n"
@@ -3881,7 +3878,7 @@ msgstr ""
 "Según Python, has utilizado argumentos posicionales después de los de "
 "palabra clave.\n"
 
-#: syntax_errors\message_analyzer.py:1507
+#: syntax_errors\message_analyzer.py:1583
 msgid ""
 "Perhaps you need to type\n"
 "\n"
@@ -3898,24 +3895,24 @@ msgstr ""
 "Ahora, `print` es una función por lo que es necesario usar paréntesis para "
 "llamarla.\n"
 
-#: syntax_errors\message_analyzer.py:1514
+#: syntax_errors\message_analyzer.py:1590
 #: syntax_errors\statement_analyzer.py:587
 msgid "Note that arguments of `print` must be separated by commas.\n"
 msgstr ""
 "Tenga en cuenta que los argumentos de `print` deben estar separados por "
 "comas.\n"
 
-#: syntax_errors\message_analyzer.py:1515
+#: syntax_errors\message_analyzer.py:1591
 msgid "Did you mean `print({message})`?\n"
 msgstr "¿Quieres decir `print({message})`?\n"
 
-#: syntax_errors\message_analyzer.py:1524
+#: syntax_errors\message_analyzer.py:1600
 msgid "You can only use a `return` statement inside a function or method.\n"
 msgstr ""
 "Sólo se puede utilizar una sentencia `return` dentro de una función o "
 "método.\n"
 
-#: syntax_errors\message_analyzer.py:1533
+#: syntax_errors\message_analyzer.py:1609
 msgid ""
 "A star assignment must be of the form:\n"
 "\n"
@@ -3927,7 +3924,7 @@ msgstr ""
 "    ... *nombre = lista_o_tupla\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1543
+#: syntax_errors\message_analyzer.py:1619
 msgid ""
 "It looks like you tried to use a starred expression as a dict value;\n"
 "this is not allowed.\n"
@@ -3936,7 +3933,7 @@ msgstr ""
 "dict;\n"
 "esto no está permitido.\n"
 
-#: syntax_errors\message_analyzer.py:1564
+#: syntax_errors\message_analyzer.py:1640
 msgid ""
 "Your code is too complex for Python:\n"
 "you need to reduce the number of indented code blocks\n"
@@ -3946,7 +3943,7 @@ msgstr ""
 "necesitas reducir el número de bloques de código con sangría\n"
 "contenidos dentro de otros bloques de código.\n"
 
-#: syntax_errors\message_analyzer.py:1577
+#: syntax_errors\message_analyzer.py:1653
 msgid ""
 "Your code is too complex for Python:\n"
 "you need to reduce the number of parentheses\n"
@@ -3956,7 +3953,7 @@ msgstr ""
 "necesitas reducir el número de paréntesis\n"
 "contenidos dentro de otros paréntesis.\n"
 
-#: syntax_errors\message_analyzer.py:1592
+#: syntax_errors\message_analyzer.py:1668
 msgid ""
 "Python indicates that you need to surround an expression\n"
 "ending with a comma by parentheses.\n"
@@ -3964,7 +3961,7 @@ msgstr ""
 "Python indica que hay que rodear una expresión\n"
 "que termina con una coma por medio de paréntesis.\n"
 
-#: syntax_errors\message_analyzer.py:1596
+#: syntax_errors\message_analyzer.py:1672
 msgid ""
 "Perhaps you meant to write\n"
 "\n"
@@ -3974,26 +3971,26 @@ msgstr ""
 "\n"
 "`{new_statement}`\n"
 
-#: syntax_errors\message_analyzer.py:1604
+#: syntax_errors\message_analyzer.py:1680
 msgid "However, I suspect that you wrote the keyword `{boolean}` by mistake.\n"
 msgstr ""
 "Sin embargo, sospecho que has escrito la palabra clave `{boolean}` por "
 "error.\n"
 
-#: syntax_errors\message_analyzer.py:1608
+#: syntax_errors\message_analyzer.py:1684
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 msgstr ""
 "La palabra clave de Python `{boolean}` sólo puede utilizarse para "
 "expresiones booleanas.\n"
 
-#: syntax_errors\message_analyzer.py:1620
-#: syntax_errors\message_analyzer.py:1633
+#: syntax_errors\message_analyzer.py:1696
+#: syntax_errors\message_analyzer.py:1709
 msgid "However, if you remove the last comma, there will be no syntax error.\n"
 msgstr ""
 "Sin embargo, si eliminas la última coma, no habrá ningún error de sintaxis.\n"
 
-#: syntax_errors\message_analyzer.py:1640
+#: syntax_errors\message_analyzer.py:1716
 msgid ""
 "I have no additional suggestion to offer.\n"
 "Please feel free to report this case.\n"
@@ -4001,7 +3998,7 @@ msgstr ""
 "No tengo ninguna sugerencia adicional que ofrecer.\n"
 "Por favor, siéntase libre de reportar este caso.\n"
 
-#: syntax_errors\message_analyzer.py:1653
+#: syntax_errors\message_analyzer.py:1729
 msgid ""
 "You are using the continuation character `\\` outside of a string,\n"
 "and it is followed by some other character(s).\n"
@@ -4009,7 +4006,7 @@ msgstr ""
 "Está utilizando el carácter de continuación `\\` fuera de una cadena\n"
 "y es seguido por algún otro carácter(es).\n"
 
-#: syntax_errors\message_analyzer.py:1676
+#: syntax_errors\message_analyzer.py:1752
 msgid ""
 "I am guessing that you wanted to divide by the number {number} \n"
 "and wrote \\ instead of /."
@@ -4017,15 +4014,15 @@ msgstr ""
 "Supongo que querías dividir por el número {number} \n"
 "y escribió \\ en lugar de /."
 
-#: syntax_errors\message_analyzer.py:1680
+#: syntax_errors\message_analyzer.py:1756
 msgid "Did you mean to divide by {number}?\n"
 msgstr "¿Querías dividir por {number}?\n"
 
-#: syntax_errors\message_analyzer.py:1683
+#: syntax_errors\message_analyzer.py:1759
 msgid "I am guessing that you forgot to enclose some content in a string.\n"
 msgstr "Supongo que has olvidado encerrar algún contenido en una cadena.\n"
 
-#: syntax_errors\message_analyzer.py:1692
+#: syntax_errors\message_analyzer.py:1768
 msgid ""
 "Python tells us that it reached the end of the file\n"
 "and expected more content.\n"
@@ -4035,7 +4032,7 @@ msgstr ""
 "y que esperaba más contenido.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1699
+#: syntax_errors\message_analyzer.py:1775
 msgid ""
 "I will attempt to be give a bit more information.\n"
 "\n"
@@ -4043,7 +4040,7 @@ msgstr ""
 "Intentaré dar un poco más de información.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1710
+#: syntax_errors\message_analyzer.py:1786
 msgid ""
 "I suspect that you wrote a string that contains\n"
 "one backslash character, `\\` followed by an uppercase `U`\n"
@@ -4064,17 +4061,17 @@ msgstr ""
 "añadiendo la letra `r` como prefijo en\n"
 "delante de la cadena, o reemplazar `\\U`, por `\\\\U`.\n"
 
-#: syntax_errors\message_analyzer.py:1734
+#: syntax_errors\message_analyzer.py:1810
 #: syntax_errors\statement_analyzer.py:108
 msgid "The closing {bracket} on line {linenumber} does not match anything.\n"
 msgstr ""
 "El {bracket} de cierre de la línea {linenumber} no coincide con nada.\n"
 
-#: syntax_errors\message_analyzer.py:1745
+#: syntax_errors\message_analyzer.py:1821
 msgid "Perhaps you forgot a closing quote.\n"
 msgstr "Tal vez olvidó una comilla de cierre.\n"
 
-#: syntax_errors\message_analyzer.py:1762
+#: syntax_errors\message_analyzer.py:1838
 msgid ""
 "Inside the f-string `{fstring}`, \n"
 "you have another string, which starts with either a\n"
@@ -4085,11 +4082,11 @@ msgstr ""
 "comillas simples (') o comillas dobles (\"), sin una comilla de cierre que "
 "coincida.\n"
 
-#: syntax_errors\message_analyzer.py:1775
+#: syntax_errors\message_analyzer.py:1851
 msgid "You can only use a `yield` statement inside a function.\n"
 msgstr "Sólo se puede utilizar una sentencia `yield` dentro de una función.\n"
 
-#: syntax_errors\message_analyzer.py:1784
+#: syntax_errors\message_analyzer.py:1860
 msgid ""
 "This is a message that was added in Python 3.9\n"
 "to prevent redefining `__peg_parser__`.\n"
@@ -4968,35 +4965,35 @@ msgstr ""
 msgid "If this explanation is incorrect, please report this case.\n"
 msgstr "Si esta explicación es incorrecta, por favor informe de este caso.\n"
 
-#: syntax_errors\syntax_utils.py:21
+#: syntax_errors\syntax_utils.py:22
 msgid "parenthesis `(`"
 msgstr "paréntesis `(`"
 
-#: syntax_errors\syntax_utils.py:22
+#: syntax_errors\syntax_utils.py:23
 msgid "parenthesis `)`"
 msgstr "paréntesis `)`"
 
-#: syntax_errors\syntax_utils.py:23
+#: syntax_errors\syntax_utils.py:24
 msgid "square bracket `[`"
 msgstr "corchete `[`"
 
-#: syntax_errors\syntax_utils.py:24
+#: syntax_errors\syntax_utils.py:25
 msgid "square bracket `]`"
 msgstr "corchete `]`"
 
-#: syntax_errors\syntax_utils.py:25
+#: syntax_errors\syntax_utils.py:26
 msgid "curly bracket `{`"
 msgstr "llave `{`"
 
-#: syntax_errors\syntax_utils.py:26
+#: syntax_errors\syntax_utils.py:27
 msgid "curly bracket `}`"
 msgstr "llave `}`"
 
-#: syntax_errors\syntax_utils.py:55
+#: syntax_errors\syntax_utils.py:56
 msgid "Did you mean to use a normal quote character, `'` or `\"`?\n"
 msgstr "¿Quería utilizar un carácter de comillas normal, `'` o `\"`?\n"
 
-#: syntax_errors\syntax_utils.py:56
+#: syntax_errors\syntax_utils.py:57
 msgid ""
 "I suspect that you used a fancy unicode quotation mark\n"
 "whose name is {name}\n"
@@ -5006,19 +5003,19 @@ msgstr ""
 "cuyo nombre es {name}\n"
 "en lugar de una comilla simple o doble normal para una cadena.\n"
 
-#: syntax_errors\syntax_utils.py:71
+#: syntax_errors\syntax_utils.py:72
 msgid "Or perhaps, you meant to write a less than sign, `<`.\n"
 msgstr "O tal vez, quisiste escribir un signo menos que, `<`.\n"
 
-#: syntax_errors\syntax_utils.py:73
+#: syntax_errors\syntax_utils.py:74
 msgid "Or perhaps, you meant to write a greater than sign, `>`.\n"
 msgstr "O tal vez, quisiste escribir un signo mayor que, `>`.\n"
 
-#: syntax_errors\syntax_utils.py:75
+#: syntax_errors\syntax_utils.py:76
 msgid "Or perhaps, you meant to write a comma.\n"
 msgstr "O tal vez, quisiste escribir una coma.\n"
 
-#: syntax_errors\syntax_utils.py:88
+#: syntax_errors\syntax_utils.py:89
 msgid ""
 "I suspect that you used a fancy unicode quotation mark\n"
 "whose name is {name}.\n"
@@ -5028,27 +5025,27 @@ msgstr ""
 "cuyo nombre es {name}.\n"
 "\n"
 
-#: syntax_errors\syntax_utils.py:103
+#: syntax_errors\syntax_utils.py:104
 msgid "Perhaps, you meant to write a less than sign, `<`.\n"
 msgstr "Tal vez, quisiste escribir un signo menos que, `<`.\n"
 
-#: syntax_errors\syntax_utils.py:104
+#: syntax_errors\syntax_utils.py:105
 msgid "Did you mean to write a less than sign, `<`?\n"
 msgstr "¿Querías escribir un signo menos que, `<`?\n"
 
-#: syntax_errors\syntax_utils.py:106
+#: syntax_errors\syntax_utils.py:107
 msgid "Perhaps, you meant to write a greater than sign, `>`.\n"
 msgstr "Tal vez, quisiste escribir un signo mayor que, `>`.\n"
 
-#: syntax_errors\syntax_utils.py:107
+#: syntax_errors\syntax_utils.py:108
 msgid "Did you mean to write a greater than sign, `>`?\n"
 msgstr "¿Querías escribir un signo mayor que, `>`?\n"
 
-#: syntax_errors\syntax_utils.py:109
+#: syntax_errors\syntax_utils.py:110
 msgid "Perhaps, you meant to write a comma.\n"
 msgstr "Tal vez, quisiste escribir una coma.\n"
 
-#: syntax_errors\syntax_utils.py:123
+#: syntax_errors\syntax_utils.py:124
 msgid ""
 "I suspect that you used the unicode character known as\n"
 "'FRACTION SLASH', which looks similar to\n"
@@ -5058,11 +5055,11 @@ msgstr ""
 "'FRACTION SLASH', que es similar a\n"
 "pero es diferente del operador de división `/`.\n"
 
-#: syntax_errors\syntax_utils.py:130
+#: syntax_errors\syntax_utils.py:131
 msgid "Did you use a unicode fraction?\n"
 msgstr "¿Usaste una fracción unicode?\n"
 
-#: syntax_errors\syntax_utils.py:131
+#: syntax_errors\syntax_utils.py:132
 msgid ""
 "I suspect that you used the unicode character `{char}`meant to represent a "
 "fraction.\n"
@@ -5072,11 +5069,11 @@ msgstr ""
 "fracción.\n"
 "El nombre de este carácter unicode es {name}.\n"
 
-#: syntax_errors\syntax_utils.py:168
+#: syntax_errors\syntax_utils.py:169
 msgid "Did you mean `{num}/{denom}`?\n"
 msgstr "¿Quieres decir `{num}/{denom}`?\n"
 
-#: syntax_errors\syntax_utils.py:169
+#: syntax_errors\syntax_utils.py:170
 msgid ""
 "You used the unicode character {char} which is known as\n"
 "{name}\n"
@@ -5085,6 +5082,24 @@ msgstr ""
 "Has utilizado el carácter unicode {char} que se conoce como\n"
 "{name}\n"
 "Sospecho que querías escribir la fracción `{num}/{denom}` en su lugar.\n"
+
+#~ msgid "some value"
+#~ msgstr "algún valor"
+
+#~ msgid ""
+#~ "You wrote an expression like\n"
+#~ "\n"
+#~ "    {fn_call} = {value}\n"
+#~ "\n"
+#~ "where `{fn_call}`, on the left-hand side of the equal sign, is\n"
+#~ "a function call and not the name of a variable.\n"
+#~ msgstr ""
+#~ "Has escrito una expresión como\n"
+#~ "\n"
+#~ "    {fn_call} = {value}\n"
+#~ "\n"
+#~ "en donde `{fn_call}`, a la izquierda del signo de igualdad, es\n"
+#~ "una llamada a una función y no el nombre de una variable.\n"
 
 #~ msgid ""
 #~ "`{filename}` is not a regular Python file whose contents\n"
