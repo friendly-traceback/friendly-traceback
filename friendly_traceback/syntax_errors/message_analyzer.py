@@ -206,7 +206,7 @@ def assign_to_function_call(message: str = "", statement=None):
 
 
 @add_python_message
-def assign_to_generator_expression(message: str = "", _statement=None):
+def assign_to_generator_expression(message: str = "", statement=None):
     if message not in (
         "can't assign to generator expression",  # Python 3.6, 3.7
         "cannot assign to generator expression",  # Python 3.8
@@ -217,6 +217,13 @@ def assign_to_generator_expression(message: str = "", _statement=None):
         "On the left-hand side of an equal sign, you have a\n"
         "generator expression instead of the name of a variable.\n"
     )
+    expression = syntax_utils.get_expression_before_token(
+        statement.bad_token, statement.tokens, "="
+    )
+    if expression is not None:
+        statement.location_markers = syntax_utils.highlight_before_token(
+            statement.bad_token, statement.tokens, "="
+        )
     hint = _assign_to_identifiers_only()
     return {"cause": cause + hint, "suggest": hint}
 
@@ -328,6 +335,14 @@ def assign_to_literal(message: str = "", statement=None):
     ):
         return {}
 
+    expression = syntax_utils.get_expression_before_token(
+        statement.bad_token, statement.tokens, "="
+    )
+    if expression is not None:
+        statement.location_markers = syntax_utils.highlight_before_token(
+            statement.bad_token, statement.tokens, "="
+        )
+
     # This error can happen if we use a literal as an element of
     # a for loop; we take care of this case first.
     literal_in_for_loop = _assign_to_literal_in_for_loop(statement)
@@ -336,7 +351,7 @@ def assign_to_literal(message: str = "", statement=None):
 
     line = statement.bad_line.rstrip()
     parts = line.split("=")
-    if len(parts) == 2:
+    if len(parts) == 2:  # TODO: remove this limitation
         literal = parts[0].strip()
         name = parts[1].strip()
         if sys.version_info < (3, 8) and (
@@ -350,7 +365,10 @@ def assign_to_literal(message: str = "", statement=None):
             ).format(fstring=statement.bad_token)
             return {"cause": cause}
     else:
-        literal = None
+        if expression is not None:
+            literal = expression
+        else:
+            literal = None
         name = _("variable_name")
 
     if len(parts) == 2 and name.isidentifier():
