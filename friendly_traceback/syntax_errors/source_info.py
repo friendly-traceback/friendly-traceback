@@ -325,6 +325,10 @@ class Statement:
         # We go with the information obtained by Python.
         nb_carets = 1  # Python default
         continuation = ""
+        # TODO: see if removing comments and replacing self.end_offset by
+        # TODO: comment.start_col might be helpful
+        # TODO: alternative to removing comment: replace comment.string by '# ...'
+        # TODO: if len(comment.string) > 5
         if self.end_offset is not None:
             if self.end_offset > self.offset and self.linenumber == self.end_linenumber:
                 nb_carets = self.end_offset - self.offset

@@ -3,7 +3,7 @@
 
 import unicodedata
 
-from .. import token_utils
+from .. import debug_helper, token_utils
 from ..ft_gettext import current_lang
 
 _ = current_lang.translate
@@ -227,8 +227,19 @@ def get_previous_token_before_marker(bad_token, tokens, token_after):
                 return first, None  # should not happen; unmatched bracket
         elif not brackets and tok == token_after:
             return first, prev
-        if tok.start_row != first.start_row:  # statement continue on next line
-            return first, (prev,)
+        if (
+            tok.start_row != first.start_row or tok.is_comment()
+        ):  # statement continue on next line
+            if not brackets:
+                debug_helper.log("get_previous_token_before_marker:")
+                debug_helper.log("line continues but not open bracket found.")
+                ket = "|"
+            else:
+                bra = brackets.pop()
+                for ket in ")]}":
+                    if matching_brackets(bra, ket):
+                        break
+            return first, (prev, ket)
         prev = tok
 
     return first, None
@@ -242,7 +253,7 @@ def highlight_before_token(bad_token, tokens, token_after):
         last = last[0]
         marker = highlight_range(first, last)
         mark = marker[first.start_row]
-        mark = mark[:-1] + "-->"
+        mark = mark[:-1] + "^-->"
         return {first.start_row: mark}
 
     return highlight_range(first, last)
@@ -254,7 +265,7 @@ def get_expression_before_token(bad_token, tokens, token_after):
         return None
     statement_continue = False
     if isinstance(last, tuple):  # statement continue on next line
-        last = last[0]
+        last, ket = last
         statement_continue = True
     new_tokens = []
     found_bad = False
@@ -269,10 +280,7 @@ def get_expression_before_token(bad_token, tokens, token_after):
         if tok is last:  # == would only compare string values
             if statement_continue:
                 tok = tok.copy()
-                if tok.string == "(":
-                    tok.string = "(...)"
-                else:
-                    tok.string = "...)"
+                tok.string += "..." + ket
             new_tokens.append(tok)
             break
         new_tokens.append(tok)

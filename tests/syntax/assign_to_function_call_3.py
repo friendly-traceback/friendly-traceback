@@ -2,5 +2,6 @@
 
 Python 3.8: SyntaxError: cannot assign to function call
 """
-# Test to confirm that '=' inside function args is not misidentified.
-func(a, b=3) = 4
+# tests for continuation marker
+a = f(1, 2,  # this is a comment
+      3, 4) = 5
