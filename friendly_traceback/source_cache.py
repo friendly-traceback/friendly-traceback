@@ -8,7 +8,7 @@ Note that we monkeypatch Python's linecache.getlines.
 
 import linecache
 import time
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Optional
 
 import stack_data
 
@@ -76,55 +76,3 @@ cache = Cache()
 
 # Monkeypatch linecache to make our own cached content available to Python.
 linecache.getlines = cache.get_source_lines
-
-
-def highlight_source(
-    lines: Sequence[stack_data.Line], text_range: Optional[Tuple[int, int]] = None
-) -> Tuple[str, str]:
-    """Extracts a few relevant lines from a file content given as a list
-    of lines, adding line number information and identifying
-    a particular line.
-
-    When dealing with a ``SyntaxError`` or its subclasses, offset is an
-    integer normally used by Python to indicate the position of
-    the error with a ``^``, like::
-
-        if True
-              ^
-
-    which, in this case, points to a missing colon. We use the same
-    representation in this case.
-    """
-    if not lines:
-        return "", ""
-    new_lines = []
-    problem_line = ""
-    nb_digits = len(str(lines[-1].lineno))
-    no_mark = "       {:%d}: " % nb_digits
-    with_mark = "    -->{:%d}: " % nb_digits
-
-    text_range_mark = None
-    if text_range is not None:
-        begin, end = text_range
-        text_range_mark = " " * (8 + nb_digits + begin + 1) + "^" * (end - begin)
-
-    marked = False
-    for line_obj in lines:
-        if line_obj is stack_data.LINE_GAP:
-            new_lines.append(" " * 7 + "(...)")
-        elif line_obj.is_current:
-            num = with_mark.format(line_obj.lineno)
-            problem_line = line_obj.text
-            new_lines.append(num + problem_line.rstrip())
-            if text_range_mark is not None:
-                new_lines.append(text_range_mark)
-            marked = True
-        elif marked:
-            if not line_obj.text.strip():  # do not add empty line if last line
-                break
-            num = no_mark.format(line_obj.lineno)
-            new_lines.append(num + line_obj.text.rstrip())
-        else:
-            num = no_mark.format(line_obj.lineno)
-            new_lines.append(num + line_obj.text.rstrip())
-    return "\n".join(new_lines), problem_line
