@@ -176,34 +176,30 @@ def identify_unicode_fraction(char):
 
 
 def highlight_single_token(token):
-    """Restrict the highlighting with ^ to a single token.
-
-    This is done to maintain consistency between Python versions.
-    """
-    return {token.start_row: " " * (token.start_col + 1) + "^" * len(token.string)}
+    """Highlight a single token with ^."""
+    return {token.start_row: " " * token.start_col + "^" * len(token.string)}
 
 
 def highlight_two_tokens(first, second, first_marker="^", second_marker="^"):
-    """Restrict the highlighting with ^ to two individual tokens.
-
-    This is done to maintain consistency between Python versions.
+    """Highlight two individual tokens, and give the possibility to use
+    different markers for each one.
     """
     if first.start_row == second.start_row:
         mark = (
-            " " * (first.start_col + 1)
+            " " * first.start_col
             + first_marker * len(first.string)
             + " " * (second.start_col - first.end_col)
             + second_marker * len(second.string)
         )
         return {first.start_row: mark}
-    mark_1 = " " * (first.start_col + 1) + first_marker * len(first.string)
-    mark_2 = " " * (second.start_col + 1) + second_marker * len(second.string)
+    mark_1 = " " * first.start_col + first_marker * len(first.string)
+    mark_2 = " " * second.start_col + second_marker * len(second.string)
     return {first.start_row: mark_1, second.start_row: mark_2}
 
 
 def highlight_range(first, last):
     """Highlight multiple tokens with ^, from first to last."""
-    mark = " " * (first.start_col + 1) + "^" * (last.end_col - first.start_col)
+    mark = " " * first.start_col + "^" * (last.end_col - first.start_col)
     return {first.start_row: mark}
 
 
@@ -248,7 +244,7 @@ def get_previous_token_before_marker(bad_token, tokens, token_after):
 def highlight_before_token(bad_token, tokens, token_after):
     first, last = get_previous_token_before_marker(bad_token, tokens, token_after)
     if last is None:
-        return {first.start_row: " " * (first.start_col + 1) + "^" * len(first.string)}
+        return {first.start_row: " " * first.start_col + "^" * len(first.string)}
     elif isinstance(last, tuple):  # statement continue on next line
         last = last[0]
         marker = highlight_range(first, last)

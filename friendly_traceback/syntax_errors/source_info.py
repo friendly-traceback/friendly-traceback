@@ -302,7 +302,7 @@ class Statement:
         nb_digits = len(str(self.linenumber))
         no_mark = "       {:%d}: " % nb_digits
         with_mark = "    -->{:%d}: " % nb_digits
-        leading_spaces = " " * (8 + nb_digits)
+        leading_spaces = " " * (9 + nb_digits)
 
         self.create_location_markers()
 
@@ -322,8 +322,13 @@ class Statement:
         # the statement to find the cause.
         if hasattr(self, "location_markers"):
             return
-        # We go with the information obtained by Python.
+        # We generally go with the information obtained by Python.
+        # although, sometimes it might be off by 1.
         nb_carets = 1  # Python default
+        diff = self.bad_token.start_col - self.offset
+        self.offset += diff
+        if self.end_offset is not None:
+            self.end_offset += diff
         continuation = ""
         # TODO: see if removing comments and replacing self.end_offset by
         # TODO: comment.start_col might be helpful
@@ -334,18 +339,14 @@ class Statement:
                 nb_carets = self.end_offset - self.offset
             elif self.linenumber != self.end_linenumber:
                 continuation = "-->"
-                if self.bad_token != self.first_token:
-                    self.offset -= 1
         # However, note that end_offset might not have been set up by
         # cPython but earlier by us to correspond to the default
         # used by Python; if that is the case, it is
         # simply set to 1 more than offset.
         if nb_carets == 1 and not continuation:
             nb_carets = len(self.bad_token.string)
-            # In some cases/python version, the end of the token was
-            # used to signal the location of the error.
-            self.offset = self.bad_token.start_col + 1
-        offset_mark = " " * (self.offset) + "^" * nb_carets + continuation
+
+        offset_mark = " " * self.offset + "^" * nb_carets + continuation
         self.location_markers = {self.linenumber: offset_mark}
 
     def obtain_statement(self, source_tokens):

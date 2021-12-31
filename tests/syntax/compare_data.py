@@ -73,7 +73,10 @@ def print_different(filename, in_36, in_37, in_38, in_39, in_310, topic):
             inputs.remove(in_38)
         output.write("<b>3.9: </b>" + in_39 + "\n")
         output.write("</pre>\n")
-        inputs.remove(in_39)
+        try:
+            inputs.remove(in_39)
+        except KeyError:
+            pass
     if in_39 != in_310:
         if filename not in files:
             output.write("<div class='filename-header'>")

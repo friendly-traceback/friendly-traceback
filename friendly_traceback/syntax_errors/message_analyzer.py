@@ -11,7 +11,8 @@ import sys
 
 from .. import debug_helper, utils
 from ..ft_gettext import current_lang, please_report
-from . import error_in_def, fixers, statement_analyzer, syntax_utils
+from . import error_in_def, fixers, statement_analyzer
+from . import syntax_utils as su
 
 MESSAGE_ANALYZERS = []
 _ = current_lang.translate
@@ -32,6 +33,8 @@ def _find_keyword(statement):
     # used in assign_to_keyword
     if statement.bad_token.is_keyword():
         return statement.bad_token
+    elif statement.prev_token.is_keyword():
+        return statement.prev_token
     else:  # something like name.constant = ?
         for tok in statement.tokens[statement.bad_token_index :]:
             if tok.is_keyword():
@@ -131,18 +134,27 @@ def assign_to_conditional_expression(message: str = "", statement=None):
         "A conditional expression has the following form:\n\n"
         "    variable = object if condition else other_object\n"
     )
-    prev_token = None
-    last_token = None
-    nb_equal = 0
-    for tok in statement.tokens:
-        if tok == "=":
-            last_token = prev_token
-            nb_equal += 1
-        prev_token = tok
-    if nb_equal == 1 and statement.first_token.start_row == last_token.start_row:
-        statement.location_markers = syntax_utils.highlight_range(
-            statement.first_token, last_token
-        )
+
+    expression = su.get_expression_before_token(
+        statement.bad_token, statement.tokens, "="
+    )
+    if expression is None:
+        return {
+            "cause": cause + _assign_to_identifiers_only(),
+            "suggest": _assign_to_identifiers_only(),
+        }
+    statement.location_markers = su.highlight_before_token(
+        statement.bad_token, statement.tokens, "="
+    )
+    cause = _(
+        "On the left-hand side of an equal sign, you have a\n"
+        "conditional expression instead of the name of a variable.\n"
+        "    {expression} = ...\n"
+        "    {mark}\n"
+    ).format(
+        expression=expression,
+        mark=statement.location_markers[statement.first_token.start_row].strip(),
+    )
 
     return {
         "cause": cause + _assign_to_identifiers_only(),
@@ -175,9 +187,7 @@ def assign_to_function_call(message: str = "", statement=None):
 
     hint = _assign_to_identifiers_only()
 
-    fn_call = syntax_utils.get_expression_before_token(
-        statement.bad_token, statement.tokens, "="
-    )
+    fn_call = su.get_expression_before_token(statement.bad_token, statement.tokens, "=")
     if fn_call is None:
         fn_call = statement.bad_token.string + "(...)"
         cause = _(
@@ -189,7 +199,7 @@ def assign_to_function_call(message: str = "", statement=None):
             fn_call=fn_call,
         )
     else:
-        statement.location_markers = syntax_utils.highlight_before_token(
+        statement.location_markers = su.highlight_before_token(
             statement.bad_token, statement.tokens, "="
         )
         cause = _(
@@ -217,11 +227,11 @@ def assign_to_generator_expression(message: str = "", statement=None):
         "On the left-hand side of an equal sign, you have a\n"
         "generator expression instead of the name of a variable.\n"
     )
-    expression = syntax_utils.get_expression_before_token(
+    expression = su.get_expression_before_token(
         statement.bad_token, statement.tokens, "="
     )
     if expression is not None:
-        statement.location_markers = syntax_utils.highlight_before_token(
+        statement.location_markers = su.highlight_before_token(
             statement.bad_token, statement.tokens, "="
         )
     hint = _assign_to_identifiers_only()
@@ -299,7 +309,7 @@ def assign_to_keyword(message: str = "", statement=None):
     if statement.bad_token != word:
         for tok in statement.tokens:
             if tok == word:
-                statement.location_markers = syntax_utils.highlight_single_token(tok)
+                statement.location_markers = su.highlight_single_token(tok)
                 break
     return {"cause": cause, "suggest": hint}
 
@@ -335,11 +345,11 @@ def assign_to_literal(message: str = "", statement=None):
     ):
         return {}
 
-    expression = syntax_utils.get_expression_before_token(
+    expression = su.get_expression_before_token(
         statement.bad_token, statement.tokens, "="
     )
     if expression is not None:
-        statement.location_markers = syntax_utils.highlight_before_token(
+        statement.location_markers = su.highlight_before_token(
             statement.bad_token, statement.tokens, "="
         )
 
@@ -523,9 +533,7 @@ def annotated_name_cannot_be_global(message: str = "", statement=None):
     ).format(name=match.group(1))
     # Ensure that only the variable gets highlighted for consistency
     # across all Python versions.
-    statement.location_markers = syntax_utils.highlight_single_token(
-        statement.bad_token
-    )
+    statement.location_markers = su.highlight_single_token(statement.bad_token)
     return {"cause": cause}
 
 
@@ -561,10 +569,10 @@ def bracket_was_expected(message: str = "", statement=None):
         return {}
 
     cause = _("Python tells us that the {bracket} was never closed.\n").format(
-        bracket=syntax_utils.name_bracket(match.group(1))
+        bracket=su.name_bracket(match.group(1))
     )
     hint = _("The {bracket} was never closed.\n").format(
-        bracket=syntax_utils.name_bracket(match.group(1))
+        bracket=su.name_bracket(match.group(1))
     )
     rephrased_cause = statement_analyzer.unclosed_bracket(statement)
     if rephrased_cause:
@@ -800,6 +808,7 @@ def duplicate_argument_in_function_definition(message: str = "", statement=None)
         ).format(name=name)
         locate_duplicate_arguments(statement, name)
         return {"cause": cause}
+
     return {}
 
 
@@ -818,9 +827,7 @@ def locate_duplicate_arguments(statement, name):
     markers = {}
     for token in args:
         if token.start_row not in markers:
-            markers[token.start_row] = " " * (token.start_col + 1) + "^" * len(
-                token.string
-            )
+            markers[token.start_row] = " " * token.start_col + "^" * len(token.string)
             prev_token = token
         else:
             markers[token.start_row] += " " * (
@@ -1105,14 +1112,12 @@ def invalid_character_in_identifier(message: str = "", statement=None):
         "which is not allowed.\n"
     ).format(bad_character=bad_character)
 
-    potential_cause = syntax_utils.identify_bad_quote_char(
-        bad_character, statement.bad_line
-    )
+    potential_cause = su.identify_bad_quote_char(bad_character, statement.bad_line)
     if potential_cause:
         potential_cause["cause"] = copy_paste + python_says + potential_cause["cause"]
         return potential_cause
 
-    potential_cause = syntax_utils.identify_unicode_fraction(bad_character)
+    potential_cause = su.identify_unicode_fraction(bad_character)
     if potential_cause:
         potential_cause["cause"] = copy_paste + python_says + potential_cause["cause"]
         return potential_cause
@@ -1145,16 +1150,14 @@ def invalid_decimal_literal(message: str = "", statement=None):
 
     if statement.next_token is not None and statement.bad_token.is_number():
         bad_character = statement.next_token.string
-        potential_cause = syntax_utils.identify_bad_math_symbol(
-            bad_character, statement.bad_line
-        )
+        potential_cause = su.identify_bad_math_symbol(bad_character, statement.bad_line)
         if potential_cause:
             potential_cause["cause"] = (
                 cause_prefix + "\n" + however + "\n\n" + potential_cause["cause"]
             )
             return potential_cause
 
-        potential_cause = syntax_utils.identify_unicode_fraction(bad_character)
+        potential_cause = su.identify_unicode_fraction(bad_character)
         if potential_cause:
             potential_cause["cause"] = (
                 cause_prefix + "\n" + however + "\n\n" + potential_cause["cause"]
@@ -1380,7 +1383,7 @@ def name_assigned_to_prior_global(message: str = "", statement=None):
             second = tok
             break
     if first and second:
-        statement.location_markers = syntax_utils.highlight_two_tokens(
+        statement.location_markers = su.highlight_two_tokens(
             first, second, first_marker="-"
         )
     return {"cause": cause}
@@ -1408,7 +1411,7 @@ def name_assigned_to_prior_nonlocal(message: str = "", statement=None):
             break
 
     if first and second:
-        statement.location_markers = syntax_utils.highlight_two_tokens(
+        statement.location_markers = su.highlight_two_tokens(
             first, second, first_marker="-"
         )
     return {"cause": cause, "suggest": hint}
@@ -1472,7 +1475,7 @@ def name_used_prior_global(message: str = "", statement=None):
             break
 
     if first and second:
-        statement.location_markers = syntax_utils.highlight_two_tokens(
+        statement.location_markers = su.highlight_two_tokens(
             first, second, first_marker="-"
         )
     return {"cause": cause}
@@ -1500,7 +1503,7 @@ def name_used_prior_nonlocal(message: str = "", statement=None):
             break
 
     if first and second:
-        statement.location_markers = syntax_utils.highlight_two_tokens(
+        statement.location_markers = su.highlight_two_tokens(
             first, second, first_marker="-"
         )
     return {"cause": cause, "suggest": hint}
@@ -1818,11 +1821,11 @@ def unicode_error(message: str = "", _statement=None):
 def unmatched_parenthesis(message: str = "", statement=None):
     # Python 3.8
     if message == "unmatched ')'":
-        bracket = syntax_utils.name_bracket(")")
+        bracket = su.name_bracket(")")
     elif message == "unmatched ']'":
-        bracket = syntax_utils.name_bracket("]")
+        bracket = su.name_bracket("]")
     elif message == "unmatched '}'":
-        bracket = syntax_utils.name_bracket("}")
+        bracket = su.name_bracket("}")
     else:
         return {}
     cause = _(

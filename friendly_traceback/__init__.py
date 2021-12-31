@@ -24,7 +24,7 @@ except (ModuleNotFoundError, ImportError):
 import sys
 from typing import Any, Callable, Dict, Mapping, Optional, Sequence, Union
 
-valid_version = sys.version_info.major >= 3 and sys.version_info.minor >= 6
+valid_version = valid_version = sys.version_info >= (3, 6)
 
 if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")

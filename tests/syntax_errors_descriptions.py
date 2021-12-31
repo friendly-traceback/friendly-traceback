@@ -82,7 +82,7 @@ descriptions = {
         title: "Name assigned prior to nonlocal declaration",
     },
     "assign_to_conditional": {
-        in_cause: "variable = object if condition else other_object",
+        in_cause: "conditional expression instead of the name of a variable",
         title: "Assign to conditional expression",
     },
     "assign_to_debug": {

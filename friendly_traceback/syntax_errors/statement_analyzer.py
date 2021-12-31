@@ -127,17 +127,17 @@ def mismatched_brackets(statement):
     statement.location_markers = {}
     if open_lineno == end_lineno:
         source += " " * shift + "^"
-        statement.location_markers[open_lineno] = " " * open_bracket.start_col + " ^"
+        statement.location_markers[open_lineno] = " " * open_bracket.start_col + "^"
         shift = end_bracket.start_col - open_bracket.start_col - 1
         source += " " * shift + "^\n"
         statement.location_markers[open_lineno] += " " * shift + "^"
     else:
         source += " " * shift + "^\n"
-        statement.location_markers[open_lineno] = " " * open_bracket.start_col + " ^"
+        statement.location_markers[open_lineno] = " " * open_bracket.start_col + "^"
         source += f"    {end_lineno}: {statement.source_lines[end_lineno - 1]}"
         shift = len(str(end_lineno)) + end_bracket.start_col + 6
         source += " " * shift + "^\n"
-        statement.location_markers[end_lineno] = " " * end_bracket.start_col + " ^"
+        statement.location_markers[end_lineno] = " " * end_bracket.start_col + "^"
 
     cause = (
         _(
@@ -896,10 +896,13 @@ def assign_to_a_keyword(statement):
     )
     if statement.bad_token == "=" and statement.prev_token.is_keyword():
         cause = possible_cause.format(keyword=statement.prev_token)
+        bad_token = statement.prev_token
     elif statement.bad_token.is_keyword() and statement.next_token == "=":
+        bad_token = statement.bad_token
         cause = possible_cause.format(keyword=statement.bad_token)
     else:
         return {}
+    statement.location_markers = syntax_utils.highlight_single_token(bad_token)
     return {"cause": cause, "suggest": hint}
 
 
@@ -1201,7 +1204,6 @@ def space_in_variable_name(statement):
     # my name = André
     bad_token = statement.bad_token
     prev_token = statement.prev_token
-    # TODO: revise this when 3.11.0a3 is out
     if statement.highlighted_tokens and len(statement.highlighted_tokens) == 2:
         bad_token = statement.next_token
         prev_token = statement.bad_token
@@ -1217,7 +1219,10 @@ def space_in_variable_name(statement):
     for tok in statement.tokens:
         if tok == "=":
             # Note: there could be other errors
-            cause = _("You cannot have spaces in identifiers (variable names).\n")
+            cause = _(
+                "You cannot have spaces in identifiers (variable names).\n"
+                "Perhaps you meant `{name}`?\n"
+            ).format(name="_".join(first_tokens))
             hint = _("Did you mean `{name}`?\n").format(name="_".join(first_tokens))
             return {"cause": cause, "suggest": hint}
 
