@@ -73,6 +73,7 @@ class Statement:
         self.bad_token_index = 0
         self.prev_token = None  # meaningful token preceding bad token
         self.next_token = None  # meaningful token following bad token
+        self.bad_token_comment = None
 
         # SyntaxError produced inside f-strings occasionally require a special treatment
         self.fstring_error = self.filename == "<fstring>" or "f-string" in self.message
@@ -329,24 +330,47 @@ class Statement:
         self.offset += diff
         if self.end_offset is not None:
             self.end_offset += diff
+
         continuation = ""
         # TODO: see if removing comments and replacing self.end_offset by
         # TODO: comment.start_col might be helpful
         # TODO: alternative to removing comment: replace comment.string by '# ...'
         # TODO: if len(comment.string) > 5
         if self.end_offset is not None:
-            if self.end_offset > self.offset and self.linenumber == self.end_linenumber:
+            if (
+                self.end_offset > self.offset
+                and self.linenumber == self.end_linenumber
+                and self.highlighted_tokens is not None
+                and len(self.highlighted_tokens) > 1
+            ):
+                if (
+                    self.end_offset > self.last_token.end_col
+                    and self.linenumber == self.last_token.start_col
+                ):  # a comment is highlighted
+                    self.end_offset = self.last_token.end_col
+                    continuation = "-->"
                 nb_carets = self.end_offset - self.offset
             elif self.linenumber != self.end_linenumber:
                 continuation = "-->"
+
         # However, note that end_offset might not have been set up by
         # cPython but earlier by us to correspond to the default
         # used by Python; if that is the case, it is
         # simply set to 1 more than offset.
         if nb_carets == 1 and not continuation:
             nb_carets = len(self.bad_token.string)
-
-        offset_mark = " " * self.offset + "^" * nb_carets + continuation
+        # If the bad_token was a comment, it means that something was missing
+        # between the comment and the last meaningful token
+        if self.bad_token_comment is not None:
+            offset_mark = (
+                " " * self.offset
+                + "-" * nb_carets
+                + "^"
+                * max((self.bad_token_comment.start_col - self.bad_token.end_col), 1)
+                + "-->"
+            )
+        else:
+            offset_mark = " " * self.offset + "^" * nb_carets + continuation
         self.location_markers = {self.linenumber: offset_mark}
 
     def obtain_statement(self, source_tokens):
@@ -442,6 +466,7 @@ class Statement:
             ):
                 self.bad_token = token
                 if self.bad_token.is_comment():
+                    self.bad_token_comment = self.bad_token
                     self.bad_token = self.prev_token
                 if self.highlighted_tokens is not None:
                     self.highlighted_tokens.append(self.bad_token)

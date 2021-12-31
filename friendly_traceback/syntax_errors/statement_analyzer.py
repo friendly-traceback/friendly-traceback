@@ -717,7 +717,7 @@ def missing_colon(statement):
 
 @add_statement_analyzer
 def semi_colon_instead_of_comma(statement):
-    """Writing a semi colon as a typo"""
+    """Writing a semicolon as a typo"""
     if statement.bad_token != ";":
         return {}
 
@@ -725,11 +725,11 @@ def semi_colon_instead_of_comma(statement):
         statement.statement_tokens, statement.bad_token, ","
     )
     if fixers.check_statement(new_statement):
-        cause = _("You wrote a semi-colon, `;`, where a comma was expected.\n")
+        cause = _("You wrote a semicolon, `;`, where a comma was expected.\n")
         hint = _("Did you mean to write a comma?\n")
         return {"cause": cause, "suggest": hint}
 
-    # perhaps used multiple semi-colons instead of comma
+    # perhaps used multiple semicolons instead of comma
     if statement.last_token == ";":
         new_statement = fixers.replace_token(
             statement.statement_tokens, statement.last_token, ""
@@ -745,7 +745,7 @@ def semi_colon_instead_of_comma(statement):
             break
         new_statement = fixers.replace_token(tokens, tok, ",")
     if fixers.check_statement(new_statement):
-        cause = _("You wrote semi-colons, `;`, where commas were expected.\n")
+        cause = _("You wrote semicolons, `;`, where commas were expected.\n")
         hint = _("Did you mean to write commas?\n")
         return {"cause": cause, "suggest": hint}
 
@@ -1346,7 +1346,7 @@ def missing_comma_or_operator(statement):
         )
 
         # The list of operators might include a comma; it is better to separate
-        # items by semi-colons
+        # items by semicolons
         if comma_first:
             operators = operators[1:]
             operators = utils.list_to_string(operators)

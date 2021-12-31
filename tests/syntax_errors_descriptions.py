@@ -301,7 +301,7 @@ descriptions = {
     },
     "def_extra_semi_colon": {
         in_cause: "Did you write something by mistake after the colon",
-        title: "def: semi-colon after colon",
+        title: "def: semicolon after colon",
     },
     "def_extra_comma": {
         in_cause: "Did you mean to write `,`",
@@ -433,7 +433,7 @@ descriptions = {
     },
     "def_semi_colon_instead_of_colon": {
         in_cause: "You wrote `;` instead of a colon",
-        title: "def: semi-colon instead of colon",
+        title: "def: semicolon instead of colon",
     },
     "def_set_as_arg": {
         in_cause: "You cannot have any explicit dict or set as function arguments",
@@ -918,16 +918,16 @@ descriptions = {
         title: "Cannot use return outside function",
     },
     "semi_colon_instead_of_comma_1": {
-        in_cause: "You wrote a semi-colon, `;`, where a comma was expected.",
-        title: "Semi-colon instead of comma - 1",
+        in_cause: "You wrote a semicolon, `;`, where a comma was expected.",
+        title: "semicolon instead of comma - 1",
     },
     "semi_colon_instead_of_comma_2": {
-        in_cause: "You wrote semi-colons, `;`, where commas were expected.",
-        title: "Semi-colon instead of commas - 2",
+        in_cause: "You wrote semicolons, `;`, where commas were expected.",
+        title: "semicolon instead of commas - 2",
     },
     "semi_colon_instead_of_comma_3": {
-        in_cause: "You wrote semi-colons, `;`, where commas were expected.",
-        title: "Semi-colon instead of commas - 3",
+        in_cause: "You wrote semicolons, `;`, where commas were expected.",
+        title: "semicolon instead of commas - 3",
     },
     "should_be_comprehension": {
         in_cause: "You cannot have separate code blocks inside list comprehensions.",
