@@ -285,9 +285,9 @@ class TracebackData:
 
 # [cause_header and cause]
 # Likely cause:
-#     The variable that appears to cause the problem is 'a'.
+#     The variable that appears to cause the problem is 'abc'.
 #     Try inserting the statement
-#         global a
+#         global abc
 #     as the first line inside your function.
 #
 
@@ -317,8 +317,8 @@ class FriendlyTraceback:
     in the docstrings of the relevant methods.
 
     To get all possible attributes set up, one needs to call
-    compile_info() after initializing this class. This is done so
-    as to allow third-party users to selectively call only one of
+    compile_info() after initializing this class. This is done
+    to allow third-party users to selectively call only one of
 
     * assign_cause()
     * assign_generic()
@@ -643,7 +643,7 @@ class FriendlyTraceback:
            project.  In addition, for RecursionError, this traceback is often
            further shortened, compared with a normal Python traceback.
         3. A potentially shortened traceback, which does not include too much
-           output so as not to overwhelm beginners. It also include information
+           output so as not to overwhelm beginners. It also includes information
            about the code on any line mentioned.
 
         These are given by the attributes:
@@ -697,7 +697,7 @@ class FriendlyTraceback:
         chain_info = ""
         short_chain_info = ""
         if exc.__cause__ or exc.__context__:
-            chain_info = self.process_exception_chain(self.tb_data.exception_type, exc)
+            chain_info = process_exception_chain(self.tb_data.exception_type, exc)
             parts = chain_info.split("\n\n")
             # suppress line
             temp = []
@@ -742,44 +742,6 @@ class FriendlyTraceback:
                     line = line.replace('"[', "[").replace(']"', "]")
             temp.append(line)
         return temp
-
-    @staticmethod
-    def process_exception_chain(etype: Type[_E], value: _E) -> str:
-        """Adds info about exceptions raised while treating other exceptions."""
-        seen = set()
-        lines = []
-
-        direct_cause = (
-            "The above exception was the direct cause of the following exception:"
-        )
-        another_exception = (
-            "During handling of the above exception, another exception occurred:"
-        )
-
-        def chain_exc(typ: Type[_E], exc: _E, tb: Optional[types.TracebackType]) -> str:
-            seen.add(id(exc))
-            context = exc.__context__
-            cause = exc.__cause__
-            if cause is not None and id(cause) not in seen:
-                chain_exc(type(cause), cause, cause.__traceback__)
-                lines.append(f"\n    {direct_cause}\n\n")
-            elif (
-                context is not None
-                and not exc.__suppress_context__
-                and id(context) not in seen
-            ):
-                chain_exc(type(context), context, context.__traceback__)
-                lines.append(f"\n    {another_exception}\n\n")
-            if tb:
-                tbe = traceback.extract_tb(tb)
-                lines.append("Traceback (most recent call last):\n")
-                for line in traceback.format_list(tbe):
-                    lines.append(line)
-                for line in traceback.format_exception_only(typ, exc):
-                    lines.append(line)
-
-        chain_exc(etype, value, None)
-        return "".join(lines)
 
     def create_traceback(self, records: List[FrameInfo]) -> List[str]:
         """Using records that exclude code from certain files,
@@ -844,6 +806,45 @@ class FriendlyTraceback:
                     result.append(" " * (3 + offset) + "^" * nb_carets + continuation)
         result.append(self.info["message"].strip())
         return result
+
+
+def process_exception_chain(etype: Type[_E], value: _E) -> str:
+    """Obtains info about exceptions raised while treating other exceptions."""
+    seen = set()
+    lines = []
+
+    direct_cause = (
+        "The above exception was the direct cause of the following exception:"
+    )
+    another_exception = (
+        "During handling of the above exception, another exception occurred:"
+    )
+
+    def chain_exc(typ: Type[_E], exc: _E, tb: Optional[types.TracebackType]) -> None:
+        """Recursive function that insert the contents of 'lines' above."""
+        seen.add(id(exc))
+        context = exc.__context__
+        cause = exc.__cause__
+        if cause is not None and id(cause) not in seen:
+            chain_exc(type(cause), cause, cause.__traceback__)
+            lines.append(f"\n    {direct_cause}\n\n")
+        elif (
+            context is not None
+            and not exc.__suppress_context__
+            and id(context) not in seen
+        ):
+            chain_exc(type(context), context, context.__traceback__)
+            lines.append(f"\n    {another_exception}\n\n")
+        if tb:
+            tbe = traceback.extract_tb(tb)
+            lines.append("Traceback (most recent call last):\n")
+            for line in traceback.format_list(tbe):
+                lines.append(line)
+            for line in traceback.format_exception_only(typ, exc):
+                lines.append(line)
+
+    chain_exc(etype, value, None)
+    return "".join(lines)
 
 
 def cannot_analyze_stdin() -> str:  # pragma: no cover

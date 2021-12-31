@@ -29,12 +29,12 @@ class Statement:
     (), [], {}. If a problem arises due to non-matching pairs of brackets,
     this information is available (variables begin_brackets or end_bracket).
 
-    A complete statement is saved as a list of tokens (statement_tokens)
+    A complete statement is saved as a list of tokens (self.statement_tokens)
     from which it could be reconstructed using an untokenize function.
 
-    From this list of tokens, a secondary list is obtained (tokens) by
-    removing all space-like and comment tokens, which are the only
-    meaningful tokens needed to do the analysis.
+    From this list of tokens, a secondary list is obtained (self.tokens) by
+    removing all space-like and comment tokens; this secondary list
+    thus includes the only meaningful tokens needed to do the analysis.
 
     To simplify the code doing the error analysis itself, we precompute various
     parameters (e.g. does the statement fits on a single line, how many
@@ -48,10 +48,11 @@ class Statement:
         self.linenumber = value.lineno
         self.message = value.msg
         self.offset = value.offset
+        self.value = value  # can be useful when debugging with the repl
 
         # Python 3.10 introduced new attributes for 'value'.
         # We already have taken care of assigning some default values
-        # to it in core.py.
+        # to these in core.py.
         self.end_offset = value.end_offset
         self.end_linenumber = value.end_lineno
 
@@ -92,8 +93,12 @@ class Statement:
         self.begin_brackets = []  # unclosed ([{  before bad token
         self.end_bracket = None  # single unmatched )]}
 
-        self.first_token = None
-        self.last_token = None
+        self.first_token = None  # meaningful token
+        self.last_token = None  # meaningful token
+
+        # The following is used to indicate the position of ^ and other
+        # symbols when using where()
+        self.location_markers = None
 
         # When using the friendly console (repl), SyntaxError might prevent
         # closing all brackets to complete a statement. Knowing this can be
@@ -321,7 +326,7 @@ class Statement:
     def create_location_markers(self):
         # In some cases, the location markers are determined while analysing
         # the statement to find the cause.
-        if hasattr(self, "location_markers"):
+        if self.location_markers is not None:
             return
         # We generally go with the information obtained by Python.
         # although, sometimes it might be off by 1.
@@ -332,10 +337,6 @@ class Statement:
             self.end_offset += diff
 
         continuation = ""
-        # TODO: see if removing comments and replacing self.end_offset by
-        # TODO: comment.start_col might be helpful
-        # TODO: alternative to removing comment: replace comment.string by '# ...'
-        # TODO: if len(comment.string) > 5
         if self.end_offset is not None:
             if (
                 self.end_offset > self.offset
@@ -348,15 +349,11 @@ class Statement:
                     and self.linenumber == self.last_token.start_col
                 ):  # a comment is highlighted
                     self.end_offset = self.last_token.end_col
-                    continuation = "-->"
+                    continuation = "~~-"
                 nb_carets = self.end_offset - self.offset
             elif self.linenumber != self.end_linenumber:
                 continuation = "-->"
 
-        # However, note that end_offset might not have been set up by
-        # cPython but earlier by us to correspond to the default
-        # used by Python; if that is the case, it is
-        # simply set to 1 more than offset.
         if nb_carets == 1 and not continuation:
             nb_carets = len(self.bad_token.string)
         # If the bad_token was a comment, it means that something was missing
@@ -397,16 +394,24 @@ class Statement:
         # Some tokens cannot occur within brackets; if they are indicated as being
         # the offending token, it might be because we have an unclosed bracket.
         should_begin_statement = [
+            "assert",
             "async",
             "await",
+            "break",
             "class",
+            "continue",
             "def",
-            "return",
+            "del",
             "elif",
-            "import",
-            "try",
             "except",
             "finally",
+            "global",
+            "import",  # cannot write: from (x import ...
+            "nonlocal",
+            "pass",
+            "raise",
+            "return",
+            "try",
             "with",
             "while",
             "yield",
