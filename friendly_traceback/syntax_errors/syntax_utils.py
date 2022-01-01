@@ -180,15 +180,19 @@ def highlight_single_token(token):
     return {token.start_row: " " * token.start_col + "^" * len(token.string)}
 
 
-def highlight_two_tokens(first, second, first_marker="^", second_marker="^"):
+def highlight_two_tokens(
+    first, second, first_marker="^", second_marker="^", between=" "
+):
     """Highlight two individual tokens, and give the possibility to use
     different markers for each one.
     """
     if first.start_row == second.start_row:
+        if first.end_col == second.start_col and between == " ":
+            first_marker = second_marker = "^"
         mark = (
             " " * first.start_col
             + first_marker * len(first.string)
-            + " " * (second.start_col - first.end_col)
+            + between * (second.start_col - first.end_col)
             + second_marker * len(second.string)
         )
         return {first.start_row: mark}
@@ -203,31 +207,41 @@ def highlight_range(first, last):
     return {first.start_row: mark}
 
 
-def get_previous_token_before_marker(bad_token, tokens, token_after):
+def get_last_token_before_specified(bad_token, tokens, specified_token):
     first = bad_token
     brackets = []
     prev = first
+    before_first = None
     found_first = False
     for tok in tokens:
         if tok == bad_token:
             found_first = True
+            if prev.string in "([{":
+                before_first = prev
         if not found_first:
+            prev = tok
             continue
         if tok.string in "([{":
             brackets.append(tok.string)
         elif tok.string in ")]}":
             if not brackets:
-                return first, None  # should not happen; unmatched bracket
-            bra = brackets.pop()
-            if not matching_brackets(bra, tok.string):
-                return first, None  # should not happen; unmatched bracket
-        elif not brackets and tok == token_after:
+                if before_first is not None and matching_brackets(
+                    before_first, tok.string
+                ):
+                    first = before_first
+                else:
+                    return first, None  # should not happen; unmatched bracket
+            else:
+                bra = brackets.pop()
+                if not matching_brackets(bra, tok.string):
+                    return first, None  # should not happen; unmatched bracket
+        elif not brackets and tok == specified_token:
             return first, prev
         if (
             tok.start_row != first.start_row or tok.is_comment()
         ):  # statement continue on next line
             if not brackets:
-                debug_helper.log("get_previous_token_before_marker:")
+                debug_helper.log("get_last_token_before_specified:")
                 debug_helper.log("line continues but not open bracket found.")
                 ket = "|"
             else:
@@ -241,8 +255,8 @@ def get_previous_token_before_marker(bad_token, tokens, token_after):
     return first, None
 
 
-def highlight_before_token(bad_token, tokens, token_after):
-    first, last = get_previous_token_before_marker(bad_token, tokens, token_after)
+def highlight_before_specified_token(bad_token, tokens, specified_token):
+    first, last = get_last_token_before_specified(bad_token, tokens, specified_token)
     if last is None:
         return {first.start_row: " " * first.start_col + "^" * len(first.string)}
     elif isinstance(last, tuple):  # statement continue on next line
@@ -255,18 +269,19 @@ def highlight_before_token(bad_token, tokens, token_after):
     return highlight_range(first, last)
 
 
-def get_expression_before_token(bad_token, tokens, token_after):
-    first, last = get_previous_token_before_marker(bad_token, tokens, token_after)
+def get_expression_before_specified_token(bad_token, tokens, specified_token):
+    first, last = get_last_token_before_specified(bad_token, tokens, specified_token)
     if last is None:
         return None
     statement_continue = False
+    ket = ""
     if isinstance(last, tuple):  # statement continue on next line
         last, ket = last
         statement_continue = True
     new_tokens = []
     found_bad = False
     for tok in tokens:
-        if tok == bad_token:
+        if tok == first:
             found_bad = True
         if not found_bad:
             clone = tok.copy()

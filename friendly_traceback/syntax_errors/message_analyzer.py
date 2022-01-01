@@ -135,7 +135,7 @@ def assign_to_conditional_expression(message: str = "", statement=None):
         "    variable = object if condition else other_object\n"
     )
 
-    expression = su.get_expression_before_token(
+    expression = su.get_expression_before_specified_token(
         statement.bad_token, statement.tokens, "="
     )
     if expression is None:
@@ -143,7 +143,7 @@ def assign_to_conditional_expression(message: str = "", statement=None):
             "cause": cause + _assign_to_identifiers_only(),
             "suggest": _assign_to_identifiers_only(),
         }
-    statement.location_markers = su.highlight_before_token(
+    statement.location_markers = su.highlight_before_specified_token(
         statement.bad_token, statement.tokens, "="
     )
     cause = _(
@@ -187,7 +187,9 @@ def assign_to_function_call(message: str = "", statement=None):
 
     hint = _assign_to_identifiers_only()
 
-    fn_call = su.get_expression_before_token(statement.bad_token, statement.tokens, "=")
+    fn_call = su.get_expression_before_specified_token(
+        statement.bad_token, statement.tokens, "="
+    )
     if fn_call is None:
         fn_call = statement.bad_token.string + "(...)"
         cause = _(
@@ -199,7 +201,7 @@ def assign_to_function_call(message: str = "", statement=None):
             fn_call=fn_call,
         )
     else:
-        statement.location_markers = su.highlight_before_token(
+        statement.location_markers = su.highlight_before_specified_token(
             statement.bad_token, statement.tokens, "="
         )
         cause = _(
@@ -227,11 +229,11 @@ def assign_to_generator_expression(message: str = "", statement=None):
         "On the left-hand side of an equal sign, you have a\n"
         "generator expression instead of the name of a variable.\n"
     )
-    expression = su.get_expression_before_token(
+    expression = su.get_expression_before_specified_token(
         statement.bad_token, statement.tokens, "="
     )
     if expression is not None:
-        statement.location_markers = su.highlight_before_token(
+        statement.location_markers = su.highlight_before_specified_token(
             statement.bad_token, statement.tokens, "="
         )
     hint = _assign_to_identifiers_only()
@@ -345,11 +347,11 @@ def assign_to_literal(message: str = "", statement=None):
     ):
         return {}
 
-    expression = su.get_expression_before_token(
+    expression = su.get_expression_before_specified_token(
         statement.bad_token, statement.tokens, "="
     )
     if expression is not None:
-        statement.location_markers = su.highlight_before_token(
+        statement.location_markers = su.highlight_before_specified_token(
             statement.bad_token, statement.tokens, "="
         )
 
