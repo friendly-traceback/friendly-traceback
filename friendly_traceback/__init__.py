@@ -33,7 +33,6 @@ if not valid_version:  # pragma: no cover
 del valid_version
 __version__ = "0.5.1"
 
-
 # ===========================================
 
 import inspect

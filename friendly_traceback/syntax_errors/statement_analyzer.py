@@ -8,7 +8,8 @@ import sys
 
 from .. import debug_helper, token_utils, utils
 from ..ft_gettext import current_lang, internal_error
-from . import error_in_def, fixers, syntax_utils
+from . import error_in_def, fixers
+from . import syntax_utils as su
 
 STATEMENT_ANALYZERS = []
 _ = current_lang.translate
@@ -70,7 +71,7 @@ def analyze_statement(statement):
     on which the error occurred."""
     if not statement.tokens:  # pragma: no cover
         debug_helper.log("Statement with no tokens in statement_analyser.py")
-        return {"cause": internal_error("No tokens")}
+        return {"cause": internal_error(Exception("No tokens"))}
 
     if statement.first_token == "def" or (
         statement.first_token == "async" and statement.tokens[1] == "def"
@@ -109,7 +110,7 @@ def mismatched_brackets(statement):
                 "The closing {bracket} on line {linenumber}"
                 " does not match anything.\n"
             ).format(
-                bracket=syntax_utils.name_bracket(statement.end_bracket),
+                bracket=su.name_bracket(statement.end_bracket),
                 linenumber=statement.end_bracket.start_row,
             )
             + source
@@ -144,9 +145,9 @@ def mismatched_brackets(statement):
             "The closing {bracket} on line {close_lineno} does not match "
             "the opening {open_bracket} on line {open_lineno}.\n"
         ).format(
-            bracket=syntax_utils.name_bracket(statement.end_bracket),
+            bracket=su.name_bracket(statement.end_bracket),
             close_lineno=statement.end_bracket.start_row,
-            open_bracket=syntax_utils.name_bracket(open_bracket),
+            open_bracket=su.name_bracket(open_bracket),
             open_lineno=open_bracket.start_row,
         )
         + source
@@ -167,6 +168,9 @@ def copy_pasted_code(statement):
         and first_token == statement.bad_token
         and statement.next_token == ">"
     ):
+        statement.location_markers = su.highlight_two_tokens(
+            first_token, statement.next_token
+        )
         cause = _(
             "It looks like you copy-pasted code from an interactive interpreter.\n"
             "The Python prompt, `>>>`, should not be included in your code.\n"
@@ -176,6 +180,9 @@ def copy_pasted_code(statement):
         statement.first_token == statement.bad_token
         or statement.prev_token == statement.first_token
     ):
+        statement.location_markers = su.highlight_two_tokens(
+            statement.first_token, statement.tokens[1], first_marker="-", between="-"
+        )
         cause = _(
             "It looks like you copy-pasted code from an interactive interpreter.\n"
             "The Python prompt, `...`, should not be included in your code.\n"
@@ -267,8 +274,17 @@ def confused_elif(statement):
     # skipcq: PYL-R1714
     if statement.bad_token == "elseif" or statement.prev_token == "elseif":
         name = "elseif"
+        if statement.first_token == "elseif":
+            statement.location_markers = su.highlight_single_token(
+                statement.first_token
+            )
+        else:
+            debug_helper.log("problem in confused_elif")
     elif statement.bad_token == "if" and statement.prev_token == "else":
         name = "else if"
+        statement.location_markers = su.highlight_two_tokens(
+            statement.prev_token, statement.bad_token, between="-"
+        )
     if name:
         hint = _("Perhaps you meant to write `elif`.\n")
         cause = _(
@@ -284,6 +300,8 @@ def confused_elif(statement):
 def import_from(statement):
     if statement.bad_token != "from" or statement.tokens[0] != "import":
         return {}
+
+    # TODO: add location marker
 
     function = statement.prev_token
     module = statement.next_token
@@ -698,9 +716,7 @@ def missing_colon(statement):
     name = statement.first_token
 
     hint = _("Did you forget a colon `:`?\n")
-    statement.location_markers = syntax_utils.highlight_missing_symbol(
-        statement.bad_token
-    )
+    statement.location_markers = su.highlight_missing_symbol(statement.bad_token)
 
     if name.string in ("for", "while"):
         cause = _(
@@ -922,7 +938,7 @@ def assign_to_a_keyword(statement):
         cause = possible_cause.format(keyword=statement.bad_token)
     else:
         return {}
-    statement.location_markers = syntax_utils.highlight_single_token(bad_token)
+    statement.location_markers = su.highlight_single_token(bad_token)
     return {"cause": cause, "suggest": hint}
 
 
@@ -1619,7 +1635,7 @@ def unclosed_bracket(statement):
     bracket = statement.begin_brackets[-1]
     # not statement_brackets -> all brackets are closed
     # bad_token match open bracket: problem is not with unclosed bracket
-    if not statement.statement_brackets and syntax_utils.matching_brackets(
+    if not statement.statement_brackets and su.matching_brackets(
         bracket, statement.bad_token
     ):
         return {}
@@ -1635,7 +1651,7 @@ def unclosed_bracket(statement):
     linenumber = bracket.start_row
     start_col = bracket.start_col
 
-    bracket_name = syntax_utils.name_bracket(bracket)
+    bracket_name = su.name_bracket(bracket)
     source = f"\n    {linenumber}: {statement.source_lines[linenumber - 1]}"
     shift = len(str(linenumber)) + start_col + 6
     source += " " * shift + "^\n"
