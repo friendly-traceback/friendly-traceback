@@ -917,17 +917,21 @@ descriptions = {
         in_cause: "You can only use a `return`",
         title: "Cannot use return outside function",
     },
+    "semi_colon_instead_of_colon": {
+        in_cause: "You wrote a semicolon, `;`, where a colon was expected.",
+        title: "Semicolon instead of colon",
+    },
     "semi_colon_instead_of_comma_1": {
         in_cause: "You wrote a semicolon, `;`, where a comma was expected.",
-        title: "semicolon instead of comma - 1",
+        title: "Semicolon instead of comma - 1",
     },
     "semi_colon_instead_of_comma_2": {
         in_cause: "You wrote semicolons, `;`, where commas were expected.",
-        title: "semicolon instead of commas - 2",
+        title: "Semicolon instead of commas - 2",
     },
     "semi_colon_instead_of_comma_3": {
         in_cause: "You wrote semicolons, `;`, where commas were expected.",
-        title: "semicolon instead of commas - 3",
+        title: "Semicolon instead of commas - 3",
     },
     "should_be_comprehension": {
         in_cause: "You cannot have separate code blocks inside list comprehensions.",

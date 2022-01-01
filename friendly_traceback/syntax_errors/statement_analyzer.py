@@ -756,6 +756,23 @@ def semi_colon_instead_of_comma(statement):
 
 
 @add_statement_analyzer
+def semi_colon_instead_of_colon(statement):
+    """Writing a semicolon as a typo"""
+    if statement.bad_token != ";":
+        return {}
+
+    new_statement = fixers.replace_token(
+        statement.statement_tokens, statement.bad_token, ":"
+    )
+    if fixers.check_statement(new_statement):
+        cause = _("You wrote a semicolon, `;`, where a colon was expected.\n")
+        hint = _("Did you mean to write a colon?\n")
+        return {"cause": cause, "suggest": hint}
+
+    return {}  # pragma: no cover
+
+
+@add_statement_analyzer
 def invalid_hexadecimal(statement):
     """Identifies problem caused by invalid character in an hexadecimal number."""
     if statement.highlighted_tokens:  # Python 3.10
