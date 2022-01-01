@@ -698,6 +698,9 @@ def missing_colon(statement):
     name = statement.first_token
 
     hint = _("Did you forget a colon `:`?\n")
+    statement.location_markers = syntax_utils.highlight_missing_symbol(
+        statement.bad_token
+    )
 
     if name.string in ("for", "while"):
         cause = _(

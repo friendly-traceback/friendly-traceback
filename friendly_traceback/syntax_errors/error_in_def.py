@@ -8,6 +8,7 @@ import sys
 from .. import debug_helper, utils
 from ..ft_gettext import current_lang, internal_error
 from . import fixers
+from . import syntax_utils as su
 
 STATEMENT_ANALYZERS = []
 _ = current_lang.translate
@@ -182,6 +183,7 @@ def missing_colon(statement):
         statement.bad_token.string + ":",
     )
     if fixers.check_statement(new_statement):
+        statement.location_markers = su.highlight_missing_symbol(statement.bad_token)
         hint = _("Did you forget to write a colon?\n")
         return {"cause": cause, "suggest": hint}
 

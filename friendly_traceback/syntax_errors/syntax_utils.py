@@ -180,6 +180,11 @@ def highlight_single_token(token):
     return {token.start_row: " " * token.start_col + "^" * len(token.string)}
 
 
+def highlight_missing_symbol(token):
+    """Highlight a missing symbol after a given token"""
+    return {token.start_row: " " * token.start_col + "-" * len(token.string) + "^"}
+
+
 def highlight_two_tokens(
     first, second, first_marker="^", second_marker="^", between=" "
 ):
