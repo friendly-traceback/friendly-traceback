@@ -119,7 +119,8 @@ want to work on translations into your own language.
 
 Some of the ideas were adopted from
 [DidYouMean-Python (aka BetterErrorMessages)](https://github.com/SylvainDe/DidYouMean-Python)
-by Sylvain Desodt, a project that is also using the MIT license.
+by Sylvain Desodt, a project that is also using the MIT license; that particular
+project is no longer maintained.
 
 ## Code of Conduct
 
@@ -128,6 +129,17 @@ We agree with the goals behind the creation of the
 Contributors to this project, including those filing or commenting on an issue,
 are expected to do the same.
 
+
+## Friendly users
+
+Friendly/friendly-traceback is used by:
+
+* [HackInScience](https://hackinscience.org)
+* [futurecoder](https://futurecoder.io)
+* [CodeGrade](https://www.codegrade.com/blog/friendly-better-error-messages-for-python)
+* [ddebug](https://github.com/matan-h/ddebug)
+
+Feel free to contact me to add your project to this list.
 
 ## JetBrains support
 
