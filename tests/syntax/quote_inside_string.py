@@ -1,3 +1,3 @@
 """Should raise SyntaxError: invalid syntax"""
 
-message = 'don't'
+message = 'I don't mind.'

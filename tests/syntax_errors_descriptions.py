@@ -902,11 +902,7 @@ descriptions = {
         title: "problem with assigning a variable to Python",
     },
     "quote_inside_string": {
-        version_dependent: [
-            "ended the string with another quote",
-            "quote inside a string",
-        ],
-        in_cause: "ignored",
+        in_cause: "Perhaps you forgot to escape a quote character",
         title: "Quote inside a string",
     },
     "raise_multiple_exceptions": {

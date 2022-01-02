@@ -9,7 +9,7 @@ import ast
 import re
 import sys
 
-from .. import debug_helper, utils
+from .. import debug_helper, token_utils, utils
 from ..ft_gettext import current_lang, please_report
 from . import error_in_def, fixers, statement_analyzer
 from . import syntax_utils as su
@@ -866,27 +866,69 @@ def eof_unclosed_triple_quoted(message: str = "", _statement=None):
 
 @add_python_message
 def eol_while_scanning_string_literal(message: str = "", statement=None):
-    if (
+    if not (
         "EOL while scanning string literal" in message
-        or "unterminated string literal" in message  # Python 3.10
+        or "unterminated string literal" in message  # Python 3.10+
     ):
-        hint = _("Did you forget a closing quote?\n")
-        cause = _(
-            "You started writing a string with a single or double quote\n"
-            "but never ended the string with another quote on that line.\n"
-        )
-        # skipcq: PYL-R1714
-        # second if case for Python 3.10
-        if statement.prev_token == "\\" or statement.bad_line[-2] == "\\":
-            cause += _(
-                "Perhaps you meant to write the backslash character, `\\`\n"
-                "as the last character in the string and forgot that you\n"
-                "needed to escape it by writing two `\\` in a row.\n"
-            )
-            hint = _("Did you forget to escape a backslash character?\n")
+        return {}
 
-        return {"cause": cause, "suggest": hint}
-    return {}
+    # Default explanation
+    hint = _("Did you forget a closing quote?\n")
+    cause = _(
+        "You started writing a string with a single or double quote\n"
+        "but never ended the string with another quote on that line.\n"
+    )
+    # skipcq: PYL-R1714
+    # second if case for Python 3.10
+    if statement.prev_token == "\\" or statement.bad_line[-2] == "\\":
+        cause += _(
+            "Perhaps you meant to write the backslash character, `\\`\n"
+            "as the last character in the string and forgot that you\n"
+            "needed to escape it by writing two `\\` in a row.\n"
+        )
+        hint = _("Did you forget to escape a backslash character?\n")
+
+    # Perhaps we have an unescaped inner quote:
+    #  ... 'I don't care.'
+    # This gave "SyntaxError: invalid syntax" prior to Python 3.10.
+
+    previous_string = None
+    for tok in statement.tokens:
+        if tok == statement.bad_token:
+            break
+        if tok.is_string():
+            previous_string = tok
+
+    if previous_string is not None:
+        if previous_string.string[-1] == statement.bad_token:
+            new_tokens = []
+            for tok in statement.tokens:
+                if tok == previous_string:
+                    s = tok.string[:-1] + tok.string[-1].replace("'", "\\'").replace(
+                        '"', '\\"'
+                    )
+                    tok_copy = previous_string.copy()
+                    tok_copy.string = s
+                    new_tokens.append(tok_copy)
+                else:
+                    new_tokens.append(tok)
+            new_line = token_utils.untokenize(new_tokens)
+            if fixers.check_statement(new_line):
+                quote_position = previous_string.end_col
+                indent = len(statement.bad_line) - len(statement.bad_line.lstrip())
+                quote_position -= indent
+                mark = " " * (quote_position - 1) + "^^"
+
+                hint = _("Perhaps you forgot to escape a quote character.\n")
+                cause = _(
+                    "I suspect that you were trying to use a quote character inside a string\n"
+                    "that was enclosed in quotes of the same kind.\n"
+                    "Perhaps you should have escaped the inner quote character:\n\n"
+                    "    {new_line}\n"
+                    "    {mark}\n"
+                ).format(new_line=new_line, mark=mark)
+
+    return {"cause": cause, "suggest": hint}
 
 
 @add_python_message
@@ -1892,14 +1934,14 @@ def you_found_it(message: str = "", statement=None):  # pragma: no cover
 
 
 @add_python_message
-def cannot_delete_something_else(message: str = "", statement=None):
+def cannot_delete_something_else(message: str = "", _statement=None):
     if not message.startswith("cannot delete"):
         return {}
     return {"cause": _can_only_delete()}
 
 
 @add_python_message
-def assign_to_others(message: str = "", statement=None):
+def assign_to_others(message: str = "", _statement=None):
     if not message.startswith("cannot assign to"):
         return {}
     hint = _assign_to_identifiers_only()

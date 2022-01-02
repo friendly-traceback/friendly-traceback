@@ -301,28 +301,27 @@ def import_from(statement):
     if statement.bad_token != "from" or statement.tokens[0] != "import":
         return {}
 
-    # TODO: add location marker
-
     function = statement.prev_token
     module = statement.next_token
-
+    statement.location_markers = su.highlight_two_tokens(
+        statement.tokens[0], statement.bad_token
+    )
     hint = _("Did you mean `from {module} import {function}`?\n").format(
         module=module, function=function
     )
     cause = _(
         "You wrote something like\n\n"
-        "    import {function} from {module}\n"
+        "    import {function} from {module}\n\n"
         "instead of\n\n"
         "    from {module} import {function}\n\n"
-        "\n"
     ).format(module=module, function=function)
     return {"cause": cause, "suggest": hint}
 
 
 @add_statement_analyzer
 def misplaced_quote(statement):
-    """This looks for a misplaced quote, something like
-       info = 'don't ...
+    """This looks for a single misplaced quote, something like
+       info = 'I don't mind.'
 
     The clue we are looking for is a STRING token ('don')
     followed by something else than a string.
@@ -330,18 +329,35 @@ def misplaced_quote(statement):
     if not statement.prev_token.is_string():
         return {}
 
-    bad_token = statement.bad_token
-    if bad_token.is_identifier():
-        hint = _("Perhaps you misplaced a quote.\n")
-        cause = _(
-            "There appears to be a Python identifier (variable name)\n"
-            "immediately following a string.\n"
-            "I suspect that you were trying to use a quote inside a string\n"
-            "that was enclosed in quotes of the same kind.\n"
-        )
-        return {"cause": cause, "suggest": hint}
+    # Create a new line escaping an inner quote for the entire line.
+    new_tokens = []
+    for tok in statement.tokens:
+        if tok == statement.prev_token:
+            s = tok.string[:-1] + tok.string[-1].replace("'", "\\'").replace('"', '\\"')
+            tok_copy = statement.prev_token.copy()
+            tok_copy.string = s
+            new_tokens.append(tok_copy)
+        else:
+            new_tokens.append(tok)
 
-    return {}
+    new_line = token_utils.untokenize(new_tokens)
+    if not fixers.check_statement(new_line):
+        return {}
+
+    quote_position = statement.prev_token.end_col
+    indent = len(statement.bad_line) - len(statement.bad_line.lstrip())
+    quote_position -= indent
+    mark = " " * (quote_position - 1) + "^^"
+
+    hint = _("Perhaps you forgot to escape a quote character.\n")
+    cause = _(
+        "I suspect that you were trying to use a quote character inside a string\n"
+        "that was enclosed in quotes of the same kind.\n"
+        "Perhaps you should have escaped the inner quote character:\n\n"
+        "    {new_line}\n"
+        "    {mark}\n"
+    ).format(new_line=new_line, mark=mark)
+    return {"cause": cause, "suggest": hint}
 
 
 @add_statement_analyzer
@@ -351,6 +367,7 @@ def detect_walrus(statement):
     """
     if sys.version_info >= (3, 8):
         return {}
+    # TODO: add location marker
 
     # Normally, the token identified as the bad token should be
     # '='; however, in some test cases where a named assignment
