@@ -367,7 +367,6 @@ def detect_walrus(statement):
     """
     if sys.version_info >= (3, 8):
         return {}
-    # TODO: add location marker
 
     # Normally, the token identified as the bad token should be
     # '='; however, in some test cases where a named assignment
@@ -432,6 +431,7 @@ def inverted_operators(statement):
         correct=correct,
         wrong=first.string + second.string,
     )
+    statement.location_markers = su.highlight_two_tokens(first, second)
 
     new_statement = fixers.replace_two_tokens(
         statement.statement_tokens,
@@ -452,6 +452,10 @@ def consecutive_operators(statement):
 
     if not (is_op(statement.bad_token) and is_op(statement.prev_token)):
         return {}
+
+    statement.location_markers = su.highlight_two_tokens(
+        statement.prev_token, statement.bad_token
+    )
 
     if statement.bad_token == "=" and statement.prev_token == "==":
         cause = _(
@@ -513,6 +517,7 @@ def _walrus_instead_of_equal_39(statement):
 
 @add_statement_analyzer
 def walrus_instead_of_equal(statement):
+    # TODO: check this
     if (3, 8) < sys.version_info < (3, 10):
         bad_token = _walrus_instead_of_equal_39(statement)
         if bad_token is None:
@@ -594,32 +599,22 @@ def print_as_statement(statement):
     ):
         return {}
 
+    content = statement.entire_statement.replace("print", "", 1).strip()
+    possible_statement = f"print({content})"
+    valid = fixers.check_statement(possible_statement)
+    if "\n" in content or len(content) > 40 or not valid:
+        message = "..."
+    else:
+        message = content
     cause = _(
+        "Perhaps you need to type\n\n"
+        "     print({message})\n\n"
         "In older version of Python, `print` was a keyword.\n"
         "Now, `print` is a function; you need to use parentheses to call it.\n"
-    )
-    bad_line = statement.bad_line
-    valid = True
-    if bad_line.count("(") == bad_line.count(")"):
-        new_line = bad_line.replace("print", "", 1).strip()
-        possible_statement = f"print({new_line})"
-        valid = fixers.check_statement(possible_statement)
-        if not valid:
-            if '"' not in new_line:
-                new_line = f'"{new_line}"'
-            elif "'" not in new_line:
-                new_line = f"'{new_line}'"
-            else:
-                new_line = "..."
-        if len(new_line) > 30:
-            parts = new_line.split(" ")
-            new_line = parts[0] + " ... " + parts[-1]
-        new_line = "print(" + new_line + ")"
-    else:
-        new_line = "print(...)"
-    hint = _("Did you mean `{new_line}`?\n").format(new_line=new_line)
+    ).format(message=message)
     if not valid:
         cause += _("Note that arguments of `print` must be separated by commas.\n")
+    hint = _("Did you mean `print({message})`?\n").format(message=message)
     return {"cause": cause, "suggest": hint}
 
 

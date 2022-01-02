@@ -1628,23 +1628,19 @@ def positional_argument_follows_keyword_arg(message: str = "", _statement=None):
 
 
 @add_python_message
-def python2_print(message: str = "", _statement=None):
+def python2_print(message: str = "", statement=None):
     if not message.startswith(
         "Missing parentheses in call to 'print'. Did you mean print("
     ):
         return {}
-    message = message[59:-2]
-    possible_statement = f"print({message})"
+
+    content = statement.entire_statement.replace("print", "", 1).strip()
+    possible_statement = f"print({content})"
     valid = fixers.check_statement(possible_statement)
-    if not valid:
-        if '"' not in message:
-            message = f'"{message}"'
-        elif "'" not in message:
-            message = f"'{message}'"
-        else:
-            message = "'...'"
-    if len(message) > 40:
-        message = message[0:25] + " ... "
+    if "\n" in content or len(content) > 40 or not valid:
+        message = "..."
+    else:
+        message = content
     cause = _(
         "Perhaps you need to type\n\n"
         "     print({message})\n\n"
