@@ -417,9 +417,10 @@ class Statement:
             "yield",
         ]
 
+        last_line_to_include = self.linenumber
         for token in source_tokens:
             if (
-                token.start_row > self.linenumber
+                token.start_row > last_line_to_include
                 and not continuation_line
                 and not self.statement_brackets
             ):
@@ -438,11 +439,18 @@ class Statement:
             if token.start_row > previous_row:
                 if previous_token is not None:
                     continuation_line = previous_token.line.endswith("\\\n")
-                if token.start_row <= self.linenumber and not self.statement_brackets:
+                if (
+                    token.start_row <= last_line_to_include
+                    and not self.statement_brackets
+                ):
                     if self.statement_tokens:
                         self.all_statements.append(self.statement_tokens[:])
                     self.statement_tokens = []
                     self.begin_brackets = []
+                if token.start_row > last_line_to_include and self.statement_brackets:
+                    # The statement continues beyond the line with the error, so
+                    # we make sure to include this additional line.
+                    last_line_to_include = token.start_row
                 previous_row = token.start_row
 
             self.statement_tokens.append(token)
@@ -464,7 +472,7 @@ class Statement:
                 ):
                     self.highlighted_tokens.append(token)
             elif (
-                token.start_row == self.linenumber
+                token.start_row == last_line_to_include
                 and token.start_col <= self.offset <= token.end_col
                 and self.bad_token is None
                 and token.string.strip()
