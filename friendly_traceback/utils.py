@@ -271,3 +271,17 @@ def get_bad_statement(tb_data: "TracebackData") -> str:
         elif hasattr(tb_data, "bad_line"):
             return tb_data.bad_line
         return ""
+
+
+def to_code_block(code: str) -> str:
+    """Takes some code and indent it with an added empty line at the top
+    and bottom so that it is usable as a Markdown code block without
+    showing the triple backquotes.
+    """
+    indent = " " * 4
+    new_lines = ["\n"]
+    lines = code.split("\n")
+    for line in lines:
+        new_lines.append(f"{indent}{line}")
+    new_lines.append("\n")
+    return "\n".join(new_lines)
