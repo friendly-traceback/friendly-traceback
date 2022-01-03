@@ -301,3 +301,14 @@ def get_expression_before_specified_token(bad_token, tokens, specified_token):
             break
         new_tokens.append(tok)
     return token_utils.untokenize(new_tokens).strip()
+
+
+def add_mark_to_new_statement(statement_object, new_statement, mark):
+    lines = []
+    for line, new_line in zip(
+        statement_object.entire_statement.split("\n"), new_statement.split("\n")
+    ):
+        lines.append(new_line)
+        if line.strip() != new_line.strip():
+            lines.append(mark)
+    return "\n".join(lines)

@@ -1034,8 +1034,8 @@ def missing_comma_before_string_in_dict(statement):
     """Special case where keys and values in a dict are strings which are
     not separated by commas."""
 
-    # This is a bit of an usual case as the error occurred due to a forgotten comma
-    # two tokens before the token flagged by Python.
+    # This is a bit of an unusual case as the error occurred due to
+    # a forgotten comma two tokens before the token flagged by Python.
     if not (
         statement.begin_brackets
         and statement.begin_brackets[-1] == "{"
@@ -1045,10 +1045,10 @@ def missing_comma_before_string_in_dict(statement):
     ):
         return {}
 
+    before_prev = statement.tokens[statement.bad_token_index - 2]
+
     new_statement = fixers.replace_token(
-        statement.statement_tokens,
-        statement.prev_token,
-        "," + statement.prev_token.string,
+        statement.statement_tokens, before_prev, before_prev.string + ","
     )
     if not fixers.check_statement(new_statement):
         return {}
@@ -1057,11 +1057,13 @@ def missing_comma_before_string_in_dict(statement):
         "I am guessing that you forgot a comma between two strings\n"
         "when defining a dict.\n\n"
     ).format(kwd=statement.bad_token)
-    # TODO: Use custom marker instead
+    mark = su.highlight_missing_symbol(before_prev)
+
     new_statement = fixers.replace_token(
-        statement.statement_tokens,
-        statement.prev_token,
-        " «,» " + statement.prev_token.string,
+        statement.statement_tokens, before_prev, before_prev.string + ","
+    )
+    new_statement = su.add_mark_to_new_statement(
+        statement, new_statement, mark[before_prev.start_row]
     )
     cause += "```\n" + new_statement + "\n```"
     hint = _("Did you forget a comma?\n")
@@ -1318,20 +1320,20 @@ def _comma_first_cause(bracket):
             "It is possible that you "
             "forgot a comma between items in a tuple, \n"
             "or between function arguments, \n"
-            "before the position indicated by ^.\n"
+            "at the position indicated by ^.\n"
         )
 
     if bracket == "[":
         return _(
             "It is possible that you "
             "forgot a comma between items in a list\n"
-            "before the position indicated by ^.\n"
+            "at the position indicated by ^.\n"
         )
 
     return _(
         "It is possible that you "
         "forgot a comma between items in a set or dict\n"
-        "before the position indicated by ^.\n"
+        "at the position indicated by ^.\n"
     )
 
 
@@ -1373,16 +1375,28 @@ def missing_comma_or_operator(statement):
     if not results:
         return {}
 
+    if prev_token.start_row == bad_token.start_row:
+        statement.location_markers = su.highlight_two_tokens(
+            prev_token, bad_token, first_marker="_", second_marker="_", between="^"
+        )
+    else:
+        statement.location_markers = su.highlight_missing_symbol(prev_token)
+
     if len(results) == 1 or statement.first_token.string in ["def", "async", "class"]:
         operator, line = results[0]
-        # reducing multiple spaces to single space for nicer display
-        temp = line.split(" ")
-        temp = [x for x in temp if x]
-        line = " ".join(temp)
+        if "\n" in line:
+            lines = line.split("\n")
+            lines = ["    " + line_ for line_ in lines]
+            line = "    \n".join(lines)
+        else:
+            # reducing multiple spaces on single line to single space for nicer display
+            temp = line.split(" ")
+            temp = [x for x in temp if x]
+            line = " ".join(temp)
         if "," in operator:
             hint = _("Did you forget a comma?\n")
             cause = possible_cause + comma_first_cause
-            cause += _("Perhaps you meant\n\n    {line}\n").format(line=line)
+            cause += _("Perhaps you meant\n\n{line}\n").format(line=line)
         else:
             hint = _("Did you mean `{line}`?\n").format(line=line)
             cause = possible_cause
