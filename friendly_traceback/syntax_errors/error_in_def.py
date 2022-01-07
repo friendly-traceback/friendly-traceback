@@ -183,7 +183,7 @@ def missing_colon(statement):
         statement.bad_token.string + ":",
     )
     if fixers.check_statement(new_statement):
-        statement.location_markers = su.highlight_missing_symbol(statement.bad_token)
+        statement.location_markers = su.highlight_added_token(statement.bad_token, ":")
         hint = _("Did you forget to write a colon?\n")
         return {"cause": cause, "suggest": hint}
 

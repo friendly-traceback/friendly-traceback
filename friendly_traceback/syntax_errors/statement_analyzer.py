@@ -728,7 +728,7 @@ def missing_colon(statement):
     name = statement.first_token
 
     hint = _("Did you forget a colon `:`?\n")
-    statement.location_markers = su.highlight_missing_symbol(statement.bad_token)
+    statement.location_markers = su.highlight_added_token(statement.bad_token, ":")
 
     if name.string in ("for", "while"):
         cause = _(
@@ -1057,7 +1057,7 @@ def missing_comma_before_string_in_dict(statement):
         "I am guessing that you forgot a comma between two strings\n"
         "when defining a dict.\n\n"
     ).format(kwd=statement.bad_token)
-    mark = su.highlight_missing_symbol(before_prev)
+    mark = su.highlight_added_token(before_prev, ",")
 
     new_statement = fixers.replace_token(
         statement.statement_tokens, before_prev, before_prev.string + ","
@@ -1380,7 +1380,9 @@ def missing_comma_or_operator(statement):
             prev_token, bad_token, between="^"
         )
     else:
-        statement.location_markers = su.highlight_missing_symbol(prev_token)
+        statement.location_markers = su.highlight_two_tokens(
+            prev_token, bad_token, first_marker="-", between="->"
+        )
 
     # TODO: fix the cases with def/async/class
     if len(new_statements) == 1 or statement.first_token.string in [
@@ -1390,15 +1392,19 @@ def missing_comma_or_operator(statement):
     ]:
         operator, line = new_statements[0]
         if "\n" in line:
-            lines = line.split("\n")
-            lines = ["    " + line_ for line_ in lines]
-            line = "    \n".join(lines)
+            mark = su.highlight_added_token(prev_token, "^")
+            line = su.add_mark_to_new_statement(
+                statement, line, mark[prev_token.start_row]
+            )
+            # lines = line.split("\n")
+            # lines = ["    " + line_ for line_ in lines]
+            # line = "    \n".join(lines)
         else:
             # reducing multiple spaces on single line to single space for nicer display
             temp = line.split(" ")
             temp = [x for x in temp if x]
             line = " ".join(temp)
-            mark = su.highlight_missing_symbol(prev_token)
+            mark = su.highlight_added_token(prev_token, "^")
             line = su.add_mark_to_new_statement(
                 statement, line, mark[prev_token.start_row]
             )

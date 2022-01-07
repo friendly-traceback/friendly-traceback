@@ -180,9 +180,10 @@ def highlight_single_token(token):
     return {token.start_row: " " * token.start_col + "^" * len(token.string)}
 
 
-def highlight_missing_symbol(token):
-    """Highlight a missing symbol after a given token"""
-    return {token.start_row: " " * token.start_col + "-" * len(token.string) + "^"}
+def highlight_added_token(prev_token, token):
+    """Highlight a newly added token after a previously existing one"""
+    token = str(token)
+    return {prev_token.start_row: " " * prev_token.end_col + "^" * len(token)}
 
 
 def highlight_two_tokens(
@@ -201,7 +202,7 @@ def highlight_two_tokens(
             + second_marker * len(second.string)
         )
         return {first.start_row: mark}
-    mark_1 = " " * first.start_col + first_marker * len(first.string)
+    mark_1 = " " * first.start_col + first_marker * len(first.string) + between.strip()
     mark_2 = " " * second.start_col + second_marker * len(second.string)
     return {first.start_row: mark_1, second.start_row: mark_2}
 

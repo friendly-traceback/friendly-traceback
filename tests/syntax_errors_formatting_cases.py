@@ -4,20 +4,17 @@ This is done from the file
 /tests/formatting/catch_for_formatting_tsts.py
 """
 
-title = "title"
-version_dependent = "version dependent"
-in_cause = "in cause"
-also_in_cause = "also in cause"
-not_in_cause = "not in cause"
+where = "parsing_error_source"
+cause = "cause"
 
 descriptions = {}
 
 descriptions["single_line"] = {}
-descriptions["single_line"]["parsing_error_source"]= """\
+descriptions["single_line"][where]= """\
     -->1: a = {'a': 1, 'b': 2 'c': 3,}
                             ^^^^^
 """
-descriptions["single_line"]["cause"] = """\
+descriptions["single_line"][cause] = """\
     a = {'a': 1, 'b': 2, 'c': 3,}
-                      -^
+                       ^
 """
