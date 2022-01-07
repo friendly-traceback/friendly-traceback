@@ -18,5 +18,20 @@ def test_Generic():
     return result, message
 
 
+def test_Huge_lenght():
+    huge = range(1<<10000)
+    try:
+        len(huge)
+    except OverflowError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "Python int too large to convert to C ssize_t" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Object too large to be processed by Python." in result
+
+    return result, message
+
+
 if __name__ == "__main__":
     print(test_Generic()[0])

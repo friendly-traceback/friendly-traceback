@@ -379,6 +379,8 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
             value = value[0 : MAX_LENGTH - 5] + "..." + value[-1]
         try:
             length_info = len(obj)
+        except OverflowError:
+            length_info = _("Object too large to be processed by Python.")
         except TypeError:
             pass
 

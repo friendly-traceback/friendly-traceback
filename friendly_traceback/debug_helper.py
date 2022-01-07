@@ -24,7 +24,6 @@ IS_ANDRE = (
 )
 DEBUG = IS_PYDEV or IS_ANDRE
 SHOW_DEBUG_HELPER = False
-EXIT = False
 
 
 def log(text: Any) -> None:
@@ -33,16 +32,9 @@ def log(text: Any) -> None:
 
 
 def log_error(exc: Optional[BaseException] = None) -> None:
-    global EXIT
     if DEBUG:  # pragma: no cover
-        from . import explain_traceback
-
         if exc is not None:
             print(repr(exc))
-        if not EXIT:
-            EXIT = True
-            explain_traceback()
-        log("Fatal error - aborting")
         sys.exit()
 
 
