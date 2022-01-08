@@ -383,6 +383,8 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
             length_info = _("Object too large to be processed by Python.")
         except TypeError:
             pass
+        except Exception as e:
+            length_info = _("Unable to compute.") + f" ({e.__class__.__name__})"
 
     result = f"    {_global}{name}:  {value}"
     if length_info:
