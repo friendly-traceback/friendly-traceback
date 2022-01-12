@@ -331,6 +331,3 @@ def did_exception_occur_before() -> bool:
             session.exception_before_import = True
             return True
     return False
-
-
-did_exception_occur_before()
