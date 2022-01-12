@@ -15,6 +15,11 @@ from .syntax_utils import matching_brackets
 # neighbours, the code for the analysis can be greatly simplified as we do
 # not have to verify the existence of these neighbours.
 MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
+# fmt: off
+LINE_NUMBER        = "       {:%d}: "  # noqa
+MARKED_LINE_NUMBER = "    -->{:%d}: "  # noqa
+LINE_GAP           = "       (...)"  # noqa
+# fmt: on
 
 
 class Statement:
@@ -263,6 +268,8 @@ class Statement:
         """Restricts the lines of code to be included when showing the location
         of the error.
         """
+        self.create_location_markers()
+
         last_linenumber_included = -1
         lines = []
         prev_token = self.all_statements[0][0]
@@ -306,16 +313,16 @@ class Statement:
         """Adds the caret marks used to show the location of the error"""
         new_lines = []
         nb_digits = len(str(self.linenumber))
-        no_mark = "       {:%d}: " % nb_digits
-        with_mark = "    -->{:%d}: " % nb_digits
-        leading_spaces = " " * (9 + nb_digits)
-
-        self.create_location_markers()
+        no_mark = LINE_NUMBER % nb_digits
+        with_mark = MARKED_LINE_NUMBER % nb_digits
+        # leading_spaces = " " * (9 + nb_digits)
+        # # leading_spaces = " " * (len(no_mark) - 3)
 
         for i, line in lines:
             if i in self.location_markers:
                 num = with_mark.format(i)
                 new_lines.append(num + line)
+                leading_spaces = " " * (len(LINE_NUMBER % i) - 3)
                 new_lines.append(leading_spaces + self.location_markers[i])
             else:
                 num = no_mark.format(i)

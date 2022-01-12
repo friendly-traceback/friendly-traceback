@@ -1381,7 +1381,7 @@ def missing_comma_or_operator(statement):
         )
     else:
         statement.location_markers = su.highlight_two_tokens(
-            prev_token, bad_token, first_marker="-", between="->"
+            prev_token, bad_token, first_marker="^", between="-->"
         )
 
     # TODO: fix the cases with def/async/class
