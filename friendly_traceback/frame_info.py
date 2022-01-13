@@ -113,9 +113,21 @@ class FrameInfo(stack_data.FrameInfo):
         with_mark = "    -->{:%d}: " % nb_digits
 
         text_range_mark = None
-        if with_node_range and self.node_info and self.node_info[1]:
-            begin, end = self.node_info[1]
-            text_range_mark = " " * (8 + nb_digits + begin + 1) + "^" * (end - begin)
+        if with_node_range and self.node_info:
+            if self.node_info[1]:
+                begin, end = self.node_info[1]
+                text_range_mark = " " * (8 + nb_digits + begin + 1) + "^" * (
+                    end - begin
+                )
+            elif self.node_info[2] and isinstance(self.node_info[2], str):
+                text = self.node_info[2]
+                for line_obj in lines:
+                    if line_obj.is_current:
+                        begin = line_obj.text.find(text)
+                        if begin >= 0:
+                            text_range_mark = " " * (
+                                8 + nb_digits + begin + 1
+                            ) + "^" * len(text)
 
         marked = False
         for line_obj in lines:
