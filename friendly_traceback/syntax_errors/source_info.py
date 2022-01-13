@@ -282,18 +282,27 @@ class Statement:
 
     def annotate_lines(self, lines):
         """Adds the caret marks used to show the location of the error"""
-        new_lines = []
-        nb_digits = len(str(self.linenumber))
+        # Lines is a list of tuples, each tuple has the line number
+        # as a first item, and the text of the line as the second.
+
+        if lines:
+            # Ensures that we align all the lines vertically on a colon
+            # following the line number, even if the number of digits
+            # changes, i.e. we include lines 8, 9, 10, 11.
+            nb_digits = len(str(lines[-1][0]))
+        else:
+            debug_helper.log("No line to annotate in annotate_lines")
+            self.formatted_partial_source = "\n"
+            return
         no_mark = LINE_NUMBER % nb_digits
         with_mark = MARKED_LINE_NUMBER % nb_digits if len(lines) > 1 else no_mark
-        # leading_spaces = " " * (9 + nb_digits)
-        # # leading_spaces = " " * (len(no_mark) - 3)
+        leading_spaces = " " * (len(LINE_NUMBER % lines[-1][0]) - 3)
 
+        new_lines = []
         for i, line in lines:
             if i in self.location_markers:
                 num = with_mark.format(i)
                 new_lines.append(num + line)
-                leading_spaces = " " * (len(LINE_NUMBER % i) - 3)
                 new_lines.append(leading_spaces + self.location_markers[i])
             else:
                 num = no_mark.format(i)
