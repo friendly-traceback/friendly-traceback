@@ -620,9 +620,9 @@ class FriendlyTraceback:
                 "Python could not understand the code in the file\n'{filename}'\n"
             ).format(filename=short_filename)
 
-        if "-->" in partial_source and "^" in partial_source:
+        if "  ^" in partial_source:
             self.info["parsing_error"] = could_not_understand + _(
-                "at the location indicated by ^.\n"
+                "at the location indicated.\n"
             ).format(filename=short_filename)
             if filepath in ["<string>", "<stdin>"] and self.tb_data.value.lineno != 1:
                 self.info["parsing_error"] += not_regular_file

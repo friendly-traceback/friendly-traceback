@@ -269,44 +269,15 @@ class Statement:
         of the error.
         """
         self.create_location_markers()
-
-        last_linenumber_included = -1
-        lines = []
-        prev_token = self.all_statements[0][0]
-        end_docstring = False
-        for statement in self.all_statements:
-            # TODO: simplify this to use first and last token to determine if statement
-            # should be kept.
-            for token in statement:
-                current_linenumber = token.start_row
-                current_line = token.line.rstrip()
-                if lines and prev_token.end_row == current_linenumber:
-                    continue
-                if self.linenumber < current_linenumber and token == statement[0]:
-                    break
-                if self.linenumber - current_linenumber < 5:
-                    if end_docstring == current_line:
-                        end_docstring = False
-                        continue
-                    if "\n" in current_line:
-                        text = current_line.split("\n")  # handle docstring
-                        for line in text:
-                            lines.append((current_linenumber, line))
-                            current_linenumber += 1
-                        end_docstring = text[-1]
-                        current_linenumber -= 1
-                    else:
-                        lines.append((current_linenumber, current_line))
-                    last_linenumber_included = current_linenumber
-                else:
-                    if "\n" in current_line:
-                        text = current_line.split("\n")
-                        end_docstring = text[-1]
-                prev_token = token
-
-        if self.linenumber > last_linenumber_included:
-            # The problem line was an empty line
-            lines.append((last_linenumber_included + 1, ""))
+        first_token = self.all_statements[0][0]
+        lines = get_lines_from_statement(
+            self.statement_tokens, self.linenumber, first_token
+        )
+        if lines:
+            last_linenumber_included, _ = lines[-1]
+            if self.linenumber > last_linenumber_included:
+                # The problem line was an empty line
+                lines.append((last_linenumber_included + 1, ""))
         return lines
 
     def annotate_lines(self, lines):
@@ -314,7 +285,7 @@ class Statement:
         new_lines = []
         nb_digits = len(str(self.linenumber))
         no_mark = LINE_NUMBER % nb_digits
-        with_mark = MARKED_LINE_NUMBER % nb_digits
+        with_mark = MARKED_LINE_NUMBER % nb_digits if len(lines) > 1 else no_mark
         # leading_spaces = " " * (9 + nb_digits)
         # # leading_spaces = " " * (len(no_mark) - 3)
 
@@ -548,3 +519,34 @@ class Statement:
                 self.bad_token_index = index
             index += 1
         return tokens
+
+
+def get_lines_from_statement(tokens, linenumber, prev_token):
+    lines = []
+    end_docstring = False
+    for token in tokens:
+        current_linenumber = token.start_row
+        current_line = token.line.rstrip()
+        if lines and prev_token.end_row == current_linenumber:
+            continue
+        if linenumber < current_linenumber and token == tokens[0]:
+            break
+        if linenumber - current_linenumber < 5:
+            if end_docstring == current_line:
+                end_docstring = False
+                continue
+            if "\n" in current_line:
+                text = current_line.split("\n")  # handle docstring
+                for line in text:
+                    lines.append((current_linenumber, line))
+                    current_linenumber += 1
+                end_docstring = text[-1]
+                current_linenumber -= 1
+            else:
+                lines.append((current_linenumber, current_line))
+        else:
+            if "\n" in current_line:
+                text = current_line.split("\n")
+                end_docstring = text[-1]
+        prev_token = token
+    return lines
