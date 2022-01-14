@@ -5,13 +5,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2022-01-07 08:57-0400\n"
-=======
-"POT-Creation-Date: 2022-01-13 18:27-0400\n"
->>>>>>> BetterFormatting
+"POT-Creation-Date: 2022-01-13 21:08-0400\n"
 "PO-Revision-Date: \n"
-"Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -626,7 +622,11 @@ msgstr "un `tuple`"
 msgid "Object too large to be processed by Python."
 msgstr "Objet trop grand pour être traité par Python."
 
-#: info_variables.py:448
+#: info_variables.py:387
+msgid "Unable to compute."
+msgstr "Impossible de calculer."
+
+#: info_variables.py:450
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -1724,11 +1724,7 @@ msgstr ""
 
 #: runtime_errors\type_error.py:201 runtime_errors\type_error.py:760
 #: runtime_errors\type_error.py:866 syntax_errors\statement_analyzer.py:1156
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1401
-=======
 #: syntax_errors\statement_analyzer.py:1416
->>>>>>> BetterFormatting
 msgid "Did you mean `{line}`?\n"
 msgstr "Vouliez-vous dire `{line}` ?\n"
 
@@ -2029,11 +2025,7 @@ msgstr ""
 "aurait dû être écrit avant le crochet `[` débutant cette liste.\n"
 
 #: runtime_errors\type_error.py:682 syntax_errors\statement_analyzer.py:1069
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1397
-=======
 #: syntax_errors\statement_analyzer.py:1412
->>>>>>> BetterFormatting
 msgid "Did you forget a comma?\n"
 msgstr "Avez-vous oublié une virgule ?\n"
 
@@ -3059,11 +3051,7 @@ msgstr ""
 "variables).\n"
 
 #: syntax_errors\message_analyzer.py:26
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1519
-=======
 #: syntax_errors\statement_analyzer.py:1534
->>>>>>> BetterFormatting
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
@@ -3492,11 +3480,7 @@ msgstr ""
 "correspondante.\n"
 
 #: syntax_errors\message_analyzer.py:787 syntax_errors\message_analyzer.py:991
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1579
-=======
 #: syntax_errors\statement_analyzer.py:1594
->>>>>>> BetterFormatting
 msgid "Did you forget to write a dict value?\n"
 msgstr "Avez-vous oublié d'écrire une valeur pour un `dict` ?\n"
 
@@ -3628,11 +3612,7 @@ msgstr ""
 "ou qu'il contient un point, etc.\n"
 
 #: syntax_errors\message_analyzer.py:987
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1570
-=======
 #: syntax_errors\statement_analyzer.py:1585
->>>>>>> BetterFormatting
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you forgot to write a value after a colon.\n"
@@ -4926,14 +4906,6 @@ msgstr ""
 "ceci n’est pas permis.\n"
 
 #: syntax_errors\statement_analyzer.py:1319
-<<<<<<< HEAD
-#, fuzzy
-#| msgid ""
-#| "It is possible that you forgot a comma between items in a tuple, \n"
-#| "or between function arguments, \n"
-#| "before the position indicated by ^.\n"
-=======
->>>>>>> BetterFormatting
 msgid ""
 "It is possible that you forgot a comma between items in a tuple, \n"
 "or between function arguments, \n"
@@ -4945,13 +4917,6 @@ msgstr ""
 "à la position indiquée par ^.\n"
 
 #: syntax_errors\statement_analyzer.py:1327
-<<<<<<< HEAD
-#, fuzzy
-#| msgid ""
-#| "It is possible that you forgot a comma between items in a list\n"
-#| "before the position indicated by ^.\n"
-=======
->>>>>>> BetterFormatting
 msgid ""
 "It is possible that you forgot a comma between items in a list\n"
 "at the position indicated by ^.\n"
@@ -4961,13 +4926,6 @@ msgstr ""
 "à la position indiquée par ^.\n"
 
 #: syntax_errors\statement_analyzer.py:1333
-<<<<<<< HEAD
-#, fuzzy
-#| msgid ""
-#| "It is possible that you forgot a comma between items in a set or dict\n"
-#| "before the position indicated by ^.\n"
-=======
->>>>>>> BetterFormatting
 msgid ""
 "It is possible that you forgot a comma between items in a set or dict\n"
 "at the position indicated by ^.\n"
@@ -4984,28 +4942,6 @@ msgstr ""
 "Python indique que l’erreur est causée par `{second}` écrit tout juste après "
 "`{first}`.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1399
-#, fuzzy
-#| msgid ""
-#| "Perhaps you meant\n"
-#| "\n"
-#| "    {line}\n"
-msgid ""
-"Perhaps you meant\n"
-"\n"
-"{line}\n"
-msgstr ""
-"Peut-être que vous vouliez plutôt\n"
-"\n"
-"    {line}\n"
-
-#: syntax_errors\statement_analyzer.py:1406
-msgid "Did you forget something between `{first}` and `{second}`?\n"
-msgstr "Avez-vous oublié quelque chose entre `{first}` et `{second}` ?\n"
-
-#: syntax_errors\statement_analyzer.py:1421
-=======
 #: syntax_errors\statement_analyzer.py:1414
 msgid "Perhaps you meant{line}"
 msgstr "Vous vouliez peut-être dire{line}"
@@ -5015,7 +4951,6 @@ msgid "Did you forget something between `{first}` and `{second}`?\n"
 msgstr "Avez-vous oublié quelque chose entre `{first}` et `{second}` ?\n"
 
 #: syntax_errors\statement_analyzer.py:1436
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you meant to insert an operator like `{operators}`\n"
 "between `{first}` and `{second}`.\n"
@@ -5027,11 +4962,7 @@ msgstr ""
 "Les lignes de code suivantes ne causeraient pas des `SyntaxError :\n"
 "\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1430
-=======
 #: syntax_errors\statement_analyzer.py:1445
->>>>>>> BetterFormatting
 msgid ""
 "Note: these are just some of the possible choices and that\n"
 "some of them might raise other types of exceptions.\n"
@@ -5039,19 +4970,11 @@ msgstr ""
 "Remarque : ce ne sont là que quelques-uns des choix possibles et\n"
 "certains d’entre eux pourraient soulever d’autres types d’exceptions.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1437
-msgid "There is an additional possibility.\n"
-msgstr "Il existe une autre possibilité.\n"
-
-#: syntax_errors\statement_analyzer.py:1452
-=======
 #: syntax_errors\statement_analyzer.py:1452
 msgid "There is an additional possibility.\n"
 msgstr "Il existe une autre possibilité.\n"
 
 #: syntax_errors\statement_analyzer.py:1467
->>>>>>> BetterFormatting
 msgid ""
 "It is possible that you used an equal sign `=` instead of a colon `:`\n"
 "to assign values to keys in a dict\n"
@@ -5062,11 +4985,7 @@ msgstr ""
 "pour attribuer des valeurs à une clé d'un dictionnaire\n"
 "avant ou exactement à la position indiquée par ^.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1469
-=======
 #: syntax_errors\statement_analyzer.py:1484
->>>>>>> BetterFormatting
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 "Perhaps you meant to write\n"
@@ -5079,11 +4998,7 @@ msgstr ""
 "\n"
 "`{new_statement}`\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1501
-=======
 #: syntax_errors\statement_analyzer.py:1516
->>>>>>> BetterFormatting
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -5107,11 +5022,7 @@ msgstr ""
 "    from {module} import objet_1 as nom_1\n"
 "    from {module} import objet_2 as nom_2 # si nécessaire\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1531
-=======
 #: syntax_errors\statement_analyzer.py:1546
->>>>>>> BetterFormatting
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
@@ -5119,19 +5030,11 @@ msgstr ""
 "Je suppose que vous avez écrit {bad_token} deux fois de suite par erreur.\n"
 "Si c’est le cas, vous devez supprimer le second.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1535
-msgid "Did you write {bad_token} twice by mistake?\n"
-msgstr "Avez-vous écrit {bad_token} deux fois par erreur ?\n"
-
-#: syntax_errors\statement_analyzer.py:1554
-=======
 #: syntax_errors\statement_analyzer.py:1550
 msgid "Did you write {bad_token} twice by mistake?\n"
 msgstr "Avez-vous écrit {bad_token} deux fois par erreur ?\n"
 
 #: syntax_errors\statement_analyzer.py:1569
->>>>>>> BetterFormatting
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
@@ -5139,19 +5042,11 @@ msgstr ""
 "Je suppose que vous avez écrit {bad_token} par erreur.\n"
 "Écrire simplement `{line}` semble corriger l’erreur.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1558
-msgid "Did you write {bad_token} by mistake?\n"
-msgstr "Avez-vous écrit {bad_token} par erreur ?\n"
-
-#: syntax_errors\statement_analyzer.py:1575
-=======
 #: syntax_errors\statement_analyzer.py:1573
 msgid "Did you write {bad_token} by mistake?\n"
 msgstr "Avez-vous écrit {bad_token} par erreur ?\n"
 
 #: syntax_errors\statement_analyzer.py:1590
->>>>>>> BetterFormatting
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps wrote a dict key without writing the corresponding value.\n"
@@ -5161,11 +5056,7 @@ msgstr ""
 "Vous avez peut-être écrit une clé de `dict` sans écrire la valeur "
 "correspondante.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1591
-=======
 #: syntax_errors\statement_analyzer.py:1606
->>>>>>> BetterFormatting
 msgid ""
 "The `else` keyword does not begin a code block that matches\n"
 "a valid code block, possibly because `else` is not indented correctly.\n"
@@ -5174,11 +5065,7 @@ msgstr ""
 "un bloc de code valide, peut-être parce que `else` n'est pas indenté "
 "correctement.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1606
-=======
 #: syntax_errors\statement_analyzer.py:1621
->>>>>>> BetterFormatting
 msgid ""
 "The `elif` keyword does not begin a code block that matches\n"
 "an `if` block, possibly because `elif` is not indented correctly.\n"
@@ -5186,19 +5073,11 @@ msgstr ""
 "Le mot clé `elif` ne commence pas un bloc de code qui correspond à un bloc\n"
 "un bloc `if`, peut-être parce que `elif` n'est pas indenté correctement.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1638
-msgid "You used square brackets, `[...]` instead of parentheses.\n"
-msgstr "Vous avez utilisé des crochets, `[...]` au lieu de parenthèses.\n"
-
-#: syntax_errors\statement_analyzer.py:1642
-=======
 #: syntax_errors\statement_analyzer.py:1653
 msgid "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr "Vous avez utilisé des crochets, `[...]` au lieu de parenthèses.\n"
 
 #: syntax_errors\statement_analyzer.py:1657
->>>>>>> BetterFormatting
 msgid ""
 "Write the following instead:\n"
 "\n"
@@ -5208,29 +5087,17 @@ msgstr ""
 "\n"
 "{new_statement}"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1686
-=======
 #: syntax_errors\statement_analyzer.py:1701
->>>>>>> BetterFormatting
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr ""
 "Le symbole {bracket} à la ligne {linenumber} n'est pas fermé par le symbole "
 "correspondant.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1700
-msgid "If this is incorrect, please report this case.\n"
-msgstr "Si cela est incorrect, veuillez signaler ce cas.\n"
-
-#: syntax_errors\statement_analyzer.py:1712
-=======
 #: syntax_errors\statement_analyzer.py:1715
 msgid "If this is incorrect, please report this case.\n"
 msgstr "Si cela est incorrect, veuillez signaler ce cas.\n"
 
 #: syntax_errors\statement_analyzer.py:1727
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a generator expression.\n"
@@ -5241,11 +5108,7 @@ msgstr ""
 "Vous ne pouvez pas avoir de blocs de code distincts à l'intérieur des "
 "expressions génératrices.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1718
-=======
 #: syntax_errors\statement_analyzer.py:1733
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a list comprehension.\n"
@@ -5256,11 +5119,7 @@ msgstr ""
 "Vous ne pouvez pas avoir de blocs de code séparés à l'intérieur des "
 "compréhensions de liste.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1724
-=======
 #: syntax_errors\statement_analyzer.py:1739
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a dict or set comprehension.\n"
@@ -5271,11 +5130,7 @@ msgstr ""
 "Vous ne pouvez pas avoir de blocs de code séparés à l'intérieur des "
 "compréhensions de type dict ou set.\n"
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1730
-=======
 #: syntax_errors\statement_analyzer.py:1745
->>>>>>> BetterFormatting
 msgid "If this explanation is incorrect, please report this case.\n"
 msgstr "Si cette explication est incorrecte, veuillez signaler ce cas.\n"
 
@@ -5399,6 +5254,20 @@ msgstr ""
 "{name}\n"
 "Je pense que vous vouliez plutôt écrire la fraction `{num}/{denom}`.\n"
 
+#, fuzzy
+#~| msgid ""
+#~| "Perhaps you meant\n"
+#~| "\n"
+#~| "    {line}\n"
+#~ msgid ""
+#~ "Perhaps you meant\n"
+#~ "\n"
+#~ "{line}\n"
+#~ msgstr ""
+#~ "Peut-être que vous vouliez plutôt\n"
+#~ "\n"
+#~ "    {line}\n"
+
 #~ msgid ""
 #~ "In older version of Python, `print` was a keyword.\n"
 #~ "Now, `print` is a function; you need to use parentheses to call it.\n"
@@ -5410,8 +5279,6 @@ msgstr ""
 #~ msgid "Did you mean `{new_line}`?\n"
 #~ msgstr "Vouliez-vous dire `{new_line}` ?\n"
 
-<<<<<<< HEAD
-=======
 #~ msgid ""
 #~ "Perhaps you meant\n"
 #~ "\n"
@@ -5421,7 +5288,6 @@ msgstr ""
 #~ "\n"
 #~ "    {line}\n"
 
->>>>>>> BetterFormatting
 #~ msgid "Perhaps you misplaced a quote.\n"
 #~ msgstr "Vous avez peut-être un guillemet écrit au mauvais endroit.\n"
 

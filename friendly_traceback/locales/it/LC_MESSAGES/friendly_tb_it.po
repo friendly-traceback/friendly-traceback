@@ -1,13 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2022-01-07 08:57-0400\n"
-=======
-"POT-Creation-Date: 2022-01-13 18:27-0400\n"
->>>>>>> BetterFormatting
+"POT-Creation-Date: 2022-01-13 21:08-0400\n"
 "PO-Revision-Date: \n"
-"Last-Translator: André Roberge <andre.roberge@gmail.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -520,7 +516,11 @@ msgstr "una `tuple`"
 msgid "Object too large to be processed by Python."
 msgstr ""
 
-#: info_variables.py:448
+#: info_variables.py:387
+msgid "Unable to compute."
+msgstr ""
+
+#: info_variables.py:450
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -1347,11 +1347,7 @@ msgstr ""
 
 #: runtime_errors\type_error.py:201 runtime_errors\type_error.py:760
 #: runtime_errors\type_error.py:866 syntax_errors\statement_analyzer.py:1156
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1401
-=======
 #: syntax_errors\statement_analyzer.py:1416
->>>>>>> BetterFormatting
 msgid "Did you mean `{line}`?\n"
 msgstr ""
 
@@ -1573,11 +1569,7 @@ msgid ""
 msgstr ""
 
 #: runtime_errors\type_error.py:682 syntax_errors\statement_analyzer.py:1069
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1397
-=======
 #: syntax_errors\statement_analyzer.py:1412
->>>>>>> BetterFormatting
 msgid "Did you forget a comma?\n"
 msgstr ""
 
@@ -2336,11 +2328,7 @@ msgid "You can only assign objects to identifiers (variable names).\n"
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:26
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1519
-=======
 #: syntax_errors\statement_analyzer.py:1534
->>>>>>> BetterFormatting
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
@@ -2654,11 +2642,7 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:787 syntax_errors\message_analyzer.py:991
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1579
-=======
 #: syntax_errors\statement_analyzer.py:1594
->>>>>>> BetterFormatting
 msgid "Did you forget to write a dict value?\n"
 msgstr ""
 
@@ -2750,11 +2734,7 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:987
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1570
-=======
 #: syntax_errors\statement_analyzer.py:1585
->>>>>>> BetterFormatting
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you forgot to write a value after a colon.\n"
@@ -3678,20 +3658,6 @@ msgid ""
 "after `{first}`.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1399
-msgid ""
-"Perhaps you meant\n"
-"\n"
-"{line}\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1406
-msgid "Did you forget something between `{first}` and `{second}`?\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1421
-=======
 #: syntax_errors\statement_analyzer.py:1414
 msgid "Perhaps you meant{line}"
 msgstr ""
@@ -3701,7 +3667,6 @@ msgid "Did you forget something between `{first}` and `{second}`?\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:1436
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you meant to insert an operator like `{operators}`\n"
 "between `{first}` and `{second}`.\n"
@@ -3709,40 +3674,24 @@ msgid ""
 "\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1430
-=======
 #: syntax_errors\statement_analyzer.py:1445
->>>>>>> BetterFormatting
 msgid ""
 "Note: these are just some of the possible choices and that\n"
 "some of them might raise other types of exceptions.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1437
-msgid "There is an additional possibility.\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1452
-=======
 #: syntax_errors\statement_analyzer.py:1452
 msgid "There is an additional possibility.\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:1467
->>>>>>> BetterFormatting
 msgid ""
 "It is possible that you used an equal sign `=` instead of a colon `:`\n"
 "to assign values to keys in a dict\n"
 "before or at the position indicated by ^.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1469
-=======
 #: syntax_errors\statement_analyzer.py:1484
->>>>>>> BetterFormatting
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 "Perhaps you meant to write\n"
@@ -3750,11 +3699,7 @@ msgid ""
 "`{new_statement}`\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1501
-=======
 #: syntax_errors\statement_analyzer.py:1516
->>>>>>> BetterFormatting
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -3767,102 +3712,55 @@ msgid ""
 "    from {module} import object_2 as name_2  # if needed\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1531
-=======
 #: syntax_errors\statement_analyzer.py:1546
->>>>>>> BetterFormatting
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1535
-msgid "Did you write {bad_token} twice by mistake?\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1554
-=======
 #: syntax_errors\statement_analyzer.py:1550
 msgid "Did you write {bad_token} twice by mistake?\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:1569
->>>>>>> BetterFormatting
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1558
-msgid "Did you write {bad_token} by mistake?\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1575
-=======
 #: syntax_errors\statement_analyzer.py:1573
 msgid "Did you write {bad_token} by mistake?\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:1590
->>>>>>> BetterFormatting
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps wrote a dict key without writing the corresponding value.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1591
-=======
 #: syntax_errors\statement_analyzer.py:1606
->>>>>>> BetterFormatting
 msgid ""
 "The `else` keyword does not begin a code block that matches\n"
 "a valid code block, possibly because `else` is not indented correctly.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1606
-=======
 #: syntax_errors\statement_analyzer.py:1621
->>>>>>> BetterFormatting
 msgid ""
 "The `elif` keyword does not begin a code block that matches\n"
 "an `if` block, possibly because `elif` is not indented correctly.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1638
-msgid "You used square brackets, `[...]` instead of parentheses.\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1642
-=======
 #: syntax_errors\statement_analyzer.py:1653
 msgid "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:1657
->>>>>>> BetterFormatting
 msgid ""
 "Write the following instead:\n"
 "\n"
 "{new_statement}"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1686
-msgid "The opening {bracket} on line {linenumber} is not closed.\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1700
-msgid "If this is incorrect, please report this case.\n"
-msgstr ""
-
-#: syntax_errors\statement_analyzer.py:1712
-=======
 #: syntax_errors\statement_analyzer.py:1701
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr ""
@@ -3872,40 +3770,27 @@ msgid "If this is incorrect, please report this case.\n"
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:1727
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a generator expression.\n"
 "You cannot have separate code blocks inside generator expressions.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1718
-=======
 #: syntax_errors\statement_analyzer.py:1733
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a list comprehension.\n"
 "You cannot have separate code blocks inside list comprehensions.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1724
-=======
 #: syntax_errors\statement_analyzer.py:1739
->>>>>>> BetterFormatting
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a dict or set comprehension.\n"
 "You cannot have separate code blocks inside dict or set comprehensions.\n"
 msgstr ""
 
-<<<<<<< HEAD
-#: syntax_errors\statement_analyzer.py:1730
-=======
 #: syntax_errors\statement_analyzer.py:1745
->>>>>>> BetterFormatting
 msgid "If this explanation is incorrect, please report this case.\n"
 msgstr ""
 
