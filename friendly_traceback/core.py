@@ -63,13 +63,9 @@ class TracebackData:
         self.exception_name = etype.__name__
         self.value = value
         self.message = convert_value_to_message(value)
-        if isinstance(tb, str):  # for SyntaxErrors from IDLE hack
-            self.formatted_tb = tb
-            self.records = []
-        else:
-            self.formatted_tb = traceback.format_exception(etype, value, tb)
-            self.records = self.get_records(tb)
-            self.python_records = self.get_records(tb, python_excluded=False)
+        self.formatted_tb = traceback.format_exception(etype, value, tb)
+        self.records = self.get_records(tb)
+        self.python_records = self.get_records(tb, python_excluded=False)
 
         # The following three attributes get their correct values in get_source_info()
         self.bad_line = "\n"
