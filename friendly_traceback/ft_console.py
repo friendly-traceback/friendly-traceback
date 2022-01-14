@@ -17,8 +17,8 @@ from typing import Any, Callable, Mapping, Optional, Union
 import friendly_traceback
 
 from . import source_cache
-from .config import session
-from .console_helpers import helpers
+from .config import did_exception_occur_before, session
+from .console_helpers import friendly_tb, helpers
 from .ft_gettext import current_lang
 from .typing_info import Formatter, InclusionChoice
 
@@ -76,6 +76,15 @@ class FriendlyTracebackConsole(InteractiveConsole):
             sys.ps1 = "[1]: "
             sys.ps2 = "...: "
         super().__init__(locals=local_vars)
+        session.suggest_console = ""
+
+    def interact(self, banner=None, exitmsg=None) -> None:
+        if not session.exception_before_import:
+            if did_exception_occur_before():
+                print(banner)
+                banner = ""
+                friendly_tb()
+        super().interact(banner=banner, exitmsg=exitmsg)
 
     def push(self, line: str) -> bool:
         """Push a line to the interpreter.
