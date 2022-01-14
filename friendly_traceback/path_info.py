@@ -30,6 +30,10 @@ def exclude_file_from_traceback(full_path: StrPath) -> None:
     """
     # full_path could be a pathlib.Path instance
     full_path = str(full_path)
+    if full_path.startswith("<"):
+        # https://github.com/friendly-traceback/friendly-traceback/issues/107
+        EXCLUDED_FILE_PATH.add(full_path)
+        return
     # full_path could be a relative path; see issue #81
     full_path = os.path.abspath(full_path)
     if not os.path.isfile(full_path):
@@ -66,6 +70,9 @@ def is_excluded_file(full_path: StrPath, python_excluded: bool = True) -> bool:
     """Determines if the file belongs to the group that is excluded from tracebacks."""
     # full_path could be a pathlib.Path instance
     full_path = str(full_path)
+    # https://github.com/friendly-traceback/friendly-traceback/issues/107
+    if full_path.startswith("<") and full_path in EXCLUDED_FILE_PATH:
+        return True
     full_path = os.path.abspath(full_path)
     if full_path.startswith("<frozen "):
         return True
