@@ -257,7 +257,7 @@ def simplify_repr(name: str, splitlines: bool = True) -> str:
     """
     if not name.startswith("<") or not name.endswith(">"):
         debug_helper.log("simplify_repr called on name that is not of the form <...>")
-        debug_helper.log(f"{name=}")
+        debug_helper.log(f"name={name}")
         return name
     end_angle = ">>" if name.endswith(">>") else ">"
 
