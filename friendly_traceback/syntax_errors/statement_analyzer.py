@@ -728,7 +728,7 @@ def missing_colon(statement):
     name = statement.first_token
 
     hint = _("Did you forget a colon `:`?\n")
-    statement.location_markers = su.highlight_missing_symbol(statement.bad_token)
+    statement.location_markers = su.highlight_added_token(statement.bad_token, ":")
 
     if name.string in ("for", "while"):
         cause = _(
@@ -1057,7 +1057,7 @@ def missing_comma_before_string_in_dict(statement):
         "I am guessing that you forgot a comma between two strings\n"
         "when defining a dict.\n\n"
     ).format(kwd=statement.bad_token)
-    mark = su.highlight_missing_symbol(before_prev)
+    mark = su.highlight_added_token(before_prev, ",")
 
     new_statement = fixers.replace_token(
         statement.statement_tokens, before_prev, before_prev.string + ","
@@ -1369,40 +1369,55 @@ def missing_comma_or_operator(statement):
         comma_first = False
         comma_first_cause = ""
 
-    results = _add_comma_or_operator(
+    new_statements = _add_comma_or_operator(
         statement.statement_tokens, prev_token, comma_first=comma_first
     )
-    if not results:
+    if not new_statements:
         return {}
 
     if prev_token.start_row == bad_token.start_row:
         statement.location_markers = su.highlight_two_tokens(
-            prev_token, bad_token, first_marker="_", second_marker="_", between="^"
+            prev_token, bad_token, between="^"
         )
     else:
-        statement.location_markers = su.highlight_missing_symbol(prev_token)
+        statement.location_markers = su.highlight_two_tokens(
+            prev_token, bad_token, first_marker="^", between="-->"
+        )
 
-    if len(results) == 1 or statement.first_token.string in ["def", "async", "class"]:
-        operator, line = results[0]
+    # TODO: fix the cases with def/async/class
+    if len(new_statements) == 1 or statement.first_token.string in [
+        "def",
+        "async",
+        "class",
+    ]:
+        operator, line = new_statements[0]
         if "\n" in line:
-            lines = line.split("\n")
-            lines = ["    " + line_ for line_ in lines]
-            line = "    \n".join(lines)
+            mark = su.highlight_added_token(prev_token, "^")
+            line = su.add_mark_to_new_statement(
+                statement, line, mark[prev_token.start_row]
+            )
+            # lines = line.split("\n")
+            # lines = ["    " + line_ for line_ in lines]
+            # line = "    \n".join(lines)
         else:
             # reducing multiple spaces on single line to single space for nicer display
             temp = line.split(" ")
             temp = [x for x in temp if x]
             line = " ".join(temp)
+            mark = su.highlight_added_token(prev_token, "^")
+            line = su.add_mark_to_new_statement(
+                statement, line, mark[prev_token.start_row]
+            )
         if "," in operator:
             hint = _("Did you forget a comma?\n")
             cause = possible_cause + comma_first_cause
-            cause += _("Perhaps you meant\n\n{line}\n").format(line=line)
+            cause += _("Perhaps you meant{line}").format(line=utils.to_code_block(line))
         else:
             hint = _("Did you mean `{line}`?\n").format(line=line)
             cause = possible_cause
     else:
-        operators = [operator for operator, line in results]
-        lines = [line for operator, line in results]
+        operators = [operator for operator, line in new_statements]
+        lines = [line for operator, line in new_statements]
         hint = _("Did you forget something between `{first}` and `{second}`?\n").format(
             first=prev_token, second=bad_token
         )

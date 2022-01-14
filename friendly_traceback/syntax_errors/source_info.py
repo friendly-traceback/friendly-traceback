@@ -15,6 +15,11 @@ from .syntax_utils import matching_brackets
 # neighbours, the code for the analysis can be greatly simplified as we do
 # not have to verify the existence of these neighbours.
 MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
+# fmt: off
+LINE_NUMBER        = "       {:%d}: "  # noqa
+MARKED_LINE_NUMBER = "    -->{:%d}: "  # noqa
+LINE_GAP           = "       (...)"  # noqa
+# fmt: on
 
 
 class Statement:
@@ -263,55 +268,37 @@ class Statement:
         """Restricts the lines of code to be included when showing the location
         of the error.
         """
-        last_linenumber_included = -1
-        lines = []
-        prev_token = self.all_statements[0][0]
-        end_docstring = False
-        for statement in self.all_statements:
-            # TODO: simplify this to use first and last token to determine if statement
-            # should be kept.
-            for token in statement:
-                current_linenumber = token.start_row
-                current_line = token.line.rstrip()
-                if lines and prev_token.end_row == current_linenumber:
-                    continue
-                if self.linenumber < current_linenumber and token == statement[0]:
-                    break
-                if self.linenumber - current_linenumber < 5:
-                    if end_docstring == current_line:
-                        end_docstring = False
-                        continue
-                    if "\n" in current_line:
-                        text = current_line.split("\n")  # handle docstring
-                        for line in text:
-                            lines.append((current_linenumber, line))
-                            current_linenumber += 1
-                        end_docstring = text[-1]
-                        current_linenumber -= 1
-                    else:
-                        lines.append((current_linenumber, current_line))
-                    last_linenumber_included = current_linenumber
-                else:
-                    if "\n" in current_line:
-                        text = current_line.split("\n")
-                        end_docstring = text[-1]
-                prev_token = token
-
-        if self.linenumber > last_linenumber_included:
-            # The problem line was an empty line
-            lines.append((last_linenumber_included + 1, ""))
+        self.create_location_markers()
+        first_token = self.all_statements[0][0]
+        lines = get_lines_from_statement(
+            self.statement_tokens, self.linenumber, first_token
+        )
+        if lines:
+            last_linenumber_included, _ = lines[-1]
+            if self.linenumber > last_linenumber_included:
+                # The problem line was an empty line
+                lines.append((last_linenumber_included + 1, ""))
         return lines
 
     def annotate_lines(self, lines):
         """Adds the caret marks used to show the location of the error"""
+        # Lines is a list of tuples, each tuple has the line number
+        # as a first item, and the text of the line as the second.
+
+        if lines:
+            # Ensures that we align all the lines vertically on a colon
+            # following the line number, even if the number of digits
+            # changes, i.e. we include lines 8, 9, 10, 11.
+            nb_digits = len(str(lines[-1][0]))
+        else:
+            debug_helper.log("No line to annotate in annotate_lines")
+            self.formatted_partial_source = "\n"
+            return
+        no_mark = LINE_NUMBER % nb_digits
+        with_mark = MARKED_LINE_NUMBER % nb_digits if len(lines) > 1 else no_mark
+        leading_spaces = " " * (len(LINE_NUMBER % lines[-1][0]) - 3)
+
         new_lines = []
-        nb_digits = len(str(self.linenumber))
-        no_mark = "       {:%d}: " % nb_digits
-        with_mark = "    -->{:%d}: " % nb_digits
-        leading_spaces = " " * (9 + nb_digits)
-
-        self.create_location_markers()
-
         for i, line in lines:
             if i in self.location_markers:
                 num = with_mark.format(i)
@@ -541,3 +528,34 @@ class Statement:
                 self.bad_token_index = index
             index += 1
         return tokens
+
+
+def get_lines_from_statement(tokens, linenumber, prev_token):
+    lines = []
+    end_docstring = False
+    for token in tokens:
+        current_linenumber = token.start_row
+        current_line = token.line.rstrip()
+        if lines and prev_token.end_row == current_linenumber:
+            continue
+        if linenumber < current_linenumber and token == tokens[0]:
+            break
+        if linenumber - current_linenumber < 5:
+            if end_docstring == current_line:
+                end_docstring = False
+                continue
+            if "\n" in current_line:
+                text = current_line.split("\n")  # handle docstring
+                for line in text:
+                    lines.append((current_linenumber, line))
+                    current_linenumber += 1
+                end_docstring = text[-1]
+                current_linenumber -= 1
+            else:
+                lines.append((current_linenumber, current_line))
+        else:
+            if "\n" in current_line:
+                text = current_line.split("\n")
+                end_docstring = text[-1]
+        prev_token = token
+    return lines

@@ -306,6 +306,11 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     return info["_tb_data"]
 
 
+def _get_info() -> list:
+    """Debugging tool: returns the content of a traceback info."""
+    return session.saved_info[-1] if session.saved_info else []
+
+
 def _show_info() -> None:  # pragma: no cover
     """Debugging tool: shows the complete content of traceback info.
 
@@ -357,6 +362,7 @@ add_help_attribute(helpers)
 debug_helper_methods: Dict[str, Callable[..., Any]] = {
     "_debug_tb": _debug_tb,
     "_get_frame": _get_frame,
+    "_get_info": _get_info,
     "_show_info": _show_info,
     "_get_tb_data": _get_tb_data,
     "_get_exception": _get_exception,
