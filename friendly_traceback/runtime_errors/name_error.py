@@ -284,7 +284,7 @@ def missing_self_cause(
     name: str, unknown_name: str, obj: Any, scope: str, first_arg_self: bool, hint: str
 ) -> Tuple[str, str]:
     obj_repr = repr(obj)
-    if obj_repr.startswith("<"):
+    if obj_repr.startswith("<") and obj_repr.endswith(">"):
         obj_repr = info_variables.simplify_repr(obj_repr, splitlines=False)
     if first_arg_self and name == "self":
         suggest = _("Did you write `self` at the wrong place?\n")
