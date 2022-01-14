@@ -335,7 +335,7 @@ def simplify_bound_method(name: str, splitlines: bool = False) -> str:
     return name
 
 
-def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
+def format_var_info(name: str, value: str, obj: object, _global: str = "") -> str:
     """Formats the variable information so that it fits on a single line
     for each variable.
 
@@ -356,6 +356,9 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     not_repr = True
     if value.startswith("<") and value.endswith(">"):
         value = simplify_repr(value)
+        not_repr = False
+    elif hasattr(obj, "__rich_repr__"):
+        value = simplify_repr(obj.__class__)
         not_repr = False
 
     if len(value) > MAX_LENGTH and not_repr:
