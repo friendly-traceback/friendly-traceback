@@ -87,7 +87,12 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                 if name in scope_dict:
                     names.add(name)
                     obj = scope_dict[name]
-                    objects[scope].append((name, repr(obj), obj))
+                    if hasattr(obj, "true_repr"):
+                        # guard against the case where obj == Friendly; #106
+                        repr_obj = obj.true_repr()
+                    else:
+                        repr_obj = repr(obj)
+                    objects[scope].append((name, repr_obj, obj))
                     objects["name, obj"].append((name, obj))
                     break
             else:
@@ -250,15 +255,11 @@ def simplify_repr(name: str, splitlines: bool = True) -> str:
     Does additional formatting in an attempt to make the names (repr)
     more readable.
     """
-    if not name.startswith("<"):
-        debug_helper.log("simplify_repr called on name that does not start with <")
-    if name.endswith(">>"):
-        end_angle = ">>"
-    elif name.endswith(">"):
-        end_angle = ">"
-    else:
-        debug_helper.log(f"in simplify_repr, unexpected ending of {name}")
-        end_angle = ""
+    if not name.startswith("<") or not name.endswith(">"):
+        debug_helper.log("simplify_repr called on name that is not of the form <...>")
+        return name
+    end_angle = ">>" if name.endswith(">>") else ">"
+
     bound_method = "bound method" in name
     if " at " in name:
         # There are two reasons to remove the memory location information:
@@ -335,7 +336,7 @@ def simplify_bound_method(name: str, splitlines: bool = False) -> str:
     return name
 
 
-def format_var_info(name: str, value: str, obj: object, _global: str = "") -> str:
+def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     """Formats the variable information so that it fits on a single line
     for each variable.
 
@@ -356,9 +357,6 @@ def format_var_info(name: str, value: str, obj: object, _global: str = "") -> st
     not_repr = True
     if value.startswith("<") and value.endswith(">"):
         value = simplify_repr(value)
-        not_repr = False
-    elif hasattr(obj, "__rich_repr__"):
-        value = simplify_repr(obj.__class__)
         not_repr = False
 
     if len(value) > MAX_LENGTH and not_repr:

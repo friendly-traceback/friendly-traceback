@@ -385,7 +385,6 @@ class FriendlyHelpers:
 
     def __init__(self) -> None:
         self.helpers = {}
-        self.__class__.__name__ = "Friendly"  # For a nicer Rich repr
 
     def add_helper(self, function: Callable) -> None:  # pragma: no cover
         """Adds a helper base on its name and the function it refers to."""
@@ -428,7 +427,7 @@ class FriendlyHelpers:
             "The following methods of the Friendly object should also "
             "be available as functions."
         )
-        parts = [header + "\n\n"]
+        parts = [self.true_repr() + "\n" + header + "\n\n"]
         for name in basic_helpers:
             parts.append(name + "(): ")
             fn = self.helpers[name]
@@ -448,6 +447,10 @@ class FriendlyHelpers:
                 else:
                     print("Warning:", name, "has no help() method.")
         return "".join(parts)
+
+    def true_repr(self) -> str:  # pragma: no cover
+        """Method that can be called when a normal looking repr is needed."""
+        return "<class FriendlyHelpers>"
 
 
 Friendly = FriendlyHelpers()
