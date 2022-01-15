@@ -7,8 +7,11 @@ they are considered to be internal functions, subject to change at any
 time. If functions defined in friendly_traceback.__init__.py do not meet your needs,
 please file an issue.
 """
+import contextlib
 import inspect
+import io
 import re
+import sys
 import traceback
 import types
 from itertools import dropwhile
@@ -35,13 +38,30 @@ _ = current_lang.translate
 def convert_value_to_message(value: BaseException) -> str:
     """This converts the 'value' of an exception into a string, while
     being safe to use for custom exceptions which have been incorrectly
-    defined. See issue #181 for an example.
+    defined. See https://github.com/aroberge/friendly/issues/181 for an example.
     """
     try:
         message = str(value)
     except Exception:  # noqa
         message = STR_FAILED
     return message
+
+
+def retrieve_message(etype: Type[_E], value: _E, tb: types.TracebackType) -> str:
+    "Safely retrieves the message, including any additional hint from Python."
+    message = convert_value_to_message(value)
+    if (
+        message == STR_FAILED
+        or sys.version_info < (3, 10)
+        or etype not in (AttributeError, NameError)
+    ):
+        return message
+    # 3.10+ hints are not directly accessible from Python.
+    err = io.StringIO()
+    with contextlib.redirect_stderr(err):
+        sys.__excepthook__(etype, value, tb)
+    full_message = err.getvalue().split("\n")[-2]
+    return full_message.split(":", 1)[1].strip()
 
 
 class TracebackData:
@@ -62,7 +82,7 @@ class TracebackData:
         self.exception_type = etype
         self.exception_name = etype.__name__
         self.value = value
-        self.message = convert_value_to_message(value)
+        self.message = retrieve_message(etype, value, tb)
         self.formatted_tb = traceback.format_exception(etype, value, tb)
         self.records = self.get_records(tb)
         self.python_records = self.get_records(tb, python_excluded=False)
@@ -350,7 +370,7 @@ class FriendlyTraceback:
             raise SystemExit
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
         self.info = {"header": _("Python exception:")}
-        self.message = self.assign_message()  # language independent
+        self.message = self.assign_message(etype, value, tb)  # language independent
         self.assign_tracebacks()
 
         # include some values for debugging purpose in an interactive session
@@ -358,19 +378,17 @@ class FriendlyTraceback:
         self.info["_frame"] = self.tb_data.exception_frame
         self.info["_tb_data"] = self.tb_data
 
-    def assign_message(self) -> str:
+    def assign_message(self, etype, value, tb) -> str:
         """Assigns the error message, as the attribute ``message``
         which is something like::
 
             NameError: name 'a' is not defined
         """
-        exc_name = self.tb_data.exception_name
-
-        value = self.tb_data.value
+        exc_name = etype.__name__
         if hasattr(value, "msg"):
             self.info["message"] = f"{exc_name}: {value.msg}\n"
         else:
-            message = convert_value_to_message(value)
+            message = retrieve_message(etype, value, tb)
             self.info["message"] = f"{exc_name}: {message}\n"
         return self.info["message"]
 
