@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-01-13 21:08-0400\n"
+"POT-Creation-Date: 2022-01-15 16:32-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -71,7 +71,7 @@ msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:427
+#: console_helpers.py:426
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -79,15 +79,15 @@ msgstr ""
 "Les méthodes suivantes de l'objet Friendly devraient également être "
 "disponibles en tant que fonctions."
 
-#: core.py:355
+#: core.py:371
 msgid "More lines not shown."
 msgstr "Plus de lignes non affichées."
 
-#: core.py:356 core.py:397
+#: core.py:372 core.py:411
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:413
+#: core.py:427
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -101,45 +101,45 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:466
+#: core.py:480
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:542
+#: core.py:556
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:547
+#: core.py:561
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du bloc de code {filename}.\n"
 
-#: core.py:551
+#: core.py:565
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:580
+#: core.py:594
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du block de code "
 "{filename}.\n"
 
-#: core.py:584
+#: core.py:598
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:601
+#: core.py:615
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr "Le contenu de `{filename}` n'est pas entièrement disponible.\n"
 
-#: core.py:615
+#: core.py:629
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:619
+#: core.py:633
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -147,11 +147,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:624
+#: core.py:638
 msgid "at the location indicated.\n"
 msgstr "à l'endroit indiqué.\n"
 
-#: core.py:857
+#: core.py:871
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -230,56 +230,56 @@ msgid "Shows the paths corresponding to synonyms used."
 msgstr "Affiche les chemins correspondant aux synonymes utilisés."
 
 #: functions_help.py:15
-msgid "Changes the prompt style to be used in the console."
-msgstr "Modifie le style d'invite à utiliser dans la console."
+msgid "Changes the prompt style to be used in the Friendly console."
+msgstr "Modifie le style d'invite à utiliser dans la console Friendly."
 
-#: functions_help.py:16
+#: functions_help.py:18
 msgid "Shows the generic meaning of a given exception."
 msgstr "Indique la signification générique d'une exception donnée."
 
-#: functions_help.py:17
+#: functions_help.py:19
 msgid "Shows where an exception was raised."
 msgstr "Indique où une exception a été levée."
 
-#: functions_help.py:18
+#: functions_help.py:20
 msgid "Shows the likely cause of the exception."
 msgstr "Indique la cause probable de l'exception."
 
-#: functions_help.py:19
+#: functions_help.py:21
 msgid "Opens a web browser at a useful location."
 msgstr "Ouvre un navigateur web à un endroit utile."
 
-#: functions_help.py:20
+#: functions_help.py:22
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr "Suggestion parfois ajoutée à un traceback simplifié."
 
-#: functions_help.py:21
+#: functions_help.py:23
 msgid "Shows a normal Python traceback."
 msgstr "Affiche un traceback Python normal."
 
-#: functions_help.py:22
+#: functions_help.py:24
 msgid "Shows a simplified Python traceback."
 msgstr "Affiche un traceback Python simplifié."
 
-#: functions_help.py:23
+#: functions_help.py:25
 msgid "Returns the current value used for items to include by default."
 msgstr ""
 "Renvoie la valeur actuelle utilisée pour les éléments à inclure par défaut."
 
-#: functions_help.py:26
+#: functions_help.py:28
 msgid "Sets the items to show by default when an exception is raised."
 msgstr ""
 "Définit les éléments à afficher par défaut lorsqu'une exception est levée."
 
-#: functions_help.py:29
+#: functions_help.py:31
 msgid "Returns the language currently used."
 msgstr "Renvoie la langue actuellement utilisée."
 
-#: functions_help.py:30
+#: functions_help.py:32
 msgid "Sets the formatter to use for display."
 msgstr "Définit le formateur à utiliser pour l'affichage."
 
-#: functions_help.py:31
+#: functions_help.py:33
 msgid "Use True (default) or False to enable debugging methods."
 msgstr ""
 "Utilisez True (par défaut) ou False pour activer les méthodes de débogage."
@@ -618,15 +618,15 @@ msgstr "une chaîne de caractères (`str`)"
 msgid "a `tuple`"
 msgstr "un `tuple`"
 
-#: info_variables.py:383
+#: info_variables.py:385
 msgid "Object too large to be processed by Python."
 msgstr "Objet trop grand pour être traité par Python."
 
-#: info_variables.py:387
+#: info_variables.py:389
 msgid "Unable to compute."
 msgstr "Impossible de calculer."
 
-#: info_variables.py:450
+#: info_variables.py:452
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -647,7 +647,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:208
+#: path_info.py:215
 msgid "The default directory is {dirname}."
 msgstr "Le répertoire par défaut est {dirname}."
 
@@ -1525,11 +1525,11 @@ msgstr "*    Portée globale : "
 msgid "*   Python builtins: "
 msgstr "*    Identifiant Python (builtins) : "
 
-#: runtime_errors\name_error.py:288
+#: runtime_errors\name_error.py:290
 msgid "Did you write `self` at the wrong place?\n"
 msgstr "Avez-vous écrit `self` au mauvais endroit ?\n"
 
-#: runtime_errors\name_error.py:289
+#: runtime_errors\name_error.py:291
 msgid ""
 "The {scope} object `{obj}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1540,11 +1540,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}(...`\n"
 "au lieu de `{unknown_name}(self, ...`.\n"
 
-#: runtime_errors\name_error.py:296
+#: runtime_errors\name_error.py:298
 msgid "Did you forget to add `self.`?\n"
 msgstr "Avez-vous oublié d’ajouter `self.` ?\n"
 
-#: runtime_errors\name_error.py:297
+#: runtime_errors\name_error.py:299
 msgid ""
 "A {scope} object, `{obj}`,\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1556,11 +1556,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}`\n"
 "au lieu de `{unknown_name}`.\n"
 
-#: runtime_errors\name_error.py:304
+#: runtime_errors\name_error.py:306
 msgid "Did you forget to add `{name}.`?\n"
 msgstr "Avez-vous oublié d’ajouter `{name}.` ?\n"
 
-#: runtime_errors\name_error.py:305
+#: runtime_errors\name_error.py:307
 msgid ""
 "The {scope} object `{name}`\n"
 "has an attribute named `{unknown_name}`.\n"
