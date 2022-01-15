@@ -1,5 +1,5 @@
 """This module is intended to add help attributes to various functions."""
-from typing import Any, Callable, Dict
+from typing import Any, Callable, Dict, Union
 
 from friendly_traceback import debug_helper
 from friendly_traceback.ft_gettext import current_lang
@@ -12,7 +12,9 @@ short_description = {
     "history": lambda: _("Shows a list of recorded traceback messages."),
     "set_lang": lambda: _("Sets the language to be used."),
     "show_paths": lambda: _("Shows the paths corresponding to synonyms used."),
-    "toggle_prompt": lambda: _("Changes the prompt style to be used in the console."),
+    "toggle_prompt": lambda: _(
+        "Changes the prompt style to be used in the Friendly console."
+    ),
     "what": lambda: _("Shows the generic meaning of a given exception."),
     "where": lambda: _("Shows where an exception was raised."),
     "why": lambda: _("Shows the likely cause of the exception."),
@@ -42,18 +44,22 @@ short_description = {
 }
 
 
-def add_help_attribute(functions: Dict[str, Callable[..., Any]]) -> None:
+def add_help_attribute(
+    functions: Dict[str, Callable[..., Any]], description: Union[Dict, None] = None
+) -> None:
     """Given a dict whose content is of the form
     {function_name_string: function_obj}
     it adds customs `help` and  `__rich__repr` attributes for all such
     function objects.
     """
+    if description is None:
+        description = short_description
     for name in functions:
-        if name not in short_description:  # pragma: no cover
+        if name not in description:  # pragma: no cover
             debug_helper.log(f"Missing description for {name}.")
             continue
         func = functions[name]
-        setattr(func, "help", short_description[name])  # noqa
+        setattr(func, "help", description[name])  # noqa
         setattr(
             func, "__rich_repr__", lambda func=func: (func.help(),)
         )  # pragma: no cover
