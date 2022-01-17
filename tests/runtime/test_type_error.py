@@ -48,6 +48,28 @@ def test_Can_only_concatenate():
     return result, message
 
 
+def test_divmod():
+    a = 2
+    b = 3 + 2j
+    try:
+        result = divmod(a, b)
+    except TypeError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    py_before_310 = "can't take floor or mod of complex number."
+    py_310_plus = "unsupported operand type(s) for divmod()"
+    assert py_before_310 in result or py_310_plus in result
+    must_be = "The arguments of `divmod` must be integers (`int`) or real (`float`) numbers"
+    if friendly_traceback.get_lang() == "en":
+        assert must_be in result
+        assert "At least one of the arguments was a complex number" in result
+
+    return result, message
+
+
+
 def test_Unsupported_operand_types():
     try:
         one = 1

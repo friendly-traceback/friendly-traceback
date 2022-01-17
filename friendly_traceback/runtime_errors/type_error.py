@@ -9,7 +9,7 @@ import re
 from types import FrameType
 from typing import Any, List, Optional, Tuple, Type
 
-from .. import info_variables, token_utils, utils
+from .. import debug_helper, info_variables, token_utils, utils
 from ..core import TracebackData
 from ..ft_gettext import current_lang, no_information
 from ..typing_info import CauseInfo
@@ -59,6 +59,41 @@ def _convert_str_to_number(
         "Perhaps you forgot to convert the string `{name}` into {number_type}.\n"
     ).format(name=name, number_type=convert_type(number_type))
     return cause, hint
+
+
+@parser.add
+def cant_take_floor_or_mod_of_complex_number(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    if "can't take floor or mod of complex number." not in message:
+        return {}
+    if "divmod" not in tb_data.bad_line:
+        debug_helper.log(
+            "'divmod' not found in cant_take_floor_or_mod_of_complex_number"
+        )
+        return {}
+    cause = _(
+        "The arguments of `divmod` must be integers (`int`) or real (`float`) numbers.\n"
+    )
+    # separate cause in two to minimize the amount of translation required;
+    # see unsupported_type_for_divmod
+    cause += _("At least one of the arguments was a complex number.\n")
+    return {"cause": cause}
+
+
+@parser.add
+def unsupported_type_for_divmod(
+    message: str, _frame: FrameType, _tb_data: TracebackData
+) -> CauseInfo:
+    # TODO: try with string arguments
+    if "unsupported operand type(s) for divmod()" not in message:
+        return {}
+    cause = _(
+        "The arguments of `divmod` must be integers (`int`) or real (`float`) numbers.\n"
+    )
+    if "complex" in message:
+        cause += _("At least one of the arguments was a complex number.\n")
+    return {"cause": cause}
 
 
 @parser.add

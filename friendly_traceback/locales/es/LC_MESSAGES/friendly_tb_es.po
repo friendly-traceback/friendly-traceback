@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2022-01-15 16:32-0400\n"
+"POT-Creation-Date: 2022-01-17 17:44-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1609,15 +1609,25 @@ msgstr "¿Has olvidado convertir el string `{name}` al tipo {number_type}?\n"
 msgid "Perhaps you forgot to convert the string `{name}` into {number_type}.\n"
 msgstr "Tal vez haya olvidado convertir la cadena `{name}` en {number_type}.\n"
 
-#: runtime_errors\type_error.py:70
+#: runtime_errors\type_error.py:73 runtime_errors\type_error.py:86
+msgid ""
+"The arguments of `divmod` must be integers (`int`) or real (`float`) "
+"numbers.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:76 runtime_errors\type_error.py:88
+msgid "At least one of the arguments was a complex number.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:98
 msgid "The second argument of the function `getattr()` must be a string.\n"
 msgstr "El segundo argumento de la función `getattr()` debe ser una cadena.\n"
 
-#: runtime_errors\type_error.py:80
+#: runtime_errors\type_error.py:108
 msgid "The second argument of the function `hasattr()` must be a string.\n"
 msgstr "El segundo argumento de la función `hasattr()` debe ser una cadena.\n"
 
-#: runtime_errors\type_error.py:99 runtime_errors\type_error.py:123
+#: runtime_errors\type_error.py:127 runtime_errors\type_error.py:151
 msgid ""
 "You tried to concatenate (add) two different types of objects:\n"
 "{first} and {second}.\n"
@@ -1625,7 +1635,7 @@ msgstr ""
 "Has intentado concatenar (sumar) dos tipos de objetos diferentes:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:154
+#: runtime_errors\type_error.py:182
 msgid ""
 "You tried to add two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1633,7 +1643,7 @@ msgstr ""
 "Has intentado añadir dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:162
+#: runtime_errors\type_error.py:190
 msgid ""
 "You tried to subtract two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1641,7 +1651,7 @@ msgstr ""
 "Has intentado restar dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:170
+#: runtime_errors\type_error.py:198
 msgid ""
 "You tried to multiply two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1649,7 +1659,7 @@ msgstr ""
 "Has intentado multiplicar dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:178
+#: runtime_errors\type_error.py:206
 msgid ""
 "You tried to divide two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1657,7 +1667,7 @@ msgstr ""
 "Has intentado dividir dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:186
+#: runtime_errors\type_error.py:214
 msgid ""
 "You tried to perform the bitwise operation {operator}\n"
 "on two incompatible types of objects:\n"
@@ -1667,22 +1677,22 @@ msgstr ""
 "sobre dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:201 runtime_errors\type_error.py:760
-#: runtime_errors\type_error.py:866 syntax_errors\statement_analyzer.py:1156
+#: runtime_errors\type_error.py:229 runtime_errors\type_error.py:788
+#: runtime_errors\type_error.py:894 syntax_errors\statement_analyzer.py:1156
 #: syntax_errors\statement_analyzer.py:1416
 msgid "Did you mean `{line}`?\n"
 msgstr "¿Quieres decir `{line}`?\n"
 
-#: runtime_errors\type_error.py:202
+#: runtime_errors\type_error.py:230
 msgid "Outside of Python, `^` is often used to indicate exponentiation.\n"
 msgstr ""
 "Fuera de Python, `^` se utiliza a menudo para indicar la exponenciación.\n"
 
-#: runtime_errors\type_error.py:205 runtime_errors\type_error.py:763
+#: runtime_errors\type_error.py:233 runtime_errors\type_error.py:791
 msgid "Perhaps you meant `{line}`.\n"
 msgstr "Tal vez quiso decir `{line}`.\n"
 
-#: runtime_errors\type_error.py:208
+#: runtime_errors\type_error.py:236
 msgid ""
 "You tried to perform the bit shifting operation {operator}\n"
 "on two incompatible types of objects:\n"
@@ -1692,7 +1702,7 @@ msgstr ""
 "sobre dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:218
+#: runtime_errors\type_error.py:246
 msgid ""
 "You tried to exponentiate (raise to a power)\n"
 "using two incompatible types of objects:\n"
@@ -1702,7 +1712,7 @@ msgstr ""
 "usando dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:227
+#: runtime_errors\type_error.py:255
 msgid ""
 "You tried to use the operator {operator}\n"
 "using two incompatible types of objects:\n"
@@ -1716,11 +1726,11 @@ msgstr ""
 "Este operador se emplea normalmente sólo\n"
 "para la multiplicación de matrices.\n"
 
-#: runtime_errors\type_error.py:263
+#: runtime_errors\type_error.py:291
 msgid "Complex numbers cannot be ordered.\n"
 msgstr "Los números complejos no se pueden ordenar.\n"
 
-#: runtime_errors\type_error.py:264
+#: runtime_errors\type_error.py:292
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two complex numbers.\n"
@@ -1728,7 +1738,7 @@ msgstr ""
 "Has intentado hacer una comparación de orden ({operator})\n"
 "entre dos números complejos.\n"
 
-#: runtime_errors\type_error.py:270
+#: runtime_errors\type_error.py:298
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two incompatible types of objects:\n"
@@ -1738,11 +1748,11 @@ msgstr ""
 "entre dos tipos de objetos incompatibles:\n"
 "`{first}` y `{second}`.\n"
 
-#: runtime_errors\type_error.py:319
+#: runtime_errors\type_error.py:347
 msgid "Perhaps you meant to write `{operator}=` instead of `={operator}`"
 msgstr "Tal vez quiso escribir `{operator}=` en lugar de `={operator}`"
 
-#: runtime_errors\type_error.py:323
+#: runtime_errors\type_error.py:351
 msgid ""
 "You tried to use the unary operator '{operator}'\n"
 "with the following type of object: {obj}.\n"
@@ -1752,7 +1762,7 @@ msgstr ""
 "con el siguiente tipo de objeto {obj}.\n"
 "La operación no está definida para este tipo de objeto.\n"
 
-#: runtime_errors\type_error.py:349
+#: runtime_errors\type_error.py:377
 msgid ""
 "In Python, some objects are known as immutable:\n"
 "once defined, their value cannot be changed.\n"
@@ -1764,19 +1774,19 @@ msgstr ""
 "Has intentado cambiar parte de un objeto inmutable de este tipo: {obj},\n"
 "probablemente utilizando una operación de indexación.\n"
 
-#: runtime_errors\type_error.py:356
+#: runtime_errors\type_error.py:384
 msgid "Did you mean to use a list?\n"
 msgstr "¿Querías usar una lista?\n"
 
-#: runtime_errors\type_error.py:357
+#: runtime_errors\type_error.py:385
 msgid "Perhaps you meant to use a list instead.\n"
 msgstr "Tal vez quisiste usar una lista en su lugar.\n"
 
-#: runtime_errors\type_error.py:370
+#: runtime_errors\type_error.py:398
 msgid "In Python 3, exceptions must be derived from BaseException.\n"
 msgstr "En Python 3, las excepciones deben derivarse de `BaseException`.\n"
 
-#: runtime_errors\type_error.py:406
+#: runtime_errors\type_error.py:434
 msgid ""
 "You apparently have called the function `{fn_name}` with\n"
 "{nb_given} positional argument(s) while it requires {nb_required}\n"
@@ -1786,11 +1796,11 @@ msgstr ""
 "{nb_given} argumento(s) posicional(es) mientras que requiere {nb_required}\n"
 "dicho(s) argumento(s) posicional(es).\n"
 
-#: runtime_errors\type_error.py:412
+#: runtime_errors\type_error.py:440
 msgid "Perhaps you forgot `self` when defining `{fn_name}`.\n"
 msgstr "Tal vez olvidó `self` al definir `{fn_name}`.\n"
 
-#: runtime_errors\type_error.py:434
+#: runtime_errors\type_error.py:462
 msgid ""
 "You apparently have called the function '{fn_name}' with\n"
 "fewer positional arguments than it requires ({nb_required} missing).\n"
@@ -1798,7 +1808,7 @@ msgstr ""
 "Al parecer, ha llamado a la función '{fn_name}' con\n"
 "menos argumentos posicionales de los que requiere (falta {nb_required}).\n"
 
-#: runtime_errors\type_error.py:452 runtime_errors\type_error.py:840
+#: runtime_errors\type_error.py:480 runtime_errors\type_error.py:868
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
@@ -1806,7 +1816,7 @@ msgstr ""
 "\n"
 "Nota: `NoneType` significa que el objeto tiene un valor de `None`.\n"
 
-#: runtime_errors\type_error.py:459
+#: runtime_errors\type_error.py:487
 msgid ""
 "Python indicates that you have an object of type `{obj_type}`,\n"
 "followed by something surrounded by parentheses, `(...)`,\n"
@@ -1820,7 +1830,7 @@ msgstr ""
 "O bien el objeto de tipo `{obj_type}` estaba destinado a ser una función,\n"
 "o se ha olvidado una coma antes de `(...)`.\n"
 
-#: runtime_errors\type_error.py:481
+#: runtime_errors\type_error.py:509
 msgid ""
 "The parenthesis `()` following `{obj_name}` are interpreted\n"
 "by Python as a function call for `{obj_name}`.\n"
@@ -1831,7 +1841,7 @@ msgstr ""
 "Sin embargo, `{obj_name}` no es una función sino un objeto de tipo "
 "`{obj_type}`.\n"
 
-#: runtime_errors\type_error.py:488
+#: runtime_errors\type_error.py:516
 msgid ""
 "Because of the surrounding parenthesis, `{fn_call}` \n"
 "is interpreted by Python as indicating a function call for \n"
@@ -1845,7 +1855,7 @@ msgstr ""
 "que no puede ser llamado.\n"
 "\n"
 
-#: runtime_errors\type_error.py:501
+#: runtime_errors\type_error.py:529
 msgid ""
 "However, `{fn_call}` is a `tuple`.\n"
 "Either the object `{obj_name}` was meant to be a function\n"
@@ -1859,11 +1869,11 @@ msgstr ""
 "y la tupla `{fn_call}` y querías escribir\n"
 "`{obj_name}, {fn_call}`.\n"
 
-#: runtime_errors\type_error.py:508
+#: runtime_errors\type_error.py:536
 msgid "Did you forget a comma between `{obj_name}` and `{fn_call}`?\n"
 msgstr "¿Olvidaste una coma entre `{obj_name}` y `{fn_call}`?\n"
 
-#: runtime_errors\type_error.py:514
+#: runtime_errors\type_error.py:542
 msgid ""
 "However, `{obj_name}` is a sequence.\n"
 "Perhaps you meant to use `[]` instead of `()` and write\n"
@@ -1873,11 +1883,11 @@ msgstr ""
 "Tal vez usted quería usar `[]` en lugar de `()` y escribir\n"
 "`{obj_name}[{slice}]`\n"
 
-#: runtime_errors\type_error.py:519
+#: runtime_errors\type_error.py:547
 msgid "Did you mean `{obj_name}[{slice}]`?\n"
 msgstr "¿Quiere decir `{obj_name}[{slice}]`?\n"
 
-#: runtime_errors\type_error.py:530
+#: runtime_errors\type_error.py:558
 msgid ""
 "However, both `{obj_name}` and `{fn_call}` are numbers.\n"
 "Perhaps you forgot a multiplication operator, `*`,\n"
@@ -1887,19 +1897,19 @@ msgstr ""
 "Tal vez olvidó un operador de multiplicación, `*`,\n"
 "y quiso escribir `{obj_name}` * {fn_call}`.\n"
 
-#: runtime_errors\type_error.py:535
+#: runtime_errors\type_error.py:563
 msgid "Did you mean `{obj_name} * {fn_call}`?\n"
 msgstr "¿Se refiere a `{obj_name}` * {fn_call}`?\n"
 
-#: runtime_errors\type_error.py:547
+#: runtime_errors\type_error.py:575
 msgid "Did you forget to convert `{name}` into an integer?\n"
 msgstr "¿Olvidaste convertir `{name}` en un número entero?\n"
 
-#: runtime_errors\type_error.py:548
+#: runtime_errors\type_error.py:576
 msgid "Perhaps you forgot to convert `{name}` into an integer.\n"
 msgstr "Tal vez hayas olvidado convertir `{name}` en un número entero.\n"
 
-#: runtime_errors\type_error.py:561
+#: runtime_errors\type_error.py:589
 msgid ""
 "You can only multiply sequences, such as list, tuples,\n"
 " strings, etc., by integers.\n"
@@ -1907,33 +1917,33 @@ msgstr ""
 "Sólo se pueden multiplicar secuencias, como listas, tuplas\n"
 "cadenas, etc., por enteros.\n"
 
-#: runtime_errors\type_error.py:583
+#: runtime_errors\type_error.py:611
 msgid "Did you forget to convert `{name1}` and `{name2}` into integers?\n"
 msgstr "¿Has olvidado convertir `{name1}` y `{name2}` en enteros?\n"
 
-#: runtime_errors\type_error.py:586
+#: runtime_errors\type_error.py:614
 msgid "Perhaps you forgot to convert `{name1}` and `{name2}` into integers.\n"
 msgstr "Tal vez olvidó convertir `{name1}` y `{name2}` en enteros.\n"
 
-#: runtime_errors\type_error.py:621
+#: runtime_errors\type_error.py:649
 msgid ""
 "You wrote an object whose value is `None` where an integer was expected.\n"
 msgstr ""
 "Has escrito un objeto cuyo valor es `None` donde se esperaba un entero.\n"
 
-#: runtime_errors\type_error.py:631
+#: runtime_errors\type_error.py:659
 msgid "You wrote an object of type `{obj}` where an integer was expected.\n"
 msgstr "Has escrito un objeto de tipo `{obj}` donde se esperaba un entero.\n"
 
-#: runtime_errors\type_error.py:641
+#: runtime_errors\type_error.py:669
 msgid "Did you forget to convert `{names}` into integers?\n"
 msgstr "¿Olvidaste convertir `{names}` en enteros?\n"
 
-#: runtime_errors\type_error.py:644
+#: runtime_errors\type_error.py:672
 msgid "Perhaps you forgot to convert `{names}` into integers."
 msgstr "Tal vez olvidó convertir `{names}` en enteros."
 
-#: runtime_errors\type_error.py:666
+#: runtime_errors\type_error.py:694
 msgid ""
 "In the expression `{line}`\n"
 "what is included between the square brackets, `[...]`,\n"
@@ -1947,7 +1957,7 @@ msgstr ""
 "(`inicio:parada` o `inicio:parada:paso`)\n"
 "y se ha utilizado {obj_type} en su lugar.\n"
 
-#: runtime_errors\type_error.py:677
+#: runtime_errors\type_error.py:705
 msgid ""
 "Note: sometimes this exception is raised because what Python\n"
 "interprets as indices was meant to be a separate list, and a comma\n"
@@ -1957,12 +1967,12 @@ msgstr ""
 "interpreta como índices se supone que es una lista separada, y una coma\n"
 "debería haberse escrito antes de la apertura `[` de esa lista.\n"
 
-#: runtime_errors\type_error.py:682 syntax_errors\statement_analyzer.py:1069
+#: runtime_errors\type_error.py:710 syntax_errors\statement_analyzer.py:1069
 #: syntax_errors\statement_analyzer.py:1412
 msgid "Did you forget a comma?\n"
 msgstr "¿Te has olvidado de una coma?\n"
 
-#: runtime_errors\type_error.py:717
+#: runtime_errors\type_error.py:745
 msgid ""
 "Perhaps you have forgotten a comma between two identical lists\n"
 "`{container}`. The second list had been interpreted as\n"
@@ -1972,7 +1982,7 @@ msgstr ""
 "`{container}`. La segunda lista había sido interpretada como\n"
 "la indexación de la primera por el índice `{new_index}`\n"
 
-#: runtime_errors\type_error.py:723
+#: runtime_errors\type_error.py:751
 msgid ""
 "Perhaps you have forgotten a comma between the object `{container}`\n"
 "and the list `{index}`.  The list `{index}` had been interpreted as\n"
@@ -1982,11 +1992,11 @@ msgstr ""
 "y la lista `{index}`.  La lista `{index}` había sido interpretada como\n"
 "la indexación del objeto `{container}` por el índice `{new_index}`\n"
 
-#: runtime_errors\type_error.py:728
+#: runtime_errors\type_error.py:756
 msgid "Did you forget a comma before `{index}`?\n"
 msgstr "¿Olvidaste una coma antes de `{index}`?\n"
 
-#: runtime_errors\type_error.py:790
+#: runtime_errors\type_error.py:818
 msgid ""
 "When using a slice to extract a range of elements\n"
 "from a sequence, that is something like\n"
@@ -2001,7 +2011,7 @@ msgstr ""
 "`None`,\n"
 "o posiblemente algún otro objeto que tenga un método `__index__`.\n"
 
-#: runtime_errors\type_error.py:809
+#: runtime_errors\type_error.py:837
 msgid ""
 "Only hashable objects can be used\n"
 "as elements of `set` or keys of `dict`.\n"
@@ -2013,11 +2023,11 @@ msgstr ""
 "Los objetos hasheables son aquellos que no cambian de valor\n"
 "una vez que han sido creados."
 
-#: runtime_errors\type_error.py:819
+#: runtime_errors\type_error.py:847
 msgid "Instead of using {original}, consider using {replacement}.\n"
 msgstr "En lugar de usar {original}, considere usar {replacement}.\n"
 
-#: runtime_errors\type_error.py:846
+#: runtime_errors\type_error.py:874
 msgid ""
 "Subscriptable objects are typically containers from which\n"
 "you can retrieve item using the notation `[...]`.\n"
@@ -2025,7 +2035,7 @@ msgstr ""
 "Los objetos subscribibles son típicamente contenedores de los cuales\n"
 "se puede recuperar un elemento utilizando la notación `[...]`.\n"
 
-#: runtime_errors\type_error.py:858
+#: runtime_errors\type_error.py:886
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from an object of type `{obj_type}` which is not allowed.\n"
@@ -2033,11 +2043,11 @@ msgstr ""
 "Utilizando esta notación, ha intentado recuperar un elemento\n"
 "de un objeto de tipo `{tipo_obj}` que no está permitido.\n"
 
-#: runtime_errors\type_error.py:867
+#: runtime_errors\type_error.py:895
 msgid "Perhaps you meant to write `{line}`.\n"
 msgstr "Tal vez quiso escribir `{line}`.\n"
 
-#: runtime_errors\type_error.py:870
+#: runtime_errors\type_error.py:898
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from `{name}`, an object of type `{obj_type}`. This is not allowed.\n"
@@ -2045,7 +2055,7 @@ msgstr ""
 "Utilizando esta notación, has intentado recuperar un elemento\n"
 "de `{name}`, un objeto de tipo `{obj_type}`. Esto no está permitido.\n"
 
-#: runtime_errors\type_error.py:887
+#: runtime_errors\type_error.py:915
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables.\n"
@@ -2055,7 +2065,7 @@ msgstr ""
 "Los contenedores de Python (`lista, tupla, dict`, etc.) son iterables.\n"
 "Aquí se requiere un iterable.\n"
 
-#: runtime_errors\type_error.py:904 runtime_errors\value_error.py:24
+#: runtime_errors\type_error.py:932 runtime_errors\value_error.py:24
 msgid ""
 "Unpacking is a convenient way to assign a name,\n"
 "to each item of an iterable.\n"
@@ -2063,7 +2073,7 @@ msgstr ""
 "El desempaquetado es una forma conveniente de asignar un nombre\n"
 "a cada elemento de un iterable.\n"
 
-#: runtime_errors\type_error.py:908
+#: runtime_errors\type_error.py:936
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables,\n"
@@ -2073,7 +2083,7 @@ msgstr ""
 "Los contenedores de Python (`list, tuple, dict`, etc.) son iterables,\n"
 "pero no objetos de tipo `{obj_type}`.\n"
 
-#: runtime_errors\type_error.py:923
+#: runtime_errors\type_error.py:951
 msgid ""
 "{function} does not accept a sequence as an argument.\n"
 "Instead of writing `{line}`\n"
@@ -2083,15 +2093,15 @@ msgstr ""
 "En lugar de escribir `{line}`\n"
 "tal vez debería utilizar el método `dict.fromkeys()`: `{new_line}`.\n"
 
-#: runtime_errors\type_error.py:928
+#: runtime_errors\type_error.py:956
 msgid "Perhaps you need to use the `dict.fromkeys()` method.\n"
 msgstr "Tal vez necesite utilizar el método `dict.fromkeys()`.\n"
 
-#: runtime_errors\type_error.py:966 runtime_errors\type_error.py:990
+#: runtime_errors\type_error.py:994 runtime_errors\type_error.py:1018
 msgid "Did you forget to call `{name}`?\n"
 msgstr "¿Olvidaste llamar a `{name}`?\n"
 
-#: runtime_errors\type_error.py:967 runtime_errors\type_error.py:991
+#: runtime_errors\type_error.py:995 runtime_errors\type_error.py:1019
 msgid ""
 "I suspect that you forgot to add parentheses to call `{name}`.\n"
 "You might have meant to write:\n"
@@ -2101,7 +2111,7 @@ msgstr ""
 "Puede que hayas querido escribir:\n"
 "`{line}`\n"
 
-#: runtime_errors\type_error.py:1005
+#: runtime_errors\type_error.py:1033
 msgid ""
 "The function `vars` is used to list the content of the\n"
 "`__dict__` attribute of an object.\n"
@@ -2109,16 +2119,16 @@ msgstr ""
 "La función `vars` se utiliza para listar el contenido del atributo\n"
 "`__dict__` de un objeto.\n"
 
-#: runtime_errors\type_error.py:1014
+#: runtime_errors\type_error.py:1042
 msgid "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
 msgstr "El objeto `{name}` utiliza `__slots__` en lugar de `__dict__`.\n"
 
-#: runtime_errors\type_error.py:1018
+#: runtime_errors\type_error.py:1046
 msgid ""
 "`{name}`, the argument of `vars`, is an object without such an attribute.\n"
 msgstr "`{name}`, el argumento de `vars`, es un objeto sin dicho atributo.\n"
 
-#: runtime_errors\type_error.py:1039
+#: runtime_errors\type_error.py:1067
 msgid ""
 "You have specified the value of argument `{argument}` more than once\n"
 "when calling the function named `{function}`.\n"
@@ -2126,11 +2136,11 @@ msgstr ""
 "Ha especificado el valor del argumento `{argument}` más de una vez\n"
 "al llamar a la función llamada `{function}`.\n"
 
-#: runtime_errors\type_error.py:1060
+#: runtime_errors\type_error.py:1088
 msgid "This function has only one argument: `{arguments}`\n"
 msgstr "Esta función sólo tiene un argumento: `{arguments}`\n"
 
-#: runtime_errors\type_error.py:1064
+#: runtime_errors\type_error.py:1092
 msgid ""
 "This function has the following arguments:\n"
 "`{arguments}`\n"
