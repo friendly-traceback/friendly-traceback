@@ -24,7 +24,7 @@ the value of relevant variables, and
 [more](https://aroberge.github.io/friendly-traceback-docs/docs/html/).
 
 
-![Example](https://raw.githubusercontent.com/aroberge/friendly/master/why_1.png)
+![Example](images/explain.png)
 The screenshot above was taken on Windows. In some other operating systems
 you might need to type `python3` instead of `python`: **Friendly**
 requires Python version 3.6 or newer.
@@ -96,16 +96,16 @@ be provided by **Friendly**.
             global pi: 3.141592653589793
 ```
 
-## Projects using friendly_traceback
+## Projects using Friendly
 
-The following sites or projects use **friendly_traceback**:
+friendly/friendly-traceback is used by:
 
-- https://futurecoder.io/
-- https://www.hackinscience.org/
-- https://github.com/matan-h/ddebug
+* [HackInScience](https://hackinscience.org)
+* [futurecoder](https://futurecoder.io)
+* [CodeGrade](https://www.codegrade.com/blog/friendly-better-error-messages-for-python)
+* [ddebug](https://github.com/matan-h/ddebug)
 
-Feel free to file an issue to add your site or project
-if it uses either **friendly** or **friendly_traceback**.
+Feel free to contact me to add your project to this list.
 
 ## Contribute
 
@@ -115,31 +115,22 @@ the documentation or in the information provided by **Friendly**, or finding bug
 If you speak a language other than English or French and feel ambitious, you might
 want to work on translations into your own language.
 
+For more details, see [CONTRIBUTING](CONTRIBUTING.md)
+
 ## License: MIT
 
-Some of the ideas were adopted from
+For more details, see [LICENSE](LICENSE).
+
+Some ideas were adopted from
 [DidYouMean-Python (aka BetterErrorMessages)](https://github.com/SylvainDe/DidYouMean-Python)
-by Sylvain Desodt, a project that is also using the MIT license; that particular
-project is no longer maintained.
+by Sylvain Desodt, a project that is also using the MIT license; as of October 2021, 
+that particular project is no longer maintained.
 
 ## Code of Conduct
 
-We agree with the goals behind the creation of the
-[Python Community Code of Conduct](https://www.python.org/psf/codeofconduct/).
-Contributors to this project, including those filing or commenting on an issue,
-are expected to do the same.
+In short: be respectful of everyone.
 
-
-## Friendly users
-
-Friendly/friendly-traceback is used by:
-
-* [HackInScience](https://hackinscience.org)
-* [futurecoder](https://futurecoder.io)
-* [CodeGrade](https://www.codegrade.com/blog/friendly-better-error-messages-for-python)
-* [ddebug](https://github.com/matan-h/ddebug)
-
-Feel free to contact me to add your project to this list.
+For more details, see [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ## JetBrains support
 
