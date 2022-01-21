@@ -144,6 +144,9 @@ Feel free to contact me to add your project to this list.
 ## JetBrains support
 
 We graciously acknowledge the support of [JetBrains](
-https://www.jetbrains.com/?from=friendly-traceback)
+https://www.jetbrains.com/community/opensource/?from=friendly-traceback)
 which enables us to use the professional version
 of PyCharm for developing **Friendly**.
+
+[![JetBrains](images/jb_beam.png)](
+https://www.jetbrains.com/community/opensource/?from=friendly-traceback)
