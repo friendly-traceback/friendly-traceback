@@ -115,19 +115,24 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
 
     if atok is not None:
         evaluator = Evaluator.from_frame(frame)
-        for nodes, obj in group_expressions(
-            pair for pair in evaluator.find_expressions(atok.tree)
-        ):
-            name = atok.get_text(nodes[0])
-            if not name or name in names:
-                continue
-            names.add(name)
-            objects["name, obj"].append((name, obj))
-            try:
-                # We're not interested in showing literals in the list of variables
-                ast.literal_eval(name)
-            except Exception:  # noqa
-                objects["expressions"].append((name, obj))
+        try:
+            for nodes, obj in group_expressions(
+                pair for pair in evaluator.find_expressions(atok.tree)
+            ):
+                name = atok.get_text(nodes[0])
+                if not name or name in names:
+                    continue
+                names.add(name)
+                objects["name, obj"].append((name, obj))
+                try:
+                    # We're not interested in showing literals in the list of variables
+                    ast.literal_eval(name)
+                except Exception:  # noqa
+                    objects["expressions"].append((name, obj))
+        except Exception:  # noqa
+            # The example in https://github.com/ipython/ipython/issues/13481
+            # give rises to a TypeError exception here.
+            pass
 
     return objects
 
