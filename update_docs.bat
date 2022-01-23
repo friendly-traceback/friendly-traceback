@@ -49,10 +49,12 @@ call deactivate
 call ..\venv-friendly-traceback-3.9\scripts\activate
 call python trb_english.py
 call python trb_french.py
+call python trb_hebrew.py
 call python trb_italian.py
 call python trb_spanish.py
 call python trb_syntax_english.py
 call python trb_syntax_french.py
+call python trb_syntax_hebrew.py
 call python trb_syntax_italian.py
 call python trb_syntax_spanish.py
 call deactivate

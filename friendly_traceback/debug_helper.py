@@ -16,7 +16,7 @@ try:
     from devtools import debug as devtools_log
 except ImportError:
 
-    def dev_log(*args, **kwargs):
+    def devtools_log(*args, **kwargs):
         pass
 
 
