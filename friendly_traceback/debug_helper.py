@@ -12,6 +12,14 @@ from typing import Any, Optional
 
 from .ft_gettext import current_lang
 
+try:
+    from devtools import debug as devtools_log
+except ImportError:
+
+    def dev_log(*args, **kwargs):
+        pass
+
+
 _ = current_lang.translate
 
 # DEBUG is set to True for me. It can also be set to True from __main__ or when
@@ -29,6 +37,10 @@ SHOW_DEBUG_HELPER = False
 def log(text: Any) -> None:
     if DEBUG:  # pragma: no cover
         print("Log:", text)
+
+
+if DEBUG:
+    log = devtools_log  # noqa
 
 
 def log_error(exc: Optional[BaseException] = None) -> None:

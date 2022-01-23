@@ -1,9 +1,9 @@
 black
+devtools
 pytest
 pytest-cov
 coverage
 flake8
 isort
 pre-commit
-stack_data
 wheel

@@ -274,18 +274,14 @@ class _State:
             info = self.friendly_info[-1].info
             info["lang"] = self.lang
             self.saved_info.append(info)
-        except Exception as e:  # pragma: no cover
+        except Exception:  # pragma: no cover
             if not debug_helper.DEBUG:
                 print(
                     "Exception raised by friendly-traceback. Please report this case."
                 )
+                return {}
             debug_helper.log("Exception raised in get_traceback_info().")
-            try:
-                debug_helper.log(self.friendly_info[-1].tb_data.filename)
-            except Exception:  # noqa
-                pass
-            debug_helper.log_error(e)
-            return {}
+            raise
         return info
 
 
