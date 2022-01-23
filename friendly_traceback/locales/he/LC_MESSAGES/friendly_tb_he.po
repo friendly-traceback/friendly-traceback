@@ -1,0 +1,4830 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: friendly-traceback\n"
+"POT-Creation-Date: 2022-01-17 17:44-0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: __init__.py:190 __main__.py:169
+#, fuzzy
+msgid "The file {filename} does not exist."
+msgstr "הקובץ  {filename} לא קיים."
+
+#: base_formatters.py:148 base_formatters.py:154
+msgid "I have no suggestion to offer."
+msgstr "אין לי הצעה להציע."
+
+#: base_formatters.py:152
+msgid "I have no suggestion to offer; try `why()`."
+msgstr "אין לי הצעה להציע; נסה את 'למה()'."
+
+#: config.py:43
+msgid ""
+"Are you using a regular Python console instead of a Friendly console?\n"
+"If so, to continue, try: `start_console(local_vars=locals())`.\n"
+"You will need to import `start_console` if you have not already done so.\n"
+msgstr ""
+
+#: config.py:72 config.py:181 console_helpers.py:29
+#, fuzzy
+msgid "Nothing to show: no exception recorded."
+msgstr "אין שום דבר להראות: אין חריגים שהוקלטו."
+
+#: config.py:313
+msgid ""
+"An exception occurred before friendly-traceback was imported.\n"
+"Some information is available."
+msgstr ""
+
+#: console_helpers.py:39
+msgid "Nothing to go back to: no exception recorded."
+msgstr "אין מה לחזור אליו: לא נרשם חריג."
+
+#: console_helpers.py:121 console_helpers.py:125
+msgid "{exception} is not an exception."
+msgstr "{exception} זה לא שגיאה."
+
+#: console_helpers.py:207
+msgid ""
+"Invalid argument for `www()`.\n"
+"Valid arguments include `None` or one of `{sites}`.\n"
+msgstr ""
+"ארגומנט לא חוקי עבור 'www()'.\n"
+"ארגומנטים חוקיים כוללים את 'ללא' או אחד מתוך '{sites}'.\n"
+
+#: console_helpers.py:231
+msgid "The default web browser cannot be used for searching."
+msgstr "אין אפשרות להשתמש בדפדפן האינטרנט המוגדר כברירת מחדל לחיפוש."
+
+#: console_helpers.py:426
+msgid ""
+"The following methods of the Friendly object should also be available as "
+"functions."
+msgstr ""
+
+#: core.py:371
+msgid "More lines not shown."
+msgstr "שורות נוספות לא מוצגות."
+
+#: core.py:372 core.py:411
+msgid "Python exception:"
+msgstr "החריג המקורי של פייתון:"
+
+#: core.py:427
+msgid ""
+"Warning: improperly formed exception.\n"
+"I suspect that a custom exception has been raised\n"
+"with a non-string value used as a message.\n"
+"This can occur if a `__repr__` or a `__str__` method\n"
+"raises an exception or does not return a string.\n"
+msgstr ""
+"אזהרה: חריג  שלא נוצר כהלכה.\n"
+"אני חושד שהועלה חריג מותאם אישית\n"
+"עם ערך שאינו מחרוזת המשמש כהודעה.\n"
+"זה יכול להתרחש אם שיטת '__repr__' או '__str__'\n"
+"מעלה חריג או לא מחזיר מחרוזת.\n"
+
+#: core.py:480
+msgid "The encoding of the file was not valid.\n"
+msgstr "קידוד הקובץ לא היה חוקי.\n"
+
+#: core.py:556
+msgid ""
+"{filename} is not a regular Python file whose contents can be analyzed.\n"
+msgstr "{filename} אינו קובץ Python רגיל שניתן לנתח את תוכנו.\n"
+
+#: core.py:561
+msgid "Exception raised on line {linenumber} of code block {filename}.\n"
+msgstr "שגיאה שהועלתה בשורה {linenumber} של בלוק הקוד {filename}.\n"
+
+#: core.py:565
+msgid "Exception raised on line {linenumber} of file {filename}.\n"
+msgstr "חריג הועלה בשורה {linenumber} של הקובץ {filename}.\n"
+
+#: core.py:594
+msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
+msgstr "השגיאה הופסקה בשורה {linenumber} של בלוק הקוד {filename}.\n"
+
+#: core.py:598
+msgid "Execution stopped on line {linenumber} of file {filename}.\n"
+msgstr "הביצוע הופסק בשורה {linenumber} של הקובץ {filename}.\n"
+
+#: core.py:615
+msgid "The entire content of `{filename}` is not available.\n"
+msgstr ""
+
+#: core.py:629
+msgid "Python could not understand the code in the code block {filename}\n"
+msgstr "פייתון לא הצליח להבין את חלק הקוד {filename}\n"
+
+#: core.py:633
+msgid ""
+"Python could not understand the code in the file\n"
+"'{filename}'\n"
+msgstr ""
+"פייתון לא הצליח להבין את הקוד בקובץ\n"
+" '{filename}'\n"
+
+#: core.py:638
+#, fuzzy
+#| msgid "at the location indicated by ^.\n"
+msgid "at the location indicated.\n"
+msgstr "במיקום המצוין על ידי ^.\n"
+
+#: core.py:871
+msgid ""
+"Unfortunately, no additional information is available:\n"
+"the content of file '<stdin>' is not accessible.\n"
+msgstr ""
+"למרבה הצער, אין מידע נוסף זמין:\n"
+"בגלל שהתוכן של הקובץ '<stdin>' אינו נגיש.\n"
+
+#: debug_helper.py:44
+msgid "Please report this issue."
+msgstr ""
+
+#: debug_helper.py:67
+msgid "Fatal error - aborting"
+msgstr ""
+
+#: frame_info.py:31
+msgid "Problem: source of `{filename}` is not available\n"
+msgstr "בעיה: המקור של '{filename}' אינו זמין\n"
+
+#: ft_console.py:29
+msgid "Type 'Friendly' for help on special functions/methods."
+msgstr "הקלד 'Friendly'  בשביל עזרה עם פונקציות מיוחדות."
+
+#: ft_gettext.py:82
+msgid ""
+"Please report this example to\n"
+"https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
+"If you are using a REPL, use `www('bug')` to do so.\n"
+"\n"
+msgstr ""
+
+#: ft_gettext.py:90
+msgid "Friendly-traceback does not know the cause of this error.\n"
+msgstr "מקור השגיאה לא ידוע.\n"
+
+#: ft_gettext.py:96
+msgid "No information is known about this exception.\n"
+msgstr "אין מידע על חריג זה.\n"
+
+#: ft_gettext.py:98
+msgid ""
+"If you are using the Friendly console, use `www()` to\n"
+"do an Internet search for this particular case.\n"
+msgstr ""
+"אם אתה משתמש במסוף ידידותי, השתמש ב- 'www ()' כדי\n"
+"חפש באינטרנט את המקרה הספציפי הזה.\n"
+
+#: ft_gettext.py:107
+msgid "Internal error for Friendly.\n"
+msgstr "שגיאה כללית עבור ידידותי.\n"
+
+#: functions_help.py:10
+msgid "Removes the last recorded traceback item."
+msgstr "מסיר את ה- traceback  האחרון שנרשם."
+
+#: functions_help.py:11
+msgid "Shows all the information about the last traceback."
+msgstr "מציג את כל המידע אודות החריג האחרון."
+
+#: functions_help.py:12
+msgid "Shows a list of recorded traceback messages."
+msgstr "מציג רשימה של החריגים האחרונים."
+
+#: functions_help.py:13
+msgid "Sets the language to be used."
+msgstr "הגדרת השפה לשימוש."
+
+#: functions_help.py:14
+msgid "Shows the paths corresponding to synonyms used."
+msgstr "מציג את הנתיבים המתאימים למילים נרדפות בשימוש."
+
+#: functions_help.py:15
+msgid "Changes the prompt style to be used in the Friendly console."
+msgstr ""
+
+#: functions_help.py:18
+msgid "Shows the generic meaning of a given exception."
+msgstr ""
+
+#: functions_help.py:19
+msgid "Shows where an exception was raised."
+msgstr "מראה היכן הועלה חריג."
+
+#: functions_help.py:20
+msgid "Shows the likely cause of the exception."
+msgstr "מציג את הסיבה הסבירה לחריג."
+
+#: functions_help.py:21
+msgid "Opens a web browser at a useful location."
+msgstr "פותח דפדפן אינטרנט במיקום שימושי."
+
+#: functions_help.py:22
+msgid "Suggestion sometimes added to a friendly traceback."
+msgstr "ההצעה לפעמים נוספת ל- Friendly."
+
+#: functions_help.py:23
+msgid "Shows a normal Python traceback."
+msgstr "מראה את הtraceback  הרגיל של פייתון."
+
+#: functions_help.py:24
+msgid "Shows a simplified Python traceback."
+msgstr "מראה traceback פשוט יותר של פייתון."
+
+#: functions_help.py:25
+msgid "Returns the current value used for items to include by default."
+msgstr "מחזיר את הערך הנוכחי של פריטים שיכללו."
+
+#: functions_help.py:28
+msgid "Sets the items to show by default when an exception is raised."
+msgstr "מגדיר את הפריטים שיוצגו כברירת מחדל כאשר יוצג חריג."
+
+#: functions_help.py:31
+msgid "Returns the language currently used."
+msgstr "מחזיר את השפה הנוכחית."
+
+#: functions_help.py:32
+msgid "Sets the formatter to use for display."
+msgstr "מגדיר את התבנית לתצוגה."
+
+#: functions_help.py:33
+msgid "Use True (default) or False to enable debugging methods."
+msgstr ""
+
+#: info_generic.py:39
+msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
+msgstr "שגיאה מסוג `{name}` היא תת-מחלקה של `{parent}`.\n"
+
+#: info_generic.py:64
+msgid ""
+"`ArithmeticError` is the base class for those built-in exceptions\n"
+"that are raised for various arithmetic errors.\n"
+"It is unusual that you are seeing this exception;\n"
+"normally, a more specific exception should have been raised.\n"
+msgstr ""
+"\"ArithmeticError\" הוא מחלקת הבסיס לאותם חריגים מובנים\n"
+"שמועלות על טעויות חשבוניות שונות.\n"
+"זה יוצא דופן שאתה רואה את החריג הזה;\n"
+"בדרך כלל, היה צריך להעלות חריג ספציפי יותר.\n"
+
+#: info_generic.py:74
+#, fuzzy
+msgid ""
+"In Python, the keyword `assert` is used in statements of the form\n"
+"`assert condition`, to confirm that `condition` is not `False`,\n"
+"nor equivalent to `False` such as an empty list, etc.\n"
+"\n"
+"If `condition` is `False` or equivalent, an `AssertionError` is raised.\n"
+msgstr ""
+"ב- Python, מילת המפתח 'assert' משמשת בהצהרות של כמו\n"
+"`assert condition`, כדי לוודא ש-condition לא שווה לשקר (False)\n"
+",\n"
+"וגם לא שווה ערך לשקר כמו רשימה ריקה וכו'.\n"
+"\n"
+"אם 'התנאי' הוא 'שקר' או שווה ערך, יזרק AssertionError.\n"
+
+#: info_generic.py:84
+#, fuzzy
+msgid ""
+"An `AttributeError` occurs when the code contains something like\n"
+"    `object.x`\n"
+"and `x` is not a method or attribute (variable) belonging to `object`.\n"
+msgstr ""
+"'AttributeError' מתרחש כאשר הקוד מכיל משהו כמו\n"
+"     'object.x(ל'אובייקט.X)'\n"
+"ו- 'x' הוא לא שיטה או תכונה (משתנה) השייכים לאובייקט (object). \n"
+
+#: info_generic.py:93
+#, fuzzy
+msgid ""
+"An `EOFError` is raised when the `input()` function hits\n"
+"an end-of-file condition (EOF) without reading any data.\n"
+msgstr ""
+"'EOFError' מוגבה כאשר פונקציית 'input'(קלט) פוגעת\n"
+"בסוף הקובץ (EOF) מבלי לקרוא נתונים.\n"
+
+#: info_generic.py:101
+msgid ""
+"A `FileNotFoundError` exception indicates that you\n"
+"are trying to open a file that cannot be found by Python.\n"
+"This could be because you misspelled the name of the file.\n"
+msgstr ""
+"חריג של 'FileNotFoundError' מציין\n"
+"שמנסים לפתוח קובץ שפייתון לא מצא.\n"
+"זה יכול להיות בגלל שגיאת כתיב בשם הקובץ.\n"
+
+#: info_generic.py:110
+msgid ""
+"An `ImportError` exception indicates that a certain object could not\n"
+"be imported from a module or package. Most often, this is\n"
+"because the name of the object is not spelled correctly.\n"
+msgstr ""
+"חריג של 'ImportError' מציין כי אובייקט מסוים לא יכול היה\n"
+"להיות מיובא ממודול או מחבילה. לרוב, זה קורה\n"
+"כי שם האובייקט לא מאוית נכון.\n"
+
+#: info_generic.py:119
+msgid ""
+"An `IndentationError` occurs when a given line of code is\n"
+"not indented (aligned vertically with other lines) as expected.\n"
+msgstr ""
+"'IndentationError' מתרחשת כאשר שורת קוד היא\n"
+"לא מיושר אנכית עם קווים אחרים כצפוי.\n"
+
+#: info_generic.py:127
+msgid ""
+"An `IndexError` occurs when you try to get an item from a list,\n"
+"a tuple, or a similar object (sequence), and use an index which\n"
+"does not exist; typically, this happens because the index you give\n"
+"is greater than the length of the sequence.\n"
+msgstr ""
+"'IndexError' מתרחש כשאתה מנסה להשיג פריט מרשימה,\n"
+"צמד או אובייקט דומה (רצף), ומשתמש באינדקס אשר\n"
+"לא קיים; בדרך כלל, זה קורה מכיוון שהאינדקס שאתה נותן\n"
+"גדול מאורך הרצף.\n"
+
+#: info_generic.py:137
+msgid ""
+"A `KeyError` is raised when a value is not found as a\n"
+"key in a Python dict or in a similar object.\n"
+msgstr ""
+"'KeyError' נזרק כאשר ערך אינו נמצא כ-\n"
+"מפתח במילון או באובייקט דומה.\n"
+
+#: info_generic.py:145
+msgid ""
+"`LookupError` is the base class for the exceptions that are raised\n"
+"when a key or index used on a mapping or sequence is invalid.\n"
+"It can also be raised directly by codecs.lookup().\n"
+msgstr ""
+"'LookupError' היא מחלקת הבסיס לחריגים שמועלים\n"
+"כאשר המפתח או אינדקס שמשתמשים בהם על מפה או רצף (רשימה,צמד וכדומה) אינם "
+"תקפים.\n"
+"ניתן גם להעלות אותו ישירות על ידי codecs.lookup ().\n"
+
+#: info_generic.py:154
+msgid ""
+"Like the name indicates, a `MemoryError` occurs when Python\n"
+"runs out of memory. This can happen if you create an object\n"
+"that is too big, like a list with too many items.\n"
+msgstr ""
+"כפי שהשם מציין, 'MemoryError' מתרחש כאשר לפייתון\n"
+"נגמר הזיכרון. זה יכול לקרות אם יוצרים אובייקט\n"
+"גדול מדי, כמו רשימה עם יותר מדי פריטים.\n"
+
+#: info_generic.py:163
+msgid ""
+"A `ModuleNotFoundError` exception indicates that you\n"
+"are trying to import a module that cannot be found by Python.\n"
+"This could be because you misspelled the name of the module\n"
+"or because it is not installed on your computer.\n"
+msgstr ""
+"חריג `ModuleNotFoundError` נזרק כאשר\n"
+"מנסים לייבא מודול שפייתון לא מצא .\n"
+"זה יכול להיות בגלל שגיאת כתיב בשם המודול\n"
+"או מכיוון שהוא לא מותקן במחשב שלך.\n"
+
+#: info_generic.py:173
+msgid ""
+"A `NameError` exception indicates that a variable or\n"
+"function name is not known to Python.\n"
+"Most often, this is because there is a spelling mistake.\n"
+"However, sometimes it is because the name is used\n"
+"before being defined or given a value.\n"
+msgstr ""
+"חריג של 'NamError' מציין כי משתנה או\n"
+"הפונקציה אינו ידוע לפייתון.\n"
+"לרוב, הסיבה לכך היא שיש טעות כתיב.\n"
+"עם זאת, לפעמים זה בגלל שהשם משמש\n"
+"לפני שמגדירים אותו או נותנים לו ערך.\n"
+
+#: info_generic.py:184
+msgid ""
+"An `OSError` exception is usually raised by the Operating System\n"
+"to indicate that an operation is not allowed or that\n"
+"a resource is not available.\n"
+msgstr ""
+"בדרך כלל מערכת ההפעלה מעלה חריג של 'OSError'\n"
+"כדי לציין שפעולה אסורה או כי\n"
+"משאב אינו זמין.\n"
+
+#: info_generic.py:193
+msgid ""
+"An `OverflowError` is raised when the result of an arithmetic operation\n"
+"is too large to be handled by the computer's processor.\n"
+msgstr ""
+"'OverflowError' מוגבה כאשר התוצאה של פעולה חשבונית\n"
+"הוא גדול מכדי שניתן יהיה לטפל בו במעבד המחשב.\n"
+
+#: info_generic.py:201
+msgid ""
+"A `RecursionError` is raised when a function calls itself,\n"
+"directly or indirectly, too many times.\n"
+"It almost always indicates that you made an error in your code\n"
+"and that your program would never stop.\n"
+msgstr ""
+"\"RecursionError\" מועלה כאשר פונקציה קוראת לעצמה,\n"
+"במישרין או בעקיפין, פעמים רבות מדי.\n"
+"זה כמעט תמיד מציין שעשית שגיאה בקוד שלך\n"
+"ושהתוכנית שלך לעולם לא תפסיק.\n"
+
+#: info_generic.py:211
+msgid ""
+"A `RuntimeError` is raised when an error is detected that doesn't fall in "
+"any\n"
+"of the more specific exception types defined by Python.\n"
+msgstr ""
+
+#: info_generic.py:219
+msgid ""
+"`StopIteration` is raised to indicate that an iterator has no more\n"
+"item to provide when its `__next__` method is called by\n"
+"the `next()` builtin function.\n"
+msgstr ""
+"'StopIteration' נזרק כדי להצביע על כך iterator אין יותר\n"
+"פריט לספק כאשר שיטת `__next__` נקראת על ידי\n"
+"הפונקציה סטנדרטית 'next()' .\n"
+
+#: info_generic.py:228
+msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
+msgstr "'SyntaxError' נזרק כאשר פייתון אינו מצליח להבין את הקוד שלך.\n"
+
+#: info_generic.py:233
+#, fuzzy
+msgid ""
+"A `TabError` indicates that you have used both spaces\n"
+"and tab characters to indent your code.\n"
+"This is not allowed in Python.\n"
+"Indenting your code means to have block of codes aligned vertically\n"
+"by inserting either spaces or tab characters at the beginning of lines.\n"
+"Python's recommendation is to always use spaces to indent your code.\n"
+msgstr ""
+"'TabError' מציין שהשתמשת גם ברווחים\n"
+"וגם בתווי כרטיסיות בקוד שלך.\n"
+"זה אסור ב- Python.\n"
+"הכנסת הקוד שלך פירושה שבלוק קודים מיושר אנכית\n"
+"על ידי הכנסת רווחים או תווי כרטיסייה בתחילת השורות.\n"
+"ההמלצה של פייתון היא להשתמש תמיד ברווחים כדי להכניס את הקוד שלך.\n"
+
+#: info_generic.py:245
+#, fuzzy
+msgid ""
+"A `TypeError` is usually caused by trying\n"
+"to combine two incompatible types of objects,\n"
+"by calling a function with the wrong type of object,\n"
+"or by trying to do an operation not allowed on a given type of object.\n"
+msgstr ""
+"'TypeError' נגרם בדרך כלל על ידי ניסיון\n"
+"לשלב שני סוגים של אובייקטים לא תואמים,\n"
+"על ידי קריאה לפונקציה עם סוג אובייקט לא נכון,\n"
+"או על ידי ניסיון לבצע פעולה שאינה מותרת על סוג אובייקט נתון.\n"
+
+#: info_generic.py:255
+msgid ""
+"A `ValueError` indicates that a function or an operation\n"
+"received an argument of the right type, but an inappropriate value.\n"
+msgstr ""
+"'ValueError' מציין כי פונקציה או פעולה\n"
+"קיבל ערך מהסוג הנכון, אך בעל ערך לא נכון.\n"
+
+#: info_generic.py:263
+#, fuzzy
+msgid ""
+"In Python, variables that are used inside a function are known as \n"
+"local variables. Before they are used, they must be assigned a value.\n"
+"A variable that is used before it is assigned a value is assumed to\n"
+"be defined outside that function; it is known as a `global`\n"
+"(or sometimes `nonlocal`) variable. You cannot assign a value to such\n"
+"a global variable inside a function without first indicating to\n"
+"Python that this is a global variable, otherwise you will see\n"
+"an `UnboundLocalError`.\n"
+msgstr ""
+"ב- Python, משתנים המשמשים בתוך פונקציה ידועים בשם\n"
+"\"משתנים מקומיים\". לפני השימוש בהם, יש להקצות להם ערך.\n"
+"משתנה שמשתמשים בו לפני הגדרת הערך צריך להיות מוגדר מחוץ לפונקציה\n"
+"להיות מוגדר מחוץ לתפקוד זה; הוא ידוע בשם 'global'\n"
+"(או לפעמים 'nonlocal'). אי אפשר להקצות ערך כזה\n"
+"למשתנה גלובלי בתוך פונקציה מבלי לציין קודם כל\n"
+"שמדובר במשתנה גלובלי, אחרת תראה\n"
+"'UnboundLocalError'.\n"
+
+#: info_generic.py:277
+msgid "No information is available about this warning.\n"
+msgstr "אין מידע זמין לגבי אזהרה זו.\n"
+
+#: info_generic.py:282
+msgid ""
+"A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
+"by zero either directly or by using some other mathematical operation.\n"
+msgstr ""
+"'ZeroDivisionError' מתרחש כאשר אתה מנסה לחלק ערך\n"
+"באפס ישירות או באמצעות פעולה מתמטית אחרת.\n"
+
+#: info_variables.py:32
+msgid "a complex number"
+msgstr "מספר מורכב"
+
+#: info_variables.py:33
+msgid "a dictionary (`dict`)"
+msgstr "מילון (`dict`)"
+
+#: info_variables.py:34
+msgid "a number (`float`)"
+msgstr "מספר ('float')"
+
+#: info_variables.py:35
+msgid "a `frozenset`"
+msgstr "סט קפוא"
+
+#: info_variables.py:36
+msgid "an integer (`int`)"
+msgstr "מספר שלם (`int`)"
+
+#: info_variables.py:37
+msgid "a `list`"
+msgstr "רשימה (`list`)"
+
+#: info_variables.py:38
+#, fuzzy
+msgid "a variable equal to `None` (`NoneType`)"
+msgstr "משתנה שווה ל- 'כלום' ('NoneType')"
+
+#: info_variables.py:39
+msgid "a `set`"
+msgstr "`סט` (set)"
+
+#: info_variables.py:40 info_variables.py:41
+msgid "a string (`str`)"
+msgstr "מחרוזת (`str`)"
+
+#: info_variables.py:42
+msgid "a `tuple`"
+msgstr "צמד ('tuple')"
+
+#: info_variables.py:385
+msgid "Object too large to be processed by Python."
+msgstr ""
+
+#: info_variables.py:389
+msgid "Unable to compute."
+msgstr ""
+
+#: info_variables.py:452
+msgid ""
+"A type hint found for `{name}` in the {scope} scope.\n"
+"Perhaps you had used a colon instead of an equal sign and wrote\n"
+"\n"
+"    {name} : {hint}\n"
+"\n"
+"instead of\n"
+"\n"
+"    {name} = {hint}\n"
+msgstr ""
+"רמז סוג נמצא עבור '{name}' בהיקף {scope}.\n"
+"אולי השתמשת בנקודותיים במקום בסימן שווה וכתבת\n"
+"\n"
+"     {name}: {hint}\n"
+"\n"
+"במקום\n"
+"\n"
+"     {name} = {hint}\n"
+
+#: path_info.py:215
+msgid "The default directory is {dirname}."
+msgstr ""
+
+#: runtime_errors\attribute_error.py:32 runtime_errors\attribute_error.py:80
+#: runtime_errors\attribute_error.py:118
+msgid "Did you give your program the same name as a Python module?\n"
+msgstr "האם נתת לתוכנית שלך את אותו שם כמו מודול פייתון?\n"
+
+#: runtime_errors\attribute_error.py:33 runtime_errors\attribute_error.py:81
+msgid ""
+"I suspect that you used the name `{module}.py` for your program\n"
+"and that you also wanted to import a module with the same name\n"
+"from Python's standard library.\n"
+"If so, you should use a different name for your program.\n"
+msgstr ""
+"אני חושד שהשתמשת בשם '{module} .py' עבור התוכנית שלך\n"
+"ושאתה גם רוצה לייבא מודול עם אותו שם\n"
+"מהספרייה הסטנדרטית של פייתון.\n"
+"אם כן, עליך להשתמש בשם אחר לתוכנית שלך.\n"
+
+#: runtime_errors\attribute_error.py:42 runtime_errors\import_error.py:75
+msgid "You have a circular import.\n"
+msgstr "יש לך יבוא מעגלי.\n"
+
+#: runtime_errors\attribute_error.py:46 runtime_errors\attribute_error.py:89
+msgid "You likely have a circular import.\n"
+msgstr "סביר להניח שיש לך יבוא מעגלי.\n"
+
+#: runtime_errors\attribute_error.py:47
+msgid "Python indicated that the module `{module}` was not fully imported.\n"
+msgstr "פייתון ציין כי המודול \"{module}` לא יובא במלואו.\n"
+
+#: runtime_errors\attribute_error.py:48 runtime_errors\attribute_error.py:90
+msgid ""
+"This can occur if, during the execution of the code in module `{module}`\n"
+"an attempt is made to import the same module again.\n"
+msgstr ""
+"זה יכול לקרות אם במהלך ביצוע הקוד במודול '{module}'\n"
+"נעשה ניסיון לייבא את אותו מודול שוב.\n"
+
+#: runtime_errors\attribute_error.py:73
+msgid ""
+"This should not happen:\n"
+"Python tells us that module `{module}` does not have an attribute named "
+"`{attribute}`.\n"
+"However, it does not appear that module `{module}` was imported.\n"
+msgstr ""
+"זה לא אמור לקרות:\n"
+"Python אומר לנו שלמודול '{module}' אין תכונה בשם '{attribute}'.\n"
+"עם זאת, לא נראה כי המודול \"{module}\" יובא.\n"
+
+#: runtime_errors\attribute_error.py:99 runtime_errors\attribute_error.py:107
+#: runtime_errors\attribute_error.py:140 runtime_errors\attribute_error.py:394
+#: runtime_errors\import_error.py:118 runtime_errors\key_error.py:194
+#: runtime_errors\key_error.py:201 runtime_errors\module_not_found_error.py:129
+#: runtime_errors\name_error.py:97 runtime_errors\name_error.py:99
+#: runtime_errors\unbound_local_error.py:55
+#: syntax_errors\message_analyzer.py:456 syntax_errors\message_analyzer.py:1093
+#: syntax_errors\statement_analyzer.py:1276
+msgid "Did you mean `{name}`?\n"
+msgstr "האם התכוונת ל '{name}'?\n"
+
+#: runtime_errors\attribute_error.py:100
+msgid ""
+"Perhaps you meant to write `{module}.{correct}` instead of `{module}.{typo}"
+"`\n"
+msgstr "אולי התכוונת לכתוב '{module}. {Correct}' במקום '{module}. {Typo}'\n"
+
+#: runtime_errors\attribute_error.py:108
+msgid ""
+"Instead of writing `{module}.{typo}`, perhaps you meant to write one of \n"
+"the following names which are attributes of module `{module}`:\n"
+"`{names}`\n"
+msgstr ""
+"Instead of writing `{module}.{typo}`, perhaps you meant to write one of \n"
+"the following names which are attributes of module `{module}`:\n"
+"`{names}`\n"
+
+#: runtime_errors\attribute_error.py:119
+msgid ""
+"You imported a module named `{module}` from `{mod_path}`.\n"
+"There is also a module named `{module}` in Python's standard library.\n"
+"Perhaps you need to rename your module.\n"
+msgstr ""
+"You imported a module named `{module}` from `{mod_path}`.\n"
+"There is also a module named `{module}` in Python's standard library.\n"
+"Perhaps you need to rename your module.\n"
+
+#: runtime_errors\attribute_error.py:141
+msgid ""
+"Perhaps you meant to use the attribute `{attribute}` of \n"
+"module `{mod_name}` instead of module `{module}`.\n"
+msgstr ""
+"אולי התכוונת להשתמש במאפיין '{attribute}' של\n"
+"מודול '{mod_name}' במקום מודול '{module}'.\n"
+
+#: runtime_errors\attribute_error.py:147
+msgid "Did you mean one of the following modules: `{names}`?"
+msgstr "האם התכוונת לאחד המודולים הבאים: `{names}`?"
+
+#: runtime_errors\attribute_error.py:150
+msgid ""
+"Instead of the module `{module}`, perhaps you wanted to use\n"
+"the attribute `{attribute}` of one of the following modules:\n"
+"`{names}`.\n"
+msgstr ""
+"במקום המודול `{module}`, אולי רצית להשתמש\n"
+"התכונה '{attribute}' של אחד מהמודולים הבאים:\n"
+"`{names}`.\n"
+
+#: runtime_errors\attribute_error.py:159
+msgid ""
+"Python tells us that no object with name `{attribute}` is\n"
+"found in module `{module}`.\n"
+msgstr ""
+"פייתון אומר לנו שאין אובייקט בשם \"{attribute}\"\n"
+"שנמצא במודול `{module}`.\n"
+
+#: runtime_errors\attribute_error.py:190
+msgid ""
+"You are attempting to access the attribute `{attr}`\n"
+"for a variable whose value is `None`."
+msgstr ""
+"אתה מנסה לגשת למאפיין '{attr}'\n"
+"עבור משתנה שערכו 'כלום'(none)."
+
+#: runtime_errors\attribute_error.py:211
+msgid ""
+"The value of attribute `{attribute}` of objects of type `{obj_type}`\n"
+"cannot be changed.\n"
+"I have no further information.\n"
+msgstr ""
+
+#: runtime_errors\attribute_error.py:230
+msgid ""
+"Object `{name}` uses an empty `__slots__` to prevent the modification\n"
+"of any of its attributes.\n"
+msgstr ""
+
+#: runtime_errors\attribute_error.py:236
+msgid ""
+"Object `{name}` uses `__slots__` to specify which attributes can\n"
+"be changed. The value of attribute `{name}.{attribute}` cannot be changed.\n"
+msgstr ""
+
+#: runtime_errors\attribute_error.py:261
+msgid ""
+"`{obj_name}` is a function. Perhaps you meant to write\n"
+"`{obj_name}({attribute})`\n"
+msgstr ""
+"`{obj_name}` היא פונקציה. אולי התכוונת לכתוב\n"
+"`{obj_name} ({attribute})`\n"
+
+#: runtime_errors\attribute_error.py:265
+msgid "Did you mean `{obj_name}({attribute})`?\n"
+msgstr "האם התכוונת ל \"{obj_name} ({attribute})\"?\n"
+
+#: runtime_errors\attribute_error.py:270
+msgid ""
+"`{obj_name}` is a Python built-in function or method\n"
+"which does not have an attribute named `{attribute}.`\n"
+msgstr ""
+"`{obj_name}` היא פונקציה או שיטה סטנדרטית של פייתון\n"
+"שאין לו תכונה בשם '{attribute}.'\n"
+
+#: runtime_errors\attribute_error.py:289
+msgid ""
+"An object of type `{obj_type}` has no attribute named `{attr}`.\n"
+"Unfortunately I cannot find such an object on the line where\n"
+"the problem occurs.\n"
+msgstr ""
+"לאובייקט מסוג '{obj_type}' אין תכונה בשם '{attr}'.\n"
+"לצערי אני לא יכול למצוא אובייקט כזה על הקו שבו\n"
+"הבעיה מתרחשת.\n"
+
+#: runtime_errors\attribute_error.py:317
+msgid ""
+"An object of type `{obj_type}` has no attribute named `{attr}`.\n"
+"\n"
+"I cannot give additional information:\n"
+"I found one object of this type in the current scope\n"
+"but it does not appear to be the object causing the problem.\n"
+msgstr ""
+"לאובייקט מסוג '{obj_type}' אין תכונה בשם '{attr}'.\n"
+"\n"
+"אני לא יכול למסור מידע נוסף:\n"
+"מצאתי אובייקט אחד מסוג זה בהיקף הנוכחי\n"
+"אך לא נראה שזה האובייקט שגורם לבעיה.\n"
+
+#: runtime_errors\attribute_error.py:326
+msgid ""
+"An object of type `{obj_type}` has no attribute named `{attr}`.\n"
+"\n"
+"The following objects might be the cause of the problem: \n"
+"{names}.\n"
+msgstr ""
+"An object of type `{obj_type}` has no attribute named `{attr}`.\n"
+"\n"
+"The following objects might be the cause of the problem: \n"
+"{names}.\n"
+
+#: runtime_errors\attribute_error.py:366
+msgid "The object `{obj}` has no attribute named `{attr}`.\n"
+msgstr "לאובייקט '{obj}' אין תכונה בשם '{attr}'.\n"
+
+#: runtime_errors\attribute_error.py:370
+msgid ""
+"Note that object `{obj}` uses `__slots__` which prevents\n"
+"the creation of new attributes.\n"
+msgstr ""
+"שים לב שהאובייקט `{obj}` משתמש ב- `__slots__` אשר מונע\n"
+"יצירת תכונות חדשות.\n"
+
+#: runtime_errors\attribute_error.py:378
+msgid ""
+"The following are some of its known attributes:\n"
+"`{names}`."
+msgstr ""
+"להלן כמה מהתכונות הידועות:\n"
+"`{שמות}`."
+
+#: runtime_errors\attribute_error.py:390
+msgid "The object `{obj_name}` has no attribute named `{attribute}`.\n"
+msgstr "לאובייקט '{obj_name}' אין תכונה בשם '{attribute}'.\n"
+
+#: runtime_errors\attribute_error.py:395
+msgid ""
+"Perhaps you meant to write `{obj}.{correct}` instead of `{obj}.{typo}`\n"
+msgstr "אולי התכוונת לכתוב '{obj}. {Correct}' במקום '{obj}. {Typo}'\n"
+
+#: runtime_errors\attribute_error.py:401 runtime_errors\import_error.py:125
+msgid "Did you mean one of the following: `{names}`?\n"
+msgstr "האם התכוונת לאחד מהבאים: `{names}`?\n"
+
+#: runtime_errors\attribute_error.py:402
+msgid ""
+"Instead of writing `{obj}.{typo}`, perhaps you meant to write one of \n"
+"the following names which are attributes of object `{obj}`:\n"
+"`{names}`\n"
+msgstr ""
+"במקום לכתוב '{obj}. {Typo}', אולי התכוונת לכתוב אחד מהם\n"
+"השמות הבאים שהם תכונות של אובייקט `{obj}`:\n"
+"`{שמות}`\n"
+
+#: runtime_errors\attribute_error.py:427 syntax_errors\message_analyzer.py:1756
+#: syntax_errors\message_analyzer.py:1769
+msgid "Did you write a comma by mistake?\n"
+msgstr "כתבת פסיק בטעות?\n"
+
+#: runtime_errors\attribute_error.py:428
+msgid ""
+"`{obj_name}` is a tuple that contains a single item\n"
+"which does have `'{attribute}'` as an attribute.\n"
+"Perhaps you added a trailing comma by mistake at the end of the line\n"
+"where you defined `{obj_name}`.\n"
+msgstr ""
+"`{obj_name}` הוא צמד (tuple ) המכיל פריט בודד\n"
+"אשר אכן מכיל \"'{attribute}' 'כתכונה.\n"
+"אולי הוספת פסיק נגרר בטעות בסוף השורה\n"
+"שם הגדרת את \"{obj_name}\".\n"
+
+#: runtime_errors\attribute_error.py:441
+msgid "Did you mean `{str_content}.join({obj_name})`?\n"
+msgstr "האם התכוונת ל '{str_content}.join({obj_name}) `?\n"
+
+#: runtime_errors\attribute_error.py:442
+msgid ""
+"The object `{obj_name}` has no attribute named `join`.\n"
+"Perhaps you wanted something like `{str_content}.join({obj_name})`.\n"
+msgstr ""
+"לאובייקט '{obj_name}' אין תכונה בשם 'join'.\n"
+"אולי רצית משהו כמו '{str_content}.join({obj_name})'.\n"
+
+#: runtime_errors\attribute_error.py:465
+msgid "Did you mean `{known_builtin}({obj_name})`?\n"
+msgstr "האם התכוונת ל '{known_builtin}({obj_name})'?\n"
+
+#: runtime_errors\attribute_error.py:468
+msgid ""
+"The object `{obj_name}` has no attribute named `{attribute}`.\n"
+"Perhaps you can use the Python builtin function `{known_builtin}` instead:\n"
+"`{known_builtin}({obj_name})`."
+msgstr ""
+"לאובייקט '{obj_name}' אין תכונה בשם '{attribute}'.\n"
+"אולי תוכל להשתמש בפונקציה הסטנדרטית  של Python `{known_builtin}` במקום:\n"
+"`{known_builtin}({obj_name})`."
+
+#: runtime_errors\attribute_error.py:498
+msgid "Did you mean `{attr}`?\n"
+msgstr "האם התכוונת ל '{attr}'?\n"
+
+#: runtime_errors\attribute_error.py:499
+msgid "The object `{name}` has no attribute named `{attribute}`.\n"
+msgstr "לאובייקט '{name}' אין תכונה בשם '{attribute}'.\n"
+
+#: runtime_errors\attribute_error.py:503
+msgid "However, `{attr}` is an attribute of `{name}` with a similar meaning.\n"
+msgstr "עם זאת, '{attr}' היא תכונה של '{name}' בעלת משמעות דומה.\n"
+
+#: runtime_errors\attribute_error.py:507
+msgid ""
+"However, `{name}` has the following attributes with similar meanings:\n"
+"`{attributes}`.\n"
+msgstr ""
+"עם זאת, ל- '{name}' יש את התכונות הבאות בעלות משמעויות דומות:\n"
+"`{attributes}`.\n"
+
+#: runtime_errors\attribute_error.py:516
+msgid "Did you mean to separate object names by a comma?\n"
+msgstr "האם התכוונת להפריד שמות אובייקטים בפסיק?\n"
+
+#: runtime_errors\attribute_error.py:518
+msgid ""
+"`{second}` is not an attribute of `{first}`.\n"
+"However, both `{first}` and `{second}` are known objects.\n"
+"Perhaps you wrote a period to separate these two objects, \n"
+"instead of using a comma.\n"
+msgstr ""
+"'{second}' אינה תכונה של '{first}'.\n"
+"עם זאת, הן \"{first}\" ו- \"{second}\" הם אובייקטים ידועים.\n"
+"אולי כתבת תקופה להפריד בין שני האובייקטים האלה,\n"
+"במקום להשתמש בפסיק.\n"
+
+#: runtime_errors\file_not_found_error.py:25
+#: runtime_errors\file_not_found_error.py:39
+msgid ""
+"In your program, the name of the\n"
+"file that cannot be found is `{filename}`.\n"
+msgstr ""
+"בתוכנית שלך, שם ה-\n"
+"הקובץ שלא ניתן למצוא הוא '{filename}'.\n"
+
+#: runtime_errors\file_not_found_error.py:33
+#, fuzzy
+msgid ""
+"{directory}\n"
+"is not a valid directory.\n"
+msgstr ""
+"{directory}\n"
+"זה לא תיקייה חוקית.\n"
+
+#: runtime_errors\file_not_found_error.py:44
+msgid ""
+"It was expected to be found in the\n"
+"`{directory}` directory.\n"
+msgstr ""
+
+#: runtime_errors\file_not_found_error.py:48
+msgid "Did you mean `{similar}`?\n"
+msgstr "האם התכוונת ל`{similar}`?\n"
+
+#: runtime_errors\file_not_found_error.py:50
+msgid "The file `{similar}` has a similar name.\n"
+msgstr "לקובץ `{similar}` יש שם דומה.\n"
+
+#: runtime_errors\file_not_found_error.py:55
+#, fuzzy
+msgid "Perhaps you meant one of the following files with similar names:\n"
+msgstr "אולי התכוונת לאחד מהקבצים הבאים עם שמות דומים:\n"
+
+#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:119
+msgid "I have no additional information for you.\n"
+msgstr "אין לי מידע נוסף עבורך.\n"
+
+#: runtime_errors\import_error.py:78
+msgid ""
+"The object that could not be imported is `{name}`.\n"
+"The module or package where it was \n"
+"expected to be found is `{module}`.\n"
+msgstr ""
+"האובייקט שלא ניתן היה לייבא הוא '{name}'.\n"
+"היכן  שהמודול או החבילה  היו\n"
+"צפויים להימצא הוא '{module}'.\n"
+
+#: runtime_errors\import_error.py:95
+msgid ""
+"Python indicated that you have a circular import.\n"
+"This can occur if executing the code in module 'A'\n"
+"results in executing the code in module 'B' where\n"
+"an attempt to import a name from module 'A' is made\n"
+"before the execution of the code in module 'A' had been completed.\n"
+msgstr ""
+"Python ציין שיש לך יבוא מעגלי.\n"
+"זה יכול להתרחש אם מבצעים את הקוד במודול 'A'\n"
+"גורם לביצוע הקוד במודול 'B' שבו\n"
+"נעשה ניסיון לייבא שם ממודול 'A'\n"
+"לפני השלמת ביצוע הקוד במודול 'A'.\n"
+
+#: runtime_errors\import_error.py:107
+msgid ""
+"Inconsistent state: `'{module}'` was apparently not imported.\n"
+"As a result, no further analysis can be done.\n"
+msgstr ""
+"מצב לא עקבי: \"'{module}' 'כנראה לא יובא.\n"
+"כתוצאה מכך, לא ניתן לבצע ניתוח נוסף.\n"
+
+#: runtime_errors\import_error.py:119
+msgid ""
+"Perhaps you meant to import `{correct}` (from `{module}`) instead of `{typo}"
+"`\n"
+msgstr "אולי התכוונת לייבא '{correct}' (מתוך '{module}') במקום '{typo}'\n"
+
+#: runtime_errors\import_error.py:128
+msgid ""
+"Instead of trying to import `{typo}` from `{module}`, \n"
+"perhaps you meant to import one of \n"
+"the following names which are found in module `{module}`:\n"
+"`{candidates}`\n"
+msgstr ""
+"במקום לנסות לייבא את '{typo}' מתוך '{module}',\n"
+"אולי התכוונת לייבא אחד מ\n"
+"השמות הבאים המופיעים במודול `{module}`:\n"
+"`{candidates}`\n"
+
+#: runtime_errors\import_error.py:146
+msgid "The object that could not be imported is `{name}`.\n"
+msgstr "האובייקט שלא ניתן היה לייבא הוא '{name}'.\n"
+
+#: runtime_errors\import_error.py:198
+#, fuzzy
+msgid ""
+"The problem was likely caused by what is known as a 'circular import'.\n"
+"First, Python imported and started executing the code in file\n"
+"   '{file}'.\n"
+"which imports module `{last_module}`.\n"
+"During this process, the code in another file,\n"
+"   '{last_file}'\n"
+"was executed. However in this last file, an attempt was made\n"
+"to import the original module `{last_module}`\n"
+"a second time, before Python had completed the first import.\n"
+msgstr ""
+"ככל הנראה הבעיה נגרמה על ידי מה שמכונה 'יבוא מעגלי'.\n"
+"ראשית, פייתון ייבא והתחיל לבצע את הקוד בקובץ\n"
+"    '{file}'.\n"
+"אשר מייבא את המודול `{last_module}`.\n"
+"במהלך תהליך זה, הקוד בקובץ אחר,\n"
+"    '{last_file}'\n"
+"בוצע. אולם בקובץ האחרון הזה נעשה ניסיון\n"
+"לייבא את המודול המקורי `{last_module}`\n"
+"בפעם השנייה, לפני שפיתון השלימה את הייבוא הראשון.\n"
+
+#: runtime_errors\index_error.py:36
+msgid ""
+"You have tried to assign a value to an item of an object\n"
+"of type `{obj_type}` which I cannot identify.\n"
+"The index you gave was not an allowed value.\n"
+msgstr ""
+
+#: runtime_errors\index_error.py:46
+msgid ""
+"You have tried to assign a value to index `{index}` of `{name}`,\n"
+"{obj_type} of length `{length}`.\n"
+msgstr ""
+
+#: runtime_errors\index_error.py:57 runtime_errors\index_error.py:144
+msgid ""
+"The valid index values of `{name}` are integers ranging from\n"
+"`{min}` to `{max}`.\n"
+msgstr ""
+"ערכי האינדקס התקפים של '{name}' הם מספרים שלמים הנעים בין\n"
+"`{min}` עד `{max}`.\n"
+
+#: runtime_errors\index_error.py:62 runtime_errors\index_error.py:149
+msgid ""
+"Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
+msgstr "זכור: הפריט הראשון של {obj_type} אינו באינדקס 1 אלא באינדקס 0.\n"
+
+#: runtime_errors\index_error.py:67 runtime_errors\index_error.py:154
+msgid "`{name}` contains no item.\n"
+msgstr "`{name}` אינו מכיל פריט.\n"
+
+#: runtime_errors\index_error.py:68
+msgid ""
+"You have tried to assign a value to index `{index}` of `{name}`,\n"
+"{obj_type} which contains no item.\n"
+msgstr ""
+
+#: runtime_errors\index_error.py:97
+msgid ""
+"You have tried to get an item of an object\n"
+"of type `{obj_type}` which I cannot identify.\n"
+"The index you gave was not an allowed value.\n"
+msgstr ""
+
+#: runtime_errors\index_error.py:124
+msgid ""
+"You have tried to get an item from `{name}`,\n"
+"{obj_type} of length `{length}`, by using a value for the index\n"
+"that I cannot determine but which is not allowed.\n"
+msgstr ""
+"ניסית להשיג פריט מ- {name} `,\n"
+"{obj_type} של אורך `{length}`, על ידי שימוש באינדקס\n"
+"שאני לא יכול לקבוע אבל אסור.\n"
+
+#: runtime_errors\index_error.py:133
+msgid ""
+"You have tried to get the item with index `{index}` of `{name}`,\n"
+"{obj_type} of length `{length}`.\n"
+msgstr ""
+"ניסית לקבל את הפריט עם האינדקס '{index}' של '{name}',\n"
+"{obj_type} של אורך `{length}`.\n"
+
+#: runtime_errors\index_error.py:155
+msgid ""
+"You have tried to get the item with index `{index}` of `{name}`,\n"
+"{obj_type} which contains no item.\n"
+msgstr ""
+"ניסית לקבל את הפריט עם האינדקס '{index}' של '{name}',\n"
+"{obj_type} שאינו מכיל פריט.\n"
+
+#: runtime_errors\key_error.py:25
+msgid ""
+"You tried to retrieve an item from an empty `dict`\n"
+"or a similar object which I cannot identify.\n"
+msgstr ""
+"ניסית לקבל פריט מתוך מילון ( 'dict') ריק\n"
+"או אובייקט דומה שאני לא יכול לזהות.\n"
+
+#: runtime_errors\key_error.py:31
+msgid "`{name}` is an empty `dict`.\n"
+msgstr "'{name}' הוא מילון ('dict') ריק.\n"
+
+#: runtime_errors\key_error.py:32
+msgid "You tried to retrieve an item from `{name}` which is an empty `dict`.\n"
+msgstr "ניסית לקבל פריט מתוך '{name}' שהוא מילון ('dict') ריק.\n"
+
+#: runtime_errors\key_error.py:54
+msgid ""
+"You tried to retrieve an item from an empty ChainMap\n"
+"or similar object which I cannot identify.\n"
+msgstr ""
+"ניסית לאחזר פריט מתוך ChainMap ריק\n"
+"או אובייקט דומה שאני לא יכול לזהות.\n"
+
+#: runtime_errors\key_error.py:60
+msgid "`{name}` is an empty `ChainMap`.\n"
+msgstr "`{name}` הוא `ChainMap` ריק.\n"
+
+#: runtime_errors\key_error.py:61
+msgid ""
+"You tried to retrieve an item from `{name}` which is an empty `ChainMap`.\n"
+msgstr "ניסית לקבל פריט מתוך '{name}' שהוא 'ChainMap' ריק.\n"
+
+#: runtime_errors\key_error.py:103
+msgid "Missing key `{key}` in a `ChainMap` or in a similar object.\n"
+msgstr "חסר מפתח '{key}' ב- 'ChainMap' או באובייקט דומה.\n"
+
+#: runtime_errors\key_error.py:147
+msgid ""
+"A `dict` or a similar object which I cannot identify\n"
+"does not have `{key}` as a key.\n"
+msgstr ""
+"מילון (dict) או אובייקט דומה שאני לא יכול לזהות\n"
+"אין לו '{key}' כמפתח.\n"
+
+#: runtime_errors\key_error.py:154
+msgid "The key `{key}` cannot be found in the dict `{name}`.\n"
+msgstr "לא ניתן למצוא את המפתח `{key}` במילון (dict) בשם `{name}`.\n"
+
+#: runtime_errors\key_error.py:159
+msgid ""
+"The key `{key}` cannot be found in `{name}`, an object of type `{obj_type}"
+"`.\n"
+msgstr ""
+"לא ניתן למצוא את המפתח '{key}' ב- '{name}', אובייקט מסוג '{obj_type}'.\n"
+
+#: runtime_errors\key_error.py:169
+msgid ""
+"`{name}` contains a string key which is identical to `str({key})`.\n"
+"Perhaps you forgot to convert the key into a string.\n"
+msgstr ""
+"`{name}` מכיל מפתח מחרוזת שזהה ל- `str({key})`.\n"
+"אולי שכחת להמיר את המפתח למחרוזת.\n"
+
+#: runtime_errors\key_error.py:173
+msgid "Did you forget to convert `{key}` into a string?\n"
+msgstr "שכחת להמיר את '{key}' למחרוזת?\n"
+
+#: runtime_errors\key_error.py:182
+msgid ""
+"`{key}` is a string.\n"
+"There is a key of `{name}` whose string representation\n"
+"is identical to `{key}`.\n"
+msgstr ""
+"`{key}` היא מחרוזת.\n"
+"יש מפתח של '{name}' שייצוג המחרוזות שלו\n"
+"זהה ל- '{key}'.\n"
+
+#: runtime_errors\key_error.py:187
+msgid "Did you convert `{key}` into a string by mistake?\n"
+msgstr "האם המרת את '{key}' למחרוזת בטעות?\n"
+
+#: runtime_errors\key_error.py:195
+msgid "`{name}` is a key of `{dict_}` which is similar to `{key}`.\n"
+msgstr "'{name}' הוא מפתח של '{dict_}' הדומה ל- '{key}'.\n"
+
+#: runtime_errors\key_error.py:203
+msgid ""
+"`{name}` has some keys similar to `{key}` including:\n"
+"`{names}`.\n"
+msgstr ""
+"'{name}' מכיל כמה מפתחות הדומים ל- '{key}' כולל:\n"
+"`{שמות}`.\n"
+
+#: runtime_errors\module_not_found_error.py:38
+msgid ""
+"No additional information available since `{name}` cannot be imported.\n"
+msgstr "אין מידע נוסף זמין מכיוון שלא ניתן לייבא את '{name}'.\n"
+
+#: runtime_errors\module_not_found_error.py:49
+msgid "Did you mean `from {name} import {rest}`?\n"
+msgstr ""
+"האם התכוונת ל-`from {name} import {rest}`? ('מתוך {name} יבא {rest})' ?\n"
+
+#: runtime_errors\module_not_found_error.py:52
+msgid ""
+"`{rest}` is not a separate module but an object that is part of `{name}`.\n"
+msgstr "'{rest}' אינו מודול נפרד אלא אובייקט שהוא חלק מ- '{name}'.\n"
+
+#: runtime_errors\module_not_found_error.py:62
+msgid "Did you mean `import {name}.{attr}`?\n"
+msgstr "האם התכוונת ל-`import {name}.{attr}`? ('יבא {name}.{attr})' ?\n"
+
+#: runtime_errors\module_not_found_error.py:65
+msgid ""
+"Perhaps you meant `import {name}.{attr}`.\n"
+"`{attr}` is a name similar to `{rest}` and is a module that\n"
+"can be imported from `{name}`.\n"
+msgstr ""
+"אולי התכוונת ל'ייבא {name}. {Attr} '.\n"
+"'{attr}' הוא שם הדומה ל- '{rest}' והוא מודול ש\n"
+"ניתן לייבא מ '{name}'.\n"
+
+#: runtime_errors\module_not_found_error.py:73
+msgid "Did you mean `from {name} import {attr}`?\n"
+msgstr ""
+"האם התכוונת ל-`from {name} import {attr}`? ('מתוך {name} יבוא {attr})' ?\n"
+
+#: runtime_errors\module_not_found_error.py:76
+msgid ""
+"Perhaps you meant `from {name} import {attr}`.\n"
+"`{attr}` is a name similar to `{rest}` and is an object that\n"
+"can be imported from `{name}`.\n"
+msgstr ""
+"אולי התכוונת ל `from {name} import {attr}`  (מ- {name} יבא {attr}'.\n"
+"')\n"
+"`{attr}` הוא שם הדומה ל- `{rest}` והוא אובייקט ש\n"
+"ניתן לייבא מ '{name}'.\n"
+
+#: runtime_errors\module_not_found_error.py:83
+msgid ""
+"Other objects with similar names that are part of\n"
+" `{name}` include `{others}`.\n"
+msgstr ""
+"אובייקטים אחרים עם שמות דומים שהם חלק מ\n"
+"  \"{name}\" כלול \"{others}\".\n"
+
+#: runtime_errors\module_not_found_error.py:89
+msgid "`{rest}` cannot be imported from `{name}`.\n"
+msgstr "לא ניתן לייבא את '{rest}' מתוך '{name}'.\n"
+
+#: runtime_errors\module_not_found_error.py:100
+msgid "The curses module is rarely installed with Python on Windows.\n"
+msgstr "המודול \"curses\" מותקן לעתים רחוקות עם Python ב- Windows.\n"
+
+#: runtime_errors\module_not_found_error.py:102
+msgid "The curses module is often not installed with Python.\n"
+msgstr "המודול \"curses\" לרוב אינו מותקן עם Python.\n"
+
+#: runtime_errors\module_not_found_error.py:103
+msgid "You have tried to import the curses module.\n"
+msgstr "ניסית לייבא את המודול \"curses \".\n"
+
+#: runtime_errors\module_not_found_error.py:122
+msgid ""
+"No module named `{name}` can be imported.\n"
+"Perhaps you need to install it.\n"
+msgstr ""
+"לא ניתן לייבא מודול בשם '{name}'.\n"
+"אולי אתה צריך להתקין אותו.\n"
+
+#: runtime_errors\module_not_found_error.py:131
+msgid ""
+"The following existing modules have names that are similar \n"
+"to the module you tried to import: `{names}`\n"
+msgstr ""
+"במודולים הקיימים הבאים יש שמות דומים\n"
+"למודול שניסית לייבא: `{names}`\n"
+
+#: runtime_errors\module_not_found_error.py:136
+msgid "`{name}` is an existing module that has a similar name.\n"
+msgstr "\"{name}\" הוא מודול קיים בעל שם דומה.\n"
+
+#: runtime_errors\name_error.py:18
+msgid "You are already using Python!"
+msgstr "אתה כבר משתמש בפייתון!"
+
+#: runtime_errors\name_error.py:33
+msgid ""
+"`{name}` is a name found in module `{mod}`.\n"
+"Perhaps you forgot to write\n"
+"\n"
+"    from {mod} import {name}\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:37
+msgid ""
+"`{name}` is a name found in the following modules from the standard "
+"library:\n"
+"{modules}.\n"
+"Perhaps you forgot to import `{name}` from one of these modules.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:62
+msgid ""
+"In your program, `{var_name}` is an unknown name\n"
+"that exists in an enclosing scope,\n"
+"but has not yet been assigned a value.\n"
+msgstr ""
+"בתוכנית שלך, '{var_name}' הוא שם לא ידוע\n"
+"שקיים בהיקף סגור,\n"
+"אך עדיין לא הוקצה לו ערך.\n"
+
+#: runtime_errors\name_error.py:84 runtime_errors\name_error.py:135
+msgid "In your program, no object with the name `{var_name}` exists.\n"
+msgstr "בתוכנית שלך אין אובייקט בשם \"{var_name}\".\n"
+
+#: runtime_errors\name_error.py:101
+msgid "Did you use a colon instead of an equal sign?\n"
+msgstr "האם השתמשת בנקודותיים במקום בסימן שוויון?\n"
+
+#: runtime_errors\name_error.py:134
+msgid "Did you mean `1j`?\n"
+msgstr "האם התכוונת ל '1j'?\n"
+
+#: runtime_errors\name_error.py:138
+msgid ""
+"However, sometimes `{name}` is intended to represent\n"
+"the square root of `-1` which is written as `1j` in Python.\n"
+msgstr ""
+"עם זאת, לפעמים '{name}' נועד לייצג\n"
+"השורש הריבועי של '-1' שנכתב כ- '1j' בפייתון.\n"
+
+#: runtime_errors\name_error.py:153
+msgid "`__debug__` is a constant.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:154
+msgid ""
+"`__debug__` is a constant that cannot be deleted.\n"
+"In future Python versions, attempting to delete it will be a SyntaxError.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:162
+msgid "You must be a fan of PyConAu!\n"
+msgstr "אתה חייב להיות מעריץ של PyConAu!\n"
+
+#: runtime_errors\name_error.py:163
+msgid ""
+"I am guessing that you tried to use (one of) the flipfloperators\n"
+"shown during the second Lightning Talk session of PyConAu 2018,\n"
+"but that you forgot to install the module from PyPI.\n"
+"\n"
+"#### Note that it is still a bad idea.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:178
+msgid "Did you forget to import `{name}`?\n"
+msgstr "שכחת לייבא את '{name}'?\n"
+
+#: runtime_errors\name_error.py:181
+msgid ""
+"The name `{name}` is not defined in your program.\n"
+"Perhaps you forgot to import `{lowercase}` which is found\n"
+"in Python's standard library.\n"
+msgstr ""
+"השם \"{name}\" לא מוגדר בתוכנית שלך.\n"
+"אולי שכחת לייבא את '{lowercase}' שנמצא\n"
+"בספרייה הסטנדרטית של פייתון.\n"
+
+#: runtime_errors\name_error.py:190
+msgid "Note that the name of the module is `{lowercase}` and not `{name}`.\n"
+msgstr "שים לב כי שם המודול הוא '{lowercase}' ולא '{name}'.\n"
+
+#: runtime_errors\name_error.py:208
+msgid "The similar name `{name}` was found in the local scope.\n"
+msgstr "השם הדומה '{name}' נמצא בהיקף המקומי.\n"
+
+#: runtime_errors\name_error.py:209
+msgid "The similar name `{name}` was found in the global scope.\n"
+msgstr "השם הדומה '{name}' נמצא בהיקף הגלובלי.\n"
+
+#: runtime_errors\name_error.py:210
+msgid "The Python builtin `{name}` has a similar name.\n"
+msgstr "לשם הסטנדרטי של פייתון `{name}` יש שם דומה.\n"
+
+#: runtime_errors\name_error.py:219 runtime_errors\unbound_local_error.py:125
+msgid "Instead of writing `{name}`, perhaps you meant one of the following:\n"
+msgstr "במקום לכתוב '{name}', אולי התכוונת לאחד מהדברים הבאים:\n"
+
+#: runtime_errors\name_error.py:224 runtime_errors\unbound_local_error.py:129
+msgid "*   Local scope: "
+msgstr "* היקף מקומי "
+
+#: runtime_errors\name_error.py:225
+msgid "*   Global scope: "
+msgstr "* היקף גלובלי "
+
+#: runtime_errors\name_error.py:226
+msgid "*   Python builtins: "
+msgstr "* שמות סטנדרטים של פייתון "
+
+#: runtime_errors\name_error.py:290
+msgid "Did you write `self` at the wrong place?\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:291
+msgid ""
+"The {scope} object `{obj}`\n"
+"has an attribute named `{unknown_name}`.\n"
+"Perhaps you should have written `self.{unknown_name}(...`\n"
+"instead of `{unknown_name}(self, ...`.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:298
+msgid "Did you forget to add `self.`?\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:299
+msgid ""
+"A {scope} object, `{obj}`,\n"
+"has an attribute named `{unknown_name}`.\n"
+"Perhaps you should have written `self.{unknown_name}`\n"
+"instead of `{unknown_name}`.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:306
+msgid "Did you forget to add `{name}.`?\n"
+msgstr "שכחת להוסיף את `{name}.`?\n"
+
+#: runtime_errors\name_error.py:307
+msgid ""
+"The {scope} object `{name}`\n"
+"has an attribute named `{unknown_name}`.\n"
+"Perhaps you should have written `{name}.{unknown_name}`\n"
+"instead of `{unknown_name}`.\n"
+msgstr ""
+
+#: runtime_errors\os_error.py:23
+msgid ""
+"I suspect that you are trying to connect to a server and\n"
+"that a connection cannot be made.\n"
+"\n"
+"If that is the case, check for typos in the URL\n"
+"and check your internet connectivity.\n"
+msgstr ""
+"אני חושד שאתה מנסה להתחבר לשרת ו\n"
+"שלא ניתן ליצור קשר.\n"
+"\n"
+"אם זה המצב, בדוק אם יש שגיאות כתיב בכתובת האתר\n"
+"ובדוק את חיבור האינטרנט שלך.\n"
+
+#: runtime_errors\os_error.py:42 syntax_errors\message_analyzer.py:1846
+msgid "Perhaps you need to double the backslash characters.\n"
+msgstr "אולי אתה צריך להכפיל את הלוֹכסן האחורי .\n"
+
+#: runtime_errors\os_error.py:43
+msgid ""
+"I suspect that you wrote a filename or path that contains\n"
+"at least one backslash character, `\\`.\n"
+"Python likely interpreted this as indicating the beginning of\n"
+"what is known as an escape sequence.\n"
+"To solve the problem, either write a so-called 'raw string'\n"
+"by adding the letter `r` as a prefix in\n"
+"front of the filename or path, or replace all single backslash\n"
+"characters, `\\`, by double ones: `\\\\`.\n"
+msgstr ""
+
+#: runtime_errors\runtime_error.py:50
+msgid ""
+"While you were iterating over the items of `{name}` ({container_type})\n"
+"in a `{for_while}` loop, you either tried to add or remove items from it.\n"
+"Suggestion: start by making a copy of `{name}` and iterate over the items\n"
+"of that copy if you want to change `{name}` inside a loop.\n"
+"You might want to do this as follows:\n"
+"\n"
+"    my_{name} = {name}.copy()\n"
+"    for item in my_{name}:\n"
+"        # Change {name}\n"
+msgstr ""
+
+#: runtime_errors\runtime_error.py:61
+msgid ""
+"While you were iterating over the items of a container ({container_type})\n"
+"in a `{for_while}` loop, you either tried to add or remove items from it.\n"
+"Suggestion: start by making a copy of the container and iterate over the "
+"items\n"
+"of that copy if you want to change that container inside a loop.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:53
+msgid "Did you forget to convert the string `{name}` into {number_type}?\n"
+msgstr "שכחת להמיר את המחרוזת \"{name}\" ל- {number_type}?\n"
+
+#: runtime_errors\type_error.py:58
+msgid "Perhaps you forgot to convert the string `{name}` into {number_type}.\n"
+msgstr "אולי שכחת להמיר את המחרוזת \"{name}\" ל- {number_type}.\n"
+
+#: runtime_errors\type_error.py:73 runtime_errors\type_error.py:86
+msgid ""
+"The arguments of `divmod` must be integers (`int`) or real (`float`) "
+"numbers.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:76 runtime_errors\type_error.py:88
+msgid "At least one of the arguments was a complex number.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:98
+msgid "The second argument of the function `getattr()` must be a string.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:108
+msgid "The second argument of the function `hasattr()` must be a string.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:127 runtime_errors\type_error.py:151
+msgid ""
+"You tried to concatenate (add) two different types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית לחבר  (להוסיף) שני סוגים שונים של אובייקטים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:182
+msgid ""
+"You tried to add two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית להוסיף שני סוגים של אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:190
+msgid ""
+"You tried to subtract two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית להפחית שני סוגים של אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:198
+msgid ""
+"You tried to multiply two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית להכפיל שני סוגים של אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:206
+msgid ""
+"You tried to divide two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית לחלק שני סוגים של אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:214
+msgid ""
+"You tried to perform the bitwise operation {operator}\n"
+"on two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית לבצע את הפעולה הסיבית {operator}\n"
+"על שני סוגי אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:229 runtime_errors\type_error.py:788
+#: runtime_errors\type_error.py:894 syntax_errors\statement_analyzer.py:1156
+#: syntax_errors\statement_analyzer.py:1416
+msgid "Did you mean `{line}`?\n"
+msgstr "האם התכוונת ל \"{line}\"?\n"
+
+#: runtime_errors\type_error.py:230
+msgid "Outside of Python, `^` is often used to indicate exponentiation.\n"
+msgstr "מחוץ לפייתון, '^' משמש לעתים קרובות לציון חזקה.\n"
+
+#: runtime_errors\type_error.py:233 runtime_errors\type_error.py:791
+msgid "Perhaps you meant `{line}`.\n"
+msgstr "אולי התכוונת ל '{line}'.\n"
+
+#: runtime_errors\type_error.py:236
+msgid ""
+"You tried to perform the bit shifting operation {operator}\n"
+"on two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית לבצע את פעולת העברת הסיביות {operator}\n"
+"על שני סוגי אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:246
+msgid ""
+"You tried to exponentiate (raise to a power)\n"
+"using two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית להעריך (להעלות בחזקה)\n"
+"שימוש בשני סוגים של אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:255
+msgid ""
+"You tried to use the operator {operator}\n"
+"using two incompatible types of objects:\n"
+"{first} and {second}.\n"
+"This operator is normally used only\n"
+"for multiplication of matrices.\n"
+msgstr ""
+"ניסית להשתמש באופרטור {operator}\n"
+"שימוש בשני סוגים של אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+"מפעיל זה משמש בדרך כלל בלבד\n"
+"לריבוי מטריצות.\n"
+
+#: runtime_errors\type_error.py:291
+msgid "Complex numbers cannot be ordered.\n"
+msgstr "לא ניתן לסדר מספרים מורכבים.\n"
+
+#: runtime_errors\type_error.py:292
+msgid ""
+"You tried to do an order comparison ({operator})\n"
+"between two complex numbers.\n"
+msgstr ""
+"ניסית לבצע השוואת סדר ({operator})\n"
+"בין שני מספרים מורכבים.\n"
+
+#: runtime_errors\type_error.py:298
+msgid ""
+"You tried to do an order comparison ({operator})\n"
+"between two incompatible types of objects:\n"
+"{first} and {second}.\n"
+msgstr ""
+"ניסית לבצע השוואת סדר ({operator})\n"
+"בין שני סוגי אובייקטים לא תואמים:\n"
+"{first} ו- {second}.\n"
+
+#: runtime_errors\type_error.py:347
+#, fuzzy
+msgid "Perhaps you meant to write `{operator}=` instead of `={operator}`"
+msgstr "אולי התכוונת לכתוב `{operator}=` במקום `={operator}`"
+
+#: runtime_errors\type_error.py:351
+msgid ""
+"You tried to use the unary operator '{operator}'\n"
+"with the following type of object: {obj}.\n"
+"This operation is not defined for this type of object.\n"
+msgstr ""
+"ניסית להשתמש באופרטור האנורי '{operator}'\n"
+"עם סוג האובייקט הבא: {obj}.\n"
+"פעולה זו אינה מוגדרת עבור אובייקט מסוג זה.\n"
+
+#: runtime_errors\type_error.py:377
+msgid ""
+"In Python, some objects are known as immutable:\n"
+"once defined, their value cannot be changed.\n"
+"You tried change part of such an immutable object: {obj},\n"
+"most likely by using an indexing operation.\n"
+msgstr ""
+"בפייתון כמה אובייקטים ידועים כבלתי משתנים:\n"
+"לאחר שהוגדר, לא ניתן לשנות את ערכם.\n"
+"ניסית לשנות חלק מאובייקט בלתי משתנה כזה: {obj},\n"
+"סביר להניח על ידי שימוש בפעולת אינדקס.\n"
+
+#: runtime_errors\type_error.py:384
+msgid "Did you mean to use a list?\n"
+msgstr "האם התכוונת להשתמש ברשימה?\n"
+
+#: runtime_errors\type_error.py:385
+msgid "Perhaps you meant to use a list instead.\n"
+msgstr "אולי התכוונת להשתמש ברשימה במקום זאת.\n"
+
+#: runtime_errors\type_error.py:398
+msgid "In Python 3, exceptions must be derived from BaseException.\n"
+msgstr "ב- Python 3 יש לגזור חריגים מ- BaseException.\n"
+
+#: runtime_errors\type_error.py:434
+msgid ""
+"You apparently have called the function `{fn_name}` with\n"
+"{nb_given} positional argument(s) while it requires {nb_required}\n"
+"such positional argument(s).\n"
+msgstr ""
+"כנראה קראת לפונקציה '{fn_name}' עם\n"
+"{nb_given} ארגומנטים בזמן שהוא דורש {nb_required}\n"
+"ארגומנטים כאלה.\n"
+
+#: runtime_errors\type_error.py:440
+msgid "Perhaps you forgot `self` when defining `{fn_name}`.\n"
+msgstr "אולי שכחת את 'self'(עצמי) בהגדרת '{fn_name}'.\n"
+
+#: runtime_errors\type_error.py:462
+msgid ""
+"You apparently have called the function '{fn_name}' with\n"
+"fewer positional arguments than it requires ({nb_required} missing).\n"
+msgstr ""
+"כנראה קראת לפונקציה '{fn_name}' עם\n"
+"פחות ארגומנטים מיקוםיים ממה שהוא דורש (חסר {nb_required}).\n"
+
+#: runtime_errors\type_error.py:480 runtime_errors\type_error.py:868
+msgid ""
+"\n"
+"Note: `NoneType` means that the object has a value of `None`.\n"
+msgstr ""
+"\n"
+"הערה: 'NoneType' פירושו שלאובייקט יש ערך 'None' (כלום).\n"
+
+#: runtime_errors\type_error.py:487
+msgid ""
+"Python indicates that you have an object of type `{obj_type}`,\n"
+"followed by something surrounded by parentheses, `(...)`,\n"
+"which Python took as an indication of a function call.\n"
+"Either the object of type `{obj_type}` was meant to be a function,\n"
+"or you forgot a comma before `(...)`.\n"
+msgstr ""
+"Python מציין שיש לך אובייקט מסוג '{obj_type}',\n"
+"ואחריו משהו מוקף בסוגריים, `(...)`,\n"
+"אשר לקח פייתון כאינדיקציה לשיחת פונקציה.\n"
+"או שאובייקט מסוג '{obj_type}' נועד להיות פונקציה,\n"
+"או ששכחת פסיק לפני `(...)`.\n"
+
+#: runtime_errors\type_error.py:509
+msgid ""
+"The parenthesis `()` following `{obj_name}` are interpreted\n"
+"by Python as a function call for `{obj_name}`.\n"
+"However, `{obj_name}` is not a function but an object of type `{obj_type}`.\n"
+msgstr ""
+"הסוגריים `()` לאחר `{obj_name}` מתפרשים\n"
+"על ידי פייתון כקריאת פונקציה עבור '{obj_name}'.\n"
+"עם זאת, '{obj_name}' אינו פונקציה אלא אובייקט מסוג '{obj_type}'.\n"
+
+#: runtime_errors\type_error.py:516
+msgid ""
+"Because of the surrounding parenthesis, `{fn_call}` \n"
+"is interpreted by Python as indicating a function call for \n"
+"`{obj_name}`, which is an object of type `{obj_type}`\n"
+"which cannot be called.\n"
+"\n"
+msgstr ""
+"בגלל הסוגריים שמסביב, '{fn_call}'\n"
+"מתפרש על ידי פייתון כמעיד על קריאה לפונקציה\n"
+"`{obj_name}`, שהוא אובייקט מסוג '{obj_type}'\n"
+"שלא ניתן לקרוא לה.\n"
+
+#: runtime_errors\type_error.py:529
+msgid ""
+"However, `{fn_call}` is a `tuple`.\n"
+"Either the object `{obj_name}` was meant to be a function\n"
+"or you have a missing comma between the object `{obj_name}`\n"
+"and the tuple `{fn_call}` and meant to write\n"
+"`{obj_name}, {fn_call}`.\n"
+msgstr ""
+"עם זאת, '{fn_call}' הוא 'צמד' (tuple).\n"
+"או שהאובייקט \"{obj_name}\" נועד להיות פונקציה\n"
+"או שיש פסיק חסר בין האובייקט '{obj_name}'\n"
+"והצמד '{fn_call}' והתכוון לכתוב\n"
+"`{obj_name}, {fn_call}`.\n"
+
+#: runtime_errors\type_error.py:536
+msgid "Did you forget a comma between `{obj_name}` and `{fn_call}`?\n"
+msgstr "האם שכחת פסיק בין '{obj_name}' לבין '{fn_call}'?\n"
+
+#: runtime_errors\type_error.py:542
+msgid ""
+"However, `{obj_name}` is a sequence.\n"
+"Perhaps you meant to use `[]` instead of `()` and write\n"
+"`{obj_name}[{slice}]`\n"
+msgstr ""
+"עם זאת, '{obj_name}' הוא רצף.\n"
+"אולי התכוונת להשתמש ב- [] במקום במקום () ולכתוב\n"
+"`{obj_name} [{slice}]`\n"
+
+#: runtime_errors\type_error.py:547
+msgid "Did you mean `{obj_name}[{slice}]`?\n"
+msgstr "האם התכוונת ל '{obj_name} [{slice}]'?\n"
+
+#: runtime_errors\type_error.py:558
+msgid ""
+"However, both `{obj_name}` and `{fn_call}` are numbers.\n"
+"Perhaps you forgot a multiplication operator, `*`,\n"
+"and meant to write `{obj_name} * {fn_call}`.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:563
+msgid "Did you mean `{obj_name} * {fn_call}`?\n"
+msgstr "האם התכוונת ל '{obj_name} * {fn_call}'?\n"
+
+#: runtime_errors\type_error.py:575
+msgid "Did you forget to convert `{name}` into an integer?\n"
+msgstr "שכחת להמיר את '{name}' למספר שלם?\n"
+
+#: runtime_errors\type_error.py:576
+msgid "Perhaps you forgot to convert `{name}` into an integer.\n"
+msgstr "אולי שכחת להמיר את '{name}' למספר שלם.\n"
+
+#: runtime_errors\type_error.py:589
+msgid ""
+"You can only multiply sequences, such as list, tuples,\n"
+" strings, etc., by integers.\n"
+msgstr ""
+"אתה יכול רק להכפיל רצפים, כגון רשימה, זוגות,\n"
+"  מחרוזות וכו ', לפי מספרים שלמים.\n"
+
+#: runtime_errors\type_error.py:611
+msgid "Did you forget to convert `{name1}` and `{name2}` into integers?\n"
+msgstr "שכחת להמיר את '{name1}' ו- '{name2}' למספרים שלמים?\n"
+
+#: runtime_errors\type_error.py:614
+msgid "Perhaps you forgot to convert `{name1}` and `{name2}` into integers.\n"
+msgstr "אולי שכחת להמיר את '{name1}' ו- '{name2}' למספרים שלמים.\n"
+
+#: runtime_errors\type_error.py:649
+#, fuzzy
+msgid ""
+"You wrote an object whose value is `None` where an integer was expected.\n"
+msgstr "כתבת אובייקט שערכו 'כלום'(None) היכן שצפוי מספר שלם.\n"
+
+#: runtime_errors\type_error.py:659
+msgid "You wrote an object of type `{obj}` where an integer was expected.\n"
+msgstr "כתבת אובייקט מסוג '{obj}' שבו צפוי מספר שלם.\n"
+
+#: runtime_errors\type_error.py:669
+msgid "Did you forget to convert `{names}` into integers?\n"
+msgstr "האם שכחת להמיר את '{names}' למספרים שלמים?\n"
+
+#: runtime_errors\type_error.py:672
+msgid "Perhaps you forgot to convert `{names}` into integers."
+msgstr ""
+
+#: runtime_errors\type_error.py:694
+msgid ""
+"In the expression `{line}`\n"
+"what is included between the square brackets, `[...]`,\n"
+"must be either an integer or a slice\n"
+"(`start:stop` or `start:stop:step`) \n"
+"and you have used {obj_type} instead.\n"
+msgstr ""
+"בביטוי `{line}`\n"
+"מה כלול בין הסוגריים המרובעים, '[...]',\n"
+"חייב להיות מספר שלם או פרוסה\n"
+"(`התחל: עצור` או` התחל: עצור: שלב`)\n"
+"והשתמשת במקום זאת ב- {obj_type}.\n"
+
+#: runtime_errors\type_error.py:705
+msgid ""
+"Note: sometimes this exception is raised because what Python\n"
+"interprets as indices was meant to be a separate list, and a comma\n"
+"should have been written before the opening `[` of that list.\n"
+msgstr ""
+"הערה: לפעמים חריג זה מועלה כי מה שפייתון\n"
+"פירש כאינדקס נועד להיות רשימה נפרדת, ופסיק\n"
+"היה צריך להיכתב לפני הפתיחה` [`של רשימה זו.\n"
+
+#: runtime_errors\type_error.py:710 syntax_errors\statement_analyzer.py:1069
+#: syntax_errors\statement_analyzer.py:1412
+msgid "Did you forget a comma?\n"
+msgstr "שכחת פסיק?\n"
+
+#: runtime_errors\type_error.py:745
+#, fuzzy
+msgid ""
+"Perhaps you have forgotten a comma between two identical lists\n"
+"`{container}`. The second list had been interpreted as\n"
+"the indexation of the first one by the index `{new_index}`\n"
+msgstr ""
+"אולי שכחת פסיק בין שתי רשימות זהות\n"
+"`{container}`. הרשימה השנייה פורשה בתור\n"
+"האינדקס של הראשונה לפי האינדקס '{new_index}'\n"
+
+#: runtime_errors\type_error.py:751
+#, fuzzy
+msgid ""
+"Perhaps you have forgotten a comma between the object `{container}`\n"
+"and the list `{index}`.  The list `{index}` had been interpreted as\n"
+"the indexation of object `{container}` by the index `{new_index}`\n"
+msgstr ""
+"אולי שכחת פסיק בין האובייקט `{container}`\n"
+"והרשימה `{index}`. הרשימה '{index}' פורשה כ\n"
+"אינדקס אובייקט `{container}` לפי האינדקס `{new_index}`\n"
+
+#: runtime_errors\type_error.py:756
+msgid "Did you forget a comma before `{index}`?\n"
+msgstr "שכחת פסיק לפני '{index}'?\n"
+
+#: runtime_errors\type_error.py:818
+msgid ""
+"When using a slice to extract a range of elements\n"
+"from a sequence, that is something like\n"
+"`[start:stop]` or `[start:stop:step]`\n"
+"each of `start`, `stop`, `step` must be either an integer, `None`,\n"
+"or possibly some other object having an `__index__` method.\n"
+msgstr ""
+"בעת שימוש בפרוס (slice) לחילוץ מגוון אלמנטים\n"
+"מרצף, זה משהו כמו\n"
+"`[start: stop]` או `[start: stop: step]`\n"
+"כל אחד מ'התחלה ',' עצירה ',' שלב 'חייב להיות מספר שלם,' אין ',\n"
+"או אולי אובייקט אחר בעל שיטת '__index__'.\n"
+
+#: runtime_errors\type_error.py:837
+#, fuzzy
+msgid ""
+"Only hashable objects can be used\n"
+"as elements of `set` or keys of `dict`.\n"
+"Hashable objects are objects that do not change value\n"
+"once they have been created."
+msgstr ""
+"ניתן להשתמש אך ורק באוביקטים שאפשר לעשות להם hash \n"
+"כאלמנטים של 'set' או מפתחות של 'dict'.\n"
+"עצמים הניתנים לhash הם אובייקטים שאינם משנים ערך\n"
+"ברגע שהם נוצרו."
+
+#: runtime_errors\type_error.py:847
+msgid "Instead of using {original}, consider using {replacement}.\n"
+msgstr "במקום להשתמש ב- {original}, שקול להשתמש ב- {replacement}.\n"
+
+#: runtime_errors\type_error.py:874
+msgid ""
+"Subscriptable objects are typically containers from which\n"
+"you can retrieve item using the notation `[...]`.\n"
+msgstr ""
+"אובייקטים הרשמים הם בדרך כלל מיכלים מהם\n"
+"אתה יכול לאחזר פריט באמצעות הסימון '[...]'.\n"
+
+#: runtime_errors\type_error.py:886
+msgid ""
+"Using this notation, you attempted to retrieve an item\n"
+"from an object of type `{obj_type}` which is not allowed.\n"
+msgstr ""
+"באמצעות סימון זה ניסית לאחזר פריט\n"
+"מאובייקט מסוג '{obj_type}' שאינו מותר.\n"
+
+#: runtime_errors\type_error.py:895
+msgid "Perhaps you meant to write `{line}`.\n"
+msgstr "אולי התכוונת לכתוב '{שורה}'.\n"
+
+#: runtime_errors\type_error.py:898
+msgid ""
+"Using this notation, you attempted to retrieve an item\n"
+"from `{name}`, an object of type `{obj_type}`. This is not allowed.\n"
+msgstr ""
+"באמצעות סימון זה ניסית לקבל פריט\n"
+"מתוך '{name}', אובייקט מסוג '{obj_type}'. זה אסור.\n"
+
+#: runtime_errors\type_error.py:915
+msgid ""
+"An iterable is an object capable of returning its members one at a time.\n"
+"Python containers (`list, tuple, dict`, etc.) are iterables.\n"
+"An iterable is required here.\n"
+msgstr ""
+"חוזר הוא אובייקט המסוגל להחזיר את פרטיו,אחד בכל פעם.\n"
+"מכולות (`רשימה, tuple, dict`, וכו ') הם רכיבים חוזרים.\n"
+"דרוש כאן חזרה.\n"
+
+#: runtime_errors\type_error.py:932 runtime_errors\value_error.py:24
+msgid ""
+"Unpacking is a convenient way to assign a name,\n"
+"to each item of an iterable.\n"
+msgstr ""
+"פריקה היא דרך נוחה להקצות שם,\n"
+"לכל פריט של חוזר.\n"
+
+#: runtime_errors\type_error.py:936
+msgid ""
+"An iterable is an object capable of returning its members one at a time.\n"
+"Python containers (`list, tuple, dict`, etc.) are iterables,\n"
+"but not objects of type `{obj_type}`.\n"
+msgstr ""
+"חוזר הוא אובייקט המסוגל להחזיר את פרטיו,אחד בכל פעם.\n"
+"מכולות (`רשימה, tuple, dict`, וכו ') הם רכיבים חוזרים.\n"
+"אבל לא אובייקטים מהסוג `{obj_type}`.\n"
+
+#: runtime_errors\type_error.py:951
+msgid ""
+"{function} does not accept a sequence as an argument.\n"
+"Instead of writing `{line}`\n"
+"perhaps you should use the `dict.fromkeys()` method: `{new_line}`.\n"
+msgstr ""
+"{function} אינו מקבל רצף כארגומנט.\n"
+"במקום לכתוב '{line}'\n"
+"אולי כדאי להשתמש בשיטת 'dict.fromkeys ()': \"{new_line}\". (מילון."
+"מהמפתחות(...))\n"
+
+#: runtime_errors\type_error.py:956
+msgid "Perhaps you need to use the `dict.fromkeys()` method.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:994 runtime_errors\type_error.py:1018
+msgid "Did you forget to call `{name}`?\n"
+msgstr "שכחת לקרוא ל '{name}'?\n"
+
+#: runtime_errors\type_error.py:995 runtime_errors\type_error.py:1019
+msgid ""
+"I suspect that you forgot to add parentheses to call `{name}`.\n"
+"You might have meant to write:\n"
+"`{line}`\n"
+msgstr ""
+"אני חושד ששכחת להוסיף סוגריים כדי לקרוא '{name}'.\n"
+"אולי התכוונת לכתוב:\n"
+"`{line}`\n"
+
+#: runtime_errors\type_error.py:1033
+msgid ""
+"The function `vars` is used to list the content of the\n"
+"`__dict__` attribute of an object.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1042
+msgid "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1046
+msgid ""
+"`{name}`, the argument of `vars`, is an object without such an attribute.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1067
+msgid ""
+"You have specified the value of argument `{argument}` more than once\n"
+"when calling the function named `{function}`.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1088
+msgid "This function has only one argument: `{arguments}`\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1092
+msgid ""
+"This function has the following arguments:\n"
+"`{arguments}`\n"
+msgstr ""
+
+#: runtime_errors\unbound_local_error.py:32
+msgid ""
+"You're trying to use the name `{name}` identified by Python as being\n"
+"in the local scope of a function before having assigned it a value.\n"
+msgstr ""
+
+#: runtime_errors\unbound_local_error.py:63
+msgid ""
+"The name `{var_name}` exists in both the global and nonlocal scope.\n"
+"This can be rather confusing and is not recommended.\n"
+"Depending on which variable you wanted to refer to, you needed to add "
+"either\n"
+"\n"
+"    global {var_name}\n"
+"\n"
+"or\n"
+"\n"
+"    nonlocal {var_name}\n"
+"\n"
+"as the first line inside your function.\n"
+msgstr ""
+"השם \"{var_name}\" קיים גם בתחום הגלובלי וגם הלא -מקומי.\n"
+"זה יכול להיות די מבלבל ואינו מומלץ.\n"
+"תלוי לאיזה משתנה אתה רוצה להתייחס, היית צריך להוסיף את זה\n"
+"\n"
+"     {var_name} גלובלי\n"
+"\n"
+"אוֹ\n"
+"\n"
+"     {var_name} לא -מקומי\n"
+"\n"
+"כשורה הראשונה בתוך הפונקציה שלך.\n"
+
+#: runtime_errors\unbound_local_error.py:73
+msgid ""
+"Did you forget to add either `global {var_name}` or \n"
+"`nonlocal {var_name}`?\n"
+msgstr ""
+"שכחת להוסיף את 'global {var_name}' או\n"
+"`לא -מקומי {var_name}`?\n"
+
+#: runtime_errors\unbound_local_error.py:85
+msgid ""
+"`{name}` is a Python builtin function.\n"
+"You have tried to assign a value to `{name}` inside a function\n"
+"while also using its original meaning in the function.\n"
+"\n"
+"Note that it is generally not a good idea to give a local variable\n"
+"the same name as a Python builtin function (like `{name}`).\n"
+msgstr ""
+
+#: runtime_errors\unbound_local_error.py:102
+msgid ""
+"The name `{var_name}` exists in the {scope} scope.\n"
+"Perhaps the statement\n"
+"\n"
+"    {scope} {var_name}\n"
+"\n"
+"should have been included as the first line inside your function.\n"
+msgstr ""
+"The name `{var_name}` exists in the {scope} scope.\n"
+"Perhaps the statement\n"
+"\n"
+"    {scope} {var_name}\n"
+"\n"
+"should have been included as the first line inside your function.\n"
+
+#: runtime_errors\unbound_local_error.py:109
+msgid "Did you forget to add `{scope} {var_name}`?\n"
+msgstr "שכחת להוסיף את '{scope} {var_name}'?\n"
+
+#: runtime_errors\unbound_local_error.py:120
+#, fuzzy
+msgid "The similar name `{name}` was found in the local scope. "
+msgstr "השם הדומה '{name}' נמצא בהיקף המקומי. "
+
+#: runtime_errors\value_error.py:73 runtime_errors\value_error.py:82
+msgid ""
+"In this instance, there are more names ({nb_names})\n"
+"than {length}, the length of the iterable.\n"
+msgstr ""
+"במקרה זה, ישנם שמות נוספים ({nb_names})\n"
+"יותר מ- {length}, אורך ה- iterable.\n"
+
+#: runtime_errors\value_error.py:88
+msgid ""
+"In this instance, there are more names ({nb_names})\n"
+"than the length of the iterable, {iter_type} of length {length}.\n"
+msgstr ""
+"במקרה זה, ישנם שמות נוספים ({nb_names})\n"
+"מאשר אורך ה- iterable, {iter_type} של אורך {length}.\n"
+
+#: runtime_errors\value_error.py:107 runtime_errors\value_error.py:117
+msgid ""
+"In this instance, there are fewer names ({nb_names})\n"
+"than the length of the iterable.\n"
+msgstr ""
+"במקרה זה, יש פחות שמות ({nb_names})\n"
+"מהאורך של החוזר.\n"
+
+#: runtime_errors\value_error.py:123
+msgid ""
+"In this instance, there are fewer names ({nb_names})\n"
+"than the length of the iterable, {iter_type} of length {length}.\n"
+msgstr ""
+"במקרה זה, יש פחות שמות ({nb_names})\n"
+"מאשר אורך ה- iterable, {iter_type} של אורך {length}.\n"
+
+#: runtime_errors\value_error.py:141
+msgid ""
+"`int()` expects an argument that looks like a number in base `{base}`\n"
+"but you gave it an empty string.\n"
+msgstr ""
+"int ()` (שלם) מצפה לארגומנט שנראה כמו מספר בבסיס' {base} '\n"
+"אבל נתת לו מחרוזת ריקה.\n"
+
+#: runtime_errors\value_error.py:147
+msgid "`{value}` is an invalid argument for `int()` in base `{base}`.\n"
+msgstr "`{value}` הוא ארגומנט לא חוקי עבור `int (שלם)` בבסיס `{base}`.\n"
+
+#: runtime_errors\value_error.py:166
+msgid "The following characters are not allowed: `{invalid}`.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:178
+msgid ""
+"When base `0` is specified, `int()` expects the argument\n"
+"to be an integer literal, written in\n"
+"base 2 (`0b...`), 8 (`0o...`), 10, or 16 (`0x...`).\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:184
+msgid ""
+"In base `{base}`, `int()` is most often use to convert a string\n"
+"containing the digits `0` to `{max_n}` into an integer.\n"
+msgstr ""
+"בבסיס '{base}', 'int (שלם)' משמש לרוב להמרת מחרוזת\n"
+"המכיל את הספרות '0' עד '{max_n}' למספר שלם.\n"
+
+#: runtime_errors\value_error.py:189
+msgid ""
+"In base `11`, `int()` is most often use to convert a string\n"
+"containing the digits `0` to `9` and the letter `'a'` into an integer.\n"
+msgstr ""
+"בבסיס '11', 'int (שלם)' משמש לרוב להמרת מחרוזת\n"
+"המכיל את הספרות '0' עד '9' ואת האות 'a' למספר שלם.\n"
+
+#: runtime_errors\value_error.py:194
+msgid ""
+"In base `base`, `int()` is most often use to convert a string\n"
+"containing the digits `0` to `9` and the letters\n"
+"from `'a'` to `'{max_n}'` into an integer.\n"
+msgstr ""
+"בבסיס 'base', 'int ()' משמש לרוב להמרת מחרוזת\n"
+"המכיל את הספרות '0' עד '9' ואת האותיות\n"
+"מ '' a '' ל '' max_n} 'למספר שלם.\n"
+
+#: runtime_errors\value_error.py:210
+msgid "You need to convert `'{value}'` to a float first.\n"
+msgstr "עליך להמיר תחילה את '' {value} '' לfloat (צף).\n"
+
+#: runtime_errors\value_error.py:211
+msgid ""
+"The string `'{value}'` needs to be first converted using `float()`\n"
+"before the result can be converted into an integer using `int()`.\n"
+msgstr ""
+"יש להמיר תחילה את המחרוזת '{value}' באמצעות 'float (צף)'\n"
+"לפני שניתן להמיר את התוצאה למספר שלם באמצעות 'int (שלם)'.\n"
+
+#: runtime_errors\value_error.py:223
+msgid ""
+"The argument `base` of `int()` must be either zero\n"
+"or any integer from 2 to 36.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:231
+msgid "You wrote {base} which is not allowed.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:242
+msgid "Did you specify an invalid month?\n"
+msgstr "האם ציינת חודש לא חוקי?\n"
+
+#: runtime_errors\value_error.py:243
+msgid ""
+"I am guessing that you specify an invalid value for a month\n"
+"in a `date` object. Valid values are integers, from 1 to 12.\n"
+msgstr ""
+"אני מנחש שאתה מציין ערך לא חוקי למשך חודש\n"
+"באובייקט `תאריך`. ערכים חוקיים הם מספרים שלמים, מ -1 עד 12.\n"
+
+#: runtime_errors\value_error.py:262
+msgid "The string `{string}` cannot be converted to a `float`.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:277
+msgid ""
+"The name `{var}` is used both as the name of a class variable\n"
+"and as a string item in the class `__slots__`;\n"
+"this is not allowed.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:291
+msgid "The third argument of the function `pow()` cannot be zero.\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:320
+msgid ""
+"I do not recognize this error message.\n"
+"I am guessing that the problem is with the function `{name}`.\n"
+msgstr ""
+"אינני מזהה הודעת שגיאה זו.\n"
+"אני מנחש שהבעיה היא בפונקציה '{name}'.\n"
+
+#: runtime_errors\value_error.py:326
+msgid ""
+"Its docstring is:\n"
+"\n"
+"{docstring}\n"
+msgstr ""
+
+#: runtime_errors\value_error.py:330
+msgid "I have no more information.\n"
+msgstr "אין לי מידע נוסף.\n"
+
+#: runtime_errors\value_error.py:342
+msgid ""
+"The value you gave for the time is not in the format you specified.\n"
+"Make sure to use the same separator between items\n"
+"(for example, between day and month) and keep the order the same\n"
+"in both the data provided and the format you specified.\n"
+"The following table might be useful:\n"
+"https://docs.python.org/3/library/time.html#time.strftime\n"
+"The following site might also be useful: https://www.strfti.me/\n"
+msgstr ""
+
+#: runtime_errors\zero_division_error.py:21
+msgid "Using the modulo operator, you are dividing by zero.\n"
+msgstr "באמצעות אופרטור המודולו את\\ה מחלק באפס.\n"
+
+#: runtime_errors\zero_division_error.py:22
+msgid "You are dividing by zero.\n"
+msgstr "את\\ה מחלק\\ת באפס.\n"
+
+#: runtime_errors\zero_division_error.py:44
+#: runtime_errors\zero_division_error.py:79
+msgid ""
+"You are dividing by the following term\n"
+"\n"
+"    {expression}\n"
+"\n"
+"which is equal to zero.\n"
+msgstr ""
+"את\\ה מחלק\\תבמונח הבא\n"
+"\n"
+"     {ביטוי}\n"
+"\n"
+"שהוא שווה לאפס.\n"
+
+#: runtime_errors\zero_division_error.py:50
+#: runtime_errors\zero_division_error.py:58
+msgid ""
+"The following mathematical expression includes a division by zero:\n"
+"\n"
+"    {expression}\n"
+msgstr ""
+"הביטוי המתמטי הבא כולל חלוקה באפס:\n"
+"\n"
+"     {ביטוי}\n"
+
+#: runtime_errors\zero_division_error.py:91
+#: runtime_errors\zero_division_error.py:128
+msgid ""
+"Using the modulo operator, you are dividing by the following term\n"
+"\n"
+"    {expression}\n"
+"\n"
+"which is equal to zero.\n"
+msgstr ""
+"באמצעות אופרטור המודולו, את\\ה מחלק\\ת במונח הבא\n"
+"\n"
+"     {ביטוי}\n"
+"\n"
+"שהוא שווה לאפס.\n"
+
+#: runtime_errors\zero_division_error.py:99
+msgid "The second argument of the `divmod()` function is zero.\n"
+msgstr "הטיעון השני של הפונקציה `divmod(חלוקה)` הוא אפס.\n"
+
+#: runtime_errors\zero_division_error.py:112
+msgid ""
+"You are attempting to raise the number 0 to a negative power\n"
+"which is equivalent to dividing by zero.\n"
+msgstr ""
+"את\\ה מנסה להעלות את המספר 0 בחזקת מספר שלילי\n"
+"זה מקביל לחלוקה באפס.\n"
+
+#: runtime_errors\zero_division_error.py:134
+msgid ""
+"The following mathematical expression includes a division by zero\n"
+"done using the modulo operator:\n"
+"\n"
+"    {expression}\n"
+msgstr ""
+"הביטוי המתמטי הבא כולל חלוקה באפס\n"
+"נעשה באמצעות אופרטור מודולו:\n"
+"\n"
+"     {ביטוי}\n"
+
+#: runtime_errors\zero_division_error.py:149
+msgid "The second argument of the `divmod()` function is equal to zero.\n"
+msgstr "הטיעון השני של הפונקציה `divmod(חלוקה)` שווה אפס.\n"
+
+#: syntax_errors\analyze_syntax.py:29
+msgid ""
+"Currently, I cannot guess the likely cause of this error.\n"
+"Try to examine closely the line indicated as well as the line\n"
+"immediately above to see if you can identify some misspelled\n"
+"word, or missing symbols, like (, ), [, ], :, etc.\n"
+"\n"
+"Unless your code uses type annotations, which are beyond our scope,\n"
+"if you think that this is something which should be handled\n"
+"by friendly, please report this case to\n"
+"https://github.com/aroberge/friendly/issues\n"
+"\n"
+msgstr ""
+"נכון לעכשיו, אינני יכול לנחש את הסיבה הסבירה לשגיאה זו.\n"
+"נסה\\י לבחון מקרוב את הקו המצוין כמו גם את הקו\n"
+"מיד למעלה כדי לראות אם אפשר לזהות כמה שגיאות כתיב\n"
+"מילה או סמלים חסרים, כמו (,), [,],:, וכו '.\n"
+"\n"
+"אלא אם כן הקוד שלך משתמש ברמזי סוג, שהם מעבר להיקף שלנו,\n"
+"אם את\\ה חושב\\ת שזה משהו שצריך לטפל בו\n"
+"על ידי ידידותי, אנא דווח על מקרה זה\n"
+"https://github.com/aroberge/friendly/issues\n"
+
+#: syntax_errors\analyze_syntax.py:72
+msgid ""
+"Python told us that it expected a colon at the position indicated.\n"
+"However, adding a colon or replacing something else by a colon\n"
+"would not fix the problem.\n"
+msgstr ""
+"פייתון אמר לנו שהוא מצפה לנקודותיים במיקום המצוין.\n"
+"עם זאת, הוספת נקודתיים או החלפת משהו אחר בנקודותיים\n"
+"לא יתקן את הבעיה.\n"
+
+#: syntax_errors\analyze_syntax.py:86
+msgid ""
+"Python gave us the following informative message\n"
+"about the possible cause of the error:\n"
+"\n"
+"    {message}\n"
+"\n"
+"However, I do not recognize this information and I have\n"
+"to guess what caused the problem, but I might be wrong.\n"
+"\n"
+msgstr ""
+"פייתון מסר לנו את ההודעה האינפורמטיבית הבאה\n"
+"לגבי הסיבה האפשרית לשגיאה:\n"
+"\n"
+"     {הוֹדָעָה}\n"
+"\n"
+"עם זאת, אינני מזהה מידע זה ויש לי\n"
+"לנחש מה גרם לבעיה, אבל יכול להיות שאני טועה.\n"
+
+#: syntax_errors\error_in_def.py:19 syntax_errors\statement_analyzer.py:20
+msgid ""
+"However, making such a change would still not correct\n"
+"all the syntax errors in the code you wrote.\n"
+msgstr ""
+"עם זאת, שינוי כזה עדיין לא היה נכון\n"
+"כל שגיאות התחביר בקוד שכתבת.\n"
+
+#: syntax_errors\error_in_def.py:28
+msgid ""
+"The correct syntax is:\n"
+"\n"
+"    {async_}def name ( ... ):"
+msgstr ""
+"התחביר הנכון הוא:\n"
+" {async_}def name ( ... ):"
+
+#: syntax_errors\error_in_def.py:80
+msgid "A function needs a name.\n"
+msgstr "פונקציה צריכה שם.\n"
+
+#: syntax_errors\error_in_def.py:81
+msgid "You tried to define a function and did not use the correct syntax.\n"
+msgstr "ניסית להגדיר פונקציה ולא השתמשת בתחביר הנכון.\n"
+
+#: syntax_errors\error_in_def.py:85
+msgid "Functions and methods need a name.\n"
+msgstr "פונקציות ושיטות צריכות שם.\n"
+
+#: syntax_errors\error_in_def.py:86
+msgid ""
+"You tried to define a function or method and did not use the correct "
+"syntax.\n"
+msgstr "ניסית להגדיר פונקציה או שיטה ולא השתמשת בתחביר הנכון.\n"
+
+#: syntax_errors\error_in_def.py:110 syntax_errors\error_in_def.py:136
+#: syntax_errors\message_analyzer.py:1053
+#: syntax_errors\message_analyzer.py:1604
+#: syntax_errors\statement_analyzer.py:1209
+#: syntax_errors\statement_analyzer.py:1228
+msgid "Did you forget parentheses?\n"
+msgstr "שכחת סוגריים?\n"
+
+#: syntax_errors\error_in_def.py:111 syntax_errors\error_in_def.py:137
+msgid ""
+"Perhaps you forgot to include parentheses.\n"
+"You might have meant to write\n"
+"\n"
+"    {line}\n"
+msgstr ""
+"אולי שכחת לכלול סוגריים.\n"
+"אולי התכוונת לכתוב\n"
+"\n"
+"     {line}\n"
+
+#: syntax_errors\error_in_def.py:157
+msgid "A function definition statement must end with a colon.\n"
+msgstr "הצהרת הגדרת פונקציה חייב להסתיים בנקודותיים.\n"
+
+#: syntax_errors\error_in_def.py:163 syntax_errors\error_in_def.py:187
+msgid "Did you forget to write a colon?\n"
+msgstr "שכחת לכתוב נקודתיים?\n"
+
+#: syntax_errors\error_in_def.py:164 syntax_errors\message_analyzer.py:762
+msgid "You wrote `{bad}` instead of a colon.\n"
+msgstr "כתבת '{bad}' במקום נקודתיים.\n"
+
+#: syntax_errors\error_in_def.py:173
+msgid "Did you write something by mistake after the colon?\n"
+msgstr "כתבת משהו בטעות אחרי הנקודותיים?\n"
+
+#: syntax_errors\error_in_def.py:174
+msgid "A block of code must come after the colon.\n"
+msgstr "בלוק קוד חייב לבוא אחרי הנקודותיים.\n"
+
+#: syntax_errors\error_in_def.py:175
+msgid "Removing `{bad}`, might fix the problem.\n"
+msgstr "הסרת '{bad}' עשויה לפתור את הבעיה.\n"
+
+#: syntax_errors\error_in_def.py:201
+msgid "You cannot use a Python keyword as a function name.\n"
+msgstr "אינך יכול\\ה להשתמש במילת מפתח של פייתון כשם פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:202
+msgid "You tried to use the Python keyword `{kwd}` as a function name.\n"
+msgstr "ניסית להשתמש במילת המפתח של פייתון '{kwd}' כשם פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:210
+msgid "There are more syntax errors later in your code.\n"
+msgstr "בהמשך הקוד שלך יש שגיאות תחביר נוספות.\n"
+
+#: syntax_errors\error_in_def.py:227
+msgid "You wrote an invalid function name.\n"
+msgstr "כתבת שם פונקציה לא חוקית.\n"
+
+#: syntax_errors\error_in_def.py:228
+msgid ""
+"The name of a function must be a valid Python identifier,\n"
+"that is a name that begins with a letter or an underscore character, `_`,\n"
+"and which contains only letters, digits or the underscore character.\n"
+msgstr ""
+"שם הפונקציה חייב להיות מזהה פייתון חוקי,\n"
+"זהו שם שמתחיל באות או בתו קו, \"_\",\n"
+"ואשר מכיל רק אותיות, ספרות וקו תחתון \"_\" .\n"
+
+#: syntax_errors\error_in_def.py:234
+msgid "You attempted to use a string as a function name.\n"
+msgstr "ניסית להשתמש במחרוזת בשם פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:249
+msgid "You forgot to name your function.\n"
+msgstr "שכחת לציין את שם הפונקציה שלך.\n"
+
+#: syntax_errors\error_in_def.py:257
+msgid "However, there are some other syntax errors in your code.\n"
+msgstr "עם זאת, יש כמה שגיאות תחביר אחרות בקוד שלך.\n"
+
+#: syntax_errors\error_in_def.py:272
+msgid ""
+"I am guessing that you tried to use the Python keyword\n"
+"`{kwd}` as an argument in the definition of a function\n"
+"where an identifier (variable name) was expected.\n"
+msgstr ""
+"אני מנחש שניסית להשתמש במילת המפתח של פייתון\n"
+"`{kwd}` כארגומנט בהגדרת פונקציה\n"
+"היכן היה צפוי מזהה (שם משתנה).\n"
+
+#: syntax_errors\error_in_def.py:287
+msgid "You cannot use dotted names as function arguments.\n"
+msgstr "אינך יכול להשתמש בשמות מנוקדים כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:289
+msgid "Perhaps you meant to write a comma.\n"
+msgstr "אולי התכוונת לכתוב פסיק.\n"
+
+#: syntax_errors\error_in_def.py:290 syntax_errors\error_in_def.py:476
+#: syntax_errors\statement_analyzer.py:760 syntax_errors\syntax_utils.py:111
+msgid "Did you mean to write a comma?\n"
+msgstr "האם התכוונת לכתוב פסיק?\n"
+
+#: syntax_errors\error_in_def.py:294
+msgid "You cannot use dots in function names.\n"
+msgstr "לא ניתן להשתמש בנקודות בשמות פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:303
+msgid ""
+"`/` indicates that the previous arguments in a function definition\n"
+"are positional arguments.\n"
+msgstr ""
+"`/` מציין כי הטיעונים הקודמים בהגדרת פונקציה\n"
+"הם טיעונים עמדתיים.\n"
+
+#: syntax_errors\error_in_def.py:309
+msgid ""
+"Function definitions cannot include the symbol `/` in this Python version.\n"
+msgstr "הגדרות פונקציות אינן יכולות לכלול את הסמל '/' בגרסת פייתון זו.\n"
+
+#: syntax_errors\error_in_def.py:312
+msgid ""
+"This symbol can only be used with Python versions 3.8.0 or newer.\n"
+"You are using Python version {version}.\n"
+msgstr ""
+"ניתן להשתמש בסמל זה רק עם גרסאות פיתון 3.8.0 ואילך.\n"
+"אתה משתמש בגרסת פייתון {version}.\n"
+
+#: syntax_errors\error_in_def.py:321
+msgid ""
+"You have unspecified keyword arguments that appear before\n"
+"the symbol `/`.\n"
+msgstr ""
+"יש לך ארגומנטים לא מפורטים של מילות מפתח המופיעים לפני\n"
+"הסמל `/`.\n"
+
+#: syntax_errors\error_in_def.py:325
+msgid "Keyword arguments must appear after the `/` symbol.\n"
+msgstr "ארגומנטים של מילות מפתח חייבים להופיע אחרי הסמל `/`.\n"
+
+#: syntax_errors\error_in_def.py:330
+msgid ""
+"However, `*` indicates that the arguments\n"
+"that follow must be keyword arguments.\n"
+"When they are used together, `/` must appear before `*`.\n"
+msgstr ""
+"עם זאת, '*' מציין כי הטיעונים\n"
+"הבאים חייבים להיות טיעוני מילות מפתח.\n"
+"כאשר הם משמשים יחד, '/' חייב להופיע לפני '*'.\n"
+
+#: syntax_errors\error_in_def.py:335
+msgid "`*` must appear after `/` in a function definition.\n"
+msgstr "'*' חייב להופיע אחרי '/' בהגדרת פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:337
+msgid "`*{name}` must appear after `/` in a function definition.\n"
+msgstr "'*{name}' חייב להופיע אחרי '/' בהגדרת פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:344
+msgid "You can only use `/` once in a function definition.\n"
+msgstr "אפשר להשתמש ב- / רק פעם אחת בהגדרת פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:358
+msgid "You can only use `*` once in a function definition.\n"
+msgstr "אפשר  להשתמש רק פעם אחת בהגדרת פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:364
+msgid "You have used it twice, with `*{first}` and `*{second}`.\n"
+msgstr "השתמשת בו פעמיים, עם '*{first}' ו- '*{second}'.\n"
+
+#: syntax_errors\error_in_def.py:372
+msgid ""
+"It must either be used by itself, `*`,\n"
+"or in the form `*{args}`, but not both.\n"
+msgstr ""
+"יש להשתמש בו בעצמו, \"*\",\n"
+"או בצורה '*{args}', אך לא שניהם.\n"
+
+#: syntax_errors\error_in_def.py:381
+msgid "`*{args}` must appear before `**{kwargs}`.\n"
+msgstr "`*{args}` חייב להופיע לפני `** {kwargs}`.\n"
+
+#: syntax_errors\error_in_def.py:385
+msgid "`**{kwargs}` must appear after the `*` operator.\n"
+msgstr "\"** {kwargs}\" חייב להופיע אחרי אופרטור \"*\".\n"
+
+#: syntax_errors\error_in_def.py:399
+msgid "You cannot use numbers as function arguments.\n"
+msgstr "אי אפשר  להשתמש במספרים כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:400
+msgid ""
+"You used a number as an argument when defining a function.\n"
+"You can only use identifiers (variable names) as function arguments.\n"
+msgstr ""
+"השתמשת במספר כארגומנט בעת הגדרת פונקציה.\n"
+"אפשר להשתמש רק במזהים (שמות משתנים) כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:412
+msgid "You cannot use strings as function arguments.\n"
+msgstr "אינך יכול להשתמש במחרוזות כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:413
+msgid ""
+"You used a string as an argument when defining a function.\n"
+"You can only use identifiers (variable names) as function arguments.\n"
+msgstr ""
+"השתמשת במחרוזת כארגומנט בעת הגדרת פונקציה.\n"
+"אפשר להשתמש רק במזהים (שמות משתנים) כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:425
+#, fuzzy
+msgid "You cannot have explicit tuples as function arguments.\n"
+msgstr "לא יכולים להיות לך צמד מפורש כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:427
+msgid ""
+"You can only use identifiers (variable names) as function arguments.\n"
+"Assign any tuple to a parameter and unpack it\n"
+"within the body of the function.\n"
+msgstr ""
+"אפשר להשתמש רק במזהים (שמות משתנים) כארגומנטים של פונקציות.\n"
+"צריך להקצות כל צמד לפרמטר ולפרק אותו\n"
+"בתוך גוף הפונקציה.\n"
+
+#: syntax_errors\error_in_def.py:440
+msgid "You cannot have explicit lists as function arguments.\n"
+msgstr "אינך יכול\\ה להכיל רשימות מפורשות כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:441 syntax_errors\error_in_def.py:453
+msgid "You can only use identifiers (variable names) as function arguments.\n"
+msgstr "אפשר להשתמש רק במזהים (שמות משתנים) כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:452
+msgid "You cannot have any explicit dict or set as function arguments.\n"
+msgstr ""
+"אינך יכול\\ה לקבל שום מילון (dict) מפורש או סט (set) כטיעוני פונקציה.\n"
+
+#: syntax_errors\error_in_def.py:469
+msgid "You cannot have operators as function arguments.\n"
+msgstr "לא יכולים להיות לך אופרטורים כארגומנטים של פונקציות.\n"
+
+#: syntax_errors\error_in_def.py:477
+msgid ""
+"I suspect you made a typo and wrote `{op}` instead of a comma.\n"
+"The following statement contains no syntax error:\n"
+"\n"
+"    {new_statement}"
+msgstr ""
+"אני חושד שעשית שגיאת כתיב וכתבת '{op}' במקום פסיק.\n"
+"המשפט הבא אינו מכיל שגיאת תחביר:\n"
+"\n"
+"     {new_statement}"
+
+#: syntax_errors\error_in_def.py:489
+msgid "Did you mean to write an equal sign?\n"
+msgstr "האם התכוונת לכתוב סימן שווה?\n"
+
+#: syntax_errors\error_in_def.py:490
+msgid ""
+"I suspect you made a typo and wrote `{op}` instead of an equal sign.\n"
+"The following statement contains no syntax error:\n"
+"\n"
+"    {new_statement}"
+msgstr ""
+"אני חושד שעשית שגיאת כתיב וכתבת '{op}' במקום סימן שוויון.\n"
+"המשפט הבא אינו מכיל שגיאת תחביר:\n"
+"\n"
+"     {new_statement}"
+
+#: syntax_errors\error_in_def.py:502
+msgid "Did you mean to write `{op}`?\n"
+msgstr "האם התכוונת לכתוב '{op}'?\n"
+
+#: syntax_errors\error_in_def.py:503
+msgid ""
+"I suspect you made a typo and added `{op}` by mistake.\n"
+"The following statement contains no syntax error:\n"
+"\n"
+"    {new_statement}"
+msgstr ""
+"אני חושד שעשית שגיאת כתיב והוספת '{op}' בטעות.\n"
+"המשפט הבא אינו מכיל שגיאת תחביר:\n"
+"\n"
+"     {new_statement}"
+
+#: syntax_errors\error_in_def.py:519
+msgid "You cannot use `{op}` as an argument.\n"
+msgstr "אינך יכול להשתמש ב- '{op}' כטיעון.\n"
+
+#: syntax_errors\error_in_def.py:523
+msgid ""
+"I suspect you made a typo and wrote `{op}` by mistake.\n"
+"If you replace it by a unique variable name, the result\n"
+"will contain no syntax error.\n"
+msgstr ""
+"אני חושד שעשית שגיאת כתיב וכתבת בטעות '{op}'.\n"
+"אם תחליף אותו בשם משתנה ייחודי, התוצאה\n"
+"לא יכיל שגיאת תחביר.\n"
+
+#: syntax_errors\error_in_def.py:531
+#, fuzzy
+msgid ""
+"I suspect you made a typo and wrote `{op}` by mistake,\n"
+"perhaps instead of writing an identifier (variable name).\n"
+msgstr ""
+"אני חושד שעשית שגיאת כתיב וכתבת בטעות '{op}',\n"
+"אולי במקום לכתוב מזהה (שם משתנה).\n"
+
+#: syntax_errors\error_in_def.py:540
+msgid ""
+"The `**` operator needs to be followed by an identifier (variable name).\n"
+msgstr "אחרי האופרטור '**' צריך להיות מזהה (שם משתנה).\n"
+
+#: syntax_errors\error_in_def.py:563
+msgid "Positional arguments must come before keyword arguments.\n"
+msgstr "ארגומנטים עמדתיים חייבים לבוא לפני ארגומנטים של מילות מפתח.\n"
+
+#: syntax_errors\error_in_def.py:564
+msgid ""
+"`{arg}` is a positional argument that appears after one or more\n"
+"keyword arguments in your function definition.\n"
+msgstr ""
+"'{arg}' הוא ארגומנט עמדתי שמופיע לאחר אחד או יותר\n"
+"ארגומנטים של מילות מפתח בהגדרת הפונקציה שלך.\n"
+
+#: syntax_errors\indentation_error.py:11
+msgid "Line `{number}` identified above is more indented than expected.\n"
+msgstr ""
+
+#: syntax_errors\indentation_error.py:15
+msgid ""
+"Line `{number}` identified above was expected to begin a new indented "
+"block.\n"
+msgstr ""
+
+#: syntax_errors\indentation_error.py:20
+msgid "Line `{number}` identified above is less indented than expected.\n"
+msgstr ""
+
+#: syntax_errors\indentation_error.py:32
+msgid ""
+"However, line {number}, which is identified as having a problem,\n"
+"consists of a single string which is also the case\n"
+"for the preceding line.\n"
+"Perhaps you meant to include a continuation character, `\\`,\n"
+"at the end of line {preceding}.\n"
+msgstr ""
+"עם זאת, שורה {number}, המזוהה כבעיה,\n"
+"מורכב ממחרוזת אחת, וזה גם המקרה\n"
+"עבור השורה הקודמת.\n"
+"אולי התכוונת לכלול דמות המשך, '\\',\n"
+"בסוף השורה {preceding}.\n"
+
+#: syntax_errors\message_analyzer.py:22
+msgid "You can only assign objects to identifiers (variable names).\n"
+msgstr "ניתן להקצות אובייקטים רק למזהים (שמות משתנים).\n"
+
+#: syntax_errors\message_analyzer.py:26
+#: syntax_errors\statement_analyzer.py:1534
+msgid ""
+"You can only delete names of objects, or items in mutable containers\n"
+"such as `list`, `set`, or `dict`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:54
+msgid "of type `int`"
+msgstr "מסוג int (שלם)"
+
+#: syntax_errors\message_analyzer.py:55
+msgid "of type `complex`"
+msgstr "מסוג complex (מורכב)"
+
+#: syntax_errors\message_analyzer.py:56
+msgid "of type `float`"
+msgstr "מסוג float (צף)"
+
+#: syntax_errors\message_analyzer.py:57
+msgid "of type `str`"
+msgstr "מסוג str (מחרוזת)"
+
+#: syntax_errors\message_analyzer.py:58
+msgid "of type `dict`"
+msgstr "מסוג dict (מילון)"
+
+#: syntax_errors\message_analyzer.py:59
+msgid "of type `list`"
+msgstr "מסוג list (רשימה)"
+
+#: syntax_errors\message_analyzer.py:60
+msgid "of type `set`"
+msgstr "מסוג set (סט)"
+
+#: syntax_errors\message_analyzer.py:61
+msgid "of type `tuple`"
+msgstr "מסוג tuple (צמד)"
+
+#: syntax_errors\message_analyzer.py:81 syntax_errors\message_analyzer.py:91
+msgid "Did you mean `{num}`?\n"
+msgstr "האם התכוונת ל '{num}'?\n"
+
+#: syntax_errors\message_analyzer.py:82
+msgid ""
+"Perhaps you meant to write the octal number `{num}`\n"
+"and forgot the letter 'o', or perhaps you meant to write\n"
+"a decimal integer and did not know that it could not start with zeros.\n"
+msgstr ""
+"אולי התכוונת לכתוב את המספר האוקטלי '{num}'\n"
+"ושכחת את האות 'או', או שאולי התכוונת לכתוב\n"
+"מספר שלם עשרוני ולא ידעת שהוא לא יכול להתחיל באפס.\n"
+
+#: syntax_errors\message_analyzer.py:92
+msgid ""
+"Perhaps you meant to write the integer `{num}`\n"
+"and did not know that it could not start with zeros.\n"
+msgstr ""
+"אולי התכוונת לכתוב את המספר השלם '{num}'\n"
+"ולא ידעת שזה לא יכול להתחיל באפס.\n"
+
+#: syntax_errors\message_analyzer.py:131
+msgid ""
+"On the left-hand side of an equal sign, you have a\n"
+"conditional expression instead of the name of a variable.\n"
+"A conditional expression has the following form:\n"
+"\n"
+"    variable = object if condition else other_object\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:149
+#, fuzzy
+#| msgid ""
+#| "On the left-hand side of an equal sign, you have a\n"
+#| "generator expression instead of the name of a variable.\n"
+msgid ""
+"On the left-hand side of an equal sign, you have a\n"
+"conditional expression instead of the name of a variable.\n"
+"    {expression} = ...\n"
+"    {mark}\n"
+msgstr ""
+"בצד שמאל של סימן שוויון, יש לך\n"
+"ביטוי גנרטור במקום שם של משתנה.\n"
+
+#: syntax_errors\message_analyzer.py:170
+msgid ""
+"On the left-hand side of an equal sign, you have\n"
+"an expression instead of the name of a variable.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:195
+#, fuzzy
+msgid ""
+"You wrote the expression\n"
+"\n"
+"    {fn_call} = ...\n"
+"where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
+"or includes a function call and is not simply the name of a variable.\n"
+msgstr ""
+"כתבת את הביטוי\n"
+"\n"
+"     {fn_call} = {value}\n"
+"\n"
+"כאשר '{fn_call}', בצד ימין של סימן השוויון, נמצא\n"
+"או כולל קריאה לפונקציה ואינה רק שם המשתנה.\n"
+
+#: syntax_errors\message_analyzer.py:207
+#, fuzzy
+msgid ""
+"You wrote the expression\n"
+"\n"
+"    {fn_call} = ...\n"
+"    {mark}\n"
+"where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
+"or includes a function call and is not simply the name of a variable.\n"
+msgstr ""
+"כתבת את הביטוי\n"
+"\n"
+"     {fn_call} = {value}\n"
+"\n"
+"כאשר '{fn_call}', בצד ימין של סימן השוויון, נמצא\n"
+"או כולל קריאה לפונקציה ואינה רק שם המשתנה.\n"
+
+#: syntax_errors\message_analyzer.py:228
+msgid ""
+"On the left-hand side of an equal sign, you have a\n"
+"generator expression instead of the name of a variable.\n"
+msgstr ""
+"בצד שמאל של סימן שוויון, יש לך\n"
+"ביטוי גנרטור במקום שם של משתנה.\n"
+
+#: syntax_errors\message_analyzer.py:246 syntax_errors\message_analyzer.py:372
+msgid ""
+"You wrote an expression that has the f-string `{fstring}`\n"
+"on the left-hand side of the equal sign.\n"
+"An f-string should only appear on the right-hand side of an equal sign.\n"
+msgstr ""
+"כתבת ביטוי המכיל את מחרוזת f '{fstring}'\n"
+"בצד שמאל של סימן השוויון.\n"
+"מחרוזת f צריכה להופיע רק בצד ימין של סימן שווה.\n"
+
+#: syntax_errors\message_analyzer.py:290 syntax_errors\message_analyzer.py:960
+msgid "You cannot assign a value to `{keyword}`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:293
+msgid "You cannot assign a value to the ellipsis symbol [`...`].\n"
+msgstr "לא ניתן להקצות ערך לסמל האליפסיס (ellipsis) ['...'].\n"
+
+#: syntax_errors\message_analyzer.py:294
+msgid ""
+"The ellipsis symbol `...` is a constant in Python;you cannot assign it a "
+"different value.\n"
+msgstr ""
+"סמל האליפסיס (ellipsis ) '...' הוא קבוע בפייתון; אינך יכול\\ה להקצות לו ערך "
+"אחר.\n"
+
+#: syntax_errors\message_analyzer.py:299
+msgid ""
+"`{keyword}` is a constant in Python; you cannot assign it a different "
+"value.\n"
+msgstr "`{keyword}` הוא קבוע בפיתון; אינך יכול להקצות לו ערך אחר.\n"
+
+#: syntax_errors\message_analyzer.py:304
+#: syntax_errors\statement_analyzer.py:940
+msgid ""
+"You were trying to assign a value to the Python keyword `{keyword}`.\n"
+"This is not allowed.\n"
+"\n"
+msgstr ""
+"ניסית להקצות ערך למילת המפתח של פייתון \"{keyword}\".\n"
+"זה אסור.\n"
+
+#: syntax_errors\message_analyzer.py:327
+msgid ""
+"A for loop must have the form:\n"
+"\n"
+"    for ... in sequence:\n"
+"\n"
+"where `...` must contain only identifiers (variable names)\n"
+"and not literals like `{bad_token}`.\n"
+msgstr ""
+"לולאת פור (for) חייבת להיות בתבנית:\n"
+"\n"
+"     עבור XXX ברצף:\n"
+"\n"
+"כאשר 'XXX' חייב להכיל רק מזהים (שמות משתנים)\n"
+"ולא מילוליות כמו '{bad_token}'.\n"
+
+#: syntax_errors\message_analyzer.py:384
+msgid "variable_name"
+msgstr "שם_משתנה"
+
+#: syntax_errors\message_analyzer.py:388
+msgid ""
+"Perhaps you meant to write:\n"
+"\n"
+"    {name} = {literal}\n"
+"\n"
+msgstr ""
+"אולי התכוונת לכתוב:\n"
+"\n"
+"     {name} = {literal}\n"
+
+#: syntax_errors\message_analyzer.py:394
+msgid "Perhaps you meant to write `{name} = {literal}`"
+msgstr "אולי התכוונת לכתוב '{name} = {letteral}'"
+
+#: syntax_errors\message_analyzer.py:413
+msgid ""
+"You wrote an expression like\n"
+"\n"
+"    {literal} = {name}\n"
+"where `{literal}`, on the left-hand side of the equal sign,\n"
+"is or includes an actual object {of_type}\n"
+"and is not simply the name of a variable.\n"
+msgstr ""
+"כתבת ביטוי כמו\n"
+"\n"
+"     {literal} = {name}\n"
+"כאשר '{literal}', בצד שמאל של סימן השווה,\n"
+"הוא או כולל אובייקט בפועל {of_type}\n"
+"וזה לא רק שמו של משתנה.\n"
+
+#: syntax_errors\message_analyzer.py:435
+msgid ""
+"You wrote an expression that includes some mathematical operations\n"
+"on the left-hand side of the equal sign which should be\n"
+"only used to assign a value to a variable.\n"
+msgstr ""
+"כתבת ביטוי הכולל כמה פעולות מתמטיות\n"
+"בצד שמאל של סימן השוויון שאמור להיות\n"
+"משמש רק להקצאת ערך למשתנה.\n"
+
+#: syntax_errors\message_analyzer.py:457
+msgid "Perhaps you meant to write `{name}` instead of `{original}`\n"
+msgstr "אולי התכוונת לכתוב '{name}' במקום '{original}'\n"
+
+#: syntax_errors\message_analyzer.py:462 syntax_errors\message_analyzer.py:600
+#: syntax_errors\statement_analyzer.py:563
+msgid "Perhaps you needed `==` instead of `=`.\n"
+msgstr "אולי היית צריך\\ה '==' במקום '='.\n"
+
+#: syntax_errors\message_analyzer.py:474
+msgid ""
+"You wrote an expression that includes the `yield` keyword\n"
+"on the left-hand side of the equal sign.\n"
+"You cannot assign a value to such an expression.\n"
+"Note that, like the keyword `return`,\n"
+"`yield` can only be used inside a function.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:493 syntax_errors\message_analyzer.py:515
+msgid ""
+"You are using the augmented assignment operator `:=` inside\n"
+"a comprehension to assign a value to the iteration variable `{var}`.\n"
+"This variable is meant to be used only inside the comprehension.\n"
+"The augmented assignment operator is normally used to assign a value\n"
+"to a variable so that the variable can be reused later.\n"
+"This is not possible for variable `{var}`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:532
+msgid ""
+"The object named `{name}` is defined with type annotation\n"
+"as a local variable. It cannot be declared to be a global variable.\n"
+msgstr ""
+"האובייקט בשם '{name}' מוגדר עם ביאור סוג\n"
+"כמשתנה מקומי. לא ניתן להכריז עליו כמשתנה עולמי.\n"
+
+#: syntax_errors\message_analyzer.py:547
+msgid ""
+"You cannot use the augmented assignment operator `:=`,\n"
+"sometimes called the walrus operator, with literals like `{bad_token}`.\n"
+"You can only assign objects to identifiers (variable names).\n"
+msgstr ""
+"אינך יכול להשתמש באופרטור ההקצאה המוגבר `: =`,\n"
+"לפעמים נקרא מפעיל הזן, עם מילת מילים כמו \"{bad_token}\".\n"
+"ניתן להקצות אובייקטים רק למזהים (שמות משתנים).\n"
+
+#: syntax_errors\message_analyzer.py:558
+msgid ""
+"You declared `{name}` as being both a global and nonlocal variable.\n"
+"A variable can be global, or nonlocal, but not both at the same time.\n"
+msgstr ""
+"הצהרת על '{שם}' כמשתנה גלובלי וגם לא מיקומי (global & nonlocal).\n"
+"משתנה יכול להיות גלובלי או לא מקומי, אך לא שניהם בו זמנית.\n"
+
+#: syntax_errors\message_analyzer.py:573
+msgid "Python tells us that the {bracket} was never closed.\n"
+msgstr "פייתון מספר לנו שה {bracket} מעולם לא נסגר.\n"
+
+#: syntax_errors\message_analyzer.py:576
+msgid "The {bracket} was never closed.\n"
+msgstr "ה- {bracket} מעולם לא נסגר.\n"
+
+#: syntax_errors\message_analyzer.py:588
+msgid ""
+"The Python keyword `break` can only be used inside a `for` loop or inside a "
+"`while` loop.\n"
+msgstr ""
+"ניתן להשתמש במילת המפתח Python 'break' רק בתוך לולאת 'for' (פור) או בתוך "
+"לולאה של 'while' (בעוד).\n"
+
+#: syntax_errors\message_analyzer.py:601
+#: syntax_errors\statement_analyzer.py:564
+msgid ""
+"You likely used an assignment operator `=` instead of an equality operator "
+"`==`.\n"
+msgstr "סביר להניח שהשתמשת באופרטור הגדרה  `=` במקום מפעיל שוויון `==`.\n"
+
+#: syntax_errors\message_analyzer.py:609
+msgid ""
+"The following statement would not contain a syntax error:\n"
+"\n"
+"    {new_statement}\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:629
+msgid "You cannot delete the constant `{constant}`.\n"
+msgstr "אינך יכול למחוק את הקבוע (constant ) '{constant}'.\n"
+
+#: syntax_errors\message_analyzer.py:649 syntax_errors\message_analyzer.py:703
+msgid "You cannot delete a Python expression.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:652
+msgid "You cannot delete the expression `{expression}`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:669
+msgid ""
+"You attempted to delete a function call\n"
+"\n"
+"    {line}\n"
+"instead of deleting the function's name\n"
+"\n"
+"    {correct}\n"
+msgstr ""
+"ניסית למחוק שיחת פונקציה\n"
+"\n"
+"     {line}\n"
+"במקום למחוק את שם הפונקציה\n"
+"\n"
+"     {correct}\n"
+
+#: syntax_errors\message_analyzer.py:687
+msgid "You cannot delete the literal `{literal}`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:706
+msgid "You cannot delete the named expression `{expression}`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:722
+msgid ""
+"The star operator `*` is interpreted to mean that\n"
+"iterable unpacking is to be used to assign a name\n"
+"to each item of an iterable, which does not make sense here.\n"
+msgstr ""
+"אופרטור הכוכב \"*\" מתפרש כמשמעותו\n"
+"יש להשתמש בפירוק חוזר כדי להקצות שם\n"
+"לכל פריט של חוזר, וזה לא הגיוני כאן.\n"
+
+#: syntax_errors\message_analyzer.py:736
+msgid ""
+"It looks like you surrounded a starred name by parentheses.\n"
+"This was not considered a SyntaxError before Python version 3.9.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:755
+msgid "Did you forget a colon?\n"
+msgstr "שכחת נקודתיים?\n"
+
+#: syntax_errors\message_analyzer.py:756
+msgid "Python expected a colon at the position indicated.\n"
+msgstr "פייתון ציפה לנקודתיים במיקום שצוין.\n"
+
+#: syntax_errors\message_analyzer.py:783
+msgid ""
+"It looks like the error occurred as you were writing a Python dict.\n"
+"Perhaps you wrote a dict key without writing the corresponding value.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:787 syntax_errors\message_analyzer.py:991
+#: syntax_errors\statement_analyzer.py:1594
+msgid "Did you forget to write a dict value?\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:794
+msgid ""
+"The Python keyword `continue` can only be used inside a `for` loop or inside "
+"a `while` loop.\n"
+msgstr ""
+"ניתן להשתמש במילת המפתח של פייתון 'המשך' רק בתוך לולאת 'for'(פור) או בתוך "
+"לולאה של 'while' (בעוד).\n"
+
+#: syntax_errors\message_analyzer.py:806
+msgid ""
+"You have defined a function repeating the argument\n"
+"\n"
+"    {name}\n"
+"Each argument should appear only once in a function definition.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:846
+msgid "Did you forget to add `else`?\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:847
+msgid "An `else some_value` clause was expected after the `if` expression.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:859
+msgid ""
+"You started writing a triple-quoted string but never wrote\n"
+"the triple quotes needed to end the string.\n"
+msgstr ""
+"התחלת לכתוב מחרוזת עם שלושה גרשיים אך מעולם לא כתבת את \n"
+"את שלושת הגרשיים המסיימים הדרושים כדי לסיים את המחרוזת.\n"
+
+#: syntax_errors\message_analyzer.py:876
+msgid "Did you forget a closing quote?\n"
+msgstr "שכחת גרשיים לסיום?\n"
+
+#: syntax_errors\message_analyzer.py:877
+msgid ""
+"You started writing a string with a single or double quote\n"
+"but never ended the string with another quote on that line.\n"
+msgstr ""
+"התחלת לכתוב מחרוזת עם גרש או מרכאות\n"
+"אך מעולם לא סיימת את המחרוזת בציטוט\\מרכאות נוסף בשורה זו.\n"
+
+#: syntax_errors\message_analyzer.py:884
+msgid ""
+"Perhaps you meant to write the backslash character, `\\`\n"
+"as the last character in the string and forgot that you\n"
+"needed to escape it by writing two `\\` in a row.\n"
+msgstr ""
+"אולי התכוונת לכתוב את הלוכסן , '\\'\n"
+"באות האחרונה במחרוזת ושכחת שאתה\n"
+"צריך לתקן זאת על ידי כתיבת שני '\\' ברציפות.\n"
+
+#: syntax_errors\message_analyzer.py:889
+msgid "Did you forget to escape a backslash character?\n"
+msgstr "שכחת לשים לוחסן \"\\\"?\n"
+
+#: syntax_errors\message_analyzer.py:922
+#: syntax_errors\statement_analyzer.py:352
+#, fuzzy
+#| msgid "Did you forget to escape a backslash character?\n"
+msgid "Perhaps you forgot to escape a quote character.\n"
+msgstr "שכחת לשים לוחסן \"\\\"?\n"
+
+#: syntax_errors\message_analyzer.py:923
+#: syntax_errors\statement_analyzer.py:353
+msgid ""
+"I suspect that you were trying to use a quote character inside a string\n"
+"that was enclosed in quotes of the same kind.\n"
+"Perhaps you should have escaped the inner quote character:\n"
+"\n"
+"    {new_line}\n"
+"    {mark}\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:962
+msgid ""
+"You likely called a function using the Python keyword `{keyword}` as an "
+"argument:\n"
+"\n"
+"    a_function({keyword}=something) \n"
+"\n"
+"which Python interpreted as trying to assign a value to a Python keyword.\n"
+"\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:973
+msgid ""
+"You likely called a function with a named argument:\n"
+"\n"
+"    a_function(invalid=something) \n"
+"\n"
+"where `invalid` is not a valid variable name in Python\n"
+"either because it starts with a number, or is a string,\n"
+"or contains a period, etc.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:987
+#: syntax_errors\statement_analyzer.py:1585
+msgid ""
+"It looks like the error occurred as you were writing a Python dict.\n"
+"Perhaps you forgot to write a value after a colon.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1000
+#, fuzzy
+msgid ""
+"You have written an f-string whose content `{...}`\n"
+"includes a backslash; this is not allowed.\n"
+"Perhaps you can replace the part that contains a backslash by\n"
+"some variable. For example, suppose that you have an f-string like:\n"
+"\n"
+"    f\"{... 'hello\\n' ...}\"\n"
+"\n"
+"you could write this as\n"
+"\n"
+"    hello = 'hello\\n'\n"
+"    f\"{... hello ...}\"\n"
+msgstr ""
+"כתבת מחרוזת f שהתוכן שלה \"{...}`\n"
+"כולל נטוי לאחור; זה אסור.\n"
+"אולי תוכל להחליף את החלק המכיל נטוי לאחור על ידי\n"
+"משתנה כלשהו. לדוגמה, נניח שיש לך מחרוזת f כמו:\n"
+"\n"
+"     f \"{... 'שלום \\ n' ...}\"\n"
+"\n"
+"אתה יכול לכתוב את זה בשם\n"
+"\n"
+"     שלום = 'שלום \\ n'\n"
+"     f \"{... שלום ...}\"\n"
+
+#: syntax_errors\message_analyzer.py:1017
+msgid ""
+"You have written an f-string which has an unmatched `}`.\n"
+"If you want to print a single `}`, you need to write `}}` in the f-string;\n"
+"otherwise, you need to add an opening `{`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1029
+msgid ""
+"You have written an f-string which has an unmatched `{`.\n"
+"If you want to print a single `{`, you need to write `{{` in the f-string;\n"
+"otherwise, you need to add a closing `}`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1045
+#: syntax_errors\statement_analyzer.py:1181
+msgid ""
+"I am guessing that you were writing a comprehension or a generator "
+"expression\n"
+"and forgot to include parentheses around tuples.\n"
+"As an example, instead of writing\n"
+"\n"
+"    [i, i**2 for i in range(10)]\n"
+"\n"
+"you would need to write\n"
+"\n"
+"    [(i, i**2) for i in range(10)]\n"
+"\n"
+msgstr ""
+"אני מנחש שכתבת הבנה או ביטוי מחולל\n"
+"ושכח לכלול סוגריים סביב צמדים.\n"
+"כדוגמה, במקום לכתוב\n"
+"\n"
+"    [i, i**2 for i in range(10)]\n"
+"תצטרך לכתוב\n"
+"\n"
+"      [(i, i**2) for i in range(10)]\n"
+
+#: syntax_errors\message_analyzer.py:1062
+#, fuzzy
+msgid ""
+"A `from __future__ import` statement changes the way Python\n"
+"interprets the code in a file.\n"
+"It must appear at the beginning of the file."
+msgstr ""
+"משפט 'מאת __future__ יבוא' משנה את האופן שבו Python\n"
+"מפרש את הקוד בקובץ.\n"
+"הוא חייב להופיע בתחילת הקובץ."
+
+#: syntax_errors\message_analyzer.py:1078
+msgid "The available features are `{names}`.\n"
+msgstr "התכונות הזמינות הן '{names}'.\n"
+
+#: syntax_errors\message_analyzer.py:1083
+#, fuzzy
+msgid ""
+"When using a `from __future__ import` statement,\n"
+"you must import specific named features.\n"
+msgstr ""
+"בעת שימוש בהצהרת 'מאת __future__ יבוא',\n"
+"עליך לייבא תכונות בשם ספציפיות.\n"
+
+#: syntax_errors\message_analyzer.py:1094
+msgid "Instead of `{feature}`, perhaps you meant to import `{name}`.\n"
+msgstr "במקום '{feature}', אולי התכוונת לייבא '{name}'.\n"
+
+#: syntax_errors\message_analyzer.py:1099
+msgid "`{feature}` is not a valid feature of module `__future__`.\n"
+msgstr "`{feature}` אינה תכונה תקפה של המודול ` __future__`.\n"
+
+#: syntax_errors\message_analyzer.py:1124
+msgid ""
+"You are using a generator expression, something of the form\n"
+"\n"
+"    x for x in thing\n"
+"\n"
+"You must add parentheses enclosing that expression.\n"
+msgstr ""
+"אתה משתמש בביטוי מחולל, משהו מהצורה\n"
+"\n"
+"     x עבור x בדבר\n"
+"\n"
+"עליך להוסיף סוגריים המקיפים את הביטוי הזה.\n"
+
+#: syntax_errors\message_analyzer.py:1137
+#, fuzzy
+msgid ""
+"I suspect you wrote `from __future__ import braces` following\n"
+"someone else's suggestion. This will never work.\n"
+"\n"
+"Unlike other programming languages, Python's code block are defined by\n"
+"their indentation level, and not by using some curly braces, like `{...}`.\n"
+msgstr ""
+"אני חושד שכתבת את 'מ- __future__ פלטות יבוא' בהמשך\n"
+"הצעה של מישהו אחר. זה לעולם לא יעבוד.\n"
+"\n"
+"שלא כמו שפות תכנות אחרות, בלוק הקוד של פייתון מוגדר על ידי\n"
+"רמת הכניסה שלהם, ולא באמצעות כמה פלטות מתולתלות, כמו \"{...}`.\n"
+
+#: syntax_errors\message_analyzer.py:1152
+#: syntax_errors\statement_analyzer.py:165
+msgid "Did you use copy-paste?\n"
+msgstr "האם השתמשת בהעתק-הדבק?\n"
+
+#: syntax_errors\message_analyzer.py:1153
+msgid ""
+"Python indicates that you used the unicode character `{bad_character}`\n"
+"which is not allowed.\n"
+msgstr ""
+"Python מציין שהשתמשת בתו unicode '{bad_character}'\n"
+"מה שאסור.\n"
+
+#: syntax_errors\message_analyzer.py:1179
+msgid "Python tells us that you have written an invalid number."
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1180
+msgid "However, I think that the problem might be the following."
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1214
+msgid "I have no suggestion to offer to fix this problem.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1226
+#: syntax_errors\statement_analyzer.py:685
+#, fuzzy
+msgid ""
+"The double star operator `**` is likely interpreted to mean that\n"
+"dict unpacking is to be used which is not allowed or does not make sense "
+"here.\n"
+msgstr ""
+"סביר להניח אופרטור הכוכב הכפול \"**\" מתפרש כאן \n"
+"כפירוק מילון (dict) אשר אסור או לא הגיוני כאן.\n"
+
+#: syntax_errors\message_analyzer.py:1284
+msgid ""
+"You cannot use the `*` operator to unpack the iteration variable\n"
+"in a comprehension.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1296
+#: syntax_errors\message_analyzer.py:1690
+#: syntax_errors\statement_analyzer.py:492
+msgid ""
+"The following statement has no syntax error:\n"
+"\n"
+"    {statement}\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1317
+msgid ""
+"You have called a function repeating the same keyword argument (`{arg}`).\n"
+"Each keyword argument should appear only once in a function call.\n"
+msgstr ""
+"קראת לפונקציה שחוזרת על אותו ארגומנט של מילת מפתח ('{arg}').\n"
+"כל ארגומנט של מילת מפתח צריך להופיע רק פעם אחת בשיחת פונקציה.\n"
+
+#: syntax_errors\message_analyzer.py:1382
+msgid ""
+"Python tells us that the closing `{closing}` on the last line shown\n"
+"does not match the opening `{opening}` on line {lineno}.\n"
+"\n"
+msgstr ""
+"פייתון מספר לנו שהסגירה '{closing}' בשורה האחרונה המוצגת\n"
+"אינו תואם את הפתיחה `{opening}` בשורה {lino}.\n"
+
+#: syntax_errors\message_analyzer.py:1387
+msgid ""
+"Python tells us that the closing `{closing}` on the last line shown\n"
+"does not match the opening `{opening}`.\n"
+"\n"
+msgstr ""
+"פייתון מספר לנו כי הסגירה '{סגירה}' בשורה האחרונה המוצגת\n"
+"אינו תואם את הפתיחה `{opening}`.\n"
+
+#: syntax_errors\message_analyzer.py:1401
+msgid "Did you forget something after `*`?\n"
+msgstr "שכחת משהו אחרי '*'?\n"
+
+#: syntax_errors\message_analyzer.py:1402
+msgid ""
+"Assuming you were defining a function, you need\n"
+"to replace `*` by either `*arguments` or\n"
+"by `*, named_argument=value`.\n"
+msgstr ""
+"בהנחה שאתה מגדיר פונקציה, אתה צריך\n"
+"להחליף את \"*\" ב\"*args \"או\n"
+"על ידי `*, named_argument = value`.\n"
+
+#: syntax_errors\message_analyzer.py:1417
+msgid ""
+"You assigned a value to the variable `{name}`\n"
+"before declaring it as a global variable.\n"
+msgstr ""
+"הקצית ערך למשתנה '{name}'\n"
+"לפני הכרזתו כמשתנה גלובלי.\n"
+
+#: syntax_errors\message_analyzer.py:1443
+msgid "Did you forget to add `nonlocal`?\n"
+msgstr "שכחת להוסיף `nonlocal`?\n"
+
+#: syntax_errors\message_analyzer.py:1444
+msgid ""
+"You assigned a value to the variable `{name}`\n"
+"before declaring it as a nonlocal variable.\n"
+msgstr ""
+"הקצית ערך למשתנה '{name}'\n"
+"לפני הכרזתו כמשתנה לא -מקומי (nonlocal).\n"
+
+#: syntax_errors\message_analyzer.py:1477
+msgid ""
+"You are including the statement\n"
+"\n"
+"    {newline}\n"
+"\n"
+"indicating that `{name}` is a variable defined outside a function.\n"
+"You are also using the same `{name}` as an argument for that\n"
+"function, thus indicating that it should be variable known only\n"
+"inside that function, which is the contrary of what `global` implied.\n"
+msgstr ""
+"אתה כולל את ההצהרה\n"
+"\n"
+"     {שורה חדשה}\n"
+"\n"
+"המציין כי \"{name}\" הוא משתנה המוגדר מחוץ לפונקציה.\n"
+"אתה משתמש גם באותו '{name}' כארגומנט לפונקציה הזו\n"
+"ובכך מציין כי היא צריכה להיות משתנה הידוע רק\n"
+"בתוך הפונקציה, שהיא ההפך ממה שמשתמע מה\"global \".\n"
+
+#: syntax_errors\message_analyzer.py:1494
+msgid ""
+"You used `{name}` as a parameter for a function\n"
+"before declaring it also as a nonlocal variable:\n"
+"`{name}` cannot be both at the same time.\n"
+msgstr ""
+"השתמשת ב- '{name}' כפרמטר לפונקציה\n"
+"לפני שמכריזים עליו גם כמשתנה לא -מקומי (nonlocal):\n"
+"'{name}' לא יכול להיות שניהם בו זמנית.\n"
+
+#: syntax_errors\message_analyzer.py:1509
+msgid ""
+"You used the variable `{name}`\n"
+"before declaring it as a global variable.\n"
+msgstr ""
+"השתמשת במשתנה '{name}'\n"
+"לפני הכרזתו כמשתנה גלובלי.\n"
+
+#: syntax_errors\message_analyzer.py:1534
+msgid "Did you forget to write `nonlocal` first?\n"
+msgstr "האם שכחת לכתוב 'nonlocal' קודם?\n"
+
+#: syntax_errors\message_analyzer.py:1536
+msgid ""
+"You used the variable `{name}`\n"
+"before declaring it as a nonlocal variable.\n"
+msgstr ""
+"השתמשת במשתנה '{name}'\n"
+"לפני הכרזתו כמשתנה לא -מקומי. (nonlocal )\n"
+
+#: syntax_errors\message_analyzer.py:1562
+msgid ""
+"You declared the variable `{name}` as being a\n"
+"nonlocal variable but it cannot be found.\n"
+msgstr ""
+"הכרזת על המשתנה '{name}' כ-\n"
+"משתנה לא-מקומי (nonlocal) אך לא ניתן למצוא אותו.\n"
+
+#: syntax_errors\message_analyzer.py:1573
+msgid ""
+"You used the nonlocal keyword at a module level.\n"
+"The nonlocal keyword refers to a variable inside a function\n"
+"given a value outside that function."
+msgstr ""
+"השתמשת במילת המפתח הלא-מקומית (nonlocal) ברמת מודול.\n"
+"מילת המפתח הלא-מקומית (nonlocal) מתייחסת למשתנה בתוך פונקציה\n"
+"ונותנת ערך מחוץ לפונקציה זו."
+
+#: syntax_errors\message_analyzer.py:1585
+msgid ""
+"In Python, you can define functions with only positional arguments\n"
+"\n"
+"    def test(a, b, c): ...\n"
+"\n"
+"or only keyword arguments\n"
+"\n"
+"    def test(a=1, b=2, c=3): ...\n"
+"\n"
+"or a combination of the two\n"
+"\n"
+"    def test(a, b, c=3): ...\n"
+"\n"
+"but with the keyword arguments appearing after all the positional ones.\n"
+"According to Python, you used positional arguments after keyword ones.\n"
+msgstr ""
+"ב- Python, אתה יכול להגדיר פונקציות עם ארגומנטים מיקומיים בלבד\n"
+"\n"
+"def f(a, b, c)\n"
+"\n"
+"או רק ארגומנטים של מילות מפתח\n"
+"\n"
+"def f(a = 1, b = 2, c = 3)\n"
+"\n"
+"או שילוב של השניים\n"
+"\n"
+"def f(1, 2, c = 3)\n"
+"\n"
+"אבל עם טיעוני מילת המפתח שמופיעים אחרי כל אלה המיקומיים.\n"
+"על פי פייתון, השתמשת בטיעונים מיקומיים אחרי מילות מפתח.\n"
+
+#: syntax_errors\message_analyzer.py:1605
+#: syntax_errors\statement_analyzer.py:1229
+msgid ""
+"I am guessing that you wanted to use an `except` statement\n"
+"with multiple exception types. If that is the case, you must\n"
+"surround them with parentheses.\n"
+msgstr ""
+"אני מניח שרצית להשתמש באמירה של 'except'\n"
+" (תפוס)\n"
+"עם מספר סוגי חריגים. אם זה המצב, אתה חייב\n"
+"להקיף אותם בסוגריים.\n"
+
+#: syntax_errors\message_analyzer.py:1617
+msgid ""
+"In Python, you can call functions with only positional arguments\n"
+"\n"
+"    test(1, 2, 3)\n"
+"\n"
+"or only keyword arguments\n"
+"\n"
+"    test(a=1, b=2, c=3)\n"
+"\n"
+"or a combination of the two\n"
+"\n"
+"    test(1, 2, c=3)\n"
+"\n"
+"but with the keyword arguments appearing after all the positional ones.\n"
+"According to Python, you used positional arguments after keyword ones.\n"
+msgstr ""
+"ב- Python, אתה יכול לקרוא פונקציות עם ארגומנטים מיקוםיים בלבד\n"
+"\n"
+"     f(1, 2, 3)\n"
+"\n"
+"או רק ארגומנטים של מילות מפתח\n"
+"\n"
+"     f(a = 1, b = 2, c = 3)\n"
+"\n"
+"או שילוב של השניים\n"
+"\n"
+"     f(1, 2, c = 3)\n"
+"\n"
+"אבל עם טיעוני מילת המפתח שמופיעים אחרי כל אלה המיקומיים.\n"
+"על פי פייתון, השתמשת בטיעונים מיקומיים אחרי מילות מפתח.\n"
+
+#: syntax_errors\message_analyzer.py:1644
+#: syntax_errors\statement_analyzer.py:609
+msgid ""
+"Perhaps you need to type\n"
+"\n"
+"     print({message})\n"
+"\n"
+"In older version of Python, `print` was a keyword.\n"
+"Now, `print` is a function; you need to use parentheses to call it.\n"
+msgstr ""
+"אולי אתה צריך להקליד\n"
+"\n"
+"      print({message})\n"
+"\n"
+"בגרסה ישנה יותר של פייתון, 'print' הייתה מילת מפתח.\n"
+"כעת, 'print' היא פונקציה; אתה צריך להשתמש בסוגריים כדי לקרוא לזה.\n"
+
+#: syntax_errors\message_analyzer.py:1651
+#: syntax_errors\statement_analyzer.py:616
+msgid "Note that arguments of `print` must be separated by commas.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1652
+#: syntax_errors\statement_analyzer.py:617
+msgid "Did you mean `print({message})`?\n"
+msgstr "האם התכוונת print({message}) '?\n"
+
+#: syntax_errors\message_analyzer.py:1661
+msgid "You can only use a `return` statement inside a function or method.\n"
+msgstr "אתה יכול להשתמש רק בהצהרת return(החזר) בתוך פונקציה או שיטה.\n"
+
+#: syntax_errors\message_analyzer.py:1670
+msgid ""
+"A star assignment must be of the form:\n"
+"\n"
+"    ... *name = list_or_tuple\n"
+"\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1680
+msgid ""
+"It looks like you tried to use a starred expression as a dict value;\n"
+"this is not allowed.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1701
+msgid ""
+"Your code is too complex for Python:\n"
+"you need to reduce the number of indented code blocks\n"
+"contained inside other code blocks.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1714
+msgid ""
+"Your code is too complex for Python:\n"
+"you need to reduce the number of parentheses\n"
+"contained inside other parentheses.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1729
+msgid ""
+"Python indicates that you need to surround an expression\n"
+"ending with a comma by parentheses.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1733
+msgid ""
+"Perhaps you meant to write\n"
+"\n"
+"`{new_statement}`\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1741
+msgid "However, I suspect that you wrote the keyword `{boolean}` by mistake.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1745
+msgid ""
+"The Python keyword `{boolean}` can only be used for boolean expressions.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1757
+#: syntax_errors\message_analyzer.py:1770
+msgid "However, if you remove the last comma, there will be no syntax error.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1777
+msgid ""
+"I have no additional suggestion to offer.\n"
+"Please feel free to report this case.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1790
+msgid ""
+"You are using the continuation character `\\` outside of a string,\n"
+"and it is followed by some other character(s).\n"
+msgstr ""
+"את\\ה משתמש\\ת בתו '\\' מחוץ למחרוזת,\n"
+"ואחריו כמה דמויות אחרות.\n"
+
+#: syntax_errors\message_analyzer.py:1813
+msgid ""
+"I am guessing that you wanted to divide by the number {number} \n"
+"and wrote \\ instead of /."
+msgstr ""
+"אני מניח שרצית לחלק במספר {number}\n"
+"וכתבת \"\\\" במקום \"/\"."
+
+#: syntax_errors\message_analyzer.py:1817
+msgid "Did you mean to divide by {number}?\n"
+msgstr "האם התכוונת לחלק ב {number}?\n"
+
+#: syntax_errors\message_analyzer.py:1820
+msgid "I am guessing that you forgot to enclose some content in a string.\n"
+msgstr "אני מנחש ששכחת לסגור תוכן כלשהו במחרוזת.\n"
+
+#: syntax_errors\message_analyzer.py:1829
+msgid ""
+"Python tells us that it reached the end of the file\n"
+"and expected more content.\n"
+"\n"
+msgstr ""
+"פייתון מספר לנו שהוא הגיע לסוף הקובץ\n"
+"וציפו לתוכן נוסף.\n"
+
+#: syntax_errors\message_analyzer.py:1836
+msgid ""
+"I will attempt to be give a bit more information.\n"
+"\n"
+msgstr "אני אנסה לתת קצת יותר מידע.\n"
+
+#: syntax_errors\message_analyzer.py:1847
+msgid ""
+"I suspect that you wrote a string that contains\n"
+"one backslash character, `\\` followed by an uppercase `U`\n"
+"and some more characters.\n"
+"Python likely interpreted this as indicating the beginning of\n"
+"what is known as an escape sequence for special unicode characters.\n"
+"To solve the problem, either write a so-called 'raw string'\n"
+"by adding the letter `r` as a prefix in\n"
+"front of the string, or replace `\\U`, by `\\\\U`.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1871
+#: syntax_errors\statement_analyzer.py:109
+msgid "The closing {bracket} on line {linenumber} does not match anything.\n"
+msgstr "הסגירה {bracket} בשורה {linenumber} אינה תואמת דבר.\n"
+
+#: syntax_errors\message_analyzer.py:1882
+msgid "Perhaps you forgot a closing quote.\n"
+msgstr "אולי שכחת גרשי או גרשיים  לסיום.\n"
+
+#: syntax_errors\message_analyzer.py:1899
+msgid ""
+"Inside the f-string `{fstring}`, \n"
+"you have another string, which starts with either a\n"
+"single quote (') or double quote (\"), without a matching closing one.\n"
+msgstr ""
+"בתוך מחרוזת f {{fstring} `,\n"
+"יש לך מחרוזת נוספת, שמתחילה ב\n"
+"גרש (') או גרשיים (\"), ללא סיום תואם.\n"
+
+#: syntax_errors\message_analyzer.py:1912
+msgid "You can only use a `yield` statement inside a function.\n"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:1921
+msgid ""
+"This is a message that was added in Python 3.9\n"
+"to prevent redefining `__peg_parser__`.\n"
+"It should not be present in other versions.\n"
+msgstr ""
+"זו הודעה שנוספה בפייתון 3.9\n"
+"כדי למנוע הגדרה מחדש של '__peg_parser__'.\n"
+"זה לא צריך להיות קיים בגרסאות אחרות.\n"
+
+#: syntax_errors\statement_analyzer.py:144
+msgid ""
+"The closing {bracket} on line {close_lineno} does not match the opening "
+"{open_bracket} on line {open_lineno}.\n"
+msgstr ""
+"סגירת {bracket} בשורה {close_lineno} אינה תואמת את {open_bracket} הפתיחה "
+"בשורה {open_lineno}.\n"
+
+#: syntax_errors\statement_analyzer.py:174
+msgid ""
+"It looks like you copy-pasted code from an interactive interpreter.\n"
+"The Python prompt, `>>>`, should not be included in your code.\n"
+msgstr ""
+"נראה שאתה מעתיק קוד שהודבק ממתורגמן אינטראקטיבי.\n"
+"שורת הפייתון, '>>> `, לא צריכה להיכלל בקוד שלך.\n"
+
+#: syntax_errors\statement_analyzer.py:186
+msgid ""
+"It looks like you copy-pasted code from an interactive interpreter.\n"
+"The Python prompt, `...`, should not be included in your code.\n"
+msgstr ""
+"נראה שאתה מעתיק קוד שהודבק ממתורגמן אינטראקטיבי.\n"
+"שורת הפייתון, '...', לא צריכה להיכלל בקוד שלך.\n"
+
+#: syntax_errors\statement_analyzer.py:200
+msgid "You should not use the backquote character.\n"
+msgstr "אתה לא אמור להשתמש בתו סימן ההטעמה המשני (grave accent).\n"
+
+#: syntax_errors\statement_analyzer.py:201
+#, fuzzy
+msgid ""
+"You are using the backquote character.\n"
+"Either you meant to write a single quote, ', or copied Python 2 code;\n"
+"in this latter case, use the function `repr(x)`."
+msgstr ""
+"אתה משתמש בסימן ההטעמה המשני.\n"
+"או שהתכוונת לכתוב גרש יחיד, ', או שהעתקת את קוד פייתון 2;\n"
+"במקרה אחרון זה, השתמש בפונקציה `repr (x)`."
+
+#: syntax_errors\statement_analyzer.py:222
+msgid "You forgot to add a condition.\n"
+msgstr "שכחת להוסיף תנאי.\n"
+
+#: syntax_errors\statement_analyzer.py:224
+msgid ""
+"An `if` statement requires a condition:\n"
+"\n"
+"    if condition:\n"
+"        ...\n"
+"\n"
+msgstr ""
+"הצהרת 'if'(אם) דורשת תנאי:\n"
+"\n"
+"     if (אם) מצב:\n"
+"         ...\n"
+
+#: syntax_errors\statement_analyzer.py:230
+msgid ""
+"A `while` loop requires a condition:\n"
+"\n"
+"    while condition:\n"
+"        ...\n"
+"\n"
+msgstr ""
+"לולאת 'while (בעוד)' דורשת תנאי:\n"
+"\n"
+"     while (בעוד) מצב:\n"
+"         ...\n"
+
+#: syntax_errors\statement_analyzer.py:236
+msgid "A `for` loop requires at least 3 more terms.\n"
+msgstr "לולאת `for`(פור) דורשת לפחות 3 מונחים נוספים.\n"
+
+#: syntax_errors\statement_analyzer.py:237
+#, fuzzy
+msgid ""
+"A `for` loop is an iteration over a sequence:\n"
+"\n"
+"    for element in sequence:\n"
+"        ...\n"
+"\n"
+msgstr ""
+"לולאת `for`(פור) היא איטרציה על רצף:\n"
+"\n"
+"     פור (for) אלמנט in רצף:\n"
+"         ...\n"
+
+#: syntax_errors\statement_analyzer.py:243
+msgid "A class needs a name.\n"
+msgstr "כיתה(class) צריכה שם.\n"
+
+#: syntax_errors\statement_analyzer.py:244
+#, fuzzy
+msgid ""
+"A `class` statement requires a name:\n"
+"\n"
+"    class SomeName:\n"
+"        ...\n"
+"\n"
+msgstr ""
+"הצהרת 'class' דורש שם:\n"
+"\n"
+"     class SomeName:\n"
+"         ...\n"
+
+#: syntax_errors\statement_analyzer.py:261
+msgid ""
+"You cannot use the Python keyword `{word}` as an attribute.\n"
+"\n"
+msgstr "אינך יכול להשתמש במילת המפתח של פייתון '{word}' כתכונה.\n"
+
+#: syntax_errors\statement_analyzer.py:267
+msgid "`{word}` cannot be used as an attribute.\n"
+msgstr "לא ניתן להשתמש ב- '{word}' כתכונה.\n"
+
+#: syntax_errors\statement_analyzer.py:289
+msgid "Perhaps you meant to write `elif`.\n"
+msgstr "אולי התכוונת לכתוב elseif. \n"
+
+#: syntax_errors\statement_analyzer.py:290
+msgid ""
+"You likely meant to use Python's `elif` keyword\n"
+"but wrote `{name}` instead.\n"
+"\n"
+msgstr ""
+"סביר שהתכוונת להשתמש במילת המפתח 'elif' של פייתון\n"
+"אבל כתוב '{name}' במקום זאת.\n"
+
+#: syntax_errors\statement_analyzer.py:309
+msgid "Did you mean `from {module} import {function}`?\n"
+msgstr ""
+"האם התכוונת לfrom {module} import {function} ( 'מ- {module} יבוא {function} "
+"`) ?\n"
+
+#: syntax_errors\statement_analyzer.py:312
+#, fuzzy
+#| msgid ""
+#| "You wrote something like\n"
+#| "\n"
+#| "    import {function} from {module}\n"
+#| "instead of\n"
+#| "\n"
+#| "    from {module} import {function}\n"
+#| "\n"
+#| "\n"
+msgid ""
+"You wrote something like\n"
+"\n"
+"    import {function} from {module}\n"
+"\n"
+"instead of\n"
+"\n"
+"    from {module} import {function}\n"
+"\n"
+msgstr ""
+"כתבת משהו כמו\n"
+"\n"
+"     ייבא import {function} from {module} ({function} מ- {module}\n"
+")\n"
+"במקום\n"
+"\n"
+"     מתוך from {module} import {function} ({module} יבוא {function})\n"
+
+#: syntax_errors\statement_analyzer.py:383
+msgid ""
+"The augmented assignment operator is not allowed in Python version "
+"{version}.\n"
+msgstr "מפעיל המקוצר אינו מותר בגרסת Python {version}.\n"
+
+#: syntax_errors\statement_analyzer.py:386
+msgid ""
+"You appear to be using the operator `:=`, sometimes called\n"
+"the walrus operator. This operator requires the use of\n"
+"Python 3.8 or newer. You are using version {version}.\n"
+msgstr ""
+"נראה שאתה משתמש באופרטור `: =`, לפעמים נקרא\n"
+"\"the walrus operator\". מפעיל זה דורש שימוש ב-\n"
+"Python 3.8 ואילך. את\\ה משתמש בגרסה {version}.\n"
+
+#: syntax_errors\statement_analyzer.py:424
+msgid "Did you write operators in an incorrect order?\n"
+msgstr "כתבת אופרטורים בסדר לא נכון?\n"
+
+#: syntax_errors\statement_analyzer.py:425
+msgid ""
+"It looks like you wrote two operators (`{first}` and `{second}`)\n"
+"in the wrong order: `{wrong}` instead of `{correct}`.\n"
+msgstr ""
+"נראה שכתבת שני אופרטורים ('{first}' ו- '{second}')\n"
+"בסדר הלא נכון: '{wrong}' במקום '{correct}'.\n"
+
+#: syntax_errors\statement_analyzer.py:461
+msgid ""
+"You wrote three equal signs in a row which is allowed in some\n"
+"programming languages, but not in Python. To check if two objects\n"
+"are equal, use two equal signs, `==`; to see if two names represent\n"
+"the exact same object, use the operator `is`.\n"
+msgstr ""
+"כתבת שלושה סימנים שווים ברצף. זה דבר שמותר בחלק\n"
+"משפות תכנות, אך לא ב- פייתון. כדי לבדוק אם שני אובייקטים\n"
+"שווים, השתמש בשני סימני שוויון, `==`; כדי לראות אם שני שמות מייצגים\n"
+"אותו אובייקט בדיוק, השתמש באופרטור `is`.\n"
+
+#: syntax_errors\statement_analyzer.py:467
+msgid "Did you mean to use `is` instead of `===`?\n"
+msgstr "האם התכוונת להשתמש ב- 'is' (הוא) במקום '==='?\n"
+
+#: syntax_errors\statement_analyzer.py:471
+msgid ""
+"You cannot have write the same operator, `{op}`, twice in a row.\n"
+"Perhaps you wrote one of them by mistake\n"
+"or forgot to write something between them.\n"
+msgstr ""
+"אי אפשר לכתוב את אותו אופרטור, '{op}', פעמיים ברציפות.\n"
+"אולי כתבת אחד מהם בטעות\n"
+"או ששכחת לכתוב משהו ביניהם.\n"
+
+#: syntax_errors\statement_analyzer.py:482
+msgid ""
+"You cannot have these two operators, `{first}` and `{second}`,\n"
+"following each other.\n"
+"It looks like you tried to use a starred expression as a dict value;\n"
+"this is not allowed.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:496
+msgid ""
+"You cannot have these two operators, `{first}` and `{second}`,\n"
+"following each other. Perhaps you wrote one of them by mistake\n"
+"or forgot to write something between them.\n"
+msgstr ""
+"אי אפשר לכתוב שני אופרטורים אלה, \"{first}\" ו- \"{second}\",\n"
+"עוקבים אחד אחרי השני. אולי כתבת אחד מהם בטעות\n"
+"או ששכחת לכתוב משהו ביניהם.\n"
+
+#: syntax_errors\statement_analyzer.py:503
+msgid ""
+"Or perhaps you included a space by mistake between the two operators\n"
+"and meant to write `{oper}` as a single operator.\n"
+msgstr ""
+"או שאולי כללת רווח בטעות בין שני המפעילים\n"
+"ונועד לכתוב '{oper}' כמפעיל יחיד.\n"
+
+#: syntax_errors\statement_analyzer.py:532
+msgid "Did you mean to use `=`?\n"
+msgstr "האם התכוונת להשתמש ב- '= `?\n"
+
+#: syntax_errors\statement_analyzer.py:533
+msgid ""
+"You use the augmented assignment operator `:=` where\n"
+"the normal assignment operator `=` was required.\n"
+msgstr ""
+"אתה משתמש באופרטור מקוצר `: =` מתי\n"
+"שמפעיל ההקצאה הרגיל `=` נדרש.\n"
+
+#: syntax_errors\statement_analyzer.py:573
+msgid ""
+"The following statement would not contain a syntax error:\n"
+"\n"
+"    {new_statement}"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:579
+msgid "Perhaps you needed `==` or `:=` instead of `=`.\n"
+msgstr "אולי היית צריך '==' או ': =' במקום '='.\n"
+
+#: syntax_errors\statement_analyzer.py:580
+msgid ""
+"You used an assignment operator `=`; perhaps you meant to use \n"
+"an equality operator, `==`, or the walrus operator `:=`.\n"
+msgstr ""
+"השתמשת באופרטור מקוצר  `=`; אולי התכוונת להשתמש\n"
+"במפעיל שוויון, `==`, או במפעיל ישיר `: =`.\n"
+
+#: syntax_errors\statement_analyzer.py:633
+msgid ""
+"It looks as if you are attempting to use pip to install a module.\n"
+"`pip` is a command that needs to run in a terminal,\n"
+"not from a Python interpreter.\n"
+msgstr ""
+"נראה כאילו אתה מנסה להשתמש ב- pip להתקנת מודול.\n"
+"`pip` היא פקודה שצריכה לפעול במסוף,\n"
+"לא מהמתורגמן של פייתון.\n"
+
+#: syntax_errors\statement_analyzer.py:641
+msgid "Pip cannot be used in a Python interpreter.\n"
+msgstr "לא ניתן להשתמש ב- Pip במתורגמן של פייתון.\n"
+
+#: syntax_errors\statement_analyzer.py:644
+msgid ""
+"I am guessing that you are attempting to use Python to run a program.\n"
+"You must do so from a terminal and not from a Python interpreter.\n"
+msgstr ""
+"אני מנחש שאתה מנסה להשתמש ב- Python להפעלת תוכנית.\n"
+"עליך לעשות זאת ממסוף ולא של מתורגמן פייתון.\n"
+
+#: syntax_errors\statement_analyzer.py:654
+msgid "You cannot have a dot `.` followed by `{bracket}`.\n"
+msgstr "לא יכולה להיות לך נקודה `.` ואחריה \"{bracket}\".\n"
+
+#: syntax_errors\statement_analyzer.py:664
+msgid "Perhaps you need to replace the dot by a comma.\n"
+msgstr "אולי אתה צריך להחליף את הנקודה בפסיק.\n"
+
+#: syntax_errors\statement_analyzer.py:675
+msgid ""
+"It looks like you are trying to raise an exception using Python 2 syntax.\n"
+msgstr "נראה שאת\\ה מנסה להעלות חריג באמצעות תחביר python 2.\n"
+
+#: syntax_errors\statement_analyzer.py:730
+msgid "Did you forget a colon `:`?\n"
+msgstr "שכחת נקודתיים ':' ?\n"
+
+#: syntax_errors\statement_analyzer.py:734
+msgid ""
+"You wrote a `{for_while}` loop but\n"
+"forgot to add a colon `:` at the end\n"
+"\n"
+msgstr ""
+"כתבת לולאה של {{for_while} `אבל\n"
+"שכחת להוסיף נקודתיים `:` בסוף\n"
+
+#: syntax_errors\statement_analyzer.py:741
+msgid ""
+"You wrote a statement beginning with\n"
+"`{name}` but forgot to add a colon `:` at the end.\n"
+"\n"
+msgstr ""
+"כתבת הצהרה שמתחילה ב\n"
+"`{name}` אבל שכחת להוסיף נקודתיים `:` בסוף.\n"
+
+#: syntax_errors\statement_analyzer.py:759
+#, fuzzy
+#| msgid "You wrote a semi-colon, `;`, where a comma was expected.\n"
+msgid "You wrote a semicolon, `;`, where a comma was expected.\n"
+msgstr "כתבת נקודה-פסיק, ';', איפה שהיה צפוי פסיק.\n"
+
+#: syntax_errors\statement_analyzer.py:779
+#, fuzzy
+#| msgid "You wrote semi-colons, `;`, where commas were expected.\n"
+msgid "You wrote semicolons, `;`, where commas were expected.\n"
+msgstr "כתבת נקודה-פסיק, ';', איפה שהיה צפוי פסיקים.\n"
+
+#: syntax_errors\statement_analyzer.py:780
+msgid "Did you mean to write commas?\n"
+msgstr "האם התכוונת לכתוב פסיקים?\n"
+
+#: syntax_errors\statement_analyzer.py:796
+#, fuzzy
+#| msgid "You wrote a semi-colon, `;`, where a comma was expected.\n"
+msgid "You wrote a semicolon, `;`, where a colon was expected.\n"
+msgstr "כתבת נקודה-פסיק, ';', איפה שהיה צפוי פסיק.\n"
+
+#: syntax_errors\statement_analyzer.py:797
+#, fuzzy
+#| msgid "Did you mean to write a comma?\n"
+msgid "Did you mean to write a colon?\n"
+msgstr "האם התכוונת לכתוב פסיק?\n"
+
+#: syntax_errors\statement_analyzer.py:815
+msgid "Did you made a mistake in writing an hexadecimal integer?\n"
+msgstr "האם טעית בכתיבת מספר שלם הקסדצימלי?\n"
+
+#: syntax_errors\statement_analyzer.py:816
+#, fuzzy
+msgid ""
+"It looks like you used an invalid character (`{character}`) in an "
+"hexadecimal number.\n"
+"\n"
+"Hexadecimal numbers are base 16 integers that use the symbols `0` to `9`\n"
+"to represent values 0 to 9, and the letters `a` to `f` (or `A` to `F`)\n"
+"to represent values 10 to 15.\n"
+"In Python, hexadecimal numbers start with either `0x` or `0X`,\n"
+"followed by the characters used to represent the value of that integer.\n"
+msgstr ""
+"נראה שהשתמשת בתו לא חוקי (\"{character}\") במספר הקסדצימלי.\n"
+"\n"
+"מספרים הקסדצימליים הם מספר 16 שלם שמשתמשים בסמלים '0' עד '9'\n"
+"כדי לייצג את הערכים 0 עד 9, ואת האותיות `a` עד` f` (או `A` עד` F`)\n"
+"לייצג ערכים 10 עד 15.\n"
+"בפייתון, מספרים הקסדצימליים מתחילים ב- '0x' או '0X',\n"
+"ואחריו התווים המשמשים לייצוג הערך של אותו מספר שלם.\n"
+
+#: syntax_errors\statement_analyzer.py:835
+msgid "Did you made a mistake in writing an octal integer?\n"
+msgstr "האם טעית בכתיבת מספר שלם אוקטלי?\n"
+
+#: syntax_errors\statement_analyzer.py:836
+#, fuzzy
+msgid ""
+"It looks like you used an invalid character (`{character}`) in an octal "
+"number.\n"
+"\n"
+"Octal numbers are base 8 integers that only use the symbols `0` to `7`\n"
+"to represent values.\n"
+"In Python, hexadecimal numbers start with either `0o` or `0O`,\n"
+"(the digit zero followed by the letter `o`)\n"
+"followed by the characters used to represent the value of that integer.\n"
+msgstr ""
+"נראה שהשתמשת בתו לא חוקי (`{character}`) במספר אוקטלי.\n"
+"\n"
+"מספרי אוקטלים הם מספר 8 שלמים בסיסיים שמשתמשים רק בסמלים '0' עד '7'\n"
+"לייצג ערכים.\n"
+"ב- Python, מספרים הקסדצימליים מתחילים ב- '0o' או '0O',\n"
+"(הספרה אפס ואחריה האות 'o')\n"
+"ואחריו התווים המשמשים לייצוג הערך של אותו מספר שלם.\n"
+
+#: syntax_errors\statement_analyzer.py:863
+msgid "Valid names cannot begin with a number.\n"
+msgstr "שמות חוקיים אינם יכולים להתחיל במספר.\n"
+
+#: syntax_errors\statement_analyzer.py:870
+msgid "Did you mean `{number}j`?\n"
+msgstr "האם התכוונת ל '{number}j'?\n"
+
+#: syntax_errors\statement_analyzer.py:871
+#, fuzzy
+msgid ""
+"Perhaps you thought that `i` could be used to represent\n"
+"the square root of `-1`. In Python, the symbol used for this is `j`\n"
+"and the complex part is written as `some_number` immediately\n"
+"followed by `j`, with no spaces in between.\n"
+"Perhaps you meant to write `{number}j`.\n"
+msgstr ""
+"אולי חשבת שאפשר להשתמש ב- 'i' לייצוג\n"
+"השורש הריבועי של '-1'. בפייתון, הסמל המשמש לכך הוא 'j'\n"
+"והחלק המורכב נכתב כ'כמה_מספר 'באופן מיידי\n"
+"ואחריו 'j', ללא רווחים בין לבין.\n"
+"אולי התכוונת לכתוב '{number}j'.\n"
+
+#: syntax_errors\statement_analyzer.py:881
+#, fuzzy
+msgid ""
+"[Note: `{first} * {second}` would also be valid\n"
+"since `{first}` is a complex number.]\n"
+msgstr ""
+"[הערה: '{first} * {second}' יהיה תקף גם\n"
+"מאחר ש '{first}' הוא מספר מורכב.]\n"
+
+#: syntax_errors\statement_analyzer.py:892
+msgid "Perhaps you forgot a multiplication operator, `{first} * {second}`.\n"
+msgstr ""
+"[הערה: '{first} * {second}' יהיה תקף גם\n"
+"מאחר ש '{first}' הוא מספר מורכב.]\n"
+
+#: syntax_errors\statement_analyzer.py:907
+msgid "Your Python version does not support this f-string feature.\n"
+msgstr "גרסת ה- Python שלך אינה תומכת בתכונה זו של מחרוזת f.\n"
+
+#: syntax_errors\statement_analyzer.py:908
+msgid ""
+"You are likely using a 'debug' syntax of f-strings introduced\n"
+"in Python version 3.8. You are using version {version}.\n"
+msgstr ""
+"סביר להניח שאתה משתמש בתחביר 'איתור באגים' של f-strings שהוצג\n"
+"בגרסת Python 3.8. אתה משתמש בגרסה {version}.\n"
+
+#: syntax_errors\statement_analyzer.py:914
+msgid ""
+"You are likely trying to assign a value within an f-string.\n"
+"This is not allowed.\n"
+msgstr ""
+"סביר להניח שאתה מנסה להקצות ערך בתוך מחרוזת f.\n"
+"זה אסור.\n"
+
+#: syntax_errors\statement_analyzer.py:929
+msgid ""
+"The content of your f-string is invalid. Please consult the documentation:\n"
+"https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
+msgstr ""
+"התוכן של מחרוזת f אינו חוקי. אנא עיין בתיעוד:\n"
+"https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
+
+#: syntax_errors\statement_analyzer.py:939
+msgid "Python keywords cannot be used as identifiers (variable names).\n"
+msgstr "לא ניתן להשתמש במילות מפתח של פייתון כמזהים (שמות משתנים).\n"
+
+#: syntax_errors\statement_analyzer.py:963
+msgid ""
+"`lambda` does not allow parentheses around its arguments.\n"
+"This was allowed in Python 2 but it not allowed in Python 3.\n"
+msgstr ""
+"`lambda` אינו מאפשר סוגריים סביב טיעוניו.\n"
+"זה מותר ב- Python 2 אך זה לא מותר ב- Python 3.\n"
+
+#: syntax_errors\statement_analyzer.py:980
+#, fuzzy
+msgid ""
+"You cannot have explicit tuples as arguments.\n"
+"Assign any tuple to a parameter and unpack it\n"
+"within the body of the function.\n"
+msgstr ""
+"לא יכולים להיות לך כפולות מפורשות כטיעונים.\n"
+"הקצה כל סוג של פרמטר ופרק אותו\n"
+"בתוך גוף הפונקציה.\n"
+
+#: syntax_errors\statement_analyzer.py:1013
+msgid "If you remove `{type_decl}`, you will have a valid Python statement.\n"
+msgstr "אם תסיר את '{type_decl}', תהיה לך הצהרת Python חוקית.\n"
+
+#: syntax_errors\statement_analyzer.py:1017
+msgid ""
+"However, even if you remove `{type_decl}`, there would still be some\n"
+"some syntax errors.\n"
+msgstr ""
+"עם זאת, גם אם תסיר את '{type_decl}', עדיין יהיו \n"
+"כמה טעויות תחביר.\n"
+
+#: syntax_errors\statement_analyzer.py:1022
+msgid "You do not need to declare variables in Python.\n"
+msgstr "אינך צריך להכריז על סוג משתנים בפייתון.\n"
+
+#: syntax_errors\statement_analyzer.py:1023
+msgid ""
+"It looks like you were trying to declare that `{var}` was\n"
+"a variable using the word `{type_decl}`.\n"
+msgstr ""
+"נראה שניסית להצהיר כי \"{var}\" היה\n"
+"משתנה באמצעות המילה '{type_decl}'.\n"
+
+#: syntax_errors\statement_analyzer.py:1056
+msgid ""
+"I am guessing that you forgot a comma between two strings\n"
+"when defining a dict.\n"
+"\n"
+msgstr ""
+"אני מנחש ששכחת פסיק בין שני מחרוזות\n"
+"בעת הגדרת מילון (dict).\n"
+
+#: syntax_errors\statement_analyzer.py:1101
+msgid "Did you forget to write `in`?\n"
+msgstr "שכחת לכתוב 'in'(בתוך)?\n"
+
+#: syntax_errors\statement_analyzer.py:1102
+msgid ""
+"It looks as though you forgot to use the keyword `in`\n"
+"as part of a `for` statement. Perhaps you meant:\n"
+"\n"
+"    {new_statement}\n"
+"\n"
+msgstr ""
+"נראה ששכחת להשתמש במילת המפתח 'in'\n"
+" (בתוך)\n"
+"כחלק מהצהרת `for ' (פור). אולי התכוונת ל:\n"
+"\n"
+"     {new_statement}\n"
+
+#: syntax_errors\statement_analyzer.py:1124
+msgid "Did you forget to write parenthesis?\n"
+msgstr "שכחת לכתוב סוגריים?\n"
+
+#: syntax_errors\statement_analyzer.py:1125
+msgid ""
+"It looks as though you forgot to use to use parenthesis with `range`.\n"
+"Perhaps you meant:\n"
+"\n"
+"    {new_statement}\n"
+"\n"
+msgstr ""
+"נראה ששכחת להשתמש בסוגריים עם 'range'('טווח').\n"
+"\n"
+"אולי התכוונת ל: {new_statement}\n"
+"\n"
+
+#: syntax_errors\statement_analyzer.py:1157
+msgid ""
+"Perhaps you meant to write `{keyword}` and made a typo.\n"
+"The correct line might be `{line}`\n"
+msgstr ""
+"אולי התכוונת לכתוב '{keyword}' וביצעת שגיאת כתיב.\n"
+"השורה הנכונה עשויה להיות '{line}'\n"
+
+#: syntax_errors\statement_analyzer.py:1170
+msgid ""
+"I am guessing that you were writing a comprehension or a generator "
+"expression\n"
+"and use the wrong order for a condition.\n"
+"The correct order depends if there is an `else` clause or not.\n"
+"For example, the correct order for a list comprehensions with\n"
+"condition can be either\n"
+"\n"
+"    [f(x) if condition else other for x in sequence]  # 'if' before 'for'\n"
+"\n"
+"or, if there is no `else`\n"
+"\n"
+"    [f(x) for x in sequence if condition]  # 'if' after 'for'\n"
+"\n"
+msgstr ""
+"אני מנחש שכתבת הבנה או ביטוי מחולל (comprehension or a generator "
+"expression)\n"
+"והשתמשת בסדר הלא נכון.\n"
+"הסדר הנכון תלוי אם יש סעיף אחר (else) או לא\n"
+"לדוגמא,לדוגמה, הסדר הנכון לגנרטור הוא\n"
+"[f(x) if condition else other for x in sequence]  # 'if' before 'for' \n"
+"אם אין \"אחר\"\n"
+"ו-  [f(x) for x in sequence if condition]  # 'if' after 'for' אם יש אחר\n"
+
+#: syntax_errors\statement_analyzer.py:1272
+#, fuzzy
+#| msgid "You cannot have spaces in identifiers (variable names).\n"
+msgid ""
+"You cannot have spaces in identifiers (variable names).\n"
+"Perhaps you meant `{name}`?\n"
+msgstr "אינך יכול להכיל רווחים במזהים (שמות משתנים).\n"
+
+#: syntax_errors\statement_analyzer.py:1294
+msgid "`bf` is an illegal string prefix.\n"
+msgstr "'bf' היא קידומת מחרוזת לא חוקית.\n"
+
+#: syntax_errors\statement_analyzer.py:1295
+msgid ""
+"I am guessing that you wanted a binary f-string;\n"
+"this is not allowed.\n"
+msgstr ""
+"אני מנחש שרצית מחרוזת f בינארית;\n"
+"זה אסור.\n"
+
+#: syntax_errors\statement_analyzer.py:1319
+#, fuzzy
+#| msgid ""
+#| "It is possible that you forgot a comma between items in a tuple, \n"
+#| "or between function arguments, \n"
+#| "before the position indicated by ^.\n"
+msgid ""
+"It is possible that you forgot a comma between items in a tuple, \n"
+"or between function arguments, \n"
+"at the position indicated by ^.\n"
+msgstr ""
+"יתכן ששכחת פסיק בין פריטים בצמד,\n"
+"או בין ארגומנטים של פונקציות,\n"
+"לפני הנקודה שציינה ב^.\n"
+
+#: syntax_errors\statement_analyzer.py:1327
+#, fuzzy
+#| msgid ""
+#| "It is possible that you forgot a comma between items in a list\n"
+#| "before the position indicated by ^.\n"
+msgid ""
+"It is possible that you forgot a comma between items in a list\n"
+"at the position indicated by ^.\n"
+msgstr ""
+"ייתכן ששכחת פסיק בין פריטים ברשימה\n"
+"לפני הנקודה שציינה ב^.\n"
+
+#: syntax_errors\statement_analyzer.py:1333
+#, fuzzy
+#| msgid ""
+#| "It is possible that you forgot a comma between items in a set or dict\n"
+#| "before the position indicated by ^.\n"
+msgid ""
+"It is possible that you forgot a comma between items in a set or dict\n"
+"at the position indicated by ^.\n"
+msgstr ""
+"יתכן ששכחת פסיק בין פריטים בסט (set) או במילון (dict)\n"
+"לפני הנקודה שציינה ב ^.\n"
+
+#: syntax_errors\statement_analyzer.py:1357
+msgid ""
+"Python indicates that the error is caused by `{second}` written immediately "
+"after `{first}`.\n"
+msgstr ""
+"פייתון מציין כי השגיאה נגרמת על ידי \"{second}\" שקרה מיד לאחר \"{first}\".\n"
+
+#: syntax_errors\statement_analyzer.py:1414
+#, fuzzy
+#| msgid "Perhaps you meant `{line}`.\n"
+msgid "Perhaps you meant{line}"
+msgstr "אולי התכוונת ל '{line}'.\n"
+
+#: syntax_errors\statement_analyzer.py:1421
+msgid "Did you forget something between `{first}` and `{second}`?\n"
+msgstr "שכחת משהו בין '{first}' ל- '{second}'?\n"
+
+#: syntax_errors\statement_analyzer.py:1436
+msgid ""
+"Perhaps you meant to insert an operator like `{operators}`\n"
+"between `{first}` and `{second}`.\n"
+"The following lines of code would not cause any `SyntaxError`:\n"
+"\n"
+msgstr ""
+"אולי התכוונת להכניס אופרטור כמו '{operators}'\n"
+"בין `{first}` ו- `{second}`.\n"
+"שורות הקוד הבאות לא יגרמו לשום 'SyntaxError':\n"
+
+#: syntax_errors\statement_analyzer.py:1445
+#, fuzzy
+msgid ""
+"Note: these are just some of the possible choices and that\n"
+"some of them might raise other types of exceptions.\n"
+msgstr ""
+"הערה: אלו רק חלק מהאפשרויות האפשריות \n"
+"חלקם עשויים להעלות סוגים אחרים של חריגים.\n"
+
+#: syntax_errors\statement_analyzer.py:1452
+msgid "There is an additional possibility.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1467
+msgid ""
+"It is possible that you used an equal sign `=` instead of a colon `:`\n"
+"to assign values to keys in a dict\n"
+"before or at the position indicated by ^.\n"
+msgstr ""
+"ייתכן שהשתמשת בסימן שווה `=` במקום נקודתיים `:`\n"
+"כדי להקצות ערכים למפתחות במילון (dict)\n"
+"לפני או במיקום המצוין ב^.\n"
+
+#: syntax_errors\statement_analyzer.py:1484
+msgid ""
+"The Python keyword `{boolean}` can only be used for boolean expressions.\n"
+"Perhaps you meant to write\n"
+"\n"
+"`{new_statement}`\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1516
+#, fuzzy
+msgid ""
+"I am guessing that you are trying to import at least one object\n"
+"from module `{module}` and rename it using the Python keyword `as`;\n"
+"this keyword can only be used to rename one object at a time\n"
+"using a well defined syntax.\n"
+"I suggest that you split up any such import statement with each object\n"
+"renamed on a separate line as follows:\n"
+"\n"
+"    from {module} import object_1 as name_1\n"
+"    from {module} import object_2 as name_2  # if needed\n"
+msgstr ""
+"אני מנחש שאתה מנסה לייבא אובייקט אחד לפחות\n"
+"ממודול `{module}` ולשנות את שמו באמצעות מילת המפתח `as`;\n"
+" (בתור)\n"
+"ניתן להשתמש במילת מפתח זו רק לשם שינוי אובייקט אחד בכל פעם\n"
+"באמצעות תחביר מוגדר היטב.\n"
+"אני מציע שתחלק כל משפט ייבוא כזה לכל אובייקט\n"
+"שונה שם בשורה נפרדת כדלקמן:\n"
+"\n"
+" from {module} import object_1 as name_1\n"
+"    from {module} import object_2 as name_2  # if needed \n"
+
+#: syntax_errors\statement_analyzer.py:1546
+msgid ""
+"I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
+"If that is the case, you need to remove the second one.\n"
+msgstr ""
+"אני מנחש שכתבת {bad_token} פעמיים ברציפות בטעות.\n"
+"אם זה המצב, עליך להסיר את השני.\n"
+
+#: syntax_errors\statement_analyzer.py:1550
+msgid "Did you write {bad_token} twice by mistake?\n"
+msgstr "האם כתבת {bad_token} פעמיים בטעות?\n"
+
+#: syntax_errors\statement_analyzer.py:1569
+msgid ""
+"I am guessing that you wrote {bad_token} by mistake.\n"
+"Removing it and writing `{line}` seems to fix the error.\n"
+msgstr ""
+"אני מנחש שכתבת את {bad_token} בטעות.\n"
+"נראה כי הסרתו וכתיבת '{line}' פותרים את השגיאה.\n"
+
+#: syntax_errors\statement_analyzer.py:1573
+msgid "Did you write {bad_token} by mistake?\n"
+msgstr "האם כתבת את {bad_token} בטעות?\n"
+
+#: syntax_errors\statement_analyzer.py:1590
+msgid ""
+"It looks like the error occurred as you were writing a Python dict.\n"
+"Perhaps wrote a dict key without writing the corresponding value.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1606
+msgid ""
+"The `else` keyword does not begin a code block that matches\n"
+"a valid code block, possibly because `else` is not indented correctly.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1621
+msgid ""
+"The `elif` keyword does not begin a code block that matches\n"
+"an `if` block, possibly because `elif` is not indented correctly.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1653
+msgid "You used square brackets, `[...]` instead of parentheses.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1657
+msgid ""
+"Write the following instead:\n"
+"\n"
+"{new_statement}"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1701
+msgid "The opening {bracket} on line {linenumber} is not closed.\n"
+msgstr "הפתיחה {bracket} בשורה {linenumber} אינה סגורה.\n"
+
+#: syntax_errors\statement_analyzer.py:1715
+msgid "If this is incorrect, please report this case.\n"
+msgstr "אם זה לא נכון, אנא דווח על מקרה זה.\n"
+
+#: syntax_errors\statement_analyzer.py:1727
+msgid ""
+"Perhaps you wrote a statement beginning a code block\n"
+"intended to be part of a generator expression.\n"
+"You cannot have separate code blocks inside generator expressions.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1733
+msgid ""
+"Perhaps you wrote a statement beginning a code block\n"
+"intended to be part of a list comprehension.\n"
+"You cannot have separate code blocks inside list comprehensions.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1739
+msgid ""
+"Perhaps you wrote a statement beginning a code block\n"
+"intended to be part of a dict or set comprehension.\n"
+"You cannot have separate code blocks inside dict or set comprehensions.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:1745
+msgid "If this explanation is incorrect, please report this case.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:22
+msgid "parenthesis `(`"
+msgstr "סוגריים `(`"
+
+#: syntax_errors\syntax_utils.py:23
+msgid "parenthesis `)`"
+msgstr "סוגריים `)`"
+
+#: syntax_errors\syntax_utils.py:24
+msgid "square bracket `[`"
+msgstr "סוגר מרובע `[`"
+
+#: syntax_errors\syntax_utils.py:25
+msgid "square bracket `]`"
+msgstr "סוגר מרובע `]`"
+
+#: syntax_errors\syntax_utils.py:26
+msgid "curly bracket `{`"
+msgstr "סוגר מתולתל `{`"
+
+#: syntax_errors\syntax_utils.py:27
+msgid "curly bracket `}`"
+msgstr "סוגר מתולתל `}`"
+
+#: syntax_errors\syntax_utils.py:56
+msgid "Did you mean to use a normal quote character, `'` or `\"`?\n"
+msgstr "האם התכוונת להשתמש בגרש או גרשיים נורמליים, '' או '' ''?\n"
+
+#: syntax_errors\syntax_utils.py:57
+msgid ""
+"I suspect that you used a fancy unicode quotation mark\n"
+"whose name is {name}\n"
+"instead of a normal single or double quote for a string.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:72
+msgid "Or perhaps, you meant to write a less than sign, `<`.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:74
+msgid "Or perhaps, you meant to write a greater than sign, `>`.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:76
+msgid "Or perhaps, you meant to write a comma.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:89
+msgid ""
+"I suspect that you used a fancy unicode quotation mark\n"
+"whose name is {name}.\n"
+"\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:104
+msgid "Perhaps, you meant to write a less than sign, `<`.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:105
+msgid "Did you mean to write a less than sign, `<`?\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:107
+msgid "Perhaps, you meant to write a greater than sign, `>`.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:108
+msgid "Did you mean to write a greater than sign, `>`?\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:110
+msgid "Perhaps, you meant to write a comma.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:124
+msgid ""
+"I suspect that you used the unicode character known as\n"
+"'FRACTION SLASH', which looks similar to\n"
+"but is different from the division operator `/`.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:131
+msgid "Did you use a unicode fraction?\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:132
+msgid ""
+"I suspect that you used the unicode character `{char}`meant to represent a "
+"fraction.\n"
+"The name of this unicode character is {name}.\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:169
+msgid "Did you mean `{num}/{denom}`?\n"
+msgstr ""
+
+#: syntax_errors\syntax_utils.py:170
+msgid ""
+"You used the unicode character {char} which is known as\n"
+"{name}\n"
+"I suspect that you meant to write the fraction `{num}/{denom}` instead.\n"
+msgstr ""
+
+#~ msgid "some value"
+#~ msgstr "ערך כלשהו"
+
+#~ msgid ""
+#~ "You wrote an expression like\n"
+#~ "\n"
+#~ "    {fn_call} = {value}\n"
+#~ "\n"
+#~ "where `{fn_call}`, on the left-hand side of the equal sign, is\n"
+#~ "a function call and not the name of a variable.\n"
+#~ msgstr ""
+#~ "כתבת ביטוי כמו\n"
+#~ "\n"
+#~ "     {fn_call} = {value}\n"
+#~ "\n"
+#~ "כאשר  '{fn_call}', בצד שמאל של סימן השוויון זה\n"
+#~ "קריאת פונקציה ולא שם המשתנה.\n"
+
+#~ msgid "Perhaps you misplaced a quote.\n"
+#~ msgstr "אולי שמת במקום הלא נכון גרש.\n"
+
+#~ msgid ""
+#~ "There appears to be a Python identifier (variable name)\n"
+#~ "immediately following a string.\n"
+#~ "I suspect that you were trying to use a quote inside a string\n"
+#~ "that was enclosed in quotes of the same kind.\n"
+#~ msgstr ""
+#~ "נראה שיש מזהה פייתון (שם משתנה)\n"
+#~ "מיד אחרי מחרוזת.\n"
+#~ "אני חושד שניסית להשתמש בציטוט בתוך מחרוזת\n"
+#~ "שהיה מוקף במרכאות מאותו סוג.\n"
+
+#~ msgid ""
+#~ "In older version of Python, `print` was a keyword.\n"
+#~ "Now, `print` is a function; you need to use parentheses to call it.\n"
+#~ msgstr ""
+#~ "בגרסה ישנה יותר של פייתון, 'print' הייתה מילת מפתח.\n"
+#~ "כעת, 'print' היא פונקציה; אתה צריך להשתמש בסוגריים כדי לקרוא לזה.\n"
+
+#~ msgid "Did you mean `{new_line}`?\n"
+#~ msgstr "האם התכוונת ל '{new_line}'?\n"
+
+#~ msgid ""
+#~ "Perhaps you meant\n"
+#~ "\n"
+#~ "    {line}\n"
+#~ msgstr ""
+#~ "אולי התכוונת\n"
+#~ "\n"
+#~ "     {line}\n"
