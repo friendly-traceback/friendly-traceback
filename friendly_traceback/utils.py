@@ -60,6 +60,7 @@ class RuntimeMessageParser:
             cause = self.current_parser(value_or_message, frame, tb_data)
             if cause:
                 return cause
+        debug_helper.log_2(str(value_or_message))
         return {"cause": no_information(), "suggest": unknown_case()}
 
 

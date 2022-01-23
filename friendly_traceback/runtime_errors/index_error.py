@@ -92,7 +92,7 @@ def index_out_of_range(
             break
     else:  # pragma: no cover
         debug_helper.log(
-            f"Cannot identify `{obj_type}` object in index_out_of_range()."
+            f"Cannot identify `{obj_type}` object.\nline: {tb_data.bad_line}"
         )
         cause = _(
             "You have tried to get an item of an object\n"

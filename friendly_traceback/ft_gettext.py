@@ -78,7 +78,6 @@ _ = current_lang.translate
 
 
 def please_report() -> str:
-    debug_helper.simple_log("New case to consider (from please_report()).")
     return _(
         "Please report this example to\n"
         "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
@@ -91,7 +90,7 @@ def unknown_case() -> str:
 
 
 def no_information() -> str:
-    debug_helper.simple_log("New case to consider (from no_information()).")
+    debug_helper.log_1("New case to consider.")
     return (
         _("No information is known about this exception.\n")
         + please_report()
@@ -103,5 +102,5 @@ def no_information() -> str:
 
 
 def internal_error(e: Optional[BaseException]) -> str:
-    debug_helper.simple_log("--> Internal error: " + repr(e))
+    debug_helper.log("--> Internal error: " + repr(e))
     return _("Internal error for Friendly.\n") + please_report()

@@ -146,7 +146,7 @@ def why() -> None:
     try:
         info = session.saved_info[-1]
     except IndexError:
-        info = []
+        info = {}
     if (
         ("cause" not in info or not info["cause"])
         and "message" in info

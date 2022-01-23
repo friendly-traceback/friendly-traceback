@@ -45,6 +45,7 @@ def convert_type(short_form: str) -> str:
 
 
 def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
+    # sourcery skip: assign-if-exp, simplify-generator
     """Given a (partial) line of code and a frame,
     obtains a dict containing all the relevant information about objects
     found on that line so that they can be formatted as part of the
@@ -87,7 +88,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                 if name in scope_dict:
                     names.add(name)
                     obj = scope_dict[name]
-                    if hasattr(obj, "true_repr"):
+                    if hasattr(obj, "true_repr"):  # sourcery: skip
                         # guard against the case where obj == Friendly; #106
                         repr_obj = obj.true_repr()
                     else:
@@ -109,8 +110,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
         atok = ASTTokens(line.strip(), parse=True)
     except SyntaxError as e:
         if "unexpected EOF" not in str(e):
-            debug_helper.log(f"Problem with ASTTokens: {e}")
-            debug_helper.log(f"   line: {line}")
+            debug_helper.log(f"Problem with ASTTokens: {e}" + f"\nline: {line}")
         return objects
 
     if atok is not None:

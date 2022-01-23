@@ -8,15 +8,17 @@ printed only when debugging mode is activated.
 """
 import os
 import sys
-from typing import Any, Optional
+from typing import Optional
 
 from .ft_gettext import current_lang
 
 try:
-    from devtools import debug as devtools_log
+    devtools_found = True
+    from .devtools_patch import PatchedDebug
 except ImportError:
+    devtools_found = False
 
-    def devtools_log(*args, **kwargs):
+    def PatchedDebug(*args):
         pass
 
 
@@ -34,18 +36,6 @@ DEBUG = IS_PYDEV or IS_ANDRE
 SHOW_DEBUG_HELPER = False
 
 
-def log(text: Any) -> None:
-    if DEBUG:  # pragma: no cover
-        print("Log:", text)
-
-
-simple_log = log
-
-
-if DEBUG:
-    log = devtools_log  # noqa
-
-
 def log_error(exc: Optional[BaseException] = None) -> None:
     if DEBUG:  # pragma: no cover
         if exc is not None:
@@ -53,31 +43,33 @@ def log_error(exc: Optional[BaseException] = None) -> None:
         sys.exit()
 
 
-def handle_internal_error() -> None:
-    from . import explain_traceback, get_output, set_include, set_stream
+if DEBUG and devtools_found:
+    # DEBUG could be turned off between defining here and calling
+    def log(*args, **kwargs) -> None:
+        if DEBUG:
+            inner_log = PatchedDebug(additional_frame_depth=1)
+            print(inner_log(*args, **kwargs))
 
+    def log_1(*args, **kwargs) -> None:
+        if DEBUG:
+            inner_log = PatchedDebug(additional_frame_depth=2)
+            print(inner_log(*args, **kwargs))
+
+    def log_2(*args, **kwargs) -> None:
+        if DEBUG:
+            inner_log = PatchedDebug(additional_frame_depth=3)
+            print(inner_log(*args, **kwargs))
+
+else:
+
+    def log(*args, **kwargs) -> None:
+        pass
+
+    log_2 = log_1 = log
+
+
+def handle_internal_error(arg) -> None:
+    print(_("Fatal error - aborting"))
     print(_("Please report this issue."))
-    set_stream(redirect="capture")
-    set_include("debug_tb")
-    explain_traceback()
-    result = get_output()
-    dependencies = [
-        item
-        for item in ["executing", "stack_data", "asttokens", "pure_eval"]
-        if item in result
-    ]
-
-    if dependencies:
-        print(
-            _(
-                "The following package names used by friendly-traceback\n",
-                "appear in the full traceback, which may indicate\n",
-                "that one of them is the source of this error.",
-            )
-        )
-        for dep in dependencies:
-            print(dep)
-    if DEBUG:
-        print(result)
-    log(_("Fatal error - aborting"))
+    log_1(arg)
     sys.exit()
