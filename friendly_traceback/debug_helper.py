@@ -39,6 +39,9 @@ def log(text: Any) -> None:
         print("Log:", text)
 
 
+simple_log = log
+
+
 if DEBUG:
     log = devtools_log  # noqa
 
