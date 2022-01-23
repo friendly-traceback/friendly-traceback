@@ -48,17 +48,17 @@ if DEBUG and devtools_found:
     def log(*args, **kwargs) -> None:
         if DEBUG:
             inner_log = PatchedDebug(additional_frame_depth=1)
-            print(inner_log(*args, **kwargs))
+            inner_log(*args, **kwargs)
 
     def log_1(*args, **kwargs) -> None:
         if DEBUG:
             inner_log = PatchedDebug(additional_frame_depth=2)
-            print(inner_log(*args, **kwargs))
+            inner_log(*args, **kwargs)
 
     def log_2(*args, **kwargs) -> None:
         if DEBUG:
             inner_log = PatchedDebug(additional_frame_depth=3)
-            print(inner_log(*args, **kwargs))
+            inner_log(*args, **kwargs)
 
 else:
 

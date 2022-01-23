@@ -397,7 +397,8 @@ class FriendlyHelpers:
             del self.helpers[name]
             delattr(self, name)
         else:
-            debug_helper.log(f"Cannot remove {name}; it is not a known helper.")
+            message = f"Cannot remove {name}; it is not a known helper."
+            debug_helper.log(message)
 
     def __dir__(self) -> List[str]:  # pragma: no cover
         """Only include useful friendly methods."""

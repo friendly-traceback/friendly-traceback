@@ -61,15 +61,6 @@ class PatchedDebug(Debug):
         lineno = call_frame.f_lineno
         warning = None
 
-        if not kwargs and len(args) == 1 and isinstance(args[0], str):
-            return self.output_class(
-                filename=str(path),
-                lineno=lineno,
-                frame=function,
-                arguments=[],
-                warning="logging",
-            )
-
         import executing
 
         source = executing.Source.for_frame(call_frame)

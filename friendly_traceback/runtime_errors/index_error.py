@@ -91,9 +91,8 @@ def index_out_of_range(
         if truncated.startswith("[") and truncated.endswith("]"):
             break
     else:  # pragma: no cover
-        debug_helper.log(
-            f"Cannot identify `{obj_type}` object.\nline: {tb_data.bad_line}"
-        )
+        message = f"Cannot identify `{obj_type}` object. line: {tb_data.bad_line}"
+        debug_helper.log(message)
         cause = _(
             "You have tried to get an item of an object\n"
             "of type `{obj_type}` which I cannot identify.\n"
