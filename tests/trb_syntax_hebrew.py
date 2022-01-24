@@ -44,7 +44,7 @@ Friendly SyntaxError tracebacks - בעברית
 
 Friendly שואפת לספק משוב ידידותי יותר כאשר מדובר בחריג
 מוגדל ממה שנעשה על ידי Python.
-(translated by Google Translate).
+(sentence translated by Google Translate).
 
 This file contains only examples of SyntaxError and its sub-classes.
 Some tests may appear to be repetitive to a human reader

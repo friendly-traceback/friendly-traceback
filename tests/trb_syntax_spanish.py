@@ -44,7 +44,7 @@ Friendly SyntaxError tracebacks - en español
 
 Friendly tiene como objetivo proporcionar comentarios más amigables
 cuando se produce una excepción
-se plantea que lo que hace Python (translated by Google Translate).
+se plantea que lo que hace Python (sentence translated by Google Translate).
 
 This file contains only examples of SyntaxError and its sub-classes.
 Some tests may appear to be repetitive to a human reader

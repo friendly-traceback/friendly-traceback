@@ -44,7 +44,7 @@ Friendly tracebacks - en español
 
 Friendly tiene como objetivo proporcionar comentarios más amigables
 cuando se produce una excepción
-se plantea que lo que hace Python  (translated by Google Translate).
+se plantea que lo que hace Python  (sentence translated by Google Translate).
 
 Below, we can find some examples. SyntaxError cases, as well as TabError and
 IndentationError cases, are shown in a separate page.

@@ -44,7 +44,7 @@ Friendly tracebacks - בעברית
 
 Friendly שואפת לספק משוב ידידותי יותר כאשר מדובר בחריג
 מוגדל ממה שנעשה על ידי Python.
-(translated by Google Translate).
+(sentence translated by Google Translate).
 
 Below, we can find some examples. SyntaxError cases, as well as TabError and
 IndentationError cases, are shown in a separate page.
