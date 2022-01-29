@@ -830,11 +830,11 @@ def locate_duplicate_arguments(statement, name):
     for token in args:
         if token.start_row not in markers:
             markers[token.start_row] = " " * token.start_col + "^" * len(token.string)
-            prev_token = token
         else:
             markers[token.start_row] += " " * (
                 token.start_col - prev_token.end_col  # noqa
             ) + "^" * len(token.string)
+        prev_token = token  # noqa
     statement.location_markers = markers
 
 
