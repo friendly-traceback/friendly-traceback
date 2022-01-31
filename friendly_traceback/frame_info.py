@@ -109,8 +109,11 @@ class FrameInfo(stack_data.FrameInfo):
         new_lines = []
         problem_line = ""
         nb_digits = len(str(lines[-1].lineno))
-        no_mark = "       {:%d}: " % nb_digits
-        with_mark = "    -->{:%d}: " % nb_digits
+        # fmt: off
+        no_mark       = "       {:%d}: " % nb_digits  # noqa
+        with_mark     = "    -->{:%d}: " % nb_digits  # noqa
+        line_gap_mark = "      (...)"
+        # fmt: on
 
         text_range_mark = None
         if with_node_range and self.node_info:
@@ -135,30 +138,31 @@ class FrameInfo(stack_data.FrameInfo):
         prev_lineno = None
         for line_obj in lines:
             if line_obj is stack_data.LINE_GAP:
+                new_lines.append(line_gap_mark)
+                prev_lineno = None
                 continue
             if prev_lineno and line_obj.lineno - prev_lineno == 2:
                 num = no_mark.format(prev_lineno + 1)
                 new_lines.append(num)
-            if self.lineno - line_obj.lineno > 2:
-                continue
-            elif line_obj.is_current:
+            if prev_lineno and line_obj.lineno - prev_lineno > 2:
+                new_lines.append(line_gap_mark)
+            if line_obj.is_current:
                 num = with_mark.format(line_obj.lineno)
                 problem_line = line_obj.text
                 new_lines.append(num + problem_line.rstrip())
                 if text_range_mark is not None:
                     new_lines.append(text_range_mark)
                 marked = True
-                prev_lineno = line_obj.lineno
             elif marked:
                 if not line_obj.text.strip():  # do not add empty line if last line
                     break
                 num = no_mark.format(line_obj.lineno)
                 new_lines.append(num + line_obj.text.rstrip())
-                prev_lineno = line_obj.lineno
             else:
                 num = no_mark.format(line_obj.lineno)
                 new_lines.append(num + line_obj.text.rstrip())
-                prev_lineno = line_obj.lineno
+            prev_lineno = line_obj.lineno
+
         return "\n".join(new_lines), problem_line
 
     @cached_property
