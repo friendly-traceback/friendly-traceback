@@ -122,6 +122,8 @@ class FrameInfo(stack_data.FrameInfo):
             elif self.node_info[2] and isinstance(self.node_info[2], str):
                 text = self.node_info[2]
                 for line_obj in lines:
+                    if line_obj is stack_data.LINE_GAP:
+                        continue
                     if line_obj.is_current:
                         begin = line_obj.text.find(text)
                         if begin >= 0:
