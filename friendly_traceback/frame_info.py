@@ -136,15 +136,21 @@ class FrameInfo(stack_data.FrameInfo):
 
         marked = False
         prev_lineno = None
+        # stack_data does not include empty lines. However, I believe that
+        # this might not be helpful for beginners who look at the code
+        # without paying too much attention at the line numbers.
+        # I fixed this below.
         for line_obj in lines:
             if line_obj is stack_data.LINE_GAP:
                 new_lines.append(line_gap_mark)
                 prev_lineno = None
                 continue
             if prev_lineno and line_obj.lineno - prev_lineno == 2:
+                # add single empty line
                 num = no_mark.format(prev_lineno + 1)
                 new_lines.append(num)
             if prev_lineno and line_obj.lineno - prev_lineno > 2:
+                # add line gap to indicate that some empty lines were skipped
                 new_lines.append(line_gap_mark)
             if line_obj.is_current:
                 num = with_mark.format(line_obj.lineno)
