@@ -666,7 +666,7 @@ msgstr "האם התכוונת ל '{name}'?\n"
 msgid ""
 "Perhaps you meant to write `{module}.{correct}` instead of `{module}.{typo}"
 "`\n"
-msgstr "אולי התכוונת לכתוב '{module}. {Correct}' במקום '{module}. {Typo}'\n"
+msgstr "אולי התכוונת לכתוב '{module}. {correct}' במקום '{module}. {typo}'\n"
 
 #: runtime_errors\attribute_error.py:108
 msgid ""
@@ -819,7 +819,7 @@ msgid ""
 "`{names}`."
 msgstr ""
 "להלן כמה מהתכונות הידועות:\n"
-"`{שמות}`."
+"`{names}`."
 
 #: runtime_errors\attribute_error.py:390
 msgid "The object `{obj_name}` has no attribute named `{attribute}`.\n"
@@ -828,7 +828,7 @@ msgstr "לאובייקט '{obj_name}' אין תכונה בשם '{attribute}'.\n"
 #: runtime_errors\attribute_error.py:395
 msgid ""
 "Perhaps you meant to write `{obj}.{correct}` instead of `{obj}.{typo}`\n"
-msgstr "אולי התכוונת לכתוב '{obj}. {Correct}' במקום '{obj}. {Typo}'\n"
+msgstr "אולי התכוונת לכתוב '{obj}. {correct}' במקום '{obj}. {typo}'\n"
 
 #: runtime_errors\attribute_error.py:401 runtime_errors\import_error.py:125
 msgid "Did you mean one of the following: `{names}`?\n"
@@ -840,9 +840,9 @@ msgid ""
 "the following names which are attributes of object `{obj}`:\n"
 "`{names}`\n"
 msgstr ""
-"במקום לכתוב '{obj}. {Typo}', אולי התכוונת לכתוב אחד מהם\n"
+"במקום לכתוב '{obj}. {typo}', אולי התכוונת לכתוב אחד מהם\n"
 "השמות הבאים שהם תכונות של אובייקט `{obj}`:\n"
-"`{שמות}`\n"
+"`{names}`\n"
 
 #: runtime_errors\attribute_error.py:427 syntax_errors\message_analyzer.py:1756
 #: syntax_errors\message_analyzer.py:1769
@@ -1202,7 +1202,7 @@ msgid ""
 "`{names}`.\n"
 msgstr ""
 "'{name}' מכיל כמה מפתחות הדומים ל- '{key}' כולל:\n"
-"`{שמות}`.\n"
+"`{names}`.\n"
 
 #: runtime_errors\module_not_found_error.py:38
 msgid ""
@@ -1229,7 +1229,7 @@ msgid ""
 "`{attr}` is a name similar to `{rest}` and is a module that\n"
 "can be imported from `{name}`.\n"
 msgstr ""
-"אולי התכוונת ל'ייבא {name}. {Attr} '.\n"
+"אולי התכוונת ל'ייבא {name}. {attr} '.\n"
 "'{attr}' הוא שם הדומה ל- '{rest}' והוא מודול ש\n"
 "ניתן לייבא מ '{name}'.\n"
 
@@ -1941,7 +1941,7 @@ msgstr ""
 
 #: runtime_errors\type_error.py:895
 msgid "Perhaps you meant to write `{line}`.\n"
-msgstr "אולי התכוונת לכתוב '{שורה}'.\n"
+msgstr "אולי התכוונת לכתוב '{line}'.\n"
 
 #: runtime_errors\type_error.py:898
 msgid ""
@@ -2294,7 +2294,7 @@ msgid ""
 msgstr ""
 "את\\ה מחלק\\תבמונח הבא\n"
 "\n"
-"     {ביטוי}\n"
+"     {expression}\n"
 "\n"
 "שהוא שווה לאפס.\n"
 
@@ -2307,7 +2307,7 @@ msgid ""
 msgstr ""
 "הביטוי המתמטי הבא כולל חלוקה באפס:\n"
 "\n"
-"     {ביטוי}\n"
+"     {expression}\n"
 
 #: runtime_errors\zero_division_error.py:91
 #: runtime_errors\zero_division_error.py:128
@@ -2320,7 +2320,7 @@ msgid ""
 msgstr ""
 "באמצעות אופרטור המודולו, את\\ה מחלק\\ת במונח הבא\n"
 "\n"
-"     {ביטוי}\n"
+"     {expression}\n"
 "\n"
 "שהוא שווה לאפס.\n"
 
@@ -2346,7 +2346,7 @@ msgstr ""
 "הביטוי המתמטי הבא כולל חלוקה באפס\n"
 "נעשה באמצעות אופרטור מודולו:\n"
 "\n"
-"     {ביטוי}\n"
+"     {expression}\n"
 
 #: runtime_errors\zero_division_error.py:149
 msgid "The second argument of the `divmod()` function is equal to zero.\n"
@@ -2870,18 +2870,16 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:149
-#, fuzzy
-#| msgid ""
-#| "On the left-hand side of an equal sign, you have a\n"
-#| "generator expression instead of the name of a variable.\n"
 msgid ""
 "On the left-hand side of an equal sign, you have a\n"
 "conditional expression instead of the name of a variable.\n"
 "    {expression} = ...\n"
 "    {mark}\n"
 msgstr ""
-"בצד שמאל של סימן שוויון, יש לך\n"
-"ביטוי גנרטור במקום שם של משתנה.\n"
+"בצד שמאל של סימן שוויון, יש לך א\n"
+"ביטוי מותנה במקום שם של משתנה.\n"
+"    {expression} = ...\n"
+"    {mark}\n"
 
 #: syntax_errors\message_analyzer.py:170
 msgid ""
@@ -3543,7 +3541,7 @@ msgid ""
 msgstr ""
 "אתה כולל את ההצהרה\n"
 "\n"
-"     {שורה חדשה}\n"
+"     {newline}\n"
 "\n"
 "המציין כי \"{name}\" הוא משתנה המוגדר מחוץ לפונקציה.\n"
 "אתה משתמש גם באותו '{name}' כארגומנט לפונקציה הזו\n"
