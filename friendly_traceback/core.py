@@ -279,6 +279,14 @@ class TracebackData:
                 self.original_bad_line = self.bad_line
                 self.bad_line = self.node_text
 
+        # Also attempt to restrict the information about where the program
+        # stopped to the strict minimum so that we don't show irrelevant
+        # values of names
+        if self.records[0].node_info and self.records[0].node_info != node_info:
+            node, _ignore, node_text = self.records[0].node_info
+            if node_text.strip():
+                self.program_stopped_bad_line = node_text
+
 
 # ====================
 # The following is an example of a formatted traceback, with
@@ -599,7 +607,9 @@ class FriendlyTraceback:
             ).format(linenumber=record.lineno, filename=filename)
         self.info["last_call_source"] = partial_source["source"]
 
-        var_info = info_variables.get_var_info(partial_source["line"], record.frame)
+        var_info = info_variables.get_var_info(
+            self.tb_data.program_stopped_bad_line, record.frame
+        )
         if var_info:
             self.info["last_call_variables"] = var_info
 

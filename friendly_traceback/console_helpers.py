@@ -61,7 +61,7 @@ def explain(include: InclusionChoice = "explain") -> None:
 
 
 def friendly_tb() -> None:
-    """Shows the a simplified Python traceback,
+    """Shows the simplified Python traceback,
     which includes the hint/suggestion if available.
     """
     explain("friendly_tb")
