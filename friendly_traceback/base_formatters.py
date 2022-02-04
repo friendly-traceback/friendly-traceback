@@ -89,6 +89,8 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     """
     if include == "message":
         return info["message"]
+    elif include == "detailed_tb":
+        return detailed_tb(info)
     items_to_show = select_items(include)
     spacing = {"single": " " * 4, "double": " " * 8, "none": ""}
     result = [""]
@@ -101,6 +103,19 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     if result == [""] or not result:
         return no_result(info, include)
 
+    return "\n".join(result)
+
+
+def detailed_tb(info: Info) -> str:  # Special case
+    # TODO: document this
+    result = [""]
+    spacing = {"location": " " * 4, "var_info": " " * 8}
+    for location, source, var_info in info["detailed_tb"]:
+        result.append(spacing["location"] + location)
+        for line in source.split("\n"):
+            result.append(line)
+        for line in var_info.split("\n"):
+            result.append(spacing["var_info"] + line)
     return "\n".join(result)
 
 
@@ -177,6 +192,7 @@ items_groups: Dict[InclusionChoice, Set[str]] = {
     "friendly_tb": {"shortened_traceback", "suggest"},
     "python_tb": {"simulated_python_traceback"},
     "debug_tb": {"original_python_traceback"},
+    "detailed_tb": {"detailed_tb"},
 }
 items_groups["explain"] = (
     items_groups["friendly_tb"]

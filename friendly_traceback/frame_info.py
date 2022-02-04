@@ -251,6 +251,9 @@ class FrameInfo(stack_data.FrameInfo):
             exec(self.current_line.text)
         except Exception as exc:
             saved_exc = exc
+        else:
+            return ""
+
         if not hasattr(saved_exc, "msg"):
             return ""
         message = saved_exc.msg

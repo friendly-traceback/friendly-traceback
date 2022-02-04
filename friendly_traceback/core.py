@@ -535,8 +535,10 @@ class FriendlyTraceback:
             return
 
         self.locate_exception_raised(records[-1])
+        self.info["detailed_tb"] = self.get_detailed_stack_info(records)
         if len(records) > 1:
-            self.locate_last_call(records[0])
+            _ignore, partial_source, var_info = self.info["detailed_tb"][-1]
+            self.locate_last_call(records[0], partial_source, var_info)
 
     def locate_exception_raised(self, record: FrameInfo) -> None:
         """Sets the values of the following attributes which are
@@ -587,14 +589,14 @@ class FriendlyTraceback:
         if var_info:
             self.info["exception_raised_variables"] = var_info
 
-    def locate_last_call(self, record: FrameInfo) -> None:
+    def locate_last_call(self, record: FrameInfo, partial_source, var_info) -> None:
         """Sets the values of the following attributes:
 
         * last_call_header
         * exception_raised_source
         * last_call_variables
         """
-        partial_source = record.partial_source_with_node_range
+        # partial_source = record.partial_source_with_node_range
         filename = path_utils.shorten_path(record.filename)
 
         if filename and "[" in filename:
@@ -605,13 +607,40 @@ class FriendlyTraceback:
             self.info["last_call_header"] = _(
                 "Execution stopped on line {linenumber} of file {filename}.\n"
             ).format(linenumber=record.lineno, filename=filename)
-        self.info["last_call_source"] = partial_source["source"]
+        # self.info["last_call_source"] = partial_source["source"]
+        self.info["last_call_source"] = partial_source
 
-        var_info = info_variables.get_var_info(
-            self.tb_data.program_stopped_bad_line, record.frame
-        )
+        # var_info = info_variables.get_var_info(
+        #     self.tb_data.program_stopped_bad_line, record.frame
+        # )
         if var_info:
             self.info["last_call_variables"] = var_info
+
+    def get_detailed_stack_info(self, records):
+        # sourcery skip: use-named-expression
+        if self.tb_data.filename == "<stdin>":
+            return []
+
+        detailed_tb = []
+        for record in self.tb_data.records:
+            filename = path_utils.shorten_path(record.filename)
+            lineno = record.lineno
+            if record.node_info:
+                _node, _ignore, line = record.node_info
+            else:
+                line = record.problem_line()
+            partial_source = record.partial_source_with_node_range
+            var_info = info_variables.get_var_info(line, record.frame)
+            if "[" in filename:
+                location = _("Code block {filename}, line {line}").format(
+                    filename=filename, line=lineno
+                )
+            else:
+                location = _("File {filename}, line {line}").format(
+                    filename=filename, line=lineno
+                )
+            detailed_tb.append((location, partial_source["source"], var_info))
+        return detailed_tb
 
     def locate_parsing_error(self) -> None:
         """Sets the values of the attributes:

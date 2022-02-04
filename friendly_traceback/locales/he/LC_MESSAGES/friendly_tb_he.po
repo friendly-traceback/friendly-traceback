@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2022-01-17 17:44-0400\n"
+"POT-Creation-Date: 2022-02-03 20:44-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,11 +16,11 @@ msgstr ""
 msgid "The file {filename} does not exist."
 msgstr "הקובץ  {filename} לא קיים."
 
-#: base_formatters.py:148 base_formatters.py:154
+#: base_formatters.py:163 base_formatters.py:169
 msgid "I have no suggestion to offer."
 msgstr "אין לי הצעה להציע."
 
-#: base_formatters.py:152
+#: base_formatters.py:167
 msgid "I have no suggestion to offer; try `why()`."
 msgstr "אין לי הצעה להציע; נסה את 'למה()'."
 
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Nothing to show: no exception recorded."
 msgstr "אין שום דבר להראות: אין חריגים שהוקלטו."
 
-#: config.py:313
+#: config.py:309
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -62,21 +62,21 @@ msgstr ""
 msgid "The default web browser cannot be used for searching."
 msgstr "אין אפשרות להשתמש בדפדפן האינטרנט המוגדר כברירת מחדל לחיפוש."
 
-#: console_helpers.py:426
+#: console_helpers.py:427
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
 msgstr ""
 
-#: core.py:371
+#: core.py:378
 msgid "More lines not shown."
 msgstr "שורות נוספות לא מוצגות."
 
-#: core.py:372 core.py:411
+#: core.py:379 core.py:418
 msgid "Python exception:"
 msgstr "החריג המקורי של פייתון:"
 
-#: core.py:427
+#: core.py:434
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -90,40 +90,49 @@ msgstr ""
 "זה יכול להתרחש אם שיטת '__repr__' או '__str__'\n"
 "מעלה חריג או לא מחזיר מחרוזת.\n"
 
-#: core.py:480
+#: core.py:487
 msgid "The encoding of the file was not valid.\n"
 msgstr "קידוד הקובץ לא היה חוקי.\n"
 
-#: core.py:556
+#: core.py:565
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr "{filename} אינו קובץ Python רגיל שניתן לנתח את תוכנו.\n"
 
-#: core.py:561
+#: core.py:570
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "שגיאה שהועלתה בשורה {linenumber} של בלוק הקוד {filename}.\n"
 
-#: core.py:565
+#: core.py:574
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "חריג הועלה בשורה {linenumber} של הקובץ {filename}.\n"
 
-#: core.py:594
+#: core.py:603
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr "השגיאה הופסקה בשורה {linenumber} של בלוק הקוד {filename}.\n"
 
-#: core.py:598
+#: core.py:607
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr "הביצוע הופסק בשורה {linenumber} של הקובץ {filename}.\n"
 
-#: core.py:615
+#: core.py:635
+msgid "Code block {filename}, line {line}"
+msgstr ""
+
+#: core.py:639
+#, fuzzy
+msgid "File {filename}, line {line}"
+msgstr "הקובץ  {filename} לא קיים."
+
+#: core.py:653
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr ""
 
-#: core.py:629
+#: core.py:667
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "פייתון לא הצליח להבין את חלק הקוד {filename}\n"
 
-#: core.py:633
+#: core.py:671
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -131,13 +140,13 @@ msgstr ""
 "פייתון לא הצליח להבין את הקוד בקובץ\n"
 " '{filename}'\n"
 
-#: core.py:638
+#: core.py:676
 #, fuzzy
 #| msgid "at the location indicated by ^.\n"
 msgid "at the location indicated.\n"
 msgstr "במיקום המצוין על ידי ^.\n"
 
-#: core.py:871
+#: core.py:909
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -145,12 +154,12 @@ msgstr ""
 "למרבה הצער, אין מידע נוסף זמין:\n"
 "בגלל שהתוכן של הקובץ '<stdin>' אינו נגיש.\n"
 
-#: debug_helper.py:44
-msgid "Please report this issue."
+#: debug_helper.py:72
+msgid "Fatal error - aborting"
 msgstr ""
 
-#: debug_helper.py:67
-msgid "Fatal error - aborting"
+#: debug_helper.py:73
+msgid "Please report this issue."
 msgstr ""
 
 #: frame_info.py:31
@@ -161,7 +170,7 @@ msgstr "בעיה: המקור של '{filename}' אינו זמין\n"
 msgid "Type 'Friendly' for help on special functions/methods."
 msgstr "הקלד 'Friendly'  בשביל עזרה עם פונקציות מיוחדות."
 
-#: ft_gettext.py:82
+#: ft_gettext.py:81
 msgid ""
 "Please report this example to\n"
 "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
@@ -169,15 +178,15 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ft_gettext.py:90
+#: ft_gettext.py:89
 msgid "Friendly-traceback does not know the cause of this error.\n"
 msgstr "מקור השגיאה לא ידוע.\n"
 
-#: ft_gettext.py:96
+#: ft_gettext.py:95
 msgid "No information is known about this exception.\n"
 msgstr "אין מידע על חריג זה.\n"
 
-#: ft_gettext.py:98
+#: ft_gettext.py:97
 msgid ""
 "If you are using the Friendly console, use `www()` to\n"
 "do an Internet search for this particular case.\n"
@@ -185,7 +194,7 @@ msgstr ""
 "אם אתה משתמש במסוף ידידותי, השתמש ב- 'www ()' כדי\n"
 "חפש באינטרנט את המקרה הספציפי הזה.\n"
 
-#: ft_gettext.py:107
+#: ft_gettext.py:106
 msgid "Internal error for Friendly.\n"
 msgstr "שגיאה כללית עבור ידידותי.\n"
 
@@ -571,15 +580,15 @@ msgstr "מחרוזת (`str`)"
 msgid "a `tuple`"
 msgstr "צמד ('tuple')"
 
-#: info_variables.py:385
+#: info_variables.py:390
 msgid "Object too large to be processed by Python."
 msgstr ""
 
-#: info_variables.py:389
+#: info_variables.py:394
 msgid "Unable to compute."
 msgstr ""
 
-#: info_variables.py:452
+#: info_variables.py:457
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -1054,7 +1063,7 @@ msgid ""
 "{obj_type} of length `{length}`.\n"
 msgstr ""
 
-#: runtime_errors\index_error.py:57 runtime_errors\index_error.py:144
+#: runtime_errors\index_error.py:57 runtime_errors\index_error.py:143
 msgid ""
 "The valid index values of `{name}` are integers ranging from\n"
 "`{min}` to `{max}`.\n"
@@ -1062,12 +1071,12 @@ msgstr ""
 "ערכי האינדקס התקפים של '{name}' הם מספרים שלמים הנעים בין\n"
 "`{min}` עד `{max}`.\n"
 
-#: runtime_errors\index_error.py:62 runtime_errors\index_error.py:149
+#: runtime_errors\index_error.py:62 runtime_errors\index_error.py:148
 msgid ""
 "Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
 msgstr "זכור: הפריט הראשון של {obj_type} אינו באינדקס 1 אלא באינדקס 0.\n"
 
-#: runtime_errors\index_error.py:67 runtime_errors\index_error.py:154
+#: runtime_errors\index_error.py:67 runtime_errors\index_error.py:153
 msgid "`{name}` contains no item.\n"
 msgstr "`{name}` אינו מכיל פריט.\n"
 
@@ -1077,14 +1086,14 @@ msgid ""
 "{obj_type} which contains no item.\n"
 msgstr ""
 
-#: runtime_errors\index_error.py:97
+#: runtime_errors\index_error.py:96
 msgid ""
 "You have tried to get an item of an object\n"
 "of type `{obj_type}` which I cannot identify.\n"
 "The index you gave was not an allowed value.\n"
 msgstr ""
 
-#: runtime_errors\index_error.py:124
+#: runtime_errors\index_error.py:123
 msgid ""
 "You have tried to get an item from `{name}`,\n"
 "{obj_type} of length `{length}`, by using a value for the index\n"
@@ -1094,7 +1103,7 @@ msgstr ""
 "{obj_type} של אורך `{length}`, על ידי שימוש באינדקס\n"
 "שאני לא יכול לקבוע אבל אסור.\n"
 
-#: runtime_errors\index_error.py:133
+#: runtime_errors\index_error.py:132
 msgid ""
 "You have tried to get the item with index `{index}` of `{name}`,\n"
 "{obj_type} of length `{length}`.\n"
@@ -1102,7 +1111,7 @@ msgstr ""
 "ניסית לקבל את הפריט עם האינדקס '{index}' של '{name}',\n"
 "{obj_type} של אורך `{length}`.\n"
 
-#: runtime_errors\index_error.py:155
+#: runtime_errors\index_error.py:154
 msgid ""
 "You have tried to get the item with index `{index}` of `{name}`,\n"
 "{obj_type} which contains no item.\n"
@@ -1508,25 +1517,25 @@ msgstr "שכחת להמיר את המחרוזת \"{name}\" ל- {number_type}?\n"
 msgid "Perhaps you forgot to convert the string `{name}` into {number_type}.\n"
 msgstr "אולי שכחת להמיר את המחרוזת \"{name}\" ל- {number_type}.\n"
 
-#: runtime_errors\type_error.py:73 runtime_errors\type_error.py:86
+#: runtime_errors\type_error.py:75 runtime_errors\type_error.py:91
 msgid ""
 "The arguments of `divmod` must be integers (`int`) or real (`float`) "
 "numbers.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:76 runtime_errors\type_error.py:88
+#: runtime_errors\type_error.py:80 runtime_errors\type_error.py:95
 msgid "At least one of the arguments was a complex number.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:98
+#: runtime_errors\type_error.py:105
 msgid "The second argument of the function `getattr()` must be a string.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:108
+#: runtime_errors\type_error.py:115
 msgid "The second argument of the function `hasattr()` must be a string.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:127 runtime_errors\type_error.py:151
+#: runtime_errors\type_error.py:134 runtime_errors\type_error.py:158
 msgid ""
 "You tried to concatenate (add) two different types of objects:\n"
 "{first} and {second}.\n"
@@ -1534,7 +1543,7 @@ msgstr ""
 "ניסית לחבר  (להוסיף) שני סוגים שונים של אובייקטים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:182
+#: runtime_errors\type_error.py:189
 msgid ""
 "You tried to add two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1542,7 +1551,7 @@ msgstr ""
 "ניסית להוסיף שני סוגים של אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:190
+#: runtime_errors\type_error.py:197
 msgid ""
 "You tried to subtract two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1550,7 +1559,7 @@ msgstr ""
 "ניסית להפחית שני סוגים של אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:198
+#: runtime_errors\type_error.py:205
 msgid ""
 "You tried to multiply two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1558,7 +1567,7 @@ msgstr ""
 "ניסית להכפיל שני סוגים של אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:206
+#: runtime_errors\type_error.py:213
 msgid ""
 "You tried to divide two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1566,7 +1575,7 @@ msgstr ""
 "ניסית לחלק שני סוגים של אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:214
+#: runtime_errors\type_error.py:221
 msgid ""
 "You tried to perform the bitwise operation {operator}\n"
 "on two incompatible types of objects:\n"
@@ -1576,21 +1585,21 @@ msgstr ""
 "על שני סוגי אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:229 runtime_errors\type_error.py:788
-#: runtime_errors\type_error.py:894 syntax_errors\statement_analyzer.py:1156
+#: runtime_errors\type_error.py:236 runtime_errors\type_error.py:795
+#: runtime_errors\type_error.py:901 syntax_errors\statement_analyzer.py:1156
 #: syntax_errors\statement_analyzer.py:1416
 msgid "Did you mean `{line}`?\n"
 msgstr "האם התכוונת ל \"{line}\"?\n"
 
-#: runtime_errors\type_error.py:230
+#: runtime_errors\type_error.py:237
 msgid "Outside of Python, `^` is often used to indicate exponentiation.\n"
 msgstr "מחוץ לפייתון, '^' משמש לעתים קרובות לציון חזקה.\n"
 
-#: runtime_errors\type_error.py:233 runtime_errors\type_error.py:791
+#: runtime_errors\type_error.py:240 runtime_errors\type_error.py:798
 msgid "Perhaps you meant `{line}`.\n"
 msgstr "אולי התכוונת ל '{line}'.\n"
 
-#: runtime_errors\type_error.py:236
+#: runtime_errors\type_error.py:243
 msgid ""
 "You tried to perform the bit shifting operation {operator}\n"
 "on two incompatible types of objects:\n"
@@ -1600,7 +1609,7 @@ msgstr ""
 "על שני סוגי אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:246
+#: runtime_errors\type_error.py:253
 msgid ""
 "You tried to exponentiate (raise to a power)\n"
 "using two incompatible types of objects:\n"
@@ -1610,7 +1619,7 @@ msgstr ""
 "שימוש בשני סוגים של אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:255
+#: runtime_errors\type_error.py:262
 msgid ""
 "You tried to use the operator {operator}\n"
 "using two incompatible types of objects:\n"
@@ -1624,11 +1633,11 @@ msgstr ""
 "מפעיל זה משמש בדרך כלל בלבד\n"
 "לריבוי מטריצות.\n"
 
-#: runtime_errors\type_error.py:291
+#: runtime_errors\type_error.py:298
 msgid "Complex numbers cannot be ordered.\n"
 msgstr "לא ניתן לסדר מספרים מורכבים.\n"
 
-#: runtime_errors\type_error.py:292
+#: runtime_errors\type_error.py:299
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two complex numbers.\n"
@@ -1636,7 +1645,7 @@ msgstr ""
 "ניסית לבצע השוואת סדר ({operator})\n"
 "בין שני מספרים מורכבים.\n"
 
-#: runtime_errors\type_error.py:298
+#: runtime_errors\type_error.py:305
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two incompatible types of objects:\n"
@@ -1646,12 +1655,12 @@ msgstr ""
 "בין שני סוגי אובייקטים לא תואמים:\n"
 "{first} ו- {second}.\n"
 
-#: runtime_errors\type_error.py:347
+#: runtime_errors\type_error.py:354
 #, fuzzy
 msgid "Perhaps you meant to write `{operator}=` instead of `={operator}`"
 msgstr "אולי התכוונת לכתוב `{operator}=` במקום `={operator}`"
 
-#: runtime_errors\type_error.py:351
+#: runtime_errors\type_error.py:358
 msgid ""
 "You tried to use the unary operator '{operator}'\n"
 "with the following type of object: {obj}.\n"
@@ -1661,7 +1670,7 @@ msgstr ""
 "עם סוג האובייקט הבא: {obj}.\n"
 "פעולה זו אינה מוגדרת עבור אובייקט מסוג זה.\n"
 
-#: runtime_errors\type_error.py:377
+#: runtime_errors\type_error.py:384
 msgid ""
 "In Python, some objects are known as immutable:\n"
 "once defined, their value cannot be changed.\n"
@@ -1673,19 +1682,19 @@ msgstr ""
 "ניסית לשנות חלק מאובייקט בלתי משתנה כזה: {obj},\n"
 "סביר להניח על ידי שימוש בפעולת אינדקס.\n"
 
-#: runtime_errors\type_error.py:384
+#: runtime_errors\type_error.py:391
 msgid "Did you mean to use a list?\n"
 msgstr "האם התכוונת להשתמש ברשימה?\n"
 
-#: runtime_errors\type_error.py:385
+#: runtime_errors\type_error.py:392
 msgid "Perhaps you meant to use a list instead.\n"
 msgstr "אולי התכוונת להשתמש ברשימה במקום זאת.\n"
 
-#: runtime_errors\type_error.py:398
+#: runtime_errors\type_error.py:405
 msgid "In Python 3, exceptions must be derived from BaseException.\n"
 msgstr "ב- Python 3 יש לגזור חריגים מ- BaseException.\n"
 
-#: runtime_errors\type_error.py:434
+#: runtime_errors\type_error.py:441
 msgid ""
 "You apparently have called the function `{fn_name}` with\n"
 "{nb_given} positional argument(s) while it requires {nb_required}\n"
@@ -1695,11 +1704,11 @@ msgstr ""
 "{nb_given} ארגומנטים בזמן שהוא דורש {nb_required}\n"
 "ארגומנטים כאלה.\n"
 
-#: runtime_errors\type_error.py:440
+#: runtime_errors\type_error.py:447
 msgid "Perhaps you forgot `self` when defining `{fn_name}`.\n"
 msgstr "אולי שכחת את 'self'(עצמי) בהגדרת '{fn_name}'.\n"
 
-#: runtime_errors\type_error.py:462
+#: runtime_errors\type_error.py:469
 msgid ""
 "You apparently have called the function '{fn_name}' with\n"
 "fewer positional arguments than it requires ({nb_required} missing).\n"
@@ -1707,7 +1716,7 @@ msgstr ""
 "כנראה קראת לפונקציה '{fn_name}' עם\n"
 "פחות ארגומנטים מיקוםיים ממה שהוא דורש (חסר {nb_required}).\n"
 
-#: runtime_errors\type_error.py:480 runtime_errors\type_error.py:868
+#: runtime_errors\type_error.py:487 runtime_errors\type_error.py:875
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
@@ -1715,7 +1724,7 @@ msgstr ""
 "\n"
 "הערה: 'NoneType' פירושו שלאובייקט יש ערך 'None' (כלום).\n"
 
-#: runtime_errors\type_error.py:487
+#: runtime_errors\type_error.py:494
 msgid ""
 "Python indicates that you have an object of type `{obj_type}`,\n"
 "followed by something surrounded by parentheses, `(...)`,\n"
@@ -1729,7 +1738,7 @@ msgstr ""
 "או שאובייקט מסוג '{obj_type}' נועד להיות פונקציה,\n"
 "או ששכחת פסיק לפני `(...)`.\n"
 
-#: runtime_errors\type_error.py:509
+#: runtime_errors\type_error.py:516
 msgid ""
 "The parenthesis `()` following `{obj_name}` are interpreted\n"
 "by Python as a function call for `{obj_name}`.\n"
@@ -1739,7 +1748,7 @@ msgstr ""
 "על ידי פייתון כקריאת פונקציה עבור '{obj_name}'.\n"
 "עם זאת, '{obj_name}' אינו פונקציה אלא אובייקט מסוג '{obj_type}'.\n"
 
-#: runtime_errors\type_error.py:516
+#: runtime_errors\type_error.py:523
 msgid ""
 "Because of the surrounding parenthesis, `{fn_call}` \n"
 "is interpreted by Python as indicating a function call for \n"
@@ -1752,7 +1761,7 @@ msgstr ""
 "`{obj_name}`, שהוא אובייקט מסוג '{obj_type}'\n"
 "שלא ניתן לקרוא לה.\n"
 
-#: runtime_errors\type_error.py:529
+#: runtime_errors\type_error.py:536
 msgid ""
 "However, `{fn_call}` is a `tuple`.\n"
 "Either the object `{obj_name}` was meant to be a function\n"
@@ -1766,11 +1775,11 @@ msgstr ""
 "והצמד '{fn_call}' והתכוון לכתוב\n"
 "`{obj_name}, {fn_call}`.\n"
 
-#: runtime_errors\type_error.py:536
+#: runtime_errors\type_error.py:543
 msgid "Did you forget a comma between `{obj_name}` and `{fn_call}`?\n"
 msgstr "האם שכחת פסיק בין '{obj_name}' לבין '{fn_call}'?\n"
 
-#: runtime_errors\type_error.py:542
+#: runtime_errors\type_error.py:549
 msgid ""
 "However, `{obj_name}` is a sequence.\n"
 "Perhaps you meant to use `[]` instead of `()` and write\n"
@@ -1780,30 +1789,30 @@ msgstr ""
 "אולי התכוונת להשתמש ב- [] במקום במקום () ולכתוב\n"
 "`{obj_name} [{slice}]`\n"
 
-#: runtime_errors\type_error.py:547
+#: runtime_errors\type_error.py:554
 msgid "Did you mean `{obj_name}[{slice}]`?\n"
 msgstr "האם התכוונת ל '{obj_name} [{slice}]'?\n"
 
-#: runtime_errors\type_error.py:558
+#: runtime_errors\type_error.py:565
 msgid ""
 "However, both `{obj_name}` and `{fn_call}` are numbers.\n"
 "Perhaps you forgot a multiplication operator, `*`,\n"
 "and meant to write `{obj_name} * {fn_call}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:563
+#: runtime_errors\type_error.py:570
 msgid "Did you mean `{obj_name} * {fn_call}`?\n"
 msgstr "האם התכוונת ל '{obj_name} * {fn_call}'?\n"
 
-#: runtime_errors\type_error.py:575
+#: runtime_errors\type_error.py:582
 msgid "Did you forget to convert `{name}` into an integer?\n"
 msgstr "שכחת להמיר את '{name}' למספר שלם?\n"
 
-#: runtime_errors\type_error.py:576
+#: runtime_errors\type_error.py:583
 msgid "Perhaps you forgot to convert `{name}` into an integer.\n"
 msgstr "אולי שכחת להמיר את '{name}' למספר שלם.\n"
 
-#: runtime_errors\type_error.py:589
+#: runtime_errors\type_error.py:596
 msgid ""
 "You can only multiply sequences, such as list, tuples,\n"
 " strings, etc., by integers.\n"
@@ -1811,33 +1820,33 @@ msgstr ""
 "אתה יכול רק להכפיל רצפים, כגון רשימה, זוגות,\n"
 "  מחרוזות וכו ', לפי מספרים שלמים.\n"
 
-#: runtime_errors\type_error.py:611
+#: runtime_errors\type_error.py:618
 msgid "Did you forget to convert `{name1}` and `{name2}` into integers?\n"
 msgstr "שכחת להמיר את '{name1}' ו- '{name2}' למספרים שלמים?\n"
 
-#: runtime_errors\type_error.py:614
+#: runtime_errors\type_error.py:621
 msgid "Perhaps you forgot to convert `{name1}` and `{name2}` into integers.\n"
 msgstr "אולי שכחת להמיר את '{name1}' ו- '{name2}' למספרים שלמים.\n"
 
-#: runtime_errors\type_error.py:649
+#: runtime_errors\type_error.py:656
 #, fuzzy
 msgid ""
 "You wrote an object whose value is `None` where an integer was expected.\n"
 msgstr "כתבת אובייקט שערכו 'כלום'(None) היכן שצפוי מספר שלם.\n"
 
-#: runtime_errors\type_error.py:659
+#: runtime_errors\type_error.py:666
 msgid "You wrote an object of type `{obj}` where an integer was expected.\n"
 msgstr "כתבת אובייקט מסוג '{obj}' שבו צפוי מספר שלם.\n"
 
-#: runtime_errors\type_error.py:669
+#: runtime_errors\type_error.py:676
 msgid "Did you forget to convert `{names}` into integers?\n"
 msgstr "האם שכחת להמיר את '{names}' למספרים שלמים?\n"
 
-#: runtime_errors\type_error.py:672
+#: runtime_errors\type_error.py:679
 msgid "Perhaps you forgot to convert `{names}` into integers."
 msgstr ""
 
-#: runtime_errors\type_error.py:694
+#: runtime_errors\type_error.py:701
 msgid ""
 "In the expression `{line}`\n"
 "what is included between the square brackets, `[...]`,\n"
@@ -1851,7 +1860,7 @@ msgstr ""
 "(`התחל: עצור` או` התחל: עצור: שלב`)\n"
 "והשתמשת במקום זאת ב- {obj_type}.\n"
 
-#: runtime_errors\type_error.py:705
+#: runtime_errors\type_error.py:712
 msgid ""
 "Note: sometimes this exception is raised because what Python\n"
 "interprets as indices was meant to be a separate list, and a comma\n"
@@ -1861,12 +1870,12 @@ msgstr ""
 "פירש כאינדקס נועד להיות רשימה נפרדת, ופסיק\n"
 "היה צריך להיכתב לפני הפתיחה` [`של רשימה זו.\n"
 
-#: runtime_errors\type_error.py:710 syntax_errors\statement_analyzer.py:1069
+#: runtime_errors\type_error.py:717 syntax_errors\statement_analyzer.py:1069
 #: syntax_errors\statement_analyzer.py:1412
 msgid "Did you forget a comma?\n"
 msgstr "שכחת פסיק?\n"
 
-#: runtime_errors\type_error.py:745
+#: runtime_errors\type_error.py:752
 #, fuzzy
 msgid ""
 "Perhaps you have forgotten a comma between two identical lists\n"
@@ -1877,7 +1886,7 @@ msgstr ""
 "`{container}`. הרשימה השנייה פורשה בתור\n"
 "האינדקס של הראשונה לפי האינדקס '{new_index}'\n"
 
-#: runtime_errors\type_error.py:751
+#: runtime_errors\type_error.py:758
 #, fuzzy
 msgid ""
 "Perhaps you have forgotten a comma between the object `{container}`\n"
@@ -1888,11 +1897,11 @@ msgstr ""
 "והרשימה `{index}`. הרשימה '{index}' פורשה כ\n"
 "אינדקס אובייקט `{container}` לפי האינדקס `{new_index}`\n"
 
-#: runtime_errors\type_error.py:756
+#: runtime_errors\type_error.py:763
 msgid "Did you forget a comma before `{index}`?\n"
 msgstr "שכחת פסיק לפני '{index}'?\n"
 
-#: runtime_errors\type_error.py:818
+#: runtime_errors\type_error.py:825
 msgid ""
 "When using a slice to extract a range of elements\n"
 "from a sequence, that is something like\n"
@@ -1906,7 +1915,7 @@ msgstr ""
 "כל אחד מ'התחלה ',' עצירה ',' שלב 'חייב להיות מספר שלם,' אין ',\n"
 "או אולי אובייקט אחר בעל שיטת '__index__'.\n"
 
-#: runtime_errors\type_error.py:837
+#: runtime_errors\type_error.py:844
 #, fuzzy
 msgid ""
 "Only hashable objects can be used\n"
@@ -1919,11 +1928,11 @@ msgstr ""
 "עצמים הניתנים לhash הם אובייקטים שאינם משנים ערך\n"
 "ברגע שהם נוצרו."
 
-#: runtime_errors\type_error.py:847
+#: runtime_errors\type_error.py:854
 msgid "Instead of using {original}, consider using {replacement}.\n"
 msgstr "במקום להשתמש ב- {original}, שקול להשתמש ב- {replacement}.\n"
 
-#: runtime_errors\type_error.py:874
+#: runtime_errors\type_error.py:881
 msgid ""
 "Subscriptable objects are typically containers from which\n"
 "you can retrieve item using the notation `[...]`.\n"
@@ -1931,7 +1940,7 @@ msgstr ""
 "אובייקטים הרשמים הם בדרך כלל מיכלים מהם\n"
 "אתה יכול לאחזר פריט באמצעות הסימון '[...]'.\n"
 
-#: runtime_errors\type_error.py:886
+#: runtime_errors\type_error.py:893
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from an object of type `{obj_type}` which is not allowed.\n"
@@ -1939,11 +1948,11 @@ msgstr ""
 "באמצעות סימון זה ניסית לאחזר פריט\n"
 "מאובייקט מסוג '{obj_type}' שאינו מותר.\n"
 
-#: runtime_errors\type_error.py:895
+#: runtime_errors\type_error.py:902
 msgid "Perhaps you meant to write `{line}`.\n"
 msgstr "אולי התכוונת לכתוב '{line}'.\n"
 
-#: runtime_errors\type_error.py:898
+#: runtime_errors\type_error.py:905
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from `{name}`, an object of type `{obj_type}`. This is not allowed.\n"
@@ -1951,7 +1960,7 @@ msgstr ""
 "באמצעות סימון זה ניסית לקבל פריט\n"
 "מתוך '{name}', אובייקט מסוג '{obj_type}'. זה אסור.\n"
 
-#: runtime_errors\type_error.py:915
+#: runtime_errors\type_error.py:922
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables.\n"
@@ -1961,7 +1970,7 @@ msgstr ""
 "מכולות (`רשימה, tuple, dict`, וכו ') הם רכיבים חוזרים.\n"
 "דרוש כאן חזרה.\n"
 
-#: runtime_errors\type_error.py:932 runtime_errors\value_error.py:24
+#: runtime_errors\type_error.py:939 runtime_errors\value_error.py:24
 msgid ""
 "Unpacking is a convenient way to assign a name,\n"
 "to each item of an iterable.\n"
@@ -1969,7 +1978,7 @@ msgstr ""
 "פריקה היא דרך נוחה להקצות שם,\n"
 "לכל פריט של חוזר.\n"
 
-#: runtime_errors\type_error.py:936
+#: runtime_errors\type_error.py:943
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables,\n"
@@ -1979,7 +1988,7 @@ msgstr ""
 "מכולות (`רשימה, tuple, dict`, וכו ') הם רכיבים חוזרים.\n"
 "אבל לא אובייקטים מהסוג `{obj_type}`.\n"
 
-#: runtime_errors\type_error.py:951
+#: runtime_errors\type_error.py:958
 msgid ""
 "{function} does not accept a sequence as an argument.\n"
 "Instead of writing `{line}`\n"
@@ -1990,15 +1999,15 @@ msgstr ""
 "אולי כדאי להשתמש בשיטת 'dict.fromkeys ()': \"{new_line}\". (מילון."
 "מהמפתחות(...))\n"
 
-#: runtime_errors\type_error.py:956
+#: runtime_errors\type_error.py:963
 msgid "Perhaps you need to use the `dict.fromkeys()` method.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:994 runtime_errors\type_error.py:1018
+#: runtime_errors\type_error.py:1001 runtime_errors\type_error.py:1025
 msgid "Did you forget to call `{name}`?\n"
 msgstr "שכחת לקרוא ל '{name}'?\n"
 
-#: runtime_errors\type_error.py:995 runtime_errors\type_error.py:1019
+#: runtime_errors\type_error.py:1002 runtime_errors\type_error.py:1026
 msgid ""
 "I suspect that you forgot to add parentheses to call `{name}`.\n"
 "You might have meant to write:\n"
@@ -2008,32 +2017,32 @@ msgstr ""
 "אולי התכוונת לכתוב:\n"
 "`{line}`\n"
 
-#: runtime_errors\type_error.py:1033
+#: runtime_errors\type_error.py:1040
 msgid ""
 "The function `vars` is used to list the content of the\n"
 "`__dict__` attribute of an object.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1042
+#: runtime_errors\type_error.py:1049
 msgid "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1046
+#: runtime_errors\type_error.py:1053
 msgid ""
 "`{name}`, the argument of `vars`, is an object without such an attribute.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1067
+#: runtime_errors\type_error.py:1074
 msgid ""
 "You have specified the value of argument `{argument}` more than once\n"
 "when calling the function named `{function}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1088
+#: runtime_errors\type_error.py:1095
 msgid "This function has only one argument: `{arguments}`\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1092
+#: runtime_errors\type_error.py:1099
 msgid ""
 "This function has the following arguments:\n"
 "`{arguments}`\n"
