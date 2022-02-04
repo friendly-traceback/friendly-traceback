@@ -423,11 +423,14 @@ class FriendlyTraceback:
         """Determine the cause of an exception, which is what is returned
         by ``why()``.
         """
-        if self.tb_data.filename == "<unknown>" or (
-            self.tb_data.filename == "<string>"
-            and self.tb_data.value.lineno != 1
-            and not issubclass(self.tb_data.exception_type, SyntaxError)
-        ):
+        try:
+            if self.tb_data.filename == "<unknown>" or (
+                self.tb_data.filename == "<string>"
+                and self.tb_data.value.lineno != 1
+                and not issubclass(self.tb_data.exception_type, SyntaxError)
+            ):
+                return
+        except Exception:
             return
 
         if STR_FAILED in self.message:

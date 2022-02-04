@@ -194,9 +194,6 @@ class FrameInfo(stack_data.FrameInfo):
         #                      ^^^^^
         #    23:     except Exception as e:
         #
-        # If the node spans the entire line, we do not bother to indicate
-        # its specific location.
-        #
         # Sometimes, a node will span multiple lines. For example,
         # line 22 shown above might have been written as:
         #
@@ -209,7 +206,15 @@ class FrameInfo(stack_data.FrameInfo):
             node_text = self.handle_special_cases()
             special_case = True
             if not node_text:
-                return
+                # Highlight the entire line
+                try:
+                    return (
+                        None,
+                        (0, len(self.current_line.text)),
+                        self.current_line.text,
+                    )
+                except Exception:
+                    return None
 
         node_range = None
         if "\n" in node_text:
@@ -221,12 +226,7 @@ class FrameInfo(stack_data.FrameInfo):
             return node, node_range, node_text
 
         bad_line = self.current_line.text
-        bad_code = token_utils.strip_comment(bad_line)
-        if (
-            node_text
-            and node_text in bad_line
-            and node_text.strip() != bad_code.strip()
-        ):
+        if node_text and node_text in bad_line:
             begin = bad_line.find(node_text)
             end = begin + len(node_text)
             node_range = begin, end
