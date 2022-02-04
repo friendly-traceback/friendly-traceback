@@ -160,10 +160,15 @@ class FrameInfo(stack_data.FrameInfo):
                     new_lines.append(text_range_mark)
                 marked = True
             elif marked:
-                if not line_obj.text.strip():  # do not add empty line if last line
-                    break
                 num = no_mark.format(line_obj.lineno)
                 new_lines.append(num + line_obj.text.rstrip())
+                for line_range in line_obj.executing_node_ranges:
+                    begin = len(line_obj.text) - len(line_obj.text.lstrip())
+                    end = line_range.end
+                    text_range_mark = " " * (8 + nb_digits + begin + 1) + "^" * (
+                        end - begin
+                    )
+                    new_lines.append(text_range_mark)
             else:
                 num = no_mark.format(line_obj.lineno)
                 new_lines.append(num + line_obj.text.rstrip())
