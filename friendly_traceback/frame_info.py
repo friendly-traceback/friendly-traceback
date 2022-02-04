@@ -208,9 +208,11 @@ class FrameInfo(stack_data.FrameInfo):
             if not node_text:
                 # Highlight the entire line
                 try:
+                    tokens = token_utils.tokenize(self.current_line.text)
+                    tokens = token_utils.remove_meaningless_tokens(tokens)
                     return (
                         None,
-                        (0, len(self.current_line.text)),
+                        (tokens[0].start_col, tokens[-1].end_col),
                         self.current_line.text,
                     )
                 except Exception:
