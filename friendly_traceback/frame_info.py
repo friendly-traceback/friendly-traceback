@@ -158,6 +158,17 @@ class FrameInfo(stack_data.FrameInfo):
                 new_lines.append(num + problem_line.rstrip())
                 if text_range_mark is not None:
                     new_lines.append(text_range_mark)
+                elif self.node_info:
+                    try:
+                        for line_range in line_obj.executing_node_ranges:
+                            begin = line_range.start
+                            end = line_range.end
+                            text_range_mark = " " * (
+                                8 + nb_digits + begin + 1
+                            ) + "^" * (end - begin)
+                            new_lines.append(text_range_mark)
+                    except Exception:
+                        pass
                 marked = True
             elif marked:
                 num = no_mark.format(line_obj.lineno)
