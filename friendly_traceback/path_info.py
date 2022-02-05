@@ -164,6 +164,8 @@ class PathUtil:
         elif path_lower.startswith(TESTS.casefold()):
             path = "TESTS:" + path[len(TESTS) :]
         elif path_lower.startswith(self.home.casefold()):
+            if not os.path.exists(path):
+                return orig_path
             path = "HOME:" + path[len(self.home) :]
         return path
 
