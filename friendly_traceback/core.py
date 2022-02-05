@@ -581,7 +581,13 @@ class FriendlyTraceback:
         if unavailable:
             return
 
-        self.info["exception_raised_source"] = partial_source["source"]
+        source = partial_source["source"]
+        if source.strip() in ["-->1:", "1:"]:
+            source = _(
+                "{filename} is not a regular Python file whose contents can be analyzed.\n"
+            ).format(filename=filename)
+
+        self.info["exception_raised_source"] = source
 
         if self.tb_data.node_text:
             line = self.tb_data.node_text
