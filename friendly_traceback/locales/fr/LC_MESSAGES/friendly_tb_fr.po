@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-02-03 20:44-0400\n"
+"POT-Creation-Date: 2022-02-05 08:58-0400\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -87,7 +87,7 @@ msgstr "Plus de lignes non affichées."
 msgid "Python exception:"
 msgstr "Exception Python:"
 
-#: core.py:434
+#: core.py:437
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -101,53 +101,53 @@ msgstr ""
 "Cela peut se produire si une méthode `__repr__` ou `__str__`\n"
 "soulève une exception ou ne retourne pas une chaîne.\n"
 
-#: core.py:487
+#: core.py:490
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:565
+#: core.py:568 core.py:586
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:570
+#: core.py:573
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du bloc de code {filename}.\n"
 
-#: core.py:574
+#: core.py:577
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Exception levée à la ligne {linenumber} du fichier {filename}.\n"
 
-#: core.py:603
+#: core.py:612
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du block de code "
 "{filename}.\n"
 
-#: core.py:607
+#: core.py:616
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne {linenumber} du fichier {filename}\n"
 
-#: core.py:635
+#: core.py:644
 msgid "Code block {filename}, line {line}"
 msgstr "Bloc de code {filename}, ligne {line}"
 
-#: core.py:639
+#: core.py:648
 msgid "File {filename}, line {line}"
 msgstr "Fichier {filename}, ligne {line}"
 
-#: core.py:653
+#: core.py:662
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr "Le contenu de `{filename}` n'est pas entièrement disponible.\n"
 
-#: core.py:667
+#: core.py:676
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:671
+#: core.py:680
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -155,11 +155,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:676
+#: core.py:685
 msgid "at the location indicated.\n"
 msgstr "à l'endroit indiqué.\n"
 
-#: core.py:909
+#: core.py:918
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -655,7 +655,7 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:215
+#: path_info.py:217
 msgid "The default directory is {dirname}."
 msgstr "Le répertoire par défaut est {dirname}."
 
@@ -2513,7 +2513,7 @@ msgid "You are dividing by zero.\n"
 msgstr "Vous divisez par zéro.\n"
 
 #: runtime_errors\zero_division_error.py:44
-#: runtime_errors\zero_division_error.py:79
+#: runtime_errors\zero_division_error.py:78
 msgid ""
 "You are dividing by the following term\n"
 "\n"
@@ -2527,8 +2527,12 @@ msgstr ""
 "\n"
 "qui est égal à zéro.\n"
 
-#: runtime_errors\zero_division_error.py:50
-#: runtime_errors\zero_division_error.py:58
+#: runtime_errors\zero_division_error.py:56
+#: runtime_errors\zero_division_error.py:134
+msgid "<'expression not found'>"
+msgstr "<'expression inconnue'>"
+
+#: runtime_errors\zero_division_error.py:57
 msgid ""
 "The following mathematical expression includes a division by zero:\n"
 "\n"
@@ -2538,8 +2542,8 @@ msgstr ""
 "\n"
 "    {expression}\n"
 
-#: runtime_errors\zero_division_error.py:91
-#: runtime_errors\zero_division_error.py:128
+#: runtime_errors\zero_division_error.py:90
+#: runtime_errors\zero_division_error.py:127
 msgid ""
 "Using the modulo operator, you are dividing by the following term\n"
 "\n"
@@ -2553,11 +2557,11 @@ msgstr ""
 "\n"
 "qui est égal à zéro.\n"
 
-#: runtime_errors\zero_division_error.py:99
+#: runtime_errors\zero_division_error.py:98
 msgid "The second argument of the `divmod()` function is zero.\n"
 msgstr "Le deuxième argument de la fonction `divmod()` est égal à zéro.\n"
 
-#: runtime_errors\zero_division_error.py:112
+#: runtime_errors\zero_division_error.py:111
 msgid ""
 "You are attempting to raise the number 0 to a negative power\n"
 "which is equivalent to dividing by zero.\n"
@@ -2565,7 +2569,7 @@ msgstr ""
 "Vous essayez d'élever le nombre 0 à une puissance négative\n"
 "ce qui équivaut à diviser par zéro.\n"
 
-#: runtime_errors\zero_division_error.py:134
+#: runtime_errors\zero_division_error.py:135
 msgid ""
 "The following mathematical expression includes a division by zero\n"
 "done using the modulo operator:\n"
@@ -2577,7 +2581,7 @@ msgstr ""
 "\n"
 "    {expression}\n"
 
-#: runtime_errors\zero_division_error.py:149
+#: runtime_errors\zero_division_error.py:150
 msgid "The second argument of the `divmod()` function is equal to zero.\n"
 msgstr "Le deuxième argument de la fonction `divmod()` est égal à zéro.\n"
 
@@ -5273,6 +5277,9 @@ msgstr ""
 "Vous avez utilisé le caractère unicode {char} qui est connu sous le nom de\n"
 "{name}\n"
 "Je pense que vous vouliez plutôt écrire la fraction `{num}/{denom}`.\n"
+
+#~ msgid "<unknown>"
+#~ msgstr "<inconnu>"
 
 #, fuzzy
 #~| msgid ""

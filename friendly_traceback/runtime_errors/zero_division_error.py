@@ -47,14 +47,13 @@ def division_by_zero(
                 "which is equal to zero.\n"
             ).format(expression=expression)
     else:
-        cause = _(
-            "The following mathematical expression includes a division by zero:\n\n"
-            "    {expression}\n"
-        ).format(expression=expression)
+        cause = expression_includes_division_by_zero(expression)
     return {"cause": cause}
 
 
 def expression_includes_division_by_zero(expression):
+    if not expression.strip():
+        expression = _("<'expression not found'>")
     return _(
         "The following mathematical expression includes a division by zero:\n\n"
         "    {expression}\n"
@@ -131,6 +130,8 @@ def float_modulo(message: str, _frame: FrameType, tb_data: TracebackData) -> Cau
                 "which is equal to zero.\n"
             ).format(expression=expression)
     else:
+        if not expression.strip():
+            expression = _("<'expression not found'>")
         cause = _(
             "The following mathematical expression includes a division by zero\n"
             "done using the modulo operator:\n\n"

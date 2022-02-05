@@ -23,5 +23,5 @@ def test_With_fake_file():
 
     assert "<fake>" in result
     if friendly_traceback.get_lang() == "en":
-        assert "The following mathematical expression includes a division by zero" in result
+        assert "<fake> is not a regular Python file" in result
         assert "Internal error" not in result
