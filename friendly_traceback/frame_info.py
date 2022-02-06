@@ -189,11 +189,11 @@ class FrameInfo(stack_data.FrameInfo):
                 new_lines.append(num + line_obj.text.rstrip())
             prev_lineno = line_obj.lineno
 
-        if len(indentations) > 2:
+        if len(indentations) > 1:
             # keep the indention of the beginning unchanged,
             # but treat other lines visually indented as a block
-            indentations.pop(0)
             min_indent = min(indentations)
+            indentations.pop(0)
             skipped_first = False
             re_indented_lines = []
             for line in new_lines:
