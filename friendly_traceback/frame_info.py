@@ -140,6 +140,7 @@ class FrameInfo(stack_data.FrameInfo):
         # this might not be helpful for beginners who look at the code
         # without paying too much attention at the line numbers.
         # I fixed this below.
+        indentations = []
         for line_obj in lines:
             if line_obj is stack_data.LINE_GAP:
                 new_lines.append(line_gap_mark)
@@ -158,6 +159,7 @@ class FrameInfo(stack_data.FrameInfo):
                 new_lines.append(num + problem_line.rstrip())
                 if text_range_mark is not None:
                     new_lines.append(text_range_mark)
+                    indentations.append(text_range_mark.count(" "))
                 elif self.node_info:
                     try:
                         for line_range in line_obj.executing_node_ranges:
@@ -167,6 +169,7 @@ class FrameInfo(stack_data.FrameInfo):
                                 8 + nb_digits + begin + 1
                             ) + "^" * (end - begin)
                             new_lines.append(text_range_mark)
+                            indentations.append(text_range_mark.count(" "))
                     except Exception:
                         pass
                 marked = True
@@ -180,10 +183,31 @@ class FrameInfo(stack_data.FrameInfo):
                         end - begin
                     )
                     new_lines.append(text_range_mark)
+                    indentations.append(text_range_mark.count(" "))
             else:
                 num = no_mark.format(line_obj.lineno)
                 new_lines.append(num + line_obj.text.rstrip())
             prev_lineno = line_obj.lineno
+
+        if len(indentations) > 2:
+            # keep the indention of the beginning unchanged,
+            # but treat other lines visually indented as a block
+            indentations.pop(0)
+            min_indent = min(indentations)
+            skipped_first = False
+            re_indented_lines = []
+            for line in new_lines:
+                if set(line).issubset({" ", "^"}) and skipped_first:
+                    current_indent = line.count(" ")
+                    line = (
+                        " " * min_indent
+                        + "^" * (current_indent - min_indent)
+                        + line.lstrip()
+                    )
+                elif set(line).issubset({" ", "^"}):
+                    skipped_first = True
+                re_indented_lines.append(line)
+            new_lines = re_indented_lines
 
         return "\n".join(new_lines), problem_line
 
