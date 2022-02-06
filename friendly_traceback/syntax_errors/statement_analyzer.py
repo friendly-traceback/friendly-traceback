@@ -180,9 +180,7 @@ def copy_pasted_code(statement):
         statement.first_token == statement.bad_token
         or statement.prev_token == statement.first_token
     ):
-        statement.location_markers = su.highlight_two_tokens(
-            statement.first_token, statement.tokens[1], first_marker="-", between="-"
-        )
+        statement.location_markers = su.highlight_single_token(statement.first_token)
         cause = _(
             "It looks like you copy-pasted code from an interactive interpreter.\n"
             "The Python prompt, `...`, should not be included in your code.\n"
@@ -283,7 +281,7 @@ def confused_elif(statement):
     elif statement.bad_token == "if" and statement.prev_token == "else":
         name = "else if"
         statement.location_markers = su.highlight_two_tokens(
-            statement.prev_token, statement.bad_token, between="-"
+            statement.prev_token, statement.bad_token, between="^"
         )
     if name:
         hint = _("Perhaps you meant to write `elif`.\n")

@@ -1427,9 +1427,7 @@ def name_assigned_to_prior_global(message: str = "", statement=None):
             second = tok
             break
     if first and second:
-        statement.location_markers = su.highlight_two_tokens(
-            first, second, first_marker="-"
-        )
+        statement.location_markers = su.highlight_two_tokens(first, second)
     return {"cause": cause}
 
 
@@ -1455,9 +1453,7 @@ def name_assigned_to_prior_nonlocal(message: str = "", statement=None):
             break
 
     if first and second:
-        statement.location_markers = su.highlight_two_tokens(
-            first, second, first_marker="-"
-        )
+        statement.location_markers = su.highlight_two_tokens(first, second)
     return {"cause": cause, "suggest": hint}
 
 
@@ -1519,9 +1515,7 @@ def name_used_prior_global(message: str = "", statement=None):
             break
 
     if first and second:
-        statement.location_markers = su.highlight_two_tokens(
-            first, second, first_marker="-"
-        )
+        statement.location_markers = su.highlight_two_tokens(first, second)
     return {"cause": cause}
 
 
@@ -1547,9 +1541,7 @@ def name_used_prior_nonlocal(message: str = "", statement=None):
             break
 
     if first and second:
-        statement.location_markers = su.highlight_two_tokens(
-            first, second, first_marker="-"
-        )
+        statement.location_markers = su.highlight_two_tokens(first, second)
     return {"cause": cause, "suggest": hint}
 
 

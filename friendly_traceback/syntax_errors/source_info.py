@@ -336,10 +336,10 @@ class Statement:
                     and self.linenumber == self.last_token.start_col
                 ):  # a comment is highlighted
                     self.end_offset = self.last_token.end_col
-                    continuation = "~~-"
+                    continuation = "^->"
                 nb_carets = self.end_offset - self.offset
             elif self.linenumber != self.end_linenumber:
-                continuation = "-->"
+                continuation = "^->"
 
         if nb_carets == 1 and not continuation:
             nb_carets = len(self.bad_token.string)
@@ -351,7 +351,7 @@ class Statement:
                 + "-" * nb_carets
                 + "^"
                 * max((self.bad_token_comment.start_col - self.bad_token.end_col), 1)
-                + "-->"
+                + "^->"
             )
         else:
             offset_mark = " " * self.offset + "^" * nb_carets + continuation
