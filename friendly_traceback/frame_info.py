@@ -115,13 +115,14 @@ class FrameInfo(stack_data.FrameInfo):
         line_gap_mark = "      (...)"
         # fmt: on
 
+        def indent(begin):
+            return " " * (8 + nb_digits + begin + 1)
+
         text_range_mark = None
         if with_node_range and self.node_info:
             if self.node_info[1]:
                 begin, end = self.node_info[1]
-                text_range_mark = " " * (8 + nb_digits + begin + 1) + "^" * (
-                    end - begin
-                )
+                text_range_mark = indent(begin) + "^" * (end - begin)
             elif self.node_info[2] and isinstance(self.node_info[2], str):
                 text = self.node_info[2]
                 for line_obj in lines:
@@ -130,9 +131,7 @@ class FrameInfo(stack_data.FrameInfo):
                     if line_obj.is_current:
                         begin = line_obj.text.find(text)
                         if begin >= 0:
-                            text_range_mark = " " * (
-                                8 + nb_digits + begin + 1
-                            ) + "^" * len(text)
+                            text_range_mark = indent(begin) + "^" * len(text)
 
         marked = False
         prev_lineno = None
@@ -146,13 +145,16 @@ class FrameInfo(stack_data.FrameInfo):
                 new_lines.append(line_gap_mark)
                 prev_lineno = None
                 continue
-            if prev_lineno and line_obj.lineno - prev_lineno == 2:
-                # add single empty line
-                num = no_mark.format(prev_lineno + 1)
-                new_lines.append(num)
-            if prev_lineno and line_obj.lineno - prev_lineno > 2:
-                # add line gap to indicate that some empty lines were skipped
-                new_lines.append(line_gap_mark)
+
+            if prev_lineno:
+                if line_obj.lineno - prev_lineno == 2:
+                    # add single empty line
+                    num = no_mark.format(prev_lineno + 1)
+                    new_lines.append(num)
+                elif line_obj.lineno - prev_lineno > 2:
+                    # add line gap to indicate that some empty lines were skipped
+                    new_lines.append(line_gap_mark)
+
             if line_obj.is_current:
                 num = with_mark.format(line_obj.lineno)
                 problem_line = line_obj.text
@@ -165,9 +167,7 @@ class FrameInfo(stack_data.FrameInfo):
                         for line_range in line_obj.executing_node_ranges:
                             begin = line_range.start
                             end = line_range.end
-                            text_range_mark = " " * (
-                                8 + nb_digits + begin + 1
-                            ) + "^" * (end - begin)
+                            text_range_mark = indent(begin) + "^" * (end - begin)
                             new_lines.append(text_range_mark)
                             indentations.append(text_range_mark.count(" "))
                     except Exception:
@@ -179,9 +179,7 @@ class FrameInfo(stack_data.FrameInfo):
                 for line_range in line_obj.executing_node_ranges:
                     begin = len(line_obj.text) - len(line_obj.text.lstrip())
                     end = line_range.end
-                    text_range_mark = " " * (8 + nb_digits + begin + 1) + "^" * (
-                        end - begin
-                    )
+                    text_range_mark = indent(begin) + "^" * (end - begin)
                     new_lines.append(text_range_mark)
                     indentations.append(text_range_mark.count(" "))
             else:
@@ -189,9 +187,9 @@ class FrameInfo(stack_data.FrameInfo):
                 new_lines.append(num + line_obj.text.rstrip())
             prev_lineno = line_obj.lineno
 
-        if len(indentations) > 1:
-            # keep the indention of the beginning unchanged,
-            # but treat other lines visually indented as a block
+        def re_indent(new_lines, indentations):
+            """Reindent the marked lines so that they are aligned as a block
+            except perhaps for the first line."""
             min_indent = min(indentations)
             indentations.pop(0)
             skipped_first = False
@@ -207,7 +205,10 @@ class FrameInfo(stack_data.FrameInfo):
                 elif set(line).issubset({" ", "^"}):
                     skipped_first = True
                 re_indented_lines.append(line)
-            new_lines = re_indented_lines
+            return re_indented_lines
+
+        if len(indentations) > 1:
+            new_lines = re_indent(new_lines, indentations)
 
         return "\n".join(new_lines), problem_line
 
