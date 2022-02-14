@@ -68,10 +68,7 @@ if DEBUG and devtools_found:
 else:
 
     def log(*args, **kwargs) -> None:
-        for arg in args:
-            print(arg)
-        for kwarg in kwargs:
-            print(kwargs)
+        pass
 
     log_2 = log_1 = log
 
