@@ -187,29 +187,6 @@ class FrameInfo(stack_data.FrameInfo):
                 new_lines.append(num + line_obj.text.rstrip())
             prev_lineno = line_obj.lineno
 
-        def re_indent(new_lines, indentations):
-            """Reindent the marked lines so that they are aligned as a block
-            except perhaps for the first line."""
-            min_indent = min(indentations)
-            indentations.pop(0)
-            skipped_first = False
-            re_indented_lines = []
-            for line in new_lines:
-                if set(line).issubset({" ", "^"}) and skipped_first:
-                    current_indent = line.count(" ")
-                    line = (
-                        " " * min_indent
-                        + "^" * (current_indent - min_indent)
-                        + line.lstrip()
-                    )
-                elif set(line).issubset({" ", "^"}):
-                    skipped_first = True
-                re_indented_lines.append(line)
-            return re_indented_lines
-
-        if len(indentations) > 1:
-            new_lines = re_indent(new_lines, indentations)
-
         return "\n".join(new_lines), problem_line
 
     @cached_property
