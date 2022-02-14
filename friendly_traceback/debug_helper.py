@@ -22,11 +22,6 @@ except ImportError:
         pass
 
 
-if sys.version_info >= (3, 11):
-    devtools_found = False
-    print("devtools is not supported for Python 3.11")
-
-
 _ = current_lang.translate
 
 # DEBUG is set to True for me. It can also be set to True from __main__ or when
@@ -39,6 +34,11 @@ IS_ANDRE = (
 )
 DEBUG = IS_PYDEV or IS_ANDRE
 SHOW_DEBUG_HELPER = False
+
+if sys.version_info >= (3, 11):
+    devtools_found = False
+    if DEBUG:
+        print("devtools is not supported for Python 3.11")
 
 
 def log_error(exc: Optional[BaseException] = None) -> None:
