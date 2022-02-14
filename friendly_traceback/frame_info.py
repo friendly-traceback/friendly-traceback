@@ -109,10 +109,13 @@ class FrameInfo(stack_data.FrameInfo):
         new_lines = []
         problem_line = ""
         nb_digits = len(str(lines[-1].lineno))
+        # no_mark and with_mark create strings that can be used with .format()
+        # to insert line numbers, while keeping everything aligned.
         # fmt: off
-        no_mark       = "       {:%d}: " % nb_digits  # noqa
-        with_mark     = "    -->{:%d}: " % nb_digits  # noqa
-        line_gap_mark = "      (...)"
+        no_mark            = "       {:%d}: " % nb_digits  # noqa
+        with_mark          = "    -->{:%d}: " % nb_digits  # noqa
+        line_gap_mark      = "      (...)"  # noqa
+        blank_lines_mark   = "        |"  # noqa
         # fmt: on
 
         def indent(begin):
@@ -146,14 +149,14 @@ class FrameInfo(stack_data.FrameInfo):
                 prev_lineno = None
                 continue
 
-            if prev_lineno:
+            if prev_lineno and not marked:
                 if line_obj.lineno - prev_lineno == 2:
                     # add single empty line
                     num = no_mark.format(prev_lineno + 1)
                     new_lines.append(num)
                 elif line_obj.lineno - prev_lineno > 2:
-                    # add line gap to indicate that some empty lines were skipped
-                    new_lines.append(line_gap_mark)
+                    # indicate that some empty lines were skipped
+                    new_lines.append(blank_lines_mark)
 
             if line_obj.is_current:
                 num = with_mark.format(line_obj.lineno)
@@ -180,7 +183,8 @@ class FrameInfo(stack_data.FrameInfo):
                     begin = len(line_obj.text) - len(line_obj.text.lstrip())
                     end = line_range.end
                     text_range_mark = indent(begin) + "^" * (end - begin)
-                    new_lines.append(text_range_mark)
+                    if text_range_mark.strip():  # blank lines do not include markers
+                        new_lines.append(text_range_mark)
                     indentations.append(text_range_mark.count(" "))
             else:
                 num = no_mark.format(line_obj.lineno)
