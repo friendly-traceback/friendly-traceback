@@ -22,6 +22,11 @@ except ImportError:
         pass
 
 
+if sys.version_info >= (3, 11):
+    devtools_found = False
+    print("devtools is not supported for Python 3.11")
+
+
 _ = current_lang.translate
 
 # DEBUG is set to True for me. It can also be set to True from __main__ or when
@@ -63,7 +68,10 @@ if DEBUG and devtools_found:
 else:
 
     def log(*args, **kwargs) -> None:
-        pass
+        for arg in args:
+            print(arg)
+        for kwarg in kwargs:
+            print(kwargs)
 
     log_2 = log_1 = log
 
