@@ -73,13 +73,13 @@ def test_Simple_import_error():
 #     except ImportError as e:
 #         message = str(e)
 #         friendly_traceback.explain_traceback(redirect="capture")
+#     else:
+#         message = "Message was never set."
 #     result = friendly_traceback.get_output()
 #     # The actual message varies a lot depending on Python version.
 #
-#     print(result)
-#
 #     if friendly_traceback.get_lang() == "en":
-#         assert "what is known as a 'circular import'" in result
+#         assert friendly_traceback.utils.expected_in_result("what is known as a 'circular import'", result)
 #
 #     return result, message
 

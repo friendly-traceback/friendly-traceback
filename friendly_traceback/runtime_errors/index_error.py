@@ -29,7 +29,7 @@ def object_assignment_out_of_range(
     left_hand_side = tb_data.bad_line.split("=")[0].strip()
     all_objects = info_variables.get_all_objects(left_hand_side, frame)
     for name, sequence in all_objects["name, obj"]:
-        truncated = left_hand_side.replace(name, "", 1)
+        truncated = left_hand_side.replace(name, "", 1).strip()
         if truncated.startswith("[") and truncated.endswith("]"):
             break
     else:  # pragma: no cover
@@ -87,7 +87,7 @@ def index_out_of_range(
     # first, try to identify object
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)
     for name, sequence in all_objects["name, obj"]:
-        truncated = tb_data.bad_line.replace(name, "", 1)
+        truncated = tb_data.bad_line.replace(name, "", 1).strip()
         if truncated.startswith("[") and truncated.endswith("]"):
             break
     else:  # pragma: no cover

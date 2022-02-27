@@ -886,7 +886,7 @@ def object_is_not_subscriptable(
     # first, try to identify object
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)
     for name, obj in all_objects["name, obj"]:
-        truncated = tb_data.bad_line.replace(name, "", 1)
+        truncated = tb_data.bad_line.replace(name, "", 1).strip()
         if truncated.startswith("[") and truncated.endswith("]"):
             break
     else:
