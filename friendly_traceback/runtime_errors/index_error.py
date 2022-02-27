@@ -74,6 +74,17 @@ def object_assignment_out_of_range(
     return {"cause": cause}
 
 
+def cannot_identify_object(obj_type, bad_line):
+    message = f"Cannot identify `{obj_type}` object. line: {bad_line}"
+    debug_helper.log(message)
+    cause = _(
+        "You have tried to get an item of an object\n"
+        "of type `{obj_type}` which I cannot identify.\n"
+        "The index you gave was not an allowed value.\n"
+    ).format(obj_type=obj_type)
+    return {"cause": cause}
+
+
 @parser.add
 def index_out_of_range(
     message: str, frame: FrameType, tb_data: TracebackData
@@ -91,24 +102,15 @@ def index_out_of_range(
         if truncated.startswith("[") and truncated.endswith("]"):
             break
     else:  # pragma: no cover
-        message = f"Cannot identify `{obj_type}` object. line: {tb_data.bad_line}"
-        debug_helper.log(message)
-        cause = _(
-            "You have tried to get an item of an object\n"
-            "of type `{obj_type}` which I cannot identify.\n"
-            "The index you gave was not an allowed value.\n"
-        ).format(obj_type=obj_type)
-        return {"cause": cause}
+        return cannot_identify_object(obj_type, tb_data.bad_line)
 
     try:
         node = tb_data.node
     except Exception:  # noqa # pragma: no cover
-        debug_helper.log("node does not exist in index_out_of_range()")
-        return {}
+        return cannot_identify_object(obj_type, tb_data.bad_line)
 
     if not (node and isinstance(node, ast.Subscript)):  # pragma: no cover
-        debug_helper.log("node is not Subscript in index_out_of_range().")
-        return {}
+        return cannot_identify_object(obj_type, tb_data.bad_line)
 
     length = len(sequence)
     evaluator = pure_eval.Evaluator.from_frame(frame)
