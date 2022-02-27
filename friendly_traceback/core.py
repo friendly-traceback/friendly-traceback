@@ -801,6 +801,8 @@ class FriendlyTraceback:
                 ):
                     line = line.replace("  File", "  Code block")
                     line = line.replace('"[', "[").replace(']"', "]")
+                    parts = line.split(",")
+                    line = ",".join(parts[:2])
             temp.append(line)
         return temp
 
