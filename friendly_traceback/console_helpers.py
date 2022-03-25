@@ -211,8 +211,8 @@ def www(site: Optional[Site] = None) -> None:  # pragma: no cover
         )
         return
 
-    info = session.saved_info[-1] if session.saved_info else None
-    if site is None and info is not None:
+    info = session.saved_info[-1] if session.saved_info else {}
+    if site is None and info:
         message = info["message"].replace("'", "")
         if " (" in message:
             message = message.split("(")[0]

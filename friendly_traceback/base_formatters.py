@@ -89,7 +89,7 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     """
     if include == "message":
         return info["message"]
-    elif include == "detailed_tb":
+    if include == "detailed_tb":
         return detailed_tb(info)
     items_to_show = select_items(include)
     spacing = {"single": " " * 4, "double": " " * 8, "none": ""}
@@ -97,7 +97,8 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     for item in items_to_show:
         if item in info:
             indentation = spacing[repl_indentation[item]]
-            for line in info[item].split("\n"):
+            lines = info[item].split("\n")
+            for line in lines:
                 result.append(indentation + line)
 
     if result == [""] or not result:

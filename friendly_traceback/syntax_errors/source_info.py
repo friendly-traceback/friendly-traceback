@@ -320,41 +320,9 @@ class Statement:
         nb_carets = 1  # Python default
         diff = self.bad_token.start_col - self.offset
         self.offset += diff
-        if self.end_offset is not None:
-            self.end_offset += diff
-
-        continuation = ""
-        if self.end_offset is not None:
-            if (
-                self.end_offset > self.offset
-                and self.linenumber == self.end_linenumber
-                and self.highlighted_tokens is not None
-                and len(self.highlighted_tokens) > 1
-            ):
-                if (
-                    self.end_offset > self.last_token.end_col
-                    and self.linenumber == self.last_token.start_col
-                ):  # a comment is highlighted
-                    self.end_offset = self.last_token.end_col
-                    continuation = "^->"
-                nb_carets = self.end_offset - self.offset
-            elif self.linenumber != self.end_linenumber:
-                continuation = "^->"
-
-        if nb_carets == 1 and not continuation:
+        if nb_carets == 1:
             nb_carets = len(self.bad_token.string)
-        # If the bad_token was a comment, it means that something was missing
-        # between the comment and the last meaningful token
-        if self.bad_token_comment is not None:
-            offset_mark = (
-                " " * self.offset
-                + "-" * nb_carets
-                + "^"
-                * max((self.bad_token_comment.start_col - self.bad_token.end_col), 1)
-                + "^->"
-            )
-        else:
-            offset_mark = " " * self.offset + "^" * nb_carets + continuation
+        offset_mark = " " * self.offset + "^" * nb_carets
         self.location_markers = {self.linenumber: offset_mark}
 
     def obtain_statement(self, source_tokens):

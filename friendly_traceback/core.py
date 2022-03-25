@@ -375,6 +375,7 @@ class FriendlyTraceback:
             debug_helper.log("Uncaught exception in TracebackData:")
             debug_helper.handle_internal_error(e)
             raise SystemExit
+        self.tb = tb
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
         self.info = {"header": _("Python exception:")}
         self.message = self.assign_message(etype, value, tb)  # language independent
@@ -714,7 +715,9 @@ class FriendlyTraceback:
         * shortened_traceback
         """
         if not hasattr(self, "message"):
-            self.assign_message()
+            self.assign_message(
+                self.tb_data.exception_type, self.tb_data.value, self.tb
+            )
         if isinstance(self.tb_data.formatted_tb, str):
             # for example: "Traceback not available from IDLE" ...
             tb = self.info["message"]

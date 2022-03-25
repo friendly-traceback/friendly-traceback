@@ -192,8 +192,8 @@ class _State:
             info = self.saved_info[-1]
             self.output_info(info)
             return
-        else:
-            self.exception_before_import = False
+
+        self.exception_before_import = False
         self.exception_hook(etype, value, tb, redirect=redirect)
 
     def exception_hook(
