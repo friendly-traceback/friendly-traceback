@@ -320,8 +320,17 @@ class Statement:
         nb_carets = 1  # Python default
         diff = self.bad_token.start_col - self.offset
         self.offset += diff
-        if nb_carets == 1:
-            nb_carets = len(self.bad_token.string)
+        if self.highlighted_tokens:
+            last_token = self.highlighted_tokens[-1]
+            if last_token.is_comment() and not (last_token is self.bad_token):
+                last_token = self.highlighted_tokens[-2]
+            if self.end_offset is not None:
+                if self.end_offset < last_token.end_col:
+                    nb_carets = self.end_offset - self.bad_token.start_col
+                else:
+                    nb_carets = last_token.end_col - self.bad_token.start_col
+            else:
+                nb_carets = len(self.bad_token.string)
         offset_mark = " " * self.offset + "^" * nb_carets
         self.location_markers = {self.linenumber: offset_mark}
 
