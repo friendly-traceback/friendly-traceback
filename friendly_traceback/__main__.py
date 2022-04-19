@@ -133,8 +133,7 @@ def main() -> None:
     args = parser.parse_args()
     if args.version:  # pragma: no cover
         print(f"\nFriendly-Traceback version {__version__}")
-        if not args.source:
-            sys.exit()
+        sys.exit()
 
     include = "friendly_tb"
     if args.include:  # pragma: no cover
