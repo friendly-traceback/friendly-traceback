@@ -1,7 +1,9 @@
+import random
 import pytest
 import friendly_traceback
 
 
+@pytest.mark.skipif(random.randint(0, 50) < 59, reason="very long test")
 def test_Urllib_error():
     from urllib import request, error
     try:
