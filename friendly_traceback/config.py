@@ -60,6 +60,8 @@ class _State:
         self.is_jupyter: bool = False
         self.jupyter_button_style: str = ""
 
+        self.old_excepthook = None
+
     def show_traceback_info_again(self) -> None:
         """If has not been cleared, write the traceback info again, using
         the default stream.
@@ -145,14 +147,19 @@ class _State:
             self.set_redirect(redirect=redirect)
         if include != self.include:
             self.set_include(include)
+        if self.installed:
+            return
 
+        self.old_excepthook = sys.excepthook
         sys.excepthook = self.exception_hook
         self.installed = True
 
     def uninstall(self) -> None:
-        """Resets sys.excepthook to the Python default."""
+        """Resets sys.excepthook to the excepthook used before installing friendly-traceback."""
+        if not self.installed:
+            return
+        sys.excepthook = self.old_excepthook
         self.installed = False
-        sys.excepthook = sys.__excepthook__
 
     def set_redirect(self, redirect: Union[str, Writer, None] = None) -> None:
         """Sets where the output is redirected."""
