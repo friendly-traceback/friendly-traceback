@@ -51,7 +51,11 @@ def identify_bad_quote_char(char, line):
     if char not in bad_quotation_marks:
         return
 
-    char_name = unicodedata.name(char, "unknown")
+    # prevent crash if 'char' is not a single unicode character.
+    try:
+        char_name = unicodedata.name(char, "unknown")
+    except TypeError:
+        return
 
     hint = _("Did you mean to use a normal quote character, `'` or `\"`?\n")
     cause = _(
@@ -84,7 +88,11 @@ def identify_bad_math_symbol(char, line):
     if char not in bad_quotation_marks:
         return
 
-    char_name = unicodedata.name(char, "unknown")
+    # prevent crash if 'char' is not a single unicode character.
+    try:
+        char_name = unicodedata.name(char, "unknown")
+    except TypeError:
+        return
 
     cause = _(
         "I suspect that you used a fancy unicode quotation mark\n"
@@ -116,7 +124,11 @@ def identify_bad_math_symbol(char, line):
 
 
 def identify_unicode_fraction(char):
-    char_name = unicodedata.name(char, "unknown")
+    # prevent crash if 'char' is not a single unicode character.
+    try:
+        char_name = unicodedata.name(char, "unknown")
+    except TypeError:
+        return
     if "FRACTION" not in char_name:
         return
     if char_name == "FRACTION SLASH":
