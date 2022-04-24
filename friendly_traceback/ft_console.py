@@ -152,7 +152,10 @@ class FriendlyTracebackConsole(InteractiveConsole):
             code = self.compile(source, filename, symbol)  # type: ignore
         except (OverflowError, SyntaxError, ValueError):
             # Case 1
-            friendly_traceback.explain_traceback()
+            if session.installed:
+                friendly_traceback.explain_traceback()
+            else:
+                super().showsyntaxerror(filename)
             return False
 
         if code is None:
@@ -182,23 +185,32 @@ class FriendlyTracebackConsole(InteractiveConsole):
         except SystemExit:
             os._exit(1)  # noqa -pycharm
         except Exception:  # noqa
-            try:
-                friendly_traceback.explain_traceback()
-            except Exception:  # noqa
-                print("Friendly Internal Error")
-                print("-" * 60)
-                traceback.print_exc()
-                print("-" * 60)
+            if session.installed:
+                try:
+                    friendly_traceback.explain_traceback()
+                except Exception:  # noqa
+                    print("Friendly Internal Error")
+                    print("-" * 60)
+                    traceback.print_exc()
+                    print("-" * 60)
+            else:
+                super().showtraceback()
 
     # The following two methods are never used in this class, but they are
     # defined in the parent class. The following are the equivalent methods
     # that can be used if an explicit call is desired for some reason.
 
     def showsyntaxerror(self, filename: Optional[str] = None) -> None:
-        friendly_traceback.explain_traceback()
+        if session.installed:
+            friendly_traceback.explain_traceback()
+        else:
+            super().showsyntaxerror(filename)
 
     def showtraceback(self) -> None:
-        friendly_traceback.explain_traceback()
+        if session.installed:
+            friendly_traceback.explain_traceback()
+        else:
+            super().showtraceback()
 
 
 def start_console(

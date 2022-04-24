@@ -49,6 +49,22 @@ def back() -> None:
             session.friendly_info[-1].recompile_info()
 
 
+def disable():
+    """Disable friendly-traceback exception hook"""
+    if not session.installed:
+        print(_("Friendly-traceback is already disabled."))
+        return
+    session.uninstall()
+
+
+def enable():
+    """Enable friendly-traceback exception hook"""
+    if session.installed:
+        print(_("Friendly-traceback is already enabled."))
+        return
+    session.install()
+
+
 def explain(include: InclusionChoice = "explain") -> None:
     """Shows the previously recorded traceback info again,
     with the option to specify different items to include.
@@ -344,6 +360,8 @@ helpers: Dict[str, Callable[..., None]] = {
     "www": www,
     "explain": explain,
     "hint": hint,
+    "enable": enable,
+    "disable": disable,
     "back": back,
     "history": history,
     "friendly_tb": friendly_tb,

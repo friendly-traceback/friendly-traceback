@@ -8,6 +8,10 @@ _ = current_lang.translate
 
 short_description = {
     "back": lambda: _("Removes the last recorded traceback item."),
+    "disable": lambda: _(
+        "Disable friendly-traceback and restore previous exception hook."
+    ),
+    "enable": lambda: _("Enable friendly-traceback as an exception hook"),
     "explain": lambda: _("Shows all the information about the last traceback."),
     "history": lambda: _("Shows a list of recorded traceback messages."),
     "set_lang": lambda: _("Sets the language to be used."),
