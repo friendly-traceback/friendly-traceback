@@ -137,7 +137,7 @@ class _State:
         self,
         lang: Optional[str] = None,
         redirect: Union[str, Writer, None] = None,
-        include: InclusionChoice = "explain",
+        include: InclusionChoice = None,
     ) -> None:
         """Replaces sys.excepthook by friendly's own version."""
 
@@ -145,7 +145,7 @@ class _State:
             self.install_gettext(lang)
         if redirect is not None:
             self.set_redirect(redirect=redirect)
-        if include != self.include:
+        if include is not None:
             self.set_include(include)
         if self.installed:
             return
