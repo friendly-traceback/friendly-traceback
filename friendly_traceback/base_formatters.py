@@ -90,7 +90,10 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     if include == "message":
         return info["message"]
     if include == "detailed_tb":
-        return detailed_tb(info)
+        if "detailed_tb" in info:
+            return detailed_tb(info)
+        else:
+            include = "where"
     items_to_show = select_items(include)
     spacing = {"single": " " * 4, "double": " " * 8, "none": ""}
     result = [""]
