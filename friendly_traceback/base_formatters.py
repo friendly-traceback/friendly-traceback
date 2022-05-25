@@ -93,7 +93,7 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
         if "detailed_tb" in info:
             return detailed_tb(info)
         else:
-            include = "where"
+            return ""
     items_to_show = select_items(include)
     spacing = {"single": " " * 4, "double": " " * 8, "none": ""}
     result = [""]
@@ -112,6 +112,8 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
 
 def detailed_tb(info: Info) -> str:  # Special case
     # TODO: document this
+    if "detailed_tb" not in info:
+        return ""
     result = [""]
     spacing = {"location": " " * 4, "var_info": " " * 8}
     for location, source, var_info in info["detailed_tb"]:
