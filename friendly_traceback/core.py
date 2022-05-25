@@ -596,8 +596,9 @@ class FriendlyTraceback:
             line = partial_source["line"]
 
         var_info = info_variables.get_var_info(line, record.frame)
-        if var_info:
-            self.info["exception_raised_variables"] = var_info
+        self.info["exception_raised_variables"] = var_info["var_info"]
+        if "warnings" in var_info:
+            self.info["warnings"] = var_info["warnings"]
 
     def locate_last_call(self, record: FrameInfo, partial_source, var_info) -> None:
         """Sets the values of the following attributes:
@@ -617,12 +618,8 @@ class FriendlyTraceback:
             self.info["last_call_header"] = _(
                 "Execution stopped on line {linenumber} of file {filename}.\n"
             ).format(linenumber=record.lineno, filename=filename)
-        # self.info["last_call_source"] = partial_source["source"]
         self.info["last_call_source"] = partial_source
 
-        # var_info = info_variables.get_var_info(
-        #     self.tb_data.program_stopped_bad_line, record.frame
-        # )
         if var_info:
             self.info["last_call_variables"] = var_info
 
@@ -649,7 +646,9 @@ class FriendlyTraceback:
                 location = _("File {filename}, line {line}").format(
                     filename=filename, line=lineno
                 )
-            detailed_tb.append((location, partial_source["source"], var_info))
+            detailed_tb.append(
+                (location, partial_source["source"], var_info["var_info"])
+            )
         return detailed_tb
 
     def locate_parsing_error(self) -> None:

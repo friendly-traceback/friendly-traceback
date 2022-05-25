@@ -217,7 +217,7 @@ def get_definition_scope(variable_name: str, frame: types.FrameType) -> List[Sco
     return scopes
 
 
-def get_var_info(line: str, frame: types.FrameType) -> str:
+def get_var_info(line: str, frame: types.FrameType) -> dict:
     """Given a frame object, it obtains the value (repr) of the names
     found in the logical line (which may span many lines in the file)
     where the exception occurred.
@@ -251,7 +251,23 @@ def get_var_info(line: str, frame: types.FrameType) -> str:
 
     if names_info:
         names_info.append("")
-    return "\n".join(names_info)
+    var_info = {"var_info": "\n".join(names_info)}
+    builtins_warnings = find_renamed_builtins(objects)
+    if builtins_warnings:
+        var_info["warnings"] = builtins_warnings
+    return var_info
+
+
+def find_renamed_builtins(objects: dict) -> str:
+    warnings = ""
+    for name, value, obj in objects["locals"]:
+        if name in dir(builtins):
+            builtin_obj = getattr(builtins, name)
+            if builtin_obj != obj:
+                warnings += _(
+                    "Warning: you have redefined the python builtin `{name}`.\n"
+                ).format(name=name)
+    return warnings
 
 
 def simplify_repr(name: str, splitlines: bool = True) -> str:

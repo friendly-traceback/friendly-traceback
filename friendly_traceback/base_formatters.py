@@ -48,6 +48,7 @@ items_in_order = [
     "simulated_python_traceback",  # <-- python_tb()
     "shortened_traceback",  # <-- friendly_tb()
     "suggest",  # <-- hint()
+    "warnings",
     "generic",  # <-- what()
     "parsing_error",
     "parsing_error_source",
@@ -68,6 +69,7 @@ repl_indentation = {
     "original_python_traceback": "none",
     "shortened_traceback": "none",
     "suggest": "double",
+    "warnings": "single",
     "generic": "single",
     "parsing_error": "single",
     "parsing_error_source": "none",
@@ -184,7 +186,7 @@ items_groups: Dict[InclusionChoice, Set[str]] = {
     "message": {"message"},  # Also included as last line of traceback
     "hint": {"suggest"},
     "what": {"generic"},
-    "why": {"cause"},
+    "why": {"warnings", "cause"},
     "where": {
         "parsing_error",
         "parsing_error_source",
@@ -195,7 +197,7 @@ items_groups: Dict[InclusionChoice, Set[str]] = {
         "exception_raised_source",
         "exception_raised_variables",
     },
-    "friendly_tb": {"shortened_traceback", "suggest"},
+    "friendly_tb": {"shortened_traceback", "suggest", "warnings"},
     "python_tb": {"simulated_python_traceback"},
     "debug_tb": {"original_python_traceback"},
     "detailed_tb": {"detailed_tb"},
