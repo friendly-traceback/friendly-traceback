@@ -269,10 +269,7 @@ def get_lang() -> str:
     return session.lang
 
 
-def _include_choices() -> str:
-    """Prints the available choices for arguments to set_include()"""
-    choices = [repr(key) for key in base_formatters.items_groups if key != "header"]
-    return ",\n        ".join(choices)
+_include_choices = [key for key in base_formatters.items_groups if key != "header"]
 
 
 def set_include(include: InclusionChoice) -> None:
@@ -282,11 +279,19 @@ def set_include(include: InclusionChoice) -> None:
 
         {choices}
     """
+    _ = current_lang.translate
+
+    # TODO: add unit test for invalid choice
+    if include not in _include_choices:
+        print(_("{include}: Unrecognized value.").format(include=include))
+        print(_("The allowed values are:"), _include_choices)
+        return
     session.set_include(include)
 
 
 if set_include.__doc__ is not None:  # protect against -OO optimization
-    set_include.__doc__ = set_include.__doc__.format(choices=_include_choices())
+    choices = ",\n        ".join(_include_choices)
+    set_include.__doc__ = set_include.__doc__.format(choices=choices)
 
 
 def get_include() -> InclusionChoice:
