@@ -73,9 +73,10 @@ def is_excluded_file(full_path: StrPath, python_excluded: bool = True) -> bool:
     # https://github.com/friendly-traceback/friendly-traceback/issues/107
     if full_path.startswith("<") and full_path in EXCLUDED_FILE_PATH:
         return True
-    full_path = os.path.abspath(full_path)
     if full_path.startswith("<frozen "):
         return True
+
+    full_path = os.path.abspath(full_path)
     for dirs in EXCLUDED_DIR_NAMES:
         if full_path.startswith(dirs):
             return True
