@@ -70,7 +70,6 @@ def is_excluded_file(full_path: StrPath, python_excluded: bool = True) -> bool:
     """Determines if the file belongs to the group that is excluded from tracebacks."""
     # full_path could be a pathlib.Path instance
     full_path = str(full_path)
-    # https://github.com/friendly-traceback/friendly-traceback/issues/107
     if full_path.startswith("<") and full_path in EXCLUDED_FILE_PATH:
         return True
     if full_path.startswith("<frozen "):
@@ -100,8 +99,8 @@ def include_file_in_traceback(full_path: str) -> None:
 
          import some_module
 
-         revert = not is_excluded_file(some_module.__file__)
-         if revert:
+         reverted = not is_excluded_file(some_module.__file__)
+         if reverted:
              exclude_file_from_traceback(some_module.__file__)
 
          try:
@@ -109,7 +108,7 @@ def include_file_in_traceback(full_path: str) -> None:
          except Exception:
              friendly_traceback.explain_traceback()
          finally:
-             if revert:
+             if reverted:
                  include_file_in_traceback(some_module.__file__)
 
     """
@@ -140,10 +139,6 @@ class PathUtil:
             new_path = shorten_jupyter_kernel(orig_path)
             if new_path:
                 return new_path
-
-        if "<SyntaxError>" in path:  # with IDLE's latest hack
-            # see https://bugs.python.org/issue43476
-            path = "<SyntaxError>"
         elif "<pyshell#" in path:
             path = "<pyshell#" + path.split("<pyshell#")[1]
         elif "<ipython-input-" in path:

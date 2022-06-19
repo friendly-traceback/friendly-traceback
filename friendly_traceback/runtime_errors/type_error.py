@@ -6,6 +6,7 @@ providing a more detailed explanation.
 
 import inspect
 import re
+import sys
 from types import FrameType
 from typing import Any, List, Optional, Tuple, Type
 
@@ -897,7 +898,12 @@ def object_is_not_subscriptable(
         return {"cause": cause + none_type}
 
     if callable(obj):
-        line = name + "(" + truncated[1:-1] + ")"
+        arg = truncated[1:-1]
+        if "," in arg and sys.version_info.minor > 6:
+            # list[1, 2, 3] --> list((1, 2, 3))
+            if len(inspect.getfullargspec(obj).args) == 1:
+                arg = f"({arg})"
+        line = f"{name}({arg})"
         hint = _("Did you mean `{line}`?\n").format(line=line)
         cause += "\n" + _("Perhaps you meant to write `{line}`.\n").format(line=line)
         return {"cause": cause, "suggest": hint}

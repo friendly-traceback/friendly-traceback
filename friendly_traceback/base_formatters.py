@@ -113,7 +113,10 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
 
 
 def detailed_tb(info: Info) -> str:  # Special case
-    # TODO: document this
+    """Unlike the normal information from 'where()', which focus on at
+    most two frames, detailed_tb() gives information for all the frames.
+    It is used mostly in IPython based environment - especially with
+    the 'button-based' mode in Jupyter notebooks/lab."""
     if "detailed_tb" not in info:
         return ""
     result = [""]

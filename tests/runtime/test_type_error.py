@@ -405,7 +405,7 @@ def test_Bad_type_for_unary_operator():
 
     assert "TypeError: bad operand type for unary +: 'str'" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
+        if sys.version_info.minor < 11:
             assert "Perhaps you meant to write `+=`" in result
         else:
             print("Skipping test_Bad_type_for_unary_operator for Python 3.11")
@@ -490,7 +490,7 @@ def test_Not_callable():
 
     assert "TypeError: 'tuple' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
+        if sys.version_info.minor < 11:
             assert "you have a missing comma between the object" in result
         else:
             print("Skipping test_Not_callable for Python 3.11")
@@ -503,7 +503,7 @@ def test_Not_callable():
 
     assert "TypeError: 'int' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
+        if sys.version_info.minor < 11:
             assert "Perhaps you forgot a multiplication operator" in result
         else:
             print("Skipping test_Not_callable for Python 3.11")
@@ -516,7 +516,7 @@ def test_Not_callable():
     result = friendly_traceback.get_output()
     assert "TypeError: 'list' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
+        if sys.version_info.minor < 11:
             assert "you have a missing comma between the object" in result
         else:
             print("Skipping test_Not_callable for Python 3.11")
@@ -545,7 +545,7 @@ def test_Not_callable():
     result = friendly_traceback.get_output()
     assert "TypeError: 'list' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
+        if sys.version_info.minor < 11:
             assert "Perhaps you meant to use `[]` instead of `()`" in result
         else:
             print("Skipping test_Not_callable for Python 3.11")
@@ -737,6 +737,20 @@ def test_Unhachable_type():
 
 
 def test_Object_is_not_subscriptable():
+
+    if sys.version_info.minor <= 8:
+        try:
+            # in 3.9+, this is assigning to a typing.GenericAlias object
+            a = list[1, 2, 3]
+        except TypeError:
+            friendly_traceback.explain_traceback(redirect="capture")
+        result = friendly_traceback.get_output()
+        assert "TypeError: 'type' object is not subscriptable" in result
+        if sys.version_info.minor == 6:
+            assert "list(1, 2, 3)" in result
+        else:
+            assert "list((1, 2, 3))" in result
+
     try:
         a = 2[1]
     except TypeError as e:
@@ -745,7 +759,7 @@ def test_Object_is_not_subscriptable():
 
     assert "TypeError: 'int' object is not subscriptable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
+        if sys.version_info.minor < 11:
             assert "from `2`, an object of type `int`" in result
         else:
             print("Skipping test_Object_is_not_subscriptable for Python 3.11")
@@ -762,7 +776,7 @@ def test_Object_is_not_subscriptable():
 
     assert "TypeError: 'function' object is not subscriptable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
+        if sys.version_info.minor < 11:
             assert "Did you mean `f(1)`" in result
         else:
             print("Skipping test_Object_is_not_subscriptable for Python 3.11.")
