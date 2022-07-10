@@ -227,7 +227,7 @@ class TracebackData:
             self.exception_frame = record.frame
             self.filename = record.filename
             line = record.problem_line()
-            self.bad_line = line.strip()  # fix for 3.11
+            self.bad_line = line.strip()  # strip() is fix for 3.11
             # protecting against https://github.com/alexmojaki/stack_data/issues/13
             if not self.bad_line:
                 try:
@@ -277,7 +277,7 @@ class TracebackData:
                 # of the 'node' facilitates the process of identifying the cause.
                 # However, in a few cases, we do need to keep the entire original line.
                 self.original_bad_line = self.bad_line
-                self.bad_line = self.node_text
+                self.bad_line = self.node_text.strip()  # strip() is fix for 3.11
 
         # Also attempt to restrict the information about where the program
         # stopped to the strict minimum so that we don't show irrelevant
