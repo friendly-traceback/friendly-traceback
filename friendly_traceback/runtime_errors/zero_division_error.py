@@ -61,10 +61,10 @@ def expression_includes_division_by_zero(expression):
 
 
 @parser.add
-def integer_or_modulo(
+def integer_division_or_modulo(
     message: str, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    if message != "integer division or modulo by zero":
+    if message not in ["integer division or modulo by zero", "integer modulo by zero"]:
         return {}
     expression = tb_data.bad_line
     nb_div = expression.count("//")
