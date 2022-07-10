@@ -209,7 +209,10 @@ def test_Division_by_zero_literal():
     except ZeroDivisionError as e:
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
-    assert "ZeroDivisionError: integer division or modulo by zero" in result
+    assert (
+        "ZeroDivisionError: integer division or modulo by zero" in result
+        or "ZeroDivisionError: integer modulo by zero" in result
+    )
     if friendly_traceback.get_lang() == "en":
         assert "Using the modulo operator, you are dividing by zero" in result
 
