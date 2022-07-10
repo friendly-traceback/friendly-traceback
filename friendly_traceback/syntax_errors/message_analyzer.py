@@ -419,6 +419,12 @@ def assign_to_literal(message: str = "", statement=None):
         ).format(literal=literal, name=name, of_type=of_type)
         + suggest
     )
+    if statement.prev_token == "{":
+        cause += "\n" + _(
+            "It is possible that "
+            "you used an equal sign `=` instead of a colon `:`\n"
+            "to assign values to keys in a dict.\n"
+        )
     return {"cause": cause, "suggest": hint}
 
 
