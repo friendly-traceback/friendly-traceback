@@ -971,7 +971,7 @@ def test_getattr_attribute_name_must_be_string():
     except TypeError as e:
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
-    assert "hasattr(): attribute name must be string" in result
+    assert "attribute name must be string" in result
     if friendly_traceback.get_lang() == "en":
         assert (
             "The second argument of the function `hasattr()` must be a string."
@@ -984,7 +984,7 @@ def test_getattr_attribute_name_must_be_string():
         friendly_traceback.explain_traceback(redirect="capture")
         message = str(e)
     result = friendly_traceback.get_output()
-    assert "getattr(): attribute name must be string" in result
+    assert "attribute name must be string" in result
     if friendly_traceback.get_lang() == "en":
         assert (
             "The second argument of the function `getattr()` must be a string."

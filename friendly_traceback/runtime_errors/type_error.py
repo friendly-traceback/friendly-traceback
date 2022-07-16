@@ -11,7 +11,7 @@ from typing import Any, List, Optional, Tuple, Type
 
 from .. import debug_helper, info_variables, token_utils, utils
 from ..core import TracebackData
-from ..ft_gettext import current_lang, no_information
+from ..ft_gettext import current_lang, no_information, please_report
 from ..typing_info import CauseInfo
 
 convert_type = info_variables.convert_type
@@ -97,22 +97,30 @@ def unsupported_type_for_divmod(
 
 
 @parser.add
-def getattr_attribute_name_must_be_string(
-    message: str, _frame: FrameType, _tb_data: TracebackData
+def getattr_or_hasattr_attribute_name_must_be_string(
+    message: str, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
-    if "getattr(): attribute name must be string" not in message:
+    # Python 3.11 does not include 'getattr()' nor 'hasattr()' in message
+    # We make the assumption that if the name of these function appears in
+    # the bad_line, it is the source of the error.
+    if "attribute name must be string" not in message:
         return {}
-    cause = _("The second argument of the function `getattr()` must be a string.\n")
-    return {"cause": cause}
+    if (
+        "getattr(): attribute name must be string" in message
+        or "getattr" in tb_data.bad_line
+    ):
+        cause = _("The second argument of the function `getattr()` must be a string.\n")
+    elif (
+        "hasattr(): attribute name must be string" in message
+        or "hasattr" in tb_data.bad_line
+    ):
+        cause = _("The second argument of the function `hasattr()` must be a string.\n")
+    else:
+        cause = (
+            _("Some attribute of a function you called is expected to be a string.\n")
+            + please_report()
+        )
 
-
-@parser.add
-def hasattr_attribute_name_must_be_string(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
-    if "hasattr(): attribute name must be string" not in message:
-        return {}
-    cause = _("The second argument of the function `hasattr()` must be a string.\n")
     return {"cause": cause}
 
 
