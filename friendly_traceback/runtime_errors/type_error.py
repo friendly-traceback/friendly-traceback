@@ -642,7 +642,7 @@ def find_possible_integers(
     for name, obj in all_objects["name, obj"]:
         if isinstance(obj, object_of_type):
             try:
-                int(obj)
+                int(obj)  # noqa
                 names.append(name)
             except Exception:  # noqa
                 pass
@@ -924,6 +924,40 @@ def object_is_not_subscriptable(
     ).format(obj_type=obj_type, name=name)
 
     return {"cause": cause + none_type}
+
+
+@parser.add
+def argument_of_object_is_not_iterable(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    """This is usually the result of checking if something is contained
+    in an object, so the code would include '... in ...'."""
+    pattern = re.compile(r"argument of type '(.*)' is not iterable")
+    match = re.search(pattern, message)
+    if match is None:
+        return {}
+    obj_type = match.group(1)
+    # Suppose we have two objects of the same type, a and b.
+    # For the expression:
+    #    if a in b
+    # we want to identify 'b' and not 'a'.
+    if "in" in tb_data.bad_line:
+        after_in = tb_data.bad_line.split("in", 1)[1]
+    else:  # should never happen; see docstring
+        after_in = tb_data.bad_line
+    all_obj = info_variables.get_all_objects(after_in, tb_data.exception_frame)
+    for obj_name, obj_type2 in all_obj["name, type"]:
+        if obj_type2 == obj_type:
+            break
+    else:  # Using the info from the exception message
+        obj_name = obj_type
+
+    cause = _(
+        "An iterable is an object capable of returning its members one at a time.\n"
+        "Python containers (`list, tuple, dict`, etc.) are iterables.\n"
+        "'{obj_name}' is not a container. A container is required here.\n"
+    ).format(obj_name=obj_name)
+    return {"cause": cause}
 
 
 @parser.add

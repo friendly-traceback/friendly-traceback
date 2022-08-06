@@ -5,6 +5,7 @@ can be useful for beginners without overwhelming them.
 """
 import ast
 import builtins
+import re
 import sys
 import types
 from typing import Any, Dict, List
@@ -44,6 +45,18 @@ def convert_type(short_form: str) -> str:
     return forms.get(short_form, short_form)
 
 
+def extract_type_from_object(obj):
+    obj_type = str(type(obj))
+    pattern = re.compile("<class '(.*)'>")
+    match = re.search(pattern, obj_type)
+    if match is None:
+        return None
+    obj_type = match.group(1)
+    if "." in obj_type:
+        obj_type = obj_type.split(".")[-1]
+    return obj_type
+
+
 def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     # sourcery skip: assign-if-exp, simplify-generator
     """Given a (partial) line of code and a frame,
@@ -52,7 +65,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     answer to "where()" or they can be used during the analysis
     of the cause of the exception.
 
-    The dict returned has five keys.
+    The dict returned has six keys.
     The first three, 'locals', 'globals', 'builtins',
     each containing a list of tuples, each tuple being of the form
     (name, repr(obj), obj) where name --> obj.
@@ -67,6 +80,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
         "builtins": [],
         "expressions": [],
         "name, obj": [],
+        "name, type": [],
     }
 
     scopes = (
@@ -95,6 +109,9 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                         repr_obj = repr(obj)
                     objects[scope].append((name, repr_obj, obj))
                     objects["name, obj"].append((name, obj))
+                    obj_type = extract_type_from_object(obj)
+                    if obj_type is not None:
+                        objects["name, type"].append((name, obj_type))
                     break
             else:
                 if name in dir(builtins):
@@ -102,6 +119,9 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                     obj = getattr(builtins, name)
                     objects["builtins"].append((name, repr(obj), obj))
                     objects["name, obj"].append((name, obj))
+                    obj_type = extract_type_from_object(obj)
+                    if obj_type is not None:
+                        objects["name, type"].append((name, obj_type))
 
     line = line.strip()
     if line.startswith(("def", "if", "while", "class", "for")) and line.endswith(":"):

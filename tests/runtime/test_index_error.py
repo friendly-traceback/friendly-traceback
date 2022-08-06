@@ -69,9 +69,15 @@ def test_Assignment():
     result = friendly_traceback.get_output()
     assert "IndexError: list assignment index out of range"
     if friendly_traceback.get_lang() == "en":
-        assert "You have tried to assign a value to an item of an object" in result
-        assert "of type `list` which I cannot identify" in result
-        assert "The index you gave was not an allowed value." in result
+        assert "You have tried to assign a value to index `1` of `b`," in result
+        assert "a `list` which contains no item." in result
+        # Prior to version 0.9.1 of Executing, 'b' could not be identified.
+        # Now it can!  I'm keeping the old assertion as a reminder that
+        # it might be useful to find a case where executing can not
+        # identify an object.
+        # assert "You have tried to assign a value to an item of an object" in result
+        # assert "of type `list` which I cannot identify" in result
+        # assert "The index you gave was not an allowed value." in result
 
     try:
         b[1] = 1
