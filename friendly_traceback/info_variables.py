@@ -5,7 +5,6 @@ can be useful for beginners without overwhelming them.
 """
 import ast
 import builtins
-import re
 import sys
 import types
 from typing import Any, Dict, List
@@ -43,18 +42,6 @@ def convert_type(short_form: str) -> str:
         "tuple": _("a `tuple`"),
     }
     return forms.get(short_form, short_form)
-
-
-def extract_type_from_object(obj):
-    obj_type = str(type(obj))
-    pattern = re.compile("<class '(.*)'>")
-    match = re.search(pattern, obj_type)
-    if match is None:
-        return None
-    obj_type = match.group(1)
-    if "." in obj_type:
-        obj_type = obj_type.split(".")[-1]
-    return obj_type
 
 
 def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
@@ -109,7 +96,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                         repr_obj = repr(obj)
                     objects[scope].append((name, repr_obj, obj))
                     objects["name, obj"].append((name, obj))
-                    obj_type = extract_type_from_object(obj)
+                    obj_type = type(obj).__name__
                     if obj_type is not None:
                         objects["name, type"].append((name, obj_type))
                     break
@@ -119,7 +106,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                     obj = getattr(builtins, name)
                     objects["builtins"].append((name, repr(obj), obj))
                     objects["name, obj"].append((name, obj))
-                    obj_type = extract_type_from_object(obj)
+                    obj_type = type(obj).__name__
                     if obj_type is not None:
                         objects["name, type"].append((name, obj_type))
 

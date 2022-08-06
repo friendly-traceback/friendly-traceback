@@ -942,7 +942,7 @@ def argument_of_object_is_not_iterable(
     #    if a in b
     # we want to identify 'b' and not 'a'.
     if "in" in tb_data.bad_line:
-        after_in = tb_data.bad_line.split("in", 1)[1]
+        after_in = tb_data.bad_line.split(" in ", 1)[1]
     else:  # should never happen; see docstring
         after_in = tb_data.bad_line
     all_obj = info_variables.get_all_objects(after_in, tb_data.exception_frame)
