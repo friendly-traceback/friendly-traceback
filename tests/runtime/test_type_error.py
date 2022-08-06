@@ -797,6 +797,21 @@ def test_Object_is_not_iterable():
     return result, message
 
 
+def test_Argument_of_object_is_not_iterable():
+    a = object()
+    b = object()
+    try:
+        a in b
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert "TypeError: argument of type 'object' is not iterable" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "A container is required here." in result
+
+    return result, message
+
 def test_Cannot_unpack_non_iterable_object():
     try:
         a, b = 42.0
