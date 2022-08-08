@@ -242,11 +242,11 @@ class FrameInfo(stack_data.FrameInfo):
 
         node_range = None
         if "\n" in node_text:
-            tokens = token_utils.tokenize(node_text)
-            tokens = [tok for tok in tokens if tok != "\n"]
-            node_text = "".join(tok.string for tok in tokens)
-            # node spans multiple lines; we only highlight
-            # part of a single line where a node is found.
+            # node spans multiple lines. node_range, used to identify begin_column
+            # and end_column cannot be used. We only keep the code as a single
+            # line for later analysis, removing the new line character
+            # and replacing multiple spaces by single space
+            node_text = " ".join(node_text.split())
             return node, node_range, node_text
 
         bad_line = self.current_line.text

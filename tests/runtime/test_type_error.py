@@ -1009,5 +1009,22 @@ def test_getattr_attribute_name_must_be_string():
     return result, message
 
 
+def test_Generator_has_no_len():
+    try:
+        nb = len(letter
+                 for letter in "word")
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert "object of type 'generator' has no len()" in result
+    if friendly_traceback.get_lang() == "en":
+        if sys.version_info < (3, 11):
+            assert 'len([letter for letter in "word"])' in result
+            assert "You likely need to build a list first." in result
+        else:
+            print("Skipping test_Generator_has_no_len for Python 3.11")
+    return result, message
+
 if __name__ == "__main__":
     print(test_Not_an_integer()[0])

@@ -1150,3 +1150,24 @@ def function_got_multiple_argument(
             "This function has the following arguments:\n`{arguments}`\n"
         ).format(function=function_name, arguments=str(arguments)[1:-1])
     return {"cause": cause}
+
+
+@parser.add
+def generator_has_no_len(
+    message: str, _frame: FrameType, tb_data: TracebackData
+) -> CauseInfo:
+    if message != "object of type 'generator' has no len()":
+        return {}
+
+    replacement = tb_data.bad_line.replace("(", "([", 1)
+    replacement = replacement[:-1] + "])"
+
+    cause = _(
+        "I am guessing that you were trying to count the number of elements\n"
+        "produced by a generator expression. You first need to capture them\n"
+        "in a list:\n\n"
+        "    {replacement}\n"
+    ).format(replacement=replacement)
+    hint = _("You likely need to build a list first.\n")
+
+    return {"cause": cause, "suggest": hint}
