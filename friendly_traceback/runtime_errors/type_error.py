@@ -1158,16 +1158,28 @@ def generator_has_no_len(
 ) -> CauseInfo:
     if message != "object of type 'generator' has no len()":
         return {}
-
-    replacement = tb_data.bad_line.replace("(", "([", 1)
-    replacement = replacement[:-1] + "])"
-
     cause = _(
         "I am guessing that you were trying to count the number of elements\n"
         "produced by a generator expression. You first need to capture them\n"
         "in a list:\n\n"
-        "    {replacement}\n"
-    ).format(replacement=replacement)
+    )
+    tokens = token_utils.get_significant_tokens(tb_data.bad_line)
+    nb_open = sum(1 for tok in tokens if tok == "(")
+    nb_close = sum(1 for tok in tokens if tok == ")")
+    if (
+        nb_open == nb_close
+        and nb_open >= 1
+        and tokens[0] == "len"
+        and tokens[1] == "("
+        and tokens[-1] == ")"
+    ):
+        tokens[1].string = "(["
+        tokens[-1].string = "])"
+        new_line = token_utils.untokenize(tokens)
+    else:
+        new_line = "len([...])"
+
+    cause += _("    {new_line}\n").format(new_line=new_line)
     hint = _("You likely need to build a list first.\n")
 
     return {"cause": cause, "suggest": hint}
