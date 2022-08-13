@@ -286,6 +286,35 @@ def test_Missing_module_name():
     return result, message
 
 
+def test_special_keyword():
+    # These are keyword that should appear on their own in a single line
+    try:
+        passs
+    except NameError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'passs' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Did you mean `pass`" in result
+    try:
+        continuee
+    except NameError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'continuee' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Did you mean `continue`" in result
+    try:
+        brek
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'brek' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Did you mean `break`" in result
+    return result, message
+
 
 if __name__ == "__main__":
     print(test_Generic()[0])

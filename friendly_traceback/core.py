@@ -89,6 +89,7 @@ class TracebackData:
 
         # The following three attributes get their correct values in get_source_info()
         self.bad_line = "\n"
+        self.original_bad_line = "\n"
         self.filename = ""
         self.exception_frame = None
         self.program_stopped_frame = None
@@ -99,7 +100,6 @@ class TracebackData:
         self.node = None
         self.node_text = ""
         self.node_range: Optional[Tuple[int, int]] = None
-        self.original_bad_line = self.bad_line
         self.program_stopped_node_range = None
 
         if issubclass(etype, SyntaxError):
@@ -211,6 +211,7 @@ class TracebackData:
 
             if self.value.text is not None:
                 self.bad_line = self.value.text  # typically includes "\n"
+                self.original_bad_line = self.bad_line
                 return
 
             # this can happen with editors_helpers.check_syntax()
@@ -227,6 +228,7 @@ class TracebackData:
             self.exception_frame = record.frame
             self.filename = record.filename
             line = record.problem_line()
+            self.original_bad_line = line
             self.bad_line = line.strip()  # strip() is fix for 3.11
             # protecting against https://github.com/alexmojaki/stack_data/issues/13
             if not self.bad_line:
@@ -275,9 +277,7 @@ class TracebackData:
             if self.node_text.strip():
                 # Replacing the line that caused the exception by the text
                 # of the 'node' facilitates the process of identifying the cause.
-                # However, in a few cases, we do need to keep the entire original line.
-                self.original_bad_line = self.bad_line
-                self.bad_line = self.node_text.strip()  # strip() is fix for 3.11
+                self.bad_line = self.node_text.strip()  # strip() is fix for 3.11beta
 
         # Also attempt to restrict the information about where the program
         # stopped to the strict minimum so that we don't show irrelevant

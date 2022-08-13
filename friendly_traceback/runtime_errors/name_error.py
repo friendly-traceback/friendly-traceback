@@ -81,6 +81,12 @@ def name_not_defined(
     if is_special_name:
         return is_special_name
 
+    is_special_keyword = perhaps_special_keyword(
+        unknown_name, tb_data.original_bad_line
+    )
+    if is_special_keyword:
+        return is_special_keyword
+
     cause = _("In your program, no object with the name `{var_name}` exists.\n").format(
         var_name=unknown_name
     )
@@ -146,6 +152,30 @@ def perhaps_special_name(name: str, tb_data: TracebackData) -> CauseInfo:
             cause = CUSTOM_NAMES[name]()
             return {"cause": cause, "suggest": cause}
     return {}
+
+
+def perhaps_special_keyword(word_with_typo: str, bad_line: str) -> CauseInfo:
+    """Identifies if one of 'pass', 'break', and 'continue' has possibly been misspelled.
+    For 'break' and 'continue', it verifies that it would be used on an indented line since
+    not doing so would definitely result in a SyntaxError.
+    """
+    tokens = token_utils.get_significant_tokens(bad_line)
+    if len(tokens) != 1:
+        return {}
+    token = tokens[0]
+    similar = utils.get_similar_words(word_with_typo, ["pass", "continue", "break"])
+    if not similar:
+        return {}
+    correct_word = similar[0]
+    if correct_word in ["continue", "break"] and token.start_col == 0:
+        # continue and break need to be part of a block. We do not want
+        # to make a suggestion that would result in a SyntaxError
+        return {}
+    hint = _("Did you mean `{word}`?\n").format(word=correct_word)
+    cause = _(
+        "I suspect you meant to write the keyword `{word}` and made a typo.\n"
+    ).format(word=correct_word)
+    return {"cause": cause, "suggest": hint}
 
 
 def delete_debug() -> CauseInfo:
