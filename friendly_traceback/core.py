@@ -607,7 +607,6 @@ class FriendlyTraceback:
         * exception_raised_source
         * last_call_variables
         """
-        # partial_source = record.partial_source_with_node_range
         filename = path_utils.shorten_path(record.filename)
 
         if filename and "[" in filename:
