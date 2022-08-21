@@ -9,12 +9,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: __init__.py:190 __main__.py:169
-#, fuzzy
 msgid "The file {filename} does not exist."
-msgstr "הקובץ  {filename} לא קיים."
+msgstr "הקובץ {filename} אינו קיים."
 
 #: base_formatters.py:163 base_formatters.py:169
 msgid "I have no suggestion to offer."
@@ -32,9 +31,8 @@ msgid ""
 msgstr ""
 
 #: config.py:72 config.py:181 console_helpers.py:29
-#, fuzzy
 msgid "Nothing to show: no exception recorded."
-msgstr "אין שום דבר להראות: אין חריגים שהוקלטו."
+msgstr "אין מה להראות: לא נרשמה חריגה."
 
 #: config.py:309
 msgid ""
@@ -120,9 +118,8 @@ msgid "Code block {filename}, line {line}"
 msgstr ""
 
 #: core.py:639
-#, fuzzy
 msgid "File {filename}, line {line}"
-msgstr "הקובץ  {filename} לא קיים."
+msgstr "קובץ {filename}, שורה {line}"
 
 #: core.py:653
 msgid "The entire content of `{filename}` is not available.\n"
@@ -141,10 +138,8 @@ msgstr ""
 " '{filename}'\n"
 
 #: core.py:676
-#, fuzzy
-#| msgid "at the location indicated by ^.\n"
 msgid "at the location indicated.\n"
-msgstr "במיקום המצוין על ידי ^.\n"
+msgstr "במקום המצוין.\n"
 
 #: core.py:909
 msgid ""
@@ -287,7 +282,6 @@ msgstr ""
 "בדרך כלל, היה צריך להעלות חריג ספציפי יותר.\n"
 
 #: info_generic.py:74
-#, fuzzy
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -295,32 +289,29 @@ msgid ""
 "\n"
 "If `condition` is `False` or equivalent, an `AssertionError` is raised.\n"
 msgstr ""
-"ב- Python, מילת המפתח 'assert' משמשת בהצהרות של כמו\n"
-"`assert condition`, כדי לוודא ש-condition לא שווה לשקר (False)\n"
-",\n"
-"וגם לא שווה ערך לשקר כמו רשימה ריקה וכו'.\n"
+"ב-Python, מילת המפתח `assert` משמשת בהצהרות של הטופס\n"
+"`assert condition`, כדי לאשר ש`תנאי` אינו `שקר`,\n"
+"ולא שווה ערך ל'שקר' כמו רשימה ריקה וכו'.\n"
 "\n"
-"אם 'התנאי' הוא 'שקר' או שווה ערך, יזרק AssertionError.\n"
+"אם 'תנאי' הוא 'שקר' או שווה ערך, מועלית 'AssertionError'.\n"
 
 #: info_generic.py:84
-#, fuzzy
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
 "and `x` is not a method or attribute (variable) belonging to `object`.\n"
 msgstr ""
-"'AttributeError' מתרחש כאשר הקוד מכיל משהו כמו\n"
-"     'object.x(ל'אובייקט.X)'\n"
-"ו- 'x' הוא לא שיטה או תכונה (משתנה) השייכים לאובייקט (object). \n"
+"'AttributeError' מתרחשת כאשר הקוד מכיל משהו כמו\n"
+"    'object.x'\n"
+"ו-'x' אינו שיטה או תכונה (משתנה) השייכת ל-'object'.\n"
 
 #: info_generic.py:93
-#, fuzzy
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
 msgstr ""
-"'EOFError' מוגבה כאשר פונקציית 'input'(קלט) פוגעת\n"
-"בסוף הקובץ (EOF) מבלי לקרוא נתונים.\n"
+"`EOFerror` מועלית כאשר הפונקציה `input()` פוגעת\n"
+"תנאי סוף קובץ (EOF) מבלי לקרוא נתונים כלשהם.\n"
 
 #: info_generic.py:101
 msgid ""
@@ -469,7 +460,6 @@ msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr "'SyntaxError' נזרק כאשר פייתון אינו מצליח להבין את הקוד שלך.\n"
 
 #: info_generic.py:233
-#, fuzzy
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -478,25 +468,24 @@ msgid ""
 "by inserting either spaces or tab characters at the beginning of lines.\n"
 "Python's recommendation is to always use spaces to indent your code.\n"
 msgstr ""
-"'TabError' מציין שהשתמשת גם ברווחים\n"
-"וגם בתווי כרטיסיות בקוד שלך.\n"
-"זה אסור ב- Python.\n"
-"הכנסת הקוד שלך פירושה שבלוק קודים מיושר אנכית\n"
-"על ידי הכנסת רווחים או תווי כרטיסייה בתחילת השורות.\n"
-"ההמלצה של פייתון היא להשתמש תמיד ברווחים כדי להכניס את הקוד שלך.\n"
+"'TabError' מציין שהשתמשת בשני הרווחים\n"
+"ותווי טאב כדי להכניס את הקוד שלך.\n"
+"זה אסור ב-Python.\n"
+"הזחה של הקוד שלך פירושה גוש קודים מיושר אנכית\n"
+"על ידי הוספת רווחים או תווי טאב בתחילת השורות.\n"
+"ההמלצה של Python היא להשתמש תמיד ברווחים כדי להכניס את הקוד שלך.\n"
 
 #: info_generic.py:245
-#, fuzzy
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
 "by calling a function with the wrong type of object,\n"
 "or by trying to do an operation not allowed on a given type of object.\n"
 msgstr ""
-"'TypeError' נגרם בדרך כלל על ידי ניסיון\n"
-"לשלב שני סוגים של אובייקטים לא תואמים,\n"
-"על ידי קריאה לפונקציה עם סוג אובייקט לא נכון,\n"
-"או על ידי ניסיון לבצע פעולה שאינה מותרת על סוג אובייקט נתון.\n"
+"'TypeError' נגרמת בדרך כלל על ידי ניסיון\n"
+"לשלב שני סוגי אובייקטים שאינם תואמים,\n"
+"על ידי קריאה לפונקציה עם סוג האובייקט הלא נכון,\n"
+"או על ידי ניסיון לבצע פעולה שאינה מותרת בסוג נתון של אובייקט.\n"
 
 #: info_generic.py:255
 msgid ""
@@ -507,7 +496,6 @@ msgstr ""
 "קיבל ערך מהסוג הנכון, אך בעל ערך לא נכון.\n"
 
 #: info_generic.py:263
-#, fuzzy
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -518,13 +506,13 @@ msgid ""
 "Python that this is a global variable, otherwise you will see\n"
 "an `UnboundLocalError`.\n"
 msgstr ""
-"ב- Python, משתנים המשמשים בתוך פונקציה ידועים בשם\n"
-"\"משתנים מקומיים\". לפני השימוש בהם, יש להקצות להם ערך.\n"
-"משתנה שמשתמשים בו לפני הגדרת הערך צריך להיות מוגדר מחוץ לפונקציה\n"
-"להיות מוגדר מחוץ לתפקוד זה; הוא ידוע בשם 'global'\n"
-"(או לפעמים 'nonlocal'). אי אפשר להקצות ערך כזה\n"
-"למשתנה גלובלי בתוך פונקציה מבלי לציין קודם כל\n"
-"שמדובר במשתנה גלובלי, אחרת תראה\n"
+"ב-Python, משתנים המשמשים בתוך פונקציה ידועים בשם\n"
+"משתנים מקומיים. לפני השימוש בהם, יש להקצות להם ערך.\n"
+"מניחים למשתנה שמשתמשים בו לפני שהוקצה לו ערך\n"
+"להיות מוגדר מחוץ לפונקציה זו; זה ידוע בתור 'גלובלי'\n"
+"(או לפעמים 'לא מקומי'). אתה לא יכול להקצות ערך לכאלה\n"
+"משתנה גלובלי בתוך פונקציה מבלי לציין תחילה ל\n"
+"פייתון שזה משתנה גלובלי, אחרת תראה\n"
 "'UnboundLocalError'.\n"
 
 #: info_generic.py:277
@@ -564,9 +552,8 @@ msgid "a `list`"
 msgstr "רשימה (`list`)"
 
 #: info_variables.py:38
-#, fuzzy
 msgid "a variable equal to `None` (`NoneType`)"
-msgstr "משתנה שווה ל- 'כלום' ('NoneType')"
+msgstr "משתנה שווה ל-'None' ('NoneType')"
 
 #: info_variables.py:39
 msgid "a `set`"
@@ -965,7 +952,6 @@ msgid "The file `{similar}` has a similar name.\n"
 msgstr "לקובץ `{similar}` יש שם דומה.\n"
 
 #: runtime_errors\file_not_found_error.py:55
-#, fuzzy
 msgid "Perhaps you meant one of the following files with similar names:\n"
 msgstr "אולי התכוונת לאחד מהקבצים הבאים עם שמות דומים:\n"
 
@@ -1028,7 +1014,6 @@ msgid "The object that could not be imported is `{name}`.\n"
 msgstr "האובייקט שלא ניתן היה לייבא הוא '{name}'.\n"
 
 #: runtime_errors\import_error.py:198
-#, fuzzy
 msgid ""
 "The problem was likely caused by what is known as a 'circular import'.\n"
 "First, Python imported and started executing the code in file\n"
@@ -1040,15 +1025,15 @@ msgid ""
 "to import the original module `{last_module}`\n"
 "a second time, before Python had completed the first import.\n"
 msgstr ""
-"ככל הנראה הבעיה נגרמה על ידי מה שמכונה 'יבוא מעגלי'.\n"
-"ראשית, פייתון ייבא והתחיל לבצע את הקוד בקובץ\n"
-"    '{file}'.\n"
-"אשר מייבא את המודול `{last_module}`.\n"
+"הבעיה נגרמה ככל הנראה על ידי מה שמכונה 'יבוא מעגלי'.\n"
+"ראשית, Python ייבאה והחלה לבצע את הקוד בקובץ\n"
+"   '{file}'.\n"
+"שמייבא את המודול `{last_module}`.\n"
 "במהלך תהליך זה, הקוד בקובץ אחר,\n"
-"    '{last_file}'\n"
-"בוצע. אולם בקובץ האחרון הזה נעשה ניסיון\n"
+"   '{last_file}'\n"
+"הוצא להורג. אולם בקובץ האחרון הזה נעשה ניסיון\n"
 "לייבא את המודול המקורי `{last_module}`\n"
-"בפעם השנייה, לפני שפיתון השלימה את הייבוא הראשון.\n"
+"פעם שנייה, לפני ש-Python השלימה את הייבוא הראשון.\n"
 
 #: runtime_errors\index_error.py:36
 msgid ""
@@ -1656,7 +1641,6 @@ msgstr ""
 "{first} ו- {second}.\n"
 
 #: runtime_errors\type_error.py:354
-#, fuzzy
 msgid "Perhaps you meant to write `{operator}=` instead of `={operator}`"
 msgstr "אולי התכוונת לכתוב `{operator}=` במקום `={operator}`"
 
@@ -1829,10 +1813,9 @@ msgid "Perhaps you forgot to convert `{name1}` and `{name2}` into integers.\n"
 msgstr "אולי שכחת להמיר את '{name1}' ו- '{name2}' למספרים שלמים.\n"
 
 #: runtime_errors\type_error.py:656
-#, fuzzy
 msgid ""
 "You wrote an object whose value is `None` where an integer was expected.\n"
-msgstr "כתבת אובייקט שערכו 'כלום'(None) היכן שצפוי מספר שלם.\n"
+msgstr "כתבת אובייקט שהערך שלו הוא 'ללא' במקום בו היה צפוי מספר שלם.\n"
 
 #: runtime_errors\type_error.py:666
 msgid "You wrote an object of type `{obj}` where an integer was expected.\n"
@@ -1876,26 +1859,24 @@ msgid "Did you forget a comma?\n"
 msgstr "שכחת פסיק?\n"
 
 #: runtime_errors\type_error.py:752
-#, fuzzy
 msgid ""
 "Perhaps you have forgotten a comma between two identical lists\n"
 "`{container}`. The second list had been interpreted as\n"
 "the indexation of the first one by the index `{new_index}`\n"
 msgstr ""
 "אולי שכחת פסיק בין שתי רשימות זהות\n"
-"`{container}`. הרשימה השנייה פורשה בתור\n"
-"האינדקס של הראשונה לפי האינדקס '{new_index}'\n"
+"`{container}`. הרשימה השנייה התפרשה כ\n"
+"האינדקס של הראשון על ידי האינדקס `{new_index}`\n"
 
 #: runtime_errors\type_error.py:758
-#, fuzzy
 msgid ""
 "Perhaps you have forgotten a comma between the object `{container}`\n"
 "and the list `{index}`.  The list `{index}` had been interpreted as\n"
 "the indexation of object `{container}` by the index `{new_index}`\n"
 msgstr ""
 "אולי שכחת פסיק בין האובייקט `{container}`\n"
-"והרשימה `{index}`. הרשימה '{index}' פורשה כ\n"
-"אינדקס אובייקט `{container}` לפי האינדקס `{new_index}`\n"
+"והרשימה `{index}`. הרשימה `{index}` פורשה כ\n"
+"האינדקס של האובייקט `{container}` על ידי האינדקס `{new_index}`\n"
 
 #: runtime_errors\type_error.py:763
 msgid "Did you forget a comma before `{index}`?\n"
@@ -1916,16 +1897,15 @@ msgstr ""
 "או אולי אובייקט אחר בעל שיטת '__index__'.\n"
 
 #: runtime_errors\type_error.py:844
-#, fuzzy
 msgid ""
 "Only hashable objects can be used\n"
 "as elements of `set` or keys of `dict`.\n"
 "Hashable objects are objects that do not change value\n"
 "once they have been created."
 msgstr ""
-"ניתן להשתמש אך ורק באוביקטים שאפשר לעשות להם hash \n"
-"כאלמנטים של 'set' או מפתחות של 'dict'.\n"
-"עצמים הניתנים לhash הם אובייקטים שאינם משנים ערך\n"
+"ניתן להשתמש רק באובייקטים הניתנים לגיבוש\n"
+"כאלמנטים של 'סט' או כמקשים של 'dict'.\n"
+"אובייקטים ניתנים לגיבוש הם אובייקטים שאינם משנים ערך\n"
 "ברגע שהם נוצרו."
 
 #: runtime_errors\type_error.py:854
@@ -2120,9 +2100,8 @@ msgid "Did you forget to add `{scope} {var_name}`?\n"
 msgstr "שכחת להוסיף את '{scope} {var_name}'?\n"
 
 #: runtime_errors\unbound_local_error.py:120
-#, fuzzy
 msgid "The similar name `{name}` was found in the local scope. "
-msgstr "השם הדומה '{name}' נמצא בהיקף המקומי. "
+msgstr "השם הדומה '{name}' נמצא בהיקף המקומי."
 
 #: runtime_errors\value_error.py:73 runtime_errors\value_error.py:82
 msgid ""
@@ -2661,9 +2640,8 @@ msgstr ""
 "אפשר להשתמש רק במזהים (שמות משתנים) כארגומנטים של פונקציות.\n"
 
 #: syntax_errors\error_in_def.py:425
-#, fuzzy
 msgid "You cannot have explicit tuples as function arguments.\n"
-msgstr "לא יכולים להיות לך צמד מפורש כארגומנטים של פונקציות.\n"
+msgstr "אתה לא יכול לקבל tuples מפורשים כארגומנטים של פונקציה.\n"
 
 #: syntax_errors\error_in_def.py:427
 msgid ""
@@ -2751,12 +2729,11 @@ msgstr ""
 "לא יכיל שגיאת תחביר.\n"
 
 #: syntax_errors\error_in_def.py:531
-#, fuzzy
 msgid ""
 "I suspect you made a typo and wrote `{op}` by mistake,\n"
 "perhaps instead of writing an identifier (variable name).\n"
 msgstr ""
-"אני חושד שעשית שגיאת כתיב וכתבת בטעות '{op}',\n"
+"אני חושד שעשית שגיאת הקלדה וכתבת '{op}' בטעות,\n"
 "אולי במקום לכתוב מזהה (שם משתנה).\n"
 
 #: syntax_errors\error_in_def.py:540
@@ -2897,7 +2874,6 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:195
-#, fuzzy
 msgid ""
 "You wrote the expression\n"
 "\n"
@@ -2905,15 +2881,13 @@ msgid ""
 "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
 "or includes a function call and is not simply the name of a variable.\n"
 msgstr ""
-"כתבת את הביטוי\n"
+"אתה כתבת את הביטוי\n"
 "\n"
-"     {fn_call} = {value}\n"
-"\n"
-"כאשר '{fn_call}', בצד ימין של סימן השוויון, נמצא\n"
-"או כולל קריאה לפונקציה ואינה רק שם המשתנה.\n"
+"    {fn_call} = ...\n"
+"כאשר `{fn_call}`, בצד שמאל של סימן השוויון, אחד מהם\n"
+"או כולל קריאה לפונקציה ואינו רק שם של משתנה.\n"
 
 #: syntax_errors\message_analyzer.py:207
-#, fuzzy
 msgid ""
 "You wrote the expression\n"
 "\n"
@@ -2922,12 +2896,12 @@ msgid ""
 "where `{fn_call}`, on the left-hand side of the equal sign, either is\n"
 "or includes a function call and is not simply the name of a variable.\n"
 msgstr ""
-"כתבת את הביטוי\n"
+"אתה כתבת את הביטוי\n"
 "\n"
-"     {fn_call} = {value}\n"
-"\n"
-"כאשר '{fn_call}', בצד ימין של סימן השוויון, נמצא\n"
-"או כולל קריאה לפונקציה ואינה רק שם המשתנה.\n"
+"    {fn_call} = ...\n"
+"    {mark}\n"
+"כאשר `{fn_call}`, בצד שמאל של סימן השוויון, אחד מהם\n"
+"או כולל קריאה לפונקציה ואינו רק שם של משתנה.\n"
 
 #: syntax_errors\message_analyzer.py:228
 msgid ""
@@ -3255,10 +3229,8 @@ msgstr "שכחת לשים לוחסן \"\\\"?\n"
 
 #: syntax_errors\message_analyzer.py:922
 #: syntax_errors\statement_analyzer.py:352
-#, fuzzy
-#| msgid "Did you forget to escape a backslash character?\n"
 msgid "Perhaps you forgot to escape a quote character.\n"
-msgstr "שכחת לשים לוחסן \"\\\"?\n"
+msgstr "אולי שכחת לברוח מדמות ציטוט.\n"
 
 #: syntax_errors\message_analyzer.py:923
 #: syntax_errors\statement_analyzer.py:353
@@ -3301,7 +3273,6 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:1000
-#, fuzzy
 msgid ""
 "You have written an f-string whose content `{...}`\n"
 "includes a backslash; this is not allowed.\n"
@@ -3315,17 +3286,17 @@ msgid ""
 "    hello = 'hello\\n'\n"
 "    f\"{... hello ...}\"\n"
 msgstr ""
-"כתבת מחרוזת f שהתוכן שלה \"{...}`\n"
-"כולל נטוי לאחור; זה אסור.\n"
-"אולי תוכל להחליף את החלק המכיל נטוי לאחור על ידי\n"
+"כתבת מחרוזת f שהתוכן שלה `{...}`\n"
+"כולל קו נטוי לאחור; זה אסור.\n"
+"אולי אתה יכול להחליף את החלק שמכיל קו נטוי אחורי ב\n"
 "משתנה כלשהו. לדוגמה, נניח שיש לך מחרוזת f כמו:\n"
 "\n"
-"     f \"{... 'שלום \\ n' ...}\"\n"
+"    f\"{... 'hello\\n' ...}\"\n"
 "\n"
-"אתה יכול לכתוב את זה בשם\n"
+"אתה יכול לכתוב את זה בתור\n"
 "\n"
-"     שלום = 'שלום \\ n'\n"
-"     f \"{... שלום ...}\"\n"
+"    hello = 'שלום\\n'\n"
+"    f\"{... שלום ...}\"\n"
 
 #: syntax_errors\message_analyzer.py:1017
 msgid ""
@@ -3366,28 +3337,26 @@ msgstr ""
 "      [(i, i**2) for i in range(10)]\n"
 
 #: syntax_errors\message_analyzer.py:1062
-#, fuzzy
 msgid ""
 "A `from __future__ import` statement changes the way Python\n"
 "interprets the code in a file.\n"
 "It must appear at the beginning of the file."
 msgstr ""
-"משפט 'מאת __future__ יבוא' משנה את האופן שבו Python\n"
+"הצהרת `from __future__ import` משנה את הדרך שבה Python\n"
 "מפרש את הקוד בקובץ.\n"
-"הוא חייב להופיע בתחילת הקובץ."
+"זה חייב להופיע בתחילת הקובץ."
 
 #: syntax_errors\message_analyzer.py:1078
 msgid "The available features are `{names}`.\n"
 msgstr "התכונות הזמינות הן '{names}'.\n"
 
 #: syntax_errors\message_analyzer.py:1083
-#, fuzzy
 msgid ""
 "When using a `from __future__ import` statement,\n"
 "you must import specific named features.\n"
 msgstr ""
-"בעת שימוש בהצהרת 'מאת __future__ יבוא',\n"
-"עליך לייבא תכונות בשם ספציפיות.\n"
+"בעת שימוש בהצהרה 'from __future__ import',\n"
+"עליך לייבא תכונות ספציפיות בשם.\n"
 
 #: syntax_errors\message_analyzer.py:1094
 msgid "Instead of `{feature}`, perhaps you meant to import `{name}`.\n"
@@ -3412,7 +3381,6 @@ msgstr ""
 "עליך להוסיף סוגריים המקיפים את הביטוי הזה.\n"
 
 #: syntax_errors\message_analyzer.py:1137
-#, fuzzy
 msgid ""
 "I suspect you wrote `from __future__ import braces` following\n"
 "someone else's suggestion. This will never work.\n"
@@ -3420,11 +3388,11 @@ msgid ""
 "Unlike other programming languages, Python's code block are defined by\n"
 "their indentation level, and not by using some curly braces, like `{...}`.\n"
 msgstr ""
-"אני חושד שכתבת את 'מ- __future__ פלטות יבוא' בהמשך\n"
+"אני חושד שכתבת 'מ-__עתיד__ ייבוא פלטה' בהמשך\n"
 "הצעה של מישהו אחר. זה לעולם לא יעבוד.\n"
 "\n"
-"שלא כמו שפות תכנות אחרות, בלוק הקוד של פייתון מוגדר על ידי\n"
-"רמת הכניסה שלהם, ולא באמצעות כמה פלטות מתולתלות, כמו \"{...}`.\n"
+"בניגוד לשפות תכנות אחרות, בלוק הקוד של Python מוגדרים על ידי\n"
+"רמת ההזחה שלהם, ולא על ידי שימוש בסוגריים מסולסלים, כמו `{...}`.\n"
 
 #: syntax_errors\message_analyzer.py:1152
 #: syntax_errors\statement_analyzer.py:165
@@ -3453,14 +3421,13 @@ msgstr ""
 
 #: syntax_errors\message_analyzer.py:1226
 #: syntax_errors\statement_analyzer.py:685
-#, fuzzy
 msgid ""
 "The double star operator `**` is likely interpreted to mean that\n"
 "dict unpacking is to be used which is not allowed or does not make sense "
 "here.\n"
 msgstr ""
-"סביר להניח אופרטור הכוכב הכפול \"**\" מתפרש כאן \n"
-"כפירוק מילון (dict) אשר אסור או לא הגיוני כאן.\n"
+"אופרטור הכוכב הכפול `**` מתפרש כנראה כך\n"
+"יש להשתמש ב-dict פירוק מה שאסור או לא הגיוני כאן.\n"
 
 #: syntax_errors\message_analyzer.py:1284
 msgid ""
@@ -3839,7 +3806,7 @@ msgid ""
 "you have another string, which starts with either a\n"
 "single quote (') or double quote (\"), without a matching closing one.\n"
 msgstr ""
-"בתוך מחרוזת f {{fstring} `,\n"
+"בתוך מחרוזת f {fstring} `,\n"
 "יש לך מחרוזת נוספת, שמתחילה ב\n"
 "גרש (') או גרשיים (\"), ללא סיום תואם.\n"
 
@@ -3886,15 +3853,14 @@ msgid "You should not use the backquote character.\n"
 msgstr "אתה לא אמור להשתמש בתו סימן ההטעמה המשני (grave accent).\n"
 
 #: syntax_errors\statement_analyzer.py:201
-#, fuzzy
 msgid ""
 "You are using the backquote character.\n"
 "Either you meant to write a single quote, ', or copied Python 2 code;\n"
 "in this latter case, use the function `repr(x)`."
 msgstr ""
-"אתה משתמש בסימן ההטעמה המשני.\n"
-"או שהתכוונת לכתוב גרש יחיד, ', או שהעתקת את קוד פייתון 2;\n"
-"במקרה אחרון זה, השתמש בפונקציה `repr (x)`."
+"אתה משתמש בתו הציטוט האחורי.\n"
+"או שהתכוונת לכתוב ציטוט בודד, ', או שהעתקת את קוד Python 2;\n"
+"במקרה האחרון הזה, השתמש בפונקציה `repr(x)`."
 
 #: syntax_errors\statement_analyzer.py:222
 msgid "You forgot to add a condition.\n"
@@ -3931,7 +3897,6 @@ msgid "A `for` loop requires at least 3 more terms.\n"
 msgstr "לולאת `for`(פור) דורשת לפחות 3 מונחים נוספים.\n"
 
 #: syntax_errors\statement_analyzer.py:237
-#, fuzzy
 msgid ""
 "A `for` loop is an iteration over a sequence:\n"
 "\n"
@@ -3939,17 +3904,17 @@ msgid ""
 "        ...\n"
 "\n"
 msgstr ""
-"לולאת `for`(פור) היא איטרציה על רצף:\n"
+"לולאת `for` היא איטרציה על רצף:\n"
 "\n"
-"     פור (for) אלמנט in רצף:\n"
-"         ...\n"
+"    עבור אלמנט ברצף:\n"
+"        ...\n"
+"\n"
 
 #: syntax_errors\statement_analyzer.py:243
 msgid "A class needs a name.\n"
 msgstr "כיתה(class) צריכה שם.\n"
 
 #: syntax_errors\statement_analyzer.py:244
-#, fuzzy
 msgid ""
 "A `class` statement requires a name:\n"
 "\n"
@@ -3957,10 +3922,11 @@ msgid ""
 "        ...\n"
 "\n"
 msgstr ""
-"הצהרת 'class' דורש שם:\n"
+"הצהרת 'כיתה' דורשת שם:\n"
 "\n"
-"     class SomeName:\n"
-"         ...\n"
+"    class SomeName:\n"
+"        ...\n"
+"\n"
 
 #: syntax_errors\statement_analyzer.py:261
 msgid ""
@@ -3992,16 +3958,6 @@ msgstr ""
 "`) ?\n"
 
 #: syntax_errors\statement_analyzer.py:312
-#, fuzzy
-#| msgid ""
-#| "You wrote something like\n"
-#| "\n"
-#| "    import {function} from {module}\n"
-#| "instead of\n"
-#| "\n"
-#| "    from {module} import {function}\n"
-#| "\n"
-#| "\n"
 msgid ""
 "You wrote something like\n"
 "\n"
@@ -4014,11 +3970,12 @@ msgid ""
 msgstr ""
 "כתבת משהו כמו\n"
 "\n"
-"     ייבא import {function} from {module} ({function} מ- {module}\n"
-")\n"
+"    יבוא {function} מ-{module}\n"
+"\n"
 "במקום\n"
 "\n"
-"     מתוך from {module} import {function} ({module} יבוא {function})\n"
+"    מ-{module} ייבוא {function}\n"
+"\n"
 
 #: syntax_errors\statement_analyzer.py:383
 msgid ""
@@ -4176,7 +4133,7 @@ msgid ""
 "forgot to add a colon `:` at the end\n"
 "\n"
 msgstr ""
-"כתבת לולאה של {{for_while} `אבל\n"
+"כתבת לולאה של `{for_while} `אבל\n"
 "שכחת להוסיף נקודתיים `:` בסוף\n"
 
 #: syntax_errors\statement_analyzer.py:741
@@ -4189,39 +4146,30 @@ msgstr ""
 "`{name}` אבל שכחת להוסיף נקודתיים `:` בסוף.\n"
 
 #: syntax_errors\statement_analyzer.py:759
-#, fuzzy
-#| msgid "You wrote a semi-colon, `;`, where a comma was expected.\n"
 msgid "You wrote a semicolon, `;`, where a comma was expected.\n"
-msgstr "כתבת נקודה-פסיק, ';', איפה שהיה צפוי פסיק.\n"
+msgstr "כתבת נקודה-פסיק, `;`, שם היה צפוי פסיק.\n"
 
 #: syntax_errors\statement_analyzer.py:779
-#, fuzzy
-#| msgid "You wrote semi-colons, `;`, where commas were expected.\n"
 msgid "You wrote semicolons, `;`, where commas were expected.\n"
-msgstr "כתבת נקודה-פסיק, ';', איפה שהיה צפוי פסיקים.\n"
+msgstr "כתבת נקודה-פסיק, `;`, היכן שציפו לפסיקים.\n"
 
 #: syntax_errors\statement_analyzer.py:780
 msgid "Did you mean to write commas?\n"
 msgstr "האם התכוונת לכתוב פסיקים?\n"
 
 #: syntax_errors\statement_analyzer.py:796
-#, fuzzy
-#| msgid "You wrote a semi-colon, `;`, where a comma was expected.\n"
 msgid "You wrote a semicolon, `;`, where a colon was expected.\n"
-msgstr "כתבת נקודה-פסיק, ';', איפה שהיה צפוי פסיק.\n"
+msgstr "כתבת נקודה-פסיק, `;`, שם היה צפוי נקודתיים.\n"
 
 #: syntax_errors\statement_analyzer.py:797
-#, fuzzy
-#| msgid "Did you mean to write a comma?\n"
 msgid "Did you mean to write a colon?\n"
-msgstr "האם התכוונת לכתוב פסיק?\n"
+msgstr "התכוונת לכתוב נקודתיים?\n"
 
 #: syntax_errors\statement_analyzer.py:815
 msgid "Did you made a mistake in writing an hexadecimal integer?\n"
 msgstr "האם טעית בכתיבת מספר שלם הקסדצימלי?\n"
 
 #: syntax_errors\statement_analyzer.py:816
-#, fuzzy
 msgid ""
 "It looks like you used an invalid character (`{character}`) in an "
 "hexadecimal number.\n"
@@ -4232,20 +4180,19 @@ msgid ""
 "In Python, hexadecimal numbers start with either `0x` or `0X`,\n"
 "followed by the characters used to represent the value of that integer.\n"
 msgstr ""
-"נראה שהשתמשת בתו לא חוקי (\"{character}\") במספר הקסדצימלי.\n"
+"נראה שהשתמשת בתו לא חוקי (`{character}`) במספר הקסדצימלי.\n"
 "\n"
-"מספרים הקסדצימליים הם מספר 16 שלם שמשתמשים בסמלים '0' עד '9'\n"
-"כדי לייצג את הערכים 0 עד 9, ואת האותיות `a` עד` f` (או `A` עד` F`)\n"
+"מספרים הקסדצימליים הם בסיס 16 מספרים שלמים המשתמשים בסמלים '0' עד '9'\n"
+"לייצג את הערכים 0 עד 9, ואת האותיות 'a' עד 'f' (או 'A' עד 'F')\n"
 "לייצג ערכים 10 עד 15.\n"
-"בפייתון, מספרים הקסדצימליים מתחילים ב- '0x' או '0X',\n"
-"ואחריו התווים המשמשים לייצוג הערך של אותו מספר שלם.\n"
+"ב-Python, מספרים הקסדצימליים מתחילים ב-'0x' או ב-'0X',\n"
+"ואחריו התווים המשמשים לייצג את הערך של אותו מספר שלם.\n"
 
 #: syntax_errors\statement_analyzer.py:835
 msgid "Did you made a mistake in writing an octal integer?\n"
 msgstr "האם טעית בכתיבת מספר שלם אוקטלי?\n"
 
 #: syntax_errors\statement_analyzer.py:836
-#, fuzzy
 msgid ""
 "It looks like you used an invalid character (`{character}`) in an octal "
 "number.\n"
@@ -4258,11 +4205,11 @@ msgid ""
 msgstr ""
 "נראה שהשתמשת בתו לא חוקי (`{character}`) במספר אוקטלי.\n"
 "\n"
-"מספרי אוקטלים הם מספר 8 שלמים בסיסיים שמשתמשים רק בסמלים '0' עד '7'\n"
+"מספרים אוקטליים הם בסיס 8 מספרים שלמים המשתמשים רק בסמלים '0' עד '7'\n"
 "לייצג ערכים.\n"
-"ב- Python, מספרים הקסדצימליים מתחילים ב- '0o' או '0O',\n"
+"ב-Python, מספרים הקסדצימליים מתחילים ב-'0o' או ב-'0O',\n"
 "(הספרה אפס ואחריה האות 'o')\n"
-"ואחריו התווים המשמשים לייצוג הערך של אותו מספר שלם.\n"
+"ואחריו התווים המשמשים לייצג את הערך של אותו מספר שלם.\n"
 
 #: syntax_errors\statement_analyzer.py:863
 msgid "Valid names cannot begin with a number.\n"
@@ -4273,7 +4220,6 @@ msgid "Did you mean `{number}j`?\n"
 msgstr "האם התכוונת ל '{number}j'?\n"
 
 #: syntax_errors\statement_analyzer.py:871
-#, fuzzy
 msgid ""
 "Perhaps you thought that `i` could be used to represent\n"
 "the square root of `-1`. In Python, the symbol used for this is `j`\n"
@@ -4281,20 +4227,19 @@ msgid ""
 "followed by `j`, with no spaces in between.\n"
 "Perhaps you meant to write `{number}j`.\n"
 msgstr ""
-"אולי חשבת שאפשר להשתמש ב- 'i' לייצוג\n"
-"השורש הריבועי של '-1'. בפייתון, הסמל המשמש לכך הוא 'j'\n"
-"והחלק המורכב נכתב כ'כמה_מספר 'באופן מיידי\n"
-"ואחריו 'j', ללא רווחים בין לבין.\n"
-"אולי התכוונת לכתוב '{number}j'.\n"
+"אולי חשבת שאפשר להשתמש ב'אני' כדי לייצג\n"
+"השורש הריבועי של `-1`. ב-Python, הסמל המשמש לכך הוא `j`\n"
+"והחלק המורכב נכתב כ'מספר_כמה' מיד\n"
+"ואחריו 'j', ללא רווחים ביניהם.\n"
+"אולי התכוונת לכתוב `{number}j`.\n"
 
 #: syntax_errors\statement_analyzer.py:881
-#, fuzzy
 msgid ""
 "[Note: `{first} * {second}` would also be valid\n"
 "since `{first}` is a complex number.]\n"
 msgstr ""
-"[הערה: '{first} * {second}' יהיה תקף גם\n"
-"מאחר ש '{first}' הוא מספר מורכב.]\n"
+"[הערה: `{first} * {second}` יהיה גם חוקי\n"
+"מכיוון ש-'{first}' הוא מספר מרוכב.]\n"
 
 #: syntax_errors\statement_analyzer.py:892
 msgid "Perhaps you forgot a multiplication operator, `{first} * {second}`.\n"
@@ -4343,14 +4288,13 @@ msgstr ""
 "זה מותר ב- Python 2 אך זה לא מותר ב- Python 3.\n"
 
 #: syntax_errors\statement_analyzer.py:980
-#, fuzzy
 msgid ""
 "You cannot have explicit tuples as arguments.\n"
 "Assign any tuple to a parameter and unpack it\n"
 "within the body of the function.\n"
 msgstr ""
-"לא יכולים להיות לך כפולות מפורשות כטיעונים.\n"
-"הקצה כל סוג של פרמטר ופרק אותו\n"
+"אתה לא יכול לקבל tuples מפורשים כטיעונים.\n"
+"הקצה כל tuple לפרמטר ופרק אותו\n"
 "בתוך גוף הפונקציה.\n"
 
 #: syntax_errors\statement_analyzer.py:1013
@@ -4455,12 +4399,12 @@ msgstr ""
 "ו-  [f(x) for x in sequence if condition]  # 'if' after 'for' אם יש אחר\n"
 
 #: syntax_errors\statement_analyzer.py:1272
-#, fuzzy
-#| msgid "You cannot have spaces in identifiers (variable names).\n"
 msgid ""
 "You cannot have spaces in identifiers (variable names).\n"
 "Perhaps you meant `{name}`?\n"
-msgstr "אינך יכול להכיל רווחים במזהים (שמות משתנים).\n"
+msgstr ""
+"לא ניתן לכלול רווחים במזהים (שמות משתנים).\n"
+"אולי התכוונת ל`{name}`?\n"
 
 #: syntax_errors\statement_analyzer.py:1294
 msgid "`bf` is an illegal string prefix.\n"
@@ -4475,43 +4419,30 @@ msgstr ""
 "זה אסור.\n"
 
 #: syntax_errors\statement_analyzer.py:1319
-#, fuzzy
-#| msgid ""
-#| "It is possible that you forgot a comma between items in a tuple, \n"
-#| "or between function arguments, \n"
-#| "before the position indicated by ^.\n"
 msgid ""
 "It is possible that you forgot a comma between items in a tuple, \n"
 "or between function arguments, \n"
 "at the position indicated by ^.\n"
 msgstr ""
-"יתכן ששכחת פסיק בין פריטים בצמד,\n"
-"או בין ארגומנטים של פונקציות,\n"
-"לפני הנקודה שציינה ב^.\n"
+"יתכן ששכחת פסיק בין פריטים בטופל,\n"
+"או בין ארגומנטים של פונקציה,\n"
+"במיקום המצוין על ידי ^.\n"
 
 #: syntax_errors\statement_analyzer.py:1327
-#, fuzzy
-#| msgid ""
-#| "It is possible that you forgot a comma between items in a list\n"
-#| "before the position indicated by ^.\n"
 msgid ""
 "It is possible that you forgot a comma between items in a list\n"
 "at the position indicated by ^.\n"
 msgstr ""
 "ייתכן ששכחת פסיק בין פריטים ברשימה\n"
-"לפני הנקודה שציינה ב^.\n"
+"במיקום המצוין על ידי ^.\n"
 
 #: syntax_errors\statement_analyzer.py:1333
-#, fuzzy
-#| msgid ""
-#| "It is possible that you forgot a comma between items in a set or dict\n"
-#| "before the position indicated by ^.\n"
 msgid ""
 "It is possible that you forgot a comma between items in a set or dict\n"
 "at the position indicated by ^.\n"
 msgstr ""
-"יתכן ששכחת פסיק בין פריטים בסט (set) או במילון (dict)\n"
-"לפני הנקודה שציינה ב ^.\n"
+"ייתכן ששכחת פסיק בין פריטים בסט או dict\n"
+"במיקום המצוין על ידי ^.\n"
 
 #: syntax_errors\statement_analyzer.py:1357
 msgid ""
@@ -4521,10 +4452,8 @@ msgstr ""
 "פייתון מציין כי השגיאה נגרמת על ידי \"{second}\" שקרה מיד לאחר \"{first}\".\n"
 
 #: syntax_errors\statement_analyzer.py:1414
-#, fuzzy
-#| msgid "Perhaps you meant `{line}`.\n"
 msgid "Perhaps you meant{line}"
-msgstr "אולי התכוונת ל '{line}'.\n"
+msgstr "אולי התכוונת ל{line}"
 
 #: syntax_errors\statement_analyzer.py:1421
 msgid "Did you forget something between `{first}` and `{second}`?\n"
@@ -4573,7 +4502,6 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\statement_analyzer.py:1516
-#, fuzzy
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -4585,16 +4513,15 @@ msgid ""
 "    from {module} import object_1 as name_1\n"
 "    from {module} import object_2 as name_2  # if needed\n"
 msgstr ""
-"אני מנחש שאתה מנסה לייבא אובייקט אחד לפחות\n"
-"ממודול `{module}` ולשנות את שמו באמצעות מילת המפתח `as`;\n"
-" (בתור)\n"
-"ניתן להשתמש במילת מפתח זו רק לשם שינוי אובייקט אחד בכל פעם\n"
-"באמצעות תחביר מוגדר היטב.\n"
-"אני מציע שתחלק כל משפט ייבוא כזה לכל אובייקט\n"
-"שונה שם בשורה נפרדת כדלקמן:\n"
+"אני מנחש שאתה מנסה לייבא לפחות אובייקט אחד\n"
+"מהמודול `{module}` ושנה את שמו באמצעות מילת המפתח Python `as`;\n"
+"ניתן להשתמש במילת מפתח זו רק כדי לשנות שם אובייקט אחד בכל פעם\n"
+"תוך שימוש בתחביר מוגדר היטב.\n"
+"אני מציע שתחלק כל משפט ייבוא כזה עם כל אובייקט\n"
+"שונה שם בשורה נפרדת באופן הבא:\n"
 "\n"
-" from {module} import object_1 as name_1\n"
-"    from {module} import object_2 as name_2  # if needed \n"
+"    מ-{module} import object_1 בשם name_1\n"
+"    מ-{module} import object_2 בשם name_2 # במידת הצורך\n"
 
 #: syntax_errors\statement_analyzer.py:1546
 msgid ""
