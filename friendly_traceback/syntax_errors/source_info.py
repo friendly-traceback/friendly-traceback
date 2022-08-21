@@ -320,6 +320,7 @@ class Statement:
         nb_carets = 1  # Python default
         diff = self.bad_token.start_col - self.offset
         self.offset += diff
+        nb_carets = 0
         if self.highlighted_tokens:
             last_token = self.highlighted_tokens[-1]
             if last_token.is_comment() and not (last_token is self.bad_token):
@@ -329,12 +330,8 @@ class Statement:
                     nb_carets = self.end_offset - self.bad_token.start_col
                 else:
                     nb_carets = last_token.end_col - self.bad_token.start_col
-            else:
-                # highlight entire bad token for friendly
-                nb_carets = len(self.bad_token.string)
-        else:
-            # Highlight entire bad token for friendly
-            nb_carets = len(self.bad_token.string)
+        # Highlight at least the entire bad token for friendly
+        nb_carets = max(len(self.bad_token.string), nb_carets)
         offset_mark = " " * self.offset + "^" * nb_carets
         self.location_markers = {self.linenumber: offset_mark}
 
