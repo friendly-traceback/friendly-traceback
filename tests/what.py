@@ -16,7 +16,7 @@ from friendly_traceback import console_helpers
 
 # Make it possible to find docs
 docs_root_dir = os.path.abspath(
-    os.path.join(this_dir, "..", "..", "docs")
+    os.path.join(this_dir, "..", "..", "friendly-docs")
 )
 assert os.path.isdir(docs_root_dir), "Separate docs repo need to exist"
 

@@ -25,7 +25,7 @@ call python compile_data.py
 call deactivate
 
 call python compare_data.py
-copy compare_data.html ..\..\..\docs\source\compare_data.html
+copy compare_data.html ..\..\..\friendly-docs\source\compare_data.html
 del compare_data.html
 
 cd ..
@@ -73,7 +73,7 @@ call python compare_messages.py
 copy compare_messages.html ..\..\docs\source\compare_messages.html
 del compare_messages.html
 
-cd ..\..\docs
+cd ..\..\friendly-docs
 call make html
 cd ..\friendly-traceback
 call venv-friendly-traceback-3.9\scripts\activate
