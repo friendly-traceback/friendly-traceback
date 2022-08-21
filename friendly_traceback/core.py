@@ -687,7 +687,7 @@ class FriendlyTraceback:
             if filepath in ["<string>", "<stdin>"] and self.tb_data.value.lineno != 1:
                 self.info["parsing_error"] += not_regular_file
         elif filepath:  # could be None
-            self.info["parsing_error"] = could_not_understand + ".\n"
+            self.info["parsing_error"] = could_not_understand + "\n"
 
         self.info["parsing_error_source"] = f"{partial_source}\n"
 
@@ -851,14 +851,13 @@ class FriendlyTraceback:
                     if (
                         value.end_lineno is not None
                         and value.end_lineno != value.lineno
-                        or value.end_offset is not None
-                        and value.end_offset < 1
                     ):
                         nb_carets = len(bad_line) - offset + 1
                         continuation = "-->"
                     else:
                         nb_carets = value.end_offset - offset if value.end_offset else 1
                         continuation = ""
+                    nb_carets = max(nb_carets, 1)
                     offset = offset - (len(_line) - len(bad_line))  # removing indent
                     # In some IndentationError cases, and possibly others,
                     # Python's computed offset would show the ^ just before the first token
