@@ -82,7 +82,7 @@ msgid ""
 "This can occur if a `__repr__` or a `__str__` method\n"
 "raises an exception or does not return a string.\n"
 msgstr ""
-"אזהרה: חריג  שלא נוצר כהלכה.\n"
+"אזהרה: חריג שלא נוצר כהלכה.\n"
 "אני חושד שהועלה חריג מותאם אישית\n"
 "עם ערך שאינו מחרוזת המשמש כהודעה.\n"
 "זה יכול להתרחש אם שיטת '__repr__' או '__str__'\n"
@@ -163,7 +163,7 @@ msgstr "בעיה: המקור של '{filename}' אינו זמין\n"
 
 #: ft_console.py:29
 msgid "Type 'Friendly' for help on special functions/methods."
-msgstr "הקלד 'Friendly'  בשביל עזרה עם פונקציות מיוחדות."
+msgstr "הקלד 'Friendly' בשביל עזרה עם פונקציות מיוחדות."
 
 #: ft_gettext.py:81
 msgid ""
@@ -626,7 +626,7 @@ msgstr "סביר להניח שיש לך יבוא מעגלי.\n"
 
 #: runtime_errors\attribute_error.py:47
 msgid "Python indicated that the module `{module}` was not fully imported.\n"
-msgstr "פייתון ציין כי המודול \"{module}` לא יובא במלואו.\n"
+msgstr "פייתון ציין כי המודול `{module}` לא יובא במלואו.\n"
 
 #: runtime_errors\attribute_error.py:48 runtime_errors\attribute_error.py:90
 msgid ""
@@ -1238,7 +1238,7 @@ msgid ""
 "`{attr}` is a name similar to `{rest}` and is an object that\n"
 "can be imported from `{name}`.\n"
 msgstr ""
-"אולי התכוונת ל `from {name} import {attr}`  (מ- {name} יבא {attr}'.\n"
+"אולי התכוונת ל `from {name} import {attr}`  (מ- {name} יבא t{attr}'.\n"
 "')\n"
 "`{attr}` הוא שם הדומה ל- `{rest}` והוא אובייקט ש\n"
 "ניתן לייבא מ '{name}'.\n"
@@ -2101,7 +2101,7 @@ msgstr "שכחת להוסיף את '{scope} {var_name}'?\n"
 
 #: runtime_errors\unbound_local_error.py:120
 msgid "The similar name `{name}` was found in the local scope. "
-msgstr "השם הדומה '{name}' נמצא בהיקף המקומי."
+msgstr "השם הדומה '{name}' נמצא בהיקף המקומי. "
 
 #: runtime_errors\value_error.py:73 runtime_errors\value_error.py:82
 msgid ""
@@ -2182,7 +2182,7 @@ msgid ""
 msgstr ""
 "בבסיס 'base', 'int ()' משמש לרוב להמרת מחרוזת\n"
 "המכיל את הספרות '0' עד '9' ואת האותיות\n"
-"מ '' a '' ל '' max_n} 'למספר שלם.\n"
+"מ '' a '' ל ''{max_n} 'למספר שלם.\n"
 
 #: runtime_errors\value_error.py:210
 msgid "You need to convert `'{value}'` to a float first.\n"
@@ -2387,7 +2387,7 @@ msgstr ""
 "פייתון מסר לנו את ההודעה האינפורמטיבית הבאה\n"
 "לגבי הסיבה האפשרית לשגיאה:\n"
 "\n"
-"     {הוֹדָעָה}\n"
+"     {message}\n"
 "\n"
 "עם זאת, אינני מזהה מידע זה ויש לי\n"
 "לנחש מה גרם לבעיה, אבל יכול להיות שאני טועה.\n"
@@ -2986,7 +2986,7 @@ msgstr ""
 
 #: syntax_errors\message_analyzer.py:394
 msgid "Perhaps you meant to write `{name} = {literal}`"
-msgstr "אולי התכוונת לכתוב '{name} = {letteral}'"
+msgstr "אולי התכוונת לכתוב '{name} = {literal}'"
 
 #: syntax_errors\message_analyzer.py:413
 msgid ""
@@ -3065,7 +3065,7 @@ msgid ""
 "You declared `{name}` as being both a global and nonlocal variable.\n"
 "A variable can be global, or nonlocal, but not both at the same time.\n"
 msgstr ""
-"הצהרת על '{שם}' כמשתנה גלובלי וגם לא מיקומי (global & nonlocal).\n"
+"הצהרת על '{name}' כמשתנה גלובלי וגם לא מיקומי (global & nonlocal).\n"
 "משתנה יכול להיות גלובלי או לא מקומי, אך לא שניהם בו זמנית.\n"
 
 #: syntax_errors\message_analyzer.py:573
@@ -4471,12 +4471,11 @@ msgstr ""
 "שורות הקוד הבאות לא יגרמו לשום 'SyntaxError':\n"
 
 #: syntax_errors\statement_analyzer.py:1445
-#, fuzzy
 msgid ""
 "Note: these are just some of the possible choices and that\n"
 "some of them might raise other types of exceptions.\n"
 msgstr ""
-"הערה: אלו רק חלק מהאפשרויות האפשריות \n"
+"הערה: אלה רק חלק מהאפשרויות האפשריות וזה\n"
 "חלקם עשויים להעלות סוגים אחרים של חריגים.\n"
 
 #: syntax_errors\statement_analyzer.py:1452
