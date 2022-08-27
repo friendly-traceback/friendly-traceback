@@ -539,10 +539,12 @@ class FriendlyTraceback:
             return
 
         self.locate_exception_raised(records[-1])
+        if len(records) < 2:
+            return
+
         self.info["detailed_tb"] = self.get_detailed_stack_info(records)
-        if len(records) > 1:
-            _ignore, partial_source, var_info = self.info["detailed_tb"][0]
-            self.locate_last_call(records[0], partial_source, var_info)
+        _ignore, partial_source, var_info = self.info["detailed_tb"][0]
+        self.locate_last_call(records[0], partial_source, var_info)
 
     def locate_exception_raised(self, record: FrameInfo) -> None:
         """Sets the values of the following attributes which are
