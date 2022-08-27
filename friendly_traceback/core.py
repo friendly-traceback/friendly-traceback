@@ -592,8 +592,8 @@ class FriendlyTraceback:
 
         if self.tb_data.node_text:
             line = self.tb_data.node_text
-        else:
-            line = partial_source["line"]
+        else:  # This almost never happens
+            line = record.problem_line()
 
         var_info = info_variables.get_var_info(line, record.frame)
         self.info["exception_raised_variables"] = var_info["var_info"]
@@ -814,15 +814,14 @@ class FriendlyTraceback:
         """
         result = []
         for record in records:
-            partial_source = record.partial_source  # noqa
+            # partial_source = record.partial_source
             result.append(
                 '  File "{}", line {}, in {}'.format(
                     record.filename, record.lineno, record.code.co_name
                 )
             )
-            bad_line = partial_source["line"]
-            if bad_line is not None:
-                result.append("    {}".format(bad_line.strip()))
+            bad_line = record.problem_line()
+            result.append("    {}".format(bad_line.strip()))
 
         if issubclass(self.tb_data.exception_type, SyntaxError):
             value = self.tb_data.value

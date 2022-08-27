@@ -5,7 +5,7 @@ call python trb_english.py
 call python trb_syntax_english.py
 call deactivate
 
-cd ..\..\docs
+cd ..\..\friendly-docs
 call make html
 cd ..\friendly-traceback
 call venv-friendly-traceback-3.8\scripts\activate

@@ -31,7 +31,7 @@ class FrameInfo(stack_data.FrameInfo):
         file_not_found = _("Problem: source of `{filename}` is not available\n").format(
             filename=self.filename
         )
-        source = line = ""
+        source = ""
 
         if not self.lines and self.filename:
             # protecting against https://github.com/alexmojaki/stack_data/issues/13
@@ -48,7 +48,7 @@ class FrameInfo(stack_data.FrameInfo):
                 debug_helper.log_error(e)
 
         if self.lines:
-            source, line = self._highlighted_source(with_node_range)
+            source = self._highlighted_source(with_node_range)
         elif self.filename and os.path.abspath(self.filename):
             if self.filename not in ["<stdin>", "<string>"]:
                 # When filename is "<stdin>", "<string>",
@@ -70,7 +70,7 @@ class FrameInfo(stack_data.FrameInfo):
         if not source.endswith("\n"):
             source += "\n"
 
-        return {"source": source, "line": line}
+        return {"source": source}
 
     @cached_property
     def highlighted_source(self):
@@ -107,7 +107,6 @@ class FrameInfo(stack_data.FrameInfo):
             return "", ""
 
         new_lines = []
-        problem_line = ""
         nb_digits = len(str(lines[-1].lineno))
         # no_mark and with_mark create strings that can be used with .format()
         # to insert line numbers, while keeping everything aligned.
@@ -160,8 +159,7 @@ class FrameInfo(stack_data.FrameInfo):
 
             if line_obj.is_current:
                 num = with_mark.format(line_obj.lineno)
-                problem_line = line_obj.text
-                new_lines.append(num + problem_line.rstrip())
+                new_lines.append(num + line_obj.text.rstrip())
                 if text_range_mark is not None:
                     new_lines.append(text_range_mark)
                     indentations.append(text_range_mark.count(" "))
@@ -191,7 +189,7 @@ class FrameInfo(stack_data.FrameInfo):
                 new_lines.append(num + line_obj.text.rstrip())
             prev_lineno = line_obj.lineno
 
-        return "\n".join(new_lines), problem_line
+        return "\n".join(new_lines)
 
     @cached_property
     def node_info(self):
