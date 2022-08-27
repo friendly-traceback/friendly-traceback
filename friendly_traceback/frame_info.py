@@ -70,7 +70,7 @@ class FrameInfo(stack_data.FrameInfo):
         if not source.endswith("\n"):
             source += "\n"
 
-        return {"source": source}
+        return source
 
     @cached_property
     def highlighted_source(self):

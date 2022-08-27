@@ -559,9 +559,9 @@ class FriendlyTraceback:
             self.info["exception_raised_header"] = ""
             return
 
-        partial_source = record.partial_source_with_node_range
-        if partial_source["source"].strip() == "0:":
-            partial_source["source"] = ""
+        source = record.partial_source_with_node_range
+        if source.strip() == "0:":
+            source = ""
         filename = path_utils.shorten_path(record.filename)
 
         unavailable = filename in ["<unknown>", "<string>"]
@@ -582,7 +582,6 @@ class FriendlyTraceback:
         if unavailable:
             return
 
-        source = partial_source["source"]
         if source.strip() in ["-->1:", "1:"]:
             source = _(
                 "{filename} is not a regular Python file whose contents can be analyzed.\n"
@@ -645,9 +644,7 @@ class FriendlyTraceback:
                 location = _("File {filename}, line {line}").format(
                     filename=filename, line=lineno
                 )
-            detailed_tb.append(
-                (location, partial_source["source"], var_info["var_info"])
-            )
+            detailed_tb.append((location, partial_source, var_info["var_info"]))
         return detailed_tb
 
     def locate_parsing_error(self) -> None:
@@ -814,7 +811,6 @@ class FriendlyTraceback:
         """
         result = []
         for record in records:
-            # partial_source = record.partial_source
             result.append(
                 '  File "{}", line {}, in {}'.format(
                     record.filename, record.lineno, record.code.co_name
