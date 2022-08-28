@@ -73,7 +73,7 @@ def test_get_variables_in_frame_by_scope():
 
 def test_simplify_repr():
     import math
-    import tkinter
+    import collections
 
     simplify = ft.info_variables.simplify_repr
     INDENT = ft.info_variables.INDENT
@@ -84,8 +84,8 @@ def test_simplify_repr():
     )
     # replace \ in path so that it works for all OSes
     assert (
-        simplify(repr(tkinter)).replace("\\", "/")
-        == "<module tkinter> from PYTHON_LIB:/tkinter/__init__.py"
+        simplify(repr(collections)).replace("\\", "/")
+        == "<module collections> from PYTHON_LIB:/collections/__init__.py"
     )
     assert simplify(repr(open)) == "<builtin function open>"
     assert simplify("<class 'AssertionError'>") == "<class AssertionError>"
