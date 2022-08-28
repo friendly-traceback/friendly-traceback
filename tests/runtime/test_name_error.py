@@ -1,6 +1,11 @@
 import pydoc
-import tkinter
 import sys
+try:
+    import tkinter
+except Exception:
+    tkinter = False
+
+import pytest
 
 import friendly_traceback
 from math import *
@@ -270,9 +275,8 @@ def test_Missing_self_2():
         assert "Perhaps you should have written `self.add_toy`" in result
     return result, message
 
-
+@pytest.mark.skipif(not tkinter, reason="tkinter not present; likely MacOS")
 def test_Missing_module_name():
-    import tkinter
     try:
         frame = Frame()
     except NameError as e:
