@@ -1,3 +1,7 @@
+asttokens >= 2.0.4
+executing >= 0.8.3
+pure_eval >= 0.2.1
+stack_data >= 0.5.0
 black
 devtools
 pytest
