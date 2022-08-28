@@ -1,8 +1,9 @@
 import os
+from typing import Iterable
 
 import stack_data
 from executing import only
-from stack_data import Line
+from stack_data import LINE_GAP, BlankLineRange, BlankLines, Formatter, Line, Options
 from stack_data.utils import cached_property
 
 from friendly_traceback import token_utils
@@ -12,6 +13,59 @@ from .ft_gettext import current_lang
 from .source_cache import cache
 
 _ = current_lang.translate
+
+
+class FriendlyFormatter(Formatter):
+    def __init__(
+        self,
+        **kwargs,
+    ):
+        self.indent = "    "
+        super().__init__(**kwargs)
+
+    def format_frame_source(self, frame: stack_data.FrameInfo) -> Iterable[str]:
+        for line in frame.lines:
+            if isinstance(line, Line):
+                yield self.format_line(line)
+            elif isinstance(line, BlankLineRange):
+                yield self.format_blank_lines_linenumbers(line)
+            else:
+                assert line is LINE_GAP
+                yield self.indent + self.line_gap_string + "\n"
+
+    def format_line(self, line: Line) -> str:
+        result = self.indent
+        if line.is_current:
+            result += self.current_line_indicator
+        else:
+            result += " " * len(self.current_line_indicator)
+        result += self.line_number_format_string.format(line.lineno)
+        prefix = result
+        result += line.render() + "\n"
+
+        for line_range in line.executing_node_ranges:
+            start = line_range.start - line.leading_indent
+            end = line_range.end - line.leading_indent
+            # if end <= start, we have an empty line inside a highlighted
+            # block of code. In this case, we need to avoid inserting
+            # an extra blank line with no markers present.
+            if end > start:
+                result += (
+                    " " * (start + len(prefix))
+                    + self.executing_node_underline * (end - start)
+                    + "\n"
+                )
+        return result
+
+    def format_blank_lines_linenumbers(self, blank_line):
+        result = self.indent + " " * len(self.current_line_indicator)
+        if blank_line.begin_lineno == blank_line.end_lineno:
+            return (
+                result
+                + self.line_number_format_string.format(blank_line.begin_lineno)
+                + "\n"
+            )
+        return result + "{}\n".format(self.line_number_gap_string)
 
 
 class FrameInfo(stack_data.FrameInfo):
@@ -82,6 +136,8 @@ class FrameInfo(stack_data.FrameInfo):
         for line_obj in self.lines:
             if line_obj is stack_data.LINE_GAP:
                 continue
+            elif isinstance(line_obj, stack_data.BlankLineRange):
+                continue
             elif line_obj.is_current:
                 return str(line_obj.text)
         return ""
@@ -106,90 +162,25 @@ class FrameInfo(stack_data.FrameInfo):
         if not lines:
             return "", ""
 
-        new_lines = []
         nb_digits = len(str(lines[-1].lineno))
-        # no_mark and with_mark create strings that can be used with .format()
-        # to insert line numbers, while keeping everything aligned.
-        # fmt: off
-        no_mark            = "       {:%d}: " % nb_digits  # noqa
-        with_mark          = "    -->{:%d}: " % nb_digits  # noqa
-        line_gap_mark      = "      (...)"  # noqa
-        blank_lines_mark   = "        |"  # noqa
-        # fmt: on
+        lineno_fmt_string = "{:%d}| " % nb_digits  # noqa
+        line_gap_string = " " * nb_digits + "(...)"
+        line_number_gap_string = " " * (nb_digits - 1) + ":"
 
-        def indent(begin):
-            return " " * (8 + nb_digits + begin + 1)
+        try:
+            new_lines = [
+                line
+                for line in FriendlyFormatter(
+                    options=Options(blank_lines=BlankLines.SINGLE),
+                    line_number_format_string=lineno_fmt_string,
+                    line_gap_string=line_gap_string,
+                    line_number_gap_string=line_number_gap_string,
+                ).format_frame_source(self)
+            ]
 
-        text_range_mark = None
-        if with_node_range and self.node_info:
-            if self.node_info[1]:
-                begin, end = self.node_info[1]
-                text_range_mark = indent(begin) + "^" * (end - begin)
-            elif self.node_info[2] and isinstance(self.node_info[2], str):
-                text = self.node_info[2]
-                for line_obj in lines:
-                    if line_obj is stack_data.LINE_GAP:
-                        continue
-                    if line_obj.is_current:
-                        begin = line_obj.text.find(text)
-                        if begin >= 0:
-                            text_range_mark = indent(begin) + "^" * len(text)
-
-        marked = False
-        prev_lineno = None
-        # stack_data does not include empty lines. However, I believe that
-        # this might not be helpful for beginners who look at the code
-        # without paying too much attention at the line numbers.
-        # I fixed this below.
-        indentations = []
-        for line_obj in lines:
-            if line_obj is stack_data.LINE_GAP:
-                new_lines.append(line_gap_mark)
-                prev_lineno = None
-                continue
-
-            if prev_lineno and not marked:
-                if line_obj.lineno - prev_lineno == 2:
-                    # add single empty line
-                    num = no_mark.format(prev_lineno + 1)
-                    new_lines.append(num)
-                elif line_obj.lineno - prev_lineno > 2:
-                    # indicate that some empty lines were skipped
-                    new_lines.append(blank_lines_mark)
-
-            if line_obj.is_current:
-                num = with_mark.format(line_obj.lineno)
-                new_lines.append(num + line_obj.text.rstrip())
-                if text_range_mark is not None:
-                    new_lines.append(text_range_mark)
-                    indentations.append(text_range_mark.count(" "))
-                elif self.node_info:
-                    try:
-                        for line_range in line_obj.executing_node_ranges:
-                            begin = line_range.start
-                            end = line_range.end
-                            text_range_mark = indent(begin) + "^" * (end - begin)
-                            new_lines.append(text_range_mark)
-                            indentations.append(text_range_mark.count(" "))
-                    except Exception:
-                        pass
-                marked = True
-            elif marked:
-                num = no_mark.format(line_obj.lineno)
-                new_lines.append(num + line_obj.text.rstrip())
-                for line_range in line_obj.executing_node_ranges:
-                    begin = len(line_obj.text) - len(line_obj.text.lstrip())
-                    end = line_range.end
-                    text_range_mark = indent(begin) + "^" * (end - begin)
-                    if text_range_mark.strip():  # blank lines do not include markers
-                        new_lines.append(text_range_mark)
-                    indentations.append(text_range_mark.count(" "))
-            else:
-                num = no_mark.format(line_obj.lineno)
-                new_lines.append(num + line_obj.text.rstrip())
-            prev_lineno = line_obj.lineno
-
-        return "\n".join(new_lines)
+            return "".join(new_lines)
+        except Exception:
+            return "<NO SOURCE>"
 
     @cached_property
     def node_info(self):

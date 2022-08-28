@@ -17,6 +17,8 @@ import types
 from itertools import dropwhile
 from typing import List, Optional, Sequence, Tuple, Type
 
+from stack_data import BlankLines, Options
+
 from . import debug_helper, info_generic, info_specific, info_variables
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
@@ -131,7 +133,13 @@ class TracebackData:
         at the end of the traceback.
         """
         try:
-            all_records = list(FrameInfo.stack_data(tb, collapse_repeated_frames=False))
+            all_records = list(
+                FrameInfo.stack_data(
+                    tb,
+                    Options(blank_lines=BlankLines.SINGLE),
+                    collapse_repeated_frames=False,
+                )
+            )
             records = list(
                 dropwhile(
                     lambda record: is_excluded_file(
@@ -373,6 +381,8 @@ class FriendlyTraceback:
             self.tb_data = TracebackData(etype, value, tb)
         except Exception as e:  # pragma: no cover
             debug_helper.log("Uncaught exception in TracebackData:")
+            if debug_helper.DEBUG:
+                raise
             debug_helper.handle_internal_error(e)
             raise SystemExit
         self.tb = tb
@@ -584,7 +594,7 @@ class FriendlyTraceback:
         if unavailable:
             return
 
-        if source.strip() in ["-->1:", "1:"]:
+        if source.strip() == "<NO SOURCE>":
             source = _(
                 "{filename} is not a regular Python file whose contents can be analyzed.\n"
             ).format(filename=filename)
