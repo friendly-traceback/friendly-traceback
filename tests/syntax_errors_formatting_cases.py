@@ -11,7 +11,7 @@ descriptions = {}
 
 descriptions["single_line"] = {}
 descriptions["single_line"][where]= """\
-       1: a = {'a': 1, 'b': 2 'c': 3,}
+       1| a = {'a': 1, 'b': 2 'c': 3,}
                             ^^^^^
 """
 descriptions["single_line"][cause] = """\

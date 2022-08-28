@@ -16,8 +16,8 @@ from .syntax_utils import matching_brackets
 # not have to verify the existence of these neighbours.
 MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
 # fmt: off
-LINE_NUMBER        = "       {:%d}: "  # noqa
-MARKED_LINE_NUMBER = "    -->{:%d}: "  # noqa
+LINE_NUMBER        = "       {:%d}| "  # noqa
+MARKED_LINE_NUMBER = "    -->{:%d}| "  # noqa
 LINE_GAP           = "       (...)"  # noqa
 # fmt: on
 
