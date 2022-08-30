@@ -19,6 +19,10 @@ _TokenInfo = Union[
 
 _token_format = "type={type}  string={string}  start={start}  end={end}  line={line}"
 
+UNCLOSED = -9
+assert UNCLOSED not in py_tokenize.tok_name
+py_tokenize.tok_name[UNCLOSED] = "UNCLOSED_STRING"
+
 
 class Token:
     """Token as generated from Python's tokenize.generate_tokens written here in
@@ -135,6 +139,10 @@ class Token:
     def is_string(self) -> bool:
         """Returns True if the token is a string"""
         return self.type == py_tokenize.STRING
+
+    def is_unclosed_string(self) -> bool:
+        """Returns True if the token is part of an unclosed triple-quoted string"""
+        return self.type == UNCLOSED
 
     def immediately_before(self, other: Any) -> bool:
         """Returns True if the current token is immediately before other,
@@ -257,7 +265,49 @@ def tokenize(source: str) -> List[Token]:
             debug_helper.log(repr(e))
             return tokens
     except (py_tokenize.TokenError, Exception):
-        return tokens
+        new_source = untokenize(tokens)
+        if new_source != source:
+            length = len(new_source)
+            remaining = source[length:]
+            if not (remaining.startswith('"""') or remaining.startswith("'''")):
+                return tokens
+            additional_lines = [line + "\n" for line in remaining.split("\n")]
+            # removed extra \n added on last line
+            additional_lines[-1] = additional_lines[-1][0:-1]
+            last_token = tokens[-1]
+            string = additional_lines[0]
+            if new_source.endswith("\n"):
+                start_row = last_token.end_row + 1
+                start_col = 0
+                end_col = len(string)
+                line = string
+            else:
+                start_row = last_token.end_row
+                start_col = last_token.end_col
+                end_col = start_col + len(string)
+                line = last_token.string + string
+            end_row = start_row
+            tokens.append(
+                Token(
+                    (UNCLOSED, string, (start_row, start_col), (end_row, end_col), line)
+                )
+            )
+            for line in additional_lines[1:]:
+                start_row += 1
+                end_row = start_row
+                start_col = 0
+                end_col = len(line)
+                tokens.append(
+                    Token(
+                        (
+                            UNCLOSED,
+                            line,
+                            (start_row, start_col),
+                            (end_row, end_col),
+                            line,
+                        )
+                    )
+                )
 
     if source.endswith((" ", "\t")):
         fix_empty_line(source, tokens)

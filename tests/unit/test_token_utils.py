@@ -127,3 +127,9 @@ def test_immediately_before_and_after():
     assert tokens[1].immediately_after(tokens[0])
     assert not tokens[1].immediately_before(tokens[2])
     assert not tokens[2].immediately_after(tokens[1])
+
+def test_unclosed_triple_quoted_string():
+    with open("tests/unclosed.txt") as f:
+        source = f.read()
+        assert token_utils.untokenize(token_utils.tokenize(source)) == source
+
