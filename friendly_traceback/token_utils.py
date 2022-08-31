@@ -242,7 +242,6 @@ def tokenize(source: str) -> List[Token]:
     accumulated up to that point is returned.
     """
     tokens = []
-
     try:
         for tok in py_tokenize.generate_tokens(StringIO(source).readline):
             token = Token(tok)
@@ -265,49 +264,55 @@ def tokenize(source: str) -> List[Token]:
             debug_helper.log(repr(e))
             return tokens
     except (py_tokenize.TokenError, Exception):
-        new_source = untokenize(tokens)
-        if new_source != source:
-            length = len(new_source)
-            remaining = source[length:]
-            if not (remaining.startswith('"""') or remaining.startswith("'''")):
-                return tokens
-            additional_lines = [line + "\n" for line in remaining.split("\n")]
-            # removed extra \n added on last line
-            additional_lines[-1] = additional_lines[-1][0:-1]
-            last_token = tokens[-1]
-            string = additional_lines[0]
-            if new_source.endswith("\n"):
-                start_row = last_token.end_row + 1
-                start_col = 0
-                end_col = len(string)
-                line = string
-            else:
-                start_row = last_token.end_row
-                start_col = last_token.end_col
-                end_col = start_col + len(string)
-                line = last_token.string + string
+        pass
+
+    new_source = untokenize(tokens)
+    if new_source != source:
+        length = len(new_source)
+        remaining = source[length:]
+        if not (
+            remaining.lstrip().startswith('"""') or remaining.lstrip().startswith("'''")
+        ):
+            if source.endswith((" ", "\t")):
+                fix_empty_line(source, tokens)
+            return tokens
+        additional_lines = [line + "\n" for line in remaining.split("\n")]
+        # removed extra \n added on last line
+        additional_lines[-1] = additional_lines[-1][0:-1]
+        last_token = tokens[-1]
+        string = additional_lines[0]
+        if new_source.endswith("\n"):
+            start_row = last_token.end_row + 1
+            start_col = 0
+            end_col = len(string)
+            line = string
+        else:
+            spaces_before_quotes = len(string) - len(string.lstrip())
+            start_row = last_token.end_row
+            start_col = last_token.end_col + spaces_before_quotes
+            string = string.lstrip()
+            end_col = start_col + len(string)
+            line = last_token.string + string
+        end_row = start_row
+        tokens.append(
+            Token((UNCLOSED, string, (start_row, start_col), (end_row, end_col), line))
+        )
+        for line in additional_lines[1:]:
+            start_row += 1
             end_row = start_row
+            start_col = 0
+            end_col = len(line)
             tokens.append(
                 Token(
-                    (UNCLOSED, string, (start_row, start_col), (end_row, end_col), line)
-                )
-            )
-            for line in additional_lines[1:]:
-                start_row += 1
-                end_row = start_row
-                start_col = 0
-                end_col = len(line)
-                tokens.append(
-                    Token(
-                        (
-                            UNCLOSED,
-                            line,
-                            (start_row, start_col),
-                            (end_row, end_col),
-                            line,
-                        )
+                    (
+                        UNCLOSED,
+                        line,
+                        (start_row, start_col),
+                        (end_row, end_col),
+                        line,
                     )
                 )
+            )
 
     if source.endswith((" ", "\t")):
         fix_empty_line(source, tokens)

@@ -192,6 +192,8 @@ class Statement:
 
         if self.tokens:
             self.assign_individual_token_values()
+            if self.tokens[-1].is_unclosed_string():
+                self.bad_line = self.entire_statement
         elif not self.exceptional_case():  # pragma: no cover
             debug_helper.log("No meaningful tokens in source_info.Statement")
 
@@ -401,6 +403,11 @@ class Statement:
             # however, I am guessing that it more likely indicates
             # a typo, and that the user wanted to write a comma or a colon, so I
             # do not treat them in any special way.
+            if token.is_unclosed_string():
+                token.string = token.string.rstrip()
+                self.statement_tokens.append(token)
+                self.linenumber = token.start_row
+                break
             if token.start_row > previous_row:
                 if previous_token is not None:
                     continuation_line = previous_token.line.endswith("\\\n")
