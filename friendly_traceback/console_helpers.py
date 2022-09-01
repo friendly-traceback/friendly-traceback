@@ -149,9 +149,12 @@ def what(
         session.write_err(result)
 
 
-def where() -> None:
+def where(more=False) -> None:
     """Shows the information about where the exception occurred"""
-    explain("where")
+    if more:
+        explain("detailed_tb")
+    else:
+        explain("where")
 
 
 def why() -> None:
