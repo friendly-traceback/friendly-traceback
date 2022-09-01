@@ -884,6 +884,12 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
         "You started writing a string with a single or double quote\n"
         "but never ended the string with another quote on that line.\n"
     )
+
+    for token in statement.tokens:
+        if token.is_error():
+            statement.location_markers = su.highlight_single_token(token)
+            break
+
     # skipcq: PYL-R1714
     # second if case for Python 3.10
     if statement.prev_token == "\\" or statement.bad_line[-2] == "\\":

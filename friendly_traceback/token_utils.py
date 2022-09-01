@@ -160,6 +160,10 @@ class Token:
             return False
         return other.immediately_before(self)
 
+    def is_error(self) -> bool:
+        """Returns True if the current token is an error token"""
+        return self.type == py_tokenize.ERRORTOKEN
+
 
 def is_assignment(op: Union[str, Token]) -> bool:
     """Returns True if op (string or Token) is an assigment or augmented assignment."""
