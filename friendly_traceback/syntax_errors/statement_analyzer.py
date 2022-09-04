@@ -162,6 +162,13 @@ def copy_pasted_code(statement):
     if first_token not in [">>", "..."]:
         return {}
 
+    if statement.bad_line.strip() == "....":
+        hint = _("Did you mean to write `...`?\n")
+        cause = _(
+            "It looks like you meant to write `...` but added an extra `.` by mistake.\n"
+        )
+        return {"cause": cause, "suggest": hint}
+
     hint = _("Did you use copy-paste?\n")
     if (
         first_token == ">>"

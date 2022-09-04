@@ -567,6 +567,10 @@ descriptions = {
         in_cause: "The `elif` keyword does not begin a code block that matches",
         title: "elif with no matching if",
     },
+    "ellipsis_extra_dot": {
+        in_cause: "It looks like you meant to write `...` but added an extra `.` by mistake",
+        title: "Ellipsis written with extra dot"
+    },
     "else_no_matching_statement": {
         in_cause: "The `else` keyword does not begin a code block that matches",
         title: "else with no matching statement",
