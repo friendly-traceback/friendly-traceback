@@ -120,3 +120,4 @@ mypy.out
 # PyCharm
 .idea
 .idea/
+.DS_Store
