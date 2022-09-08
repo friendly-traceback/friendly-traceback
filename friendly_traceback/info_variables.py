@@ -93,7 +93,10 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                         # guard against the case where obj == Friendly; #106
                         repr_obj = obj.true_repr()
                     else:
-                        repr_obj = repr(obj)
+                        try:
+                            repr_obj = repr(obj)
+                        except Exception:  # issue #161: repr not returning a string
+                            repr_obj = str(type(obj))
                     objects[scope].append((name, repr_obj, obj))
                     objects["name, obj"].append((name, obj))
                     obj_type = type(obj).__name__
