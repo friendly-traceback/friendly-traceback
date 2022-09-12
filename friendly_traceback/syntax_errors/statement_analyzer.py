@@ -842,7 +842,7 @@ def invalid_octal(statement):
         "It looks like you used an invalid character (`{character}`) in an octal number.\n\n"
         "Octal numbers are base 8 integers that only use the symbols `0` to `7`\n"
         "to represent values.\n"
-        "In Python, hexadecimal numbers start with either `0o` or `0O`,\n"
+        "In Python, octal numbers start with either `0o` or `0O`,\n"
         "(the digit zero followed by the letter `o`)\n"
         "followed by the characters used to represent the value of that integer.\n"
     ).format(character=wrong.string[0])

@@ -91,7 +91,9 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                     obj = scope_dict[name]
                     if hasattr(obj, "true_repr"):  # sourcery: skip
                         # guard against the case where obj == Friendly; #106
-                        repr_obj = obj.true_repr()
+                        repr_obj = str(obj.true_repr())
+                        # wrapped in str() for added security in case someone
+                        # else uses an attribute called true_repr
                     else:
                         try:
                             repr_obj = repr(obj)

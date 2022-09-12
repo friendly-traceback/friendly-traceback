@@ -32,6 +32,10 @@ class RuntimeMessageParser:
         """Use as a decorator to add a message parser"""
         self.parsers.append(func)
 
+    def insert(self, func: Parser) -> None:
+        """Use as a decorator to add a message parser as a first one to consider"""
+        self.parsers.insert(0, func)
+
     def get_cause(
         self,
         value_or_message: Union[str, BaseException],
