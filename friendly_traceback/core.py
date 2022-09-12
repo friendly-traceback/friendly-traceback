@@ -721,6 +721,8 @@ class FriendlyTraceback:
         * simulated_python_traceback
         * shortened_traceback
         """
+        from .config import session
+
         if not hasattr(self, "message"):
             self.assign_message(
                 self.tb_data.exception_type, self.tb_data.value, self.tb
@@ -780,14 +782,18 @@ class FriendlyTraceback:
         self.info["simulated_python_traceback"] = (
             chain_info + "\n".join(python_tb) + "\n"
         )
-        self.info["shortened_traceback"] = (
-            short_chain_info + "\n".join(shortened_tb) + "\n"
-        )
         self.info["original_python_traceback"] = chain_info + "\n".join(full_tb) + "\n"
         # The following is needed for some determining the cause in at
         # least one case.
         # skipcq: PYL-W0201
         self.tb_data.simulated_python_traceback = "\n".join(python_tb) + "\n"
+
+        if session.include_chained_exception:
+            self.info["shortened_traceback"] = (
+                short_chain_info + "\n".join(shortened_tb) + "\n"
+            )
+        else:
+            self.info["shortened_traceback"] = "\n".join(shortened_tb) + "\n"
 
     def shorten(self, tb: Sequence[str]) -> List[str]:
         """Shortens a traceback (as list of lines)

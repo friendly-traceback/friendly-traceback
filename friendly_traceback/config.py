@@ -61,6 +61,9 @@ class _State:
         self.jupyter_button_style: str = ""
 
         self.old_excepthook = None
+        # Include chain exception info in shortened/friendly traceback
+        # this should be disabled by Friendly itself.
+        self.include_chained_exception = True
 
     def show_traceback_info_again(self) -> None:
         """If has not been cleared, write the traceback info again, using
