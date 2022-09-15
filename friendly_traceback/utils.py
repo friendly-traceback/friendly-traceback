@@ -20,17 +20,35 @@ if TYPE_CHECKING:
 
 
 class RuntimeMessageParser:
-    """Used to collect message parsers and cycle through them in
-    an attempt at finding the cause of an exception.
+    """This class is used to create objects that collect message parsers
+    and cycle through them in an attempt at finding the cause of an exception.
     """
 
     def __init__(self) -> None:
         self.parsers: List[Parser] = []
+        self.core_parsers: List[Parser] = []
+        self.custom_parsers: List[Parser] = []
         self.current_parser: Parser = None
 
     def add(self, func: Parser) -> None:
-        """Use as a decorator to add a message parser"""
+        """This method is meant to be used only within friendly-traceback.
+        It is used as a decorator to add a message parser to a list that is
+        automatically updated.
+        """
         self.parsers.append(func)
+        self.core_parsers.append(func)
+
+    def add_custom(self, func: Parser) -> None:
+        """This method is meant to be used by projects that extend
+        friendly-traceback. It is used as a decorator to add a message parser
+        to a list that is automatically updated.
+
+            @instance.add_custom
+            def some_message_parser(error, frame, traceback_data):
+                ....
+        """
+        self.custom_parsers.append(func)
+        self.parsers = self.custom_parsers + self.core_parsers
 
     def insert(self, func: Parser) -> None:
         """Use as a decorator to add a message parser as a first one to consider"""
