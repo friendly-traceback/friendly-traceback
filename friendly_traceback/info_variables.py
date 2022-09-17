@@ -407,6 +407,8 @@ def format_multiline(value: str) -> str:
     indent = "\n" + " " * 8
     lines = value.split("\n")
     new_lines = [line if len(line) < 72 else line[:68] + "..." for line in lines]
+    if len(new_lines) > 6:
+        new_lines = new_lines[:6] + ["..."]
     return indent + indent.join(new_lines)
 
 
