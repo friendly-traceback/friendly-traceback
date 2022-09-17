@@ -388,44 +388,56 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     if _global:
         _global = "global "
 
-    not_repr = True
     if value.startswith("<") and value.endswith(">"):
         value = simplify_repr(value)
-        not_repr = False
-
-    if len(value) > MAX_LENGTH and not_repr:
-        # We reduce the length of the repr, indicate this by ..., but we
-        # also keep the last character so that the repr of a list still
-        # ends with ], that of a tuple still ends with ), etc.
-        if "," in value:  # try to truncate at a natural place
-            parts = value.split(", ")
-            length = 0
-            new_parts = []
-            for part in parts:
-                if len(part) + length > MAX_LENGTH:
-                    break
-                new_parts.append(part + ", ")
-                length += len(part) + 2
-            if new_parts:
-                value = "".join(new_parts) + "..." + value[-1]
-            else:
-                value = value[0 : MAX_LENGTH - 5] + "..." + value[-1]
-        else:
-            value = value[0 : MAX_LENGTH - 5] + "..." + value[-1]
-        try:
-            length_info = len(obj)
-        except OverflowError:
-            length_info = _("Object too large to be processed by Python.")
-        except TypeError:
-            pass
-        except Exception as e:
-            length_info = _("Unable to compute.") + f" ({e.__class__.__name__})"
+    elif "\n" in value:
+        value = format_multiline(value)
+    elif len(value) > MAX_LENGTH:
+        value, length_info = shorten_long_line(value, obj)
 
     result = f"    {_global}{name}:  {value}"
     if length_info:
-        _indent = " " * (7 + len(name))
-        result += f"\n{_indent}len({name}): {length_info}\n"
+        indent = " " * min(7 + len(name), 12)
+        result += f"\n{indent}len({name}): {length_info}\n"
     return result
+
+
+def format_multiline(value: str) -> str:
+    # This is useful for tabular data
+    indent = "\n" + " " * 8
+    lines = value.split("\n")
+    new_lines = [line if len(line) < 72 else line[:68] + "..." for line in lines]
+    return indent + indent.join(new_lines)
+
+
+def shorten_long_line(value: str, obj: str) -> (str, str):
+    # We reduce the length of the repr, indicate this by ..., but we
+    # also keep the last character so that the repr of a list still
+    # ends with ], that of a tuple still ends with ), etc.
+    if "," in value:  # try to truncate at a natural place
+        parts = value.split(", ")
+        length = 0
+        new_parts = []
+        for part in parts:
+            if len(part) + length > MAX_LENGTH:
+                break
+            new_parts.append(part + ", ")
+            length += len(part) + 2
+        if new_parts:
+            value = "".join(new_parts) + "..." + value[-1]
+        else:
+            value = value[0 : MAX_LENGTH - 5] + "..." + value[-1]
+    else:
+        value = value[0 : MAX_LENGTH - 5] + "..." + value[-1]
+    try:
+        length_info = len(obj)
+    except OverflowError:
+        length_info = _("Object too large to be processed by Python.")
+    except TypeError:
+        length_info = ""
+    except Exception as e:
+        length_info = _("Unable to compute.") + f" ({e.__class__.__name__})"
+    return value, length_info
 
 
 def get_similar_names(name: str, frame: types.FrameType) -> SimilarNamesInfo:
