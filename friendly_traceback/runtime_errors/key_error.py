@@ -77,6 +77,7 @@ def missing_key_in_chain_map(
     if "Key not found in the first mapping: " not in message:
         return {}
 
+    value = tb_data.value
     key = value.args[0]
     if not (
         isinstance(key, str) and key.startswith("Key not found in the first mapping: ")
@@ -110,6 +111,7 @@ def missing_key_in_chain_map(
 def missing_key_in_dict(
     value: KeyError, frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
+    value = tb_data.value
     key = value.args[0]
     bad_line = tb_data.bad_line.strip()
     if bad_line.startswith("raise "):
@@ -125,6 +127,7 @@ def missing_key_in_dict_like(
     value: KeyError, _frame: FrameType, tb_data: TracebackData
 ) -> CauseInfo:
     """Case where a KeyError is raised internally, from user code"""
+    value = tb_data.value
     key = value.args[0]
     bad_line = tb_data.bad_line.strip()
     if not bad_line.startswith("raise "):

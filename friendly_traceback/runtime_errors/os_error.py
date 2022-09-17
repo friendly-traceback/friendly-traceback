@@ -36,6 +36,7 @@ def invalid_argument(
 ) -> CauseInfo:
     if "Invalid argument:" not in str(value):
         return {}
+    value = tb_data.value
     filename = value.filename
     repr_filename = repr(filename)
     if "\\" not in filename and "\\" in repr_filename:

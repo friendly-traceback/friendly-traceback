@@ -17,7 +17,8 @@ from . import message_parser
 
 
 def initiate_parsers() -> None:
-
+    # These import are done in a function to prevent circular import errors
+    from .runtime_errors import attribute_error  # noqa
     from .runtime_errors import file_not_found_error  # noqa
 
 
@@ -26,7 +27,7 @@ _ = current_lang.translate
 
 
 def get_likely_cause(
-    etype: Type[_E], value: _E, frame: FrameType, tb_data: "TracebackData"
+    etype: Type[_E], value: str, frame: FrameType, tb_data: "TracebackData"
 ) -> CauseInfo:
     """Gets the likely cause of a given exception based on some information
     specific to a given exception.
@@ -66,13 +67,13 @@ def register(error_name: Type[_E]) -> Callable[[Explain[_E]], None]:
     return add_exception
 
 
-@register(AttributeError)
-def _attribute_error(
-    value: AttributeError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import attribute_error
-
-    return attribute_error.parser.get_cause(str(value), frame, tb_data)
+# @register(AttributeError)
+# def _attribute_error(
+#     value: AttributeError, frame: FrameType, tb_data: "TracebackData"
+# ) -> CauseInfo:
+#     from .runtime_errors import attribute_error
+#
+#     return attribute_error.parser.get_cause(str(value), frame, tb_data)
 
 
 # @register(FileNotFoundError)

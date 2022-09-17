@@ -14,12 +14,12 @@ from typing import Any, Callable, Dict, List, Optional, Type, Union
 import friendly_traceback
 from friendly_traceback import __version__, base_formatters, debug_helper
 from friendly_traceback.config import session
-from friendly_traceback.core import TracebackData
 from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.functions_help import add_help_attribute
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
 from friendly_traceback.syntax_errors.source_info import Statement
+from friendly_traceback.tb_data import TracebackData
 from friendly_traceback.typing_info import InclusionChoice, Site
 
 _ = current_lang.translate
