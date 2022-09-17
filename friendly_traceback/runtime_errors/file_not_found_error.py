@@ -1,19 +1,19 @@
 import os
 import re
-from types import FrameType
 
 from ..core import TracebackData
 from ..ft_gettext import current_lang
+from ..message_parser import get_parser
 from ..typing_info import CauseInfo
-from ..utils import RuntimeMessageParser, get_similar_words
+from ..utils import get_similar_words
 
-parser = RuntimeMessageParser()
+parser = get_parser(FileNotFoundError)
 _ = current_lang.translate
 
 
-@parser.add
+@parser._add
 def no_such_file_or_directory(
-    value: FileNotFoundError, _frame: FrameType, _tb_data: TracebackData
+    value: FileNotFoundError, _tb_data: TracebackData
 ) -> CauseInfo:
     pattern = re.compile("No such file or directory: '(.*)'")
     match = re.search(pattern, str(value))

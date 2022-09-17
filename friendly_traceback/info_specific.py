@@ -13,6 +13,13 @@ from .typing_info import _E, CauseInfo, Explain
 if TYPE_CHECKING:
     from .core import TracebackData
 
+from . import message_parser
+
+
+def initiate_parsers() -> None:
+
+    from .runtime_errors import file_not_found_error  # noqa
+
 
 get_cause: Dict[Type[BaseException], Explain[BaseException]] = {}
 _ = current_lang.translate
@@ -31,6 +38,11 @@ def get_likely_cause(
         debug_helper.log("Exception caught in get_likely_cause().")
         debug_helper.log_error(e)
         return {"cause": internal_error(e)}
+
+    initiate_parsers()
+
+    if etype in message_parser.RUNTIME_MESSAGE_PARSERS:
+        return message_parser.get_cause(etype, value, tb_data)
 
     try:
         # see if it could be the result of using socket, or urllib, urllib3, etc.
@@ -63,13 +75,13 @@ def _attribute_error(
     return attribute_error.parser.get_cause(str(value), frame, tb_data)
 
 
-@register(FileNotFoundError)
-def _file_not_found_error(
-    value: FileNotFoundError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import file_not_found_error
-
-    return file_not_found_error.parser.get_cause(value, frame, tb_data)
+# @register(FileNotFoundError)
+# def _file_not_found_error(
+#     value: FileNotFoundError, frame: FrameType, tb_data: "TracebackData"
+# ) -> CauseInfo:
+#     from .runtime_errors import file_not_found_error
+#
+#     return file_not_found_error.parser.get_cause(value, frame, tb_data)
 
 
 @register(ImportError)
