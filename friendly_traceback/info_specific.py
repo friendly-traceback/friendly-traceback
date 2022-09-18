@@ -66,15 +66,6 @@ def _os_error(value: OSError, frame: FrameType, tb_data: "TracebackData") -> Cau
     return os_error.parser.get_cause(value, frame, tb_data)
 
 
-@register(ValueError)
-def _value_error(
-    value: ValueError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import value_error
-
-    return value_error.parser.get_cause(str(value), frame, tb_data)
-
-
 @register(UnboundLocalError)
 def _unbound_local_error(
     value: UnboundLocalError, frame: FrameType, tb_data: "TracebackData"

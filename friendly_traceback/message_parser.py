@@ -16,6 +16,7 @@ INCLUDED_PARSERS = {
     NameError: "name_error",
     RuntimeError: "runtime_error",
     TypeError: "type_error",
+    ValueError: "value_error",
 }
 RUNTIME_MESSAGE_PARSERS = {}
 
