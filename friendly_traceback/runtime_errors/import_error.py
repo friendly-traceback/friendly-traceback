@@ -2,24 +2,22 @@
 
 import re
 import sys
-from types import FrameType
 from typing import List, Optional, Tuple
 
 from .. import debug_helper
-from ..core import TracebackData
 from ..ft_gettext import current_lang, please_report
+from ..message_parser import get_parser
 from ..path_info import path_utils
-from ..typing_info import CauseInfo
-from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
+from ..utils import get_similar_words, list_to_string
 
-parser = RuntimeMessageParser()
+parser = get_parser(ImportError)
 _ = current_lang.translate
 
 
-@parser.add
-def partially_initialized_module(
-    message: str, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def partially_initialized_module(message: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.8+
     pattern = re.compile(
         r"cannot import name '(.*)' from partially initialized module '(.*)'"
@@ -38,10 +36,8 @@ def partially_initialized_module(
     )  # pragma: no cover
 
 
-@parser.add
-def _cannot_import_name_from(
-    message: str, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def _cannot_import_name_from(message: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.7+
     pattern = re.compile(r"cannot import name '(.*)' from '(.*)'")
     match = re.search(pattern, message)
@@ -50,10 +46,8 @@ def _cannot_import_name_from(
     return cannot_import_name_from(match.group(1), match.group(2), tb_data)
 
 
-@parser.add
-def _cannot_import_name(
-    message: str, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def _cannot_import_name(message: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.6 does not give us more information
     pattern = re.compile(r"cannot import name '(.*)'")
     match = re.search(pattern, message)

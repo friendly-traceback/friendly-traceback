@@ -9,6 +9,7 @@ from .typing_info import _E, CauseInfo, Parser
 INCLUDED_PARSERS = {
     AttributeError: "attribute_error",
     FileNotFoundError: "file_not_found_error",
+    ImportError: "import_error",
 }
 RUNTIME_MESSAGE_PARSERS = {}
 

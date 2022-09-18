@@ -58,33 +58,6 @@ def register(error_name: Type[_E]) -> Callable[[Explain[_E]], None]:
     return add_exception
 
 
-# @register(AttributeError)
-# def _attribute_error(
-#     value: AttributeError, frame: FrameType, tb_data: "TracebackData"
-# ) -> CauseInfo:
-#     from .runtime_errors import attribute_error
-#
-#     return attribute_error.parser.get_cause(str(value), frame, tb_data)
-
-
-# @register(FileNotFoundError)
-# def _file_not_found_error(
-#     value: FileNotFoundError, frame: FrameType, tb_data: "TracebackData"
-# ) -> CauseInfo:
-#     from .runtime_errors import file_not_found_error
-#
-#     return file_not_found_error.parser.get_cause(value, frame, tb_data)
-
-
-@register(ImportError)
-def _import_error(
-    value: ImportError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import import_error
-
-    return import_error.parser.get_cause(str(value), frame, tb_data)
-
-
 @register(IndexError)
 def _index_error(
     value: IndexError, frame: FrameType, tb_data: "TracebackData"
