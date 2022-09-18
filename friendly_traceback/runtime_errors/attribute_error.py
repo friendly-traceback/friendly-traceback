@@ -7,21 +7,20 @@ from types import FrameType
 from typing import Any, Iterable, List, Optional, Sequence
 
 from .. import console_helpers, debug_helper, info_variables, utils
-from ..core import TracebackData
 from ..ft_gettext import current_lang, please_report
+from ..message_parser import get_parser
 from ..path_info import path_utils
-from ..typing_info import CauseInfo
-from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
+from ..utils import get_similar_words, list_to_string
 from . import stdlib_modules
 
-parser = RuntimeMessageParser()
+parser = get_parser(AttributeError)
 _ = current_lang.translate
 
 
-@parser.add
-def circular_import(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def circular_import(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"partially initialized module '(.*)' has")
     match = re.search(pattern, message)
     if not match:
@@ -55,10 +54,8 @@ def circular_import(
 # ======= Attribute error in module =========
 
 
-@parser.add
-def attribute_error_in_module(
-    message: str, frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo:
     """Attempts to find if a module attribute or module name might have been misspelled"""
     pattern = re.compile(r"module '(.*)' has no attribute '(.*)'")
     match = re.search(pattern, message)
@@ -66,6 +63,7 @@ def attribute_error_in_module(
         return {}
     module = match.group(1)
     attribute = match.group(2)
+    frame = tb_data.exception_frame
 
     try:
         mod = sys.modules[module]
@@ -163,27 +161,25 @@ def attribute_error_in_module(
     return {"cause": cause}
 
 
-@parser.add
-def type_object_has_no_attribute(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def type_object_has_no_attribute(message: str, tb_data: TracebackData) -> CauseInfo:
     """Attempts to find if a module attribute or module name might have been misspelled"""
     pattern = re.compile(r"type object '(.*)' has no attribute '(.*)'")
     match = re.search(pattern, message)
     if not match:
         return {}
+    frame = tb_data.exception_frame
 
     return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
 
 
-@parser.add
-def attribute_error_in_object(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def attribute_error_in_object(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"'(.*)' object has no attribute '(.*)'")
     match = re.search(pattern, message)
     if not match:
         return {}
+    frame = tb_data.exception_frame
 
     if match.group(1) == "NoneType":
         return {
@@ -196,16 +192,16 @@ def attribute_error_in_object(
     return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
 
 
-@parser.add
-def object_attribute_is_read_only(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def object_attribute_is_read_only(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = r"'(.*)' object attribute '(.*)' is read-only"
     match = re.search(pattern, message)
     if match is None:
         return {}
     obj_type = match.group(1)
     attribute = match.group(2)
+    frame = tb_data.exception_frame
+
     obj = info_variables.get_object_from_name(obj_type, frame)
     if not hasattr(obj, "__slots__"):
         cause = _(

@@ -2,29 +2,29 @@
 
 import ast
 import re
-from types import FrameType
+from typing import Dict
 
 import pure_eval
 
-from .. import debug_helper, info_variables, utils
-from ..core import TracebackData
+from .. import debug_helper, info_variables
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 
-parser = utils.RuntimeMessageParser()
+parser = get_parser(IndexError)
 _ = current_lang.translate
 
 
-@parser.add
-def object_assignment_out_of_range(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def object_assignment_out_of_range(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"(.*) assignment index out of range")
     match = re.search(pattern, message)
     if not match:
         return {}
 
     obj_type = match.group(1)
+    frame = tb_data.exception_frame
     # first, try to identify object
     left_hand_side = tb_data.bad_line.split("=")[0].strip()
     all_objects = info_variables.get_all_objects(left_hand_side, frame)
@@ -74,7 +74,7 @@ def object_assignment_out_of_range(
     return {"cause": cause}
 
 
-def cannot_identify_object(obj_type, bad_line):
+def cannot_identify_object(obj_type: str, bad_line: str) -> Dict:
     message = f"Cannot identify `{obj_type}` object. line: {bad_line}"
     debug_helper.log(message)
     cause = _(
@@ -85,32 +85,32 @@ def cannot_identify_object(obj_type, bad_line):
     return {"cause": cause}
 
 
-@parser.add
-def index_out_of_range(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def index_out_of_range(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"(.*) index out of range")
     match = re.search(pattern, message)
     if not match:
         return {}
 
     obj_type = match.group(1)
+    frame = tb_data.exception_frame
+    bad_line = tb_data.bad_line
     # first, try to identify object
-    all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)
+    all_objects = info_variables.get_all_objects(bad_line, frame)
     for name, sequence in all_objects["name, obj"]:
-        truncated = tb_data.bad_line.replace(name, "", 1).strip()
+        truncated = bad_line.replace(name, "", 1).strip()
         if truncated.startswith("[") and truncated.endswith("]"):
             break
     else:  # pragma: no cover
-        return cannot_identify_object(obj_type, tb_data.bad_line)
+        return cannot_identify_object(obj_type, bad_line)
 
     try:
         node = tb_data.node
     except Exception:  # noqa # pragma: no cover
-        return cannot_identify_object(obj_type, tb_data.bad_line)
+        return cannot_identify_object(obj_type, bad_line)
 
     if not (node and isinstance(node, ast.Subscript)):  # pragma: no cover
-        return cannot_identify_object(obj_type, tb_data.bad_line)
+        return cannot_identify_object(obj_type, bad_line)
 
     length = len(sequence)
     evaluator = pure_eval.Evaluator.from_frame(frame)

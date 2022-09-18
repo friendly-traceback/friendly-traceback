@@ -10,12 +10,13 @@ from types import FrameType
 from typing import Any, List, Optional, Tuple, Type
 
 from .. import debug_helper, info_variables, token_utils, utils
-from ..core import TracebackData
 from ..ft_gettext import current_lang, no_information, please_report
-from ..typing_info import CauseInfo
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 
 convert_type = info_variables.convert_type
-parser = utils.RuntimeMessageParser()
+parser = get_parser(TypeError)
 _ = current_lang.translate
 
 
@@ -61,9 +62,9 @@ def _convert_str_to_number(
     return cause, hint
 
 
-@parser.add
+@parser._add
 def cant_take_floor_or_mod_of_complex_number(
-    message: str, _frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     if "can't take floor or mod of complex number." not in message:
         return {}
@@ -81,10 +82,8 @@ def cant_take_floor_or_mod_of_complex_number(
     return {"cause": cause}
 
 
-@parser.add
-def unsupported_type_for_divmod(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def unsupported_type_for_divmod(message: str, _tb_data: TracebackData) -> CauseInfo:
     # TODO: try with string arguments
     if "unsupported operand type(s) for divmod()" not in message:
         return {}
@@ -96,9 +95,9 @@ def unsupported_type_for_divmod(
     return {"cause": cause}
 
 
-@parser.add
+@parser._add
 def getattr_or_hasattr_attribute_name_must_be_string(
-    message: str, _frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     # Python 3.11 does not include 'getattr()' nor 'hasattr()' in message
     # We make the assumption that if the name of these function appears in
@@ -124,10 +123,8 @@ def getattr_or_hasattr_attribute_name_must_be_string(
     return {"cause": cause}
 
 
-@parser.add
-def parse_can_only_concatenate(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def parse_can_only_concatenate(message: str, tb_data: TracebackData) -> CauseInfo:
     # example: can only concatenate str (not "int") to str
     pattern = re.compile(
         r"can only concatenate (\w+) \(not [\'\"](\w+)[\'\"]\) to (\w+)"
@@ -138,6 +135,7 @@ def parse_can_only_concatenate(
 
     obj_type1 = match.group(1)
     obj_type2 = match.group(2)
+    frame = tb_data.exception_frame
 
     cause = _(
         "You tried to concatenate (add) two different types of objects:\n"
@@ -152,10 +150,8 @@ def parse_can_only_concatenate(
     return {"cause": cause}
 
 
-@parser.add
-def parse_must_be_str(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def parse_must_be_str(message: str, tb_data: TracebackData) -> CauseInfo:
     # python 3.6 version: must be str, not int
     # example: can only concatenate str (not "int") to str
     pattern = re.compile(r"must be str, not (\w+)")
@@ -163,6 +159,7 @@ def parse_must_be_str(
     if match is None:
         return {}
 
+    frame = tb_data.exception_frame
     cause = _(
         "You tried to concatenate (add) two different types of objects:\n"
         "{first} and {second}.\n"
@@ -176,10 +173,8 @@ def parse_must_be_str(
     return {"cause": cause}
 
 
-@parser.add
-def parse_unsupported_operand_type(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def parse_unsupported_operand_type(message: str, tb_data: TracebackData) -> CauseInfo:
     more_cause = possible_hint = hint = None
     # example: unsupported operand type(s) for +: 'int' and 'str'
     pattern = re.compile(
@@ -189,6 +184,7 @@ def parse_unsupported_operand_type(
     if match is None:
         return {}
 
+    frame = tb_data.exception_frame
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
     operator = match.group(1)
     obj_type1 = match.group(2)
@@ -290,10 +286,8 @@ def parse_unsupported_operand_type(
     return cause
 
 
-@parser.add
-def parse_order_comparison(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def parse_order_comparison(message: str, tb_data: TracebackData) -> CauseInfo:
     # example: '<' not supported between instances of 'int' and 'str'
     pattern = re.compile(
         r"[\'\"](.+)[\'\"] not supported between instances of [\'\"](\w+)[\'\"] and [\'\"](\w+)[\'\"]"  # noqa
@@ -302,6 +296,7 @@ def parse_order_comparison(
     if match is None:
         return {}
 
+    frame = tb_data.exception_frame
     if match.group(2) == match.group(3) == "complex":
         hint = _("Complex numbers cannot be ordered.\n")
         cause = _(
@@ -336,10 +331,8 @@ def parse_order_comparison(
     return {"cause": cause}
 
 
-@parser.add
-def bad_operand_type_for_unary(
-    message: str, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def bad_operand_type_for_unary(message: str, tb_data: TracebackData) -> CauseInfo:
     # example: bad operand type for unary +: 'str'
     pattern = re.compile(r"bad operand type for unary (.+): [\'\"](\w+)[\'\"]")
     match = re.search(pattern, message)
@@ -377,9 +370,9 @@ def bad_operand_type_for_unary(
     return cause
 
 
-@parser.add
+@parser._add
 def does_not_support_item_assignment(
-    message: str, _frame: FrameType, _tb_data: TracebackData
+    message: str, _tb_data: TracebackData
 ) -> CauseInfo:
     # example: 'tuple' object does not support item assignment
     pattern = re.compile(r"[\'\"](\w+)[\'\"] object does not support item assignment")
@@ -404,9 +397,9 @@ def does_not_support_item_assignment(
     return cause
 
 
-@parser.add
+@parser._add
 def exception_derived_from_base_exception(
-    message: str, _frame: FrameType, _tb_data: TracebackData
+    message: str, _tb_data: TracebackData
 ) -> CauseInfo:
     if "exceptions must derive from BaseException" in message:
         return {
@@ -415,9 +408,9 @@ def exception_derived_from_base_exception(
     return {}
 
 
-@parser.add
+@parser._add
 def incorrect_nb_positional_arguments(
-    message: str, _frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     missing_self = False
     # example: my_function() takes 0 positional arguments but x was/were given
@@ -462,10 +455,8 @@ def incorrect_nb_positional_arguments(
     return cause
 
 
-@parser.add
-def missing_positional_arguments(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def missing_positional_arguments(message: str, _tb_data: TracebackData) -> CauseInfo:
     # example: my_function() missing 1 required positional argument
     pattern = re.compile(r"(.*) missing (\d+) required positional argument")
     match = re.search(pattern, message)
@@ -481,15 +472,14 @@ def missing_positional_arguments(
     }
 
 
-@parser.add
-def x_is_not_callable(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def x_is_not_callable(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"'(.*)' object is not callable")
     match = re.search(pattern, message)
     if match is None:
         return {}
 
+    frame = tb_data.exception_frame
     obj_type = match.group(1)
     if obj_type == "NoneType":
         none_type = _(
@@ -594,13 +584,12 @@ def forgot_to_convert_name_to_int(name: str) -> Tuple[str, str]:
     return additional_cause, hint
 
 
-@parser.add
-def cannot_multiply_by_str(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def cannot_multiply_by_str(message: str, tb_data: TracebackData) -> CauseInfo:
     if "can't multiply sequence by non-int of type 'str'" not in message:
         return {}
 
+    frame = tb_data.exception_frame
     cause = _(
         "You can only multiply sequences, such as list, tuples,\n "
         "strings, etc., by integers.\n"
@@ -650,15 +639,16 @@ def find_possible_integers(
     return names
 
 
-@parser.add
+@parser._add
 def object_cannot_be_interpreted_as_an_integer(
-    message: str, frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     pattern = re.compile(r"'(.*)' object cannot be interpreted as an integer")
     match = re.search(pattern, message)
     if match is None:
         return {}
 
+    frame = tb_data.exception_frame
     obj_name = match.group(1)
     if obj_name == "NoneType":
         cause = _(
@@ -695,15 +685,16 @@ def object_cannot_be_interpreted_as_an_integer(
     return cause
 
 
-@parser.add
+@parser._add
 def indices_must_be_integers_or_slices(
-    message: str, frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     pattern = re.compile(r"(.*) indices must be integers or slices, not (.*)")
     match = re.search(pattern, message)
     if match is None:
         return {}
 
+    frame = tb_data.exception_frame
     container_type = match.group(1)
     index_type = match.group(2)
     cause = _(
@@ -821,9 +812,9 @@ def indices_must_be_integers_or_slices(
     return {"cause": cause}
 
 
-@parser.add
+@parser._add
 def slice_indices_must_be_integers_or_none(
-    message: str, _frame: FrameType, _tb_data: TracebackData
+    message: str, _tb_data: TracebackData
 ) -> CauseInfo:
     if message != (
         "slice indices must be integers or None or have an __index__ method"
@@ -840,10 +831,8 @@ def slice_indices_must_be_integers_or_none(
     return {"cause": cause}
 
 
-@parser.add
-def unhashable_type(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def unhashable_type(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"unhashable type: '(.*)'")
     match = re.search(pattern, message)
     if match is None:
@@ -869,15 +858,14 @@ def unhashable_type(
     return {"cause": cause}
 
 
-@parser.add
-def object_is_not_subscriptable(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def object_is_not_subscriptable(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"'(.*)' object is not subscriptable")
     match = re.search(pattern, message)
     if match is None:
         return {}
 
+    frame = tb_data.exception_frame
     obj_type = match.group(1)
     if obj_type == "NoneType":
         none_type = _(
@@ -926,9 +914,9 @@ def object_is_not_subscriptable(
     return {"cause": cause + none_type}
 
 
-@parser.add
+@parser._add
 def argument_of_object_is_not_iterable(
-    message: str, _frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     """This is usually the result of checking if something is contained
     in an object, so the code would include '... in ...'."""
@@ -960,10 +948,8 @@ def argument_of_object_is_not_iterable(
     return {"cause": cause}
 
 
-@parser.add
-def object_is_not_iterable(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def object_is_not_iterable(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"'(.*)' object is not iterable")
     match = re.search(pattern, message)
     if match is None:
@@ -977,10 +963,8 @@ def object_is_not_iterable(
     return {"cause": cause}
 
 
-@parser.add
-def cannot_unpack_non_iterable(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def cannot_unpack_non_iterable(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"cannot unpack non-iterable (.*) object")
     match = re.search(pattern, message)
     if match is None:
@@ -998,9 +982,9 @@ def cannot_unpack_non_iterable(
     return {"cause": cause}
 
 
-@parser.add
+@parser._add
 def cannot_convert_dictionary_update_sequence(
-    message: str, _frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     if "cannot convert dictionary update sequence element" not in message:
         return {}
@@ -1033,12 +1017,12 @@ def cannot_convert_dictionary_update_sequence(
     return {"cause": cause, "suggest": hint}
 
 
-@parser.add
-def builtin_callable_has_no_len(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def builtin_callable_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
     if message != "object of type 'builtin_function_or_method' has no len()":
         return {}
+
+    frame = tb_data.exception_frame
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
     for name, obj in all_objects:
         if name == "len":
@@ -1057,12 +1041,12 @@ def builtin_callable_has_no_len(
     return {"cause": cause, "suggest": hint}
 
 
-@parser.add
-def function_has_no_len(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def function_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
     if message != "object of type 'function' has no len()":
         return {}
+
+    frame = tb_data.exception_frame
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
     for name, obj in all_objects:
         if name == "len":
@@ -1081,12 +1065,12 @@ def function_has_no_len(
     return {"cause": cause, "suggest": hint}
 
 
-@parser.add
-def vars_arg_must_have_dict(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def vars_arg_must_have_dict(message: str, tb_data: TracebackData) -> CauseInfo:
     if message != "vars() argument must have __dict__ attribute":
         return {}
+
+    frame = tb_data.exception_frame
     cause = _(
         "The function `vars` is used to list the content of the\n"
         "`__dict__` attribute of an object.\n"
@@ -1107,14 +1091,14 @@ def vars_arg_must_have_dict(
     return {"cause": cause}
 
 
-@parser.add
-def function_got_multiple_argument(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def function_got_multiple_argument(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = r"(.*)\(\) got multiple values for argument '(.*)'"
     match = re.search(pattern, message)
     if not match:
         return {}
+
+    frame = tb_data.exception_frame
     function_name = match.group(1)
     # Annoyingly, Python 3.10 inserts <locals> as part of the name of functions
     # defined locally, which is what we often do in unit tests.
@@ -1152,10 +1136,8 @@ def function_got_multiple_argument(
     return {"cause": cause}
 
 
-@parser.add
-def generator_has_no_len(
-    message: str, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def generator_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
     if message != "object of type 'generator' has no len()":
         return {}
     cause = _(

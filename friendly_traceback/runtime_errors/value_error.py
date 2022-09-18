@@ -11,12 +11,13 @@ from types import FrameType
 from typing import Any, Optional, Tuple
 
 from .. import debug_helper, info_variables, token_utils, utils
-from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 
 convert_type = info_variables.convert_type
-parser = utils.RuntimeMessageParser()
+parser = get_parser(ValueError)
 _ = current_lang.translate
 
 
@@ -51,10 +52,8 @@ def get_iterable(code: str, frame: FrameType) -> Tuple[Any, Optional[str]]:
     return obj, iterable
 
 
-@parser.add
-def not_enough_values_to_unpack(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def not_enough_values_to_unpack(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern1 = re.compile(r"not enough values to unpack \(expected (\d+), got (\d+)\)")
     match1 = re.search(pattern1, message)
     pattern2 = re.compile(
@@ -65,7 +64,7 @@ def not_enough_values_to_unpack(
         return {}
 
     match = match1 if match2 is None else match2
-
+    frame = tb_data.exception_frame
     nb_names = match.group(1)
     length = match.group(2)
 
@@ -92,16 +91,15 @@ def not_enough_values_to_unpack(
     return {"cause": cause}
 
 
-@parser.add
-def too_many_values_to_unpack(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def too_many_values_to_unpack(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"too many values to unpack \(expected (\d+)\)")
     match = re.search(pattern, message)
     if match is None:
         return {}
 
     nb_names = match.group(1)
+    frame = tb_data.exception_frame
 
     if tb_data.bad_line.count("=") != 1:
         cause = _unpacking() + _(
@@ -127,10 +125,8 @@ def too_many_values_to_unpack(
     return {"cause": cause}
 
 
-@parser.add
-def invalid_literal_for_int(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def invalid_literal_for_int(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"invalid literal for int\(\) with base (\d+): '(.*)'")
     match = re.search(pattern, message)
     if match is None:
@@ -215,8 +211,8 @@ def _convert_to_float(value: Any) -> CauseInfo:
     return {"cause": cause, "suggest": hint}
 
 
-@parser.add
-def base_for_int(message: str, _frame: FrameType, tb_data: TracebackData) -> CauseInfo:
+@parser._add
+def base_for_int(message: str, tb_data: TracebackData) -> CauseInfo:
     if message != "int() base must be >= 2 and <= 36, or 0":
         return {}
     pattern = re.compile(r",\s*base\s*=(\d+)\s*\)")
@@ -232,9 +228,9 @@ def base_for_int(message: str, _frame: FrameType, tb_data: TracebackData) -> Cau
     return {"cause": cause}
 
 
-@parser.add
+@parser._add
 def date_month_must_be_between_1_and_12(
-    message: str, _frame: FrameType, _tb_data: TracebackData
+    message: str, _tb_data: TracebackData
 ) -> CauseInfo:
     if message != "month must be in 1..12":
         return {}
@@ -247,10 +243,8 @@ def date_month_must_be_between_1_and_12(
     return {"cause": cause, "suggest": hint}
 
 
-@parser.add
-def could_not_convert_to_float(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def could_not_convert_to_float(message: str, _tb_data: TracebackData) -> CauseInfo:
     if not message.startswith("could not convert string to float: "):
         return {}
     pattern = re.compile(r"could not convert string to float: '(.*)'")
@@ -265,9 +259,9 @@ def could_not_convert_to_float(
     return {"cause": cause}
 
 
-@parser.add
+@parser._add
 def slots_conflicts_with_class_variable(
-    message: str, _frame: FrameType, _tb_data: TracebackData
+    message: str, _tb_data: TracebackData
 ) -> CauseInfo:
     pattern = r"'(.*)' in __slots__ conflicts with class variable"
     match = re.search(pattern, message)
@@ -282,21 +276,19 @@ def slots_conflicts_with_class_variable(
     return {"cause": cause}
 
 
-@parser.add
-def pow_third_arg_cannot_be_zero(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def pow_third_arg_cannot_be_zero(message: str, _tb_data: TracebackData) -> CauseInfo:
     if message != "pow() 3rd argument cannot be 0":
         return {}
     return {"cause": _("The third argument of the function `pow()` cannot be zero.\n")}
 
 
-@parser.add
-def unrecognized_message(
-    _value: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def unrecognized_message(_value: str, tb_data: TracebackData) -> CauseInfo:
     """This attempts to provide some help when a message is not recognized."""
     bad_line = tb_data.bad_line.strip()
+    frame = tb_data.exception_frame
+
     if bad_line.startswith("raise ") or bad_line.startswith("raise\t"):
         try:
             name = inspect.getframeinfo(frame).function
@@ -331,10 +323,8 @@ def unrecognized_message(
     return {"cause": cause}
 
 
-@parser.add
-def time_strptime_incorrect_format(
-    value: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def time_strftime_incorrect_format(value: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = r"time data '(.*)' does not match format '(.*)'"
     match = re.search(pattern, str(value))
     if not match:

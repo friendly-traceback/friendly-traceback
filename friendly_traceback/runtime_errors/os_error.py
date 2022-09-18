@@ -1,18 +1,14 @@
-from types import FrameType
-
-from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo
-from ..utils import RuntimeMessageParser
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 
-parser = RuntimeMessageParser()
+parser = get_parser(OSError)
 _ = current_lang.translate
 
 
-@parser.add
-def handle_connection_error(
-    _value: OSError, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def handle_connection_error(_message: OSError, tb_data: TracebackData) -> CauseInfo:
     tb = "\n".join(tb_data.formatted_tb)
     if (
         "socket.gaierror" in tb
@@ -30,12 +26,11 @@ def handle_connection_error(
     return {}
 
 
-@parser.add
-def invalid_argument(
-    value: OSError, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
-    if "Invalid argument:" not in str(value):
+@parser._add
+def invalid_argument(message: str, tb_data: TracebackData) -> CauseInfo:
+    if "Invalid argument:" not in message:
         return {}
+    value = tb_data.value
     filename = value.filename
     repr_filename = repr(filename)
     if "\\" not in filename and "\\" in repr_filename:
