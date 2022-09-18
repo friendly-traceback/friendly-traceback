@@ -13,7 +13,7 @@ import traceback
 import types
 from typing import List, Optional, Sequence, Type
 
-from . import debug_helper, info_generic, info_specific, info_variables, tb_data
+from . import debug_helper, info_generic, info_variables, message_parser, tb_data
 from .frame_info import FrameInfo
 from .ft_gettext import current_lang
 from .path_info import path_utils
@@ -207,9 +207,7 @@ class FriendlyTraceback:
         etype = self.tb_data.exception_type
         message = self.tb_data.message
 
-        cause = info_specific.get_likely_cause(
-            etype, message, self.tb_data.exception_frame, self.tb_data
-        )  # [3]
+        cause = message_parser.get_likely_cause(etype, message, self.tb_data)  # [3]
         self.info.update(**cause)
 
     def set_cause_syntax(self) -> None:

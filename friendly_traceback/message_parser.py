@@ -69,32 +69,50 @@ def get_parser(exception_type: Type[_E]) -> RuntimeMessageParser:
     return RUNTIME_MESSAGE_PARSERS[exception_type]
 
 
-def get_cause(
+def get_likely_cause(
     exception_type,
     message: str,
     tb_data: TracebackData,
 ) -> CauseInfo:
-    """Called from info_specific.py where, depending on error type,
-    the value could be converted into a message by calling str().
-    """
+    """Attempts to get the likely cause of an exception."""
     try:
-        return _get_cause(exception_type, message, tb_data)
+        return get_cause(exception_type, message, tb_data)
     except Exception as e:  # noqa # pragma: no cover
         debug_helper.log_2(str(message))
         return {"cause": internal_error(e), "suggest": internal_error(e)}
 
 
-def _get_cause(
+def get_cause(
     exception_type,
     message: str,
     tb_data: TracebackData,
 ) -> CauseInfo:
-    """Cycle through the parsers, looking for one that can find a cause."""
+    """For a given exception type, cycle through the known message parsers,
+    looking for one that can find a cause of the exception."""
     message_parser = get_parser(exception_type)
-    for current_parser in message_parser.parsers:
+
+    for parser in message_parser.parsers:
         # This could be simpler if we could use the walrus operator
-        cause = current_parser(message, tb_data)
+        cause = parser(message, tb_data)
         if cause:
             return cause
+
+    # Special case where a connection attempt failed when using
+    # socket, or urllib, urllib3, etc.
+    try:
+        if issubclass(exception_type, OSError):
+            os_error_parser = get_parser(OSError)
+            for parser in os_error_parser.parsers:
+                cause = parser(message, tb_data)
+                if cause:
+                    return cause
+                else:
+                    return {"cause": no_information(), "suggest": unknown_case()}
+    except Exception:  # noqa  # pragma: no cover
+        pass
+
+    if not message_parser.parsers:
+        return {}
+
     debug_helper.log_2(str(message))
     return {"cause": no_information(), "suggest": unknown_case()}

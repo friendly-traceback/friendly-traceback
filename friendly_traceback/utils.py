@@ -6,84 +6,12 @@ import ast
 import difflib
 import types
 import uuid
-from typing import TYPE_CHECKING, Any, Iterable, List, Tuple, Union
+from typing import Any, Iterable, List, Tuple
 
 import executing
 import pure_eval
 
-from . import debug_helper
-from .ft_gettext import internal_error, no_information, unknown_case
-from .typing_info import CauseInfo, Parser
-
-if TYPE_CHECKING:
-    from .core import TracebackData
-
-
-class RuntimeMessageParser:
-    """This class is used to create objects that collect message parsers
-    and cycle through them in an attempt at finding the cause of an exception.
-    """
-
-    def __init__(self) -> None:
-        self.parsers: List[Parser] = []
-        self.core_parsers: List[Parser] = []
-        self.custom_parsers: List[Parser] = []
-        self.current_parser: Parser = None
-
-    def add(self, func: Parser) -> None:
-        """This method is meant to be used only within friendly-traceback.
-        It is used as a decorator to add a message parser to a list that is
-        automatically updated.
-        """
-        self.parsers.append(func)
-        self.core_parsers.append(func)
-
-    def add_custom(self, func: Parser) -> None:
-        """This method is meant to be used by projects that extend
-        friendly-traceback. It is used as a decorator to add a message parser
-        to a list that is automatically updated.
-
-            @instance.add_custom
-            def some_message_parser(error, frame, traceback_data):
-                ....
-        """
-        self.custom_parsers.append(func)
-        self.parsers = self.custom_parsers + self.core_parsers
-
-    def insert(self, func: Parser) -> None:
-        """Use as a decorator to add a message parser as a first one to consider"""
-        self.parsers.insert(0, func)
-
-    def get_cause(
-        self,
-        value_or_message: Union[str, BaseException],
-        frame: types.FrameType,
-        tb_data: "TracebackData",
-    ) -> CauseInfo:
-        """Called from info_specific.py where, depending on error type,
-        the value could be converted into a message by calling str().
-        """
-        try:
-            return self._get_cause(value_or_message, frame, tb_data)
-        except Exception as e:  # noqa # pragma: no cover
-            debug_helper.log(f"Problem with {self.current_parser.__name__}")
-            debug_helper.log(f"in module {self.current_parser.__module__}")
-            return {"cause": internal_error(e), "suggest": internal_error(e)}
-
-    def _get_cause(
-        self,
-        value_or_message: Union[str, BaseException],
-        frame: types.FrameType,
-        tb_data: "TracebackData",
-    ) -> CauseInfo:
-        """Cycle through the parsers, looking for one that can find a cause."""
-        for self.current_parser in self.parsers:
-            # This could be simpler if we could use the walrus operator
-            cause = self.current_parser(value_or_message, frame, tb_data)
-            if cause:
-                return cause
-        debug_helper.log_2(str(value_or_message))
-        return {"cause": no_information(), "suggest": unknown_case()}
+from .tb_data import TracebackData  # purely for type checking
 
 
 def unique_variable_name() -> str:
@@ -281,7 +209,7 @@ def expected_in_result(expected: str, result: str) -> Tuple[bool, str]:
     return False, "\n" + "\n".join(difflib.ndiff([expected], [best_line]))
 
 
-def get_bad_statement(tb_data: "TracebackData") -> str:
+def get_bad_statement(tb_data: TracebackData) -> str:
     """This function attempts to recover a complete statement
     even if it spans multiple lines."""
     try:
