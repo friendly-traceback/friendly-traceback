@@ -143,7 +143,7 @@ def what(
     if pre:  # for documentation # pragma: no cover
         lines = result.split("\n")
         for line in lines:
-            session.write_err("    " + line + "\n")
+            session.write_err(f"    {line}\n")
         session.write_err("\n")
     else:
         session.write_err(result)

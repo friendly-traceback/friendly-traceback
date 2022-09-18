@@ -18,7 +18,7 @@ def unique_variable_name() -> str:
     """Creates a unique variable name. Useful when attempting to introduce
     a new token to see if it can fix specific cases of SyntaxError."""
     name = uuid.uuid4()
-    return "_%s" % name.hex
+    return f"_{name.hex}"
 
 
 def eval_expr(expr: str, frame: types.FrameType) -> Any:

@@ -122,7 +122,7 @@ class FriendlyTraceback:
         self.tb = tb
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
         self.info = {"header": _("Python exception:")}
-        self.message = self.assign_message(etype, value, tb)  # language independent
+        self.message = self.assign_message(etype, value)  # language independent
         self.assign_tracebacks()
 
         # include some values for debugging purpose in an interactive session
@@ -130,7 +130,7 @@ class FriendlyTraceback:
         self.info["_frame"] = self.tb_data.exception_frame
         self.info["_tb_data"] = self.tb_data
 
-    def assign_message(self, etype, value, tb) -> str:
+    def assign_message(self, etype, value) -> str:
         """Assigns the error message, as the attribute ``message``
         which is something like::
 
@@ -138,10 +138,10 @@ class FriendlyTraceback:
         """
         exc_name = etype.__name__
         if hasattr(value, "msg"):
-            self.info["message"] = f"{exc_name}: {value.msg}\n"
+            message = value.msg
         else:
-            message = self.tb_data.full_message  # retrieve_message(etype, value, tb)
-            self.info["message"] = f"{exc_name}: {message}\n"
+            message = self.tb_data.full_message
+        self.info["message"] = f"{exc_name}: {message}\n"
         return self.info["message"]
 
     def compile_info(self) -> None:
@@ -494,9 +494,9 @@ class FriendlyTraceback:
 
         if "RecursionError" in full_tb[-1]:
             if len(shortened_tb) > 12:
-                shortened_tb = shortened_tb[0:5] + self.suppressed + shortened_tb[-5:]
+                shortened_tb = shortened_tb[:5] + self.suppressed + shortened_tb[-5:]
             if len(python_tb) > 12:
-                python_tb = python_tb[0:5] + self.suppressed + python_tb[-5:]
+                python_tb = python_tb[:5] + self.suppressed + python_tb[-5:]
 
         exc = self.tb_data.value
         chain_info = ""
@@ -562,19 +562,17 @@ class FriendlyTraceback:
         result = []
         for record in records:
             result.append(
-                '  File "{}", line {}, in {}'.format(
-                    record.filename, record.lineno, record.code.co_name
-                )
+                f'  File "{record.filename}", line {record.lineno}, in {record.code.co_name}'
             )
             bad_line = record.problem_line()
-            result.append("    {}".format(bad_line.strip()))
+            result.append(f"    {bad_line.strip()}")
 
         if issubclass(self.tb_data.exception_type, SyntaxError):
             value = self.tb_data.value
             offset = value.offset
             filename = value.filename
             lines = cache.get_source_lines(filename)
-            result.append('  File "{}", line {}'.format(filename, value.lineno))
+            result.append(f'  File "{filename}", line {value.lineno}')
             _line = value.text
             if _line is None:
                 try:
@@ -610,7 +608,7 @@ class FriendlyTraceback:
                         offset = 1
                         nb_carets = 1
                         continuation = ""
-                    result.append("    {}".format(bad_line))
+                    result.append(f"    {bad_line}")
                     result.append(" " * (3 + offset) + "^" * nb_carets + continuation)
         result.append(self.info["message"].strip())
         return result
