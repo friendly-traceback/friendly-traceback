@@ -14,6 +14,7 @@ INCLUDED_PARSERS = {
     KeyError: "key_error",
     ModuleNotFoundError: "module_not_found_error",
     NameError: "name_error",
+    OSError: "os_error",
     RuntimeError: "runtime_error",
     TypeError: "type_error",
     UnboundLocalError: "unbound_local_error",
