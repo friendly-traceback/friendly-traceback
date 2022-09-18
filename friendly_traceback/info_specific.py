@@ -58,25 +58,6 @@ def register(error_name: Type[_E]) -> Callable[[Explain[_E]], None]:
     return add_exception
 
 
-@register(KeyError)
-def _key_error(
-    value: KeyError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import key_error
-
-    return key_error.parser.get_cause(value, frame, tb_data)
-
-
-@register(ModuleNotFoundError)
-def _module_not_found_error(
-    value: ModuleNotFoundError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-
-    from .runtime_errors import module_not_found_error
-
-    return module_not_found_error.parser.get_cause(str(value), frame, tb_data)
-
-
 @register(NameError)
 def _name_error(
     value: NameError, frame: FrameType, tb_data: "TracebackData"

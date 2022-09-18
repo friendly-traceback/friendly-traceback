@@ -11,6 +11,8 @@ INCLUDED_PARSERS = {
     FileNotFoundError: "file_not_found_error",
     ImportError: "import_error",
     IndexError: "index_error",
+    KeyError: "key_error",
+    ModuleNotFoundError: "module_not_found_error",
 }
 RUNTIME_MESSAGE_PARSERS = {}
 

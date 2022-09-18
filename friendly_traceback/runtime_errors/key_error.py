@@ -3,23 +3,21 @@ from types import FrameType
 from typing import Any, Optional, Tuple
 
 from .. import info_variables, utils
-from ..core import TracebackData
 from ..ft_gettext import current_lang, please_report
-from ..typing_info import CauseInfo
-from ..utils import RuntimeMessageParser
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 
-parser = RuntimeMessageParser()
+parser = get_parser(KeyError)
 _ = current_lang.translate
 
 
-@parser.add
-def popitem_from_empty_dict(
-    value: KeyError, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
-    message = str(value)
+@parser._add
+def popitem_from_empty_dict(message: str, tb_data: TracebackData) -> CauseInfo:
     if "popitem(): dictionary is empty" not in message:
         return {}
 
+    frame = tb_data.exception_frame
     name, _obj = find_empty_dict_like_obj(frame, tb_data.bad_line)
     if name is None:  # pragma: no cover
         cause = _(
@@ -35,11 +33,8 @@ def popitem_from_empty_dict(
     return {"cause": cause, "suggest": hint}
 
 
-@parser.add
-def popitem_from_empty_chain_map(
-    value: KeyError, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
-    message = str(value)
+@parser._add
+def popitem_from_empty_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
     if "No keys found in the first mapping." not in message:
         return {}
 
@@ -64,19 +59,17 @@ def popitem_from_empty_chain_map(
     return {"cause": cause, "suggest": hint}
 
 
-@parser.add
-def missing_key_in_chain_map(
-    value: KeyError, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def missing_key_in_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
     """Missing keys in collections.ChainMap from using pop()
     can trigger a secondary exception with a different message.
     It turns out that this is this second message we capture
     while the correct "bad_line" is identified correctly.
     """
-    message = str(value)
     if "Key not found in the first mapping: " not in message:
         return {}
 
+    frame = tb_data.exception_frame
     value = tb_data.value
     key = value.args[0]
     if not (
@@ -107,13 +100,12 @@ def missing_key_in_chain_map(
     }  # pragma: no cover
 
 
-@parser.add
-def missing_key_in_dict(
-    value: KeyError, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def missing_key_in_dict(_message: str, tb_data: TracebackData) -> CauseInfo:
     value = tb_data.value
     key = value.args[0]
     bad_line = tb_data.bad_line.strip()
+    frame = tb_data.exception_frame
     if bad_line.startswith("raise "):
         return {}
     if str(key) not in bad_line:
@@ -122,10 +114,8 @@ def missing_key_in_dict(
     return analyze_missing_key(key, frame, bad_line)
 
 
-@parser.add
-def missing_key_in_dict_like(
-    value: KeyError, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def missing_key_in_dict_like(_message: str, tb_data: TracebackData) -> CauseInfo:
     """Case where a KeyError is raised internally, from user code"""
     value = tb_data.value
     key = value.args[0]

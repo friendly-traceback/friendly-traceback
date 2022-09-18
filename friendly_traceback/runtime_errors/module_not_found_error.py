@@ -2,24 +2,21 @@
 
 import re
 import sys
-from types import FrameType
 
 from .. import debug_helper
-from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo
-from ..utils import RuntimeMessageParser, get_similar_words, list_to_string
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
+from ..utils import get_similar_words, list_to_string
 from . import stdlib_modules
 
-parser = RuntimeMessageParser()
+parser = get_parser(ModuleNotFoundError)
 _ = current_lang.translate
 
 
-@parser.add
-def is_not_a_package(
-    value: ModuleNotFoundError, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
-    message = str(value)
+@parser._add
+def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"No module named '(.*)'; '(.*)' is not a package")
     match = re.search(pattern, message)
     if not match:
@@ -104,11 +101,8 @@ def curses_no_found() -> CauseInfo:
     return {"cause": cause + hint, "suggest": hint}
 
 
-@parser.add
-def no_module_named(
-    value: ModuleNotFoundError, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
-    message = str(value)
+@parser._add
+def no_module_named(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"No module named '(.*)'$")
     match = re.search(pattern, message)
     if not match:  # pragma: no cover
