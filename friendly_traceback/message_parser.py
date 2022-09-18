@@ -15,6 +15,7 @@ INCLUDED_PARSERS = {
     ModuleNotFoundError: "module_not_found_error",
     NameError: "name_error",
     RuntimeError: "runtime_error",
+    TypeError: "type_error",
 }
 RUNTIME_MESSAGE_PARSERS = {}
 
