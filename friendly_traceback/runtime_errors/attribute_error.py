@@ -25,7 +25,7 @@ def circular_import(message: str, _tb_data: TracebackData) -> CauseInfo:
     match = re.search(pattern, message)
     if not match:
         return {}
-    module = match.group(1)
+    module = match[1]
 
     if module in stdlib_modules.names:
         hint = _("Did you give your program the same name as a Python module?\n")
@@ -61,8 +61,8 @@ def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo
     match = re.search(pattern, message)
     if not match:
         return {}
-    module = match.group(1)
-    attribute = match.group(2)
+    module = match[1]
+    attribute = match[2]
     frame = tb_data.exception_frame
 
     try:
@@ -91,8 +91,7 @@ def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo
             ).format(module=module)
         return {"cause": cause, "suggest": hint}
 
-    similar_attributes = get_similar_words(attribute, dir(mod))
-    if similar_attributes:
+    if similar_attributes := get_similar_words(attribute, dir(mod)):
         if len(similar_attributes) == 1:
             hint = _("Did you mean `{name}`?\n").format(name=similar_attributes[0])
             cause = _(
@@ -128,11 +127,9 @@ def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo
         elif mod_name in frame.f_globals:
             imported_modules.append((mod_name, frame.f_globals[mod_name]))
 
-    possible_modules = [
+    if possible_modules := [
         mod_name for mod_name, mod in imported_modules if attribute in dir(mod)
-    ]
-
-    if possible_modules:
+    ]:
         if len(possible_modules) == 1:
             mod_name = possible_modules[0]
             hint = _("Did you mean `{name}`?\n").format(name=mod_name)
@@ -170,7 +167,7 @@ def type_object_has_no_attribute(message: str, tb_data: TracebackData) -> CauseI
         return {}
     frame = tb_data.exception_frame
 
-    return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
+    return _attribute_error_in_object(match[1], match[2], tb_data, frame)
 
 
 @parser._add
@@ -179,17 +176,18 @@ def attribute_error_in_object(message: str, tb_data: TracebackData) -> CauseInfo
     match = re.search(pattern, message)
     if not match:
         return {}
-    frame = tb_data.exception_frame
-
-    if match.group(1) == "NoneType":
+    if match[1] == "NoneType":
         return {
             "cause": _(
                 "You are attempting to access the attribute `{attr}`\n"
                 "for a variable whose value is `None`."
-            ).format(attr=match.group(2))
+            ).format(attr=match[2])
         }
 
-    return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
+
+    frame = tb_data.exception_frame
+
+    return _attribute_error_in_object(match[1], match[2], tb_data, frame)
 
 
 @parser._add
@@ -198,8 +196,8 @@ def object_attribute_is_read_only(message: str, tb_data: TracebackData) -> Cause
     match = re.search(pattern, message)
     if match is None:
         return {}
-    obj_type = match.group(1)
-    attribute = match.group(2)
+    obj_type = match[1]
+    attribute = match[2]
     frame = tb_data.exception_frame
 
     obj = info_variables.get_object_from_name(obj_type, frame)
@@ -251,7 +249,7 @@ def _attribute_error_in_object(
 ) -> CauseInfo:
     """Attempts to find if object attribute might have been misspelled"""
     if obj_type == "builtin_function_or_method":
-        obj_name = tb_data.bad_line.replace("." + attribute, "")
+        obj_name = tb_data.bad_line.replace(f".{attribute}", "")
         # Confirm we have the right one
         if obj_name in dir(builtins):
             cause = _(
@@ -328,20 +326,16 @@ def _attribute_error_in_object(
 
             obj_name, instance = possible_objects[0]
 
-    possible_cause = tuple_by_accident(instance, obj_name, attribute)
-    if possible_cause:
+    if possible_cause := tuple_by_accident(instance, obj_name, attribute):
         return possible_cause
 
     known_attributes = dir(instance)
 
-    # Example: this.len -> len(this)
-    known_builtin = perhaps_builtin(attribute, known_attributes)
-    if known_builtin:
+    if known_builtin := perhaps_builtin(attribute, known_attributes):
         return use_builtin_function(obj_name, attribute, known_builtin)
 
     if attribute == "join":
-        join = perhaps_join(obj)
-        if join:
+        if join := perhaps_join(obj):
             return use_str_join(obj_name, tb_data)
 
     # Example: both "this" and "that" are known objects
@@ -349,13 +343,10 @@ def _attribute_error_in_object(
     if attribute in frame.f_globals or attribute in frame.f_locals:
         return missing_comma(obj_name, attribute)
 
-    known_synonyms = perhaps_synonym(attribute, known_attributes)
-    if known_synonyms:
+    if known_synonyms := perhaps_synonym(attribute, known_attributes):
         return use_synonym(obj_name, attribute, known_synonyms)
 
-    # noqa Example: list.apend -> list.append
-    similar = get_similar_words(attribute, known_attributes)
-    if similar:
+    if similar := get_similar_words(attribute, known_attributes):
         return handle_attribute_typo(obj_name, attribute, similar)
 
     # We have not been able to find a useful suggestion
@@ -404,10 +395,10 @@ def handle_attribute_typo(
 
 
 def perhaps_builtin(attribute: str, known_attributes: Iterable[str]) -> Optional[str]:
-    if attribute in ["min", "max", "sorted", "reversed", "sum"]:
+    if attribute in {"min", "max", "sorted", "reversed", "sum"}:
         return attribute
     elif (
-        attribute in ["len", "length", "lenght", "size"]  # noqa
+        attribute in {"len", "length", "lenght", "size"}
         and "__len__" in known_attributes
     ):
         return "len"
@@ -470,11 +461,10 @@ def use_builtin_function(
 
 
 def perhaps_join(obj: Any) -> bool:
-    if hasattr(obj, "__iter__") or (
-        hasattr(obj, "__getitem__") and hasattr(obj, "__len__")
-    ):
-        return True
-    return False
+    return bool(
+        hasattr(obj, "__iter__")
+        or (hasattr(obj, "__getitem__") and hasattr(obj, "__len__"))
+    )
 
 
 def perhaps_synonym(
@@ -484,10 +474,14 @@ def perhaps_synonym(
         ["add", "append", "extend", "insert", "push", "update", "union"],
         ["remove", "discard", "pop"],
     ]
-    for syn_list in synonyms:
-        if attribute in syn_list:
-            return [attr for attr in syn_list if attr in known_attributes]
-    return None
+    return next(
+        (
+            [attr for attr in syn_list if attr in known_attributes]
+            for syn_list in synonyms
+            if attribute in syn_list
+        ),
+        None,
+    )
 
 
 def use_synonym(obj_name: str, attribute: str, synonyms: Sequence[str]) -> CauseInfo:

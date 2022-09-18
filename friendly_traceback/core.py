@@ -333,11 +333,7 @@ class FriendlyTraceback:
 
         self.info["exception_raised_source"] = source
 
-        if self.tb_data.node_text:
-            line = self.tb_data.node_text
-        else:  # This almost never happens
-            line = record.problem_line()
-
+        line = self.tb_data.node_text or record.problem_line()
         var_info = info_variables.get_var_info(line, record.frame)
         self.info["exception_raised_variables"] = var_info["var_info"]
         if "warnings" in var_info:
@@ -494,9 +490,9 @@ class FriendlyTraceback:
 
         if "RecursionError" in full_tb[-1]:
             if len(shortened_tb) > 12:
-                shortened_tb = shortened_tb[0:5] + self.suppressed + shortened_tb[-5:]
+                shortened_tb = shortened_tb[:5] + self.suppressed + shortened_tb[-5:]
             if len(python_tb) > 12:
-                python_tb = python_tb[0:5] + self.suppressed + python_tb[-5:]
+                python_tb = python_tb[:5] + self.suppressed + python_tb[-5:]
 
         exc = self.tb_data.value
         chain_info = ""
@@ -533,13 +529,12 @@ class FriendlyTraceback:
         and by using short synonyms for some common directories."""
         from .config import session
 
-        shortened_tb = tb[0:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
+        shortened_tb = tb[:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
         pattern = re.compile(r'^  File "(.*)", ')  # noqa
         temp = []
         for line in shortened_tb:
-            match = re.search(pattern, line)
-            if match:
-                filename = match.group(1)
+            if match := re.search(pattern, line):
+                filename = match[1]
                 short_filename = path_utils.shorten_path(filename)
                 line = line.replace(filename, short_filename)
                 if (
@@ -562,19 +557,18 @@ class FriendlyTraceback:
         result = []
         for record in records:
             result.append(
-                '  File "{}", line {}, in {}'.format(
-                    record.filename, record.lineno, record.code.co_name
-                )
+                f'  File "{record.filename}", line {record.lineno}, in {record.code.co_name}'
             )
+
             bad_line = record.problem_line()
-            result.append("    {}".format(bad_line.strip()))
+            result.append(f"    {bad_line.strip()}")
 
         if issubclass(self.tb_data.exception_type, SyntaxError):
             value = self.tb_data.value
             offset = value.offset
             filename = value.filename
             lines = cache.get_source_lines(filename)
-            result.append('  File "{}", line {}'.format(filename, value.lineno))
+            result.append(f'  File "{filename}", line {value.lineno}')
             _line = value.text
             if _line is None:
                 try:
@@ -588,8 +582,7 @@ class FriendlyTraceback:
                     # the f-string content.
                     cache.add(filename, _line)
                 _line = _line.rstrip()
-                bad_line = _line.strip()
-                if bad_line:
+                if bad_line := _line.strip():
                     # Note end_lineno and end_offset are new in Python 3.10
                     # However, we ensured prior to reaching this point that
                     # they would be defined for other Python versions
@@ -610,8 +603,13 @@ class FriendlyTraceback:
                         offset = 1
                         nb_carets = 1
                         continuation = ""
-                    result.append("    {}".format(bad_line))
-                    result.append(" " * (3 + offset) + "^" * nb_carets + continuation)
+                    result.extend(
+                        (
+                            f"    {bad_line}",
+                            " " * (3 + offset) + "^" * nb_carets + continuation,
+                        )
+                    )
+
         result.append(self.info["message"].strip())
         return result
 

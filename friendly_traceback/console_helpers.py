@@ -94,8 +94,7 @@ def history() -> None:
         session.write_err(_nothing_to_show() + "\n")
         return
     for info in session.saved_info:
-        message = session.formatter(info, include="message")
-        if message:
+        if message := session.formatter(info, include="message"):
             message = message.replace("\n", "")
             session.write_err(message)
 
@@ -143,7 +142,7 @@ def what(
     if pre:  # for documentation # pragma: no cover
         lines = result.split("\n")
         for line in lines:
-            session.write_err("    " + line + "\n")
+            session.write_err(f"    {line}" + "\n")
         session.write_err("\n")
     else:
         session.write_err(result)
@@ -177,7 +176,7 @@ def why() -> None:
         explain("why")
 
 
-def www(site: Optional[Site] = None) -> None:  # pragma: no cover
+def www(site: Optional[Site] = None) -> None:    # pragma: no cover
     """This uses the ``webbrowser`` module to open a tab (or window)
      in the default browser, linking to a specific url
      or opening the default email client.
@@ -235,14 +234,14 @@ def www(site: Optional[Site] = None) -> None:  # pragma: no cover
         message = info["message"].replace("'", "")
         if " (" in message:
             message = message.split("(")[0]
-        url = "https://duckduckgo.com?q=" + urllib.parse.quote(message)  # noqa
+        url = f"https://duckduckgo.com?q={urllib.parse.quote(message)}"
     elif site is None:
         url = urls["friendly"]
     else:
         url = urls[site]
 
     if site == "python":
-        url = url + f".{sys.version_info.minor}/"
+        url = f"{url}.{sys.version_info.minor}/"
 
     try:
         webbrowser.open_new_tab(url)
@@ -425,7 +424,7 @@ class FriendlyHelpers:
         """Only include useful friendly methods."""
         return sorted(list(self.helpers))
 
-    def __repr__(self) -> str:  # pragma: no cover
+    def __repr__(self) -> str:    # pragma: no cover
         """Shows a brief description in the default language of what
         each function/method does.
 
@@ -451,7 +450,7 @@ class FriendlyHelpers:
         )
         parts = [self.true_repr() + "\n" + header + "\n\n"]
         for name in basic_helpers:
-            parts.append(name + "(): ")
+            parts.append(f"{name}(): ")
             fn = self.helpers[name]
             if hasattr(fn, "help"):
                 parts.append(fn.help() + "\n")
@@ -462,7 +461,7 @@ class FriendlyHelpers:
             more_header = "Debugging methods (English only)."
             parts.append("\n" + more_header + "\n\n")
             for name in _debug_helpers:
-                parts.append(name + "(): ")
+                parts.append(f"{name}(): ")
                 fn = self.helpers[name]
                 if hasattr(fn, "help"):
                     parts.append(fn.help() + "\n")

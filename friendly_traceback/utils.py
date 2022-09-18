@@ -18,7 +18,7 @@ def unique_variable_name() -> str:
     """Creates a unique variable name. Useful when attempting to introduce
     a new token to see if it can fix specific cases of SyntaxError."""
     name = uuid.uuid4()
-    return "_%s" % name.hex
+    return f"_{name.hex}"
 
 
 def eval_expr(expr: str, frame: types.FrameType) -> Any:
@@ -232,8 +232,7 @@ def to_code_block(code: str) -> str:
     indent = " " * 4
     new_lines = ["\n"]
     lines = code.split("\n")
-    for line in lines:
-        new_lines.append(f"{indent}{line}")
+    new_lines.extend(f"{indent}{line}" for line in lines)
     new_lines.append("\n")
     return "\n".join(new_lines)
 

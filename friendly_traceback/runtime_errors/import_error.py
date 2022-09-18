@@ -22,18 +22,17 @@ def partially_initialized_module(message: str, tb_data: TracebackData) -> CauseI
     pattern = re.compile(
         r"cannot import name '(.*)' from partially initialized module '(.*)'"
     )
-    match = re.search(pattern, message)
-    if not match:
-        return {}
-    if "circular import" in message:
-        return cannot_import_name_from(
-            match.group(1), match.group(2), tb_data, add_circular_hint=False
+    if match := re.search(pattern, message):
+        return (
+            cannot_import_name_from(
+                match[1], match[2], tb_data, add_circular_hint=False
+            )
+            if "circular import" in message
+            else cannot_import_name_from(match[1], match[2], tb_data)
         )
-    # I thought I saw such a case where "circular import" was not added
-    # but have not been able to find it again.
-    return cannot_import_name_from(
-        match.group(1), match.group(2), tb_data
-    )  # pragma: no cover
+
+    else:
+        return {}
 
 
 @parser._add
@@ -41,9 +40,7 @@ def _cannot_import_name_from(message: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.7+
     pattern = re.compile(r"cannot import name '(.*)' from '(.*)'")
     match = re.search(pattern, message)
-    if not match:
-        return {}
-    return cannot_import_name_from(match.group(1), match.group(2), tb_data)
+    return cannot_import_name_from(match[1], match[2], tb_data) if match else {}
 
 
 @parser._add
@@ -51,9 +48,7 @@ def _cannot_import_name(message: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.6 does not give us more information
     pattern = re.compile(r"cannot import name '(.*)'")
     match = re.search(pattern, message)
-    if not match:  # pragma: no cover
-        return {}
-    return cannot_import_name(match.group(1), tb_data)
+    return cannot_import_name(match[1], tb_data) if match else {}
 
 
 def cannot_import_name_from(
@@ -62,8 +57,7 @@ def cannot_import_name_from(
     hint = None
     circular_info = None
 
-    modules_imported = extract_import_data_from_traceback(tb_data)
-    if modules_imported:
+    if modules_imported := extract_import_data_from_traceback(tb_data):
         circular_info = find_circular_import(modules_imported)
         if circular_info and add_circular_hint:
             hint = _("You have a circular import.\n")
@@ -143,7 +137,7 @@ def cannot_import_name(name: str, tb_data: TracebackData) -> CauseInfo:
             + please_report()
         }
 
-    return cannot_import_name_from(name, match.group(1), tb_data)
+    return cannot_import_name_from(name, match[1], tb_data)
 
 
 Modules = List[Tuple[str, str]]
@@ -164,18 +158,19 @@ def extract_import_data_from_traceback(tb_data: TracebackData) -> Modules:
         match_import = re.search(pattern_import, line)
 
         if match_file:
-            current_file = path_utils.shorten_path(match_file.group(1))
+            current_file = path_utils.shorten_path(match_file[1])
         elif match_from or match_import:
             if match_from:
-                modules_imported.append((current_file, match_from.group(1)))
+                modules_imported.append((current_file, match_from[1]))
             else:
-                module = match_import.group(1)
+                module = match_import[1]
                 if "," in module:  # multiple modules imported on same line
                     modules = module.split(",")
-                    for mod in modules:
-                        modules_imported.append(
-                            (current_file, mod.replace("(", "").strip())
-                        )
+                    modules_imported.extend(
+                        (current_file, mod.replace("(", "").strip())
+                        for mod in modules
+                    )
+
                 else:
                     modules_imported.append((current_file, module))
             current_file = ""

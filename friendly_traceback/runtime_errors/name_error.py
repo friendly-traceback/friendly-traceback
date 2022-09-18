@@ -57,7 +57,7 @@ def free_variable_referenced(message: str, _tb_data: TracebackData) -> CauseInfo
     if not match:
         return {}
 
-    unknown_name = match.group(1)
+    unknown_name = match[1]
     cause = _(
         "In your program, `{var_name}` is an unknown name\n"
         "that exists in an enclosing scope,\n"
@@ -73,16 +73,14 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     if not match:
         return {}
 
-    unknown_name = match.group(1)
+    unknown_name = match[1]
     frame = tb_data.exception_frame
-    is_special_name = perhaps_special_name(unknown_name, tb_data)
-    if is_special_name:
+    if is_special_name := perhaps_special_name(unknown_name, tb_data):
         return is_special_name
 
-    is_special_keyword = perhaps_special_keyword(
+    if is_special_keyword := perhaps_special_keyword(
         unknown_name, tb_data.original_bad_line
-    )
-    if is_special_keyword:
+    ):
         return is_special_keyword
 
     cause = _("In your program, no object with the name `{var_name}` exists.\n").format(
@@ -113,8 +111,7 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
         debug_helper.log("Problem in name_not_defined()")
         debug_helper.log_error(e)
 
-    forgot_import = is_module_attribute(unknown_name)
-    if forgot_import:
+    if forgot_import := is_module_attribute(unknown_name):
         if additional:
             additional += "\n" + forgot_import
         else:

@@ -23,9 +23,9 @@ def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
         return {}
 
     hint = ""
-    dotted_path = match.group(1)
-    name = match.group(2)
-    rest = dotted_path.replace(name + ".", "")
+    dotted_path = match[1]
+    name = match[2]
+    rest = dotted_path.replace(f"{name}.", "")
 
     # This specific exception should not have been raised if name was not a module.
     # Still, when dealing with imports, better safe than sorry.
@@ -51,8 +51,7 @@ def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
         ).format(name=name, rest=rest)
         return {"cause": cause, "suggest": hint}
 
-    similar = get_similar_words(rest, attributes)
-    if similar:
+    if similar := get_similar_words(rest, attributes):
         for attr in similar:
             obj = getattr(module, attr)
             if isinstance(obj, type(module)):
@@ -87,9 +86,7 @@ def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
             rest=rest, name=name
         )
 
-    if hint:
-        return {"cause": cause, "suggest": hint}
-    return {"cause": cause}
+    return {"cause": cause, "suggest": hint} if hint else {"cause": cause}
 
 
 def curses_no_found() -> CauseInfo:
@@ -108,7 +105,7 @@ def no_module_named(message: str, _tb_data: TracebackData) -> CauseInfo:
     if not match:  # pragma: no cover
         return {}
 
-    name = match.group(1)
+    name = match[1]
     if name == "_curses":
         return curses_no_found()
 

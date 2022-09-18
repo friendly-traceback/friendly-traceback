@@ -18,7 +18,7 @@ def container_changed_size_during_iteration(
     match = re.search(pattern, message)
     if not match:
         return {}
-    container_name = match.group(1).lower()
+    container_name = match[1].lower()
     frame = tb_data.exception_frame
     if container_name.startswith("dict"):
         container_name = "dict"
@@ -36,10 +36,9 @@ def container_changed_size_during_iteration(
             names.append(name)
 
     tokens = token_utils.tokenize(tb_data.bad_line)
-    loop_keywords = []
-    for tok in tokens:
-        if tok.string in {"for", "while"}:
-            loop_keywords.append(tok.string)
+    loop_keywords = [
+        tok.string for tok in tokens if tok.string in {"for", "while"}
+    ]
 
     loop_keywords = set(loop_keywords)
     if len(loop_keywords) == 1:

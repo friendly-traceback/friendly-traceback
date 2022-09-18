@@ -89,8 +89,7 @@ def missing_key_in_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
         frame = tb_data.program_stopped_frame
 
     if str(key) in bad_line:
-        cause = analyze_missing_key(key, frame, bad_line)
-        if cause:
+        if cause := analyze_missing_key(key, frame, bad_line):
             return cause
 
     return {
@@ -103,15 +102,16 @@ def missing_key_in_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
 @parser._add
 def missing_key_in_dict(_message: str, tb_data: TracebackData) -> CauseInfo:
     value = tb_data.value
-    key = value.args[0]
     bad_line = tb_data.bad_line.strip()
     frame = tb_data.exception_frame
     if bad_line.startswith("raise "):
         return {}
-    if str(key) not in bad_line:
-        return {}
-
-    return analyze_missing_key(key, frame, bad_line)
+    key = value.args[0]
+    return (
+        {}
+        if str(key) not in bad_line
+        else analyze_missing_key(key, frame, bad_line)
+    )
 
 
 @parser._add
@@ -154,8 +154,7 @@ def analyze_missing_key(key: Any, frame: FrameType, bad_line: str) -> CauseInfo:
         ).format(key=key_repr, name=name, obj_type=obj_type)
 
     if isinstance(key, str):
-        result = key_is_a_string(key, name, obj)
-        if result:
+        if result := key_is_a_string(key, name, obj):
             result["cause"] = begin_cause + result["cause"]
             return result
     elif str(key) in obj.keys():
@@ -205,17 +204,25 @@ def find_empty_dict_like_obj(
     frame: FrameType, bad_line: str
 ) -> Tuple[Optional[str], Any]:
     all_objects = info_variables.get_all_objects(bad_line, frame)
-    for name, obj in all_objects["name, obj"]:
-        if hasattr(obj, "keys") and len(obj) == 0:
-            return name, obj
-    return None, None
+    return next(
+        (
+            (name, obj)
+            for name, obj in all_objects["name, obj"]
+            if hasattr(obj, "keys") and len(obj) == 0
+        ),
+        (None, None),
+    )
 
 
 def find_missing_key_obj(
     key: Any, frame: FrameType, bad_line: str
 ) -> Tuple[Optional[str], Any]:
     all_objects = info_variables.get_all_objects(bad_line, frame)
-    for name, obj in all_objects["name, obj"]:
-        if hasattr(obj, "keys") and key not in obj:
-            return name, obj
-    return None, None
+    return next(
+        (
+            (name, obj)
+            for name, obj in all_objects["name, obj"]
+            if hasattr(obj, "keys") and key not in obj
+        ),
+        (None, None),
+    )

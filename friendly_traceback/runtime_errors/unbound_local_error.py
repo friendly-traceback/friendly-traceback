@@ -27,7 +27,7 @@ def local_variable_referenced(message: str, tb_data: TracebackData) -> CauseInfo
         return {}
 
     frame = tb_data.exception_frame
-    unknown_name = match.group(1)
+    unknown_name = match[1]
     basic_cause = _(
         "You're trying to use the name `{name}` identified by Python as being\n"
         "in the local scope of a function before having assigned it a value.\n"
@@ -36,8 +36,7 @@ def local_variable_referenced(message: str, tb_data: TracebackData) -> CauseInfo
     scopes = info_variables.get_definition_scope(unknown_name, frame)
     if not scopes:
         similar = info_variables.get_similar_names(unknown_name, frame)
-        all_similar_locals = similar["locals"]
-        if all_similar_locals:
+        if all_similar_locals := similar["locals"]:
             similar_locals = []
             for name in all_similar_locals:
                 obj = info_variables.get_object_from_name(name, frame)
