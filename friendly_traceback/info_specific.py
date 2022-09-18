@@ -58,15 +58,6 @@ def register(error_name: Type[_E]) -> Callable[[Explain[_E]], None]:
     return add_exception
 
 
-@register(IndexError)
-def _index_error(
-    value: IndexError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import index_error
-
-    return index_error.parser.get_cause(str(value), frame, tb_data)
-
-
 @register(KeyError)
 def _key_error(
     value: KeyError, frame: FrameType, tb_data: "TracebackData"

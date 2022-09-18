@@ -10,6 +10,7 @@ INCLUDED_PARSERS = {
     AttributeError: "attribute_error",
     FileNotFoundError: "file_not_found_error",
     ImportError: "import_error",
+    IndexError: "index_error",
 }
 RUNTIME_MESSAGE_PARSERS = {}
 
@@ -56,7 +57,6 @@ def get_parser(exception_type: Type[_E]) -> RuntimeMessageParser:
         if exception_type in INCLUDED_PARSERS:
             base_path = "friendly_traceback.runtime_errors."
             import_module(base_path + INCLUDED_PARSERS[exception_type])
-
     return RUNTIME_MESSAGE_PARSERS[exception_type]
 
 
