@@ -1,14 +1,23 @@
-from typing import TYPE_CHECKING, List, Type
+from importlib import import_module
+from typing import List, Type
 
 from . import debug_helper
 from .ft_gettext import internal_error, no_information, unknown_case
+from .tb_data import TracebackData  # for type checking only
 from .typing_info import _E, CauseInfo, Parser
 
-if TYPE_CHECKING:
-    from .core import TracebackData
-
-
+INCLUDED_PARSERS = {
+    AttributeError: "attribute_error",
+    FileNotFoundError: "file_not_found_error",
+}
 RUNTIME_MESSAGE_PARSERS = {}
+
+
+def init_parser(exception_type: Type[_E]) -> None:
+    if exception_type in RUNTIME_MESSAGE_PARSERS:
+        return
+    elif exception_type in INCLUDED_PARSERS:
+        get_parser(exception_type)
 
 
 class RuntimeMessageParser:
@@ -43,13 +52,17 @@ class RuntimeMessageParser:
 def get_parser(exception_type: Type[_E]) -> RuntimeMessageParser:
     if exception_type not in RUNTIME_MESSAGE_PARSERS:
         RUNTIME_MESSAGE_PARSERS[exception_type] = RuntimeMessageParser()
+        if exception_type in INCLUDED_PARSERS:
+            base_path = "friendly_traceback.runtime_errors."
+            import_module(base_path + INCLUDED_PARSERS[exception_type])
+
     return RUNTIME_MESSAGE_PARSERS[exception_type]
 
 
 def get_cause(
     exception_type,
     message: str,
-    tb_data: "TracebackData",
+    tb_data: TracebackData,
 ) -> CauseInfo:
     """Called from info_specific.py where, depending on error type,
     the value could be converted into a message by calling str().
@@ -64,7 +77,7 @@ def get_cause(
 def _get_cause(
     exception_type,
     message: str,
-    tb_data: "TracebackData",
+    tb_data: TracebackData,
 ) -> CauseInfo:
     """Cycle through the parsers, looking for one that can find a cause."""
     message_parser = get_parser(exception_type)

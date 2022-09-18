@@ -10,8 +10,8 @@ from .. import console_helpers, debug_helper, info_variables, utils
 from ..ft_gettext import current_lang, please_report
 from ..message_parser import get_parser
 from ..path_info import path_utils
-from ..tb_data import TracebackData
-from ..typing_info import CauseInfo
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 from ..utils import get_similar_words, list_to_string
 from . import stdlib_modules
 

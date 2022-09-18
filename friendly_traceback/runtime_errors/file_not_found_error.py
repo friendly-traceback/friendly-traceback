@@ -3,8 +3,8 @@ import re
 
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData
-from ..typing_info import CauseInfo
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 from ..utils import get_similar_words
 
 parser = get_parser(FileNotFoundError)
