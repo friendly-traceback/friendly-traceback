@@ -15,13 +15,6 @@ if TYPE_CHECKING:
 
 from . import message_parser
 
-
-def initiate_parsers() -> None:
-    # These import are done in a function to prevent circular import errors
-    from .runtime_errors import attribute_error  # noqa
-    from .runtime_errors import file_not_found_error  # noqa
-
-
 get_cause: Dict[Type[BaseException], Explain[BaseException]] = {}
 _ = current_lang.translate
 
@@ -40,8 +33,9 @@ def get_likely_cause(
         debug_helper.log_error(e)
         return {"cause": internal_error(e)}
 
-    initiate_parsers()
+    message_parser.init_parser(etype)
 
+    # We could have parsers for exception defined by third-parties
     if etype in message_parser.RUNTIME_MESSAGE_PARSERS:
         return message_parser.get_cause(etype, value, tb_data)
 
@@ -51,9 +45,6 @@ def get_likely_cause(
             return get_cause[OSError](value, frame, tb_data)
     except Exception:  # noqa  # pragma: no cover
         pass
-
-    if hasattr(etype, "__help_solution__"):
-        return {"cause": value.__help_solution__()}
 
     return {}
 
