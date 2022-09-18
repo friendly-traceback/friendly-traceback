@@ -1,24 +1,25 @@
 import re
-from types import FrameType
 
-from .. import info_variables, token_utils, utils
-from ..core import TracebackData
+from .. import info_variables, token_utils
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 
-parser = utils.RuntimeMessageParser()
+parser = get_parser(RuntimeError)
 _ = current_lang.translate
 
 
-@parser.add
+@parser._add
 def container_changed_size_during_iteration(
-    message: str, frame: FrameType, tb_data: TracebackData
+    message: str, tb_data: TracebackData
 ) -> CauseInfo:
     pattern = re.compile(r"(.*) changed size during iteration")
     match = re.search(pattern, message)
     if not match:
         return {}
     container_name = match.group(1).lower()
+    frame = tb_data.exception_frame
     if container_name.startswith("dict"):
         container_name = "dict"
         obj_type = dict

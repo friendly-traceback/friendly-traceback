@@ -3,14 +3,15 @@ from types import FrameType
 from typing import Any, Tuple
 
 from .. import debug_helper, info_variables, token_utils, utils
-from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo, SimilarNamesInfo
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo, SimilarNamesInfo  # for type checking only
 from ..utils import list_to_string
 from . import stdlib_modules
 from .modules_attributes import attribute_names
 
-parser = utils.RuntimeMessageParser()
+parser = get_parser(NameError)
 _ = current_lang.translate
 
 
@@ -41,10 +42,8 @@ def is_module_attribute(name):
     ).format(name=name, modules=list_to_string(names))
 
 
-@parser.add
-def free_variable_referenced(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def free_variable_referenced(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(
         r"free variable '(.*)' referenced before assignment in enclosing scope"
     )
@@ -67,16 +66,15 @@ def free_variable_referenced(
     return {"cause": cause}
 
 
-@parser.add
-def name_not_defined(
-    message: str, frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"name '(.*)' is not defined")
     match = re.search(pattern, message)
     if not match:
         return {}
 
     unknown_name = match.group(1)
+    frame = tb_data.exception_frame
     is_special_name = perhaps_special_name(unknown_name, tb_data)
     if is_special_name:
         return is_special_name

@@ -58,38 +58,12 @@ def register(error_name: Type[_E]) -> Callable[[Explain[_E]], None]:
     return add_exception
 
 
-@register(NameError)
-def _name_error(
-    value: NameError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-
-    from .runtime_errors import name_error
-
-    return name_error.parser.get_cause(str(value), frame, tb_data)
-
-
 @register(OSError)
 def _os_error(value: OSError, frame: FrameType, tb_data: "TracebackData") -> CauseInfo:
 
     from .runtime_errors import os_error
 
     return os_error.parser.get_cause(value, frame, tb_data)
-
-
-@register(OverflowError)
-def _overflow_error(*_args) -> CauseInfo:
-    return {}
-    # can be provided for real test cases
-
-
-@register(RuntimeError)
-def _runtime_error(
-    value: RuntimeError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-
-    from .runtime_errors import runtime_error
-
-    return runtime_error.parser.get_cause(str(value), frame, tb_data)
 
 
 @register(TypeError)

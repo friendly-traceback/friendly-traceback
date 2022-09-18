@@ -13,6 +13,8 @@ INCLUDED_PARSERS = {
     IndexError: "index_error",
     KeyError: "key_error",
     ModuleNotFoundError: "module_not_found_error",
+    NameError: "name_error",
+    RuntimeError: "runtime_error",
 }
 RUNTIME_MESSAGE_PARSERS = {}
 
