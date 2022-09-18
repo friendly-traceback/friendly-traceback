@@ -25,7 +25,7 @@ def circular_import(message: str, _tb_data: TracebackData) -> CauseInfo:
     match = re.search(pattern, message)
     if not match:
         return {}
-    module = match.group(1)
+    module = match[1]
 
     if module in stdlib_modules.names:
         hint = _("Did you give your program the same name as a Python module?\n")
@@ -61,8 +61,8 @@ def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo
     match = re.search(pattern, message)
     if not match:
         return {}
-    module = match.group(1)
-    attribute = match.group(2)
+    module = match[1]
+    attribute = match[2]
     frame = tb_data.exception_frame
 
     try:
@@ -170,7 +170,7 @@ def type_object_has_no_attribute(message: str, tb_data: TracebackData) -> CauseI
         return {}
     frame = tb_data.exception_frame
 
-    return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
+    return _attribute_error_in_object(match[1], match[2], tb_data, frame)
 
 
 @parser._add
@@ -181,15 +181,15 @@ def attribute_error_in_object(message: str, tb_data: TracebackData) -> CauseInfo
         return {}
     frame = tb_data.exception_frame
 
-    if match.group(1) == "NoneType":
+    if match[1] == "NoneType":
         return {
             "cause": _(
                 "You are attempting to access the attribute `{attr}`\n"
                 "for a variable whose value is `None`."
-            ).format(attr=match.group(2))
+            ).format(attr=match[2])
         }
 
-    return _attribute_error_in_object(match.group(1), match.group(2), tb_data, frame)
+    return _attribute_error_in_object(match[1], match[2], tb_data, frame)
 
 
 @parser._add
@@ -198,8 +198,8 @@ def object_attribute_is_read_only(message: str, tb_data: TracebackData) -> Cause
     match = re.search(pattern, message)
     if match is None:
         return {}
-    obj_type = match.group(1)
-    attribute = match.group(2)
+    obj_type = match[1]
+    attribute = match[2]
     frame = tb_data.exception_frame
 
     obj = info_variables.get_object_from_name(obj_type, frame)

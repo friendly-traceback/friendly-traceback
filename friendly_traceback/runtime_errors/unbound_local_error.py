@@ -27,7 +27,7 @@ def local_variable_referenced(message: str, tb_data: TracebackData) -> CauseInfo
         return {}
 
     frame = tb_data.exception_frame
-    unknown_name = match.group(1)
+    unknown_name = match[1]
     basic_cause = _(
         "You're trying to use the name `{name}` identified by Python as being\n"
         "in the local scope of a function before having assigned it a value.\n"

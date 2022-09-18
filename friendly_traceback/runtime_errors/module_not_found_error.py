@@ -23,8 +23,8 @@ def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
         return {}
 
     hint = ""
-    dotted_path = match.group(1)
-    name = match.group(2)
+    dotted_path = match[1]
+    name = match[2]
     rest = dotted_path.replace(name + ".", "")
 
     # This specific exception should not have been raised if name was not a module.
@@ -108,7 +108,7 @@ def no_module_named(message: str, _tb_data: TracebackData) -> CauseInfo:
     if not match:  # pragma: no cover
         return {}
 
-    name = match.group(1)
+    name = match[1]
     if name == "_curses":
         return curses_no_found()
 

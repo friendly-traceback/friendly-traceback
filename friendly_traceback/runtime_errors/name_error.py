@@ -57,7 +57,7 @@ def free_variable_referenced(message: str, _tb_data: TracebackData) -> CauseInfo
     if not match:
         return {}
 
-    unknown_name = match.group(1)
+    unknown_name = match[1]
     cause = _(
         "In your program, `{var_name}` is an unknown name\n"
         "that exists in an enclosing scope,\n"
@@ -73,7 +73,7 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     if not match:
         return {}
 
-    unknown_name = match.group(1)
+    unknown_name = match[1]
     frame = tb_data.exception_frame
     is_special_name = perhaps_special_name(unknown_name, tb_data)
     if is_special_name:

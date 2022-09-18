@@ -20,7 +20,7 @@ def no_such_file_or_directory(
     if match is None:
         return {}
 
-    filepath = match.group(1)
+    filepath = match[1]
     dir_, filename = os.path.split(filepath)
     cause = _(
         "In your program, the name of the\n"

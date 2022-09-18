@@ -538,7 +538,7 @@ def annotated_name_cannot_be_global(message: str = "", statement=None):
     cause = _(
         "The object named `{name}` is defined with type annotation\n"
         "as a local variable. It cannot be declared to be a global variable.\n"
-    ).format(name=match.group(1))
+    ).format(name=match[1])
     # Ensure that only the variable gets highlighted for consistency
     # across all Python versions.
     statement.location_markers = su.highlight_single_token(statement.bad_token)
@@ -577,10 +577,10 @@ def bracket_was_expected(message: str = "", statement=None):
         return {}
 
     cause = _("Python tells us that the {bracket} was never closed.\n").format(
-        bracket=su.name_bracket(match.group(1))
+        bracket=su.name_bracket(match[1])
     )
     hint = _("The {bracket} was never closed.\n").format(
-        bracket=su.name_bracket(match.group(1))
+        bracket=su.name_bracket(match[1])
     )
     rephrased_cause = statement_analyzer.unclosed_bracket(statement)
     if rephrased_cause:
@@ -1090,7 +1090,7 @@ def from__future__not_defined(message: str = "", _statement=None):
     available = _("The available features are `{names}`.\n").format(
         names=utils.list_to_string(names).replace(",", ",\n")
     )
-    feature = match.group(1)
+    feature = match[1]
     if feature == "*":
         cause = _(
             "When using a `from __future__ import` statement,\n"
@@ -1378,10 +1378,10 @@ def mismatched_parenthesis(message: str = "", statement=None):
         if match is None:
             return {}
     else:
-        lineno = match.group(3)
+        lineno = match[3]
 
-    opening = match.group(2)
-    closing = match.group(1)
+    opening = match[2]
+    closing = match[1]
 
     cause = statement_analyzer.mismatched_brackets(statement)
     if cause:

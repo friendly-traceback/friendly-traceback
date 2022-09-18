@@ -18,7 +18,7 @@ def container_changed_size_during_iteration(
     match = re.search(pattern, message)
     if not match:
         return {}
-    container_name = match.group(1).lower()
+    container_name = match[1].lower()
     frame = tb_data.exception_frame
     if container_name.startswith("dict"):
         container_name = "dict"

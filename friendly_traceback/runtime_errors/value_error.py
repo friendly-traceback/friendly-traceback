@@ -65,8 +65,8 @@ def not_enough_values_to_unpack(message: str, tb_data: TracebackData) -> CauseIn
 
     match = match1 if match2 is None else match2
     frame = tb_data.exception_frame
-    nb_names = match.group(1)
-    length = match.group(2)
+    nb_names = match[1]
+    length = match[2]
 
     if tb_data.bad_line.count("=") != 1:
         cause = _unpacking() + _(
@@ -98,7 +98,7 @@ def too_many_values_to_unpack(message: str, tb_data: TracebackData) -> CauseInfo
     if match is None:
         return {}
 
-    nb_names = match.group(1)
+    nb_names = match[1]
     frame = tb_data.exception_frame
 
     if tb_data.bad_line.count("=") != 1:
@@ -132,7 +132,7 @@ def invalid_literal_for_int(message: str, _tb_data: TracebackData) -> CauseInfo:
     if match is None:
         return {}
 
-    base, value = int(match.group(1)), match.group(2)
+    base, value = int(match[1]), match[2]
     if not value.strip():
         cause = _(
             "`int()` expects an argument that looks like a number in base `{base}`\n"
@@ -223,7 +223,7 @@ def base_for_int(message: str, tb_data: TracebackData) -> CauseInfo:
     match = re.search(pattern, tb_data.bad_line)
     if match is None:
         return {"cause": cause}
-    base_arg = match.group(1)
+    base_arg = match[1]
     cause += _("You wrote {base} which is not allowed.\n").format(base=base_arg)
     return {"cause": cause}
 
@@ -252,7 +252,7 @@ def could_not_convert_to_float(message: str, _tb_data: TracebackData) -> CauseIn
     if match is None:
         debug_helper.log("Could not find match in could_not_convert_to_float.")
         return {}
-    string = match.group(1)
+    string = match[1]
     cause = _("The string `{string}` cannot be converted to a `float`.\n").format(
         string=string
     )
@@ -267,7 +267,7 @@ def slots_conflicts_with_class_variable(
     match = re.search(pattern, message)
     if not match:
         return {}
-    var = match.group(1)
+    var = match[1]
     cause = _(
         "The name `{var}` is used both as the name of a class variable\n"
         "and as a string item in the class `__slots__`;\n"

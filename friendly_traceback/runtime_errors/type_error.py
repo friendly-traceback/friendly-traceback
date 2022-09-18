@@ -133,8 +133,8 @@ def parse_can_only_concatenate(message: str, tb_data: TracebackData) -> CauseInf
     if match is None:
         return {}
 
-    obj_type1 = match.group(1)
-    obj_type2 = match.group(2)
+    obj_type1 = match[1]
+    obj_type2 = match[2]
     frame = tb_data.exception_frame
 
     cause = _(
@@ -163,10 +163,10 @@ def parse_must_be_str(message: str, tb_data: TracebackData) -> CauseInfo:
     cause = _(
         "You tried to concatenate (add) two different types of objects:\n"
         "{first} and {second}.\n"
-    ).format(first=convert_type("str"), second=convert_type(match.group(1)))
-    if match.group(1) in ["int", "float", "complex"]:
+    ).format(first=convert_type("str"), second=convert_type(match[1]))
+    if match[1] in ["int", "float", "complex"]:
         more_cause, possible_hint = _convert_str_to_number(
-            "str", match.group(1), frame, tb_data
+            "str", match[1], frame, tb_data
         )
         if more_cause is not None:
             return {"cause": cause + more_cause, "suggest": possible_hint}
@@ -186,9 +186,9 @@ def parse_unsupported_operand_type(message: str, tb_data: TracebackData) -> Caus
 
     frame = tb_data.exception_frame
     all_objects = info_variables.get_all_objects(tb_data.bad_line, frame)["name, obj"]
-    operator = match.group(1)
-    obj_type1 = match.group(2)
-    obj_type2 = match.group(3)
+    operator = match[1]
+    obj_type1 = match[2]
+    obj_type2 = match[3]
     if operator in ["+", "+="]:
         cause = _(
             "You tried to add two incompatible types of objects:\n"
@@ -297,12 +297,12 @@ def parse_order_comparison(message: str, tb_data: TracebackData) -> CauseInfo:
         return {}
 
     frame = tb_data.exception_frame
-    if match.group(2) == match.group(3) == "complex":
+    if match[2] == match[3] == "complex":
         hint = _("Complex numbers cannot be ordered.\n")
         cause = _(
             "You tried to do an order comparison ({operator})\n"
             "between two complex numbers.\n"
-        ).format(operator=match.group(1))
+        ).format(operator=match[1])
         return {"cause": cause, "suggest": hint}
 
     cause = _(
@@ -310,16 +310,16 @@ def parse_order_comparison(message: str, tb_data: TracebackData) -> CauseInfo:
         "between two incompatible types of objects:\n"
         "{first} and {second}.\n"
     ).format(
-        operator=match.group(1),
-        first=convert_type(match.group(2)),
-        second=convert_type(match.group(3)),
+        operator=match[1],
+        first=convert_type(match[2]),
+        second=convert_type(match[3]),
     )
 
     number = None
-    if match.group(2) in ["int", "float"] and match.group(3) == "str":
-        number = match.group(2)
-    elif match.group(3) in ["int", "float"] and match.group(2) == "str":
-        number = match.group(3)
+    if match[2] in ["int", "float"] and match[3] == "str":
+        number = match[2]
+    elif match[3] in ["int", "float"] and match[2] == "str":
+        number = match[3]
 
     if number is not None:
         more_cause, possible_hint = _convert_str_to_number(
@@ -342,7 +342,7 @@ def bad_operand_type_for_unary(message: str, tb_data: TracebackData) -> CauseInf
     hint = None
     # The user might have written something like "=+" instead of
     # "+="
-    operator = match.group(1)
+    operator = match[1]
     index = token_utils.find_substring_index(
         tb_data.original_bad_line, tb_data.bad_line
     )
@@ -360,7 +360,7 @@ def bad_operand_type_for_unary(message: str, tb_data: TracebackData) -> CauseInf
         "You tried to use the unary operator '{operator}'\n"
         "with the following type of object: {obj}.\n"
         "This operation is not defined for this type of object.\n"
-    ).format(operator=operator, obj=convert_type(match.group(2)))
+    ).format(operator=operator, obj=convert_type(match[2]))
     if hint is not None:
         cause += "\n" + hint + "\n"
     cause = {"cause": cause}
@@ -381,7 +381,7 @@ def does_not_support_item_assignment(
         return {}
 
     hint = None
-    name = match.group(1)
+    name = match[1]
     cause = _(
         "In Python, some objects are known as immutable:\n"
         "once defined, their value cannot be changed.\n"
@@ -421,9 +421,9 @@ def incorrect_nb_positional_arguments(
         return {}
 
     hint = None
-    fn_name = match.group(1)[:-2]
-    nb_required = match.group(2)
-    nb_given = match.group(3)
+    fn_name = match[1][:-2]
+    nb_required = match[2]
+    nb_given = match[3]
     if ".<locals>." in fn_name:
         fn_name = fn_name.split(".<locals>.")[1]
     if int(nb_given) - int(nb_required) == 1:
@@ -468,7 +468,7 @@ def missing_positional_arguments(message: str, _tb_data: TracebackData) -> Cause
         "cause": _(
             "You apparently have called the function '{fn_name}' with\n"
             "fewer positional arguments than it requires ({nb_required} missing).\n"
-        ).format(fn_name=match.group(1), nb_required=match.group(2))
+        ).format(fn_name=match[1], nb_required=match[2])
     }
 
 
@@ -480,7 +480,7 @@ def x_is_not_callable(message: str, tb_data: TracebackData) -> CauseInfo:
         return {}
 
     frame = tb_data.exception_frame
-    obj_type = match.group(1)
+    obj_type = match[1]
     if obj_type == "NoneType":
         none_type = _(
             "\nNote: `NoneType` means that the object has a value of `None`.\n"
@@ -649,7 +649,7 @@ def object_cannot_be_interpreted_as_an_integer(
         return {}
 
     frame = tb_data.exception_frame
-    obj_name = match.group(1)
+    obj_name = match[1]
     if obj_name == "NoneType":
         cause = _(
             "You wrote an object whose value is `None` where an integer was expected.\n"
@@ -695,8 +695,8 @@ def indices_must_be_integers_or_slices(
         return {}
 
     frame = tb_data.exception_frame
-    container_type = match.group(1)
-    index_type = match.group(2)
+    container_type = match[1]
+    index_type = match[2]
     cause = _(
         "In the expression `{line}`\n"
         "what is included between the square brackets, `[...]`,\n"
@@ -845,7 +845,7 @@ def unhashable_type(message: str, _tb_data: TracebackData) -> CauseInfo:
         "once they have been created."
     )
 
-    original = match.group(1)
+    original = match[1]
     replacements = {"list": "tuple", "set": "frozenset"}
     if original in replacements:
         cause += _(
@@ -866,7 +866,7 @@ def object_is_not_subscriptable(message: str, tb_data: TracebackData) -> CauseIn
         return {}
 
     frame = tb_data.exception_frame
-    obj_type = match.group(1)
+    obj_type = match[1]
     if obj_type == "NoneType":
         none_type = _(
             "\nNote: `NoneType` means that the object has a value of `None`.\n"
@@ -924,7 +924,7 @@ def argument_of_object_is_not_iterable(
     match = re.search(pattern, message)
     if match is None:
         return {}
-    obj_type = match.group(1)
+    obj_type = match[1]
     # Suppose we have two objects of the same type, a and b.
     # For the expression:
     #    if a in b
@@ -978,7 +978,7 @@ def cannot_unpack_non_iterable(message: str, _tb_data: TracebackData) -> CauseIn
         "An iterable is an object capable of returning its members one at a time.\n"
         "Python containers (`list, tuple, dict`, etc.) are iterables,\n"
         "but not objects of type `{obj_type}`.\n"
-    ).format(obj_type=match.group(1))
+    ).format(obj_type=match[1])
     return {"cause": cause}
 
 
@@ -1099,12 +1099,12 @@ def function_got_multiple_argument(message: str, tb_data: TracebackData) -> Caus
         return {}
 
     frame = tb_data.exception_frame
-    function_name = match.group(1)
+    function_name = match[1]
     # Annoyingly, Python 3.10 inserts <locals> as part of the name of functions
     # defined locally, which is what we often do in unit tests.
     if ".<locals>." in function_name:
         function_name = function_name.split(".<locals>.")[1]
-    argument = match.group(2)
+    argument = match[2]
     cause = _(
         "You have specified the value of argument `{argument}` more than once\n"
         "when calling the function named `{function}`.\n"

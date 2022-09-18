@@ -23,7 +23,7 @@ def object_assignment_out_of_range(message: str, tb_data: TracebackData) -> Caus
     if not match:
         return {}
 
-    obj_type = match.group(1)
+    obj_type = match[1]
     frame = tb_data.exception_frame
     # first, try to identify object
     left_hand_side = tb_data.bad_line.split("=")[0].strip()
@@ -92,7 +92,7 @@ def index_out_of_range(message: str, tb_data: TracebackData) -> CauseInfo:
     if not match:
         return {}
 
-    obj_type = match.group(1)
+    obj_type = match[1]
     frame = tb_data.exception_frame
     bad_line = tb_data.bad_line
     # first, try to identify object

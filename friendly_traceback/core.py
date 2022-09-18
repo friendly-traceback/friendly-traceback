@@ -539,7 +539,7 @@ class FriendlyTraceback:
         for line in shortened_tb:
             match = re.search(pattern, line)
             if match:
-                filename = match.group(1)
+                filename = match[1]
                 short_filename = path_utils.shorten_path(filename)
                 line = line.replace(filename, short_filename)
                 if (

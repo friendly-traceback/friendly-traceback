@@ -27,13 +27,11 @@ def partially_initialized_module(message: str, tb_data: TracebackData) -> CauseI
         return {}
     if "circular import" in message:
         return cannot_import_name_from(
-            match.group(1), match.group(2), tb_data, add_circular_hint=False
+            match[1], match[2], tb_data, add_circular_hint=False
         )
     # I thought I saw such a case where "circular import" was not added
     # but have not been able to find it again.
-    return cannot_import_name_from(
-        match.group(1), match.group(2), tb_data
-    )  # pragma: no cover
+    return cannot_import_name_from(match[1], match[2], tb_data)  # pragma: no cover
 
 
 @parser._add
@@ -43,7 +41,7 @@ def _cannot_import_name_from(message: str, tb_data: TracebackData) -> CauseInfo:
     match = re.search(pattern, message)
     if not match:
         return {}
-    return cannot_import_name_from(match.group(1), match.group(2), tb_data)
+    return cannot_import_name_from(match[1], match[2], tb_data)
 
 
 @parser._add
@@ -53,7 +51,7 @@ def _cannot_import_name(message: str, tb_data: TracebackData) -> CauseInfo:
     match = re.search(pattern, message)
     if not match:  # pragma: no cover
         return {}
-    return cannot_import_name(match.group(1), tb_data)
+    return cannot_import_name(match[1], tb_data)
 
 
 def cannot_import_name_from(
@@ -143,7 +141,7 @@ def cannot_import_name(name: str, tb_data: TracebackData) -> CauseInfo:
             + please_report()
         }
 
-    return cannot_import_name_from(name, match.group(1), tb_data)
+    return cannot_import_name_from(name, match[1], tb_data)
 
 
 Modules = List[Tuple[str, str]]
