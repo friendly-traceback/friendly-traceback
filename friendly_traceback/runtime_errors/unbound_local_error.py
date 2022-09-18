@@ -2,21 +2,19 @@
 
 import builtins
 import re
-from types import FrameType
 
-from .. import debug_helper, info_variables, utils
-from ..core import TracebackData
+from .. import debug_helper, info_variables
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo, SimilarNamesInfo
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo, SimilarNamesInfo  # for type checking only
 
-parser = utils.RuntimeMessageParser()
+parser = get_parser(UnboundLocalError)
 _ = current_lang.translate
 
 
-@parser.add
-def local_variable_referenced(
-    message: str, frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def local_variable_referenced(message: str, tb_data: TracebackData) -> CauseInfo:
     pattern = re.compile(r"local variable '(.*)' referenced before assignment")
     pattern3_11 = re.compile(
         r"cannot access local variable '(.*)'"
@@ -28,6 +26,7 @@ def local_variable_referenced(
     if not match:
         return {}
 
+    frame = tb_data.exception_frame
     unknown_name = match.group(1)
     basic_cause = _(
         "You're trying to use the name `{name}` identified by Python as being\n"

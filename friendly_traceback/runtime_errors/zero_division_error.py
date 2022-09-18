@@ -1,13 +1,12 @@
-from types import FrameType
 from typing import SupportsInt, Union
 
 from .. import debug_helper
-from ..core import TracebackData
 from ..ft_gettext import current_lang
-from ..typing_info import CauseInfo
-from ..utils import RuntimeMessageParser
+from ..message_parser import get_parser
+from ..tb_data import TracebackData  # for type checking only
+from ..typing_info import CauseInfo  # for type checking only
 
-parser = RuntimeMessageParser()
+parser = get_parser(ZeroDivisionError)
 _ = current_lang.translate
 
 
@@ -25,10 +24,8 @@ def expression_is_zero(
     debug_helper.log("New case to consider for expression_is_zero")  # pragma: no cover
 
 
-@parser.add
-def division_by_zero(
-    message: str, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def division_by_zero(message: str, tb_data: TracebackData) -> CauseInfo:
     if message not in (
         "division by zero",
         "float division by zero",
@@ -60,10 +57,8 @@ def expression_includes_division_by_zero(expression):
     ).format(expression=expression)
 
 
-@parser.add
-def integer_division_or_modulo(
-    message: str, _frame: FrameType, tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def integer_division_or_modulo(message: str, tb_data: TracebackData) -> CauseInfo:
     if message not in ["integer division or modulo by zero", "integer modulo by zero"]:
         return {}
     expression = tb_data.bad_line
@@ -102,10 +97,8 @@ def integer_division_or_modulo(
     return {"cause": cause}
 
 
-@parser.add
-def zero_negative_power(
-    message: str, _frame: FrameType, _tb_data: TracebackData
-) -> CauseInfo:
+@parser._add
+def zero_negative_power(message: str, _tb_data: TracebackData) -> CauseInfo:
     if message != "0.0 cannot be raised to a negative power":
         return {}
     cause = _(
@@ -115,8 +108,8 @@ def zero_negative_power(
     return {"cause": cause}
 
 
-@parser.add
-def float_modulo(message: str, _frame: FrameType, tb_data: TracebackData) -> CauseInfo:
+@parser._add
+def float_modulo(message: str, tb_data: TracebackData) -> CauseInfo:
     if message != "float modulo":
         return {}
     expression = tb_data.bad_line
@@ -141,8 +134,8 @@ def float_modulo(message: str, _frame: FrameType, tb_data: TracebackData) -> Cau
     return {"cause": cause}
 
 
-@parser.add
-def float_divmod(message: str, _frame: FrameType, _tb_data: TracebackData) -> CauseInfo:
+@parser._add
+def float_divmod(message: str, _tb_data: TracebackData) -> CauseInfo:
     if message != "float divmod()":
         debug_helper.log("new case to consider")  # pragma: no cover
         return {}  # pragma: no cover

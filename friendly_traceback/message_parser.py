@@ -16,7 +16,9 @@ INCLUDED_PARSERS = {
     NameError: "name_error",
     RuntimeError: "runtime_error",
     TypeError: "type_error",
+    UnboundLocalError: "unbound_local_error",
     ValueError: "value_error",
+    ZeroDivisionError: "zero_division_error",
 }
 RUNTIME_MESSAGE_PARSERS = {}
 

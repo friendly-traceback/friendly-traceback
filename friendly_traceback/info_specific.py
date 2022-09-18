@@ -64,21 +64,3 @@ def _os_error(value: OSError, frame: FrameType, tb_data: "TracebackData") -> Cau
     from .runtime_errors import os_error
 
     return os_error.parser.get_cause(value, frame, tb_data)
-
-
-@register(UnboundLocalError)
-def _unbound_local_error(
-    value: UnboundLocalError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import unbound_local_error
-
-    return unbound_local_error.parser.get_cause(str(value), frame, tb_data)
-
-
-@register(ZeroDivisionError)
-def _zero_division_error(
-    value: ZeroDivisionError, frame: FrameType, tb_data: "TracebackData"
-) -> CauseInfo:
-    from .runtime_errors import zero_division_error
-
-    return zero_division_error.parser.get_cause(str(value), frame, tb_data)
