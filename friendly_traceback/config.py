@@ -65,7 +65,7 @@ class _State:
         # this should be disabled by Friendly itself.
         self.include_chained_exception = True
 
-    def show_traceback_info_again(self) -> None:
+    def show_traceback_info_again(self, index: int = -1) -> None:
         """If has not been cleared, write the traceback info again, using
         the default stream.
 
@@ -76,7 +76,25 @@ class _State:
         if not self.saved_info:
             print(_("Nothing to show: no exception recorded."))
             return
-        explanation = self.formatter(self.saved_info[-1], include=self.include)
+        pos_integer = _("`index` must be a positive integer or -1.\n")
+        if index != -1:
+            try:
+                if index != abs(int(index)) and index != 0:
+                    print(pos_integer)
+                    return
+            except Exception:
+                print(pos_integer)
+                return
+            if len(self.saved_info) < index:
+                print(
+                    _("There are only {number} recorded exceptions.\n").format(
+                        number=len(self.saved_info)
+                    )
+                )
+                return
+            index -= 1  # list index starts at zero
+
+        explanation = self.formatter(self.saved_info[index], include=self.include)
         self.write_err(explanation)
         # Do not combine with above as 'explanation' could be a list for IDLE
         self.write_err("\n")

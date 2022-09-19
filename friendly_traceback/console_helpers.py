@@ -65,27 +65,27 @@ def enable():
     session.install()
 
 
-def explain(include: InclusionChoice = "explain") -> None:
+def explain(index: int = -1, include: InclusionChoice = "explain") -> None:
     """Shows the previously recorded traceback info again,
     with the option to specify different items to include.
     For example, ``explain("why")`` is equivalent to ``why()``.
     """
     old_include = friendly_traceback.get_include()
     friendly_traceback.set_include(include)
-    session.show_traceback_info_again()
+    session.show_traceback_info_again(index)
     friendly_traceback.set_include(old_include)
 
 
-def friendly_tb() -> None:
+def friendly_tb(index: int = -1) -> None:
     """Shows the simplified Python traceback,
     which includes the hint/suggestion if available.
     """
-    explain("friendly_tb")
+    explain(index, include="friendly_tb")
 
 
-def hint() -> None:
+def hint(index: int = -1) -> None:
     """Shows hint/suggestion if available."""
-    explain("hint")
+    explain(index, include="hint")
 
 
 def history() -> None:
@@ -102,11 +102,11 @@ def history() -> None:
         session.write_err("".join(items))
 
 
-def python_tb() -> None:
+def python_tb(index: int = -1) -> None:
     """Shows the Python traceback, excluding files from friendly
     itself.
     """
-    explain("python_tb")
+    explain(index, include="python_tb")
 
 
 def toggle_prompt() -> None:
@@ -115,7 +115,9 @@ def toggle_prompt() -> None:
 
 
 def what(
-    exception: Union[Type[BaseException], str, bytes, types.CodeType, None] = None,
+    exception_or_index: Union[
+        Type[BaseException], str, bytes, types.CodeType, int, None
+    ] = None,
     pre: bool = False,
 ) -> None:
     """If known, shows the generic explanation about a given exception.
@@ -124,23 +126,30 @@ def what(
     formatted in a way that is suitable for inclusion in the
     documentation.
     """
-    if exception is None:
-        explain("what")
+    if exception_or_index is None:
+        explain(index=-1, include="what")
+        return
+    elif isinstance(exception_or_index, int):
+        explain(index=exception_or_index, include="what")
         return
 
-    if inspect.isclass(exception) and issubclass(exception, BaseException):
-        result = get_generic_explanation(exception)
+    if inspect.isclass(exception_or_index) and issubclass(
+        exception_or_index, BaseException
+    ):
+        result = get_generic_explanation(exception_or_index)
     else:
         try:
-            exc = eval(exception)  # skipcq PYL-W0123
+            exc = eval(exception_or_index)  # skipcq PYL-W0123
             if inspect.isclass(exc) and issubclass(exc, BaseException):
                 result = get_generic_explanation(exc)
             else:
                 result = _("{exception} is not an exception.").format(
-                    exception=exception
+                    exception=exception_or_index
                 )
         except Exception:  # noqa
-            result = _("{exception} is not an exception.").format(exception=exception)
+            result = _("{exception} is not an exception.").format(
+                exception=exception_or_index
+            )
 
     if pre:  # for documentation # pragma: no cover
         lines = result.split("\n")
@@ -151,21 +160,24 @@ def what(
         session.write_err(result)
 
 
-def where(more=False) -> None:
+def where(index: int = -1, more=False) -> None:
     """Shows the information about where the exception occurred"""
     if more:
-        explain("detailed_tb")
+        explain(index, "detailed_tb")
     else:
-        explain("where")
+        explain(index, "where")
 
 
-def why() -> None:
+def why(index: int = -1) -> None:
     """Shows the likely cause of the exception."""
     # If no cause is found, and the exception name is not accompanied by a
     # message, as in "StopIteration:", we use the same info for
     # the cause as we used for the generic information as per issue #66
     try:
-        info = session.saved_info[-1]
+        if index == -1:
+            info = session.saved_info[-1]
+        else:
+            info = session.saved_info[index + 1]
     except IndexError:
         info = {}
     if (
@@ -174,9 +186,9 @@ def why() -> None:
         and len(info["message"].split(":")) > 1
         and not info["message"].split(":")[1].strip()  # empty message
     ):
-        explain("what")
+        explain(index, "what")
     else:
-        explain("why")
+        explain(index, "why")
 
 
 def www(site: Optional[Site] = None) -> None:  # pragma: no cover
@@ -272,7 +284,7 @@ def _debug_tb() -> None:  # pragma: no cover
     """Shows the true Python traceback, which includes
     files from friendly itself.
     """
-    explain("debug_tb")
+    explain(-1, include="debug_tb")
 
 
 def _get_exception() -> Optional[BaseException]:  # pragma: no cover
