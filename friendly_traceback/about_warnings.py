@@ -11,7 +11,7 @@ _ = current_lang.translate
 
 
 def show_warning(message, category, filename, lineno, file=None, line=None):
-    session.write_err(f"`{category.__name__}: '{filename}', line: {lineno}`\n")
+    session.write_err(f"`{category.__name__}`: {message}\n")
     info = {}
     info["message"] = _("{name}: {message}\n").format(
         message=message, name=category.__name__
