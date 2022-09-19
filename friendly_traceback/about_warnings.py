@@ -1,25 +1,44 @@
 """This module will expand later."""
 import warnings
 
-WARNINGS = {}
+import executing
 
-# For simplicity, we will use a subset of the same items
-# that we used for a traceback info
-# items_to_consider = [
-#     "message",  #
-#     "generic",  # <-- what()
-#     "cause",  # <-- why()
-#     "last_call_header",  # location; filename and lineno
-#     "last_call_source",  # <-- where()
-# ]
+from .config import session
+from .ft_gettext import current_lang
+from .info_generic import get_generic_explanation
+
+_ = current_lang.translate
 
 
 def show_warning(message, category, filename, lineno, file=None, line=None):
-    new_warning = warnings.WarningMessage(
-        message, category, filename, lineno, file, line
+    session.write_err(f"`{category.__name__}: '{filename}', line: {lineno}`\n")
+    info = {}
+    info["message"] = _("{name}: {message}\n").format(
+        message=message, name=category.__name__
     )
-    print(f"{category.__name__}: {filename}, line: {lineno}")
-    WARNINGS[len(WARNINGS) + 1] = new_warning
+    info["generic"] = get_generic_explanation(category)
+    info["last_call_header"] = _("{name}: File {filename}, line {lineno}\n").format(
+        name=category.__name__, filename=filename, lineno=lineno
+    )
+    info["last_call_source"] = get_source(filename, lineno)
+    session.saved_info.append(info)
+    session.friendly_info.append(info)
+
+
+def get_source(filename: str, lineno: int):
+    new_lines = []
+    try:
+        source = executing.Source.for_filename(filename)
+        statement = source.statements_at_line(lineno).pop()
+        lines = source.lines[statement.lineno - 1 : statement.end_lineno]
+        for number, line in enumerate(lines, start=statement.lineno):
+            if number == lineno:
+                new_lines.append(f"    -->{number}| {line}")
+            else:
+                new_lines.append(f"       {number}| {line}")
+        return "\n".join(new_lines)
+    except Exception:
+        return _("        <'source unavailable'>")
 
 
 warnings.showwarning = show_warning
