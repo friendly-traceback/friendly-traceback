@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly_traceback\n"
-"POT-Creation-Date: 2022-02-05 08:58-0400\n"
-"PO-Revision-Date: 2022-09-18 14:56-0300\n"
+"POT-Creation-Date: 2022-09-19 09:39-0300\n"
+"PO-Revision-Date: 2022-09-19 09:41-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -11,15 +11,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:190 __main__.py:169
+#: __init__.py:183 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr "Файл {filename} не найден."
 
-#: base_formatters.py:163 base_formatters.py:169
+#: __init__.py:279
+msgid "{include}: Unrecognized value."
+msgstr ""
+
+#: __init__.py:280
+msgid "The allowed values are:"
+msgstr ""
+
+#: base_formatters.py:174 base_formatters.py:180
 msgid "I have no suggestion to offer."
 msgstr "Не могу ничего предложить."
 
-#: base_formatters.py:167
+#: base_formatters.py:178
 msgid "I have no suggestion to offer; try `why()`."
 msgstr "У меня нет предложений, попробуйте `why()`."
 
@@ -30,14 +38,16 @@ msgid ""
 "You will need to import `start_console` if you have not already done so.\n"
 msgstr ""
 "Вы используете консоль интерпретатора Python вместо консоли Friendly?\n"
-"Если да, то для продолжения попробуйте: start_console(local_vars=locals())`.\n"
-"Вам нужно будет импортировать `start_console`, если вы еще этого не сделали.\n"
+"Если да, то для продолжения попробуйте: "
+"start_console(local_vars=locals())`.\n"
+"Вам нужно будет импортировать `start_console`, если вы еще этого не "
+"сделали.\n"
 
-#: config.py:72 config.py:181 console_helpers.py:29
+#: config.py:77 config.py:191 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr "Показать нечего: исключений не зарегистрировано."
 
-#: config.py:309
+#: config.py:319
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -49,11 +59,19 @@ msgstr ""
 msgid "Nothing to go back to: no exception recorded."
 msgstr "Возвращаться не к чему: исключений не зарегистрировано."
 
-#: console_helpers.py:121 console_helpers.py:125
+#: console_helpers.py:55
+msgid "Friendly-traceback is already disabled."
+msgstr ""
+
+#: console_helpers.py:63
+msgid "Friendly-traceback is already enabled."
+msgstr ""
+
+#: console_helpers.py:137 console_helpers.py:141
 msgid "{exception} is not an exception."
 msgstr "{exception} не является исключением."
 
-#: console_helpers.py:207
+#: console_helpers.py:226
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -61,25 +79,26 @@ msgstr ""
 "Недопустимый аргумент для `www()`.\n"
 "Допустимые аргументы включают `None` или один из `{sites}`.\n"
 
-#: console_helpers.py:231
+#: console_helpers.py:250
 msgid "The default web browser cannot be used for searching."
 msgstr "Веб-браузер по умолчанию не может быть использован для поиска."
 
-#: console_helpers.py:427
+#: console_helpers.py:448
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
-msgstr "Следующие методы объекта Friendly также должны быть доступны как функции."
+msgstr ""
+"Следующие методы объекта Friendly также должны быть доступны как функции."
 
-#: core.py:378
+#: core.py:123
 msgid "More lines not shown."
 msgstr "Другие строки не показаны."
 
-#: core.py:379 core.py:418
+#: core.py:124 core.py:163
 msgid "Python exception:"
 msgstr "Исключение Python:"
 
-#: core.py:437
+#: core.py:182
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -93,61 +112,62 @@ msgstr ""
 "Это может произойти, если метод `__repr__` или `__str__`\n"
 "вызывает исключение или не возвращает строку.\n"
 
-#: core.py:490
+#: core.py:233
 msgid "The encoding of the file was not valid.\n"
 msgstr "Кодировка файла некорректна.\n"
 
-#: core.py:568 core.py:586
-msgid "{filename} is not a regular Python file whose contents can be analyzed.\n"
+#: core.py:313 core.py:330
+msgid ""
+"{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} не является стандартным файлом Python, содержимое которого можно "
 "проанализировать.\n"
 
-#: core.py:573
+#: core.py:318
 msgid "Exception raised on line {linenumber} of code block {filename}.\n"
 msgstr "Исключение возникло в строке {linenumber} блока кода {filename}.\n"
 
-#: core.py:577
+#: core.py:322
 msgid "Exception raised on line {linenumber} of file {filename}.\n"
 msgstr "Исключение возникло в строке {linenumber} файла {filename}.\n"
 
-#: core.py:612
+#: core.py:356
 msgid "Execution stopped on line {linenumber} of code block {filename}.\n"
 msgstr "Выполнение остановлено на строке {linenumber} блока кода {filename}.\n"
 
-#: core.py:616
+#: core.py:360
 msgid "Execution stopped on line {linenumber} of file {filename}.\n"
 msgstr "Выполнение остановлено на строке {linenumber} файла {filename}.\n"
 
-#: core.py:644
+#: core.py:384
 msgid "Code block {filename}, line {line}"
 msgstr "Блок кода {filename}, строка {line}"
 
-#: core.py:648
+#: core.py:388
 msgid "File {filename}, line {line}"
 msgstr "Файл {filename}, строка {line}"
 
-#: core.py:662
+#: core.py:402
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr "Содержимое файла `{filename}` недоступно.\n"
 
-#: core.py:676
+#: core.py:416
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python не смог понять блок кода {filename}\n"
 
-#: core.py:680
+#: core.py:420
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr "Python не смог понять код в файле '{filename}'\n"
 
-#: core.py:685
+#: core.py:425
 msgid "at the location indicated.\n"
 msgstr ""
 "в указанном ^ месте.\n"
 "\n"
 
-#: core.py:918
+#: core.py:663
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -155,19 +175,19 @@ msgstr ""
 "К сожалению, никакой дополнительной информации нет:\n"
 "содержимое файла '<stdin>' недоступно.\n"
 
-#: debug_helper.py:72
+#: debug_helper.py:77
 msgid "Fatal error - aborting"
 msgstr "Фатальная ошибка - завершение работы"
 
-#: debug_helper.py:73
+#: debug_helper.py:78
 msgid "Please report this issue."
 msgstr "Пожалуйста, сообщите об этой проблеме."
 
-#: frame_info.py:31
+#: frame_info.py:85
 msgid "Problem: source of `{filename}` is not available\n"
 msgstr "Проблема: источник `{filename}` недоступен\n"
 
-#: ft_console.py:29
+#: ft_console.py:30
 msgid "Type 'Friendly' for help on special functions/methods."
 msgstr ""
 "Напечатайте 'Friendly' для получения помощи по специальным функциям/методам."
@@ -211,75 +231,85 @@ msgid "Removes the last recorded traceback item."
 msgstr "Удаляет последний записанный элемент трассировки."
 
 #: functions_help.py:11
+msgid "Disable friendly-traceback and restore previous exception hook."
+msgstr ""
+
+#: functions_help.py:14
+msgid "Enable friendly-traceback as an exception hook"
+msgstr ""
+
+#: functions_help.py:15
 msgid "Shows all the information about the last traceback."
 msgstr "Показывает всю информацию по последней трассировке."
 
-#: functions_help.py:12
+#: functions_help.py:16
 msgid "Shows a list of recorded traceback messages."
 msgstr "Показывает список записанных сообщений трассировки."
 
-#: functions_help.py:13
+#: functions_help.py:17
 msgid "Sets the language to be used."
 msgstr "Устанавливает используемую локализацию."
 
-#: functions_help.py:14
+#: functions_help.py:18
 msgid "Shows the paths corresponding to synonyms used."
 msgstr "Показывает пути, соответствующие используемым синонимам."
 
-#: functions_help.py:15
+#: functions_help.py:19
 msgid "Changes the prompt style to be used in the Friendly console."
 msgstr "Устанавливает стиль подсказки, который будет использоваться в консоли."
 
-#: functions_help.py:18
+#: functions_help.py:22
 msgid "Shows the generic meaning of a given exception."
 msgstr "Показывает общий смысл данного исключения."
 
-#: functions_help.py:19
+#: functions_help.py:23
 msgid "Shows where an exception was raised."
 msgstr "Показывает где возникло исключение."
 
-#: functions_help.py:20
+#: functions_help.py:24
 msgid "Shows the likely cause of the exception."
 msgstr "Показывает вероятную причину возникновения исключения."
 
-#: functions_help.py:21
+#: functions_help.py:25
 msgid "Opens a web browser at a useful location."
 msgstr "Открывает веб-браузер на полезной странице."
 
-#: functions_help.py:22
+#: functions_help.py:26
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr "Предложение иногда добавляется в трассировку Friendly."
 
-#: functions_help.py:23
+#: functions_help.py:27
 msgid "Shows a normal Python traceback."
 msgstr "Показывает обычную трассировку Python."
 
-#: functions_help.py:24
+#: functions_help.py:28
 msgid "Shows a simplified Python traceback."
 msgstr "Показывает упрощенную трассировку Python."
 
-#: functions_help.py:25
+#: functions_help.py:29
 msgid "Returns the current value used for items to include by default."
 msgstr ""
-"Возвращает текущее значение, используемое для элементов, включаемых по умолчанию."
+"Возвращает текущее значение, используемое для элементов, включаемых по "
+"умолчанию."
 
-#: functions_help.py:28
+#: functions_help.py:32
 msgid "Sets the items to show by default when an exception is raised."
 msgstr ""
 "Устанавливает элементы, которые будут отображаться по умолчанию\n"
 "при возникновении исключения."
 
-#: functions_help.py:31
+#: functions_help.py:35
 msgid "Returns the language currently used."
 msgstr "Возвращает используемую в данный момент локализацию."
 
-#: functions_help.py:32
+#: functions_help.py:36
 msgid "Sets the formatter to use for display."
 msgstr "Устанавливает форматтер, который будет использоваться для отображения."
 
-#: functions_help.py:33
+#: functions_help.py:37
 msgid "Use True (default) or False to enable debugging methods."
-msgstr "Используйте True (по умолчанию) или False для включения методов отладки."
+msgstr ""
+"Используйте True (по умолчанию) или False для включения методов отладки."
 
 #: info_generic.py:39
 msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
@@ -307,7 +337,7 @@ msgid ""
 "\n"
 "If `condition` is `False` or equivalent, an `AssertionError` is raised.\n"
 msgstr ""
-"В Python ключевое слово 'assert' используется в утверждениях типа\n"
+"В Python ключевое слово `assert` используется в утверждениях типа\n"
 "`assert condition`, чтобы подтвердить, что `condition` не является `False`,\n"
 "или эквивалентно `False`, например, пустой список и т.д.\n"
 "\n"
@@ -322,7 +352,8 @@ msgid ""
 msgstr ""
 "`AttributeError` возникает, когда код содержит что-то вроде\n"
 "    `object.x`\n"
-"где `x` не является методом или атрибутом (переменной), принадлежащим `object`.\n"
+"где `x` не является методом или атрибутом (переменной), принадлежащим "
+"`object`.\n"
 
 #: info_generic.py:93
 msgid ""
@@ -463,11 +494,12 @@ msgstr ""
 
 #: info_generic.py:211
 msgid ""
-"A `RuntimeError` is raised when an error is detected that doesn't fall in any\n"
+"A `RuntimeError` is raised when an error is detected that doesn't fall in "
+"any\n"
 "of the more specific exception types defined by Python.\n"
 msgstr ""
-"`RuntimeError` возникает при обнаружении ошибки, которая не попадает ни в один "
-"из\n"
+"`RuntimeError` возникает при обнаружении ошибки, которая не попадает ни в "
+"один из\n"
 "из более специфичных типов исключений, определенных Python.\n"
 
 #: info_generic.py:219
@@ -532,7 +564,8 @@ msgid ""
 "an `UnboundLocalError`.\n"
 msgstr ""
 "В Python переменные, которые используются внутри функции, называются \n"
-"локальными переменными. Перед использованием им должно быть присвоено значение.\n"
+"локальными переменными. Перед использованием им должно быть присвоено "
+"значение.\n"
 "Переменная, которая используется до присвоения ей значения, считается\n"
 "определена вне этой функции; она известна как `global`\n"
 "(или иногда `nonlocal`) переменной. Вы не можете присвоить значение такой\n"
@@ -574,7 +607,7 @@ msgstr "целое число (`int`)"
 
 #: info_variables.py:37
 msgid "a `list`"
-msgstr "список  `list`"
+msgstr "список `list`"
 
 #: info_variables.py:38
 msgid "a variable equal to `None` (`NoneType`)"
@@ -592,15 +625,19 @@ msgstr "строка (`str`)"
 msgid "a `tuple`"
 msgstr "кортеж `tuple`"
 
-#: info_variables.py:390
+#: info_variables.py:279
+msgid "Warning: you have redefined the python builtin `{name}`.\n"
+msgstr ""
+
+#: info_variables.py:437
 msgid "Object too large to be processed by Python."
 msgstr "Объект слишком велик для обработки Python."
 
-#: info_variables.py:394
+#: info_variables.py:441
 msgid "Unable to compute."
 msgstr "Невозможно вычислить."
 
-#: info_variables.py:457
+#: info_variables.py:499
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -611,7 +648,7 @@ msgid ""
 "\n"
 "    {name} = {hint}\n"
 msgstr ""
-"Найдена подсказка типа для `{name}}` в области видимости {scope}.\n"
+"Найдена подсказка типа для `{name}` в области видимости {scope}.\n"
 "Возможно, вы использовали двоеточие вместо знака равенства и написали\n"
 "\n"
 "    {name} : {hint}\n"
@@ -620,16 +657,16 @@ msgstr ""
 "\n"
 "    {name} = {hint}\n"
 
-#: path_info.py:217
+#: path_info.py:213
 msgid "The default directory is {dirname}."
 msgstr "По умолчанию используется каталог {dirname}."
 
-#: runtime_errors\attribute_error.py:32 runtime_errors\attribute_error.py:80
-#: runtime_errors\attribute_error.py:118
+#: runtime_errors\attribute_error.py:31 runtime_errors\attribute_error.py:78
+#: runtime_errors\attribute_error.py:116
 msgid "Did you give your program the same name as a Python module?\n"
 msgstr "Давали ли вы своей программе то же имя, что и модулю Python?\n"
 
-#: runtime_errors\attribute_error.py:33 runtime_errors\attribute_error.py:81
+#: runtime_errors\attribute_error.py:32 runtime_errors\attribute_error.py:79
 msgid ""
 "I suspect that you used the name `{module}.py` for your program\n"
 "and that you also wanted to import a module with the same name\n"
@@ -641,19 +678,19 @@ msgstr ""
 "из стандартной библиотеки Python.\n"
 "Если это так, то вы должны использовать другое имя для своей программы.\n"
 
-#: runtime_errors\attribute_error.py:42 runtime_errors\import_error.py:75
+#: runtime_errors\attribute_error.py:41 runtime_errors\import_error.py:67
 msgid "You have a circular import.\n"
 msgstr "У вас кольцевой импорт.\n"
 
-#: runtime_errors\attribute_error.py:46 runtime_errors\attribute_error.py:89
+#: runtime_errors\attribute_error.py:45 runtime_errors\attribute_error.py:87
 msgid "You likely have a circular import.\n"
 msgstr "Скорее всего, у вас кольцевой импорт.\n"
 
-#: runtime_errors\attribute_error.py:47
+#: runtime_errors\attribute_error.py:46
 msgid "Python indicated that the module `{module}` was not fully imported.\n"
 msgstr "Python указал, что модуль `{module}` был импортирован не полностью.\n"
 
-#: runtime_errors\attribute_error.py:48 runtime_errors\attribute_error.py:90
+#: runtime_errors\attribute_error.py:47 runtime_errors\attribute_error.py:88
 msgid ""
 "This can occur if, during the execution of the code in module `{module}`\n"
 "an attempt is made to import the same module again.\n"
@@ -661,7 +698,7 @@ msgstr ""
 "Это может произойти, если во время выполнения кода в модуле `{module}`\n"
 "будет сделана попытка импортировать тот же модуль еще раз.\n"
 
-#: runtime_errors\attribute_error.py:73
+#: runtime_errors\attribute_error.py:71
 msgid ""
 "This should not happen:\n"
 "Python tells us that module `{module}` does not have an attribute named "
@@ -673,23 +710,25 @@ msgstr ""
 "`{attribute}`.\n"
 "Однако не похоже, чтобы модуль `{module}` был импортирован.\n"
 
-#: runtime_errors\attribute_error.py:99 runtime_errors\attribute_error.py:107
-#: runtime_errors\attribute_error.py:140 runtime_errors\attribute_error.py:394
-#: runtime_errors\import_error.py:118 runtime_errors\key_error.py:194
-#: runtime_errors\key_error.py:201 runtime_errors\module_not_found_error.py:129
-#: runtime_errors\name_error.py:97 runtime_errors\name_error.py:99
-#: runtime_errors\unbound_local_error.py:55 syntax_errors\message_analyzer.py:456
-#: syntax_errors\message_analyzer.py:1093 syntax_errors\statement_analyzer.py:1276
+#: runtime_errors\attribute_error.py:97 runtime_errors\attribute_error.py:105
+#: runtime_errors\attribute_error.py:138 runtime_errors\attribute_error.py:390
+#: runtime_errors\import_error.py:110 runtime_errors\key_error.py:187
+#: runtime_errors\key_error.py:194 runtime_errors\module_not_found_error.py:123
+#: runtime_errors\name_error.py:101 runtime_errors\name_error.py:103
+#: runtime_errors\unbound_local_error.py:54
+#: syntax_errors\message_analyzer.py:462 syntax_errors\message_analyzer.py:1105
+#: syntax_errors\statement_analyzer.py:1281
 msgid "Did you mean `{name}`?\n"
 msgstr "Вы имели в виду `{name}`?\n"
 
-#: runtime_errors\attribute_error.py:100
+#: runtime_errors\attribute_error.py:98
 msgid ""
-"Perhaps you meant to write `{module}.{correct}` instead of `{module}.{typo}`\n"
+"Perhaps you meant to write `{module}.{correct}` instead of `{module}.{typo}"
+"`\n"
 msgstr ""
 "Возможно, вы хотели написать `{module}.{correct}` вместо `{module}.{typo}`\n"
 
-#: runtime_errors\attribute_error.py:108
+#: runtime_errors\attribute_error.py:106
 msgid ""
 "Instead of writing `{module}.{typo}`, perhaps you meant to write one of \n"
 "the following names which are attributes of module `{module}`:\n"
@@ -699,7 +738,7 @@ msgstr ""
 " одно из следующих имен, которые являются атрибутами модуля `{module}`:\n"
 "`{names}`\n"
 
-#: runtime_errors\attribute_error.py:119
+#: runtime_errors\attribute_error.py:117
 msgid ""
 "You imported a module named `{module}` from `{mod_path}`.\n"
 "There is also a module named `{module}` in Python's standard library.\n"
@@ -709,7 +748,7 @@ msgstr ""
 "В стандартной библиотеке Python также есть модуль с именем `{module}`.\n"
 "Возможно, вам нужно переименовать ваш модуль.\n"
 
-#: runtime_errors\attribute_error.py:141
+#: runtime_errors\attribute_error.py:139
 msgid ""
 "Perhaps you meant to use the attribute `{attribute}` of \n"
 "module `{mod_name}` instead of module `{module}`.\n"
@@ -717,11 +756,11 @@ msgstr ""
 "Возможно, вы хотели использовать атрибут `{attribute}` из \n"
 "модуля `{mod_name}` вместо модуля `{module}`.\n"
 
-#: runtime_errors\attribute_error.py:147
+#: runtime_errors\attribute_error.py:145
 msgid "Did you mean one of the following modules: `{names}`?"
 msgstr "Вы имели в виду один из следующих модулей: `{names}`?"
 
-#: runtime_errors\attribute_error.py:150
+#: runtime_errors\attribute_error.py:148
 msgid ""
 "Instead of the module `{module}`, perhaps you wanted to use\n"
 "the attribute `{attribute}` of one of the following modules:\n"
@@ -731,7 +770,7 @@ msgstr ""
 "атрибут `{attribute}` одного из следующих модулей:\n"
 "`{names}`.\n"
 
-#: runtime_errors\attribute_error.py:159
+#: runtime_errors\attribute_error.py:157
 msgid ""
 "Python tells us that no object with name `{attribute}` is\n"
 "found in module `{module}`.\n"
@@ -739,7 +778,7 @@ msgstr ""
 "Python сообщает, что ни один объект с именем `{attribute}`\n"
 "не найден в модуле `{module}`.\n"
 
-#: runtime_errors\attribute_error.py:190
+#: runtime_errors\attribute_error.py:186
 msgid ""
 "You are attempting to access the attribute `{attr}`\n"
 "for a variable whose value is `None`."
@@ -747,7 +786,7 @@ msgstr ""
 "Вы пытаетесь получить доступ к атрибуту `{attr}`\n"
 "для переменной, значение которой `None`."
 
-#: runtime_errors\attribute_error.py:211
+#: runtime_errors\attribute_error.py:207
 msgid ""
 "The value of attribute `{attribute}` of objects of type `{obj_type}`\n"
 "cannot be changed.\n"
@@ -757,7 +796,7 @@ msgstr ""
 "не может быть изменено.\n"
 "Дополнительной информации нет.\n"
 
-#: runtime_errors\attribute_error.py:230
+#: runtime_errors\attribute_error.py:226
 msgid ""
 "Object `{name}` uses an empty `__slots__` to prevent the modification\n"
 "of any of its attributes.\n"
@@ -765,7 +804,7 @@ msgstr ""
 "Объект `{name}` использует пустые `__slots__`,\n"
 "чтобы предотвратить изменение какого-либо из его атрибутов.\n"
 
-#: runtime_errors\attribute_error.py:236
+#: runtime_errors\attribute_error.py:232
 msgid ""
 "Object `{name}` uses `__slots__` to specify which attributes can\n"
 "be changed. The value of attribute `{name}.{attribute}` cannot be changed.\n"
@@ -774,7 +813,7 @@ msgstr ""
 "быть изменены. Значение атрибута `{name}.{attribute}`\n"
 "не может быть изменено.\n"
 
-#: runtime_errors\attribute_error.py:261
+#: runtime_errors\attribute_error.py:257
 msgid ""
 "`{obj_name}` is a function. Perhaps you meant to write\n"
 "`{obj_name}({attribute})`\n"
@@ -782,19 +821,19 @@ msgstr ""
 "`{obj_name}` является функцией. Возможно, вы хотели написать\n"
 "`{obj_name}({attribute})`.\n"
 
-#: runtime_errors\attribute_error.py:265
+#: runtime_errors\attribute_error.py:261
 msgid "Did you mean `{obj_name}({attribute})`?\n"
 msgstr "Вы имели в виду `{obj_name}({attribute})`?\n"
 
-#: runtime_errors\attribute_error.py:270
+#: runtime_errors\attribute_error.py:266
 msgid ""
 "`{obj_name}` is a Python built-in function or method\n"
 "which does not have an attribute named `{attribute}.`\n"
 msgstr ""
 "`{obj_name}` является встроенной функцией или методом Python,\n"
-"не имеющего атрибута с именем `{attribute}}.\n"
+"не имеющего атрибута с именем `{attribute}`.\n"
 
-#: runtime_errors\attribute_error.py:289
+#: runtime_errors\attribute_error.py:285
 msgid ""
 "An object of type `{obj_type}` has no attribute named `{attr}`.\n"
 "Unfortunately I cannot find such an object on the line where\n"
@@ -804,7 +843,7 @@ msgstr ""
 "К сожалению, я не могу найти такой объект в строке\n"
 "где возникает проблема.\n"
 
-#: runtime_errors\attribute_error.py:317
+#: runtime_errors\attribute_error.py:313
 msgid ""
 "An object of type `{obj_type}` has no attribute named `{attr}`.\n"
 "\n"
@@ -818,7 +857,7 @@ msgstr ""
 "Есть один объект этого типа в текущей области видимости\n"
 "но, похоже, это не тот объект, который вызывает проблему.\n"
 
-#: runtime_errors\attribute_error.py:326
+#: runtime_errors\attribute_error.py:322
 msgid ""
 "An object of type `{obj_type}` has no attribute named `{attr}`.\n"
 "\n"
@@ -830,11 +869,11 @@ msgstr ""
 "Причиной проблемы могут быть следующие объекты: \n"
 "{names}.\n"
 
-#: runtime_errors\attribute_error.py:366
+#: runtime_errors\attribute_error.py:362
 msgid "The object `{obj}` has no attribute named `{attr}`.\n"
 msgstr "У объекта `{obj}` нет атрибута с именем `{attr}`.\n"
 
-#: runtime_errors\attribute_error.py:370
+#: runtime_errors\attribute_error.py:366
 msgid ""
 "Note that object `{obj}` uses `__slots__` which prevents\n"
 "the creation of new attributes.\n"
@@ -842,7 +881,7 @@ msgstr ""
 "Обратите внимание, что объект `{obj}` использует `__slots__`,\n"
 "что предотвращает создание новых атрибутов.\n"
 
-#: runtime_errors\attribute_error.py:378
+#: runtime_errors\attribute_error.py:374
 msgid ""
 "The following are some of its known attributes:\n"
 "`{names}`."
@@ -850,34 +889,37 @@ msgstr ""
 "Ниже перечислены некоторые из его известных атрибутов:\n"
 "`{names}`."
 
-#: runtime_errors\attribute_error.py:390
+#: runtime_errors\attribute_error.py:386
 msgid "The object `{obj_name}` has no attribute named `{attribute}`.\n"
 msgstr "У объекта `{obj_name}` нет атрибута с именем `{attribute}`.\n"
 
-#: runtime_errors\attribute_error.py:395
-msgid "Perhaps you meant to write `{obj}.{correct}` instead of `{obj}.{typo}`\n"
-msgstr "Возможно, вы хотели написать `{obj}.{correct}` вместо `{obj}.{typo}`.\n"
+#: runtime_errors\attribute_error.py:391
+msgid ""
+"Perhaps you meant to write `{obj}.{correct}` instead of `{obj}.{typo}`\n"
+msgstr ""
+"Возможно, вы хотели написать `{obj}.{correct}` вместо `{obj}.{typo}`.\n"
 
-#: runtime_errors\attribute_error.py:401 runtime_errors\import_error.py:125
+#: runtime_errors\attribute_error.py:397 runtime_errors\import_error.py:117
 msgid "Did you mean one of the following: `{names}`?\n"
 msgstr "Вы имели в виду одно из следующих: `{names}`?\n"
 
-#: runtime_errors\attribute_error.py:402
+#: runtime_errors\attribute_error.py:398
 msgid ""
 "Instead of writing `{obj}.{typo}`, perhaps you meant to write one of \n"
 "the following names which are attributes of object `{obj}`:\n"
 "`{names}`\n"
 msgstr ""
-"Вместо того чтобы написать `{obj}.{typo}`,возможно вы хотели написать одно из\n"
+"Вместо того чтобы написать `{obj}.{typo}`,возможно вы хотели написать одно "
+"из\n"
 "следующих имен, которые являются атрибутами объекта `{obj}`:\n"
 "`{names}`.\n"
 
-#: runtime_errors\attribute_error.py:427 syntax_errors\message_analyzer.py:1756
-#: syntax_errors\message_analyzer.py:1769
+#: runtime_errors\attribute_error.py:423 syntax_errors\message_analyzer.py:1760
+#: syntax_errors\message_analyzer.py:1773
 msgid "Did you write a comma by mistake?\n"
 msgstr "Вы поставили запятую по ошибке?\n"
 
-#: runtime_errors\attribute_error.py:428
+#: runtime_errors\attribute_error.py:424
 msgid ""
 "`{obj_name}` is a tuple that contains a single item\n"
 "which does have `'{attribute}'` as an attribute.\n"
@@ -889,11 +931,11 @@ msgstr ""
 "Возможно, вы по ошибке добавили запятую в конце строки\n"
 "в которой вы определили `{obj_name}`.\n"
 
-#: runtime_errors\attribute_error.py:441
+#: runtime_errors\attribute_error.py:437
 msgid "Did you mean `{str_content}.join({obj_name})`?\n"
 msgstr "Вы имели в виду `{str_content}.join({obj_name})`?\n"
 
-#: runtime_errors\attribute_error.py:442
+#: runtime_errors\attribute_error.py:438
 msgid ""
 "The object `{obj_name}` has no attribute named `join`.\n"
 "Perhaps you wanted something like `{str_content}.join({obj_name})`.\n"
@@ -901,11 +943,11 @@ msgstr ""
 "У объекта `{obj_name}` нет атрибута с именем `join`.\n"
 "Возможно, вы хотели получить что-то вроде `{str_content}.join({obj_name})`.\n"
 
-#: runtime_errors\attribute_error.py:465
+#: runtime_errors\attribute_error.py:461
 msgid "Did you mean `{known_builtin}({obj_name})`?\n"
 msgstr "Вы имели в виду `{known_builtin}({obj_name})`?\n"
 
-#: runtime_errors\attribute_error.py:468
+#: runtime_errors\attribute_error.py:464
 msgid ""
 "The object `{obj_name}` has no attribute named `{attribute}`.\n"
 "Perhaps you can use the Python builtin function `{known_builtin}` instead:\n"
@@ -916,20 +958,20 @@ msgstr ""
 "`{known_builtin}`:\n"
 "`{known_builtin}({obj_name})`."
 
-#: runtime_errors\attribute_error.py:498
+#: runtime_errors\attribute_error.py:494
 msgid "Did you mean `{attr}`?\n"
 msgstr "Вы имели в виду `{attr}`?\n"
 
-#: runtime_errors\attribute_error.py:499
+#: runtime_errors\attribute_error.py:495
 msgid "The object `{name}` has no attribute named `{attribute}`.\n"
 msgstr "У объекта `{name}` нет атрибута с именем `{attribute}`.\n"
 
-#: runtime_errors\attribute_error.py:503
+#: runtime_errors\attribute_error.py:499
 msgid "However, `{attr}` is an attribute of `{name}` with a similar meaning.\n"
 msgstr ""
 "Тем не менее, `{attr}` является атрибутом `{name}` с аналогичным значением.\n"
 
-#: runtime_errors\attribute_error.py:507
+#: runtime_errors\attribute_error.py:503
 msgid ""
 "However, `{name}` has the following attributes with similar meanings:\n"
 "`{attributes}`.\n"
@@ -937,11 +979,11 @@ msgstr ""
 "Однако `{name}` имеет следующие атрибуты с аналогичными значениями:\n"
 "`{attributes}`.\n"
 
-#: runtime_errors\attribute_error.py:516
+#: runtime_errors\attribute_error.py:512
 msgid "Did you mean to separate object names by a comma?\n"
 msgstr "Вы хотели разделить имена объектов запятой?\n"
 
-#: runtime_errors\attribute_error.py:518
+#: runtime_errors\attribute_error.py:514
 msgid ""
 "`{second}` is not an attribute of `{first}`.\n"
 "However, both `{first}` and `{second}` are known objects.\n"
@@ -978,7 +1020,7 @@ msgstr ""
 
 #: runtime_errors\file_not_found_error.py:48
 msgid "Did you mean `{similar}`?\n"
-msgstr "Вы имели в виду `{similar}}?\n"
+msgstr "Вы имели в виду `{similar}`?\n"
 
 #: runtime_errors\file_not_found_error.py:50
 msgid "The file `{similar}` has a similar name.\n"
@@ -986,13 +1028,14 @@ msgstr "Файл `{similar}` имеет похожее имя.\n"
 
 #: runtime_errors\file_not_found_error.py:55
 msgid "Perhaps you meant one of the following files with similar names:\n"
-msgstr "Возможно, вы имели в виду один из следующих файлов с похожими именами:\n"
+msgstr ""
+"Возможно, вы имели в виду один из следующих файлов с похожими именами:\n"
 
-#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:119
+#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:123
 msgid "I have no additional information for you.\n"
 msgstr "Дополнительной информации нет.\n"
 
-#: runtime_errors\import_error.py:78
+#: runtime_errors\import_error.py:70
 msgid ""
 "The object that could not be imported is `{name}`.\n"
 "The module or package where it was \n"
@@ -1002,7 +1045,7 @@ msgstr ""
 "Модуль или пакет, в котором его предполагалось найти:\n"
 "`{module}`\n"
 
-#: runtime_errors\import_error.py:95
+#: runtime_errors\import_error.py:87
 msgid ""
 "Python indicated that you have a circular import.\n"
 "This can occur if executing the code in module 'A'\n"
@@ -1016,7 +1059,7 @@ msgstr ""
 "попытка импортировать имя из модуля 'A' была предпринята\n"
 "до того, как было завершено выполнение кода в модуле 'A'.\n"
 
-#: runtime_errors\import_error.py:107
+#: runtime_errors\import_error.py:99
 msgid ""
 "Inconsistent state: `'{module}'` was apparently not imported.\n"
 "As a result, no further analysis can be done.\n"
@@ -1024,13 +1067,14 @@ msgstr ""
 "Несоответствующее состояние: `'{module}'`, очевидно, не был импортирован.\n"
 "В результате дальнейший анализ не может быть выполнен.\n"
 
-#: runtime_errors\import_error.py:119
+#: runtime_errors\import_error.py:111
 msgid ""
-"Perhaps you meant to import `{correct}` (from `{module}`) instead of `{typo}`\n"
+"Perhaps you meant to import `{correct}` (from `{module}`) instead of `{typo}"
+"`\n"
 msgstr ""
 "Возможно, вместо `{typo}` вы хотели импортировать `{correct}` из `{module}`\n"
 
-#: runtime_errors\import_error.py:128
+#: runtime_errors\import_error.py:120
 msgid ""
 "Instead of trying to import `{typo}` from `{module}`, \n"
 "perhaps you meant to import one of \n"
@@ -1042,11 +1086,11 @@ msgstr ""
 "следующих имен, которые находятся в модуле `{module}`:\n"
 "`{candidates}`\n"
 
-#: runtime_errors\import_error.py:146
+#: runtime_errors\import_error.py:138
 msgid "The object that could not be imported is `{name}`.\n"
-msgstr "Объект  `{name}` не удалось импортировать.\n"
+msgstr "Объект `{name}` не удалось импортировать.\n"
 
-#: runtime_errors\import_error.py:198
+#: runtime_errors\import_error.py:190
 msgid ""
 "The problem was likely caused by what is known as a 'circular import'.\n"
 "First, Python imported and started executing the code in file\n"
@@ -1058,7 +1102,8 @@ msgid ""
 "to import the original module `{last_module}`\n"
 "a second time, before Python had completed the first import.\n"
 msgstr ""
-"Проблема, скорее всего, была вызвана тем, что известно как 'кольцевой импорт'\n"
+"Проблема, скорее всего, была вызвана тем, что известно как 'кольцевой "
+"импорт'\n"
 "Сначала Python импортировал и начал выполнять код в файле\n"
 "   '{file}',\n"
 "который импортирует модуль `{last_module}`.\n"
@@ -1086,7 +1131,7 @@ msgstr ""
 "Вы попытались присвоить значение индексу `{index}` из `{name}`,\n"
 "{obj_type} длины `{length}`.\n"
 
-#: runtime_errors\index_error.py:57 runtime_errors\index_error.py:143
+#: runtime_errors\index_error.py:57 runtime_errors\index_error.py:145
 msgid ""
 "The valid index values of `{name}` are integers ranging from\n"
 "`{min}` to `{max}`.\n"
@@ -1094,11 +1139,12 @@ msgstr ""
 "Допустимыми значениями индекса `{name}` являются целые числа в диапазоне\n"
 "от `{min}` до `{max}`.\n"
 
-#: runtime_errors\index_error.py:62 runtime_errors\index_error.py:148
-msgid "Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
+#: runtime_errors\index_error.py:62 runtime_errors\index_error.py:150
+msgid ""
+"Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
 msgstr "Помните: первый элемент {obj_type} имеет индекс не 1, а 0.\n"
 
-#: runtime_errors\index_error.py:67 runtime_errors\index_error.py:153
+#: runtime_errors\index_error.py:67 runtime_errors\index_error.py:155
 msgid "`{name}` contains no item.\n"
 msgstr "`{name}` не содержит ни одного элемента.\n"
 
@@ -1110,7 +1156,7 @@ msgstr ""
 "Вы попытались присвоить значение индексу `{index}` из `{name}`,\n"
 "{obj_type}, который не содержит ни одного элемента.\n"
 
-#: runtime_errors\index_error.py:96
+#: runtime_errors\index_error.py:80
 msgid ""
 "You have tried to get an item of an object\n"
 "of type `{obj_type}` which I cannot identify.\n"
@@ -1120,7 +1166,7 @@ msgstr ""
 "типа `{obj_type}`, который невозможно определить.\n"
 "Указанный вами индекс не является допустимым значением.\n"
 
-#: runtime_errors\index_error.py:123
+#: runtime_errors\index_error.py:125
 msgid ""
 "You have tried to get an item from `{name}`,\n"
 "{obj_type} of length `{length}`, by using a value for the index\n"
@@ -1130,7 +1176,7 @@ msgstr ""
 "{obj_type} длиной `{length}`, используя значение для индекса\n"
 "которое я не могу определить, но которое не разрешено.\n"
 
-#: runtime_errors\index_error.py:132
+#: runtime_errors\index_error.py:134
 msgid ""
 "You have tried to get the item with index `{index}` of `{name}`,\n"
 "{obj_type} of length `{length}`.\n"
@@ -1138,7 +1184,7 @@ msgstr ""
 "Вы пытались получить элемент с индексом `{index}` из `{name}`,\n"
 "{obj_type} длиной `{length}`.\n"
 
-#: runtime_errors\index_error.py:154
+#: runtime_errors\index_error.py:156
 msgid ""
 "You have tried to get the item with index `{index}` of `{name}`,\n"
 "{obj_type} which contains no item.\n"
@@ -1146,7 +1192,7 @@ msgstr ""
 "Вы пытались получить элемент с индексом `{index}` из `{name}`,\n"
 "{obj_type}, который не содержит ни одного элемента.\n"
 
-#: runtime_errors\key_error.py:25
+#: runtime_errors\key_error.py:23
 msgid ""
 "You tried to retrieve an item from an empty `dict`\n"
 "or a similar object which I cannot identify.\n"
@@ -1154,21 +1200,17 @@ msgstr ""
 "Вы пытались получить элемент из пустого словаря `dict`\n"
 "или похожего объекта, который я не могу идентифицировать.\n"
 
-#: runtime_errors\key_error.py:31
+#: runtime_errors\key_error.py:29
 msgid "`{name}` is an empty `dict`.\n"
-msgstr ""
-"`{name}` -- пустой словарь `dict`.\n"
-"\n"
+msgstr "`{name}` -- пустой словарь `dict`.\n"
 
-#: runtime_errors\key_error.py:32
+#: runtime_errors\key_error.py:30
 msgid "You tried to retrieve an item from `{name}` which is an empty `dict`.\n"
 msgstr ""
 "Вы попытались получить элемент из `{name}`, который является пустым словарём "
 "`dict`.\n"
-"\n"
-"\n"
 
-#: runtime_errors\key_error.py:54
+#: runtime_errors\key_error.py:49
 msgid ""
 "You tried to retrieve an item from an empty ChainMap\n"
 "or similar object which I cannot identify.\n"
@@ -1176,20 +1218,22 @@ msgstr ""
 "Вы пытались получить элемент из пустого ChainMap\n"
 "или подобного объекта, который я не могу идентифицировать.\n"
 
-#: runtime_errors\key_error.py:60
+#: runtime_errors\key_error.py:55
 msgid "`{name}` is an empty `ChainMap`.\n"
-msgstr "`{name}` -- это пустой  `ChainMap`.\n"
+msgstr "`{name}` -- это пустой `ChainMap`.\n"
 
-#: runtime_errors\key_error.py:61
-msgid "You tried to retrieve an item from `{name}` which is an empty `ChainMap`.\n"
+#: runtime_errors\key_error.py:56
+msgid ""
+"You tried to retrieve an item from `{name}` which is an empty `ChainMap`.\n"
 msgstr ""
-"Вы попытались получить элемент из `{name}`, который является пустым `ChainMap`.\n"
+"Вы попытались получить элемент из `{name}`, который является пустым "
+"`ChainMap`.\n"
 
-#: runtime_errors\key_error.py:103
+#: runtime_errors\key_error.py:97
 msgid "Missing key `{key}` in a `ChainMap` or in a similar object.\n"
 msgstr "Отсутствие ключа `{key}` в `ChainMap` или подобном объекте.\n"
 
-#: runtime_errors\key_error.py:147
+#: runtime_errors\key_error.py:140
 msgid ""
 "A `dict` or a similar object which I cannot identify\n"
 "does not have `{key}` as a key.\n"
@@ -1197,16 +1241,17 @@ msgstr ""
 "`dict` или подобный объект, который я не могу идентифицировать.\n"
 "не содержит `{key}` в качестве ключа.\n"
 
-#: runtime_errors\key_error.py:154
+#: runtime_errors\key_error.py:147
 msgid "The key `{key}` cannot be found in the dict `{name}`.\n"
 msgstr "В словаре `{name}` не найден ключ `{key}`.\n"
 
-#: runtime_errors\key_error.py:159
+#: runtime_errors\key_error.py:152
 msgid ""
-"The key `{key}` cannot be found in `{name}`, an object of type `{obj_type}`.\n"
+"The key `{key}` cannot be found in `{name}`, an object of type `{obj_type}"
+"`.\n"
 msgstr "Ключ `{key}` не найден в `{name}`, объекте типа `{obj_type}`.\n"
 
-#: runtime_errors\key_error.py:169
+#: runtime_errors\key_error.py:162
 msgid ""
 "`{name}` contains a string key which is identical to `str({key})`.\n"
 "Perhaps you forgot to convert the key into a string.\n"
@@ -1214,29 +1259,29 @@ msgstr ""
 "`{name}` содержит строковый ключ, который идентичен `str({key})`.\n"
 "Возможно, вы забыли преобразовать ключ в строку.\n"
 
-#: runtime_errors\key_error.py:173
+#: runtime_errors\key_error.py:166
 msgid "Did you forget to convert `{key}` into a string?\n"
 msgstr "Вы забыли преобразовать `{key}` в строку?\n"
 
-#: runtime_errors\key_error.py:182
+#: runtime_errors\key_error.py:175
 msgid ""
 "`{key}` is a string.\n"
 "There is a key of `{name}` whose string representation\n"
 "is identical to `{key}`.\n"
 msgstr ""
-"`{ключ}` -- это строка.\n"
+"`{key}` -- это строка.\n"
 "Существует ключ `{name}`, строковое представление которого\n"
 "идентично `{key}`.\n"
 
-#: runtime_errors\key_error.py:187
+#: runtime_errors\key_error.py:180
 msgid "Did you convert `{key}` into a string by mistake?\n"
 msgstr "Вы ошибочно преобразовали `{key}` в строку.\n"
 
-#: runtime_errors\key_error.py:195
+#: runtime_errors\key_error.py:188
 msgid "`{name}` is a key of `{dict_}` which is similar to `{key}`.\n"
 msgstr "`{name}` является ключом `{dict_}`, который аналогичен `{key}`.\n"
 
-#: runtime_errors\key_error.py:203
+#: runtime_errors\key_error.py:196
 msgid ""
 "`{name}` has some keys similar to `{key}` including:\n"
 "`{names}`.\n"
@@ -1244,28 +1289,30 @@ msgstr ""
 "`{name}` имеет несколько ключей, похожих на `{key}`, включая:\n"
 "`{names}`.\n"
 
-#: runtime_errors\module_not_found_error.py:38
-msgid "No additional information available since `{name}` cannot be imported.\n"
+#: runtime_errors\module_not_found_error.py:35
+msgid ""
+"No additional information available since `{name}` cannot be imported.\n"
 msgstr ""
 "Дополнительная информация недоступна, поскольку `{name}` не может быть "
 "импортирован.\n"
 
-#: runtime_errors\module_not_found_error.py:49
+#: runtime_errors\module_not_found_error.py:46
 msgid "Did you mean `from {name} import {rest}`?\n"
 msgstr "Вы имели в виду `from {name} import {rest}`?\n"
 
-#: runtime_errors\module_not_found_error.py:52
-msgid "`{rest}` is not a separate module but an object that is part of `{name}`.\n"
+#: runtime_errors\module_not_found_error.py:49
+msgid ""
+"`{rest}` is not a separate module but an object that is part of `{name}`.\n"
 msgstr ""
-"`{rest}` -- это не отдельный модуль, а объект, который является частью `{name}"
-"`.\n"
+"`{rest}` -- это не отдельный модуль, а объект, который является частью "
+"`{name}`.\n"
 "\n"
 
-#: runtime_errors\module_not_found_error.py:62
+#: runtime_errors\module_not_found_error.py:59
 msgid "Did you mean `import {name}.{attr}`?\n"
 msgstr "Вы имели в виду `import {name}.{attr}`?\n"
 
-#: runtime_errors\module_not_found_error.py:65
+#: runtime_errors\module_not_found_error.py:62
 msgid ""
 "Perhaps you meant `import {name}.{attr}`.\n"
 "`{attr}` is a name similar to `{rest}` and is a module that\n"
@@ -1275,11 +1322,11 @@ msgstr ""
 "`{attr}` -- это имя, похожее на `{rest}`, и это модуль, который\n"
 "может быть импортирован из `{name}`.\n"
 
-#: runtime_errors\module_not_found_error.py:73
+#: runtime_errors\module_not_found_error.py:70
 msgid "Did you mean `from {name} import {attr}`?\n"
 msgstr "Вы имели в виду `from {name} import {attr}`?\n"
 
-#: runtime_errors\module_not_found_error.py:76
+#: runtime_errors\module_not_found_error.py:73
 msgid ""
 "Perhaps you meant `from {name} import {attr}`.\n"
 "`{attr}` is a name similar to `{rest}` and is an object that\n"
@@ -1289,32 +1336,31 @@ msgstr ""
 "`{attr}` -- это имя, похожее на `{rest}` и являющееся объектом,\n"
 "который может быть импортирован из `{name}`.\n"
 
-#: runtime_errors\module_not_found_error.py:83
+#: runtime_errors\module_not_found_error.py:80
 msgid ""
 "Other objects with similar names that are part of\n"
 " `{name}` include `{others}`.\n"
 msgstr ""
 "Другие объекты с похожими именами, которые являются частью\n"
 " `{name}`, включают `{others}`.\n"
-"\n"
 
-#: runtime_errors\module_not_found_error.py:89
+#: runtime_errors\module_not_found_error.py:86
 msgid "`{rest}` cannot be imported from `{name}`.\n"
 msgstr "`{rest}` не может быть импортирован из `{name}`.\n"
 
-#: runtime_errors\module_not_found_error.py:100
+#: runtime_errors\module_not_found_error.py:97
 msgid "The curses module is rarely installed with Python on Windows.\n"
 msgstr "Модуль curses редко устанавливается вместе с Python в Windows.\n"
 
-#: runtime_errors\module_not_found_error.py:102
+#: runtime_errors\module_not_found_error.py:99
 msgid "The curses module is often not installed with Python.\n"
 msgstr "Модуль curses часто не поставляется вместе с Python.\n"
 
-#: runtime_errors\module_not_found_error.py:103
+#: runtime_errors\module_not_found_error.py:100
 msgid "You have tried to import the curses module.\n"
 msgstr "Вы попытались импортировать модуль curses.\n"
 
-#: runtime_errors\module_not_found_error.py:122
+#: runtime_errors\module_not_found_error.py:116
 msgid ""
 "No module named `{name}` can be imported.\n"
 "Perhaps you need to install it.\n"
@@ -1322,7 +1368,7 @@ msgstr ""
 "Модуль с именем `{name}` не может быть импортирован.\n"
 "Возможно, вам необходимо установить его.\n"
 
-#: runtime_errors\module_not_found_error.py:131
+#: runtime_errors\module_not_found_error.py:125
 msgid ""
 "The following existing modules have names that are similar \n"
 "to the module you tried to import: `{names}`\n"
@@ -1331,15 +1377,15 @@ msgstr ""
 "на тот модуль, который вы пытались импортировать:\n"
 "`{names}`\n"
 
-#: runtime_errors\module_not_found_error.py:136
+#: runtime_errors\module_not_found_error.py:130
 msgid "`{name}` is an existing module that has a similar name.\n"
 msgstr "`{name}` -- существующий модуль с похожим именем.\n"
 
-#: runtime_errors\name_error.py:18
+#: runtime_errors\name_error.py:19
 msgid "You are already using Python!"
 msgstr "Вы уже используете Python!"
 
-#: runtime_errors\name_error.py:33
+#: runtime_errors\name_error.py:34
 msgid ""
 "`{name}` is a name found in module `{mod}`.\n"
 "Perhaps you forgot to write\n"
@@ -1351,9 +1397,10 @@ msgstr ""
 "\n"
 "    from {mod} import {name}\n"
 
-#: runtime_errors\name_error.py:37
+#: runtime_errors\name_error.py:38
 msgid ""
-"`{name}` is a name found in the following modules from the standard library:\n"
+"`{name}` is a name found in the following modules from the standard "
+"library:\n"
 "{modules}.\n"
 "Perhaps you forgot to import `{name}` from one of these modules.\n"
 msgstr ""
@@ -1362,7 +1409,7 @@ msgstr ""
 "{modules}.\n"
 "Возможно, вы забыли импортировать `{name}` из одного из этих модулей.\n"
 
-#: runtime_errors\name_error.py:62
+#: runtime_errors\name_error.py:61
 msgid ""
 "In your program, `{var_name}` is an unknown name\n"
 "that exists in an enclosing scope,\n"
@@ -1371,19 +1418,19 @@ msgstr ""
 "В вашей программе `{var_name}` -- это неизвестное имя,\n"
 "которому еще не присвоено значение.\n"
 
-#: runtime_errors\name_error.py:84 runtime_errors\name_error.py:135
+#: runtime_errors\name_error.py:88 runtime_errors\name_error.py:139
 msgid "In your program, no object with the name `{var_name}` exists.\n"
 msgstr "В вашей программе не существует объекта с именем `{var_name}`.\n"
 
-#: runtime_errors\name_error.py:101
+#: runtime_errors\name_error.py:105
 msgid "Did you use a colon instead of an equal sign?\n"
 msgstr "Вы использовали двоеточие вместо знака равенства?\n"
 
-#: runtime_errors\name_error.py:134
+#: runtime_errors\name_error.py:138
 msgid "Did you mean `1j`?\n"
 msgstr "Вы имеете в виду `1j`?\n"
 
-#: runtime_errors\name_error.py:138
+#: runtime_errors\name_error.py:142
 msgid ""
 "However, sometimes `{name}` is intended to represent\n"
 "the square root of `-1` which is written as `1j` in Python.\n"
@@ -1391,11 +1438,19 @@ msgstr ""
 "Однако иногда `{name}` предназначена для обозначения\n"
 "квадратного корня из `-1`, который в Python записывается как `1j`.\n"
 
-#: runtime_errors\name_error.py:153
+#: runtime_errors\name_error.py:172
+msgid "Did you mean `{word}`?\n"
+msgstr "Вы имели в виду `{word}`?\n"
+
+#: runtime_errors\name_error.py:173
+msgid "I suspect you meant to write the keyword `{word}` and made a typo.\n"
+msgstr "Подозреваю, что ключевое слово `{word}` вы написали по ошибке.\n"
+
+#: runtime_errors\name_error.py:181
 msgid "`__debug__` is a constant.\n"
 msgstr "`__debug__` является константой.\n"
 
-#: runtime_errors\name_error.py:154
+#: runtime_errors\name_error.py:182
 msgid ""
 "`__debug__` is a constant that cannot be deleted.\n"
 "In future Python versions, attempting to delete it will be a SyntaxError.\n"
@@ -1403,11 +1458,11 @@ msgstr ""
 "`__debug__` является константой, которую нельзя удалить.\n"
 "В будущих версиях Python попытка удалить ее вызовет SyntaxError.\n"
 
-#: runtime_errors\name_error.py:162
+#: runtime_errors\name_error.py:190
 msgid "You must be a fan of PyConAu!\n"
 msgstr "Вы, должно быть, поклонник PyConAu!\n"
 
-#: runtime_errors\name_error.py:163
+#: runtime_errors\name_error.py:191
 msgid ""
 "I am guessing that you tried to use (one of) the flipfloperators\n"
 "shown during the second Lightning Talk session of PyConAu 2018,\n"
@@ -1421,11 +1476,11 @@ msgstr ""
 "\n"
 "#### Обратите внимание, что это по-прежнему плохая идея.\n"
 
-#: runtime_errors\name_error.py:178
+#: runtime_errors\name_error.py:206
 msgid "Did you forget to import `{name}`?\n"
 msgstr "Вы забыли импортировать `{name}`?\n"
 
-#: runtime_errors\name_error.py:181
+#: runtime_errors\name_error.py:209
 msgid ""
 "The name `{name}` is not defined in your program.\n"
 "Perhaps you forgot to import `{lowercase}` which is found\n"
@@ -1435,45 +1490,45 @@ msgstr ""
 "Возможно, вы забыли импортировать `{lowercase}`, которое находится\n"
 "в стандартной библиотеке Python.\n"
 
-#: runtime_errors\name_error.py:190
+#: runtime_errors\name_error.py:218
 msgid "Note that the name of the module is `{lowercase}` and not `{name}`.\n"
 msgstr ""
 "Обратите внимание, что именем модуля является `{lowercase}`, а не `{name}`.\n"
 
-#: runtime_errors\name_error.py:208
+#: runtime_errors\name_error.py:236
 msgid "The similar name `{name}` was found in the local scope.\n"
 msgstr "В локальной области видимости найдено похожее имя `{name}`.\n"
 
-#: runtime_errors\name_error.py:209
+#: runtime_errors\name_error.py:237
 msgid "The similar name `{name}` was found in the global scope.\n"
 msgstr "Похожее имя `{name}` было найдено в глобальной области видимости.\n"
 
-#: runtime_errors\name_error.py:210
+#: runtime_errors\name_error.py:238
 msgid "The Python builtin `{name}` has a similar name.\n"
 msgstr "Встроенная функция Python `{name}` имеет аналогичное название.\n"
 
-#: runtime_errors\name_error.py:219 runtime_errors\unbound_local_error.py:125
+#: runtime_errors\name_error.py:247 runtime_errors\unbound_local_error.py:124
 msgid "Instead of writing `{name}`, perhaps you meant one of the following:\n"
 msgstr ""
 "Вместо того, чтобы написать `{name}`, возможно, вы имели в виду следующее:\n"
 
-#: runtime_errors\name_error.py:224 runtime_errors\unbound_local_error.py:129
+#: runtime_errors\name_error.py:252 runtime_errors\unbound_local_error.py:128
 msgid "*   Local scope: "
 msgstr "*  Локальная область видимости: "
 
-#: runtime_errors\name_error.py:225
+#: runtime_errors\name_error.py:253
 msgid "*   Global scope: "
 msgstr "*  Глобальная область видимости: "
 
-#: runtime_errors\name_error.py:226
+#: runtime_errors\name_error.py:254
 msgid "*   Python builtins: "
 msgstr "*  Встроенные модули Python: "
 
-#: runtime_errors\name_error.py:290
+#: runtime_errors\name_error.py:318
 msgid "Did you write `self` at the wrong place?\n"
 msgstr "Вы написали `self` не в том месте?\n"
 
-#: runtime_errors\name_error.py:291
+#: runtime_errors\name_error.py:319
 msgid ""
 "The {scope} object `{obj}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1485,11 +1540,11 @@ msgstr ""
 "Возможно, вам следовало написать `self.{unknown_name}(...`\n"
 "вместо `{unknown_name}(self, ...`.\n"
 
-#: runtime_errors\name_error.py:298
+#: runtime_errors\name_error.py:326
 msgid "Did you forget to add `self.`?\n"
 msgstr "Вы забыли добавить `self.`?\n"
 
-#: runtime_errors\name_error.py:299
+#: runtime_errors\name_error.py:327
 msgid ""
 "A {scope} object, `{obj}`,\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1501,11 +1556,11 @@ msgstr ""
 "Возможно, вам следовало написать `self.{unknown_name}`\n"
 "вместо `{unknown_name}`.\n"
 
-#: runtime_errors\name_error.py:306
+#: runtime_errors\name_error.py:334
 msgid "Did you forget to add `{name}.`?\n"
 msgstr "Вы забыли добавить `{name}.`?\n"
 
-#: runtime_errors\name_error.py:307
+#: runtime_errors\name_error.py:335
 msgid ""
 "The {scope} object `{name}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1517,7 +1572,7 @@ msgstr ""
 "Возможно, вам следовало написать `{name}.{unknown_name}`\n"
 "вместо `{unknown_name}`.\n"
 
-#: runtime_errors\os_error.py:23
+#: runtime_errors\os_error.py:19
 msgid ""
 "I suspect that you are trying to connect to a server and\n"
 "that a connection cannot be made.\n"
@@ -1530,11 +1585,11 @@ msgstr ""
 "Если это так, проверьте, нет ли опечаток в URL-адресе\n"
 "и проверьте подключение к Интернету.\n"
 
-#: runtime_errors\os_error.py:42 syntax_errors\message_analyzer.py:1846
+#: runtime_errors\os_error.py:37 syntax_errors\message_analyzer.py:1850
 msgid "Perhaps you need to double the backslash characters.\n"
 msgstr "Возможно, вам нужно удвоить символы обратной косой черты.\n"
 
-#: runtime_errors\os_error.py:43
+#: runtime_errors\os_error.py:38
 msgid ""
 "I suspect that you wrote a filename or path that contains\n"
 "at least one backslash character, `\\`.\n"
@@ -1549,12 +1604,12 @@ msgstr ""
 "по крайней мере один символ обратной косой черты, `\\`.\n"
 "Python, вероятно, интерпретировал это как начало того,\n"
 "что известно как последовательность экранирования.\n"
-"Чтобы решить эту проблему, либо напишите так называемую 'необработанную строку', "
-"добавив букву `r` в качестве префикса перед\n"
-"именем файла или путем, либо замените все одинарные символы обратной косой черты "
-"`\\` на двойные: `\\\\`.\n"
+"Чтобы решить эту проблему, либо напишите так называемую 'необработанную "
+"строку', добавив букву `r` в качестве префикса перед\n"
+"именем файла или путем, либо замените все одинарные символы обратной косой "
+"черты `\\` на двойные: `\\\\`.\n"
 
-#: runtime_errors\runtime_error.py:50
+#: runtime_errors\runtime_error.py:51
 msgid ""
 "While you were iterating over the items of `{name}` ({container_type})\n"
 "in a `{for_while}` loop, you either tried to add or remove items from it.\n"
@@ -1566,7 +1621,7 @@ msgid ""
 "    for item in my_{name}:\n"
 "        # Change {name}\n"
 msgstr ""
-"Пока вы перебирали элементы `{name}` ( {container_type})\n"
+"Пока вы перебирали элементы `{name}` ({container_type})\n"
 "в цикле `{for_while}`, вы пытались добавить или удалить элементы из него.\n"
 "Предложение: начните с создания копии `{name}` и выполняйте итерации по "
 "элементам\n"
@@ -1577,11 +1632,12 @@ msgstr ""
 "    for item in my_{name}:\n"
 "        # Изменить {name}\n"
 
-#: runtime_errors\runtime_error.py:61
+#: runtime_errors\runtime_error.py:62
 msgid ""
 "While you were iterating over the items of a container ({container_type})\n"
 "in a `{for_while}` loop, you either tried to add or remove items from it.\n"
-"Suggestion: start by making a copy of the container and iterate over the items\n"
+"Suggestion: start by making a copy of the container and iterate over the "
+"items\n"
 "of that copy if you want to change that container inside a loop.\n"
 msgstr ""
 "Во время перебора элементов контейнера ({container_type})\n"
@@ -1591,34 +1647,39 @@ msgstr ""
 "элементами\n"
 "этой копии, если вы хотите изменить контейнер внутри цикла.\n"
 
-#: runtime_errors\type_error.py:53
+#: runtime_errors\type_error.py:54
 msgid "Did you forget to convert the string `{name}` into {number_type}?\n"
 msgstr "Вы забыли преобразовать строку `{name}` в {number_type}?\n"
 
-#: runtime_errors\type_error.py:58
+#: runtime_errors\type_error.py:59
 msgid "Perhaps you forgot to convert the string `{name}` into {number_type}.\n"
 msgstr "Возможно, вы забыли преобразовать строку `{name}` в {number_type}.\n"
 
-#: runtime_errors\type_error.py:75 runtime_errors\type_error.py:91
+#: runtime_errors\type_error.py:76 runtime_errors\type_error.py:90
 msgid ""
-"The arguments of `divmod` must be integers (`int`) or real (`float`) numbers.\n"
+"The arguments of `divmod` must be integers (`int`) or real (`float`) "
+"numbers.\n"
 msgstr ""
 "Аргументы `divmod` должны быть целыми (`int`) или вещественными (`float`) "
 "числами.\n"
 
-#: runtime_errors\type_error.py:80 runtime_errors\type_error.py:95
+#: runtime_errors\type_error.py:81 runtime_errors\type_error.py:94
 msgid "At least one of the arguments was a complex number.\n"
 msgstr "По крайней мере один из аргументов был комплексным числом.\n"
 
-#: runtime_errors\type_error.py:105
+#: runtime_errors\type_error.py:111
 msgid "The second argument of the function `getattr()` must be a string.\n"
 msgstr "Второй аргумент функции `getattr()` должен быть строкой.\n"
 
-#: runtime_errors\type_error.py:115
+#: runtime_errors\type_error.py:116
 msgid "The second argument of the function `hasattr()` must be a string.\n"
 msgstr "Второй аргумент функции `hasattr()` должен быть строкой.\n"
 
-#: runtime_errors\type_error.py:134 runtime_errors\type_error.py:158
+#: runtime_errors\type_error.py:119
+msgid "Some attribute of a function you called is expected to be a string.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:140 runtime_errors\type_error.py:163
 msgid ""
 "You tried to concatenate (add) two different types of objects:\n"
 "{first} and {second}.\n"
@@ -1626,7 +1687,7 @@ msgstr ""
 "Вы попытались обьединить (сложить) два разных типа объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:189
+#: runtime_errors\type_error.py:193
 msgid ""
 "You tried to add two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1634,7 +1695,7 @@ msgstr ""
 "Вы попытались сложить два несовместимых типа объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:197
+#: runtime_errors\type_error.py:201
 msgid ""
 "You tried to subtract two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1642,7 +1703,7 @@ msgstr ""
 "Вы попытались вычесть два несовместимых типа объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:205
+#: runtime_errors\type_error.py:209
 msgid ""
 "You tried to multiply two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1650,7 +1711,7 @@ msgstr ""
 "Вы попытались перемножить два несовместимых типа объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:213
+#: runtime_errors\type_error.py:217
 msgid ""
 "You tried to divide two incompatible types of objects:\n"
 "{first} and {second}.\n"
@@ -1658,7 +1719,7 @@ msgstr ""
 "Вы попытались разделить два несовместимых типа объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:221
+#: runtime_errors\type_error.py:225
 msgid ""
 "You tried to perform the bitwise operation {operator}\n"
 "on two incompatible types of objects:\n"
@@ -1668,21 +1729,22 @@ msgstr ""
 "над двумя несовместимыми типами объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:236 runtime_errors\type_error.py:795
-#: runtime_errors\type_error.py:901 syntax_errors\statement_analyzer.py:1156
-#: syntax_errors\statement_analyzer.py:1416
+#: runtime_errors\type_error.py:240 runtime_errors\type_error.py:794
+#: runtime_errors\type_error.py:905 syntax_errors\statement_analyzer.py:1161
+#: syntax_errors\statement_analyzer.py:1421
 msgid "Did you mean `{line}`?\n"
 msgstr "Вы имели в виду `{line}`?\n"
 
-#: runtime_errors\type_error.py:237
+#: runtime_errors\type_error.py:241
 msgid "Outside of Python, `^` is often used to indicate exponentiation.\n"
-msgstr "Вне Python `^` часто используется для обозначения возведения в степень.\n"
+msgstr ""
+"Вне Python `^` часто используется для обозначения возведения в степень.\n"
 
-#: runtime_errors\type_error.py:240 runtime_errors\type_error.py:798
+#: runtime_errors\type_error.py:244 runtime_errors\type_error.py:797
 msgid "Perhaps you meant `{line}`.\n"
 msgstr "Возможно, вы имели в виду `{line}`.\n"
 
-#: runtime_errors\type_error.py:243
+#: runtime_errors\type_error.py:247
 msgid ""
 "You tried to perform the bit shifting operation {operator}\n"
 "on two incompatible types of objects:\n"
@@ -1692,7 +1754,7 @@ msgstr ""
 "на двух несовместимых типах объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:253
+#: runtime_errors\type_error.py:257
 msgid ""
 "You tried to exponentiate (raise to a power)\n"
 "using two incompatible types of objects:\n"
@@ -1702,7 +1764,7 @@ msgstr ""
 "используя два несовместимых типа объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:262
+#: runtime_errors\type_error.py:266
 msgid ""
 "You tried to use the operator {operator}\n"
 "using two incompatible types of objects:\n"
@@ -1716,11 +1778,11 @@ msgstr ""
 "Этот оператор обычно используется только\n"
 "для умножения матриц.\n"
 
-#: runtime_errors\type_error.py:298
+#: runtime_errors\type_error.py:301
 msgid "Complex numbers cannot be ordered.\n"
 msgstr "Комплексные числа не могут быть упорядочены.\n"
 
-#: runtime_errors\type_error.py:299
+#: runtime_errors\type_error.py:302
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two complex numbers.\n"
@@ -1728,7 +1790,7 @@ msgstr ""
 "Вы попытались выполнить порядковое сравнение ({operator})\n"
 "двух комплексных чисел.\n"
 
-#: runtime_errors\type_error.py:305
+#: runtime_errors\type_error.py:308
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two incompatible types of objects:\n"
@@ -1738,11 +1800,11 @@ msgstr ""
 "двух несовместимых типов объектов:\n"
 "{first} и {second}.\n"
 
-#: runtime_errors\type_error.py:354
+#: runtime_errors\type_error.py:355
 msgid "Perhaps you meant to write `{operator}=` instead of `={operator}`"
 msgstr "Возможно, вы хотели написать `{operator}=` вместо `={operator}`"
 
-#: runtime_errors\type_error.py:358
+#: runtime_errors\type_error.py:359
 msgid ""
 "You tried to use the unary operator '{operator}'\n"
 "with the following type of object: {obj}.\n"
@@ -1752,7 +1814,7 @@ msgstr ""
 "со следующим типом объекта: {obj}.\n"
 "Эта операция не определена для данного типа объекта.\n"
 
-#: runtime_errors\type_error.py:384
+#: runtime_errors\type_error.py:385
 msgid ""
 "In Python, some objects are known as immutable:\n"
 "once defined, their value cannot be changed.\n"
@@ -1764,19 +1826,19 @@ msgstr ""
 "Вы можете изменить часть такого неизменяемого объекта: {obj},\n"
 "скорее всего, с помощью операции индексирования\n"
 
-#: runtime_errors\type_error.py:391
+#: runtime_errors\type_error.py:392
 msgid "Did you mean to use a list?\n"
 msgstr "Вы хотели использовать список?\n"
 
-#: runtime_errors\type_error.py:392
+#: runtime_errors\type_error.py:393
 msgid "Perhaps you meant to use a list instead.\n"
 msgstr "Возможно, вы хотели использовать список.\n"
 
-#: runtime_errors\type_error.py:405
+#: runtime_errors\type_error.py:406
 msgid "In Python 3, exceptions must be derived from BaseException.\n"
 msgstr "В Python 3 исключения должны быть производными от BaseException.\n"
 
-#: runtime_errors\type_error.py:441
+#: runtime_errors\type_error.py:442
 msgid ""
 "You apparently have called the function `{fn_name}` with\n"
 "{nb_given} positional argument(s) while it requires {nb_required}\n"
@@ -1786,11 +1848,11 @@ msgstr ""
 "{nb_given} позиционным аргументом(ами), в то время как она требует\n"
 "позиционный(е) аргумент(ы) {nb_required}\n"
 
-#: runtime_errors\type_error.py:447
+#: runtime_errors\type_error.py:448
 msgid "Perhaps you forgot `self` when defining `{fn_name}`.\n"
 msgstr "Возможно, вы забыли `self` при обьявлении `{fn_name}`.\n"
 
-#: runtime_errors\type_error.py:469
+#: runtime_errors\type_error.py:468
 msgid ""
 "You apparently have called the function '{fn_name}' with\n"
 "fewer positional arguments than it requires ({nb_required} missing).\n"
@@ -1799,7 +1861,7 @@ msgstr ""
 "меньшим количеством позиционных аргументов, чем требуется ({nb_required} "
 "missing).\n"
 
-#: runtime_errors\type_error.py:487 runtime_errors\type_error.py:875
+#: runtime_errors\type_error.py:485 runtime_errors\type_error.py:871
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
@@ -1807,7 +1869,7 @@ msgstr ""
 "\n"
 "Примечание: `NoneType` означает, что объект имеет значение `None`.\n"
 
-#: runtime_errors\type_error.py:494
+#: runtime_errors\type_error.py:492
 msgid ""
 "Python indicates that you have an object of type `{obj_type}`,\n"
 "followed by something surrounded by parentheses, `(...)`,\n"
@@ -1821,7 +1883,7 @@ msgstr ""
 "Либо объект типа `{obj_type}` должен был быть функцией,\n"
 "либо вы забыли поставить запятую перед `(...)`.\n"
 
-#: runtime_errors\type_error.py:516
+#: runtime_errors\type_error.py:514
 msgid ""
 "The parenthesis `()` following `{obj_name}` are interpreted\n"
 "by Python as a function call for `{obj_name}`.\n"
@@ -1831,7 +1893,7 @@ msgstr ""
 "Python как вызов функции для `{obj_name}`.\n"
 "Однако `{obj_name}` -- это не функция, а объект типа `{obj_type}`.\n"
 
-#: runtime_errors\type_error.py:523
+#: runtime_errors\type_error.py:521
 msgid ""
 "Because of the surrounding parenthesis, `{fn_call}` \n"
 "is interpreted by Python as indicating a function call for \n"
@@ -1845,7 +1907,7 @@ msgstr ""
 "который не может быть вызван.\n"
 "\n"
 
-#: runtime_errors\type_error.py:536
+#: runtime_errors\type_error.py:534
 msgid ""
 "However, `{fn_call}` is a `tuple`.\n"
 "Either the object `{obj_name}` was meant to be a function\n"
@@ -1859,11 +1921,11 @@ msgstr ""
 "и кортежем `{fn_call}` и вы хотели написать\n"
 "`{obj_name}, {fn_call}`.\n"
 
-#: runtime_errors\type_error.py:543
+#: runtime_errors\type_error.py:541
 msgid "Did you forget a comma between `{obj_name}` and `{fn_call}`?\n"
 msgstr "Вы забыли запятую между `{obj_name}` и `{fn_call}`?\n"
 
-#: runtime_errors\type_error.py:549
+#: runtime_errors\type_error.py:547
 msgid ""
 "However, `{obj_name}` is a sequence.\n"
 "Perhaps you meant to use `[]` instead of `()` and write\n"
@@ -1873,11 +1935,11 @@ msgstr ""
 "Возможно, вы хотели использовать `[]` вместо `()` и написать\n"
 "`{obj_name}[{slice}]`\n"
 
-#: runtime_errors\type_error.py:554
+#: runtime_errors\type_error.py:552
 msgid "Did you mean `{obj_name}[{slice}]`?\n"
 msgstr "Вы имели в виду `{obj_name}[{slice}]`?\n"
 
-#: runtime_errors\type_error.py:565
+#: runtime_errors\type_error.py:563
 msgid ""
 "However, both `{obj_name}` and `{fn_call}` are numbers.\n"
 "Perhaps you forgot a multiplication operator, `*`,\n"
@@ -1887,19 +1949,19 @@ msgstr ""
 "Возможно, вы забыли оператор умножения `*`\n"
 "и хотели написать `{obj_name} * {fn_call}`.\n"
 
-#: runtime_errors\type_error.py:570
+#: runtime_errors\type_error.py:568
 msgid "Did you mean `{obj_name} * {fn_call}`?\n"
 msgstr "Вы имели в виду `{obj_name} * {fn_call}`?\n"
 
-#: runtime_errors\type_error.py:582
+#: runtime_errors\type_error.py:580
 msgid "Did you forget to convert `{name}` into an integer?\n"
 msgstr "Вы забыли преобразовать `{name}` в целое число?\n"
 
-#: runtime_errors\type_error.py:583
+#: runtime_errors\type_error.py:581
 msgid "Perhaps you forgot to convert `{name}` into an integer.\n"
 msgstr "Возможно, вы забыли преобразовать `{name}` в целое число.\n"
 
-#: runtime_errors\type_error.py:596
+#: runtime_errors\type_error.py:593
 msgid ""
 "You can only multiply sequences, such as list, tuples,\n"
 " strings, etc., by integers.\n"
@@ -1907,33 +1969,36 @@ msgstr ""
 "Вы можете умножать только последовательности, такие как список, кортежи,\n"
 "строки и т.д., на целые числа.\n"
 
-#: runtime_errors\type_error.py:618
+#: runtime_errors\type_error.py:615
 msgid "Did you forget to convert `{name1}` and `{name2}` into integers?\n"
 msgstr "Вы забыли преобразовать `{name1}` и `{name2}` в целые числа?\n"
 
-#: runtime_errors\type_error.py:621
+#: runtime_errors\type_error.py:618
 msgid "Perhaps you forgot to convert `{name1}` and `{name2}` into integers.\n"
 msgstr ""
 "Возможно вы забыли преобразовать `{name1}` и `{name2}` в целые числа.\n"
 "\n"
 
-#: runtime_errors\type_error.py:656
-msgid "You wrote an object whose value is `None` where an integer was expected.\n"
-msgstr "Вы записали объект, значение которого `None`, а ожидалось целое число.\n"
+#: runtime_errors\type_error.py:654
+msgid ""
+"You wrote an object whose value is `None` where an integer was expected.\n"
+msgstr ""
+"Вы записали объект, значение которого `None`, а ожидалось целое число.\n"
 
-#: runtime_errors\type_error.py:666
+#: runtime_errors\type_error.py:664
 msgid "You wrote an object of type `{obj}` where an integer was expected.\n"
-msgstr "Вы записали объект типа `{obj}`, где ожидалось целочисленное значение.\n"
+msgstr ""
+"Вы записали объект типа `{obj}`, где ожидалось целочисленное значение.\n"
 
-#: runtime_errors\type_error.py:676
+#: runtime_errors\type_error.py:674
 msgid "Did you forget to convert `{names}` into integers?\n"
 msgstr "Вы забыли преобразовать `{names}` в целые числа?\n"
 
-#: runtime_errors\type_error.py:679
+#: runtime_errors\type_error.py:677
 msgid "Perhaps you forgot to convert `{names}` into integers."
 msgstr "Возможно, вы забыли преобразовать `{names}` в целые числа."
 
-#: runtime_errors\type_error.py:701
+#: runtime_errors\type_error.py:700
 msgid ""
 "In the expression `{line}`\n"
 "what is included between the square brackets, `[...]`,\n"
@@ -1947,7 +2012,7 @@ msgstr ""
 "(`start:stop` или `start:stop:step`) \n"
 "а вы вместо этого использовали {obj_type}.\n"
 
-#: runtime_errors\type_error.py:712
+#: runtime_errors\type_error.py:711
 msgid ""
 "Note: sometimes this exception is raised because what Python\n"
 "interprets as indices was meant to be a separate list, and a comma\n"
@@ -1957,12 +2022,12 @@ msgstr ""
 "интерпретирует как индексы, должно было быть отдельным списком, и запятая\n"
 "должна была быть поставлена перед открывающей `[` этого списка.\n"
 
-#: runtime_errors\type_error.py:717 syntax_errors\statement_analyzer.py:1069
-#: syntax_errors\statement_analyzer.py:1412
+#: runtime_errors\type_error.py:716 syntax_errors\statement_analyzer.py:1074
+#: syntax_errors\statement_analyzer.py:1417
 msgid "Did you forget a comma?\n"
 msgstr "Вы забыли поставить запятую?\n"
 
-#: runtime_errors\type_error.py:752
+#: runtime_errors\type_error.py:751
 msgid ""
 "Perhaps you have forgotten a comma between two identical lists\n"
 "`{container}`. The second list had been interpreted as\n"
@@ -1972,7 +2037,7 @@ msgstr ""
 "`{container}`. Второй список был интерпретирован как\n"
 "индексация первого по индексу `{new_index}`.\n"
 
-#: runtime_errors\type_error.py:758
+#: runtime_errors\type_error.py:757
 msgid ""
 "Perhaps you have forgotten a comma between the object `{container}`\n"
 "and the list `{index}`.  The list `{index}` had been interpreted as\n"
@@ -1982,11 +2047,11 @@ msgstr ""
 "и список `{index}`.Список `{index}` был интерпретирован как\n"
 "индексация объекта `{container}` по индексу `{new_index}`.\n"
 
-#: runtime_errors\type_error.py:763
+#: runtime_errors\type_error.py:762
 msgid "Did you forget a comma before `{index}`?\n"
 msgstr "Вы забыли поставить запятую перед `{index}`?\n"
 
-#: runtime_errors\type_error.py:825
+#: runtime_errors\type_error.py:824
 msgid ""
 "When using a slice to extract a range of elements\n"
 "from a sequence, that is something like\n"
@@ -1997,10 +2062,11 @@ msgstr ""
 "При использовании среза для извлечения диапазона элементов\n"
 "из последовательности, то есть что-то вроде\n"
 "`[start:stop]` или `[start:stop:step]`.\n"
-"каждый из `start`, `stop`, `step` должен быть либо целым числом, либо `None`,\n"
+"каждый из `start`, `stop`, `step` должен быть либо целым числом, либо "
+"`None`,\n"
 "либо каким-то другим объектом, имеющим метод `__index__`.\n"
 
-#: runtime_errors\type_error.py:844
+#: runtime_errors\type_error.py:841
 msgid ""
 "Only hashable objects can be used\n"
 "as elements of `set` or keys of `dict`.\n"
@@ -2012,11 +2078,11 @@ msgstr ""
 "Хешируемые объекты - это объекты, которые не меняют своего значения после их "
 "создания."
 
-#: runtime_errors\type_error.py:854
+#: runtime_errors\type_error.py:851
 msgid "Instead of using {original}, consider using {replacement}.\n"
 msgstr "Вместо {original} используйте {replacement}.\n"
 
-#: runtime_errors\type_error.py:881
+#: runtime_errors\type_error.py:877
 msgid ""
 "Subscriptable objects are typically containers from which\n"
 "you can retrieve item using the notation `[...]`.\n"
@@ -2024,7 +2090,7 @@ msgstr ""
 "Subscriptable objects обычно являются контейнерами, из которых\n"
 "вы можете получить элемент, используя нотацию `[...]`.\n"
 
-#: runtime_errors\type_error.py:893
+#: runtime_errors\type_error.py:889
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from an object of type `{obj_type}` which is not allowed.\n"
@@ -2032,11 +2098,11 @@ msgstr ""
 "Используя эту нотацию, вы попытались получить элемент\n"
 "из объекта типа `{obj_type}`, что недопустимо.\n"
 
-#: runtime_errors\type_error.py:902
+#: runtime_errors\type_error.py:906
 msgid "Perhaps you meant to write `{line}`.\n"
 msgstr "Возможно, вы хотели написать `{line}`.\n"
 
-#: runtime_errors\type_error.py:905
+#: runtime_errors\type_error.py:909
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from `{name}`, an object of type `{obj_type}`. This is not allowed.\n"
@@ -2044,17 +2110,28 @@ msgstr ""
 "Используя эту нотацию, вы попытались получить элемент\n"
 "из `{name}`, объекта типа `{obj_type}`. Это недопустимо.\n"
 
-#: runtime_errors\type_error.py:922
+#: runtime_errors\type_error.py:943
+msgid ""
+"An iterable is an object capable of returning its members one at a time.\n"
+"Python containers (`list, tuple, dict`, etc.) are iterables.\n"
+"'{obj_name}' is not a container. A container is required here.\n"
+msgstr ""
+"Итерабельность - это объект, способный возвращать свои члены по одному за "
+"раз.\n"
+"Контейнеры Python (`list, tuple, dict` и т.д.) являются итерабельными.\n"
+"'{obj_name}' не является контейнером. Здесь требуется контейнер.\n"
+
+#: runtime_errors\type_error.py:958
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables.\n"
 "An iterable is required here.\n"
 msgstr ""
-"Итерабельным является обьект, способный возвращать свои элементы по одному за "
-"раз.\n"
+"Итерабельным является обьект, способный возвращать свои элементы по одному "
+"за раз.\n"
 "Контейнеры Python (`list, tuple, dict` и т.д.) являются итерабельными.\n"
 
-#: runtime_errors\type_error.py:939 runtime_errors\value_error.py:24
+#: runtime_errors\type_error.py:973 runtime_errors\value_error.py:25
 msgid ""
 "Unpacking is a convenient way to assign a name,\n"
 "to each item of an iterable.\n"
@@ -2062,18 +2139,18 @@ msgstr ""
 "Распаковка является удобным способом присвоить имя\n"
 "каждому элементу итерирумого обьекта.\n"
 
-#: runtime_errors\type_error.py:943
+#: runtime_errors\type_error.py:977
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables,\n"
 "but not objects of type `{obj_type}`.\n"
 msgstr ""
-"Итерабельным является объект, способный возвращать свои элементы по одному за "
-"раз.\n"
+"Итерабельным является объект, способный возвращать свои элементы по одному "
+"за раз.\n"
 "Контейнеры Python (`list, tuple, dict` и т.д.) являются итерабельными,\n"
 "но не объекты типа `{obj_type}`.\n"
 
-#: runtime_errors\type_error.py:958
+#: runtime_errors\type_error.py:992
 msgid ""
 "{function} does not accept a sequence as an argument.\n"
 "Instead of writing `{line}`\n"
@@ -2083,15 +2160,15 @@ msgstr ""
 "Вместо того, чтобы писать `{line}`\n"
 "возможно, следует использовать метод `dict.fromkeys()`: `{new_line}`.\n"
 
-#: runtime_errors\type_error.py:963
+#: runtime_errors\type_error.py:997
 msgid "Perhaps you need to use the `dict.fromkeys()` method.\n"
 msgstr "Возможно, вам следует использовать метод `dict.fromkeys()`.\n"
 
-#: runtime_errors\type_error.py:1001 runtime_errors\type_error.py:1025
+#: runtime_errors\type_error.py:1035 runtime_errors\type_error.py:1059
 msgid "Did you forget to call `{name}`?\n"
 msgstr "Вы забыли вызвать `{name}`?\n"
 
-#: runtime_errors\type_error.py:1002 runtime_errors\type_error.py:1026
+#: runtime_errors\type_error.py:1036 runtime_errors\type_error.py:1060
 msgid ""
 "I suspect that you forgot to add parentheses to call `{name}`.\n"
 "You might have meant to write:\n"
@@ -2101,7 +2178,7 @@ msgstr ""
 "Возможно, вы хотели написать:\n"
 "`{line}`.\n"
 
-#: runtime_errors\type_error.py:1040
+#: runtime_errors\type_error.py:1074
 msgid ""
 "The function `vars` is used to list the content of the\n"
 "`__dict__` attribute of an object.\n"
@@ -2109,15 +2186,16 @@ msgstr ""
 "Функция `vars` используется для перечисления содержимого атрибута\n"
 "`__dict__` объекта.\n"
 
-#: runtime_errors\type_error.py:1049
+#: runtime_errors\type_error.py:1083
 msgid "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
 msgstr "Объект `{name}` использует `__slots__` вместо `__dict__`.\n"
 
-#: runtime_errors\type_error.py:1053
-msgid "`{name}`, the argument of `vars`, is an object without such an attribute.\n"
+#: runtime_errors\type_error.py:1087
+msgid ""
+"`{name}`, the argument of `vars`, is an object without such an attribute.\n"
 msgstr "`{name}`, аргумент `vars`, является объектом без такого атрибута.\n"
 
-#: runtime_errors\type_error.py:1074
+#: runtime_errors\type_error.py:1108
 msgid ""
 "You have specified the value of argument `{argument}` more than once\n"
 "when calling the function named `{function}`.\n"
@@ -2125,20 +2203,37 @@ msgstr ""
 "Вы указали значение аргумента `{argument}` более одного раза\n"
 "при вызове функции с именем `{function}`.\n"
 
-#: runtime_errors\type_error.py:1095
+#: runtime_errors\type_error.py:1129
 msgid "This function has only one argument: `{arguments}`\n"
 msgstr "Эта функция принимает только один аргумент: `{arguments}`.\n"
 
-#: runtime_errors\type_error.py:1099
+#: runtime_errors\type_error.py:1133
 msgid ""
 "This function has the following arguments:\n"
 "`{arguments}`\n"
 msgstr ""
 "Эта функция принимает следующие аргументы:\n"
 "`{arguments}`\n"
-"\n"
 
-#: runtime_errors\unbound_local_error.py:32
+#: runtime_errors\type_error.py:1143
+msgid ""
+"I am guessing that you were trying to count the number of elements\n"
+"produced by a generator expression. You first need to capture them\n"
+"in a list:\n"
+"\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1164
+msgid "    {new_line}\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1165
+#, fuzzy
+#| msgid "You likely have a circular import.\n"
+msgid "You likely need to build a list first.\n"
+msgstr "Скорее всего, у вас кольцевой импорт.\n"
+
+#: runtime_errors\unbound_local_error.py:31
 msgid ""
 "You're trying to use the name `{name}` identified by Python as being\n"
 "in the local scope of a function before having assigned it a value.\n"
@@ -2147,11 +2242,12 @@ msgstr ""
 "находящееся\n"
 "в локальной области видимости функции, прежде чем присвоить ему значение.\n"
 
-#: runtime_errors\unbound_local_error.py:63
+#: runtime_errors\unbound_local_error.py:62
 msgid ""
 "The name `{var_name}` exists in both the global and nonlocal scope.\n"
 "This can be rather confusing and is not recommended.\n"
-"Depending on which variable you wanted to refer to, you needed to add either\n"
+"Depending on which variable you wanted to refer to, you needed to add "
+"either\n"
 "\n"
 "    global {var_name}\n"
 "\n"
@@ -2170,7 +2266,7 @@ msgstr ""
 "    nonlocal {var_name}\n"
 "в качестве первой строки внутри вашей функции.\n"
 
-#: runtime_errors\unbound_local_error.py:73
+#: runtime_errors\unbound_local_error.py:72
 msgid ""
 "Did you forget to add either `global {var_name}` or \n"
 "`nonlocal {var_name}`?\n"
@@ -2180,7 +2276,7 @@ msgstr ""
 "или\n"
 "    `nonlocal {var_name}`?\n"
 
-#: runtime_errors\unbound_local_error.py:85
+#: runtime_errors\unbound_local_error.py:84
 msgid ""
 "`{name}` is a Python builtin function.\n"
 "You have tried to assign a value to `{name}` inside a function\n"
@@ -2196,7 +2292,7 @@ msgstr ""
 "Обратите внимание, что обычно не стоит давать локальной переменной\n"
 "то же имя, что и встроенной функции Python (например, `{name}`).\n"
 
-#: runtime_errors\unbound_local_error.py:102
+#: runtime_errors\unbound_local_error.py:101
 msgid ""
 "The name `{var_name}` exists in the {scope} scope.\n"
 "Perhaps the statement\n"
@@ -2212,15 +2308,15 @@ msgstr ""
 "\n"
 "должно быть включено в качестве первой строки внутри вашей функции.\n"
 
-#: runtime_errors\unbound_local_error.py:109
+#: runtime_errors\unbound_local_error.py:108
 msgid "Did you forget to add `{scope} {var_name}`?\n"
 msgstr "Вы забыли добавить `{scope} {var_name}`?\n"
 
-#: runtime_errors\unbound_local_error.py:120
+#: runtime_errors\unbound_local_error.py:119
 msgid "The similar name `{name}` was found in the local scope. "
 msgstr "В локальной области видимости найдено похожее имя `{name}`. "
 
-#: runtime_errors\value_error.py:73 runtime_errors\value_error.py:82
+#: runtime_errors\value_error.py:72 runtime_errors\value_error.py:81
 msgid ""
 "In this instance, there are more names ({nb_names})\n"
 "than {length}, the length of the iterable.\n"
@@ -2228,7 +2324,7 @@ msgstr ""
 "В данном случае количество имен ({nb_names}) больше,\n"
 "чем {length}, итерируемого объекта.\n"
 
-#: runtime_errors\value_error.py:88
+#: runtime_errors\value_error.py:87
 msgid ""
 "In this instance, there are more names ({nb_names})\n"
 "than the length of the iterable, {iter_type} of length {length}.\n"
@@ -2236,7 +2332,7 @@ msgstr ""
 "В данном случае количество имен ({nb_names}) больше,\n"
 "чем длина итерируемого объекта, {iter_type} длиной {length}.\n"
 
-#: runtime_errors\value_error.py:107 runtime_errors\value_error.py:117
+#: runtime_errors\value_error.py:105 runtime_errors\value_error.py:115
 msgid ""
 "In this instance, there are fewer names ({nb_names})\n"
 "than the length of the iterable.\n"
@@ -2244,7 +2340,7 @@ msgstr ""
 "В данном случае имен ({nb_names}) меньше,\n"
 "чем длина последовательности.\n"
 
-#: runtime_errors\value_error.py:123
+#: runtime_errors\value_error.py:121
 msgid ""
 "In this instance, there are fewer names ({nb_names})\n"
 "than the length of the iterable, {iter_type} of length {length}.\n"
@@ -2252,7 +2348,7 @@ msgstr ""
 "В данном случае имен ({nb_names}) меньше,\n"
 "чем длина итерируемого объекта, {iter_type} длиной {length}.\n"
 
-#: runtime_errors\value_error.py:141
+#: runtime_errors\value_error.py:137
 msgid ""
 "`int()` expects an argument that looks like a number in base `{base}`\n"
 "but you gave it an empty string.\n"
@@ -2260,15 +2356,16 @@ msgstr ""
 "`int()` ожидает аргумент, который выглядит как число в базе `{base}`,\n"
 "но вы передали ему пустую строку.\n"
 
-#: runtime_errors\value_error.py:147
+#: runtime_errors\value_error.py:143
 msgid "`{value}` is an invalid argument for `int()` in base `{base}`.\n"
-msgstr "`{value}` является недопустимым аргументом для `int()` в базе `{base}`.\n"
+msgstr ""
+"`{value}` является недопустимым аргументом для `int()` в базе `{base}`.\n"
 
-#: runtime_errors\value_error.py:166
+#: runtime_errors\value_error.py:162
 msgid "The following characters are not allowed: `{invalid}`.\n"
-msgstr "Недопустимы  следующие символы: `{invalid}`.\n"
+msgstr "Недопустимы следующие символы: `{invalid}`.\n"
 
-#: runtime_errors\value_error.py:178
+#: runtime_errors\value_error.py:174
 msgid ""
 "When base `0` is specified, `int()` expects the argument\n"
 "to be an integer literal, written in\n"
@@ -2278,7 +2375,7 @@ msgstr ""
 "является целочисленным литералом, записанным в формате\n"
 "основание 2 (`0b...`), 8 (`0o...`), 10 или 16 (`0x...`).\n"
 
-#: runtime_errors\value_error.py:184
+#: runtime_errors\value_error.py:180
 msgid ""
 "In base `{base}`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `{max_n}` into an integer.\n"
@@ -2286,7 +2383,7 @@ msgstr ""
 "В базе `{base}`, `int()` чаще всего используется для преобразования строки,\n"
 "содержащей цифры от `0` до `{max_n}` в целое число.\n"
 
-#: runtime_errors\value_error.py:189
+#: runtime_errors\value_error.py:185
 msgid ""
 "In base `11`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letter `'a'` into an integer.\n"
@@ -2294,7 +2391,7 @@ msgstr ""
 "В базе `11`, `int()` чаще всего используется для преобразования строки,\n"
 "содержащей цифры от `0` до `9` и букву `'a'`, в целое число.\n"
 
-#: runtime_errors\value_error.py:194
+#: runtime_errors\value_error.py:190
 msgid ""
 "In base `base`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letters\n"
@@ -2305,11 +2402,11 @@ msgstr ""
 "от `'a'` до `'{max_n}'`, в целое число.\n"
 "\n"
 
-#: runtime_errors\value_error.py:210
+#: runtime_errors\value_error.py:206
 msgid "You need to convert `'{value}'` to a float first.\n"
 msgstr "Сначала нужно преобразовать `'{value}'` во float.\n"
 
-#: runtime_errors\value_error.py:211
+#: runtime_errors\value_error.py:207
 msgid ""
 "The string `'{value}'` needs to be first converted using `float()`\n"
 "before the result can be converted into an integer using `int()`.\n"
@@ -2317,7 +2414,7 @@ msgstr ""
 "Строка `'{value}'` должна быть сначала преобразована с помощью `float()`\n"
 "прежде чем результат будет преобразован в целое число с помощью `int()`.\n"
 
-#: runtime_errors\value_error.py:223
+#: runtime_errors\value_error.py:219
 msgid ""
 "The argument `base` of `int()` must be either zero\n"
 "or any integer from 2 to 36.\n"
@@ -2325,15 +2422,15 @@ msgstr ""
 "Аргумент `base` функции `int()` должен быть либо нулем\n"
 "или любым целым числом от 2 до 36.\n"
 
-#: runtime_errors\value_error.py:231
+#: runtime_errors\value_error.py:227
 msgid "You wrote {base} which is not allowed.\n"
 msgstr "Вы написали {base}, что недопустимо.\n"
 
-#: runtime_errors\value_error.py:242
+#: runtime_errors\value_error.py:238
 msgid "Did you specify an invalid month?\n"
 msgstr "Вы указали неправильный месяц?\n"
 
-#: runtime_errors\value_error.py:243
+#: runtime_errors\value_error.py:239
 msgid ""
 "I am guessing that you specify an invalid value for a month\n"
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
@@ -2341,11 +2438,11 @@ msgstr ""
 "Предполагаю, что вы указали недопустимое значение для месяца\n"
 "в объекте `date`. Допустимыми значениями являются целые числа от 1 до 12.\n"
 
-#: runtime_errors\value_error.py:262
+#: runtime_errors\value_error.py:256
 msgid "The string `{string}` cannot be converted to a `float`.\n"
 msgstr "Строка `{string}` не может быть преобразована во `float`.\n"
 
-#: runtime_errors\value_error.py:277
+#: runtime_errors\value_error.py:271
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
@@ -2354,17 +2451,17 @@ msgstr ""
 "Имя `{var}` используется и как имя переменной класса,\n"
 "и как строковый элемент в классе `__slots__`. Это недопустимо.\n"
 
-#: runtime_errors\value_error.py:291
+#: runtime_errors\value_error.py:283
 msgid "The third argument of the function `pow()` cannot be zero.\n"
 msgstr "Третий аргумент функции `pow()` не может быть нулём.\n"
 
-#: runtime_errors\value_error.py:320
+#: runtime_errors\value_error.py:312
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
 msgstr "Предполагаю, что проблема связана с функцией `{name}`.\n"
 
-#: runtime_errors\value_error.py:326
+#: runtime_errors\value_error.py:318
 msgid ""
 "Its docstring is:\n"
 "\n"
@@ -2374,11 +2471,11 @@ msgstr ""
 "\n"
 "{docstring}\n"
 
-#: runtime_errors\value_error.py:330
+#: runtime_errors\value_error.py:322
 msgid "I have no more information.\n"
 msgstr "Дополнительной информации нет.\n"
 
-#: runtime_errors\value_error.py:342
+#: runtime_errors\value_error.py:332
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
@@ -2388,7 +2485,8 @@ msgid ""
 "https://docs.python.org/3/library/time.html#time.strftime\n"
 "The following site might also be useful: https://www.strfti.me/\n"
 msgstr ""
-"Значение, которое вы указали для времени, не соответствует указанному формату.\n"
+"Значение, которое вы указали для времени, не соответствует указанному "
+"формату.\n"
 "Убедитесь, что между элементами используется одинаковый разделитель\n"
 "(например, между днем и месяцем) и соблюдайте одинаковый порядок\n"
 "как в предоставленных данных, так и в указанном вами формате.\n"
@@ -2396,16 +2494,16 @@ msgstr ""
 "https://docs.python.org/3/library/time.html#time.strftime\n"
 "Следующий сайт также может быть полезен: https://www.strfti.me/\n"
 
-#: runtime_errors\zero_division_error.py:21
+#: runtime_errors\zero_division_error.py:20
 msgid "Using the modulo operator, you are dividing by zero.\n"
 msgstr "Используя оператор modulo, вы делите на ноль.\n"
 
-#: runtime_errors\zero_division_error.py:22
+#: runtime_errors\zero_division_error.py:21
 msgid "You are dividing by zero.\n"
 msgstr "Вы делите на ноль.\n"
 
-#: runtime_errors\zero_division_error.py:44
-#: runtime_errors\zero_division_error.py:78
+#: runtime_errors\zero_division_error.py:41
+#: runtime_errors\zero_division_error.py:73
 msgid ""
 "You are dividing by the following term\n"
 "\n"
@@ -2419,12 +2517,12 @@ msgstr ""
 "\n"
 "которое равно нулю.\n"
 
-#: runtime_errors\zero_division_error.py:56
-#: runtime_errors\zero_division_error.py:134
+#: runtime_errors\zero_division_error.py:53
+#: runtime_errors\zero_division_error.py:127
 msgid "<'expression not found'>"
 msgstr "<'выражение не найдено'>"
 
-#: runtime_errors\zero_division_error.py:57
+#: runtime_errors\zero_division_error.py:54
 msgid ""
 "The following mathematical expression includes a division by zero:\n"
 "\n"
@@ -2434,8 +2532,8 @@ msgstr ""
 "\n"
 "    {expression}\n"
 
-#: runtime_errors\zero_division_error.py:90
-#: runtime_errors\zero_division_error.py:127
+#: runtime_errors\zero_division_error.py:85
+#: runtime_errors\zero_division_error.py:120
 msgid ""
 "Using the modulo operator, you are dividing by the following term\n"
 "\n"
@@ -2449,11 +2547,11 @@ msgstr ""
 "\n"
 "равный нулю.\n"
 
-#: runtime_errors\zero_division_error.py:98
+#: runtime_errors\zero_division_error.py:93
 msgid "The second argument of the `divmod()` function is zero.\n"
 msgstr "Второй аргумент функции `divmod()` равен нулю.\n"
 
-#: runtime_errors\zero_division_error.py:111
+#: runtime_errors\zero_division_error.py:104
 msgid ""
 "You are attempting to raise the number 0 to a negative power\n"
 "which is equivalent to dividing by zero.\n"
@@ -2461,7 +2559,7 @@ msgstr ""
 "Вы пытаетесь возвести число 0 в отрицательную степень.\n"
 "что эквивалентно делению на ноль.\n"
 
-#: runtime_errors\zero_division_error.py:135
+#: runtime_errors\zero_division_error.py:128
 msgid ""
 "The following mathematical expression includes a division by zero\n"
 "done using the modulo operator:\n"
@@ -2473,7 +2571,7 @@ msgstr ""
 "\n"
 "    {expression}\n"
 
-#: runtime_errors\zero_division_error.py:150
+#: runtime_errors\zero_division_error.py:143
 msgid "The second argument of the `divmod()` function is equal to zero.\n"
 msgstr "Второй аргумент функции `divmod()` равен нулю.\n"
 
@@ -2487,20 +2585,20 @@ msgid ""
 "Unless your code uses type annotations, which are beyond our scope,\n"
 "if you think that this is something which should be handled\n"
 "by friendly, please report this case to\n"
-"https://github.com/aroberge/friendly/issues\n"
+"https://github.com/friendly-traceback/friendly-traceback/issues\n"
 "\n"
 msgstr ""
 "В настоящее время я не могу предположить вероятную причину этой ошибки.\n"
 "Попробуйте внимательно изучить указанную строку, а также строку\n"
-"расположенную непосредственно над ней, и попробуйте определить,не написано ли "
-"какое-нибудь слово или\n"
+"расположенную непосредственно над ней, и попробуйте определить,не написано "
+"ли какое-нибудь слово или\n"
 "недостающие символы, такие как (, ), [, ], :, и т.д.\n"
 "\n"
 "Если только в вашем коде не используются аннотации типов, которые выходят за "
 "рамки нашей темы.\n"
 "Если вы считаете, что это то, что должно быть обработано\n"
 "более корректно, пожалуйста, сообщите об этом случае по адресу\n"
-"https://github.com/aroberge/friendly/issues\n"
+"https://github.com/friendly-traceback/friendly-traceback/issues\n"
 
 #: syntax_errors\analyze_syntax.py:72
 msgid ""
@@ -2556,7 +2654,8 @@ msgstr "Функция нуждается в имени.\n"
 
 #: syntax_errors\error_in_def.py:81
 msgid "You tried to define a function and did not use the correct syntax.\n"
-msgstr "Вы пытались определить функцию и использовали неправильный синтаксис.\n"
+msgstr ""
+"Вы пытались определить функцию и использовали неправильный синтаксис.\n"
 
 #: syntax_errors\error_in_def.py:85
 msgid "Functions and methods need a name.\n"
@@ -2564,14 +2663,17 @@ msgstr "Функции и методы нуждаются в именах.\n"
 
 #: syntax_errors\error_in_def.py:86
 msgid ""
-"You tried to define a function or method and did not use the correct syntax.\n"
+"You tried to define a function or method and did not use the correct "
+"syntax.\n"
 msgstr ""
-"Вы пытались определить функцию или метод и использовали неправильный синтаксис.\n"
+"Вы пытались определить функцию или метод и использовали неправильный "
+"синтаксис.\n"
 
 #: syntax_errors\error_in_def.py:110 syntax_errors\error_in_def.py:136
-#: syntax_errors\message_analyzer.py:1053 syntax_errors\message_analyzer.py:1604
-#: syntax_errors\statement_analyzer.py:1209
-#: syntax_errors\statement_analyzer.py:1228
+#: syntax_errors\message_analyzer.py:1065
+#: syntax_errors\message_analyzer.py:1608
+#: syntax_errors\statement_analyzer.py:1214
+#: syntax_errors\statement_analyzer.py:1233
 msgid "Did you forget parentheses?\n"
 msgstr "Вы забыли про скобки?\n"
 
@@ -2595,15 +2697,13 @@ msgstr "Оператор определения функции должен за
 msgid "Did you forget to write a colon?\n"
 msgstr "Вы забыли поставить двоеточие?\n"
 
-#: syntax_errors\error_in_def.py:164 syntax_errors\message_analyzer.py:762
+#: syntax_errors\error_in_def.py:164 syntax_errors\message_analyzer.py:768
 msgid "You wrote `{bad}` instead of a colon.\n"
 msgstr "Вы поставили `{bad}` вместо двоеточия.\n"
 
 #: syntax_errors\error_in_def.py:173
 msgid "Did you write something by mistake after the colon?\n"
-msgstr ""
-"После двоеточия вы написали что-то по ошибке?\n"
-"\n"
+msgstr "После двоеточия вы написали что-то по ошибке?\n"
 
 #: syntax_errors\error_in_def.py:174
 msgid "A block of code must come after the colon.\n"
@@ -2673,7 +2773,7 @@ msgid "Perhaps you meant to write a comma.\n"
 msgstr "Возможно, вы хотели поставить запятую.\n"
 
 #: syntax_errors\error_in_def.py:290 syntax_errors\error_in_def.py:476
-#: syntax_errors\statement_analyzer.py:760 syntax_errors\syntax_utils.py:111
+#: syntax_errors\statement_analyzer.py:765 syntax_errors\syntax_utils.py:119
 msgid "Did you mean to write a comma?\n"
 msgstr "Вы хотели поставить запятую?\n"
 
@@ -2692,7 +2792,8 @@ msgstr ""
 #: syntax_errors\error_in_def.py:309
 msgid ""
 "Function definitions cannot include the symbol `/` in this Python version.\n"
-msgstr "Определения функций не могут включать символ `/` в этой версии Python.\n"
+msgstr ""
+"Определения функций не могут включать символ `/` в этой версии Python.\n"
 
 #: syntax_errors\error_in_def.py:312
 msgid ""
@@ -2701,7 +2802,6 @@ msgid ""
 msgstr ""
 "Этот символ можно использовать только с Python версии 3.8.0 или новее.\n"
 "Вы же используете Python версии {version}.\n"
-"\n"
 
 #: syntax_errors\error_in_def.py:321
 msgid ""
@@ -2771,8 +2871,8 @@ msgid ""
 "You can only use identifiers (variable names) as function arguments.\n"
 msgstr ""
 "Вы использовали число в качестве аргумента при определении функции.\n"
-"В качестве аргументов функции можно использовать только идентификаторы (имена "
-"переменных).\n"
+"В качестве аргументов функции можно использовать только идентификаторы "
+"(имена переменных).\n"
 
 #: syntax_errors\error_in_def.py:412
 msgid "You cannot use strings as function arguments.\n"
@@ -2784,8 +2884,8 @@ msgid ""
 "You can only use identifiers (variable names) as function arguments.\n"
 msgstr ""
 "Вы использовали строку в качестве аргумента при определении функции.\n"
-"В качестве аргументов функции можно использовать только идентификаторы (имена "
-"переменных).\n"
+"В качестве аргументов функции можно использовать только идентификаторы "
+"(имена переменных).\n"
 
 #: syntax_errors\error_in_def.py:425
 msgid "You cannot have explicit tuples as function arguments.\n"
@@ -2797,24 +2897,26 @@ msgid ""
 "Assign any tuple to a parameter and unpack it\n"
 "within the body of the function.\n"
 msgstr ""
-"В качестве аргументов функции можно использовать только идентификаторы (имена "
-"переменных).\n"
+"В качестве аргументов функции можно использовать только идентификаторы "
+"(имена переменных).\n"
 "Присвойте любой кортеж параметру и распакуйте его в теле функции.\n"
 
 #: syntax_errors\error_in_def.py:440
 msgid "You cannot have explicit lists as function arguments.\n"
-msgstr "Вы не можете иcпользовать явные списки в качестве аргументов функции.\n"
+msgstr ""
+"Вы не можете иcпользовать явные списки в качестве аргументов функции.\n"
 
 #: syntax_errors\error_in_def.py:441 syntax_errors\error_in_def.py:453
 msgid "You can only use identifiers (variable names) as function arguments.\n"
 msgstr ""
-"В качестве аргументов функций можно использовать только идентификаторы (имена "
-"переменных).\n"
+"В качестве аргументов функций можно использовать только идентификаторы "
+"(имена переменных).\n"
 
 #: syntax_errors\error_in_def.py:452
 msgid "You cannot have any explicit dict or set as function arguments.\n"
 msgstr ""
-"В качестве аргументов функции нельзя использовать явные словари или множества.\n"
+"В качестве аргументов функции нельзя использовать явные словари или "
+"множества.\n"
 
 #: syntax_errors\error_in_def.py:469
 msgid "You cannot have operators as function arguments.\n"
@@ -2888,7 +2990,8 @@ msgstr ""
 "вместо идентификатора (имени переменной).\n"
 
 #: syntax_errors\error_in_def.py:540
-msgid "The `**` operator needs to be followed by an identifier (variable name).\n"
+msgid ""
+"The `**` operator needs to be followed by an identifier (variable name).\n"
 msgstr "За оператором `**` должен следовать идентификатор (имя переменной).\n"
 
 #: syntax_errors\error_in_def.py:563
@@ -2900,20 +3003,21 @@ msgid ""
 "`{arg}` is a positional argument that appears after one or more\n"
 "keyword arguments in your function definition.\n"
 msgstr ""
-"`{arg}` -- это позиционный аргумент, который находится  после одного или\n"
+"`{arg}` -- это позиционный аргумент, который находится после одного или\n"
 "нескольких ключевых аргументов в определении вашей функции.\n"
 
 #: syntax_errors\indentation_error.py:11
 msgid "Line `{number}` identified above is more indented than expected.\n"
 msgstr ""
 "Строка `{number}`, определенная выше, имеет больший отступ, чем требуется.\n"
-"\n"
 
 #: syntax_errors\indentation_error.py:15
 msgid ""
-"Line `{number}` identified above was expected to begin a new indented block.\n"
+"Line `{number}` identified above was expected to begin a new indented "
+"block.\n"
 msgstr ""
-"Ожидалось, что строка `{number}`, указанная выше, начнет новый блок с отступом.\n"
+"Ожидалось, что строка `{number}`, указанная выше, начнет новый блок с "
+"отступом.\n"
 
 #: syntax_errors\indentation_error.py:20
 msgid "Line `{number}` identified above is less indented than expected.\n"
@@ -2936,15 +3040,17 @@ msgstr ""
 
 #: syntax_errors\message_analyzer.py:22
 msgid "You can only assign objects to identifiers (variable names).\n"
-msgstr "Вы можете присваивать объекты только идентификаторам (именам переменных)\n"
+msgstr ""
+"Вы можете присваивать объекты только идентификаторам (именам переменных)\n"
 
-#: syntax_errors\message_analyzer.py:26 syntax_errors\statement_analyzer.py:1534
+#: syntax_errors\message_analyzer.py:26
+#: syntax_errors\statement_analyzer.py:1539
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
 msgstr ""
-"Вы можете удалять только имена объектов или элементы в изменяемых контейнерах, "
-"таких как `list`, `set` или `dict`.\n"
+"Вы можете удалять только имена объектов или элементы в изменяемых "
+"контейнерах, таких как `list`, `set` или `dict`.\n"
 
 #: syntax_errors\message_analyzer.py:54
 msgid "of type `int`"
@@ -3064,7 +3170,6 @@ msgstr ""
 "    {mark}\n"
 "где `{fn_call}`, слева от знака равенства, либо является\n"
 "либо включает вызов функции и не является просто именем переменной.\n"
-"\n"
 
 #: syntax_errors\message_analyzer.py:228
 msgid ""
@@ -3080,11 +3185,11 @@ msgid ""
 "on the left-hand side of the equal sign.\n"
 "An f-string should only appear on the right-hand side of an equal sign.\n"
 msgstr ""
-"Вы написали выражение, в котором f-строка `{fstring}}\n"
+"Вы написали выражение, в котором f-строка `{fstring}`\n"
 "находится слева от знака равенства.\n"
 "f-строка должна находиться только справа от знака равенства.\n"
 
-#: syntax_errors\message_analyzer.py:290 syntax_errors\message_analyzer.py:960
+#: syntax_errors\message_analyzer.py:290 syntax_errors\message_analyzer.py:972
 msgid "You cannot assign a value to `{keyword}`.\n"
 msgstr "Вы не можете присвоить значение `{keyword}`.\n"
 
@@ -3097,18 +3202,20 @@ msgid ""
 "The ellipsis symbol `...` is a constant in Python;you cannot assign it a "
 "different value.\n"
 msgstr ""
-"Многоточие (ellipsis) `...` является константой в Python; вы не можете присвоить "
-"ему другое значение.\n"
+"Многоточие (ellipsis) `...` является константой в Python; вы не можете "
+"присвоить ему другое значение.\n"
 
 #: syntax_errors\message_analyzer.py:299
 msgid ""
-"`{keyword}` is a constant in Python; you cannot assign it a different value.\n"
+"`{keyword}` is a constant in Python; you cannot assign it a different "
+"value.\n"
 msgstr ""
 "`{keyword}` является константой в Python; вы не можете присвоить ему другое "
 "значение.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:304 syntax_errors\statement_analyzer.py:940
+#: syntax_errors\message_analyzer.py:304
+#: syntax_errors\statement_analyzer.py:945
 msgid ""
 "You were trying to assign a value to the Python keyword `{keyword}`.\n"
 "This is not allowed.\n"
@@ -3116,7 +3223,6 @@ msgid ""
 msgstr ""
 "Вы пытались присвоить значение `{keyword}`, ключевому слову Python.\n"
 "Это недопустимо.\n"
-"\n"
 "\n"
 
 #: syntax_errors\message_analyzer.py:327
@@ -3171,7 +3277,21 @@ msgstr ""
 "является или включает в себя реальный объект {of_type}\n"
 "а не просто имя переменной.\n"
 
-#: syntax_errors\message_analyzer.py:435
+#: syntax_errors\message_analyzer.py:423
+#, fuzzy
+#| msgid ""
+#| "It is possible that you used an equal sign `=` instead of a colon `:`\n"
+#| "to assign values to keys in a dict\n"
+#| "before or at the position indicated by ^.\n"
+msgid ""
+"It is possible that you used an equal sign `=` instead of a colon `:`\n"
+"to assign values to keys in a dict.\n"
+msgstr ""
+"Возможно, что вы использовали знак равенства `=` вместо двоеточия `:`\n"
+"для присвоения значений ключам в словаре,\n"
+"до или в позиции, обозначенной ^.\n"
+
+#: syntax_errors\message_analyzer.py:441
 msgid ""
 "You wrote an expression that includes some mathematical operations\n"
 "on the left-hand side of the equal sign which should be\n"
@@ -3181,16 +3301,16 @@ msgstr ""
 "слева от знака равенства, который следует\n"
 "использовать только для присвоения значения переменной.\n"
 
-#: syntax_errors\message_analyzer.py:457
+#: syntax_errors\message_analyzer.py:463
 msgid "Perhaps you meant to write `{name}` instead of `{original}`\n"
 msgstr "Возможно вы хотели написать `{name}` вместо `{original}`.\n"
 
-#: syntax_errors\message_analyzer.py:462 syntax_errors\message_analyzer.py:600
-#: syntax_errors\statement_analyzer.py:563
+#: syntax_errors\message_analyzer.py:468 syntax_errors\message_analyzer.py:606
+#: syntax_errors\statement_analyzer.py:568
 msgid "Perhaps you needed `==` instead of `=`.\n"
-msgstr "Возможно, вам нужно`==` вместо `=`.\n"
+msgstr "Возможно, вам нужно `==` вместо `=`.\n"
 
-#: syntax_errors\message_analyzer.py:474
+#: syntax_errors\message_analyzer.py:480
 msgid ""
 "You wrote an expression that includes the `yield` keyword\n"
 "on the left-hand side of the equal sign.\n"
@@ -3204,7 +3324,7 @@ msgstr ""
 "`yield` можно использовать только внутри функции.\n"
 
 # All translations of the term "comprehension" into russian are crap
-#: syntax_errors\message_analyzer.py:493 syntax_errors\message_analyzer.py:515
+#: syntax_errors\message_analyzer.py:499 syntax_errors\message_analyzer.py:521
 msgid ""
 "You are using the augmented assignment operator `:=` inside\n"
 "a comprehension to assign a value to the iteration variable `{var}`.\n"
@@ -3217,19 +3337,20 @@ msgstr ""
 "comprehension\n"
 "для присвоения значения итерационной переменной `{var}`.\n"
 "Эта переменная предназначена для использования только внутри comprehension.\n"
-"Дополненный оператор присваивания обычно используется для присвоения значения "
-"переменной, чтобы ее можно было использовать повторно.\n"
+"Дополненный оператор присваивания обычно используется для присвоения "
+"значения переменной, чтобы ее можно было использовать повторно.\n"
 "Это невозможно для переменной `{var}`.\n"
 
-#: syntax_errors\message_analyzer.py:532
+#: syntax_errors\message_analyzer.py:538
 msgid ""
 "The object named `{name}` is defined with type annotation\n"
 "as a local variable. It cannot be declared to be a global variable.\n"
 msgstr ""
 "Объект с именем `{name}` определен с аннотацией типа\n"
-"как локальная переменная. Он не может быть объявлен как глобальная переменная.\n"
+"как локальная переменная. Он не может быть объявлен как глобальная "
+"переменная.\n"
 
-#: syntax_errors\message_analyzer.py:547
+#: syntax_errors\message_analyzer.py:553
 msgid ""
 "You cannot use the augmented assignment operator `:=`,\n"
 "sometimes called the walrus operator, with literals like `{bad_token}`.\n"
@@ -3239,7 +3360,7 @@ msgstr ""
 "иногда называемый моржовым оператором, с литералами типа `{bad_token}`.\n"
 "Вы можете присваивать объекты только идентификаторам (именам переменных).\n"
 
-#: syntax_errors\message_analyzer.py:558
+#: syntax_errors\message_analyzer.py:564
 msgid ""
 "You declared `{name}` as being both a global and nonlocal variable.\n"
 "A variable can be global, or nonlocal, but not both at the same time.\n"
@@ -3247,23 +3368,24 @@ msgstr ""
 "Вы объявили `{name}` как global и nonlocal переменную одновременно.\n"
 "Переменная может быть global или nonlocal, но не обеими одновременно.\n"
 
-#: syntax_errors\message_analyzer.py:573
+#: syntax_errors\message_analyzer.py:579
 msgid "Python tells us that the {bracket} was never closed.\n"
 msgstr "Python сообщает нам, что отсутствует закрывающая {bracket}.\n"
 
-#: syntax_errors\message_analyzer.py:576
+#: syntax_errors\message_analyzer.py:582
 msgid "The {bracket} was never closed.\n"
 msgstr "Отсутствует закрывающая {bracket}.\n"
 
-#: syntax_errors\message_analyzer.py:588
+#: syntax_errors\message_analyzer.py:594
 msgid ""
 "The Python keyword `break` can only be used inside a `for` loop or inside a "
 "`while` loop.\n"
 msgstr ""
-"Ключевое слово Python 'break' можно использовать\n"
+"Ключевое слово Python `break` можно использовать\n"
 "только внутри циклов `for` или `while`.\n"
 
-#: syntax_errors\message_analyzer.py:601 syntax_errors\statement_analyzer.py:564
+#: syntax_errors\message_analyzer.py:607
+#: syntax_errors\statement_analyzer.py:569
 msgid ""
 "You likely used an assignment operator `=` instead of an equality operator "
 "`==`.\n"
@@ -3271,7 +3393,7 @@ msgstr ""
 "Скорее всего, вы использовали оператор присваивания `=`\n"
 "вместо оператора равенства `==`.\n"
 
-#: syntax_errors\message_analyzer.py:609
+#: syntax_errors\message_analyzer.py:615
 msgid ""
 "The following statement would not contain a syntax error:\n"
 "\n"
@@ -3281,19 +3403,19 @@ msgstr ""
 "\n"
 "    {new_statement}\n"
 
-#: syntax_errors\message_analyzer.py:629
+#: syntax_errors\message_analyzer.py:635
 msgid "You cannot delete the constant `{constant}`.\n"
 msgstr "Вы не можете удалить константу `{constant}`.\n"
 
-#: syntax_errors\message_analyzer.py:649 syntax_errors\message_analyzer.py:703
+#: syntax_errors\message_analyzer.py:655 syntax_errors\message_analyzer.py:709
 msgid "You cannot delete a Python expression.\n"
 msgstr "Вы не можете удалить выражение Python.\n"
 
-#: syntax_errors\message_analyzer.py:652
+#: syntax_errors\message_analyzer.py:658
 msgid "You cannot delete the expression `{expression}`.\n"
 msgstr "Вы не можете удалить выражение `{expression}`.\n"
 
-#: syntax_errors\message_analyzer.py:669
+#: syntax_errors\message_analyzer.py:675
 msgid ""
 "You attempted to delete a function call\n"
 "\n"
@@ -3309,15 +3431,15 @@ msgstr ""
 "\n"
 "    {correct}\n"
 
-#: syntax_errors\message_analyzer.py:687
+#: syntax_errors\message_analyzer.py:693
 msgid "You cannot delete the literal `{literal}`.\n"
 msgstr "Вы не можете удалить литерал `{literal}`.\n"
 
-#: syntax_errors\message_analyzer.py:706
+#: syntax_errors\message_analyzer.py:712
 msgid "You cannot delete the named expression `{expression}`.\n"
 msgstr "Вы не можете удалить именованное выражение `{expression}`.\n"
 
-#: syntax_errors\message_analyzer.py:722
+#: syntax_errors\message_analyzer.py:728
 msgid ""
 "The star operator `*` is interpreted to mean that\n"
 "iterable unpacking is to be used to assign a name\n"
@@ -3327,7 +3449,7 @@ msgstr ""
 "распаковка последовательности должна использоваться для присвоения имени\n"
 "каждому элементу последовательности, что в данном случае не имеет смысла.\n"
 
-#: syntax_errors\message_analyzer.py:736
+#: syntax_errors\message_analyzer.py:742
 msgid ""
 "It looks like you surrounded a starred name by parentheses.\n"
 "This was not considered a SyntaxError before Python version 3.9.\n"
@@ -3335,65 +3457,67 @@ msgstr ""
 "Похоже, что вы окружили starred name круглыми скобками.\n"
 "До версии Python 3.9 это не считалось синтаксической ошибкой.\n"
 
-#: syntax_errors\message_analyzer.py:755
+#: syntax_errors\message_analyzer.py:761
 msgid "Did you forget a colon?\n"
 msgstr "Вы забыли про двоеточие?\n"
 
-#: syntax_errors\message_analyzer.py:756
+#: syntax_errors\message_analyzer.py:762
 msgid "Python expected a colon at the position indicated.\n"
 msgstr "В указанном месте Python ожидал увидеть двоеточие.\n"
 
-#: syntax_errors\message_analyzer.py:783
+#: syntax_errors\message_analyzer.py:789
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you wrote a dict key without writing the corresponding value.\n"
 msgstr ""
 "Похоже, что ошибка возникла, когда вы добавляли `key` в словарь Python.\n"
-"Возможно, вы записали `key` без соответствующего`value`.\n"
+"Возможно, вы записали `key` без соответствующего `value`.\n"
 
-#: syntax_errors\message_analyzer.py:787 syntax_errors\message_analyzer.py:991
-#: syntax_errors\statement_analyzer.py:1594
+#: syntax_errors\message_analyzer.py:793 syntax_errors\message_analyzer.py:1003
+#: syntax_errors\statement_analyzer.py:1599
 msgid "Did you forget to write a dict value?\n"
 msgstr "Вы забыли записать в словарь значение ?\n"
 
-#: syntax_errors\message_analyzer.py:794
+#: syntax_errors\message_analyzer.py:800
 msgid ""
-"The Python keyword `continue` can only be used inside a `for` loop or inside a "
-"`while` loop.\n"
+"The Python keyword `continue` can only be used inside a `for` loop or inside "
+"a `while` loop.\n"
 msgstr ""
-"Ключевое слово Python 'continue' можно использовать только\n"
+"Ключевое слово Python `continue` можно использовать только\n"
 "внутри циклов `for` или `while`.\n"
 
-#: syntax_errors\message_analyzer.py:806
+#: syntax_errors\message_analyzer.py:812
 msgid ""
 "You have defined a function repeating the argument\n"
 "\n"
 "    {name}\n"
 "Each argument should appear only once in a function definition.\n"
 msgstr ""
-"Вы определили функцию, в которой дублируется аргумент '{name}'.\n"
+"Вы определили функцию, в которой дублируется аргумент\n"
 "\n"
+"    `{name}`.\n"
 "Каждый аргумент должен появляться только один раз в определении функции.\n"
 
-#: syntax_errors\message_analyzer.py:846
+#: syntax_errors\message_analyzer.py:852
 msgid "Did you forget to add `else`?\n"
 msgstr "Вы забыли добавить `else`?\n"
 
-#: syntax_errors\message_analyzer.py:847
+#: syntax_errors\message_analyzer.py:853
 msgid "An `else some_value` clause was expected after the `if` expression.\n"
-msgstr "После выражения `if` ожидалось появление выражения `else some_value`.\n"
+msgstr ""
+"После выражения `if` ожидалось появление выражения `else some_value`.\n"
 
-#: syntax_errors\message_analyzer.py:859
+#: syntax_errors\message_analyzer.py:865
 msgid ""
 "You started writing a triple-quoted string but never wrote\n"
 "the triple quotes needed to end the string.\n"
 msgstr "Вы начали писать строку с тройными кавычками но так и не закрыли их.\n"
 
-#: syntax_errors\message_analyzer.py:876
+#: syntax_errors\message_analyzer.py:882
 msgid "Did you forget a closing quote?\n"
 msgstr "Вы забыли завершающие кавычки?\n"
 
-#: syntax_errors\message_analyzer.py:877
+#: syntax_errors\message_analyzer.py:883
 msgid ""
 "You started writing a string with a single or double quote\n"
 "but never ended the string with another quote on that line.\n"
@@ -3401,7 +3525,7 @@ msgstr ""
 "Вы начали писать строку с одинарной или двойной кавычки,\n"
 "но так и не закрыли их.\n"
 
-#: syntax_errors\message_analyzer.py:884
+#: syntax_errors\message_analyzer.py:896
 msgid ""
 "Perhaps you meant to write the backslash character, `\\`\n"
 "as the last character in the string and forgot that you\n"
@@ -3411,15 +3535,17 @@ msgstr ""
 "как последний символ в строке и забыли, что\n"
 "что его нужно экранировать, написав два `\\` подряд.\n"
 
-#: syntax_errors\message_analyzer.py:889
+#: syntax_errors\message_analyzer.py:901
 msgid "Did you forget to escape a backslash character?\n"
 msgstr "Вы забыли экранировать символ обратной косой черты?\n"
 
-#: syntax_errors\message_analyzer.py:922 syntax_errors\statement_analyzer.py:352
+#: syntax_errors\message_analyzer.py:934
+#: syntax_errors\statement_analyzer.py:357
 msgid "Perhaps you forgot to escape a quote character.\n"
 msgstr "Возможно, вы забыли закрыть кавычки.\n"
 
-#: syntax_errors\message_analyzer.py:923 syntax_errors\statement_analyzer.py:353
+#: syntax_errors\message_analyzer.py:935
+#: syntax_errors\statement_analyzer.py:358
 msgid ""
 "I suspect that you were trying to use a quote character inside a string\n"
 "that was enclosed in quotes of the same kind.\n"
@@ -3435,7 +3561,7 @@ msgstr ""
 "    {new_line}\n"
 "    {mark}\n"
 
-#: syntax_errors\message_analyzer.py:962
+#: syntax_errors\message_analyzer.py:974
 msgid ""
 "You likely called a function using the Python keyword `{keyword}` as an "
 "argument:\n"
@@ -3445,8 +3571,8 @@ msgid ""
 "which Python interpreted as trying to assign a value to a Python keyword.\n"
 "\n"
 msgstr ""
-"Скорее всего, вы вызвали функцию, используя ключевое слово Python `{keyword}` в "
-"качестве аргумента:\n"
+"Скорее всего, вы вызвали функцию, используя ключевое слово Python `{keyword}"
+"` в качестве аргумента:\n"
 "\n"
 "    a_function({keyword}=something) \n"
 "\n"
@@ -3454,7 +3580,7 @@ msgstr ""
 "Python.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:973
+#: syntax_errors\message_analyzer.py:985
 msgid ""
 "You likely called a function with a named argument:\n"
 "\n"
@@ -3471,9 +3597,9 @@ msgstr ""
 "где `invalid` не является допустимым именем переменной в Python\n"
 "либо потому, что оно начинается с числа, либо является строкой,\n"
 "или содержит точку и т.д.\n"
-"\n"
 
-#: syntax_errors\message_analyzer.py:987 syntax_errors\statement_analyzer.py:1585
+#: syntax_errors\message_analyzer.py:999
+#: syntax_errors\statement_analyzer.py:1590
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you forgot to write a value after a colon.\n"
@@ -3481,7 +3607,7 @@ msgstr ""
 "Похоже, что ошибка возникла, когда вы писали в словарь Python.\n"
 "Возможно, вы забыли написать значение после двоеточия.\n"
 
-#: syntax_errors\message_analyzer.py:1000
+#: syntax_errors\message_analyzer.py:1012
 msgid ""
 "You have written an f-string whose content `{...}`\n"
 "includes a backslash; this is not allowed.\n"
@@ -3504,7 +3630,7 @@ msgstr ""
 "    hello = 'hello\\n'\n"
 "    f\"{...hello ...}\"\n"
 
-#: syntax_errors\message_analyzer.py:1017
+#: syntax_errors\message_analyzer.py:1029
 msgid ""
 "You have written an f-string which has an unmatched `}`.\n"
 "If you want to print a single `}`, you need to write `}}` in the f-string;\n"
@@ -3514,7 +3640,7 @@ msgstr ""
 "Если вы хотите вывести одну `}`, вам нужно написать `}}` в f-строке;\n"
 "в противном случае нужно добавить открывающую `{`.\n"
 
-#: syntax_errors\message_analyzer.py:1029
+#: syntax_errors\message_analyzer.py:1041
 msgid ""
 "You have written an f-string which has an unmatched `{`.\n"
 "If you want to print a single `{`, you need to write `{{` in the f-string;\n"
@@ -3524,9 +3650,11 @@ msgstr ""
 "Если вы хотите вывести одну `}`, вам нужно написать `}}` в f-строке;\n"
 "в противном случае нужно добавить открывающую `{`.\n"
 
-#: syntax_errors\message_analyzer.py:1045 syntax_errors\statement_analyzer.py:1181
+#: syntax_errors\message_analyzer.py:1057
+#: syntax_errors\statement_analyzer.py:1186
 msgid ""
-"I am guessing that you were writing a comprehension or a generator expression\n"
+"I am guessing that you were writing a comprehension or a generator "
+"expression\n"
 "and forgot to include parentheses around tuples.\n"
 "As an example, instead of writing\n"
 "\n"
@@ -3544,7 +3672,7 @@ msgstr ""
 "вам нужно написать\n"
 "    [(i, i**2) for i in range(10)]\n"
 
-#: syntax_errors\message_analyzer.py:1062
+#: syntax_errors\message_analyzer.py:1074
 msgid ""
 "A `from __future__ import` statement changes the way Python\n"
 "interprets the code in a file.\n"
@@ -3553,28 +3681,27 @@ msgstr ""
 "Оператор `from __future__ import` изменяет способ, которым Python\n"
 "интерпретирует код в файле. Он должен находиться в начале файла."
 
-#: syntax_errors\message_analyzer.py:1078
+#: syntax_errors\message_analyzer.py:1090
 msgid "The available features are `{names}`.\n"
 msgstr "Доступными вариантами являются: `{names}`.\n"
 
-#: syntax_errors\message_analyzer.py:1083
+#: syntax_errors\message_analyzer.py:1095
 msgid ""
 "When using a `from __future__ import` statement,\n"
 "you must import specific named features.\n"
 msgstr ""
 "При использовании оператора `from __future__ import`,\n"
 "вы должны импортировать элементы с определенными именами.\n"
-"\n"
 
-#: syntax_errors\message_analyzer.py:1094
+#: syntax_errors\message_analyzer.py:1106
 msgid "Instead of `{feature}`, perhaps you meant to import `{name}`.\n"
-msgstr "Возможно,  вместо `{feature}` вы хотели импортировать `{name}`.\n"
+msgstr "Возможно, вместо `{feature}` вы хотели импортировать `{name}`.\n"
 
-#: syntax_errors\message_analyzer.py:1099
+#: syntax_errors\message_analyzer.py:1111
 msgid "`{feature}` is not a valid feature of module `__future__`.\n"
 msgstr "`{feature}` не является допустимой функцией модуля `__future__`.\n"
 
-#: syntax_errors\message_analyzer.py:1124
+#: syntax_errors\message_analyzer.py:1136
 msgid ""
 "You are using a generator expression, something of the form\n"
 "\n"
@@ -3588,7 +3715,7 @@ msgstr ""
 "\n"
 "Вы должны окружить его скобками.\n"
 
-#: syntax_errors\message_analyzer.py:1137
+#: syntax_errors\message_analyzer.py:1149
 msgid ""
 "I suspect you wrote `from __future__ import braces` following\n"
 "someone else's suggestion. This will never work.\n"
@@ -3596,19 +3723,20 @@ msgid ""
 "Unlike other programming languages, Python's code block are defined by\n"
 "their indentation level, and not by using some curly braces, like `{...}`.\n"
 msgstr ""
-"Предполагаю, что вы написали `from __future__ import braces`, следуя чьему-то "
-"совету.\n"
+"Предполагаю, что вы написали `from __future__ import braces`, следуя чьему-"
+"то совету.\n"
 "Это никогда не сработает.\n"
 "\n"
 "В отличие от других языков программирования, в Python блок кода выделяется "
 "уровнем отступа,\n"
 "а не использованием фигурных скобок, например, `{...}`.\n"
 
-#: syntax_errors\message_analyzer.py:1152 syntax_errors\statement_analyzer.py:165
+#: syntax_errors\message_analyzer.py:1164
+#: syntax_errors\statement_analyzer.py:172
 msgid "Did you use copy-paste?\n"
 msgstr "Вы использовали copy-paste?\n"
 
-#: syntax_errors\message_analyzer.py:1153
+#: syntax_errors\message_analyzer.py:1165
 msgid ""
 "Python indicates that you used the unicode character `{bad_character}`\n"
 "which is not allowed.\n"
@@ -3616,37 +3744,41 @@ msgstr ""
 "Python указывает, что вы использовали недопустимый символ юникода "
 "`{bad_character}`.\n"
 
-#: syntax_errors\message_analyzer.py:1179
+#: syntax_errors\message_analyzer.py:1191
 msgid "Python tells us that you have written an invalid number."
 msgstr "Python сообщает, что вы записали недопустимое число."
 
-#: syntax_errors\message_analyzer.py:1180
+#: syntax_errors\message_analyzer.py:1192
 msgid "However, I think that the problem might be the following."
 msgstr "Однако я думаю, что проблема может заключаться в следующем."
 
-#: syntax_errors\message_analyzer.py:1214
+#: syntax_errors\message_analyzer.py:1226
 msgid "I have no suggestion to offer to fix this problem.\n"
 msgstr "У меня нет предложений по устранению этой проблемы.\n"
 
-#: syntax_errors\message_analyzer.py:1226 syntax_errors\statement_analyzer.py:685
+#: syntax_errors\message_analyzer.py:1238
+#: syntax_errors\statement_analyzer.py:690
 msgid ""
 "The double star operator `**` is likely interpreted to mean that\n"
-"dict unpacking is to be used which is not allowed or does not make sense here.\n"
+"dict unpacking is to be used which is not allowed or does not make sense "
+"here.\n"
 msgstr ""
-"Double star оператор `**`, вероятно, будет интерпретирован как означающий, что "
-"используется dict-распаковка,\n"
+"Double star оператор `**`, вероятно, будет интерпретирован как означающий, "
+"что используется dict-распаковка,\n"
 "что в данном случае недопустимо или не имеет смысла.\n"
 
-#: syntax_errors\message_analyzer.py:1284
+#: syntax_errors\message_analyzer.py:1296
 msgid ""
 "You cannot use the `*` operator to unpack the iteration variable\n"
 "in a comprehension.\n"
 msgstr ""
-"Вы не можете использовать оператор `*` для распаковки итерационной переменной\n"
+"Вы не можете использовать оператор `*` для распаковки итерационной "
+"переменной\n"
 "в comprehension.\n"
 
-#: syntax_errors\message_analyzer.py:1296 syntax_errors\message_analyzer.py:1690
-#: syntax_errors\statement_analyzer.py:492
+#: syntax_errors\message_analyzer.py:1308
+#: syntax_errors\message_analyzer.py:1694
+#: syntax_errors\statement_analyzer.py:497
 msgid ""
 "The following statement has no syntax error:\n"
 "\n"
@@ -3656,50 +3788,53 @@ msgstr ""
 "\n"
 "    {new_statement}\n"
 
-#: syntax_errors\message_analyzer.py:1317
+#: syntax_errors\message_analyzer.py:1329
 msgid ""
 "You have called a function repeating the same keyword argument (`{arg}`).\n"
 "Each keyword argument should appear only once in a function call.\n"
 msgstr ""
-"Вы вызвали функцию, повторяя одно и то же ключевое слово-аргумент (`{arg}`).\n"
+"Вы вызвали функцию, повторяя одно и то же ключевое слово-аргумент (`{arg}"
+"`).\n"
 "Каждое ключевое слово-аргумент должно встречаться только один раз в вызове "
 "функции.\n"
 
-#: syntax_errors\message_analyzer.py:1382
+#: syntax_errors\message_analyzer.py:1394
 msgid ""
 "Python tells us that the closing `{closing}` on the last line shown\n"
 "does not match the opening `{opening}` on line {lineno}.\n"
 "\n"
 msgstr ""
-"Python сообщает нам, что закрывающая `{closing}` в последней показанной строке\n"
+"Python сообщает нам, что закрывающая `{closing}` в последней показанной "
+"строке\n"
 "не совпадает с открывающей `{opening}` в строке {lineno}.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1387
+#: syntax_errors\message_analyzer.py:1399
 msgid ""
 "Python tells us that the closing `{closing}` on the last line shown\n"
 "does not match the opening `{opening}`.\n"
 "\n"
 msgstr ""
-"Python сообщает нам, что закрывающая `{closing}` в последней показанной строке\n"
+"Python сообщает нам, что закрывающая `{closing}` в последней показанной "
+"строке\n"
 "не совпадает с открывающей `{opening}`.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1401
+#: syntax_errors\message_analyzer.py:1413
 msgid "Did you forget something after `*`?\n"
 msgstr "Вы забыли что-то после `*`?\n"
 
-#: syntax_errors\message_analyzer.py:1402
+#: syntax_errors\message_analyzer.py:1414
 msgid ""
 "Assuming you were defining a function, you need\n"
 "to replace `*` by either `*arguments` or\n"
 "by `*, named_argument=value`.\n"
 msgstr ""
 "Если предположить, что вы определяете функцию, вам нужно\n"
-"заменить `*` на `*arguments` или на `*,\n"
-"named_argument=value`.\n"
+"заменить `*` на `*arguments` или на\n"
+"`*, named_argument=value`.\n"
 
-#: syntax_errors\message_analyzer.py:1417
+#: syntax_errors\message_analyzer.py:1429
 msgid ""
 "You assigned a value to the variable `{name}`\n"
 "before declaring it as a global variable.\n"
@@ -3707,11 +3842,11 @@ msgstr ""
 "Вы присвоили значение переменной `{name}`,\n"
 "прежде чем объявить ее как глобальную.\n"
 
-#: syntax_errors\message_analyzer.py:1443
+#: syntax_errors\message_analyzer.py:1453
 msgid "Did you forget to add `nonlocal`?\n"
 msgstr "Вы забыли добавить `nonlocal`?\n"
 
-#: syntax_errors\message_analyzer.py:1444
+#: syntax_errors\message_analyzer.py:1454
 msgid ""
 "You assigned a value to the variable `{name}`\n"
 "before declaring it as a nonlocal variable.\n"
@@ -3719,7 +3854,7 @@ msgstr ""
 "Вы присвоили значение переменной `{name}`\n"
 "прежде чем объявить ее как нелокальную.\n"
 
-#: syntax_errors\message_analyzer.py:1477
+#: syntax_errors\message_analyzer.py:1485
 msgid ""
 "You are including the statement\n"
 "\n"
@@ -3740,7 +3875,7 @@ msgstr ""
 "тем самым указывая, что это должна быть переменная, которая видна только\n"
 "внутри этой функции, что противоположно тому, что подразумевает `global`.\n"
 
-#: syntax_errors\message_analyzer.py:1494
+#: syntax_errors\message_analyzer.py:1502
 msgid ""
 "You used `{name}` as a parameter for a function\n"
 "before declaring it also as a nonlocal variable:\n"
@@ -3750,7 +3885,7 @@ msgstr ""
 "прежде чем объявить его также как нелокальную переменную:\n"
 "`{name}` не может быть одновременно и тем, и другим.\n"
 
-#: syntax_errors\message_analyzer.py:1509
+#: syntax_errors\message_analyzer.py:1517
 msgid ""
 "You used the variable `{name}`\n"
 "before declaring it as a global variable.\n"
@@ -3758,11 +3893,11 @@ msgstr ""
 "Вы использовали переменную `{name}`\n"
 "прежде чем объявить ее глобальной переменной.\n"
 
-#: syntax_errors\message_analyzer.py:1534
+#: syntax_errors\message_analyzer.py:1540
 msgid "Did you forget to write `nonlocal` first?\n"
 msgstr "Вы забыли сначала написать `nonlocal`?\n"
 
-#: syntax_errors\message_analyzer.py:1536
+#: syntax_errors\message_analyzer.py:1542
 msgid ""
 "You used the variable `{name}`\n"
 "before declaring it as a nonlocal variable.\n"
@@ -3770,7 +3905,7 @@ msgstr ""
 "Вы использовали переменную `{name}`\n"
 "прежде чем объявить ее как нелокальную переменную.\n"
 
-#: syntax_errors\message_analyzer.py:1562
+#: syntax_errors\message_analyzer.py:1566
 msgid ""
 "You declared the variable `{name}` as being a\n"
 "nonlocal variable but it cannot be found.\n"
@@ -3778,7 +3913,7 @@ msgstr ""
 "Вы объявили переменную `{name}` как\n"
 "нелокальную, но она не может быть найдена.\n"
 
-#: syntax_errors\message_analyzer.py:1573
+#: syntax_errors\message_analyzer.py:1577
 msgid ""
 "You used the nonlocal keyword at a module level.\n"
 "The nonlocal keyword refers to a variable inside a function\n"
@@ -3788,7 +3923,7 @@ msgstr ""
 "Ключевое слово nonlocal относится к переменной внутри функции,\n"
 "которой присвоено значение вне этой функции."
 
-#: syntax_errors\message_analyzer.py:1585
+#: syntax_errors\message_analyzer.py:1589
 msgid ""
 "In Python, you can define functions with only positional arguments\n"
 "\n"
@@ -3821,7 +3956,8 @@ msgstr ""
 "аргументов.\n"
 "Python говорит, что вы передали позиционные аргументы после ключевых.\n"
 
-#: syntax_errors\message_analyzer.py:1605 syntax_errors\statement_analyzer.py:1229
+#: syntax_errors\message_analyzer.py:1609
+#: syntax_errors\statement_analyzer.py:1234
 msgid ""
 "I am guessing that you wanted to use an `except` statement\n"
 "with multiple exception types. If that is the case, you must\n"
@@ -3831,7 +3967,7 @@ msgstr ""
 "с несколькими типами исключений. Если это так, то вы должны\n"
 "окружить их круглыми скобками.\n"
 
-#: syntax_errors\message_analyzer.py:1617
+#: syntax_errors\message_analyzer.py:1621
 msgid ""
 "In Python, you can call functions with only positional arguments\n"
 "\n"
@@ -3863,7 +3999,8 @@ msgstr ""
 "но при этом ключевые аргументы идут после всех позиционных аргументов.\n"
 "Согласно Python, вы передали позиционные аргументы после ключевых.\n"
 
-#: syntax_errors\message_analyzer.py:1644 syntax_errors\statement_analyzer.py:609
+#: syntax_errors\message_analyzer.py:1648
+#: syntax_errors\statement_analyzer.py:614
 msgid ""
 "Perhaps you need to type\n"
 "\n"
@@ -3880,33 +4017,35 @@ msgstr ""
 "Теперь `print` -- это функция и для ее вызова нужно использовать круглые "
 "скобки.\n"
 
-#: syntax_errors\message_analyzer.py:1651 syntax_errors\statement_analyzer.py:616
+#: syntax_errors\message_analyzer.py:1655
+#: syntax_errors\statement_analyzer.py:621
 msgid "Note that arguments of `print` must be separated by commas.\n"
 msgstr ""
 "Обратите внимание, что аргументы функции `print` должны быть разделены "
 "запятыми.\n"
 
-#: syntax_errors\message_analyzer.py:1652 syntax_errors\statement_analyzer.py:617
+#: syntax_errors\message_analyzer.py:1656
+#: syntax_errors\statement_analyzer.py:622
 msgid "Did you mean `print({message})`?\n"
 msgstr "Вы имели в виду `print({message})`?\n"
 
-#: syntax_errors\message_analyzer.py:1661
+#: syntax_errors\message_analyzer.py:1665
 msgid "You can only use a `return` statement inside a function or method.\n"
 msgstr ""
 "Вы можете использовать оператор `return` только внутри функции или метода.\n"
 
-#: syntax_errors\message_analyzer.py:1670
+#: syntax_errors\message_analyzer.py:1674
 msgid ""
 "A star assignment must be of the form:\n"
 "\n"
 "    ... *name = list_or_tuple\n"
 "\n"
 msgstr ""
-"'Звёздное' присваивание  должно быть типа:\n"
+"'Звёздное' присваивание должно быть типа:\n"
 "\n"
 "    ... *name = list_or_tuple\n"
 
-#: syntax_errors\message_analyzer.py:1680
+#: syntax_errors\message_analyzer.py:1684
 msgid ""
 "It looks like you tried to use a starred expression as a dict value;\n"
 "this is not allowed.\n"
@@ -3916,7 +4055,7 @@ msgstr ""
 "Похоже, что вы пытались использовать выражение со звездочкой\n"
 "в качестве значения словаря, это недопустимо.\n"
 
-#: syntax_errors\message_analyzer.py:1701
+#: syntax_errors\message_analyzer.py:1705
 msgid ""
 "Your code is too complex for Python:\n"
 "you need to reduce the number of indented code blocks\n"
@@ -3926,7 +4065,7 @@ msgstr ""
 "вам нужно уменьшить количество блоков кода с отступами,\n"
 "содержащихся внутри других блоков кода.\n"
 
-#: syntax_errors\message_analyzer.py:1714
+#: syntax_errors\message_analyzer.py:1718
 msgid ""
 "Your code is too complex for Python:\n"
 "you need to reduce the number of parentheses\n"
@@ -3936,7 +4075,7 @@ msgstr ""
 "вам нужно уменьшить количество круглых скобок\n"
 "содержащихся внутри других круглых скобок.\n"
 
-#: syntax_errors\message_analyzer.py:1729
+#: syntax_errors\message_analyzer.py:1733
 msgid ""
 "Python indicates that you need to surround an expression\n"
 "ending with a comma by parentheses.\n"
@@ -3944,7 +4083,7 @@ msgstr ""
 "Python указывает, что вам нужно окружить выражение\n"
 "заканчивающееся запятой, круглыми скобками.\n"
 
-#: syntax_errors\message_analyzer.py:1733
+#: syntax_errors\message_analyzer.py:1737
 msgid ""
 "Perhaps you meant to write\n"
 "\n"
@@ -3954,21 +4093,23 @@ msgstr ""
 "\n"
 "`{new_statement}`\n"
 
-#: syntax_errors\message_analyzer.py:1741
+#: syntax_errors\message_analyzer.py:1745
 msgid "However, I suspect that you wrote the keyword `{boolean}` by mistake.\n"
 msgstr "Подозреваю, что ключевое слово `{boolean}` вы написали по ошибке.\n"
 
-#: syntax_errors\message_analyzer.py:1745
-msgid "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
+#: syntax_errors\message_analyzer.py:1749
+msgid ""
+"The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 msgstr ""
-"Ключевое слово Python '{boolean}' можно использовать только для булевых "
+"Ключевое слово Python `{boolean}` можно использовать только для булевых "
 "выражений.\n"
 
-#: syntax_errors\message_analyzer.py:1757 syntax_errors\message_analyzer.py:1770
+#: syntax_errors\message_analyzer.py:1761
+#: syntax_errors\message_analyzer.py:1774
 msgid "However, if you remove the last comma, there will be no syntax error.\n"
 msgstr "Если убрать последнюю запятую, синтаксической ошибки не будет.\n"
 
-#: syntax_errors\message_analyzer.py:1777
+#: syntax_errors\message_analyzer.py:1781
 msgid ""
 "I have no additional suggestion to offer.\n"
 "Please feel free to report this case.\n"
@@ -3976,7 +4117,7 @@ msgstr ""
 "У меня нет никаких дополнительных предложений.\n"
 "Пожалуйста, не стесняйтесь сообщить об этом случае.\n"
 
-#: syntax_errors\message_analyzer.py:1790
+#: syntax_errors\message_analyzer.py:1794
 msgid ""
 "You are using the continuation character `\\` outside of a string,\n"
 "and it is followed by some other character(s).\n"
@@ -3984,7 +4125,7 @@ msgstr ""
 "Вы используете символ продолжения `\\` вне строки\n"
 "и за ним следует какой-то другой символ (символы).\n"
 
-#: syntax_errors\message_analyzer.py:1813
+#: syntax_errors\message_analyzer.py:1817
 msgid ""
 "I am guessing that you wanted to divide by the number {number} \n"
 "and wrote \\ instead of /."
@@ -3992,15 +4133,15 @@ msgstr ""
 "Предполагаю, что вы хотели разделить на число {number} \n"
 "и написали \\ вместо /."
 
-#: syntax_errors\message_analyzer.py:1817
+#: syntax_errors\message_analyzer.py:1821
 msgid "Did you mean to divide by {number}?\n"
 msgstr "Вы хотели разделить на {number}?\n"
 
-#: syntax_errors\message_analyzer.py:1820
+#: syntax_errors\message_analyzer.py:1824
 msgid "I am guessing that you forgot to enclose some content in a string.\n"
 msgstr "Полагаю, вы забыли закавычить строку.\n"
 
-#: syntax_errors\message_analyzer.py:1829
+#: syntax_errors\message_analyzer.py:1833
 msgid ""
 "Python tells us that it reached the end of the file\n"
 "and expected more content.\n"
@@ -4009,9 +4150,8 @@ msgstr ""
 "Python сообщает нам, что он достиг конца файла\n"
 "и ожидает дальнейшего контента.\n"
 "\n"
-"\n"
 
-#: syntax_errors\message_analyzer.py:1836
+#: syntax_errors\message_analyzer.py:1840
 msgid ""
 "I will attempt to be give a bit more information.\n"
 "\n"
@@ -4019,7 +4159,7 @@ msgstr ""
 "Постараюсь дать более информативное пояснение.\n"
 "\n"
 
-#: syntax_errors\message_analyzer.py:1847
+#: syntax_errors\message_analyzer.py:1851
 msgid ""
 "I suspect that you wrote a string that contains\n"
 "one backslash character, `\\` followed by an uppercase `U`\n"
@@ -4031,24 +4171,25 @@ msgid ""
 "front of the string, or replace `\\U`, by `\\\\U`.\n"
 msgstr ""
 "Предполагаю, что вы написали строку, которая содержит\n"
-"один символ обратной косой черты, `\\`, за которым следует заглавная буква `U` и "
-"еще несколько символов.\n"
+"один символ обратной косой черты, `\\`, за которым следует заглавная буква "
+"`U` и еще несколько символов.\n"
 "Python, скорее всего, интерпретировал это как начало\n"
-"того, что известно как управляющая последовательность для специальных символов "
-"Юникода.\n"
+"того, что известно как управляющая последовательность для специальных "
+"символов Юникода.\n"
 "Чтобы решить эту проблему, напишите так называемую 'необработанную строку',\n"
 "добавив букву `r` в качестве префикса перед строкой,\n"
 "либо замените `\\U` на `\\\\\\U`.\n"
 
-#: syntax_errors\message_analyzer.py:1871 syntax_errors\statement_analyzer.py:109
+#: syntax_errors\message_analyzer.py:1875
+#: syntax_errors\statement_analyzer.py:109
 msgid "The closing {bracket} on line {linenumber} does not match anything.\n"
 msgstr "Закрывающая {bracket} в строке {linenumber} ничему не соответствует.\n"
 
-#: syntax_errors\message_analyzer.py:1882
+#: syntax_errors\message_analyzer.py:1886
 msgid "Perhaps you forgot a closing quote.\n"
 msgstr "Возможно, вы забыли закрыть кавычки.\n"
 
-#: syntax_errors\message_analyzer.py:1899
+#: syntax_errors\message_analyzer.py:1903
 msgid ""
 "Inside the f-string `{fstring}`, \n"
 "you have another string, which starts with either a\n"
@@ -4059,11 +4200,11 @@ msgstr ""
 "одинарной кавычки (') или двойной кавычки (\"), без совпадающей закрывающей "
 "кавычки.\n"
 
-#: syntax_errors\message_analyzer.py:1912
+#: syntax_errors\message_analyzer.py:1916
 msgid "You can only use a `yield` statement inside a function.\n"
 msgstr "Вы можете использовать оператор `yield` только внутри функции.\n"
 
-#: syntax_errors\message_analyzer.py:1921
+#: syntax_errors\message_analyzer.py:1925
 msgid ""
 "This is a message that was added in Python 3.9\n"
 "to prevent redefining `__peg_parser__`.\n"
@@ -4081,7 +4222,16 @@ msgstr ""
 "Закрывающая {bracket} в строке {close_lineno} не совпадает с открывающей "
 "{open_bracket} в строке {open_lineno}.\n"
 
-#: syntax_errors\statement_analyzer.py:174
+#: syntax_errors\statement_analyzer.py:166
+msgid "Did you mean to write `...`?\n"
+msgstr "Вы хотели написать `...`?\n"
+
+#: syntax_errors\statement_analyzer.py:167
+msgid ""
+"It looks like you meant to write `...` but added an extra `.` by mistake.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:181
 msgid ""
 "It looks like you copy-pasted code from an interactive interpreter.\n"
 "The Python prompt, `>>>`, should not be included in your code.\n"
@@ -4089,7 +4239,7 @@ msgstr ""
 "Похоже, что вы скопипастили вывод интерпретатора.\n"
 "Приглашение интерпретатора '>>>', не должно быть включено в ваш код.\n"
 
-#: syntax_errors\statement_analyzer.py:186
+#: syntax_errors\statement_analyzer.py:191
 msgid ""
 "It looks like you copy-pasted code from an interactive interpreter.\n"
 "The Python prompt, `...`, should not be included in your code.\n"
@@ -4097,11 +4247,11 @@ msgstr ""
 "Похоже, что вы скопипастили вывод интерпретатора.\n"
 "Вывод интерпретатора '...' не должен быть включен в ваш код.\n"
 
-#: syntax_errors\statement_analyzer.py:200
+#: syntax_errors\statement_analyzer.py:205
 msgid "You should not use the backquote character.\n"
 msgstr "Не следует использовать символ обратной кавычки.\n"
 
-#: syntax_errors\statement_analyzer.py:201
+#: syntax_errors\statement_analyzer.py:206
 msgid ""
 "You are using the backquote character.\n"
 "Either you meant to write a single quote, ', or copied Python 2 code;\n"
@@ -4111,11 +4261,11 @@ msgstr ""
 "Либо вы хотели написать одинарную кавычку, либо скопировали код Python 2.\n"
 "В последнем случае используйте функцию `repr(x)`."
 
-#: syntax_errors\statement_analyzer.py:222
+#: syntax_errors\statement_analyzer.py:227
 msgid "You forgot to add a condition.\n"
 msgstr "Вы забыли добавить условие.\n"
 
-#: syntax_errors\statement_analyzer.py:224
+#: syntax_errors\statement_analyzer.py:229
 msgid ""
 "An `if` statement requires a condition:\n"
 "\n"
@@ -4129,7 +4279,7 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:230
+#: syntax_errors\statement_analyzer.py:235
 msgid ""
 "A `while` loop requires a condition:\n"
 "\n"
@@ -4143,11 +4293,11 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:236
+#: syntax_errors\statement_analyzer.py:241
 msgid "A `for` loop requires at least 3 more terms.\n"
 msgstr "Для цикла `for` требуются как минимум 3 элемента.\n"
 
-#: syntax_errors\statement_analyzer.py:237
+#: syntax_errors\statement_analyzer.py:242
 msgid ""
 "A `for` loop is an iteration over a sequence:\n"
 "\n"
@@ -4161,11 +4311,11 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:243
+#: syntax_errors\statement_analyzer.py:248
 msgid "A class needs a name.\n"
 msgstr "Классу необходимо задать имя.\n"
 
-#: syntax_errors\statement_analyzer.py:244
+#: syntax_errors\statement_analyzer.py:249
 msgid ""
 "A `class` statement requires a name:\n"
 "\n"
@@ -4179,7 +4329,7 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:261
+#: syntax_errors\statement_analyzer.py:266
 msgid ""
 "You cannot use the Python keyword `{word}` as an attribute.\n"
 "\n"
@@ -4187,15 +4337,15 @@ msgstr ""
 "Нельзя использовать ключевое слово Python `{word}` в качестве атрибута.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:267
+#: syntax_errors\statement_analyzer.py:272
 msgid "`{word}` cannot be used as an attribute.\n"
 msgstr "`{word}` нельзя использовать в качестве атрибута.\n"
 
-#: syntax_errors\statement_analyzer.py:289
+#: syntax_errors\statement_analyzer.py:294
 msgid "Perhaps you meant to write `elif`.\n"
 msgstr "Возможно, вы хотели написать `elif`.\n"
 
-#: syntax_errors\statement_analyzer.py:290
+#: syntax_errors\statement_analyzer.py:295
 msgid ""
 "You likely meant to use Python's `elif` keyword\n"
 "but wrote `{name}` instead.\n"
@@ -4204,13 +4354,12 @@ msgstr ""
 "Скорее всего, вы хотели использовать ключевое слово Python `elif`,\n"
 "но вместо него написали `{name}`.\n"
 "\n"
-"\n"
 
-#: syntax_errors\statement_analyzer.py:309
+#: syntax_errors\statement_analyzer.py:314
 msgid "Did you mean `from {module} import {function}`?\n"
 msgstr "Вы имели в виду `from {module} import {function}`?\n"
 
-#: syntax_errors\statement_analyzer.py:312
+#: syntax_errors\statement_analyzer.py:317
 msgid ""
 "You wrote something like\n"
 "\n"
@@ -4229,12 +4378,14 @@ msgstr ""
 "    from {module} import {function}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:383
+#: syntax_errors\statement_analyzer.py:388
 msgid ""
-"The augmented assignment operator is not allowed in Python version {version}.\n"
-msgstr "Дополненный оператор присваивания не разрешен в Python версии {version}.\n"
+"The augmented assignment operator is not allowed in Python version "
+"{version}.\n"
+msgstr ""
+"Дополненный оператор присваивания не разрешен в Python версии {version}.\n"
 
-#: syntax_errors\statement_analyzer.py:386
+#: syntax_errors\statement_analyzer.py:391
 msgid ""
 "You appear to be using the operator `:=`, sometimes called\n"
 "the walrus operator. This operator requires the use of\n"
@@ -4244,11 +4395,11 @@ msgstr ""
 "моржовым оператором. Этот оператор требует использования\n"
 "Python 3.8 или более новой версии. Вы же используете версию {version}.\n"
 
-#: syntax_errors\statement_analyzer.py:424
+#: syntax_errors\statement_analyzer.py:429
 msgid "Did you write operators in an incorrect order?\n"
 msgstr "Операторы расположены в правильном порядке?\n"
 
-#: syntax_errors\statement_analyzer.py:425
+#: syntax_errors\statement_analyzer.py:430
 msgid ""
 "It looks like you wrote two operators (`{first}` and `{second}`)\n"
 "in the wrong order: `{wrong}` instead of `{correct}`.\n"
@@ -4256,7 +4407,7 @@ msgstr ""
 "Похоже, что вы написали два оператора (`{first}` и `{second}`).\n"
 "в неправильном порядке: `{wrong}` вместо `{correct}`.\n"
 
-#: syntax_errors\statement_analyzer.py:461
+#: syntax_errors\statement_analyzer.py:466
 msgid ""
 "You wrote three equal signs in a row which is allowed in some\n"
 "programming languages, but not in Python. To check if two objects\n"
@@ -4265,25 +4416,26 @@ msgid ""
 msgstr ""
 "Вы написали три знака равенства подряд, что допускается в некоторых\n"
 "языках программирования, но не в Python.\n"
-"Чтобы проверить, равны ли два объекта, используйте два знака равенства, `==`,\n"
+"Чтобы проверить, равны ли два объекта, используйте два знака равенства, "
+"`==`,\n"
 "а чтобы проверить, представляют ли два имени один и тот же объект,\n"
 "используйте оператор `is`.\n"
 
-#: syntax_errors\statement_analyzer.py:467
+#: syntax_errors\statement_analyzer.py:472
 msgid "Did you mean to use `is` instead of `===`?\n"
 msgstr "Вы хотели использовать `is` вместо `===`?\n"
 
-#: syntax_errors\statement_analyzer.py:471
+#: syntax_errors\statement_analyzer.py:476
 msgid ""
 "You cannot have write the same operator, `{op}`, twice in a row.\n"
 "Perhaps you wrote one of them by mistake\n"
 "or forgot to write something between them.\n"
 msgstr ""
 "Вы не должны использовать один и тот же оператор `{op}` два раза подряд.\n"
-"Возможно, вы написали один из них по ошибке или забыли поместить что-то между "
-"ними.\n"
+"Возможно, вы написали один из них по ошибке или забыли поместить что-то "
+"между ними.\n"
 
-#: syntax_errors\statement_analyzer.py:482
+#: syntax_errors\statement_analyzer.py:487
 msgid ""
 "You cannot have these two operators, `{first}` and `{second}`,\n"
 "following each other.\n"
@@ -4295,7 +4447,7 @@ msgstr ""
 "Похоже, что вы пытались использовать выражение со звездочкой\n"
 "в качестве значения словаря, это недопустимо.\n"
 
-#: syntax_errors\statement_analyzer.py:496
+#: syntax_errors\statement_analyzer.py:501
 msgid ""
 "You cannot have these two operators, `{first}` and `{second}`,\n"
 "following each other. Perhaps you wrote one of them by mistake\n"
@@ -4305,7 +4457,7 @@ msgstr ""
 "Возможно, вы написали один из них по ошибке\n"
 "или забыли поместить что-то между ними.\n"
 
-#: syntax_errors\statement_analyzer.py:503
+#: syntax_errors\statement_analyzer.py:508
 msgid ""
 "Or perhaps you included a space by mistake between the two operators\n"
 "and meant to write `{oper}` as a single operator.\n"
@@ -4313,11 +4465,11 @@ msgstr ""
 "Или, возможно, вы по ошибке поставили пробел между двумя операторами\n"
 "и хотели написать `{oper}` как один оператор.\n"
 
-#: syntax_errors\statement_analyzer.py:532
+#: syntax_errors\statement_analyzer.py:537
 msgid "Did you mean to use `=`?\n"
 msgstr "Вы хотели использовать `=`?\n"
 
-#: syntax_errors\statement_analyzer.py:533
+#: syntax_errors\statement_analyzer.py:538
 msgid ""
 "You use the augmented assignment operator `:=` where\n"
 "the normal assignment operator `=` was required.\n"
@@ -4325,7 +4477,7 @@ msgstr ""
 "Вы используете дополненный оператор присваивания `:=` там,\n"
 "где требуется обычный оператор присваивания `=`.\n"
 
-#: syntax_errors\statement_analyzer.py:573
+#: syntax_errors\statement_analyzer.py:578
 msgid ""
 "The following statement would not contain a syntax error:\n"
 "\n"
@@ -4335,11 +4487,11 @@ msgstr ""
 "\n"
 "    {new_statement}"
 
-#: syntax_errors\statement_analyzer.py:579
+#: syntax_errors\statement_analyzer.py:584
 msgid "Perhaps you needed `==` or `:=` instead of `=`.\n"
 msgstr "Возможно, правильнее использовать `==` или `:=` вместо `=`.\n"
 
-#: syntax_errors\statement_analyzer.py:580
+#: syntax_errors\statement_analyzer.py:585
 msgid ""
 "You used an assignment operator `=`; perhaps you meant to use \n"
 "an equality operator, `==`, or the walrus operator `:=`.\n"
@@ -4348,7 +4500,7 @@ msgstr ""
 "хотели использовать оператор равенства `==`\n"
 "или моржовый оператор `:=`.\n"
 
-#: syntax_errors\statement_analyzer.py:633
+#: syntax_errors\statement_analyzer.py:638
 msgid ""
 "It looks as if you are attempting to use pip to install a module.\n"
 "`pip` is a command that needs to run in a terminal,\n"
@@ -4358,11 +4510,11 @@ msgstr ""
 "`pip` - это команда, которую нужно запускать в терминале,\n"
 "а не из консоли интерпретатора Python.\n"
 
-#: syntax_errors\statement_analyzer.py:641
+#: syntax_errors\statement_analyzer.py:646
 msgid "Pip cannot be used in a Python interpreter.\n"
 msgstr "Pip нельзя использовать в консоли интерпретатора Python.\n"
 
-#: syntax_errors\statement_analyzer.py:644
+#: syntax_errors\statement_analyzer.py:649
 msgid ""
 "I am guessing that you are attempting to use Python to run a program.\n"
 "You must do so from a terminal and not from a Python interpreter.\n"
@@ -4370,31 +4522,33 @@ msgstr ""
 "Предполагаю, что вы пытаетесь использовать Python для запуска программы.\n"
 "Вы должны делать это из терминала, а не из интерпретатора Python.\n"
 
-#: syntax_errors\statement_analyzer.py:654
+#: syntax_errors\statement_analyzer.py:659
 msgid "You cannot have a dot `.` followed by `{bracket}`.\n"
 msgstr "За точкой `.` не может следовать `{bracket}`.\n"
 
-#: syntax_errors\statement_analyzer.py:664
+#: syntax_errors\statement_analyzer.py:669
 msgid "Perhaps you need to replace the dot by a comma.\n"
 msgstr "Возможно, вам следует заменить точку запятой.\n"
 
-#: syntax_errors\statement_analyzer.py:675
-msgid "It looks like you are trying to raise an exception using Python 2 syntax.\n"
+#: syntax_errors\statement_analyzer.py:680
+msgid ""
+"It looks like you are trying to raise an exception using Python 2 syntax.\n"
 msgstr ""
 "Похоже, что вы пытаетесь вызвать исключение, используя синтаксис Python 2.\n"
 
-#: syntax_errors\statement_analyzer.py:730
+#: syntax_errors\statement_analyzer.py:735
 msgid "Did you forget a colon `:`?\n"
 msgstr "Вы забыли двоеточие `:`?\n"
 
-#: syntax_errors\statement_analyzer.py:734
+#: syntax_errors\statement_analyzer.py:739
 msgid ""
 "You wrote a `{for_while}` loop but\n"
 "forgot to add a colon `:` at the end\n"
 "\n"
-msgstr "Вы написали цикл `{for_while}`, но забыли добавить двоеточие `:` в конце\n"
+msgstr ""
+"Вы написали цикл `{for_while}`, но забыли добавить двоеточие `:` в конце\n"
 
-#: syntax_errors\statement_analyzer.py:741
+#: syntax_errors\statement_analyzer.py:746
 msgid ""
 "You wrote a statement beginning with\n"
 "`{name}` but forgot to add a colon `:` at the end.\n"
@@ -4403,34 +4557,36 @@ msgstr ""
 "Вы написали утверждение, начинающееся с\n"
 "`{name}`, но забыли добавить двоеточие `:` в конце.\n"
 
-#: syntax_errors\statement_analyzer.py:759
+#: syntax_errors\statement_analyzer.py:764
 msgid "You wrote a semicolon, `;`, where a comma was expected.\n"
-msgstr "Вы поставили точку с запятой `;` там, где должна быть только запятая.\n"
+msgstr ""
+"Вы поставили точку с запятой `;` там, где должна быть только запятая.\n"
 
-#: syntax_errors\statement_analyzer.py:779
+#: syntax_errors\statement_analyzer.py:784
 msgid "You wrote semicolons, `;`, where commas were expected.\n"
 msgstr "Вы написали точки с запятой `;` там, где должны быть только запятые.\n"
 
-#: syntax_errors\statement_analyzer.py:780
+#: syntax_errors\statement_analyzer.py:785
 msgid "Did you mean to write commas?\n"
 msgstr "Вы хотели поставить запятые?\n"
 
-#: syntax_errors\statement_analyzer.py:796
+#: syntax_errors\statement_analyzer.py:801
 msgid "You wrote a semicolon, `;`, where a colon was expected.\n"
-msgstr "Вы поставили точку с запятой `;` там, где должна быть только запятая.\n"
+msgstr ""
+"Вы поставили точку с запятой `;` там, где должна быть только запятая.\n"
 
-#: syntax_errors\statement_analyzer.py:797
+#: syntax_errors\statement_analyzer.py:802
 msgid "Did you mean to write a colon?\n"
 msgstr "Вы забыли поставить двоеточие?\n"
 
-#: syntax_errors\statement_analyzer.py:815
+#: syntax_errors\statement_analyzer.py:820
 msgid "Did you made a mistake in writing an hexadecimal integer?\n"
 msgstr "Допустили ошибку при записи шестнадцатеричного числа?\n"
 
-#: syntax_errors\statement_analyzer.py:816
+#: syntax_errors\statement_analyzer.py:821
 msgid ""
-"It looks like you used an invalid character (`{character}`) in an hexadecimal "
-"number.\n"
+"It looks like you used an invalid character (`{character}`) in an "
+"hexadecimal number.\n"
 "\n"
 "Hexadecimal numbers are base 16 integers that use the symbols `0` to `9`\n"
 "to represent values 0 to 9, and the letters `a` to `f` (or `A` to `F`)\n"
@@ -4446,42 +4602,53 @@ msgstr ""
 "для обозначения значений от 0 до 9, и буквы от `a` до `f`\n"
 "(или от `A` до `F`) для представления значений от 10 до 15.\n"
 "В Python шестнадцатеричные числа начинаются с `0x` или `0X`,\n"
-"за которым следуют символы, используемые для представления значения этого целого "
-"числа.\n"
+"за которым следуют символы, используемые для представления значения этого "
+"целого числа.\n"
 
-#: syntax_errors\statement_analyzer.py:835
+#: syntax_errors\statement_analyzer.py:840
 msgid "Did you made a mistake in writing an octal integer?\n"
 msgstr "Не допустили ли вы ошибки при записи восьмеричного числа?\n"
 
-#: syntax_errors\statement_analyzer.py:836
+#: syntax_errors\statement_analyzer.py:841
+#, fuzzy
+#| msgid ""
+#| "It looks like you used an invalid character (`{character}`) in an octal "
+#| "number.\n"
+#| "\n"
+#| "Octal numbers are base 8 integers that only use the symbols `0` to `7`\n"
+#| "to represent values.\n"
+#| "In Python, hexadecimal numbers start with either `0o` or `0O`,\n"
+#| "(the digit zero followed by the letter `o`)\n"
+#| "followed by the characters used to represent the value of that integer.\n"
 msgid ""
-"It looks like you used an invalid character (`{character}`) in an octal number.\n"
+"It looks like you used an invalid character (`{character}`) in an octal "
+"number.\n"
 "\n"
 "Octal numbers are base 8 integers that only use the symbols `0` to `7`\n"
 "to represent values.\n"
-"In Python, hexadecimal numbers start with either `0o` or `0O`,\n"
+"In Python, octal numbers start with either `0o` or `0O`,\n"
 "(the digit zero followed by the letter `o`)\n"
 "followed by the characters used to represent the value of that integer.\n"
 msgstr ""
 "Похоже, что вы использовали недопустимый символ (`{character}`) в\n"
 "восьмеричном числе.\n"
 "\n"
-"Восьмеричные числа -- это целые числа с основанием 8, которые используют только "
-"символы от `0` до `7` для представления значений.\n"
+"Восьмеричные числа -- это целые числа с основанием 8, которые используют "
+"только символы от `0` до `7` для представления значений.\n"
 "В Python шестнадцатеричные числа начинаются с `0o` или `0O`,\n"
 "цифра ноль, за которой следует буква `o`,\n"
 "затем следуют символы, используемые для представления значения этого целого "
 "числа.\n"
 
-#: syntax_errors\statement_analyzer.py:863
+#: syntax_errors\statement_analyzer.py:868
 msgid "Valid names cannot begin with a number.\n"
 msgstr "Корректные имена не могут начинаться с цифры.\n"
 
-#: syntax_errors\statement_analyzer.py:870
+#: syntax_errors\statement_analyzer.py:875
 msgid "Did you mean `{number}j`?\n"
 msgstr "Вы имели в виду `{number}j`?\n"
 
-#: syntax_errors\statement_analyzer.py:871
+#: syntax_errors\statement_analyzer.py:876
 msgid ""
 "Perhaps you thought that `i` could be used to represent\n"
 "the square root of `-1`. In Python, the symbol used for this is `j`\n"
@@ -4495,7 +4662,7 @@ msgstr ""
 "за которым следует `j`, без пробелов между ними.\n"
 "Возможно, вы хотели написать `{number}j`.\n"
 
-#: syntax_errors\statement_analyzer.py:881
+#: syntax_errors\statement_analyzer.py:886
 msgid ""
 "[Note: `{first} * {second}` would also be valid\n"
 "since `{first}` is a complex number.]\n"
@@ -4503,15 +4670,15 @@ msgstr ""
 "[Примечание: выражение`{first} * {second}` также будет\n"
 "верным, поскольку `{first}` - комплексное число].\n"
 
-#: syntax_errors\statement_analyzer.py:892
+#: syntax_errors\statement_analyzer.py:897
 msgid "Perhaps you forgot a multiplication operator, `{first} * {second}`.\n"
 msgstr "Возможно, вы пропустили оператор умножения, `{first} * {second}`.\n"
 
-#: syntax_errors\statement_analyzer.py:907
+#: syntax_errors\statement_analyzer.py:912
 msgid "Your Python version does not support this f-string feature.\n"
 msgstr "Ваша версия Python не поддерживает f-строки.\n"
 
-#: syntax_errors\statement_analyzer.py:908
+#: syntax_errors\statement_analyzer.py:913
 msgid ""
 "You are likely using a 'debug' syntax of f-strings introduced\n"
 "in Python version 3.8. You are using version {version}.\n"
@@ -4519,7 +4686,7 @@ msgstr ""
 "Скорее всего, вы используете 'отладочный' синтаксис f-строк, введенный\n"
 "в Python версии 3.8. Вы же используете версию {version}.\n"
 
-#: syntax_errors\statement_analyzer.py:914
+#: syntax_errors\statement_analyzer.py:919
 msgid ""
 "You are likely trying to assign a value within an f-string.\n"
 "This is not allowed.\n"
@@ -4527,21 +4694,22 @@ msgstr ""
 "Скорее всего, вы пытаетесь присвоить значение внутри f-строки.\n"
 "Это недопустимо.\n"
 
-#: syntax_errors\statement_analyzer.py:929
+#: syntax_errors\statement_analyzer.py:934
 msgid ""
 "The content of your f-string is invalid. Please consult the documentation:\n"
 "https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
 msgstr ""
-"Содержимое вашей f-строки недопустимо. Пожалуйста, обратитесь к документации:\n"
+"Содержимое вашей f-строки недопустимо. Пожалуйста, обратитесь к "
+"документации:\n"
 "https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
 
-#: syntax_errors\statement_analyzer.py:939
+#: syntax_errors\statement_analyzer.py:944
 msgid "Python keywords cannot be used as identifiers (variable names).\n"
 msgstr ""
 "Ключевые слова Python нельзя использовать в качестве идентификаторов\n"
 "(имен переменных).\n"
 
-#: syntax_errors\statement_analyzer.py:963
+#: syntax_errors\statement_analyzer.py:968
 msgid ""
 "`lambda` does not allow parentheses around its arguments.\n"
 "This was allowed in Python 2 but it not allowed in Python 3.\n"
@@ -4549,7 +4717,7 @@ msgstr ""
 "`lambda` не позволяет использовать круглые скобки вокруг своих аргументов.\n"
 "Это было разрешено в Python 2, но не в Python 3.\n"
 
-#: syntax_errors\statement_analyzer.py:980
+#: syntax_errors\statement_analyzer.py:985
 msgid ""
 "You cannot have explicit tuples as arguments.\n"
 "Assign any tuple to a parameter and unpack it\n"
@@ -4558,11 +4726,11 @@ msgstr ""
 "Вы не можете передавать явные кортежи в качестве аргументов.\n"
 "Присвойте любой кортеж параметру и распакуйте его в теле функции.\n"
 
-#: syntax_errors\statement_analyzer.py:1013
+#: syntax_errors\statement_analyzer.py:1018
 msgid "If you remove `{type_decl}`, you will have a valid Python statement.\n"
 msgstr "Если вы удалите `{type_decl}`, то оператор станет корректен.\n"
 
-#: syntax_errors\statement_analyzer.py:1017
+#: syntax_errors\statement_analyzer.py:1022
 msgid ""
 "However, even if you remove `{type_decl}`, there would still be some\n"
 "some syntax errors.\n"
@@ -4570,11 +4738,11 @@ msgstr ""
 "Даже если вы удалите `{type_decl}`, все равно будут возникать\n"
 "синтаксические ошибки.\n"
 
-#: syntax_errors\statement_analyzer.py:1022
+#: syntax_errors\statement_analyzer.py:1027
 msgid "You do not need to declare variables in Python.\n"
 msgstr "В Python не нужно объявлять переменные.\n"
 
-#: syntax_errors\statement_analyzer.py:1023
+#: syntax_errors\statement_analyzer.py:1028
 msgid ""
 "It looks like you were trying to declare that `{var}` was\n"
 "a variable using the word `{type_decl}`.\n"
@@ -4582,7 +4750,7 @@ msgstr ""
 "Похоже, что вы пытались сказать, что `{var}` является\n"
 "переменной, используя слово `{type_decl}`.\n"
 
-#: syntax_errors\statement_analyzer.py:1056
+#: syntax_errors\statement_analyzer.py:1061
 msgid ""
 "I am guessing that you forgot a comma between two strings\n"
 "when defining a dict.\n"
@@ -4591,11 +4759,11 @@ msgstr ""
 "Полагаю, что вы забыли поставить запятую между двумя строками\n"
 "при определении словаря.\n"
 
-#: syntax_errors\statement_analyzer.py:1101
+#: syntax_errors\statement_analyzer.py:1106
 msgid "Did you forget to write `in`?\n"
 msgstr "Вы забыли про `in`?\n"
 
-#: syntax_errors\statement_analyzer.py:1102
+#: syntax_errors\statement_analyzer.py:1107
 msgid ""
 "It looks as though you forgot to use the keyword `in`\n"
 "as part of a `for` statement. Perhaps you meant:\n"
@@ -4609,11 +4777,11 @@ msgstr ""
 "    {new_statement}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1124
+#: syntax_errors\statement_analyzer.py:1129
 msgid "Did you forget to write parenthesis?\n"
 msgstr "Вы забыли про скобки?\n"
 
-#: syntax_errors\statement_analyzer.py:1125
+#: syntax_errors\statement_analyzer.py:1130
 msgid ""
 "It looks as though you forgot to use to use parenthesis with `range`.\n"
 "Perhaps you meant:\n"
@@ -4627,7 +4795,7 @@ msgstr ""
 "    {new_statement}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1157
+#: syntax_errors\statement_analyzer.py:1162
 msgid ""
 "Perhaps you meant to write `{keyword}` and made a typo.\n"
 "The correct line might be `{line}`\n"
@@ -4635,9 +4803,10 @@ msgstr ""
 "Возможно, вы хотели написать `{keyword}` и допустили опечатку.\n"
 "Корректной строкой может быть: `{line}`.\n"
 
-#: syntax_errors\statement_analyzer.py:1170
+#: syntax_errors\statement_analyzer.py:1175
 msgid ""
-"I am guessing that you were writing a comprehension or a generator expression\n"
+"I am guessing that you were writing a comprehension or a generator "
+"expression\n"
 "and use the wrong order for a condition.\n"
 "The correct order depends if there is an `else` clause or not.\n"
 "For example, the correct order for a list comprehensions with\n"
@@ -4663,7 +4832,7 @@ msgstr ""
 "    [f(x) for x in sequence if condition] # 'if' после 'for'.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1272
+#: syntax_errors\statement_analyzer.py:1277
 msgid ""
 "You cannot have spaces in identifiers (variable names).\n"
 "Perhaps you meant `{name}`?\n"
@@ -4671,17 +4840,18 @@ msgstr ""
 "В идентификаторах (именах переменных) пробелы недопустимы.\n"
 "Возможно, вы имели в виду `{name}`?\n"
 
-#: syntax_errors\statement_analyzer.py:1294
+#: syntax_errors\statement_analyzer.py:1299
 msgid "`bf` is an illegal string prefix.\n"
 msgstr "`bf` -- недопустимый префикс.\n"
 
-#: syntax_errors\statement_analyzer.py:1295
+#: syntax_errors\statement_analyzer.py:1300
 msgid ""
 "I am guessing that you wanted a binary f-string;\n"
 "this is not allowed.\n"
-msgstr "Предполагаю, что вы хотели получить binary f-строку, это недопустимо.\n"
+msgstr ""
+"Предполагаю, что вы хотели получить binary f-строку, это недопустимо.\n"
 
-#: syntax_errors\statement_analyzer.py:1319
+#: syntax_errors\statement_analyzer.py:1324
 msgid ""
 "It is possible that you forgot a comma between items in a tuple, \n"
 "or between function arguments, \n"
@@ -4690,7 +4860,7 @@ msgstr ""
 "Возможно, вы забыли поставить запятую между элементами кортежа, \n"
 "или между аргументами функции, место отмечено ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1327
+#: syntax_errors\statement_analyzer.py:1332
 msgid ""
 "It is possible that you forgot a comma between items in a list\n"
 "at the position indicated by ^.\n"
@@ -4698,7 +4868,7 @@ msgstr ""
 "Возможно, вы забыли поставить запятую между элементами списка,\n"
 "место отмечено ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1333
+#: syntax_errors\statement_analyzer.py:1338
 msgid ""
 "It is possible that you forgot a comma between items in a set or dict\n"
 "at the position indicated by ^.\n"
@@ -4707,23 +4877,23 @@ msgstr ""
 "словаря,\n"
 "место отмечено ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1357
+#: syntax_errors\statement_analyzer.py:1362
 msgid ""
 "Python indicates that the error is caused by `{second}` written immediately "
 "after `{first}`.\n"
 msgstr ""
-"Python указывает, что ошибка вызвана `{second}`, написанным сразу после `{first}"
-"`.\n"
+"Python указывает, что ошибка вызвана `{second}`, написанным сразу после "
+"`{first}`.\n"
 
-#: syntax_errors\statement_analyzer.py:1414
+#: syntax_errors\statement_analyzer.py:1419
 msgid "Perhaps you meant{line}"
 msgstr "Возможно, вы имели в виду `{line}`"
 
-#: syntax_errors\statement_analyzer.py:1421
+#: syntax_errors\statement_analyzer.py:1426
 msgid "Did you forget something between `{first}` and `{second}`?\n"
 msgstr "Вы что-то пропустили между `{first}` и `{second}`\n"
 
-#: syntax_errors\statement_analyzer.py:1436
+#: syntax_errors\statement_analyzer.py:1441
 msgid ""
 "Perhaps you meant to insert an operator like `{operators}`\n"
 "between `{first}` and `{second}`.\n"
@@ -4734,7 +4904,7 @@ msgstr ""
 "между `{first}` и `{second}`.\n"
 "Следующие строки кода не вызовут `SyntaxError`:\n"
 
-#: syntax_errors\statement_analyzer.py:1445
+#: syntax_errors\statement_analyzer.py:1450
 msgid ""
 "Note: these are just some of the possible choices and that\n"
 "some of them might raise other types of exceptions.\n"
@@ -4742,11 +4912,11 @@ msgstr ""
 "Примечание: это только некоторые из возможных вариантов и\n"
 "некоторые из них могут вызывать другие типы исключений.\n"
 
-#: syntax_errors\statement_analyzer.py:1452
+#: syntax_errors\statement_analyzer.py:1457
 msgid "There is an additional possibility.\n"
 msgstr "Существует и другая возможность.\n"
 
-#: syntax_errors\statement_analyzer.py:1467
+#: syntax_errors\statement_analyzer.py:1472
 msgid ""
 "It is possible that you used an equal sign `=` instead of a colon `:`\n"
 "to assign values to keys in a dict\n"
@@ -4756,7 +4926,7 @@ msgstr ""
 "для присвоения значений ключам в словаре,\n"
 "до или в позиции, обозначенной ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1484
+#: syntax_errors\statement_analyzer.py:1489
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 "Perhaps you meant to write\n"
@@ -4769,7 +4939,7 @@ msgstr ""
 "\n"
 "`{new_statement}`\n"
 
-#: syntax_errors\statement_analyzer.py:1516
+#: syntax_errors\statement_analyzer.py:1521
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -4782,7 +4952,8 @@ msgid ""
 "    from {module} import object_2 as name_2  # if needed\n"
 msgstr ""
 "Предполагаю, что вы пытаетесь импортировать по крайней мере один объект\n"
-"из модуля `{module}` и переименовать его с помощью ключевого слова Python `as`;\n"
+"из модуля `{module}` и переименовать его с помощью ключевого слова Python "
+"`as`;\n"
 "Это ключевое слово может быть использовано только для переименования одного "
 "объекта за раз\n"
 "и только используя четко определенный синтаксис.\n"
@@ -4791,7 +4962,7 @@ msgstr ""
 "    from {module} import object_1 as name_1\n"
 "    from {module} import object_2 as name_2  # если необходимо\n"
 
-#: syntax_errors\statement_analyzer.py:1546
+#: syntax_errors\statement_analyzer.py:1551
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
@@ -4799,11 +4970,11 @@ msgstr ""
 "Предполагаю, что вы по ошибке написали {bad_token} два раза подряд.\n"
 "Если это так, вам нужно удалить второй.\n"
 
-#: syntax_errors\statement_analyzer.py:1550
+#: syntax_errors\statement_analyzer.py:1555
 msgid "Did you write {bad_token} twice by mistake?\n"
 msgstr "Вы по ошибке написали {bad_token} дважды?\n"
 
-#: syntax_errors\statement_analyzer.py:1569
+#: syntax_errors\statement_analyzer.py:1574
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
@@ -4811,17 +4982,18 @@ msgstr ""
 "Предполагаю, что вы по ошибке написали {bad_token}.\n"
 "Удалите его и напишите `{line}`, это поможет устранить ошибку.\n"
 
-#: syntax_errors\statement_analyzer.py:1573
+#: syntax_errors\statement_analyzer.py:1578
 msgid "Did you write {bad_token} by mistake?\n"
 msgstr "Вы написали {bad_token} по ошибке?\n"
 
-#: syntax_errors\statement_analyzer.py:1590
+#: syntax_errors\statement_analyzer.py:1595
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps wrote a dict key without writing the corresponding value.\n"
-msgstr "Возможно, вы записали ключ словаря без записи соответствующего значения.\n"
+msgstr ""
+"Возможно, вы записали ключ словаря без записи соответствующего значения.\n"
 
-#: syntax_errors\statement_analyzer.py:1606
+#: syntax_errors\statement_analyzer.py:1611
 msgid ""
 "The `else` keyword does not begin a code block that matches\n"
 "a valid code block, possibly because `else` is not indented correctly.\n"
@@ -4829,19 +5001,20 @@ msgstr ""
 "Ключевое слово `else` не начинает соответствующий блок кода.\n"
 "Возможно, потому что `else` имеет неправильный отступ.\n"
 
-#: syntax_errors\statement_analyzer.py:1621
+#: syntax_errors\statement_analyzer.py:1626
 msgid ""
 "The `elif` keyword does not begin a code block that matches\n"
 "an `if` block, possibly because `elif` is not indented correctly.\n"
 msgstr ""
-"Ключевое слово `elif` не начинает блок кода, который соответствует блоку `if`.\n"
+"Ключевое слово `elif` не начинает блок кода, который соответствует блоку "
+"`if`.\n"
 "Возможно, потому что `elif` имеет неправильный отступ.\n"
 
-#: syntax_errors\statement_analyzer.py:1653
+#: syntax_errors\statement_analyzer.py:1658
 msgid "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr "Вы использовали квадратные скобки `[...]` вместо круглых.\n"
 
-#: syntax_errors\statement_analyzer.py:1657
+#: syntax_errors\statement_analyzer.py:1662
 msgid ""
 "Write the following instead:\n"
 "\n"
@@ -4851,15 +5024,15 @@ msgstr ""
 "\n"
 "{new_statement}"
 
-#: syntax_errors\statement_analyzer.py:1701
+#: syntax_errors\statement_analyzer.py:1706
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr "Открывающая {bracket} в строке {linenumber} не закрыта.\n"
 
-#: syntax_errors\statement_analyzer.py:1715
+#: syntax_errors\statement_analyzer.py:1720
 msgid "If this is incorrect, please report this case.\n"
 msgstr "Если это неверно, пожалуйста, сообщите об этом случае.\n"
 
-#: syntax_errors\statement_analyzer.py:1727
+#: syntax_errors\statement_analyzer.py:1732
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a generator expression.\n"
@@ -4869,7 +5042,7 @@ msgstr ""
 "который должен быть частью генераторного выражения.\n"
 "Внутри генераторного выражения нельзя располагать отдельные блоки кода.\n"
 
-#: syntax_errors\statement_analyzer.py:1733
+#: syntax_errors\statement_analyzer.py:1738
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a list comprehension.\n"
@@ -4879,7 +5052,7 @@ msgstr ""
 "который должен быть частью list comprehension.\n"
 "Внутри представления списка нельзя располагать отдельные блоки кода.\n"
 
-#: syntax_errors\statement_analyzer.py:1739
+#: syntax_errors\statement_analyzer.py:1744
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a dict or set comprehension.\n"
@@ -4889,7 +5062,7 @@ msgstr ""
 "предназначенного для части dict или set comprehension.\n"
 "Нельзя располагать отдельные блоки кода внутри dict или set comprehensions.\n"
 
-#: syntax_errors\statement_analyzer.py:1745
+#: syntax_errors\statement_analyzer.py:1750
 msgid "If this explanation is incorrect, please report this case.\n"
 msgstr "Если это неверно, пожалуйста, сообщите об этом случае.\n"
 
@@ -4917,11 +5090,11 @@ msgstr "фигурная скобка `{`"
 msgid "curly bracket `}`"
 msgstr "фигурная скобка `}`"
 
-#: syntax_errors\syntax_utils.py:56
+#: syntax_errors\syntax_utils.py:60
 msgid "Did you mean to use a normal quote character, `'` or `\"`?\n"
 msgstr "Вы хотели использовать одинарные кавычки `'`, или двойные `\"`?\n"
 
-#: syntax_errors\syntax_utils.py:57
+#: syntax_errors\syntax_utils.py:61
 msgid ""
 "I suspect that you used a fancy unicode quotation mark\n"
 "whose name is {name}\n"
@@ -4931,19 +5104,19 @@ msgstr ""
 "имя которой {name},\n"
 "вместо обычной одинарной или двойной кавычки для строки.\n"
 
-#: syntax_errors\syntax_utils.py:72
+#: syntax_errors\syntax_utils.py:76
 msgid "Or perhaps, you meant to write a less than sign, `<`.\n"
 msgstr "Или, возможно, вы хотели поставить знак \"меньше чем\", `<`.\n"
 
-#: syntax_errors\syntax_utils.py:74
+#: syntax_errors\syntax_utils.py:78
 msgid "Or perhaps, you meant to write a greater than sign, `>`.\n"
 msgstr "Или, возможно, вы хотели поставить знак \"больше чем\", `>`.\n"
 
-#: syntax_errors\syntax_utils.py:76
+#: syntax_errors\syntax_utils.py:80
 msgid "Or perhaps, you meant to write a comma.\n"
 msgstr "Или, возможно, вы хотели поставить запятую.\n"
 
-#: syntax_errors\syntax_utils.py:89
+#: syntax_errors\syntax_utils.py:97
 msgid ""
 "I suspect that you used a fancy unicode quotation mark\n"
 "whose name is {name}.\n"
@@ -4952,27 +5125,27 @@ msgstr ""
 "Предполагаю, что вы использовали причудливую кавычку юникода,\n"
 "имя которой {name}.\n"
 
-#: syntax_errors\syntax_utils.py:104
+#: syntax_errors\syntax_utils.py:112
 msgid "Perhaps, you meant to write a less than sign, `<`.\n"
 msgstr "Возможно, вы хотели поставить знак \"меньше чем\", `<`.\n"
 
-#: syntax_errors\syntax_utils.py:105
+#: syntax_errors\syntax_utils.py:113
 msgid "Did you mean to write a less than sign, `<`?\n"
 msgstr "Вы хотели поставить знак \"меньше чем\", `<`?\n"
 
-#: syntax_errors\syntax_utils.py:107
+#: syntax_errors\syntax_utils.py:115
 msgid "Perhaps, you meant to write a greater than sign, `>`.\n"
 msgstr "Возможно, вы хотели поставить знак \"больше чем\", `>`.\n"
 
-#: syntax_errors\syntax_utils.py:108
+#: syntax_errors\syntax_utils.py:116
 msgid "Did you mean to write a greater than sign, `>`?\n"
 msgstr "Вы хотели поставить знак \"больше чем\", `>`?\n"
 
-#: syntax_errors\syntax_utils.py:110
+#: syntax_errors\syntax_utils.py:118
 msgid "Perhaps, you meant to write a comma.\n"
 msgstr "Возможно, вы хотели поставить запятую.\n"
 
-#: syntax_errors\syntax_utils.py:124
+#: syntax_errors\syntax_utils.py:136
 msgid ""
 "I suspect that you used the unicode character known as\n"
 "'FRACTION SLASH', which looks similar to\n"
@@ -4982,25 +5155,25 @@ msgstr ""
 "'FRACTION SLASH', который похож,\n"
 "но отличается от оператора деления `/`.\n"
 
-#: syntax_errors\syntax_utils.py:131
+#: syntax_errors\syntax_utils.py:143
 msgid "Did you use a unicode fraction?\n"
 msgstr "Вы использовали дробь в юникоде?\n"
 
-#: syntax_errors\syntax_utils.py:132
+#: syntax_errors\syntax_utils.py:144
 msgid ""
 "I suspect that you used the unicode character `{char}`meant to represent a "
 "fraction.\n"
 "The name of this unicode character is {name}.\n"
 msgstr ""
-"Предполагаю, что вы использовали символ юникода `{char}`, предназначенный для "
-"представления дроби.\n"
+"Предполагаю, что вы использовали символ юникода `{char}`, предназначенный "
+"для представления дроби.\n"
 "Название этого символа юникода: {name}.\n"
 
-#: syntax_errors\syntax_utils.py:169
+#: syntax_errors\syntax_utils.py:181
 msgid "Did you mean `{num}/{denom}`?\n"
 msgstr "Вы имели в виду `{num}/{denom}`?\n"
 
-#: syntax_errors\syntax_utils.py:170
+#: syntax_errors\syntax_utils.py:182
 msgid ""
 "You used the unicode character {char} which is known as\n"
 "{name}\n"

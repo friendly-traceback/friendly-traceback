@@ -1,4 +1,4 @@
-"""Creates a version of syntax_traceback_it.rst to insert in the documentation.
+"""Creates a version of traceback_ru.rst to insert in the documentation.
 """
 
 # When creating a new translation, you need to:
@@ -16,13 +16,15 @@ this_dir = os.path.dirname(__file__)
 sys.path.append(os.path.join(this_dir, ".."))
 import friendly_traceback
 
+
 # Make it possible to find docs and tests source
 docs_root_dir = os.path.abspath(
     os.path.join(this_dir, "..", "..", "friendly-docs")
 )
 assert os.path.isdir(docs_root_dir), "Separate docs repo need to exist"
+sys.path.append(os.path.join(this_dir, ".."))
 
-LANG = "it"
+LANG = "ru"
 friendly_traceback.install()
 friendly_traceback.set_lang(LANG)
 friendly_traceback.set_formatter("docs")
@@ -30,24 +32,22 @@ friendly_traceback.set_formatter("docs")
 sys.path.insert(0, this_dir)
 py_version = f"{sys.version_info.major}.{sys.version_info.minor}"
 
-import trb_syntax_common
+import trb_common
 
 target = os.path.normpath(
-    os.path.join(
-        docs_root_dir, f"source/syntax_tracebacks_{LANG}.rst"
-    )
+    os.path.join(docs_root_dir, f"source/tracebacks_{LANG}.rst")
 )
 
 intro_text = """
-Friendly SyntaxError tracebacks - in italiano
-=============================================
+Friendly tracebacks - in Русский
+==================================================
 
 Friendly aims to provide friendlier feedback when an exception
 is raised than what is done by Python.
 
-This file contains only examples of SyntaxError and its sub-classes.
-Some tests may appear to be repetitive to a human reader
-but they are may be included to ensure more complete test coverage.
+Below, we can find some examples. SyntaxError cases, as well as TabError and
+IndentationError cases, are shown in a separate page.
+Not all cases handled by friendly are included here.
 
 .. note::
 
@@ -55,9 +55,6 @@ but they are may be included to ensure more complete test coverage.
      `{name}` located in the ``tests/`` directory.
      This needs to be done explicitly, independently of updating the
      documentation using Sphinx.
-     On Windows, if Sphinx is installed on your computer, it is suggested
-     instead to run make_trb.bat in the root directory as it will create
-     similar files for all languages *and* update the documentation.
 
 Friendly-traceback version: {friendly}
 Python version: {python}
@@ -68,6 +65,6 @@ Python version: {python}
     name=sys.argv[0],
 )
 
-print(f"Python version: {platform.python_version()}; Italian")
+print(f"Python version: {platform.python_version()}; Russian")
 
-trb_syntax_common.create_tracebacks(target, intro_text)
+trb_common.create_tracebacks(target, intro_text)

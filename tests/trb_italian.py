@@ -1,4 +1,4 @@
-"""Creates a version of traceback_es.rst to insert in the documentation.
+"""Creates a version of traceback_it.rst to insert in the documentation.
 """
 
 # When creating a new translation, you need to:

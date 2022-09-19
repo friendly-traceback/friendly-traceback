@@ -1,4 +1,4 @@
-"""Creates a version of syntax_traceback_it.rst to insert in the documentation.
+"""Creates a version of syntax_traceback_ru.rst to insert in the documentation.
 """
 
 # When creating a new translation, you need to:
@@ -22,7 +22,7 @@ docs_root_dir = os.path.abspath(
 )
 assert os.path.isdir(docs_root_dir), "Separate docs repo need to exist"
 
-LANG = "it"
+LANG = "ru"
 friendly_traceback.install()
 friendly_traceback.set_lang(LANG)
 friendly_traceback.set_formatter("docs")
@@ -39,8 +39,8 @@ target = os.path.normpath(
 )
 
 intro_text = """
-Friendly SyntaxError tracebacks - in italiano
-=============================================
+Friendly SyntaxError tracebacks - in Русский
+==========================================================
 
 Friendly aims to provide friendlier feedback when an exception
 is raised than what is done by Python.
@@ -68,6 +68,6 @@ Python version: {python}
     name=sys.argv[0],
 )
 
-print(f"Python version: {platform.python_version()}; Italian")
+print(f"Python version: {platform.python_version()}; Russian")
 
 trb_syntax_common.create_tracebacks(target, intro_text)

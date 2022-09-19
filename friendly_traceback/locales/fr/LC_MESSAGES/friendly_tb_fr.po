@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-09-18 16:25-0300\n"
+"POT-Creation-Date: 2022-09-19 09:39-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:190 __main__.py:168
+#: __init__.py:183 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr "Le fichier {filename} n'existe pas."
 
-#: __init__.py:286
+#: __init__.py:279
 msgid "{include}: Unrecognized value."
 msgstr "{include} : Valeur non reconnue."
 
-#: __init__.py:287
+#: __init__.py:280
 msgid "The allowed values are:"
 msgstr "Les valeurs permises sont :"
 
@@ -195,7 +195,7 @@ msgstr "Veuillez signaler ce problème."
 msgid "Problem: source of `{filename}` is not available\n"
 msgstr "Problème : la source de `{filename}` n'est pas disponible.\n"
 
-#: ft_console.py:29
+#: ft_console.py:30
 msgid "Type 'Friendly' for help on special functions/methods."
 msgstr ""
 "Tapez \"Friendly\" pour obtenir de l'aide sur les fonctions ou méthodes "
@@ -2669,7 +2669,7 @@ msgid ""
 "Unless your code uses type annotations, which are beyond our scope,\n"
 "if you think that this is something which should be handled\n"
 "by friendly, please report this case to\n"
-"https://github.com/aroberge/friendly/issues\n"
+"https://github.com/friendly-traceback/friendly-traceback/issues\n"
 "\n"
 msgstr ""
 "Présentement, je ne peux pas deviner la cause probable de cette erreur.\n"
@@ -2680,7 +2680,7 @@ msgstr ""
 "Si votre code n'utilise pas d'annotations de type,\n"
 "et que vous pensez que friendly devrait\n"
 "pouvoir l'analyser correctement, SVP rapporter ce cas au site suivant:\n"
-"https://github.com/aroberge/friendly/issues\n"
+"https://github.com/friendly-traceback/friendly-traceback/issues\n"
 "\n"
 
 #: syntax_errors\analyze_syntax.py:72
