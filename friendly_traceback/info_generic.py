@@ -21,10 +21,6 @@ def get_generic_explanation(exception_type: Type[BaseException]) -> str:
         exception_name = exception_type
     if exception_type in GENERIC:
         return GENERIC[exception_type]()
-    elif exception_name.endswith("Warning"):
-        return GENERIC["UnknownWarning"]()
-    elif hasattr(exception_type, "__help__"):
-        return exception_type.__help__
     else:
         for known_exception_type in GENERIC:
             if (
@@ -36,9 +32,14 @@ def get_generic_explanation(exception_type: Type[BaseException]) -> str:
             if inspect.isclass(exception_type) and issubclass(
                 exception_type, known_exception_type
             ):
-                explanation = _(
-                    "An exception of type `{name}` is a subclass of `{parent}`.\n"
-                ).format(name=exception_name, parent=known_exception_type.__name__)
+                if known_exception_type.__name__.endswith("Warning"):
+                    explanation = _(
+                        "A warning of type `{name}` is a subclass of `{parent}`.\n"
+                    ).format(name=exception_name, parent=known_exception_type.__name__)
+                else:
+                    explanation = _(
+                        "An exception of type `{name}` is a subclass of `{parent}`.\n"
+                    ).format(name=exception_name, parent=known_exception_type.__name__)
                 return explanation + GENERIC[known_exception_type]()
         return no_information()
 
@@ -57,6 +58,22 @@ def register(
         return wrapper
 
     return add_exception
+
+
+@register(Exception)
+def _exception() -> str:
+    return _(
+        "All built-in exceptions defined by Python are derived from `Exception`.\n"
+        "All user-defined exceptions should also be derived from this class.\n"
+    )
+
+
+@register(BaseException)
+def base_exception() -> str:
+    return _(
+        "`BaseException` is the he base class for all built-in exceptions.\n"
+        "It is not meant to be directly inherited by user-defined classes.\n"
+    )
 
 
 @register(ArithmeticError)
@@ -272,14 +289,68 @@ def unbound_local_error() -> str:
     )
 
 
-@register("UnknownWarning")
-def unknown_warning() -> str:
-    return _("No information is available about this warning.\n")
-
-
 @register(ZeroDivisionError)
 def zero_division_error() -> str:
     return _(
         "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
         "by zero either directly or by using some other mathematical operation.\n"
     )
+
+
+@register(UserWarning)
+def user_warning() -> str:
+    return _("`UserWarning` is the default class for `warnings.warn()`.\n")
+
+
+@register(SyntaxWarning)
+def syntax_warning() -> str:
+    return _(
+        "`SyntaxWarning` often indicates that your code will likely not give the result you expect.\n"
+    )
+
+
+@register(RuntimeWarning)
+def runtime_warning() -> str:
+    return _(
+        "`RuntimeWarning` often indicates some not recommended runtime features.\n"
+    )
+
+
+@register(FutureWarning)
+def future_warning() -> str:
+    return _(
+        "`FutureWarning` is the base category for features that will likely be deprecated\n"
+        "in future Python versions.\n"
+    )
+
+
+@register(UnicodeWarning)
+def unicode_warning() -> str:
+    return _("`UnicodeWarning` is the base category for warnings related to unicode.\n")
+
+
+@register(BytesWarning)
+def bytes_warning() -> str:
+    return _(
+        "`UnicodeWarning` is the base category for warnings related to bytes and bytearray.\n"
+    )
+
+
+@register(Warning)  # Keep this one as the last warning
+def _warning() -> str:
+    return _("`Warning` is the base class of all warning category classes.\n")
+
+
+# The following are ignored by default:
+#
+# DeprecationWarning
+# Base category for warnings about deprecated features when those warnings are intended for other Python developers
+#
+# PendingDeprecationWarning
+# Base category for warnings about features that will be deprecated in the future
+#
+# ImportWarning
+# Base category for warnings triggered during the process of importing a module.
+#
+# ResourceWarning
+# Base category for warnings related to resource usage (ignored by default).

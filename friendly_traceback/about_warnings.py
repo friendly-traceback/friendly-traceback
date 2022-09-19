@@ -3,6 +3,16 @@ import warnings
 
 WARNINGS = {}
 
+# For simplicity, we will use a subset of the same items
+# that we used for a traceback info
+# items_to_consider = [
+#     "message",  #
+#     "generic",  # <-- what()
+#     "cause",  # <-- why()
+#     "last_call_header",  # location; filename and lineno
+#     "last_call_source",  # <-- where()
+# ]
+
 
 def show_warning(message, category, filename, lineno, file=None, line=None):
     new_warning = warnings.WarningMessage(
