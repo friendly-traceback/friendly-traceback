@@ -93,11 +93,11 @@ def history() -> None:
     if not session.saved_info:
         session.write_err(_nothing_to_show() + "\n")
         return
-    for info in session.saved_info:
+    for index, info in enumerate(session.saved_info):
         message = session.formatter(info, include="message")
         if message:
             message = message.replace("\n", "")
-            session.write_err(message)
+            session.write_err(f"{index+1}. {message}")
 
 
 def python_tb() -> None:
