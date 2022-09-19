@@ -11,6 +11,7 @@ import platform
 import sys
 import traceback
 import types
+import warnings
 from code import InteractiveConsole
 from typing import Any, Callable, Mapping, Optional, Union
 
@@ -224,6 +225,7 @@ def start_console(
 ) -> None:
     """Starts a console; modified from code.interact"""
 
+    warnings.simplefilter("always")
     if banner is None:
         banner = BANNER + type_friendly() + "\n"
     if displayhook is None:

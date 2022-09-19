@@ -12,6 +12,7 @@ import argparse
 import platform
 import runpy
 import sys
+import warnings
 from importlib import import_module
 from pathlib import Path
 
@@ -158,6 +159,9 @@ def main() -> None:
     else:
         set_formatter("repl")
         formatter = "repl"
+
+    if sys.flags.interactive:
+        warnings.simplefilter("always")
 
     console_defaults = {}
     if args.source is not None:
