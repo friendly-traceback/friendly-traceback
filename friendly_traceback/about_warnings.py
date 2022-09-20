@@ -17,7 +17,7 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
         message=message, name=category.__name__
     )
     info["generic"] = get_generic_explanation(category)
-    info["last_call_header"] = _("{name}: File {filename}, line {lineno}\n").format(
+    info["last_call_header"] = _("{name}: File '{filename}', line `{lineno}`\n").format(
         name=category.__name__, filename=filename, lineno=lineno
     )
     info["last_call_source"] = get_source(filename, lineno)
