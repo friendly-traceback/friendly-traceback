@@ -50,6 +50,11 @@ def register(
     """Decorator used to record as available an explanation for a given exception"""
 
     def add_exception(function):
+        if error_class in GENERIC:
+            message = f"A description of `{error_class.__name__}` already exists:\n\n"
+            message += GENERIC[error_class]()
+            raise ValueError(message)
+
         GENERIC[error_class] = function
 
         def wrapper():

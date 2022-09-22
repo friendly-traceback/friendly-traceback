@@ -284,7 +284,7 @@ def pow_third_arg_cannot_be_zero(message: str, _tb_data: TracebackData) -> Cause
 
 
 @parser._add
-def unrecognized_message(_value: str, tb_data: TracebackData) -> CauseInfo:
+def unrecognized_message(_message: str, tb_data: TracebackData) -> CauseInfo:
     """This attempts to provide some help when a message is not recognized."""
     bad_line = tb_data.bad_line.strip()
     frame = tb_data.exception_frame
@@ -324,9 +324,9 @@ def unrecognized_message(_value: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def time_strftime_incorrect_format(value: str, _tb_data: TracebackData) -> CauseInfo:
+def time_strftime_incorrect_format(message: str, _tb_data: TracebackData) -> CauseInfo:
     pattern = r"time data '(.*)' does not match format '(.*)'"
-    match = re.search(pattern, str(value))
+    match = re.search(pattern, message)
     if not match:
         return {}
     cause = _(
@@ -338,4 +338,19 @@ def time_strftime_incorrect_format(value: str, _tb_data: TracebackData) -> Cause
         "https://docs.python.org/3/library/time.html#time.strftime\n"
         "The following site might also be useful: https://www.strfti.me/\n"
     )
+    return {"cause": cause}
+
+
+@parser._add
+def generic_explanation_already_exist(
+    message: str, _tb_data: TracebackData
+) -> CauseInfo:
+    pattern = "An explanation of what `(.*)` means already exists:"
+    match = re.search(pattern, message)
+    if not match:
+        return {}
+    cause = _(
+        "An explanation of `{exception}` already exists.\n"
+        "If you think that a better explanation can be given, please file an issue.\n"
+    ).format(exception=match[1])
     return {"cause": cause}
