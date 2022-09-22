@@ -5,9 +5,10 @@ can be useful for beginners without overwhelming them.
 """
 import ast
 import builtins
+import re
 import sys
 import types
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 
 from . import debug_helper, token_utils, utils
 from .ft_gettext import current_lang
@@ -25,6 +26,43 @@ except ImportError:  # pragma: no cover
 INDENT = " " * 8
 MAX_LENGTH = 65
 _ = current_lang.translate
+
+
+class ConfidentialInformation:
+    """Used to hide values of confidential information"""
+
+    words = []
+    regex = []
+    redacted = "••••••"
+
+    def hide_confidential_information(
+        self, words: Union[List, None] = None, patterns: Union[List, None] = None
+    ) -> None:
+        """Use to record words or regular expression patterns that determine
+        if a variable represents confidential information.
+        """
+        if words is not None:
+            self.words.extend(words)
+        if patterns is not None:
+            for pattern in patterns:
+                self.regex.append(re.compile(pattern))
+
+    def is_confidential(self, name: str) -> bool:
+        """Identify variable names that are deemed to contain confidential information"""
+        if name in self.words:
+            return True
+        for pattern in self.regex:
+            if re.fullmatch(pattern, name):
+                return True
+        return False
+
+    def redact_confidential(self, name: str, value: Any) -> Any:
+        if confidential.is_confidential(name):
+            return confidential.redacted
+        return value
+
+
+confidential = ConfidentialInformation()
 
 
 def convert_type(short_form: str) -> str:
@@ -387,6 +425,8 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     length_info = ""
     if _global:
         _global = "global "
+
+    value = confidential.redact_confidential(name, value)
 
     if value.startswith("<") and value.endswith(">"):
         value = simplify_repr(value)

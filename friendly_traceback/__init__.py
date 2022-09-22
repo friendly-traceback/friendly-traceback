@@ -22,7 +22,7 @@ except (ModuleNotFoundError, ImportError):
     pass
 
 import sys
-from typing import Any, Callable, Dict, Mapping, Optional, Sequence, Union
+from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Union
 
 valid_version = sys.version_info >= (3, 6)
 
@@ -30,7 +30,7 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.6.6"
+__version__ = "0.6.7"
 
 # ===========================================
 
@@ -38,7 +38,7 @@ import inspect
 from pathlib import Path
 
 from . import about_warnings  # noqa
-from . import base_formatters, debug_helper, editors_helpers, path_info
+from . import base_formatters, debug_helper, editors_helpers, info_variables, path_info
 from .config import session
 from .ft_gettext import current_lang
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
@@ -79,6 +79,28 @@ def explain_traceback(redirect: Union[str, Writer, None] = None) -> None:
     output is saved and can be later retrieved by ``get_output()``.
     """
     session.explain_traceback(redirect=redirect)
+
+
+def hide_secrets(
+    words: Union[List, None] = None, patterns: Union[List, None] = None
+) -> None:
+    """Intended to prevent values of certain variables to be shown.
+    Parameters:
+
+        * words: a list of words
+        * patterns: a list of regular expression patters.
+    """
+    info_variables.confidential.hide_confidential_information(
+        words=words, patterns=patterns
+    )
+
+
+def test_secrets(name: str = "", value: Any = ""):
+    """Given a variable name and its value, returns the value
+    that will be shown if the variable value needs to be shown in
+    a traceback.
+    """
+    return info_variables.confidential.redact_confidential(name, value)
 
 
 def get_output(flush: bool = True) -> str:
