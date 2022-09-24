@@ -54,3 +54,29 @@ def list_indices_must_be(message: str) -> dict:
     )
 
     return {"cause": cause}
+
+
+@parser._add
+def object_is_not_subscriptable(message: str) -> dict:
+    pattern = re.compile(r"'(.*)' object is not subscriptable")
+    match = re.search(pattern, message)
+    if match is None:
+        return {}
+
+    obj_type = match[1]
+    if obj_type == "NoneType":
+        none_type = _(
+            "\nNote: `NoneType` means that the object has a value of `None`.\n"
+        )
+    else:
+        none_type = ""
+
+    cause = _(
+        "Subscriptable objects are typically containers from which\n"
+        "you can retrieve item using the notation `[...]`.\n"
+    )
+    cause += _(
+        "Using this notation, you attempted to retrieve an item\n"
+        "from an object of type `{obj_type}` which is not allowed.\n"
+    ).format(obj_type=obj_type)
+    return {"cause": cause + none_type}
