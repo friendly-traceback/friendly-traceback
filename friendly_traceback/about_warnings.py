@@ -52,7 +52,7 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
         return
     message = str(message)
     info = {}
-    info["message"] = "{name}: {category.__name__}\n"
+    info["message"] = f"{category.__name__}: {message}\n"
     info["generic"] = get_generic_explanation(category)
     info["last_call_header"] = _("{name}: File '{filename}', line `{lineno}`\n").format(
         name=category.__name__, filename=filename, lineno=lineno
