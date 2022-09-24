@@ -76,7 +76,7 @@ def _exception() -> str:
 @register(BaseException)
 def base_exception() -> str:
     return _(
-        "`BaseException` is the he base class for all built-in exceptions.\n"
+        "`BaseException` is the base class for all built-in exceptions.\n"
         "It is not meant to be directly inherited by user-defined classes.\n"
     )
 
@@ -337,7 +337,7 @@ def unicode_warning() -> str:
 @register(BytesWarning)
 def bytes_warning() -> str:
     return _(
-        "`UnicodeWarning` is the base category for warnings related to bytes and bytearray.\n"
+        "`BytesWarning` is the base category for warnings related to bytes and bytearray.\n"
     )
 
 

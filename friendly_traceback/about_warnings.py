@@ -52,9 +52,7 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
         return
     message = str(message)
     info = {}
-    info["message"] = _("{name}: {message}\n").format(
-        message=message, name=category.__name__
-    )
+    info["message"] = "{name}: {category.__name__}\n"
     info["generic"] = get_generic_explanation(category)
     info["last_call_header"] = _("{name}: File '{filename}', line `{lineno}`\n").format(
         name=category.__name__, filename=filename, lineno=lineno
@@ -141,8 +139,8 @@ def get_warning_cause(
         return get_cause(warning_type, message)
     except Exception as e:  # noqa # pragma: no cover
         session.write_err(str(e))
+        session.write_err(internal_error(e))
         return {}
-        return {"cause": internal_error(e), "suggest": internal_error(e)}
 
 
 def get_cause(

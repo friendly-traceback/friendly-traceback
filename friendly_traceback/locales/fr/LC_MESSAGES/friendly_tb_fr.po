@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-09-19 09:39-0300\n"
+"POT-Creation-Date: 2022-09-24 20:01-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,17 +15,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:183 __main__.py:172
+#: __init__.py:214 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr "Le fichier {filename} n'existe pas."
 
-#: __init__.py:279
+#: __init__.py:310
 msgid "{include}: Unrecognized value."
 msgstr "{include} : Valeur non reconnue."
 
-#: __init__.py:280
+#: __init__.py:311
 msgid "The allowed values are:"
 msgstr "Les valeurs permises sont :"
+
+#: about_warnings.py:57
+msgid "{name}: File '{filename}', line `{lineno}`\n"
+msgstr "Fichier {filename}, ligne {line}\n"
+
+#: about_warnings.py:84
+msgid "        <'source unavailable'>"
+msgstr "        <'source non disponible'>"
 
 #: base_formatters.py:174 base_formatters.py:180
 msgid "I have no suggestion to offer."
@@ -45,11 +53,19 @@ msgstr ""
 "Si oui, pour continuer, essayez : `start_console(local_vars=locals())`.\n"
 "Vous devrez importer `start_console` si vous ne l'avez pas déjà fait.\n"
 
-#: config.py:77 config.py:191 console_helpers.py:29
+#: config.py:77 config.py:209 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr "Rien à montrer: pas d’exception enregistrée."
 
-#: config.py:319
+#: config.py:79
+msgid "`index` must be a positive integer or -1.\n"
+msgstr "`index` doit être un nombre entier positif ou -1.\n"
+
+#: config.py:90
+msgid "There are only {number} recorded exceptions.\n"
+msgstr "Il n'y a que {number} exceptions enregistrées.\n"
+
+#: config.py:337
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -70,11 +86,11 @@ msgstr "Friendly-traceback est déjà désactivé."
 msgid "Friendly-traceback is already enabled."
 msgstr "Friendly-traceback est déjà activé."
 
-#: console_helpers.py:137 console_helpers.py:141
+#: console_helpers.py:146 console_helpers.py:150
 msgid "{exception} is not an exception."
 msgstr "{exception} n'est pas une exception."
 
-#: console_helpers.py:226
+#: console_helpers.py:240
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -82,12 +98,12 @@ msgstr ""
 "Argument non valide pour `www()`.\n"
 "Les arguments valides incluent `None` ou un des suivants : `{sites}`.\n"
 
-#: console_helpers.py:250
+#: console_helpers.py:264
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:448
+#: console_helpers.py:462
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -316,11 +332,34 @@ msgid "Use True (default) or False to enable debugging methods."
 msgstr ""
 "Utilisez True (par défaut) ou False pour activer les méthodes de débogage."
 
-#: info_generic.py:39
+#: info_generic.py:36
+msgid "A warning of type `{name}` is a subclass of `{parent}`.\n"
+msgstr "Un avertissement de type `{name}` est une sous-classe de `{parent}`.\n"
+
+#: info_generic.py:40
 msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
 msgstr "Une exception de type `{name}` est une sous-classe de `{parent}`.\n"
 
-#: info_generic.py:64
+#: info_generic.py:70
+msgid ""
+"All built-in exceptions defined by Python are derived from `Exception`.\n"
+"All user-defined exceptions should also be derived from this class.\n"
+msgstr ""
+"Toutes les exceptions intégrées définies par Python sont dérivées de "
+"`Exception`.\n"
+"Toutes les exceptions définies par l'utilisateur doivent également être "
+"dérivées de cette classe.\n"
+
+#: info_generic.py:78
+msgid ""
+"`BaseException` is the base class for all built-in exceptions.\n"
+"It is not meant to be directly inherited by user-defined classes.\n"
+msgstr ""
+"`BaseException` est la classe de base pour toutes les exceptions built-in.\n"
+"Elle ne devrait pas être utilisée comme parent par les classes définies par "
+"l'utilisateur.\n"
+
+#: info_generic.py:86
 msgid ""
 "`ArithmeticError` is the base class for those built-in exceptions\n"
 "that are raised for various arithmetic errors.\n"
@@ -332,7 +371,7 @@ msgstr ""
 "Il est inhabituel que vous voyiez cette exception;\n"
 "normalement, une exception plus spécifique aurait dû être soulevée.\n"
 
-#: info_generic.py:74
+#: info_generic.py:96
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -348,7 +387,7 @@ msgstr ""
 "Si `condition` est `False` ou son équivalent, une exception de type "
 "`AssertionError` est levée.\n"
 
-#: info_generic.py:84
+#: info_generic.py:106
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
@@ -360,7 +399,7 @@ msgstr ""
 "et `x` n’est pas une méthode ou un attribut (variable) appartenant à "
 "`objet`.\n"
 
-#: info_generic.py:93
+#: info_generic.py:115
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
@@ -369,7 +408,7 @@ msgstr ""
 "atteint\n"
 "une condition de fin de fichier (EOF) sans lire aucune données.\n"
 
-#: info_generic.py:101
+#: info_generic.py:123
 msgid ""
 "A `FileNotFoundError` exception indicates that you\n"
 "are trying to open a file that cannot be found by Python.\n"
@@ -380,7 +419,7 @@ msgstr ""
 "Cela pourrait être parce que vous fait une faute d'orthographe en\n"
 "écrivant le nom du fichier.\n"
 
-#: info_generic.py:110
+#: info_generic.py:132
 msgid ""
 "An `ImportError` exception indicates that a certain object could not\n"
 "be imported from a module or package. Most often, this is\n"
@@ -390,7 +429,7 @@ msgstr ""
 "être importé à partir d’un module ou d’un paquet. Très souvent, c’est\n"
 "parce que le nom de l’objet n’est pas écrit correctement.\n"
 
-#: info_generic.py:119
+#: info_generic.py:141
 msgid ""
 "An `IndentationError` occurs when a given line of code is\n"
 "not indented (aligned vertically with other lines) as expected.\n"
@@ -401,7 +440,7 @@ msgstr ""
 "lignes)\n"
 "de la façon attendue.\n"
 
-#: info_generic.py:127
+#: info_generic.py:149
 msgid ""
 "An `IndexError` occurs when you try to get an item from a list,\n"
 "a tuple, or a similar object (sequence), and use an index which\n"
@@ -415,7 +454,7 @@ msgstr ""
 "n’existe pas; typiquement, c’est parce que l’indice que vous donnez\n"
 "est plus grand que la longueur de la séquence.\n"
 
-#: info_generic.py:137
+#: info_generic.py:159
 msgid ""
 "A `KeyError` is raised when a value is not found as a\n"
 "key in a Python dict or in a similar object.\n"
@@ -423,7 +462,7 @@ msgstr ""
 "Une `KeyError` est levée lorsqu'une valeur n'est pas trouvée en tant que\n"
 "clé dans un dict Python ou dans un objet similaire.\n"
 
-#: info_generic.py:145
+#: info_generic.py:167
 msgid ""
 "`LookupError` is the base class for the exceptions that are raised\n"
 "when a key or index used on a mapping or sequence is invalid.\n"
@@ -434,7 +473,7 @@ msgstr ""
 "séquence est invalide.\n"
 "Elle peut également être levée directement par codecs.lookup().\n"
 
-#: info_generic.py:154
+#: info_generic.py:176
 msgid ""
 "Like the name indicates, a `MemoryError` occurs when Python\n"
 "runs out of memory. This can happen if you create an object\n"
@@ -446,7 +485,7 @@ msgstr ""
 "Cela peut se produire si vous créez un objet\n"
 "qui est trop grand, comme une liste avec trop d'éléments.\n"
 
-#: info_generic.py:163
+#: info_generic.py:185
 msgid ""
 "A `ModuleNotFoundError` exception indicates that you\n"
 "are trying to import a module that cannot be found by Python.\n"
@@ -459,7 +498,7 @@ msgstr ""
 "écrivant le nom du module, ou parce qu’il n’est pas installé sur votre "
 "ordinateur.\n"
 
-#: info_generic.py:173
+#: info_generic.py:195
 msgid ""
 "A `NameError` exception indicates that a variable or\n"
 "function name is not known to Python.\n"
@@ -473,7 +512,7 @@ msgstr ""
 "Cependant, cela peut également indiquer que le nom a été\n"
 "utilisé avant qu'on ne lui ait associé une valeur.\n"
 
-#: info_generic.py:184
+#: info_generic.py:206
 msgid ""
 "An `OSError` exception is usually raised by the Operating System\n"
 "to indicate that an operation is not allowed or that\n"
@@ -484,7 +523,7 @@ msgstr ""
 "pour indiquer qu’une opération n’est pas autorisée ou\n"
 "qu'une ressource n’est pas disponible.\n"
 
-#: info_generic.py:193
+#: info_generic.py:215
 msgid ""
 "An `OverflowError` is raised when the result of an arithmetic operation\n"
 "is too large to be handled by the computer's processor.\n"
@@ -493,7 +532,7 @@ msgstr ""
 "opération arithmétique\n"
 "est trop grand pour être manipulé par le processeur de l’ordinateur.\n"
 
-#: info_generic.py:201
+#: info_generic.py:223
 msgid ""
 "A `RecursionError` is raised when a function calls itself,\n"
 "directly or indirectly, too many times.\n"
@@ -507,7 +546,7 @@ msgstr ""
 "votre code\n"
 "et que votre programme ne terminerait jamais.\n"
 
-#: info_generic.py:211
+#: info_generic.py:233
 msgid ""
 "A `RuntimeError` is raised when an error is detected that doesn't fall in "
 "any\n"
@@ -517,7 +556,7 @@ msgstr ""
 "n'appartient à aucun\n"
 "des types d'exception plus spécifiques définis par Python.\n"
 
-#: info_generic.py:219
+#: info_generic.py:241
 msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
@@ -528,13 +567,13 @@ msgstr ""
 "d'élément à fournir lorsque sa méthode `__next__` est invoquée par\n"
 "la fonction builtin `next()`.\n"
 
-#: info_generic.py:228
+#: info_generic.py:250
 msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr ""
 "Une exception de type `SyntaxError` se produit lorsque Python ne peut pas "
 "comprendre votre code.\n"
 
-#: info_generic.py:233
+#: info_generic.py:255
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -552,7 +591,7 @@ msgstr ""
 "La recommandation de Python est de toujours utiliser des espaces\n"
 "pour indenter votre code.\n"
 
-#: info_generic.py:245
+#: info_generic.py:267
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -565,7 +604,7 @@ msgstr ""
 "ou en tentant d'effectuer une opération non permise sur un type d'objet "
 "donné.\n"
 
-#: info_generic.py:255
+#: info_generic.py:277
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
@@ -573,7 +612,7 @@ msgstr ""
 "Une exception `ValueError` indique qu'une fonction ou une opération\n"
 "a reçu un argument du bon type, mais une valeur inappropriée.\n"
 
-#: info_generic.py:263
+#: info_generic.py:285
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -597,11 +636,7 @@ msgstr ""
 "qu’il s’agit d’une variable globale, sinon vous verrez une exception "
 "`UnboundLocalError`.\n"
 
-#: info_generic.py:277
-msgid "No information is available about this warning.\n"
-msgstr "Aucune information n’est disponible sur cet avertissement.\n"
-
-#: info_generic.py:282
+#: info_generic.py:299
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -610,60 +645,110 @@ msgstr ""
 "diviser une valeur\n"
 "par zéro soit directement ou en utilisant une autre opération mathématique.\n"
 
-#: info_variables.py:32
+#: info_generic.py:307
+msgid "`UserWarning` is the default class for `warnings.warn()`.\n"
+msgstr "`UserWarning` est la classe par défaut pour `warnings.warn()`.\n"
+
+#: info_generic.py:312
+msgid ""
+"`SyntaxWarning` often indicates that your code will likely not give the "
+"result you expect.\n"
+msgstr ""
+"Un avertissement de type `SyntaxWarning` indique souvent que votre code ne "
+"donnera probablement pas le résultat escompté.\n"
+
+#: info_generic.py:319
+msgid ""
+"`RuntimeWarning` often indicates some not recommended runtime features.\n"
+msgstr ""
+"Un avertissement de type `RuntimeWarning` indique souvent des "
+"fonctionnalités d'exécution non recommandées.\n"
+
+#: info_generic.py:326
+msgid ""
+"`FutureWarning` is the base category for features that will likely be "
+"deprecated\n"
+"in future Python versions.\n"
+msgstr ""
+"`FutureWarning` est la catégorie de base pour les fonctionnalités qui seront "
+"probablement dépréciées\n"
+"dans les futures versions de Python.\n"
+
+#: info_generic.py:334
+msgid ""
+"`UnicodeWarning` is the base category for warnings related to unicode.\n"
+msgstr ""
+"`UnicodeWarning` est la catégorie de base pour les avertissements liés à "
+"l'unicode.\n"
+
+#: info_generic.py:339
+msgid ""
+"`BytesWarning` is the base category for warnings related to bytes and "
+"bytearray.\n"
+msgstr ""
+"`BytesWarning` est la catégorie de base pour les avertissements liés aux "
+"octets (`bytes`) et aux tableaux d'octets (`bytearray`).\n"
+
+#: info_generic.py:346
+msgid "`Warning` is the base class of all warning category classes.\n"
+msgstr ""
+"`Warning` est la classe de base de toutes les classes de catégories "
+"d'avertissement.\n"
+
+#: info_variables.py:70
 msgid "a complex number"
 msgstr "un nombre complexe (`complex`)"
 
-#: info_variables.py:33
+#: info_variables.py:71
 msgid "a dictionary (`dict`)"
 msgstr "un dictionnaire (`dict`)"
 
-#: info_variables.py:34
+#: info_variables.py:72
 msgid "a number (`float`)"
 msgstr "un nombre (`float`)"
 
-#: info_variables.py:35
+#: info_variables.py:73
 msgid "a `frozenset`"
 msgstr "un ensemble de type `frozenset`"
 
-#: info_variables.py:36
+#: info_variables.py:74
 msgid "an integer (`int`)"
 msgstr "un entier (`int`)"
 
-#: info_variables.py:37
+#: info_variables.py:75
 msgid "a `list`"
 msgstr "une liste (`list`)"
 
-#: info_variables.py:38
+#: info_variables.py:76
 msgid "a variable equal to `None` (`NoneType`)"
 msgstr "une variable ayant la valeur `None` ('NoneType')"
 
-#: info_variables.py:39
+#: info_variables.py:77
 msgid "a `set`"
 msgstr "un ensemble (`set`)"
 
-#: info_variables.py:40 info_variables.py:41
+#: info_variables.py:78 info_variables.py:79
 msgid "a string (`str`)"
 msgstr "une chaîne de caractères (`str`)"
 
-#: info_variables.py:42
+#: info_variables.py:80
 msgid "a `tuple`"
 msgstr "un `tuple`"
 
-#: info_variables.py:279
+#: info_variables.py:317
 msgid "Warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 "Attention : vous avez redéfini l'identifiant Python (builtin) `{name}`.\n"
 
-#: info_variables.py:437
+#: info_variables.py:477
 msgid "Object too large to be processed by Python."
 msgstr "Objet trop grand pour être traité par Python."
 
-#: info_variables.py:441
+#: info_variables.py:481
 msgid "Unable to compute."
 msgstr "Impossible de calculer."
 
-#: info_variables.py:499
+#: info_variables.py:539
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -1924,6 +2009,7 @@ msgstr ""
 "moins d'arguments positionnels qu'il n'en faut ({nb_required} manquent).\n"
 
 #: runtime_errors\type_error.py:485 runtime_errors\type_error.py:871
+#: warning_parsers\syntax_warning.py:20 warning_parsers\syntax_warning.py:68
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
@@ -1931,7 +2017,7 @@ msgstr ""
 "\n"
 "Remarque : `NoneType` signifie que l’objet a une valeur de `None`.\n"
 
-#: runtime_errors\type_error.py:492
+#: runtime_errors\type_error.py:492 warning_parsers\syntax_warning.py:26
 msgid ""
 "Python indicates that you have an object of type `{obj_type}`,\n"
 "followed by something surrounded by parentheses, `(...)`,\n"
@@ -2148,7 +2234,7 @@ msgstr ""
 msgid "Instead of using {original}, consider using {replacement}.\n"
 msgstr "Au lieu d’utiliser {original}, envisagez d’utiliser {replacement}.\n"
 
-#: runtime_errors\type_error.py:877
+#: runtime_errors\type_error.py:877 warning_parsers\syntax_warning.py:74
 msgid ""
 "Subscriptable objects are typically containers from which\n"
 "you can retrieve item using the notation `[...]`.\n"
@@ -2156,7 +2242,7 @@ msgstr ""
 "Les objets subscriptibles sont généralement des conteneurs à partir\n"
 "desquels on peut tirer des éléments en utilisant la notation `[...]`.\n"
 
-#: runtime_errors\type_error.py:889
+#: runtime_errors\type_error.py:889 warning_parsers\syntax_warning.py:78
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from an object of type `{obj_type}` which is not allowed.\n"
@@ -2577,6 +2663,15 @@ msgstr ""
 "https://docs.python.org/fr/3/library/time.html#time.strftime\n"
 "Le site suivant peut également être utile : https://www.strfti.me/ (anglais "
 "seulement).\n"
+
+#: runtime_errors\value_error.py:352
+msgid ""
+"An explanation of `{exception}` already exists.\n"
+"If you think that a better explanation can be given, please file an issue.\n"
+msgstr ""
+"Une explication de `{exception}` existe déjà.\n"
+"Si vous pensez qu'une meilleure explication peut être donnée, veuillez faire "
+"une suggestion sur Github.\n"
 
 #: runtime_errors\zero_division_error.py:20
 msgid "Using the modulo operator, you are dividing by zero.\n"
@@ -5371,6 +5466,23 @@ msgstr ""
 "Vous avez utilisé le caractère unicode {char} qui est connu sous le nom de\n"
 "{name}\n"
 "Je pense que vous vouliez plutôt écrire la fraction `{num}/{denom}`.\n"
+
+#: warning_parsers\syntax_warning.py:46
+msgid ""
+"You have {container_type} followed by square brackets, `[...]`.\n"
+"What is included between the square brackets, `[...]`,\n"
+"must be either an integer or a slice\n"
+"(`start:stop` or `start:stop:step`) \n"
+"and you have used {obj_type} instead.\n"
+msgstr ""
+"Vous avez {container_type} suivi de crochets, `[...]`.\n"
+"Ce qui est inclus entre les crochets, `[...]`,\n"
+"doit être soit un entier, soit une tranche\n"
+"(`début:arrêt` ou `début:arrêt:étape`)\n"
+"et vous avez utilisé {obj_type} à la place.\n"
+
+#~ msgid "No information is available about this warning.\n"
+#~ msgstr "Aucune information n’est disponible sur cet avertissement.\n"
 
 #~ msgid "<unknown>"
 #~ msgstr "<inconnu>"
