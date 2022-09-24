@@ -24,13 +24,6 @@ INCLUDED_PARSERS = {
 RUNTIME_MESSAGE_PARSERS = {}
 
 
-def init_parser(exception_type: Type[_E]) -> None:
-    if exception_type in RUNTIME_MESSAGE_PARSERS:
-        return
-    elif exception_type in INCLUDED_PARSERS:
-        get_parser(exception_type)
-
-
 class RuntimeMessageParser:
     """This class is used to create objects that collect message parsers."""
 

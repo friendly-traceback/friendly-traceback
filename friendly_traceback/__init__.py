@@ -22,6 +22,7 @@ except (ModuleNotFoundError, ImportError):
     pass
 
 import sys
+import warnings
 from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Union
 
 valid_version = sys.version_info >= (3, 6)
@@ -42,6 +43,14 @@ from . import base_formatters, debug_helper, editors_helpers, info_variables, pa
 from .config import session
 from .ft_gettext import current_lang
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
+
+# Ensure that warnings are not shown to the end user by default,
+# except when running tests, as they could cause confusion.
+# However, in interactive mode, or when using friendly, this will be changed.
+if about_warnings._run_with_pytest:
+    warnings.simplefilter("always")
+else:
+    warnings.simplefilter("ignore")
 
 
 def exclude_file_from_traceback(full_path: StrPath) -> None:
