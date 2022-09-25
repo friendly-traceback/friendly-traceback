@@ -129,8 +129,7 @@ class FriendlyTraceback:
         self.assign_tracebacks()
 
         # include some values for debugging purpose in an interactive session
-        self.info["_exc_instance"] = value
-        self.info["_frame"] = self.tb_data.exception_frame
+        self.tb_data.exception_instance = value
 
     def assign_message(self, etype, value) -> str:
         """Assigns the error message, as the attribute ``message``

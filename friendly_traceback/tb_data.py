@@ -79,6 +79,7 @@ class TracebackData:
         self.original_bad_line = "\n"
         self.filename = ""
         self.exception_frame = None
+        self.exception_instance = None
         self.program_stopped_frame = None
         self.program_stopped_bad_line = "\n"
         self.get_source_info()

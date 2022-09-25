@@ -291,8 +291,7 @@ def _get_exception() -> Optional[BaseException]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None  # add explicit None here and elsewhere to silence mypy
-    info = session.recorded_tracebacks[-1].info
-    return info["_exc_instance"]
+    return session.recorded_tracebacks[-1].tb_data.exception_instance
 
 
 def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
@@ -303,9 +302,7 @@ def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    info = session.recorded_tracebacks[-1].info
-    print(dir(session.recorded_tracebacks[-1]))
-    return info["_frame"]
+    return session.recorded_tracebacks[-1].tb_data.exception_frame
 
 
 def _get_statement() -> Optional[Statement]:  # pragma: no cover
@@ -318,7 +315,9 @@ def _get_statement() -> Optional[Statement]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    if isinstance(session.recorded_tracebacks[-1].info["_exc_instance"], SyntaxError):
+    if isinstance(
+        session.recorded_tracebacks[-1].tb_data.exception_instance, SyntaxError
+    ):
         return session.recorded_tracebacks[-1].tb_data.statement
     print("No statement: not a SyntaxError.")
     return None
@@ -357,13 +356,8 @@ def _show_info() -> None:  # pragma: no cover
         else:
             print(f"{item}: ''")
 
-    header_printed = False
     for item in info:
         if item not in base_formatters.items_in_order:
-            if not header_printed:
-                print("=" * 56)
-                print("The following are not meant to be shown to the end user:\n")
-                header_printed = True
             print(f"{item}: {info[item]}")
 
 
