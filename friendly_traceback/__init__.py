@@ -37,6 +37,7 @@ __version__ = "0.7.5"
 import inspect
 from pathlib import Path
 
+from . import about_warnings  # noqa
 from . import base_formatters, debug_helper, editors_helpers, info_variables, path_info
 from .config import session
 from .ft_gettext import current_lang
