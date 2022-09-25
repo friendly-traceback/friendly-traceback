@@ -9,6 +9,7 @@ import executing
 from .config import session
 from .ft_gettext import current_lang, internal_error
 from .info_generic import get_generic_explanation
+from .path_info import path_utils
 from .typing_info import _E, CauseInfo, Parser
 
 _ = current_lang.translate
@@ -17,6 +18,11 @@ _warnings_seen = {}
 _run_with_pytest = False
 if "pytest" in sys.modules:
     _run_with_pytest = True
+
+
+class WarningInfo:
+    def __init__(self, info):
+        self.info = info
 
 
 def saw_warning_before(category, message, filename, lineno):
@@ -54,14 +60,21 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
     info = {}
     info["message"] = f"{category.__name__}: {message}\n"
     info["generic"] = get_generic_explanation(category)
-    info["last_call_header"] = _("{name}: File '{filename}', line `{lineno}`\n").format(
-        name=category.__name__, filename=filename, lineno=lineno
-    )
-    info["last_call_source"] = get_source(filename, lineno)
+    short_filename = path_utils.shorten_path(filename)
+    if "[" in short_filename:
+        location = _("Code block {filename}, line {line}").format(
+            filename=short_filename, line=lineno
+        )
+    else:
+        location = _("File {filename}, line {line}").format(
+            filename=short_filename, line=lineno
+        )
+    info["last_call_header"] = f"{category.__name__}: " + location
+    info["detailed_tb"] = info["last_call_source"] = get_source(filename, lineno)
     info.update(**get_warning_cause(category, message))
+    warning_info = WarningInfo(info)
     if not _run_with_pytest:
-        session.saved_info.append(info)
-        session.friendly_info.append(info)
+        session.recorded_tracebacks.append(warning_info)
     elif "cause" in info:
         # We know how to explain this; we do not print while running tests
         return
@@ -138,6 +151,7 @@ def get_warning_cause(
     try:
         return get_cause(warning_type, message)
     except Exception as e:  # noqa # pragma: no cover
+        session.write_err("Exception raised")
         session.write_err(str(e))
         session.write_err(internal_error(e))
         return {}

@@ -35,18 +35,15 @@ def back() -> None:
     The intention is to allow recovering from a typo when trying interactively
     to find out specific information about a given exception.
     """
-    if not session.saved_info:
+    if not session.recorded_tracebacks:
         session.write_err(_("Nothing to go back to: no exception recorded.") + "\n")
         return
-    if not session.friendly_info:  # pragma: no cover
-        debug_helper.log("Problem: saved info is not empty but friendly is")
-    session.saved_info.pop()
-    session.friendly_info.pop()
-    if session.saved_info:
-        info = session.saved_info[-1]
+    session.recorded_tracebacks.pop()
+    if session.recorded_tracebacks:
+        info = session.recorded_tracebacks[-1].info
         if info["lang"] != friendly_traceback.get_lang():
             info["lang"] = friendly_traceback.get_lang()
-            session.friendly_info[-1].recompile_info()
+            session.recorded_tracebacks[-1].recompile_info()
 
 
 def disable():
@@ -90,12 +87,12 @@ def hint(index: int = -1) -> None:
 
 def history() -> None:
     """Prints the list of error messages recorded so far."""
-    if not session.saved_info:
+    if not session.recorded_tracebacks:
         session.write_err(_nothing_to_show() + "\n")
         return
     items = []
-    for index, info in enumerate(session.saved_info):
-        message = session.formatter(info, include="message")
+    for index, tb in enumerate(session.recorded_tracebacks):
+        message = session.formatter(tb.info, include="message")
         if message:
             items.append(f"{index+1}. {message}")
     if items:
@@ -175,9 +172,9 @@ def why(index: int = -1) -> None:
     # the cause as we used for the generic information as per issue #66
     try:
         if index == -1:
-            info = session.saved_info[-1]
+            info = session.recorded_tracebacks[-1].info
         else:
-            info = session.saved_info[index + 1]
+            info = session.recorded_tracebacks[index + 1].info
     except IndexError:
         info = {}
     if (
@@ -244,7 +241,7 @@ def www(site: Optional[Site] = None) -> None:  # pragma: no cover
         )
         return
 
-    info = session.saved_info[-1] if session.saved_info else {}
+    info = session.recorded_tracebacks[-1].info if session.recorded_tracebacks else {}
     if site is None and info:
         message = info["message"].replace("'", "")
         if " (" in message:
@@ -291,10 +288,10 @@ def _get_exception() -> Optional[BaseException]:  # pragma: no cover
     """Debugging tool: returns the exception instance or None if no exception
     has been raised.
     """
-    if not session.saved_info:
+    if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None  # add explicit None here and elsewhere to silence mypy
-    info = session.saved_info[-1]
+    info = session.recorded_tracebacks[-1].info
     return info["_exc_instance"]
 
 
@@ -303,10 +300,10 @@ def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
 
     This is not intended for end-users but is useful in development.
     """
-    if not session.saved_info:
+    if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    info = session.saved_info[-1]
+    info = session.recorded_tracebacks[-1].info
     return info["_frame"]
 
 
@@ -317,11 +314,11 @@ def _get_statement() -> Optional[Statement]:  # pragma: no cover
 
     This is not intended for end-users but is useful in development.
     """
-    if not session.saved_info:
+    if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    if isinstance(session.saved_info[-1]["_exc_instance"], SyntaxError):
-        return session.friendly_info[-1].tb_data.statement
+    if isinstance(session.recorded_tracebacks[-1].info["_exc_instance"], SyntaxError):
+        return session.recorded_tracebacks[-1].tb_data.statement
     print("No statement: not a SyntaxError.")
     return None
 
@@ -332,16 +329,16 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
 
     This is not intended for end-users but is useful in development.
     """
-    if not session.saved_info:
+    if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    info = session.saved_info[-1]
+    info = session.recorded_tracebacks[-1].info
     return info["_tb_data"]
 
 
 def _get_info() -> list:
     """Debugging tool: returns the content of a traceback info."""
-    return session.saved_info[-1] if session.saved_info else []
+    return session.recorded_tracebacks[-1].info if session.recorded_tracebacks else []
 
 
 def _show_info() -> None:  # pragma: no cover
@@ -349,7 +346,7 @@ def _show_info() -> None:  # pragma: no cover
 
     Prints ``''`` for a given item if it is not present.
     """
-    info = session.saved_info[-1] if session.saved_info else []
+    info = session.recorded_tracebacks[-1].info if session.recorded_tracebacks else []
 
     for item in base_formatters.items_in_order:
         if item in info and info[item].strip():
