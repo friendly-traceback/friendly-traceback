@@ -68,8 +68,8 @@ class Cache:
             lines = self.local_cache[filename]
         if not lines:  # can happen for f-strings and frozen modules
             lines = []
-        lines.append("\n")  # required when dealing with EOF errors
-        return lines
+        # Do not append to lines; see #174
+        return lines + ["\n"]
 
 
 cache = Cache()
