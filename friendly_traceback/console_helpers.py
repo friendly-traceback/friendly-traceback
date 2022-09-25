@@ -304,6 +304,7 @@ def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
         print(_nothing_to_show())
         return None
     info = session.recorded_tracebacks[-1].info
+    print(dir(session.recorded_tracebacks[-1]))
     return info["_frame"]
 
 
@@ -332,8 +333,7 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    info = session.recorded_tracebacks[-1].info
-    return info["_tb_data"]
+    return session.recorded_tracebacks[-1].tb_data
 
 
 def _get_info() -> list:

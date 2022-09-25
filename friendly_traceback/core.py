@@ -111,6 +111,8 @@ class FriendlyTraceback:
             etype, value, tb = sys.exc_info()
 
         The "header" key for the info dict is assigned here."""
+        from .config import session
+
         try:
             self.tb_data = tb_data.TracebackData(etype, value, tb)
         except Exception as e:  # pragma: no cover
@@ -122,13 +124,13 @@ class FriendlyTraceback:
         self.tb = tb
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
         self.info = {"header": _("Python exception:")}  # Used by HackInScience
+        self.info["lang"] = session.lang
         self.message = self.assign_message(etype, value)  # language independent
         self.assign_tracebacks()
 
         # include some values for debugging purpose in an interactive session
         self.info["_exc_instance"] = value
         self.info["_frame"] = self.tb_data.exception_frame
-        self.info["_tb_data"] = self.tb_data
 
     def assign_message(self, etype, value) -> str:
         """Assigns the error message, as the attribute ``message``
@@ -160,7 +162,10 @@ class FriendlyTraceback:
         """This is useful if we need to redisplay some information in a
         different language than what was originally used.
         """
+        from .config import session
+
         self.info["header"] = _("Python exception:")
+        self.info["lang"] = session.lang
         self.assign_tracebacks()
         self.compile_info()
 

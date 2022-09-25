@@ -119,9 +119,10 @@ class _State:
             return
         current_lang.install(lang)
         self.lang = lang
+        # TODO: this might not be needed, we could just update the language
+        # TODO: when display is needed.
         if self.recorded_tracebacks:
             self.recorded_tracebacks[-1].recompile_info()
-            self.recorded_tracebacks[-1].info["lang"] = lang
 
     def install_gettext(self, lang: str) -> None:
         """Sets the current language for gettext."""
@@ -296,7 +297,6 @@ class _State:
             self.recorded_tracebacks.append(core.FriendlyTraceback(etype, value, tb))
             self.recorded_tracebacks[-1].compile_info()
             info = self.recorded_tracebacks[-1].info
-            info["lang"] = self.lang
         except Exception:  # pragma: no cover
             if not debug_helper.DEBUG:
                 print(
