@@ -314,6 +314,13 @@ def syntax_warning() -> str:
     )
 
 
+@register(DeprecationWarning)
+def deprecation_warning() -> str:
+    return _(
+        "`DeprecationWarning` indicates that some feature will not be available in a future version.\n"
+    )
+
+
 @register(RuntimeWarning)
 def runtime_warning() -> str:
     return _(
@@ -347,9 +354,6 @@ def _warning() -> str:
 
 
 # The following are ignored by default:
-#
-# DeprecationWarning
-# Base category for warnings about deprecated features when those warnings are intended for other Python developers
 #
 # PendingDeprecationWarning
 # Base category for warnings about features that will be deprecated in the future
