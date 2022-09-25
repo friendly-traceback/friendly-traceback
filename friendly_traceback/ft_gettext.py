@@ -90,7 +90,7 @@ def unknown_case() -> str:
 
 
 def no_information() -> str:
-    debug_helper.log_1("New case to consider.")
+    debug_helper.log("New case to consider.")
     return (
         _("No information is known about this exception.\n")
         + please_report()

@@ -42,7 +42,6 @@ def test_cleaned_traceback():
         friendly_traceback.explain_traceback()
 
     output = friendly_traceback.get_output()
-    # print(output)
     assert "test_clean_traceback" not in output
     assert "André" in output
 

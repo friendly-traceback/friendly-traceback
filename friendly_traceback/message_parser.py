@@ -71,7 +71,7 @@ def get_likely_cause(
     try:
         return get_cause(exception_type, message, tb_data)
     except Exception as e:  # noqa # pragma: no cover
-        debug_helper.log_2(message)
+        debug_helper.log(message)
         return {"cause": internal_error(e), "suggest": internal_error(e)}
 
 
@@ -107,5 +107,5 @@ def get_cause(
     if not message_parser.parsers:
         return {}
 
-    debug_helper.log_2(str(message))
+    debug_helper.log(str(message))
     return {"cause": no_information(), "suggest": unknown_case()}
