@@ -997,7 +997,8 @@ def test_Generator_has_no_len():
     result = friendly_traceback.get_output()
     assert "object of type 'generator' has no len()" in result
     if friendly_traceback.get_lang() == "en":
-        assert 'len([letter for letter in "word"])' in result
+        assert 'len([letter' in result
+        assert 'for letter in "word"])' in result
         assert "You likely need to build a list first." in result
     return result, message
 

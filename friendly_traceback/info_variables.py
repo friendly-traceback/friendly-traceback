@@ -159,9 +159,15 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     try:
         atok = ASTTokens(line.strip(), parse=True)
     except SyntaxError as e:
-        if "unexpected EOF" not in str(e):
-            debug_helper.log(f"Problem with ASTTokens: {e}" + f"\nline: {line}")
-        return objects
+        if "unexpected EOF" in str(e):
+            return objects
+        if "\n" in line:
+            newline = " ".join(line.split())
+            try:
+                atok = ASTTokens(newline.strip(), parse=True)
+            except SyntaxError as e:
+                debug_helper.log(f"Problem with ASTTokens: {e}" + f"\nline: {line}")
+                return objects
 
     if atok is not None:
         evaluator = Evaluator.from_frame(frame)

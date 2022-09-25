@@ -230,14 +230,6 @@ class FrameInfo(stack_data.FrameInfo):
                     return None
 
         node_range = None
-        if "\n" in node_text:
-            # node spans multiple lines. node_range, used to identify begin_column
-            # and end_column cannot be used. We only keep the code as a single
-            # line for later analysis, removing the new line character
-            # and replacing multiple spaces by single space
-            node_text = " ".join(node_text.split())
-            return node, node_range, node_text
-
         bad_line = self.current_line.text
         if node_text and node_text in bad_line:
             begin = bad_line.find(node_text)
