@@ -222,7 +222,7 @@ class TracebackData:
             self.filename = record.filename
             line = record.problem_line()
             self.original_bad_line = line
-            self.bad_line = line.strip()  # strip() is fix for 3.11
+            self.bad_line = line
             # protecting against https://github.com/alexmojaki/stack_data/issues/13
             if not self.bad_line:
                 try:

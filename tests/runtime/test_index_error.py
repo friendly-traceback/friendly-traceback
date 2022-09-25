@@ -15,10 +15,7 @@ def test_Short_tuple():
     
     assert "IndexError: tuple index out of range" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
-            assert "The valid index values of" in result
-        else:
-            print("Skipping test_Short_tuple for Python 3.11")
+        assert "The valid index values of" in result
     return result, message
 
 
@@ -34,10 +31,7 @@ def test_Long_list():
 
     assert "IndexError: list index out of range" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
-            assert "The valid index values of" in result
-        else:
-            print("Skipping test_Long_list for Python 3.11")
+        assert "The valid index values of" in result
     return result, message
 
 def test_Empty():
@@ -51,10 +45,7 @@ def test_Empty():
 
     assert "IndexError: list index out of range" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
-            assert "contains no item" in result
-        else:
-            print("Skipping test_Empty for Python 3.11")
+        assert "contains no item" in result
     return result, message
 
 

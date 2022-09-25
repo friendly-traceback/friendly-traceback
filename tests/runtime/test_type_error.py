@@ -405,10 +405,7 @@ def test_Bad_type_for_unary_operator():
 
     assert "TypeError: bad operand type for unary +: 'str'" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info.minor < 11:
-            assert "Perhaps you meant to write `+=`" in result
-        else:
-            print("Skipping test_Bad_type_for_unary_operator for Python 3.11")
+        assert "Perhaps you meant to write `+=`" in result
         assert "You tried to use the unary operator '+'" in result
     return result, message
 
@@ -490,10 +487,7 @@ def test_Not_callable():
 
     assert "TypeError: 'tuple' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info.minor < 11:
-            assert "you have a missing comma between the object" in result
-        else:
-            print("Skipping test_Not_callable for Python 3.11")
+        assert "you have a missing comma between the object" in result
 
     try:
         _ = 3(4 + 4)
@@ -503,11 +497,7 @@ def test_Not_callable():
 
     assert "TypeError: 'int' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info.minor < 11:
-            assert "Perhaps you forgot a multiplication operator" in result
-        else:
-            print("Skipping test_Not_callable for Python 3.11")
-
+        assert "Perhaps you forgot a multiplication operator" in result
 
     try:
         _ = [1, 2](3, 4)
@@ -516,10 +506,7 @@ def test_Not_callable():
     result = friendly_traceback.get_output()
     assert "TypeError: 'list' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info.minor < 11:
-            assert "you have a missing comma between the object" in result
-        else:
-            print("Skipping test_Not_callable for Python 3.11")
+        assert "you have a missing comma between the object" in result
 
 
     # Test with dotted name
@@ -545,10 +532,7 @@ def test_Not_callable():
     result = friendly_traceback.get_output()
     assert "TypeError: 'list' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info.minor < 11:
-            assert "Perhaps you meant to use `[]` instead of `()`" in result
-        else:
-            print("Skipping test_Not_callable for Python 3.11")
+        assert "Perhaps you meant to use `[]` instead of `()`" in result
     return result, message
 
 
@@ -759,10 +743,7 @@ def test_Object_is_not_subscriptable():
 
     assert "TypeError: 'int' object is not subscriptable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info.minor < 11:
-            assert "from `2`, an object of type `int`" in result
-        else:
-            print("Skipping test_Object_is_not_subscriptable for Python 3.11")
+        assert "from `2`, an object of type `int`" in result
 
     def f():
         pass
@@ -776,10 +757,7 @@ def test_Object_is_not_subscriptable():
 
     assert "TypeError: 'function' object is not subscriptable" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info.minor < 11:
-            assert "Did you mean `f(1)`" in result
-        else:
-            print("Skipping test_Object_is_not_subscriptable for Python 3.11.")
+        assert "Did you mean `f(1)`" in result
     return result, message
 
 
@@ -1019,11 +997,8 @@ def test_Generator_has_no_len():
     result = friendly_traceback.get_output()
     assert "object of type 'generator' has no len()" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
-            assert 'len([letter for letter in "word"])' in result
-            assert "You likely need to build a list first." in result
-        else:
-            print("Skipping test_Generator_has_no_len for Python 3.11")
+        assert 'len([letter for letter in "word"])' in result
+        assert "You likely need to build a list first." in result
     return result, message
 
 if __name__ == "__main__":

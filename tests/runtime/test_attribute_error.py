@@ -344,11 +344,7 @@ def test_Use_join_with_str():
     result = friendly_traceback.get_output()
     assert "'list' object has no attribute 'join'" in result
     if friendly_traceback.get_lang() == "en":
-        if sys.version_info < (3, 11):
-            assert "something like `'abc'.join(['a', '2'])`" in result
-        else:
-            print("Temporary fix in test_Use_join_with_str for Python 3.11")
-            assert "something like `'...'.join(['a', '2'])`" in result
+        assert "something like `'abc'.join(['a', '2'])`" in result
     return result, message
 
 
