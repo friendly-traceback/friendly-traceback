@@ -1946,3 +1946,35 @@ def assign_to_others(message: str = "", _statement=None):
         return {}
     hint = _assign_to_identifiers_only()
     return {"cause": hint, "suggest": hint}
+
+
+@add_python_message
+def arguments_cannot_follow_var(message: str = "", statement=None):
+    # new message for Python 3.11
+    if "arguments cannot follow var-keyword argument" not in message:
+        return {}
+    return error_in_def.analyze_def_statement(statement)
+
+
+@add_python_message
+def slash_must_be_ahead(message: str = "", statement=None):
+    # new message for Python 3.11
+    if "/ must be ahead of *" not in message:
+        return {}
+    return error_in_def.analyze_def_statement(statement)
+
+
+@add_python_message
+def star_may_appear_only_once(message: str = "", statement=None):
+    # new message for Python 3.11
+    if "* argument may appear only once" not in message:
+        return {}
+    return error_in_def.analyze_def_statement(statement)
+
+
+@add_python_message
+def slash_must_appear_only_once(message: str = "", statement=None):
+    # new message for Python 3.11
+    if "/ may appear only once" not in message:
+        return {}
+    return error_in_def.analyze_def_statement(statement)

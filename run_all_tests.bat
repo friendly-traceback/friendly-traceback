@@ -13,4 +13,7 @@ call venv-friendly-traceback-3.9\scripts\activate & python -m pytest
 echo Python 3.10:
 call venv-friendly-traceback-3.10\scripts\activate & python -m pytest
 
+echo Python 3.11:
+call venv-friendly-traceback-3.10\scripts\activate & python -m pytest
+
 call venv-friendly-traceback-3.9\scripts\activate
