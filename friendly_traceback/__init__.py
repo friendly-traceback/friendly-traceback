@@ -38,8 +38,14 @@ __version__ = "0.7.4"
 import inspect
 from pathlib import Path
 
-from . import about_warnings  # noqa
-from . import base_formatters, debug_helper, editors_helpers, info_variables, path_info
+from . import (
+    about_warnings,
+    base_formatters,
+    debug_helper,
+    editors_helpers,
+    info_variables,
+    path_info,
+)
 from .config import session
 from .ft_gettext import current_lang
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
@@ -49,6 +55,7 @@ from .typing_info import Formatter, InclusionChoice, StrPath, Writer
 # However, in interactive mode, or when using friendly, this will be changed.
 if about_warnings._run_with_pytest:
     warnings.simplefilter("always")
+    debug_helper.DEBUG = True
 else:
     warnings.simplefilter("ignore")
 
