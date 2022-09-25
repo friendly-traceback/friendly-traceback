@@ -22,7 +22,6 @@ except (ModuleNotFoundError, ImportError):
     pass
 
 import sys
-import warnings
 from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Union
 
 valid_version = sys.version_info >= (3, 6)
@@ -31,33 +30,17 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.4"
+__version__ = "0.7.5"
 
 # ===========================================
 
 import inspect
 from pathlib import Path
 
-from . import (
-    about_warnings,
-    base_formatters,
-    debug_helper,
-    editors_helpers,
-    info_variables,
-    path_info,
-)
+from . import base_formatters, debug_helper, editors_helpers, info_variables, path_info
 from .config import session
 from .ft_gettext import current_lang
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
-
-# Ensure that warnings are not shown to the end user by default,
-# except when running tests, as they could cause confusion.
-# However, in interactive mode, or when using friendly, this will be changed.
-if about_warnings._run_with_pytest:
-    warnings.simplefilter("always")
-    debug_helper.DEBUG = True
-else:
-    warnings.simplefilter("ignore")
 
 
 def exclude_file_from_traceback(full_path: StrPath) -> None:
