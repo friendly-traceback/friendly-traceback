@@ -21,8 +21,32 @@ if "pytest" in sys.modules:
 
 
 class WarningInfo:
-    def __init__(self, info):
-        self.info = info
+    def __init__(self, message, category, filename, lineno):
+        self.message = str(message)
+        self.category = category
+        self.filename = filename
+        self.lineno = lineno
+        self.info = {}
+        self.info["message"] = f"{category.__name__}: {message}\n"
+        self.recompile_info()
+
+    def recompile_info(self):
+        self.info["lang"] = session.lang
+        self.info["generic"] = get_generic_explanation(self.category)
+        short_filename = path_utils.shorten_path(self.filename)
+        if "[" in short_filename:
+            location = _("Code block {filename}, line {line}").format(
+                filename=short_filename, line=self.lineno
+            )
+        else:
+            location = _("File {filename}, line {line}").format(
+                filename=short_filename, line=self.lineno
+            )
+        self.info["last_call_header"] = f"{self.category.__name__}: " + location
+        self.info["detailed_tb"] = self.info["last_call_source"] = get_source(
+            self.filename, self.lineno
+        )
+        self.info.update(**get_warning_cause(self.category, self.message))
 
 
 def saw_warning_before(category, message, filename, lineno):
@@ -56,6 +80,7 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
         # other way in which a given instruction that give rise to a warning
         # is repeated
         return
+    warning_info = WarningInfo(message, category, filename, lineno)
     message = str(message)
     info = {}
     info["message"] = f"{category.__name__}: {message}\n"
@@ -72,7 +97,6 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
     info["last_call_header"] = f"{category.__name__}: " + location
     info["detailed_tb"] = info["last_call_source"] = get_source(filename, lineno)
     info.update(**get_warning_cause(category, message))
-    warning_info = WarningInfo(info)
     if not _run_with_pytest:
         session.recorded_tracebacks.append(warning_info)
     elif "cause" in info:

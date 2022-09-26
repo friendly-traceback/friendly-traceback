@@ -92,9 +92,12 @@ class _State:
                 return
             index -= 1  # list index starts at zero
 
-        explanation = self.formatter(
-            self.recorded_tracebacks[index].info, include=self.include
-        )
+        info = self.recorded_tracebacks[index].info
+        if info["lang"] != self.lang:
+            self.recorded_tracebacks[index].recompile_info()
+            info = self.recorded_tracebacks[index].info
+
+        explanation = self.formatter(info, include=self.include)
         self.write_err(explanation)
         # Do not combine with above as 'explanation' could be a list for IDLE
         self.write_err("\n")
