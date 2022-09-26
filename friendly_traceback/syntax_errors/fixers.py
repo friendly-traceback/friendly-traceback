@@ -1,6 +1,8 @@
 # type: ignore
 """Various functions used to find fixes to SyntaxErrors"""
 
+import warnings
+
 from .. import debug_helper, token_utils
 
 
@@ -103,11 +105,13 @@ def check_statement(statement):
         # The statement might have been indented in the original Python file,
         # so we remove the indentation of that first line
         statement = statement.lstrip()
-        try:
-            compile(statement, "fake-file", "exec")
-            return True
-        except SyntaxError:
-            return False
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            try:
+                compile(statement, "fake-file", "exec")
+                return True
+            except SyntaxError:
+                return False
 
     except Exception as e:  # pragma: no cover
         debug_helper.log("Problem in token_utils.check_statement().")

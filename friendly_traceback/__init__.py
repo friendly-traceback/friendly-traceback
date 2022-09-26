@@ -30,7 +30,7 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.7"
+__version__ = "0.7.8"
 
 # ===========================================
 
