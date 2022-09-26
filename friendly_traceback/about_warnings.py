@@ -121,7 +121,10 @@ def get_source(filename: str, lineno: int):
         return _("        <'source unavailable'>")
 
 
-warnings.showwarning = show_warning
+def enable_warnings():
+    warnings.simplefilter("always")
+    warnings.showwarning = show_warning
+
 
 INCLUDED_PARSERS = {
     SyntaxWarning: "syntax_warning",
