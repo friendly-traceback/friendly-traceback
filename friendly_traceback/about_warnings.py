@@ -75,6 +75,8 @@ def saw_warning_before(category, message, filename, lineno):
 
 
 def show_warning(message, category, filename, lineno, file=None, line=None):
+    if filename == "<>":  # internal to IPython
+        return
     if saw_warning_before(category.__name__, str(message), filename, lineno):
         # Avoid showing the same warning if it occurs in a loop, or in
         # other way in which a given instruction that give rise to a warning
