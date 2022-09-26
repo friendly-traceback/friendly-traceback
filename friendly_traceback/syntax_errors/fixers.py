@@ -106,7 +106,7 @@ def check_statement(statement):
         # so we remove the indentation of that first line
         statement = statement.lstrip()
         with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
+            warnings.simplefilter("error")
             try:
                 compile(statement, "fake-file", "exec")
                 return True
