@@ -12,6 +12,7 @@ from .config import session
 from .frame_info import FriendlyFormatter
 from .ft_gettext import current_lang, internal_error
 from .info_generic import get_generic_explanation
+from .info_variables import get_var_info
 from .path_info import path_utils
 from .typing_info import _E, CauseInfo, Parser
 
@@ -47,6 +48,10 @@ class WarningInfo:
             source = self.format_source()
             self.info["detailed_tb"] = self.info["last_call_source"] = source
             self.problem_line = executing.Source.executing(frame).text()
+            var_info = get_var_info(self.problem_line, frame)
+            self.info["exception_raised_variables"] = var_info["var_info"]
+            if "warnings" in var_info:
+                self.info["warnings"] = var_info["warnings"]
         else:
             self.problem_line = "".join(lines if lines is not None else [])
         self.recompile_info()

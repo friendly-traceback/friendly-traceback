@@ -321,7 +321,7 @@ def find_renamed_builtins(objects: dict) -> str:
             builtin_obj = getattr(builtins, name)
             if builtin_obj != obj:
                 warnings += _(
-                    "Warning: you have redefined the python builtin `{name}`.\n"
+                    "Friendly warning: you have redefined the python builtin `{name}`.\n"
                 ).format(name=name)
     return warnings
 
