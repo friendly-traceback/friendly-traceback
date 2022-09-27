@@ -1,12 +1,15 @@
 """This module will expand later."""
+import inspect
 import sys
 import warnings
 from importlib import import_module
 from typing import List, Type
 
 import executing
+from stack_data import BlankLines, Formatter, Options
 
 from .config import session
+from .frame_info import FriendlyFormatter
 from .ft_gettext import current_lang, internal_error
 from .info_generic import get_generic_explanation
 from .path_info import path_utils
@@ -20,14 +23,32 @@ if "pytest" in sys.modules:
     _run_with_pytest = True
 
 
+class MyFormatter(Formatter):
+    def format_frame(self, frame):
+        yield from super().format_frame(frame)
+
+
 class WarningInfo:
-    def __init__(self, message, category, filename, lineno):
+    def __init__(self, message, category, filename, lineno, frame=None, lines=None):
         self.message = str(message)
         self.category = category
         self.filename = filename
         self.lineno = lineno
+        self.begin_lineno = lineno
+        self.frame = frame
         self.info = {}
-        self.info["message"] = f"{category.__name__}: {message}\n"
+        full_message = f"`{category.__name__}`: {message}\n"
+        self.info["message"] = full_message
+        # We also set the friendly_tb to the same value
+        # TODO: define "warning_message"
+        self.info["shortened_traceback"] = full_message
+
+        if frame is not None:
+            source = self.format_source()
+            self.info["detailed_tb"] = self.info["last_call_source"] = source
+            self.problem_line = executing.Source.executing(frame).text()
+        else:
+            self.problem_line = "".join(lines if lines is not None else [])
         self.recompile_info()
 
     def recompile_info(self):
@@ -35,18 +56,31 @@ class WarningInfo:
         self.info["generic"] = get_generic_explanation(self.category)
         short_filename = path_utils.shorten_path(self.filename)
         if "[" in short_filename:
-            location = _("Code block {filename}, line {line}").format(
+            location = _("code block {filename}, line {line}").format(
                 filename=short_filename, line=self.lineno
             )
         else:
-            location = _("File {filename}, line {line}").format(
+            location = _("file {filename}, line {line}").format(
                 filename=short_filename, line=self.lineno
             )
-        self.info["last_call_header"] = f"{self.category.__name__}: " + location
-        self.info["detailed_tb"] = self.info["last_call_source"] = get_source(
-            self.filename, self.lineno
-        )
+        self.info["last_call_header"] = _("Warning location: ") + location
+
         self.info.update(**get_warning_cause(self.category, self.message))
+
+    def format_source(self):
+        nb_digits = len(str(self.lineno))
+        lineno_fmt_string = "{:%d}| " % nb_digits  # noqa
+        line_gap_string = " " * nb_digits + "(...)"
+        line_number_gap_string = " " * (nb_digits - 1) + ":"
+
+        formatter = FriendlyFormatter(
+            options=Options(blank_lines=BlankLines.SINGLE, before=2),
+            line_number_format_string=lineno_fmt_string,
+            line_gap_string=line_gap_string,
+            line_number_gap_string=line_number_gap_string,
+        )
+        formatted = formatter.format_frame(self.frame)
+        return "".join(list(formatted)[1:])
 
 
 def saw_warning_before(category, message, filename, lineno):
@@ -82,45 +116,29 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
         # other way in which a given instruction that give rise to a warning
         # is repeated
         return
-    warning_info = WarningInfo(message, category, filename, lineno)
-    message = str(message)
-    info = {}
-    info["message"] = f"{category.__name__}: {message}\n"
-    info["generic"] = get_generic_explanation(category)
-    short_filename = path_utils.shorten_path(filename)
-    if "[" in short_filename:
-        location = _("Code block {filename}, line {line}").format(
-            filename=short_filename, line=lineno
-        )
+
+    for outer_frame in inspect.getouterframes(inspect.currentframe()):
+        if outer_frame.filename == filename and outer_frame.lineno == lineno:
+            warning_info = WarningInfo(
+                message,
+                category,
+                filename,
+                lineno,
+                frame=outer_frame.frame,
+                lines=outer_frame.code_context,
+            )
+            break
     else:
-        location = _("File {filename}, line {line}").format(
-            filename=short_filename, line=lineno
-        )
-    info["last_call_header"] = f"{category.__name__}: " + location
-    info["detailed_tb"] = info["last_call_source"] = get_source(filename, lineno)
-    info.update(**get_warning_cause(category, message))
+        warning_info = WarningInfo(message, category, filename, lineno)
+
+    message = str(message)
+
     if not _run_with_pytest:
         session.recorded_tracebacks.append(warning_info)
-    elif "cause" in info:
+    elif "cause" in warning_info.info:
         # We know how to explain this; we do not print while running tests
         return
     session.write_err(f"`{category.__name__}`: {message}\n")
-
-
-def get_source(filename: str, lineno: int):
-    new_lines = []
-    try:
-        source = executing.Source.for_filename(filename)
-        statement = source.statements_at_line(lineno).pop()
-        lines = source.lines[statement.lineno - 1 : statement.end_lineno]
-        for number, line in enumerate(lines, start=statement.lineno):
-            if number == lineno:
-                new_lines.append(f"    -->{number}| {line}")
-            else:
-                new_lines.append(f"       {number}| {line}")
-        return "\n".join(new_lines)
-    except Exception:
-        return _("        <'source unavailable'>")
 
 
 def enable_warnings():
