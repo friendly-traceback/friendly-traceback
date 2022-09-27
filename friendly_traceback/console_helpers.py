@@ -160,7 +160,15 @@ def what(
 def where(index: int = -1, more=False) -> None:
     """Shows the information about where the exception occurred"""
     if more:
-        explain(index, "detailed_tb")
+        try:
+            info = session.recorded_tracebacks[index].info
+        except Exception:
+            explain(index, "where")  # let the error bubble up
+        else:
+            if "detailed_tb" in info:
+                explain(index, "detailed_tb")
+            else:
+                explain(index, "where")
     else:
         explain(index, "where")
 

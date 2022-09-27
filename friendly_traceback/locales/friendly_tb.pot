@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-09-25 19:00-0300\n"
+"POT-Creation-Date: 2022-09-27 17:45-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,23 +27,19 @@ msgstr ""
 msgid "The allowed values are:"
 msgstr ""
 
-#: about_warnings.py:65 core.py:389
-msgid "Code block {filename}, line {line}"
+#: about_warnings.py:63
+msgid "Warning issued on line `{line}` of code block {filename}."
 msgstr ""
 
-#: about_warnings.py:69 core.py:393
-msgid "File {filename}, line {line}"
+#: about_warnings.py:67
+msgid "Warning issued on line `{line}` of file '{filename}'."
 msgstr ""
 
-#: about_warnings.py:97
-msgid "        <'source unavailable'>"
-msgstr ""
-
-#: base_formatters.py:174 base_formatters.py:180
+#: base_formatters.py:182 base_formatters.py:188
 msgid "I have no suggestion to offer."
 msgstr ""
 
-#: base_formatters.py:178
+#: base_formatters.py:186
 msgid "I have no suggestion to offer; try `why()`."
 msgstr ""
 
@@ -54,7 +50,7 @@ msgid ""
 "You will need to import `start_console` if you have not already done so.\n"
 msgstr ""
 
-#: config.py:75 config.py:206 console_helpers.py:29
+#: config.py:75 config.py:209 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr ""
 
@@ -68,7 +64,7 @@ msgid ""
 "There are only {number} recorded exceptions.\n"
 msgstr ""
 
-#: config.py:332
+#: config.py:335
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -90,17 +86,17 @@ msgstr ""
 msgid "{exception} is not an exception."
 msgstr ""
 
-#: console_helpers.py:237
+#: console_helpers.py:245
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
 msgstr ""
 
-#: console_helpers.py:261
+#: console_helpers.py:269
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 
-#: console_helpers.py:459
+#: console_helpers.py:461
 msgid "The following methods of the Friendly object should also be available as functions."
 msgstr ""
 
@@ -108,11 +104,11 @@ msgstr ""
 msgid "More lines not shown."
 msgstr ""
 
-#: core.py:126 core.py:167
+#: core.py:126 core.py:166
 msgid "Python exception:"
 msgstr ""
 
-#: core.py:187
+#: core.py:186
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -121,58 +117,66 @@ msgid ""
 "raises an exception or does not return a string.\n"
 msgstr ""
 
-#: core.py:238
+#: core.py:237
 msgid ""
 "The encoding of the file was not valid.\n"
 msgstr ""
 
-#: core.py:318 core.py:335
+#: core.py:317 core.py:334
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 
-#: core.py:323
+#: core.py:322
 msgid ""
-"Exception raised on line {linenumber} of code block {filename}.\n"
+"Exception raised on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 
-#: core.py:327
+#: core.py:326
 msgid ""
-"Exception raised on line {linenumber} of file {filename}.\n"
+"Exception raised on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 
-#: core.py:361
+#: core.py:362
 msgid ""
-"Execution stopped on line {linenumber} of code block {filename}.\n"
+"Execution stopped on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 
-#: core.py:365
+#: core.py:366
 msgid ""
-"Execution stopped on line {linenumber} of file {filename}.\n"
+"Execution stopped on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 
-#: core.py:407
+#: core.py:390
+msgid "Code block {filename}, line `{line}`"
+msgstr ""
+
+#: core.py:394
+msgid "File '{filename}', line `{line}`"
+msgstr ""
+
+#: core.py:408
 msgid ""
 "The entire content of `{filename}` is not available.\n"
 msgstr ""
 
-#: core.py:421
+#: core.py:422
 msgid ""
 "Python could not understand the code in the code block {filename}\n"
 msgstr ""
 
-#: core.py:425
+#: core.py:426
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr ""
 
-#: core.py:430
+#: core.py:431
 msgid ""
 "at the location indicated.\n"
 msgstr ""
 
-#: core.py:668
+#: core.py:669
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -191,7 +195,7 @@ msgid ""
 "Problem: source of `{filename}` is not available\n"
 msgstr ""
 
-#: ft_console.py:30
+#: ft_console.py:29
 msgid "Type 'Friendly' for help on special functions/methods."
 msgstr ""
 
@@ -512,91 +516,91 @@ msgid ""
 "`SyntaxWarning` often indicates that your code will likely not give the result you expect.\n"
 msgstr ""
 
-#: info_generic.py:318
+#: info_generic.py:319
 msgid ""
 "`DeprecationWarning` indicates that some feature will not be available in a future version.\n"
 msgstr ""
 
-#: info_generic.py:325
+#: info_generic.py:326
 msgid ""
 "`RuntimeWarning` often indicates some not recommended runtime features.\n"
 msgstr ""
 
-#: info_generic.py:332
+#: info_generic.py:333
 msgid ""
 "`FutureWarning` is the base category for features that will likely be deprecated\n"
 "in future Python versions.\n"
 msgstr ""
 
-#: info_generic.py:340
+#: info_generic.py:341
 msgid ""
 "`UnicodeWarning` is the base category for warnings related to unicode.\n"
 msgstr ""
 
-#: info_generic.py:345
+#: info_generic.py:346
 msgid ""
 "`BytesWarning` is the base category for warnings related to bytes and bytearray.\n"
 msgstr ""
 
-#: info_generic.py:352
+#: info_generic.py:353
 msgid ""
 "`Warning` is the base class of all warning category classes.\n"
 msgstr ""
 
-#: info_variables.py:70
+#: info_variables.py:71
 msgid "a complex number"
 msgstr ""
 
-#: info_variables.py:71
+#: info_variables.py:72
 msgid "a dictionary (`dict`)"
 msgstr ""
 
-#: info_variables.py:72
+#: info_variables.py:73
 msgid "a number (`float`)"
 msgstr ""
 
-#: info_variables.py:73
+#: info_variables.py:74
 msgid "a `frozenset`"
 msgstr ""
 
-#: info_variables.py:74
+#: info_variables.py:75
 msgid "an integer (`int`)"
 msgstr ""
 
-#: info_variables.py:75
+#: info_variables.py:76
 msgid "a `list`"
 msgstr ""
 
-#: info_variables.py:76
+#: info_variables.py:77
 msgid "a variable equal to `None` (`NoneType`)"
 msgstr ""
 
-#: info_variables.py:77
+#: info_variables.py:78
 msgid "a `set`"
 msgstr ""
 
-#: info_variables.py:78 info_variables.py:79
+#: info_variables.py:79 info_variables.py:80
 msgid "a string (`str`)"
 msgstr ""
 
-#: info_variables.py:80
+#: info_variables.py:81
 msgid "a `tuple`"
 msgstr ""
 
-#: info_variables.py:323
+#: info_variables.py:328
 msgid ""
-"Warning: you have redefined the python builtin `{name}`.\n"
+"Friendly warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 
-#: info_variables.py:483
+#: info_variables.py:494
 msgid "Object too large to be processed by Python."
 msgstr ""
 
-#: info_variables.py:487
+#: info_variables.py:498
 msgid "Unable to compute."
 msgstr ""
 
-#: info_variables.py:545
+#: info_variables.py:556
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"

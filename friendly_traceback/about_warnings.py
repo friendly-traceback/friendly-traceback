@@ -38,11 +38,12 @@ class WarningInfo:
         self.begin_lineno = lineno
         self.frame = frame
         self.info = {}
-        self.info["warning message"] = f"`{category.__name__}`: {message}\n"
+        self.info["warning message"] = f"{category.__name__}: {message}\n"
+        self.info["message"] = self.info["warning message"]
 
         if frame is not None:
             source = self.format_source()
-            self.info["detailed_tb"] = self.info["warning source"] = source
+            self.info["warning source"] = source
             self.problem_line = executing.Source.executing(frame).text()
             var_info = get_var_info(self.problem_line, frame)
             self.info["warning variables"] = var_info["var_info"]
@@ -59,14 +60,14 @@ class WarningInfo:
         self.info["generic"] = get_generic_explanation(self.category)
         short_filename = path_utils.shorten_path(self.filename)
         if "[" in short_filename:
-            location = _("code block {filename}, line {line}").format(
-                filename=short_filename, line=self.lineno
-            )
+            location = _(
+                "Warning issued on line `{line}` of code block {filename}."
+            ).format(filename=short_filename, line=self.lineno)
         else:
-            location = _("file {filename}, line {line}").format(
-                filename=short_filename, line=self.lineno
-            )
-        self.info["warning location header"] = _("Warning location: ") + location
+            location = _(
+                "Warning issued on line `{line}` of file '{filename}'."
+            ).format(filename=short_filename, line=self.lineno)
+        self.info["warning location header"] = location
 
         self.info.update(**get_warning_cause(self.category, self.message))
 

@@ -320,11 +320,11 @@ class FriendlyTraceback:
 
         if session.ipython_prompt and filename.startswith("["):
             self.info["exception_raised_header"] = _(
-                "Exception raised on line {linenumber} of code block {filename}.\n"
+                "Exception raised on line `{linenumber}` of code block {filename}.\n"
             ).format(linenumber=record.lineno, filename=filename)
         else:
             self.info["exception_raised_header"] = _(
-                "Exception raised on line {linenumber} of file {filename}.\n"
+                "Exception raised on line `{linenumber}` of file '{filename}'.\n"
             ).format(linenumber=record.lineno, filename=filename)
 
         if unavailable:
@@ -360,11 +360,11 @@ class FriendlyTraceback:
 
         if filename and "[" in filename:
             self.info["last_call_header"] = _(
-                "Execution stopped on line {linenumber} of code block {filename}.\n"
+                "Execution stopped on line `{linenumber}` of code block {filename}.\n"
             ).format(linenumber=record.lineno, filename=filename)
         else:
             self.info["last_call_header"] = _(
-                "Execution stopped on line {linenumber} of file {filename}.\n"
+                "Execution stopped on line `{linenumber}` of file '{filename}'.\n"
             ).format(linenumber=record.lineno, filename=filename)
         self.info["last_call_source"] = partial_source
 
@@ -387,11 +387,11 @@ class FriendlyTraceback:
             partial_source = record.partial_source_with_node_range
             var_info = info_variables.get_var_info(line, record.frame)
             if "[" in filename:
-                location = _("Code block {filename}, line {line}").format(
+                location = _("Code block {filename}, line `{line}`").format(
                     filename=filename, line=lineno
                 )
             else:
-                location = _("File {filename}, line {line}").format(
+                location = _("File '{filename}', line `{line}`").format(
                     filename=filename, line=lineno
                 )
             detailed_tb.append((location, partial_source, var_info["var_info"]))

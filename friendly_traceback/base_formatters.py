@@ -195,7 +195,6 @@ def no_result(info: Info, include: InclusionChoice) -> str:
 
 items_groups: Dict[InclusionChoice, Set[str]] = {
     "message": {"message"},  # Also included as last line of traceback
-    "message_plus": {"message", "suggest"},
     "hint": {"suggest"},
     "what": {"generic"},
     "why": {"warnings", "cause"},

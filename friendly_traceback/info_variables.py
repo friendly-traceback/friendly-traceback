@@ -26,6 +26,7 @@ except ImportError:  # pragma: no cover
 INDENT = " " * 8
 MAX_LENGTH = 65
 _ = current_lang.translate
+RENAMED_BUILTINS = set()
 
 
 class ConfidentialInformation:
@@ -308,21 +309,31 @@ def get_var_info(line: str, frame: types.FrameType) -> dict:
     if names_info:
         names_info.append("")
     var_info = {"var_info": "\n".join(names_info)}
-    builtins_warnings = find_renamed_builtins(objects)
+    builtins_warnings = find_renamed_builtins(frame)
     if builtins_warnings:
         var_info["additional variable warning"] = builtins_warnings
     return var_info
 
 
-def find_renamed_builtins(objects: dict) -> str:
+def find_renamed_builtins(frame) -> str:
     warnings = ""
-    for name, value, obj in objects["locals"]:
-        if name in dir(builtins):
+    for name in dir(builtins):
+        if name.startswith("_"):
+            continue
+        if name in frame.f_locals:
             builtin_obj = getattr(builtins, name)
+            obj = frame.f_locals[name]
             if builtin_obj != obj:
-                warnings += _(
-                    "Friendly warning: you have redefined the python builtin `{name}`.\n"
-                ).format(name=name)
+                if name not in RENAMED_BUILTINS:  # only once
+                    warnings += _(
+                        "Friendly warning: you have redefined the python builtin `{name}`.\n"
+                    ).format(name=name)
+                    RENAMED_BUILTINS.add(name)
+            elif name in RENAMED_BUILTINS:
+                RENAMED_BUILTINS.remove(name)
+        elif name in RENAMED_BUILTINS:
+            RENAMED_BUILTINS.remove(name)
+
     return warnings
 
 

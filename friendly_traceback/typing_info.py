@@ -24,7 +24,6 @@ if sys.version_info >= (3, 8):
 
     InclusionChoice = Literal[
         "message",
-        "message_plus",
         "hint",
         "what",
         "why",
