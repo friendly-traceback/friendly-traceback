@@ -344,8 +344,10 @@ class FriendlyTraceback:
 
         var_info = info_variables.get_var_info(line, record.frame)
         self.info["exception_raised_variables"] = var_info["var_info"]
-        if "warnings" in var_info:
-            self.info["warnings"] = var_info["warnings"]
+        if "additional variable warning" in var_info:
+            self.info["additional variable warning"] = var_info[
+                "additional variable warning"
+            ]
 
     def locate_last_call(self, record: FrameInfo, partial_source, var_info) -> None:
         """Sets the values of the following attributes:

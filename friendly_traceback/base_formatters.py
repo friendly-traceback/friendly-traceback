@@ -48,7 +48,7 @@ items_in_order = [
     "simulated_python_traceback",  # <-- python_tb()
     "shortened_traceback",  # <-- friendly_tb()
     "suggest",  # <-- hint()
-    "warnings",
+    "warning message",
     "generic",  # <-- what()
     "parsing_error",
     "parsing_error_source",
@@ -59,6 +59,10 @@ items_in_order = [
     "exception_raised_header",
     "exception_raised_source",
     "exception_raised_variables",
+    "warning location header",
+    "warning source",
+    "warning variables",
+    "additional variable warning",
 ]
 
 
@@ -69,7 +73,7 @@ repl_indentation = {
     "original_python_traceback": "none",
     "shortened_traceback": "none",
     "suggest": "double",
-    "warnings": "single",
+    "warning message": "single",
     "generic": "single",
     "parsing_error": "single",
     "parsing_error_source": "none",
@@ -80,6 +84,10 @@ repl_indentation = {
     "exception_raised_header": "single",
     "exception_raised_source": "none",
     "exception_raised_variables": "double",
+    "warning location header": "single",
+    "warning source": "none",
+    "warning variables": "double",
+    "additional variable warning": "single",
 }
 
 
@@ -200,8 +208,12 @@ items_groups: Dict[InclusionChoice, Set[str]] = {
         "exception_raised_header",
         "exception_raised_source",
         "exception_raised_variables",
+        "warning location header",
+        "warning source",
+        "warning variables",
+        "additional variable warning",
     },
-    "friendly_tb": {"shortened_traceback", "suggest", "warnings"},
+    "friendly_tb": {"shortened_traceback", "suggest", "warnings", "warning message"},
     "python_tb": {"simulated_python_traceback"},
     "debug_tb": {"original_python_traceback"},
     "detailed_tb": {"detailed_tb"},

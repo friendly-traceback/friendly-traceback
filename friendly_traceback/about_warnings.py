@@ -38,20 +38,18 @@ class WarningInfo:
         self.begin_lineno = lineno
         self.frame = frame
         self.info = {}
-        full_message = f"`{category.__name__}`: {message}\n"
-        self.info["message"] = full_message
-        # We also set the friendly_tb to the same value
-        # TODO: define "warning_message"
-        self.info["shortened_traceback"] = full_message
+        self.info["warning message"] = f"`{category.__name__}`: {message}\n"
 
         if frame is not None:
             source = self.format_source()
-            self.info["detailed_tb"] = self.info["last_call_source"] = source
+            self.info["detailed_tb"] = self.info["warning source"] = source
             self.problem_line = executing.Source.executing(frame).text()
             var_info = get_var_info(self.problem_line, frame)
-            self.info["exception_raised_variables"] = var_info["var_info"]
-            if "warnings" in var_info:
-                self.info["warnings"] = var_info["warnings"]
+            self.info["warning variables"] = var_info["var_info"]
+            if "additional variable warning" in var_info:
+                self.info["additional variable warning"] = var_info[
+                    "additional variable warning"
+                ]
         else:
             self.problem_line = "".join(lines if lines is not None else [])
         self.recompile_info()
@@ -68,7 +66,7 @@ class WarningInfo:
             location = _("file {filename}, line {line}").format(
                 filename=short_filename, line=self.lineno
             )
-        self.info["last_call_header"] = _("Warning location: ") + location
+        self.info["warning location header"] = _("Warning location: ") + location
 
         self.info.update(**get_warning_cause(self.category, self.message))
 
