@@ -36,7 +36,9 @@ def back() -> None:
     to find out specific information about a given exception.
     """
     if not session.recorded_tracebacks:
-        session.write_err(_("Nothing to go back to: no exception recorded.") + "\n")
+        info = {"message": _("Nothing to go back to: no exception recorded.") + "\n"}
+        explanation = session.formatter(info, include="message")
+        session.write_err(explanation)
         return
     session.recorded_tracebacks.pop()
     if session.recorded_tracebacks:
@@ -49,7 +51,9 @@ def back() -> None:
 def disable():
     """Disable friendly-traceback exception hook"""
     if not session.installed:
-        print(_("Friendly-traceback is already disabled."))
+        info = {"message": _("Friendly-traceback is already disabled.") + "\n"}
+        explanation = session.formatter(info, include="message")
+        session.write_err(explanation)
         return
     session.uninstall()
 
@@ -57,7 +61,9 @@ def disable():
 def enable():
     """Enable friendly-traceback exception hook"""
     if session.installed:
-        print(_("Friendly-traceback is already enabled."))
+        info = {"message": _("Friendly-traceback is already enabled.") + "\n"}
+        explanation = session.formatter(info, include="message")
+        session.write_err(explanation)
         return
     session.install()
 
@@ -88,15 +94,18 @@ def hint(index: int = -1) -> None:
 def history() -> None:
     """Prints the list of error messages recorded so far."""
     if not session.recorded_tracebacks:
-        session.write_err(_nothing_to_show() + "\n")
+        info = {"message": _nothing_to_show() + "\n"}
+        explanation = session.formatter(info, include="message")
+        session.write_err(explanation)
         return
     items = []
     for index, tb in enumerate(session.recorded_tracebacks):
-        message = session.formatter(tb.info, include="message")
-        if message:
-            items.append(f"{index+1}. {message}")
+        if "message" in tb.info:
+            items.append(f"{index+1}. {tb.info['message']}")
     if items:
-        session.write_err("".join(items))
+        info = {"message": "".join(items)}
+        explanation = session.formatter(info, include="message")
+        session.write_err(explanation)
 
 
 def python_tb(index: int = -1) -> None:
@@ -141,11 +150,11 @@ def what(
                 result = get_generic_explanation(exc)
             else:
                 result = _("{exception} is not an exception.").format(
-                    exception=exception_or_index
+                    exception=f"`{exception_or_index}`"
                 )
         except Exception:  # noqa
             result = _("{exception} is not an exception.").format(
-                exception=exception_or_index
+                exception=f"`{exception_or_index}`"
             )
 
     if pre:  # for documentation # pragma: no cover
@@ -154,7 +163,9 @@ def what(
             session.write_err(f"    {line}\n")
         session.write_err("\n")
     else:
-        session.write_err(result)
+        info = {"generic": result}
+        explanation = session.formatter(info, include="what")
+        session.write_err(explanation)
 
 
 def where(index: int = -1, more=False) -> None:
