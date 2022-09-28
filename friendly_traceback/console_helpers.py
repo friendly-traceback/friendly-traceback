@@ -98,14 +98,11 @@ def history() -> None:
         explanation = session.formatter(info, include="message")
         session.write_err(explanation)
         return
-    items = []
     for index, tb in enumerate(session.recorded_tracebacks):
         if "message" in tb.info:
-            items.append(f"{index+1}. {tb.info['message']}")
-    if items:
-        info = {"message": "\n".join(items)}
-        explanation = session.formatter(info, include="message")
-        session.write_err(explanation)
+            info = {"message": f"{index+1}. {tb.info['message']}"}
+            explanation = session.formatter(info, include="message")
+            session.write_err(explanation)
 
 
 def python_tb(index: int = -1) -> None:
