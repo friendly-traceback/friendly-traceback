@@ -103,7 +103,7 @@ def history() -> None:
         if "message" in tb.info:
             items.append(f"{index+1}. {tb.info['message']}")
     if items:
-        info = {"message": "".join(items)}
+        info = {"message": "\n".join(items)}
         explanation = session.formatter(info, include="message")
         session.write_err(explanation)
 
