@@ -101,7 +101,7 @@ class WarningInfo:
                     new_lines.append(f"    -->{number}| {line}")
                 else:
                     new_lines.append(f"       {number}| {line}")
-            self.problem_statement = statement
+            self.problem_statement = "".join(lines)
             return "\n".join(new_lines)
         except Exception:
             self.problem_statement = None
