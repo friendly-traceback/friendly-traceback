@@ -30,15 +30,18 @@ class MyFormatter(Formatter):
 
 
 class WarningInfo:
-    def __init__(self, message, category, filename, lineno, frame=None, lines=None):
-        self.message = str(message)
-        self.category = category
+    def __init__(
+        self, warning_instance, warning_type, filename, lineno, frame=None, lines=None
+    ):
+        self.warning_instance = warning_instance
+        self.message = str(warning_instance)
+        self.warning_type = warning_type
         self.filename = filename
         self.lineno = lineno
         self.begin_lineno = lineno
         self.frame = frame
         self.info = {}
-        self.info["warning message"] = f"{category.__name__}: {message}\n"
+        self.info["warning message"] = f"{warning_type.__name__}: {self.message}\n"
         self.info["message"] = self.info["warning message"]
 
         if frame is not None:
@@ -57,7 +60,7 @@ class WarningInfo:
 
     def recompile_info(self):
         self.info["lang"] = session.lang
-        self.info["generic"] = get_generic_explanation(self.category)
+        self.info["generic"] = get_generic_explanation(self.warning_type)
         short_filename = path_utils.shorten_path(self.filename)
         if "[" in short_filename:
             location = _(
@@ -69,7 +72,7 @@ class WarningInfo:
             ).format(filename=short_filename, line=self.lineno)
         self.info["warning location header"] = location
 
-        self.info.update(**get_warning_cause(self.category, self.message, self))
+        self.info.update(**get_warning_cause(self.warning_type, self.message, self))
 
     def format_source(self):
         nb_digits = len(str(self.lineno))
@@ -87,35 +90,39 @@ class WarningInfo:
         return "".join(list(formatted)[1:])
 
 
-def saw_warning_before(category, message, filename, lineno):
+def saw_warning_before(warning_type, message, filename, lineno):
     """Records a warning if it has not been seen at the exact location
     and returns True; returns False otherwise.
     """
     # Note: unlike show_warning whose API is dictated by Python,
     # we order the argument in some grouping that seems more logical
     # for the recorded structure
-    if category in _warnings_seen:
-        if message in _warnings_seen[category]:
-            if filename in _warnings_seen[category][message]:
-                if lineno in _warnings_seen[category][message][filename]:
+    if warning_type in _warnings_seen:
+        if message in _warnings_seen[warning_type]:
+            if filename in _warnings_seen[warning_type][message]:
+                if lineno in _warnings_seen[warning_type][message][filename]:
                     return True
-                _warnings_seen[category][message][filename].append(lineno)
+                _warnings_seen[warning_type][message][filename].append(lineno)
             else:
-                _warnings_seen[category][message][filename] = [lineno]
+                _warnings_seen[warning_type][message][filename] = [lineno]
         else:
-            _warnings_seen[category][message] = {}
-            _warnings_seen[category][message][filename] = [lineno]
+            _warnings_seen[warning_type][message] = {}
+            _warnings_seen[warning_type][message][filename] = [lineno]
     else:
-        _warnings_seen[category] = {}
-        _warnings_seen[category][message] = {}
-        _warnings_seen[category][message][filename] = [lineno]
+        _warnings_seen[warning_type] = {}
+        _warnings_seen[warning_type][message] = {}
+        _warnings_seen[warning_type][message][filename] = [lineno]
     return False
 
 
-def show_warning(message, category, filename, lineno, file=None, line=None):
+def show_warning(
+    warning_instance, warning_type, filename, lineno, file=None, line=None
+):
     if filename == "<>":  # internal to IPython
         return
-    if saw_warning_before(category.__name__, str(message), filename, lineno):
+    if saw_warning_before(
+        warning_type.__name__, str(warning_instance), filename, lineno
+    ):
         # Avoid showing the same warning if it occurs in a loop, or in
         # other way in which a given instruction that give rise to a warning
         # is repeated
@@ -124,8 +131,8 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
     for outer_frame in inspect.getouterframes(inspect.currentframe()):
         if outer_frame.filename == filename and outer_frame.lineno == lineno:
             warning_data = WarningInfo(
-                message,
-                category,
+                warning_instance,
+                warning_type,
                 filename,
                 lineno,
                 frame=outer_frame.frame,
@@ -133,16 +140,16 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
             )
             break
     else:
-        warning_data = WarningInfo(message, category, filename, lineno)
+        warning_data = WarningInfo(warning_instance, warning_type, filename, lineno)
 
-    message = str(message)
+    message = str(warning_instance)
 
     if not _run_with_pytest:
         session.recorded_tracebacks.append(warning_data)
     elif "cause" in warning_data.info:
         # We know how to explain this; we do not print while running tests
         return
-    session.write_err(f"`{category.__name__}`: {message}\n")
+    session.write_err(f"`{warning_type.__name__}`: {message}\n")
 
 
 def enable_warnings():
