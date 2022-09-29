@@ -314,7 +314,10 @@ def _get_exception() -> Optional[BaseException]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None  # add explicit None here and elsewhere to silence mypy
-    return session.recorded_tracebacks[-1].tb_data.exception_instance
+    current_tb = session.recorded_tracebacks[-1]
+    if hasattr(current_tb, "tb_data"):
+        return current_tb.tb_data.exception_instance
+    return current_tb.warning_instance
 
 
 def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
@@ -325,7 +328,10 @@ def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    return session.recorded_tracebacks[-1].tb_data.exception_frame
+    current_tb = session.recorded_tracebacks[-1]
+    if hasattr(current_tb, "tb_data"):
+        return current_tb.tb_data.exception_frame
+    return current_tb.frame  # warnings
 
 
 def _get_statement() -> Optional[Statement]:  # pragma: no cover
@@ -355,7 +361,10 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    return session.recorded_tracebacks[-1].tb_data
+    current_tb = session.recorded_tracebacks[-1]
+    if hasattr(current_tb, "tb_data"):
+        return current_tb.tb_data
+    return current_tb
 
 
 def _get_info() -> list:
