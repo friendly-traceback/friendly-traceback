@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2022-09-27 17:45-0300\n"
+"POT-Creation-Date: 2022-09-29 06:56-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -51,19 +51,15 @@ msgstr ""
 "Si es así, para continuar, prueba: `start_console(local_vars=locals())`.\n"
 "Tendrás que importar `start_console` si no lo has hecho ya.\n"
 
-#: config.py:75 config.py:209 console_helpers.py:29
+#: config.py:75 config.py:195 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr "Nada para mostrar: no se registró una excepción."
 
-#: config.py:77
-msgid "`index` must be a positive integer or -1.\n"
+#: config.py:80
+msgid "Invalid index value."
 msgstr ""
 
-#: config.py:88
-msgid "There are only {number} recorded exceptions.\n"
-msgstr ""
-
-#: config.py:335
+#: config.py:321
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -71,23 +67,33 @@ msgstr ""
 "Se ha producido una excepción antes de importar el friendly-traceback.\n"
 "Hay alguna información disponible."
 
-#: console_helpers.py:39
-msgid "Nothing to go back to: no exception recorded."
-msgstr "Nada a donde volver: no se registró excepción alguna."
-
-#: console_helpers.py:52
+#: console_helpers.py:35
 msgid "Friendly-traceback is already disabled."
 msgstr ""
 
-#: console_helpers.py:60
+#: console_helpers.py:45
 msgid "Friendly-traceback is already enabled."
 msgstr ""
 
-#: console_helpers.py:143 console_helpers.py:147
+#: console_helpers.py:81
+#, fuzzy
+#| msgid "Nothing to show: no exception recorded."
+msgid "Nothing to delete: no exception recorded."
+msgstr "Nada para mostrar: no se registró una excepción."
+
+#: console_helpers.py:89 functions_help.py:15
+msgid "Shows a list of recorded traceback messages."
+msgstr "Muestra una lista de los mensajes de traceback registrados."
+
+#: console_helpers.py:91 functions_help.py:17
+msgid "You can also use `history.clear()` and `del history[index]`."
+msgstr ""
+
+#: console_helpers.py:156 console_helpers.py:160
 msgid "{exception} is not an exception."
 msgstr "{exception} no es una excepción."
 
-#: console_helpers.py:245
+#: console_helpers.py:260
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -95,11 +101,11 @@ msgstr ""
 "Argumento no valido para `www()`.\n"
 "Los argumentos validos incluyen `None` o alguno de `{sites}`.\n"
 
-#: console_helpers.py:269
+#: console_helpers.py:284
 msgid "The default web browser cannot be used for searching."
 msgstr "El navegador web por defecto no se puede utilizar para la búsqueda."
 
-#: console_helpers.py:461
+#: console_helpers.py:475
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -169,10 +175,8 @@ msgid "Code block {filename}, line `{line}`"
 msgstr "Archivo {filename}, línea {line}"
 
 #: core.py:394
-#, fuzzy
-#| msgid "File {filename}, line {line}"
 msgid "File '{filename}', line `{line}`"
-msgstr "Archivo {filename}, línea {line}"
+msgstr "Archivo {filename}, línea `{line}`"
 
 #: core.py:408
 msgid "The entire content of `{filename}` is not available.\n"
@@ -252,85 +256,77 @@ msgid "Internal error for Friendly.\n"
 msgstr "Error interno para Friendly.\n"
 
 #: functions_help.py:10
-msgid "Removes the last recorded traceback item."
-msgstr "Elimina el último elemento del trackback registrado."
-
-#: functions_help.py:11
 msgid "Disable friendly-traceback and restore previous exception hook."
 msgstr ""
 
-#: functions_help.py:14
+#: functions_help.py:13
 msgid "Enable friendly-traceback as an exception hook"
 msgstr ""
 
-#: functions_help.py:15
+#: functions_help.py:14
 msgid "Shows all the information about the last traceback."
 msgstr "Muestra toda la información sobre el último traceback."
 
-#: functions_help.py:16
-msgid "Shows a list of recorded traceback messages."
-msgstr "Muestra una lista de los mensajes de traceback registrados."
-
-#: functions_help.py:17
+#: functions_help.py:18
 msgid "Sets the language to be used."
 msgstr "Establece el idioma a utilizar."
 
-#: functions_help.py:18
+#: functions_help.py:19
 msgid "Shows the paths corresponding to synonyms used."
 msgstr "Muestra las rutas correspondientes a los sinónimos utilizados."
 
-#: functions_help.py:19
+#: functions_help.py:20
 msgid "Changes the prompt style to be used in the Friendly console."
 msgstr "Cambia el estilo del indicador de consola que será utilizado."
 
-#: functions_help.py:22
+#: functions_help.py:23
 msgid "Shows the generic meaning of a given exception."
 msgstr "Muestra el significado genérico de una determinada excepción."
 
-#: functions_help.py:23
+#: functions_help.py:24
 msgid "Shows where an exception was raised."
 msgstr "Muestra dónde se ha producido una excepción."
 
-#: functions_help.py:24
+#: functions_help.py:25
 msgid "Shows the likely cause of the exception."
 msgstr "Muestra la causa probable de la excepción."
 
-#: functions_help.py:25
+#: functions_help.py:26
 msgid "Opens a web browser at a useful location."
 msgstr "Abre un navegador web en una ubicación útil."
 
-#: functions_help.py:26
+#: functions_help.py:27
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr "Sugerencia que a veces se añade a un traceback amistoso."
 
-#: functions_help.py:27
+#: functions_help.py:28
 msgid "Shows a normal Python traceback."
 msgstr "Muestra un traceback normal de Python."
 
-#: functions_help.py:28
+#: functions_help.py:29
 msgid "Shows a simplified Python traceback."
 msgstr "Muestra un traceback simplificado de Python."
 
-#: functions_help.py:29
+#: functions_help.py:30
 msgid "Returns the current value used for items to include by default."
 msgstr ""
 "Devuelve el valor actual utilizado para los elementos a incluir por defecto."
 
-#: functions_help.py:32
+#: functions_help.py:33
 msgid "Sets the items to show by default when an exception is raised."
 msgstr ""
 "Establece los elementos a mostrar por defecto cuando se produce una "
 "excepción."
 
-#: functions_help.py:35
+#: functions_help.py:36
 msgid "Returns the language currently used."
 msgstr "Devuelve el idioma utilizado actualmente."
 
-#: functions_help.py:36
+#: functions_help.py:37
 msgid "Sets the formatter to use for display."
 msgstr "Establece el formateador que será utilizado para mostrar."
 
-#: functions_help.py:37
+#: functions_help.py:38
 msgid "Use True (default) or False to enable debugging methods."
 msgstr ""
 "Utilice True (por defecto) o False para activar los métodos de depuración."
@@ -5302,6 +5298,12 @@ msgid ""
 "(`start:stop` or `start:stop:step`) \n"
 "and you have used {obj_type} instead.\n"
 msgstr ""
+
+#~ msgid "Nothing to go back to: no exception recorded."
+#~ msgstr "Nada a donde volver: no se registró excepción alguna."
+
+#~ msgid "Removes the last recorded traceback item."
+#~ msgstr "Elimina el último elemento del trackback registrado."
 
 #~ msgid "No information is available about this warning.\n"
 #~ msgstr "No hay información disponible sobre esta advertencia.\n"

@@ -85,7 +85,11 @@ class History:
         del session.recorded_tracebacks[index]
 
     def __repr__(self):
-        return _("Shows a list of recorded traceback messages.")
+        return (
+            _("Shows a list of recorded traceback messages.")
+            + "\n"
+            + _("You can also use `history.clear()` and `del history[index]`.")
+        )
 
     def clear(self):
         """Removes all recorded tracebacks and warnings"""

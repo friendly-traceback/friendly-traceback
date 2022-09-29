@@ -12,7 +12,9 @@ short_description = {
     ),
     "enable": lambda: _("Enable friendly-traceback as an exception hook"),
     "explain": lambda: _("Shows all the information about the last traceback."),
-    "history": lambda: _("Shows a list of recorded traceback messages."),
+    "history": lambda: _("Shows a list of recorded traceback messages.")
+    + "\n           "
+    + _("You can also use `history.clear()` and `del history[index]`."),
     "set_lang": lambda: _("Sets the language to be used."),
     "show_paths": lambda: _("Shows the paths corresponding to synonyms used."),
     "toggle_prompt": lambda: _(
