@@ -69,7 +69,7 @@ class WarningInfo:
             ).format(filename=short_filename, line=self.lineno)
         self.info["warning location header"] = location
 
-        self.info.update(**get_warning_cause(self.category, self.message))
+        self.info.update(**get_warning_cause(self.category, self.message, self))
 
     def format_source(self):
         nb_digits = len(str(self.lineno))
@@ -123,7 +123,7 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
 
     for outer_frame in inspect.getouterframes(inspect.currentframe()):
         if outer_frame.filename == filename and outer_frame.lineno == lineno:
-            warning_info = WarningInfo(
+            warning_data = WarningInfo(
                 message,
                 category,
                 filename,
@@ -133,13 +133,13 @@ def show_warning(message, category, filename, lineno, file=None, line=None):
             )
             break
     else:
-        warning_info = WarningInfo(message, category, filename, lineno)
+        warning_data = WarningInfo(message, category, filename, lineno)
 
     message = str(message)
 
     if not _run_with_pytest:
-        session.recorded_tracebacks.append(warning_info)
-    elif "cause" in warning_info.info:
+        session.recorded_tracebacks.append(warning_data)
+    elif "cause" in warning_data.info:
         # We know how to explain this; we do not print while running tests
         return
     session.write_err(f"`{category.__name__}`: {message}\n")
@@ -153,10 +153,10 @@ def enable_warnings():
 INCLUDED_PARSERS = {
     SyntaxWarning: "syntax_warning",
 }
-WARNING_MESSAGE_PARSERS = {}
+WARNING_DATA_PARSERS = {}
 
 
-class WarningMessageParser:
+class WarningDataParser:
     """This class is used to create objects that collect message parsers."""
 
     def __init__(self) -> None:
@@ -178,29 +178,30 @@ class WarningMessageParser:
         to a list that is automatically updated.
 
             @instance.add
-            def some_message_parser(message, traceback_data):
+            def some_warning_parsers(message, traceback_data):
                 ....
         """
         self.custom_parsers.append(func)
         self.parsers = self.custom_parsers + self.core_parsers
 
 
-def get_warning_parser(warning_type: Type[_E]) -> WarningMessageParser:
-    if warning_type not in WARNING_MESSAGE_PARSERS:
-        WARNING_MESSAGE_PARSERS[warning_type] = WarningMessageParser()
+def get_warning_parser(warning_type: Type[_E]) -> WarningDataParser:
+    if warning_type not in WARNING_DATA_PARSERS:
+        WARNING_DATA_PARSERS[warning_type] = WarningDataParser()
         if warning_type in INCLUDED_PARSERS:
             base_path = "friendly_traceback.warning_parsers."
             import_module(base_path + INCLUDED_PARSERS[warning_type])
-    return WARNING_MESSAGE_PARSERS[warning_type]
+    return WARNING_DATA_PARSERS[warning_type]
 
 
 def get_warning_cause(
     warning_type,
     message: str,
+    warning_data: WarningDataParser = None,
 ) -> CauseInfo:
     """Attempts to get the likely cause of an exception."""
     try:
-        return get_cause(warning_type, message)
+        return get_cause(warning_type, message, warning_data)
     except Exception as e:  # noqa # pragma: no cover
         session.write_err("Exception raised")
         session.write_err(str(e))
@@ -211,14 +212,15 @@ def get_warning_cause(
 def get_cause(
     warning_type,
     message: str,
+    warning_data: WarningDataParser = None,
 ) -> CauseInfo:
     """For a given exception type, cycle through the known message parsers,
     looking for one that can find a cause of the exception."""
-    message_parser = get_warning_parser(warning_type)
+    warning_parsers = get_warning_parser(warning_type)
 
-    for parser in message_parser.parsers:
+    for parser in warning_parsers.parsers:
         # This could be simpler if we could use the walrus operator
-        cause = parser(message)
+        cause = parser(message, warning_data)
         if cause:
             return cause
     return {}

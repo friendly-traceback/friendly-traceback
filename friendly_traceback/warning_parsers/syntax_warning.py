@@ -9,7 +9,7 @@ _ = current_lang.translate
 
 
 @parser._add
-def object_is_not_callable(message: str) -> dict:
+def object_is_not_callable(message: str, _warning_data) -> dict:
     pattern = re.compile("'(.*)' object is not callable")
     match = re.match(pattern, message)
     if not match:
@@ -35,7 +35,7 @@ def object_is_not_callable(message: str) -> dict:
 
 
 @parser._add
-def list_indices_must_be(message: str) -> dict:
+def list_indices_must_be(message: str, _warning_data) -> dict:
     pattern = re.compile(r"(.*) indices must be integers or slices, not (.*);")
     match = re.search(pattern, message)
     if match is None:
@@ -57,7 +57,7 @@ def list_indices_must_be(message: str) -> dict:
 
 
 @parser._add
-def object_is_not_subscriptable(message: str) -> dict:
+def object_is_not_subscriptable(message: str, _warning_data) -> dict:
     pattern = re.compile(r"'(.*)' object is not subscriptable")
     match = re.search(pattern, message)
     if match is None:
