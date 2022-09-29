@@ -344,11 +344,15 @@ def _get_statement() -> Optional[Statement]:  # pragma: no cover
     if not session.recorded_tracebacks:
         print(_nothing_to_show())
         return None
-    if isinstance(
-        session.recorded_tracebacks[-1].tb_data.exception_instance, SyntaxError
-    ):
-        return session.recorded_tracebacks[-1].tb_data.statement
-    print("No statement: not a SyntaxError.")
+    current_tb = session.recorded_tracebacks[-1]
+    if hasattr(current_tb, "tb_data"):
+        if isinstance(
+            session.recorded_tracebacks[-1].tb_data.exception_instance, SyntaxError
+        ):
+            return session.recorded_tracebacks[-1].tb_data.statement
+    elif hasattr(current_tb, "problem_statement"):
+        return current_tb.problem_statement
+    print("No statement: likely not a SyntaxError nor a SyntaxWarning.")
     return None
 
 

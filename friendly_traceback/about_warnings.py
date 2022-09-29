@@ -39,6 +39,7 @@ class WarningInfo:
         self.filename = filename
         self.lineno = lineno
         self.begin_lineno = lineno
+        self.lines = lines
         self.frame = frame
         self.info = {}
         self.info["warning message"] = f"{warning_type.__name__}: {self.message}\n"
@@ -47,7 +48,7 @@ class WarningInfo:
         if frame is not None:
             source = self.format_source()
             self.info["warning source"] = source
-            self.problem_line = executing.Source.executing(frame).text()
+            self.problem_statement = executing.Source.executing(frame).text()
             var_info = get_var_info(self.problem_line, frame)
             self.info["warning variables"] = var_info["var_info"]
             if "additional variable warning" in var_info:
@@ -55,7 +56,7 @@ class WarningInfo:
                     "additional variable warning"
                 ]
         else:
-            self.problem_line = "".join(lines if lines is not None else [])
+            self.info["warning source"] = self.get_source_frame_missing()
         self.recompile_info()
 
     def recompile_info(self):
@@ -70,7 +71,7 @@ class WarningInfo:
             location = _(
                 "Warning issued on line `{line}` of file '{filename}'."
             ).format(filename=short_filename, line=self.lineno)
-        self.info["warning location header"] = location
+        self.info["warning location header"] = location + "\n"
 
         self.info.update(**get_warning_cause(self.warning_type, self.message, self))
 
@@ -88,6 +89,32 @@ class WarningInfo:
         )
         formatted = formatter.format_frame(self.frame)
         return "".join(list(formatted)[1:])
+
+    def get_source_frame_missing(self):
+        new_lines = []
+        try:
+            source = executing.Source.for_filename(self.filename)
+            statement = source.statements_at_line(self.lineno).pop()
+            lines = source.lines[statement.lineno - 1 : statement.end_lineno]
+            for number, line in enumerate(lines, start=statement.lineno):
+                if number == self.lineno:
+                    new_lines.append(f"    -->{number}| {line}")
+                else:
+                    new_lines.append(f"       {number}| {line}")
+            self.problem_statement = statement
+            return "\n".join(new_lines)
+        except Exception:
+            self.problem_statement = None
+            # self.lines comes from Python; it should correspond to a single logical line
+            # but is sometimes seemingly split in two parts.
+            self.problem_statement = "".join(
+                self.lines if self.lines is not None else []
+            )
+            if not self.problem_statement:  # should not happen
+                formatted_source = _("<'source unavailable'>")
+            else:  # assume single line
+                formatted_source = f"    -->{self.lineno}| " + self.problem_statement
+            return formatted_source
 
 
 def saw_warning_before(warning_type, message, filename, lineno):
