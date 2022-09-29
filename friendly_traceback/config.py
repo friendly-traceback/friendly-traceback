@@ -74,25 +74,11 @@ class _State:
         if not self.recorded_tracebacks:
             print(_("Nothing to show: no exception recorded."))
             return
-        pos_integer = _("`index` must be a positive integer or -1.\n")
-        if index != -1:
-            try:
-                if index != abs(int(index)) and index != 0:
-                    print(pos_integer)
-                    return
-            except Exception:
-                print(pos_integer)
-                return
-            if len(self.recorded_tracebacks) < index:
-                print(
-                    _("There are only {number} recorded exceptions.\n").format(
-                        number=len(self.recorded_tracebacks)
-                    )
-                )
-                return
-            index -= 1  # list index starts at zero
-
-        info = self.recorded_tracebacks[index].info
+        try:
+            info = self.recorded_tracebacks[index].info
+        except IndexError:
+            print(_("Invalid index value."))
+            return
         if info["lang"] != self.lang:
             self.recorded_tracebacks[index].recompile_info()
             info = self.recorded_tracebacks[index].info

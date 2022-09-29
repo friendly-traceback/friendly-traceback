@@ -29,25 +29,6 @@ def _nothing_to_show():
     return _("Nothing to show: no exception recorded.")
 
 
-def back() -> None:
-    """Removes the last recorded traceback item.
-
-    The intention is to allow recovering from a typo when trying interactively
-    to find out specific information about a given exception.
-    """
-    if not session.recorded_tracebacks:
-        info = {"message": _("Nothing to go back to: no exception recorded.") + "\n"}
-        explanation = session.formatter(info, include="message")
-        session.write_err(explanation)
-        return
-    session.recorded_tracebacks.pop()
-    if session.recorded_tracebacks:
-        info = session.recorded_tracebacks[-1].info
-        if info["lang"] != friendly_traceback.get_lang():
-            info["lang"] = friendly_traceback.get_lang()
-            session.recorded_tracebacks[-1].recompile_info()
-
-
 def disable():
     """Disable friendly-traceback exception hook"""
     if not session.installed:
@@ -91,18 +72,40 @@ def hint(index: int = -1) -> None:
     explain(index, include="hint")
 
 
-def history() -> None:
-    """Prints the list of error messages recorded so far."""
-    if not session.recorded_tracebacks:
-        info = {"message": _nothing_to_show() + "\n"}
-        explanation = session.formatter(info, include="message")
-        session.write_err(explanation)
-        return
-    for index, tb in enumerate(session.recorded_tracebacks):
-        if "message" in tb.info:
-            info = {"message": f"{index+1}. {tb.info['message']}"}
+class History:
+    __name__ = "history"
+
+    def __delitem__(self, index):
+        """Used to delete a particular item: del history[index]"""
+        if not session.recorded_tracebacks:
+            info = {"message": _("Nothing to delete: no exception recorded.") + "\n"}
             explanation = session.formatter(info, include="message")
             session.write_err(explanation)
+            return
+        del session.recorded_tracebacks[index]
+
+    def __repr__(self):
+        return _("Shows a list of recorded traceback messages.")
+
+    def clear(self):
+        """Removes all recorded tracebacks and warnings"""
+        session.recorded_tracebacks.clear()
+
+    def __call__(self):
+        """Prints a list of recorded tracebacks and warning messages"""
+        if not session.recorded_tracebacks:
+            info = {"message": _nothing_to_show() + "\n"}
+            explanation = session.formatter(info, include="message")
+            session.write_err(explanation)
+            return
+        for index, tb in enumerate(session.recorded_tracebacks):
+            if "message" in tb.info:
+                info = {"message": f"{index}. {tb.info['message']}"}
+                explanation = session.formatter(info, include="message")
+                session.write_err(explanation)
+
+
+history = History()
 
 
 def python_tb(index: int = -1) -> None:
@@ -386,7 +389,6 @@ helpers: Dict[str, Callable[..., None]] = {
     "hint": hint,
     "enable": enable,
     "disable": disable,
-    "back": back,
     "history": history,
     "friendly_tb": friendly_tb,
     "python_tb": python_tb,

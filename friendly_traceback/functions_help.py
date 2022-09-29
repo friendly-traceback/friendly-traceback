@@ -7,7 +7,6 @@ from friendly_traceback.ft_gettext import current_lang
 _ = current_lang.translate
 
 short_description = {
-    "back": lambda: _("Removes the last recorded traceback item."),
     "disable": lambda: _(
         "Disable friendly-traceback and restore previous exception hook."
     ),
