@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-09-30 13:26-0300\n"
+"POT-Creation-Date: 2022-09-30 16:54-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: __init__.py:206 __main__.py:172
+#: __init__.py:200 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr ""
 
-#: __init__.py:302
+#: __init__.py:296
 msgid "{include}: Unrecognized value."
 msgstr ""
 
-#: __init__.py:303
+#: __init__.py:297
 msgid "The allowed values are:"
 msgstr ""
 
@@ -80,29 +80,33 @@ msgstr ""
 msgid "Nothing to delete: no exception recorded."
 msgstr ""
 
-#: console_helpers.py:89 functions_help.py:15
+#: console_helpers.py:88
+msgid "There is no such history item."
+msgstr ""
+
+#: console_helpers.py:94 functions_help.py:15
 msgid "Shows a list of recorded traceback messages."
 msgstr ""
 
-#: console_helpers.py:91 functions_help.py:17
+#: console_helpers.py:96 functions_help.py:17
 msgid "You can also use `history.clear()` and `del history[index]`."
 msgstr ""
 
-#: console_helpers.py:156 console_helpers.py:160
+#: console_helpers.py:163 console_helpers.py:167
 msgid "{exception} is not an exception."
 msgstr ""
 
-#: console_helpers.py:260
+#: console_helpers.py:267
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
 msgstr ""
 
-#: console_helpers.py:284
+#: console_helpers.py:291
 msgid "The default web browser cannot be used for searching."
 msgstr ""
 
-#: console_helpers.py:488
+#: console_helpers.py:495
 msgid "The following methods of the Friendly object should also be available as functions."
 msgstr ""
 
@@ -550,60 +554,60 @@ msgid ""
 "`Warning` is the base class of all warning category classes.\n"
 msgstr ""
 
-#: info_variables.py:81
+#: info_variables.py:71
 msgid "a complex number"
 msgstr ""
 
-#: info_variables.py:82
+#: info_variables.py:72
 msgid "a dictionary (`dict`)"
 msgstr ""
 
-#: info_variables.py:83
+#: info_variables.py:73
 msgid "a number (`float`)"
 msgstr ""
 
-#: info_variables.py:84
+#: info_variables.py:74
 msgid "a `frozenset`"
 msgstr ""
 
-#: info_variables.py:85
+#: info_variables.py:75
 msgid "an integer (`int`)"
 msgstr ""
 
-#: info_variables.py:86
+#: info_variables.py:76
 msgid "a `list`"
 msgstr ""
 
-#: info_variables.py:87
+#: info_variables.py:77
 msgid "a variable equal to `None` (`NoneType`)"
 msgstr ""
 
-#: info_variables.py:88
+#: info_variables.py:78
 msgid "a `set`"
 msgstr ""
 
-#: info_variables.py:89 info_variables.py:90
+#: info_variables.py:79 info_variables.py:80
 msgid "a string (`str`)"
 msgstr ""
 
-#: info_variables.py:91
+#: info_variables.py:81
 msgid "a `tuple`"
 msgstr ""
 
-#: info_variables.py:347
+#: info_variables.py:337
 msgid ""
 "Friendly warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 
-#: info_variables.py:513
+#: info_variables.py:503
 msgid "Object too large to be processed by Python."
 msgstr ""
 
-#: info_variables.py:517
+#: info_variables.py:507
 msgid "Unable to compute."
 msgstr ""
 
-#: info_variables.py:575
+#: info_variables.py:565
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"

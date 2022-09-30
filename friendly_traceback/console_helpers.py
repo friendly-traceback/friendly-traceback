@@ -82,7 +82,12 @@ class History:
             explanation = session.formatter(info, include="message")
             session.write_err(explanation)
             return
-        del session.recorded_tracebacks[index]
+        try:
+            del session.recorded_tracebacks[index]
+        except IndexError:
+            info = {"message": _("There is no such history item.") + "\n"}
+            explanation = session.formatter(info, include="message")
+            session.write_err(explanation)
 
     def __repr__(self):
         return (
@@ -102,11 +107,13 @@ class History:
             explanation = session.formatter(info, include="message")
             session.write_err(explanation)
             return
+        session.rich_add_vspace = False  # for friendly
         for index, tb in enumerate(session.recorded_tracebacks):
             if "message" in tb.info:
                 info = {"message": f"{index}. {tb.info['message']}"}
                 explanation = session.formatter(info, include="message")
                 session.write_err(explanation)
+        session.rich_add_vspace = True
 
 
 history = History()
