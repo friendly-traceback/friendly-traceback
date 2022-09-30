@@ -5,7 +5,7 @@ This is especially useful when a custom REPL is used.
 
 Note that we monkeypatch Python's linecache.getlines.
 """
-import builtins
+import inspect
 import linecache
 import time
 from typing import Any, Dict, List, Optional
@@ -87,21 +87,37 @@ def _counter():
 
 
 counter = _counter()
-true_exec = builtins.exec
 
 
-def friendly_exec(source, globals=None, locals=None):
+def friendly_exec(source, globals_=None, locals_=None):
     """A version of exec that uses a different filename each time
-    instead of the Python default '<string>'. This makes it possible
-    to provide more help on code executed via 'exec'.
+    instead of the Python default '<string>', and caches the source.
+    This makes it possible to provide more help on code executed via 'exec'.
     """
+    # We use globals_ instead of globals as an argument name
+    # (and similarly for locals_)
+    # because friendly_traceback would give a warning about redefining
+    # the builtins globals and locals if an exception were to be raised.
+
+    # Note: if locals_ is None, we do not want to assign variables to
+    # locals() defined inside this function, or globals() defined in this
+    # module, but rather to that of the calling scope which is what exec does.
+    frame = inspect.getouterframes(inspect.currentframe())[1].frame
+    true_globals = frame.f_globals
+    true_locals = frame.f_locals
+    if globals_ is None:
+        globals_ = true_globals
+        if locals_ is None:
+            locals_ = true_locals
+    else:
+        if locals is None:
+            locals_ = true_globals
+    # Let any exception bubble up: they will be correctly handled
+    # by friendly-traceback
     if not isinstance(source, str):
-        return true_exec(source, globals, locals)
+        return exec(source, globals_, locals_)
 
     filename = "<friendly-exec-%d>" % next(counter)
     cache.add(filename, source)
-    try:
-        code = compile(source, filename, "exec")
-        return true_exec(code, globals, locals)
-    except Exception:
-        return true_exec(source, globals, locals)
+    code = compile(source, filename, "exec")
+    return exec(code, globals_, locals_)

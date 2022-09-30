@@ -317,6 +317,10 @@ class FriendlyTraceback:
             self.info["exception_raised_source"] = _(
                 "{filename} is not a regular Python file whose contents can be analyzed.\n"
             ).format(filename=filename)
+            if filename == "<string>":
+                self.info["exception_raised_source"] += _(
+                    "If you used `exec`, consider using `friendly_exec` instead.\n"
+                )
 
         if session.ipython_prompt and filename.startswith("["):
             self.info["exception_raised_header"] = _(
