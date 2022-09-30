@@ -235,7 +235,7 @@ def start_console(
     if local_vars is not None:
         # Make sure we don't overwrite with our own functions
         helpers.update(local_vars)
-        helpers["friendly_exec"] = friendly_traceback.friendly_exec
+    helpers["friendly_exec"] = friendly_traceback.friendly_exec
 
     console = FriendlyTracebackConsole(
         local_vars=helpers,

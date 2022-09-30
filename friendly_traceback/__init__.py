@@ -82,24 +82,18 @@ def explain_traceback(redirect: Union[str, Writer, None] = None) -> None:
     session.explain_traceback(redirect=redirect)
 
 
-def hide_secrets(
-    words: Union[List, None] = None, patterns: Union[List, None] = None
-) -> None:
+def hide_secrets(patterns: Union[List, None] = None) -> None:
     """Intended to prevent values of certain variables to be shown.
-    Parameters:
-
-        * words: a list of words
-        * patterns: a list of regular expression patters.
+    Parameter:
+        * patterns: a list of regular expression patterns.
     """
-    info_variables.confidential.hide_confidential_information(
-        words=words, patterns=patterns
-    )
+    info_variables.confidential.hide_confidential_information(patterns=patterns)
 
 
 def test_secrets(name: str = "", value: Any = ""):
-    """Given a variable name and its value, returns the value
-    that will be shown if the variable value needs to be shown in
-    a traceback.
+    """Given a variable name and its string value, usually obtained as the
+    repr() of the variable, returns the value that will be shown
+    if the variable value needs to be shown in a traceback.
     """
     return info_variables.confidential.redact_confidential(name, value)
 

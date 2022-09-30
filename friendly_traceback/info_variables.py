@@ -32,26 +32,19 @@ RENAMED_BUILTINS = set()
 class ConfidentialInformation:
     """Used to hide values of confidential information"""
 
-    words = []
     regex = []
     redacted = "••••••"
 
-    def hide_confidential_information(
-        self, words: Union[List, None] = None, patterns: Union[List, None] = None
-    ) -> None:
+    def hide_confidential_information(self, patterns: Union[List, None] = None) -> None:
         """Use to record words or regular expression patterns that determine
         if a variable represents confidential information.
         """
-        if words is not None:
-            self.words.extend(words)
         if patterns is not None:
             for pattern in patterns:
                 self.regex.append(re.compile(pattern))
 
     def is_confidential(self, name: str) -> bool:
         """Identify variable names that are deemed to contain confidential information"""
-        if name in self.words:
-            return True
         for pattern in self.regex:
             if re.fullmatch(pattern, name):
                 return True
@@ -64,9 +57,6 @@ class ConfidentialInformation:
         # We could have a dict whose key is a confidential name, and which
         # would be shown, with its corresponding item. To guard against such
         # cases, we redact any value that contains confidential names or patters.
-        for word in self.words:
-            if word in value:
-                return confidential.redacted
         for pattern in self.regex:
             if re.findall(pattern, value):
                 return confidential.redacted
