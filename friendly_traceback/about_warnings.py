@@ -147,6 +147,15 @@ def show_warning(
 ):
     if filename == "<>":  # internal to IPython
         return
+    if (  # friendly_idle causes these two warnings.
+        warning_type == ImportWarning
+        and str(warning_instance)
+        in [
+            "PatchingFinder.find_spec() not found; falling back to find_module()",
+            "PatchingLoader.exec_module() not found; falling back to load_module()",
+        ]
+    ):
+        return
     if saw_warning_before(
         warning_type.__name__, str(warning_instance), filename, lineno
     ):
