@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-09-29 06:56-0300\n"
+"POT-Creation-Date: 2022-09-30 13:26-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,25 +15,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:205 __main__.py:172
+#: __init__.py:206 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr "Le fichier {filename} n'existe pas."
 
-#: __init__.py:301
+#: __init__.py:302
 msgid "{include}: Unrecognized value."
 msgstr "{include} : Valeur non reconnue."
 
-#: __init__.py:302
+#: __init__.py:303
 msgid "The allowed values are:"
 msgstr "Les valeurs permises sont :"
 
-#: about_warnings.py:63
+#: about_warnings.py:67
 msgid "Warning issued on line `{line}` of code block {filename}."
 msgstr "Exception levée à la ligne `{line}` du bloc de code {filename}."
 
-#: about_warnings.py:67
+#: about_warnings.py:71
 msgid "Warning issued on line `{line}` of file '{filename}'."
 msgstr "Exception levée à la ligne `{line}` du fichier '{filename}'."
+
+#: about_warnings.py:114
+msgid "<'source unavailable'>"
+msgstr "<'source non disponible'>"
 
 #: base_formatters.py:182 base_formatters.py:188
 msgid "I have no suggestion to offer."
@@ -107,7 +111,7 @@ msgid "The default web browser cannot be used for searching."
 msgstr ""
 "Le navigateur Web par défaut ne peut pas être utilisé pour la recherche."
 
-#: console_helpers.py:475
+#: console_helpers.py:488
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -141,50 +145,55 @@ msgstr ""
 msgid "The encoding of the file was not valid.\n"
 msgstr "L'encodage du fichier n'était pas valide.\n"
 
-#: core.py:317 core.py:334
+#: core.py:317 core.py:338
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} n’est pas un fichier Python dont le contenu\n"
 "peut être analysé.\n"
 
-#: core.py:322
+#: core.py:321
+msgid "If you used `exec`, consider using `friendly_exec` instead.\n"
+msgstr ""
+"Si vous avez utilisé `exec`, pensez à utiliser `friendly_exec` à la place.\n"
+
+#: core.py:326
 msgid "Exception raised on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 "Exception levée à la ligne `{linenumber}` du bloc de code {filename}.\n"
 
-#: core.py:326
+#: core.py:330
 msgid "Exception raised on line `{linenumber}` of file '{filename}'.\n"
 msgstr "Exception levée à la ligne `{linenumber}` du fichier '{filename}'.\n"
 
-#: core.py:362
+#: core.py:366
 msgid "Execution stopped on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne `{linenumber}` du block de code "
 "'{filename}'.\n"
 
-#: core.py:366
+#: core.py:370
 msgid "Execution stopped on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 "L'exécution s'est arrêtée à la ligne `{linenumber}` du fichier '{filename}'\n"
 
-#: core.py:390
+#: core.py:394
 msgid "Code block {filename}, line `{line}`"
 msgstr "Bloc de code {filename}, ligne `{line}`"
 
-#: core.py:394
+#: core.py:398
 msgid "File '{filename}', line `{line}`"
 msgstr "Fichier '{filename}', ligne `{line}`"
 
-#: core.py:408
+#: core.py:412
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr "Le contenu de `{filename}` n'est pas entièrement disponible.\n"
 
-#: core.py:422
+#: core.py:426
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python ne peut pas comprendre le code du bloc de code {filename}\n"
 
-#: core.py:426
+#: core.py:430
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -192,11 +201,11 @@ msgstr ""
 "Python ne peut pas comprendre le code du fichier\n"
 "'{filename}'\n"
 
-#: core.py:431
+#: core.py:435
 msgid "at the location indicated.\n"
 msgstr "à l'endroit indiqué.\n"
 
-#: core.py:669
+#: core.py:673
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -700,60 +709,60 @@ msgstr ""
 "`Warning` est la classe de base de toutes les classes de catégories "
 "d'avertissement.\n"
 
-#: info_variables.py:71
+#: info_variables.py:81
 msgid "a complex number"
 msgstr "un nombre complexe (`complex`)"
 
-#: info_variables.py:72
+#: info_variables.py:82
 msgid "a dictionary (`dict`)"
 msgstr "un dictionnaire (`dict`)"
 
-#: info_variables.py:73
+#: info_variables.py:83
 msgid "a number (`float`)"
 msgstr "un nombre (`float`)"
 
-#: info_variables.py:74
+#: info_variables.py:84
 msgid "a `frozenset`"
 msgstr "un ensemble de type `frozenset`"
 
-#: info_variables.py:75
+#: info_variables.py:85
 msgid "an integer (`int`)"
 msgstr "un entier (`int`)"
 
-#: info_variables.py:76
+#: info_variables.py:86
 msgid "a `list`"
 msgstr "une liste (`list`)"
 
-#: info_variables.py:77
+#: info_variables.py:87
 msgid "a variable equal to `None` (`NoneType`)"
 msgstr "une variable ayant la valeur `None` ('NoneType')"
 
-#: info_variables.py:78
+#: info_variables.py:88
 msgid "a `set`"
 msgstr "un ensemble (`set`)"
 
-#: info_variables.py:79 info_variables.py:80
+#: info_variables.py:89 info_variables.py:90
 msgid "a string (`str`)"
 msgstr "une chaîne de caractères (`str`)"
 
-#: info_variables.py:81
+#: info_variables.py:91
 msgid "a `tuple`"
 msgstr "un `tuple`"
 
-#: info_variables.py:328
+#: info_variables.py:347
 msgid "Friendly warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 "Attention : vous avez redéfini l'identifiant Python (builtin) `{name}`.\n"
 
-#: info_variables.py:494
+#: info_variables.py:513
 msgid "Object too large to be processed by Python."
 msgstr "Objet trop grand pour être traité par Python."
 
-#: info_variables.py:498
+#: info_variables.py:517
 msgid "Unable to compute."
 msgstr "Impossible de calculer."
 
-#: info_variables.py:556
+#: info_variables.py:575
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -5498,9 +5507,6 @@ msgstr ""
 
 #~ msgid "Removes the last recorded traceback item."
 #~ msgstr "Supprime le dernier élément de traceback enregistré."
-
-#~ msgid "        <'source unavailable'>"
-#~ msgstr "        <'source non disponible'>"
 
 #~ msgid "{name}: File '{filename}', line `{lineno}`\n"
 #~ msgstr "Fichier {filename}, ligne {line}\n"
