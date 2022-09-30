@@ -49,7 +49,7 @@ class WarningInfo:
             source = self.format_source()
             self.info["warning source"] = source
             self.problem_statement = executing.Source.executing(frame).text()
-            var_info = get_var_info(self.problem_line, frame)
+            var_info = get_var_info(self.problem_statement, frame)
             self.info["warning variables"] = var_info["var_info"]
             if "additional variable warning" in var_info:
                 self.info["additional variable warning"] = var_info[

@@ -30,7 +30,7 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.21"
+__version__ = "0.7.22"
 
 # ===========================================
 
@@ -41,6 +41,7 @@ from . import about_warnings  # noqa
 from . import base_formatters, debug_helper, editors_helpers, info_variables, path_info
 from .config import session
 from .ft_gettext import current_lang
+from .source_cache import friendly_exec  # noqa
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
 
 
