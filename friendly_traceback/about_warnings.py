@@ -42,7 +42,7 @@ class WarningInfo:
         self.lines = lines
         self.frame = frame
         self.info = {}
-        self.info["warning message"] = f"`{warning_type.__name__}`: {self.message}\n"
+        self.info["warning message"] = f"{warning_type.__name__}: {self.message}\n"
         self.info["message"] = self.info["warning message"]
 
         if frame is not None:
