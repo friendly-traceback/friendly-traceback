@@ -60,6 +60,16 @@ class ConfidentialInformation:
     def redact_confidential(self, name: str, value: Any) -> Any:
         if confidential.is_confidential(name):
             return confidential.redacted
+        # The value passed is the repr of the object.
+        # We could have a dict whose key is a confidential name, and which
+        # would be shown, with its corresponding item. To guard against such
+        # cases, we redact any value that contains confidential names or patters.
+        for word in self.words:
+            if word in value:
+                return confidential.redacted
+        for pattern in self.regex:
+            if re.findall(pattern, value):
+                return confidential.redacted
         return value
 
 
@@ -319,6 +329,15 @@ def find_renamed_builtins(frame) -> str:
     warnings = ""
     for name in dir(builtins):
         if name.startswith("_"):
+            continue
+        if (
+            name == "pow"
+            and "cos" in frame.f_locals
+            and "cosh" in frame.f_locals
+            and "pi" in frame.f_locals
+        ):
+            # we likely did 'from math import *' which redefines pow;
+            # no warning needed in this case
             continue
         if name in frame.f_locals:
             builtin_obj = getattr(builtins, name)
