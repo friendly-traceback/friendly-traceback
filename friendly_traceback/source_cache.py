@@ -5,7 +5,7 @@ This is especially useful when a custom REPL is used.
 
 Note that we monkeypatch Python's linecache.getlines.
 """
-
+import builtins
 import linecache
 import time
 from typing import Any, Dict, List, Optional
@@ -77,3 +77,31 @@ cache = Cache()
 
 # Monkeypatch linecache to make our own cached content available to Python.
 linecache.getlines = cache.get_source_lines
+
+
+def _counter():
+    num = 0
+    while True:
+        yield num
+        num += 1
+
+
+counter = _counter()
+true_exec = builtins.exec
+
+
+def friendly_exec(source, globals=None, locals=None):
+    """A version of exec that uses a different filename each time
+    instead of the Python default '<string>'. This makes it possible
+    to provide more help on code executed via 'exec'.
+    """
+    if not isinstance(source, str):
+        return true_exec(source, globals, locals)
+
+    filename = "<friendly-exec-%d>" % next(counter)
+    cache.add(filename, source)
+    try:
+        code = compile(source, filename, "exec")
+        return true_exec(code, globals, locals)
+    except Exception:
+        return true_exec(source, globals, locals)
