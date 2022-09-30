@@ -32,8 +32,8 @@ def _nothing_to_show():
 def disable():
     """Disable friendly-traceback exception hook"""
     if not session.installed:
-        info = {"message": _("Friendly-traceback is already disabled.") + "\n"}
-        explanation = session.formatter(info, include="message")
+        info = {"suggest": _("Friendly-traceback is already disabled.") + "\n"}
+        explanation = session.formatter(info, include="hint")
         session.write_err(explanation)
         return
     session.uninstall()
@@ -42,8 +42,8 @@ def disable():
 def enable():
     """Enable friendly-traceback exception hook"""
     if session.installed:
-        info = {"message": _("Friendly-traceback is already enabled.") + "\n"}
-        explanation = session.formatter(info, include="message")
+        info = {"suggest": _("Friendly-traceback is already enabled.") + "\n"}
+        explanation = session.formatter(info, include="hint")
         session.write_err(explanation)
         return
     session.install()
@@ -78,15 +78,15 @@ class History:
     def __delitem__(self, index):
         """Used to delete a particular item: del history[index]"""
         if not session.recorded_tracebacks:
-            info = {"message": _("Nothing to delete: no exception recorded.") + "\n"}
-            explanation = session.formatter(info, include="message")
+            info = {"suggest": _("Nothing to delete: no exception recorded.") + "\n"}
+            explanation = session.formatter(info, include="hint")
             session.write_err(explanation)
             return
         try:
             del session.recorded_tracebacks[index]
         except IndexError:
-            info = {"message": _("There is no such history item.") + "\n"}
-            explanation = session.formatter(info, include="message")
+            info = {"suggest": _("There is no such history item.") + "\n"}
+            explanation = session.formatter(info, include="hint")
             session.write_err(explanation)
 
     def __repr__(self):
@@ -103,8 +103,8 @@ class History:
     def __call__(self):
         """Prints a list of recorded tracebacks and warning messages"""
         if not session.recorded_tracebacks:
-            info = {"message": _nothing_to_show() + "\n"}
-            explanation = session.formatter(info, include="message")
+            info = {"suggest": _nothing_to_show() + "\n"}
+            explanation = session.formatter(info, include="hint")
             session.write_err(explanation)
             return
         session.rich_add_vspace = False  # for friendly
