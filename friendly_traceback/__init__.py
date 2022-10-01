@@ -30,7 +30,7 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.27"
+__version__ = "0.7.28"
 
 # ===========================================
 
@@ -90,12 +90,25 @@ def hide_secrets(patterns: Union[List, None] = None) -> None:
     info_variables.confidential.hide_confidential_information(patterns=patterns)
 
 
-def test_secrets(name: str = "", value: Any = ""):
-    """Given a variable name and its string value, usually obtained as the
-    repr() of the variable, returns the value that will be shown
-    if the variable value needs to be shown in a traceback.
+def test_secrets(name: str = ""):
+    """Given a variable name that exists in the local scope where this function is invoked
+    returns the value that will be shown if the variable value needs to be
+    shown in a traceback.
     """
-    return info_variables.confidential.redact_confidential(name, value)
+    if not isinstance(name, str):
+        print(
+            "The argument of test_secrets must be a string representing the name of local object."
+        )
+        return
+    frame = inspect.getouterframes(inspect.currentframe())[1].frame
+    if name not in frame.f_locals:
+        print(
+            "The argument of test_secrets must be a string representing the name of a local object."
+        )
+        return
+    obj = frame.f_locals[name]
+    obj_repr = info_variables.format_var_info(name, obj)
+    return obj_repr
 
 
 def get_output(flush: bool = True) -> str:

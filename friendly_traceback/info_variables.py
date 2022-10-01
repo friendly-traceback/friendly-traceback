@@ -33,7 +33,7 @@ class ConfidentialInformation:
     """Used to hide values of confidential information"""
 
     regex = []
-    redacted = "••••••"
+    redacted = "'••••••'"
 
     def hide_confidential_information(self, patterns: Union[List, None] = None) -> None:
         """Use to record words or regular expression patterns that determine
@@ -457,8 +457,6 @@ def format_var_info(name: str, obj: str, _global: str = "") -> str:
         _global = "global "
 
     obj_repr = safe_repr(obj)
-    # assert obj_repr == value
-
     obj_repr = confidential.redact_confidential(name, obj_repr)
 
     if obj_repr.startswith("<") and obj_repr.endswith(">"):

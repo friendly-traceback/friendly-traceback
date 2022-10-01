@@ -14,12 +14,15 @@ def test_confidential():
 def test_confidential_api():
     confidential = ft.info_variables.confidential
     ft.hide_secrets(patterns=["password", "secret.*"])
-    secret_names = ["password", "secret1", "secret_2"]
+    password = "hello world"
+    secret1 = "something"
+    secret_2 = "something else"
+    string_confidential = "It contains a password"
+
+    secret_names = ["password", "secret1", "secret_2", "string_confidential"]
     for name in secret_names:
-        assert ft.test_secrets(name, "anything") == confidential.redacted
+        assert confidential.redacted in ft.test_secrets(name)
 
-    safe_names = ["password_1", "Python", "not_secret"]
-    for name in safe_names:
-        assert ft.test_secrets(name, "anything") != confidential.redacted
+    something = "Not confidential"
 
-    assert ft.test_secrets("anything", "confidential password") == confidential.redacted
+    assert confidential.redacted not in ft.test_secrets("something")
