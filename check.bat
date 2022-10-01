@@ -8,4 +8,4 @@ call deactivate
 cd ..\..\friendly-docs
 call make html
 cd ..\friendly-traceback
-call venv-friendly-traceback-3.8\scripts\activate
+call venv-friendly-traceback-3.9\scripts\activate

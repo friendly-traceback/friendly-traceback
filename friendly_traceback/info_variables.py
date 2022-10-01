@@ -128,17 +128,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                 if name in scope_dict:
                     names.add(name)
                     obj = scope_dict[name]
-                    if hasattr(obj, "true_repr"):  # sourcery: skip
-                        # guard against the case where obj == Friendly; #106
-                        repr_obj = str(obj.true_repr())
-                        # wrapped in str() for added security in case someone
-                        # else uses an attribute called true_repr
-                    else:
-                        try:
-                            repr_obj = repr(obj)
-                        except Exception:  # issue #161: repr not returning a string
-                            repr_obj = str(type(obj))
-                    objects[scope].append((name, repr_obj, obj))
+                    objects[scope].append((name, obj))
                     objects["name, obj"].append((name, obj))
                     obj_type = type(obj).__name__
                     if obj_type is not None:
@@ -148,7 +138,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                 if name in dir(builtins):
                     names.add(name)
                     obj = getattr(builtins, name)
-                    objects["builtins"].append((name, repr(obj), obj))
+                    objects["builtins"].append((name, obj))
                     objects["name, obj"].append((name, obj))
                     obj_type = type(obj).__name__
                     if obj_type is not None:
@@ -287,23 +277,23 @@ def get_var_info(line: str, frame: types.FrameType) -> dict:
     objects = get_all_objects(line.strip(), frame)
 
     objects["locals"].sort()
-    for name, value, obj in objects["locals"]:
-        result = format_var_info(name, value, obj)
+    for name, obj in objects["locals"]:
+        result = format_var_info(name, obj)
         names_info.append(result)
 
     objects["globals"].sort()
-    for name, value, obj in objects["globals"]:
-        result = format_var_info(name, value, obj, "globals")
+    for name, obj in objects["globals"]:
+        result = format_var_info(name, obj, "globals")
         names_info.append(result)
 
     objects["builtins"].sort()
-    for name, value, obj in objects["builtins"]:
-        result = format_var_info(name, value, obj)
+    for name, obj in objects["builtins"]:
+        result = format_var_info(name, obj)
         names_info.append(result)
 
     objects["expressions"].sort()
     for name, obj in objects["expressions"]:
-        result = format_var_info(name, repr(obj), obj)
+        result = format_var_info(name, obj)
         names_info.append(result)
 
     if names_info:
@@ -346,66 +336,66 @@ def find_renamed_builtins(frame) -> str:
     return warnings
 
 
-def simplify_repr(name: str, splitlines: bool = True) -> str:
+def simplify_repr(value: str, splitlines: bool = True) -> str:
     """Remove irrelevant memory location information from functions, etc.
 
-    Does additional formatting in an attempt to make the names (repr)
+    Does additional formatting in an attempt to make the values (repr)
     more readable.
     """
-    if not name.startswith("<") or not name.endswith(">"):
-        debug_helper.log("simplify_repr called on name that is not of the form <...>")
-        debug_helper.log(f"name={name}")
-        return name
-    end_angle = ">>" if name.endswith(">>") else ">"
+    if not value.startswith("<") or not value.endswith(">"):
+        debug_helper.log("simplify_repr called on value that is not of the form <...>")
+        debug_helper.log(f"value={value}")
+        return value
+    end_angle = ">>" if value.endswith(">>") else ">"
 
-    bound_method = "bound method" in name
-    if " at " in name:
+    bound_method = "bound method" in value
+    if " at " in value:
         # There are two reasons to remove the memory location information:
         # 1. this information is essentially of no value for beginners
         # 2. Removing this information ensures that consecutive runs of
         #    script to create tracebacks for the documentation will yield
         #    exactly the same results.
         #    This makes it easier to spot changes/regressions.
-        name = name.split(" at ")[0] + end_angle
-    elif " from " in name:  # example: module X from stdlib_path
-        obj_repr, path = name.split(" from ")
+        value = value.split(" at ")[0] + end_angle
+    elif " from " in value:  # example: module X from stdlib_path
+        obj_repr, path = value.split(" from ")
         path = path_utils.shorten_path(path[:-1])  # -1 removes >
         # Avoid lines that are too long
         if len(obj_repr) + len(path) > MAX_LENGTH and splitlines:
-            name = obj_repr + f">\n{INDENT}from " + path
+            value = obj_repr + f">\n{INDENT}from " + path
         else:
-            name = obj_repr + "> from " + path
+            value = obj_repr + "> from " + path
 
     # Replace some strings so that colour formatting is nicer
-    name = name.replace("<class '", "<class ")
-    name = name.replace("<module '", "<module ")
-    name = name.replace("'>", ">")
-    name = name.replace("' (built-in)", " (built-in)")
+    value = value.replace("<class '", "<class ")
+    value = value.replace("<module '", "<module ")
+    value = value.replace("'>", ">")
+    value = value.replace("' (built-in)", " (built-in)")
     # The following replacement is done so that, when using rich, pygments
     # does not style the - and 'in' in a weird way.
-    name = name.replace("built-in", "builtin")
+    value = value.replace("built-in", "builtin")
     if bound_method:
-        name = simplify_bound_method(name, splitlines=splitlines)
-    elif ".<locals>." in name:
-        parts = name.split(".<locals>.")
+        value = simplify_bound_method(value, splitlines=splitlines)
+    elif ".<locals>." in value:
+        parts = value.split(".<locals>.")
         file_name = ".<locals>".join(parts[0:-1])
         obj_name = parts[-1]
-        if name.startswith("<function "):
+        if value.startswith("<function "):
             start = "<function "
-        elif name.startswith("<class "):
+        elif value.startswith("<class "):
             start = "<class "
         else:
             start = "<"
         file_name = file_name.replace(start, "").replace(".locals>", ".<locals>.")
-        name = start + obj_name + " defined in <function " + file_name + ">"
-        if len(name) > MAX_LENGTH and splitlines:
-            name = (
+        value = start + obj_name + " defined in <function " + file_name + ">"
+        if len(value) > MAX_LENGTH and splitlines:
+            value = (
                 start + obj_name + f"\n{INDENT}defined in <function " + file_name + ">"
             )
 
-    if "__main__." in name:  # pragma: no cover
-        name = name.replace("__main__.", "")
-    return name
+    if "__main__." in value:  # pragma: no cover
+        value = value.replace("__main__.", "")
+    return value
 
 
 def simplify_bound_method(name: str, splitlines: bool = False) -> str:
@@ -434,7 +424,21 @@ def simplify_bound_method(name: str, splitlines: bool = False) -> str:
     return name
 
 
-def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
+def safe_repr(obj):
+    if hasattr(obj, "true_repr"):  # sourcery: skip
+        # guard against the case where obj == Friendly; #106
+        obj_repr = str(obj.true_repr())
+        # wrapped in str() for added security in case someone
+        # else uses an attribute called true_repr
+    else:
+        try:
+            obj_repr = repr(obj)
+        except Exception:  # issue #161: repr not returning a string
+            obj_repr = str(type(obj))
+    return obj_repr
+
+
+def format_var_info(name: str, obj: str, _global: str = "") -> str:
     """Formats the variable information so that it fits on a single line
     for each variable.
 
@@ -452,16 +456,19 @@ def format_var_info(name: str, value: str, obj: str, _global: str = "") -> str:
     if _global:
         _global = "global "
 
-    value = confidential.redact_confidential(name, value)
+    obj_repr = safe_repr(obj)
+    # assert obj_repr == value
 
-    if value.startswith("<") and value.endswith(">"):
-        value = simplify_repr(value)
-    elif "\n" in value:
-        value = format_multiline(value)
-    elif len(value) > MAX_LENGTH:
-        value, length_info = shorten_long_line(value, obj)
+    obj_repr = confidential.redact_confidential(name, obj_repr)
 
-    result = f"    {_global}{name}:  {value}"
+    if obj_repr.startswith("<") and obj_repr.endswith(">"):
+        obj_repr = simplify_repr(obj_repr)
+    elif "\n" in obj_repr:
+        obj_repr = format_multiline(obj_repr)
+    elif len(obj_repr) > MAX_LENGTH:
+        obj_repr, length_info = shorten_long_line(obj_repr, obj)
+
+    result = f"    {_global}{name}:  {obj_repr}"
     if length_info:
         indent = " " * min(7 + len(name), 12)
         result += f"\n{indent}len({name}): {length_info}\n"
