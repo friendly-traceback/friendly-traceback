@@ -14,7 +14,7 @@ short_description = {
     "explain": lambda: _("Shows all the information about the last traceback."),
     "history": lambda: _("Shows a list of recorded traceback messages.")
     + " "
-    + _("You can also use `history.clear()` and `del history[index]`."),
+    + _("You can also use `history.clear()` and `history.pop()`."),
     "set_lang": lambda: _("Sets the language to be used."),
     "show_paths": lambda: _("Shows the paths corresponding to synonyms used."),
     "toggle_prompt": lambda: _(

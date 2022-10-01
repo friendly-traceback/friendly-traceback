@@ -75,31 +75,6 @@ def hint(index: int = -1) -> None:
 class History:
     __name__ = "history"
 
-    def __delitem__(self, index):
-        """Used to delete a particular item: del history[index]"""
-        if not session.recorded_tracebacks:
-            info = {"suggest": _("Nothing to delete: no exception recorded.") + "\n"}
-            explanation = session.formatter(info, include="hint")
-            session.write_err(explanation)
-            return
-        try:
-            del session.recorded_tracebacks[index]
-        except IndexError:
-            info = {"suggest": _("There is no such history item.") + "\n"}
-            explanation = session.formatter(info, include="hint")
-            session.write_err(explanation)
-
-    def __repr__(self):
-        return (
-            _("Shows a list of recorded traceback messages.")
-            + "\n"
-            + _("You can also use `history.clear()` and `del history[index]`.")
-        )
-
-    def clear(self):
-        """Removes all recorded tracebacks and warnings"""
-        session.recorded_tracebacks.clear()
-
     def __call__(self):
         """Prints a list of recorded tracebacks and warning messages"""
         if not session.recorded_tracebacks:
@@ -114,6 +89,31 @@ class History:
                 explanation = session.formatter(info, include="message")
                 session.write_err(explanation)
         session.rich_add_vspace = True
+
+    def __repr__(self):
+        return (
+            _("Shows a list of recorded traceback messages.")
+            + "\n"
+            + _("You can also use `history.clear()` and `history.pop()`.")
+        )
+
+    def clear(self):
+        """Removes all recorded tracebacks and warnings"""
+        session.recorded_tracebacks.clear()
+
+    def pop(self, index=-1):
+        """Used to delete a particular item, with the last item removed by default"""
+        if not session.recorded_tracebacks:
+            info = {"suggest": _("Nothing to delete: no exception recorded.") + "\n"}
+            explanation = session.formatter(info, include="hint")
+            session.write_err(explanation)
+            return
+        try:
+            session.recorded_tracebacks.pop(index)
+        except IndexError:
+            info = {"suggest": _("There is no such history item.") + "\n"}
+            explanation = session.formatter(info, include="hint")
+            session.write_err(explanation)
 
 
 history = History()

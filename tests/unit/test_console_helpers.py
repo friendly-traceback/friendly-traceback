@@ -28,7 +28,7 @@ def test_friendly_tb():
     assert _message in result
     assert "File" in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -46,7 +46,7 @@ def test_hint():
     assert _message not in result
     assert "File" not in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -61,7 +61,7 @@ def test_history():
     helpers.history()
     assert "NameError" in friendly_traceback.get_output()
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     helpers.history()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
@@ -80,7 +80,7 @@ def test_python_tb():
     assert "AttributeError" in result
     assert "File" in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -101,7 +101,7 @@ def test_what():
     assert _where not in result
     assert _why not in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -123,7 +123,7 @@ def test_what_name():
     assert _why not in result
     assert "NameError" in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -145,7 +145,7 @@ def test_what_type():
     assert _why not in result
     assert "LookupError" in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 def test_where():
@@ -165,7 +165,7 @@ def test_where():
     assert _where in result
     assert _why not in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -186,7 +186,7 @@ def test_why():
     assert _where not in result
     assert _why in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -207,7 +207,7 @@ def test_why_no_hint():
     result = friendly_traceback.get_output()
     assert "I have no suggestion to offer; try `why()`." in result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 def test_no_why():
@@ -225,7 +225,7 @@ def test_no_why():
     new_result = friendly_traceback.get_output()
     assert "I have no suggestion to offer." in new_result
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[-1]
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks
 
 
@@ -241,5 +241,5 @@ def test_no_why_no_message():
     what = helpers.what()
     assert why == what
     assert friendly_traceback.config.session.recorded_tracebacks
-    del helpers.history[0]  # to be different
+    helpers.history.pop()
     assert not friendly_traceback.config.session.recorded_tracebacks

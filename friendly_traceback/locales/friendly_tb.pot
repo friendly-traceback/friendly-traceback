@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-09-30 16:54-0300\n"
+"POT-Creation-Date: 2022-10-01 18:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: __init__.py:200 __main__.py:172
+#: __init__.py:213 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr ""
 
-#: __init__.py:296
+#: __init__.py:309
 msgid "{include}: Unrecognized value."
 msgstr ""
 
-#: __init__.py:297
+#: __init__.py:310
 msgid "The allowed values are:"
 msgstr ""
 
@@ -54,7 +54,7 @@ msgid ""
 "You will need to import `start_console` if you have not already done so.\n"
 msgstr ""
 
-#: config.py:75 config.py:195 console_helpers.py:29
+#: config.py:75 config.py:191 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr ""
 
@@ -62,7 +62,7 @@ msgstr ""
 msgid "Invalid index value."
 msgstr ""
 
-#: config.py:321
+#: config.py:317
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -76,20 +76,20 @@ msgstr ""
 msgid "Friendly-traceback is already enabled."
 msgstr ""
 
-#: console_helpers.py:81
-msgid "Nothing to delete: no exception recorded."
-msgstr ""
-
-#: console_helpers.py:88
-msgid "There is no such history item."
-msgstr ""
-
-#: console_helpers.py:94 functions_help.py:15
+#: console_helpers.py:95 functions_help.py:15
 msgid "Shows a list of recorded traceback messages."
 msgstr ""
 
-#: console_helpers.py:96 functions_help.py:17
-msgid "You can also use `history.clear()` and `del history[index]`."
+#: console_helpers.py:97 functions_help.py:17
+msgid "You can also use `history.clear()` and `history.pop()`."
+msgstr ""
+
+#: console_helpers.py:107
+msgid "Nothing to delete: no exception recorded."
+msgstr ""
+
+#: console_helpers.py:114
+msgid "There is no such history item."
 msgstr ""
 
 #: console_helpers.py:163 console_helpers.py:167
@@ -594,20 +594,20 @@ msgstr ""
 msgid "a `tuple`"
 msgstr ""
 
-#: info_variables.py:337
+#: info_variables.py:327
 msgid ""
 "Friendly warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 
-#: info_variables.py:503
+#: info_variables.py:508
 msgid "Object too large to be processed by Python."
 msgstr ""
 
-#: info_variables.py:507
+#: info_variables.py:512
 msgid "Unable to compute."
 msgstr ""
 
-#: info_variables.py:565
+#: info_variables.py:570
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"

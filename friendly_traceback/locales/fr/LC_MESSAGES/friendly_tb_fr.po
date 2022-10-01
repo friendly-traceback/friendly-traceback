@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-09-30 16:54-0300\n"
+"POT-Creation-Date: 2022-10-01 18:15-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:200 __main__.py:172
+#: __init__.py:213 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr "Le fichier {filename} n'existe pas."
 
-#: __init__.py:296
+#: __init__.py:309
 msgid "{include}: Unrecognized value."
 msgstr "{include} : Valeur non reconnue."
 
-#: __init__.py:297
+#: __init__.py:310
 msgid "The allowed values are:"
 msgstr "Les valeurs permises sont :"
 
@@ -57,7 +57,7 @@ msgstr ""
 "Si oui, pour continuer, essayez : `start_console(local_vars=locals())`.\n"
 "Vous devrez importer `start_console` si vous ne l'avez pas déjà fait.\n"
 
-#: config.py:75 config.py:195 console_helpers.py:29
+#: config.py:75 config.py:191 console_helpers.py:29
 msgid "Nothing to show: no exception recorded."
 msgstr "Rien à montrer: pas d’exception enregistrée."
 
@@ -65,7 +65,7 @@ msgstr "Rien à montrer: pas d’exception enregistrée."
 msgid "Invalid index value."
 msgstr "Valeur d'index non valide."
 
-#: config.py:321
+#: config.py:317
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -81,22 +81,21 @@ msgstr "Friendly-traceback est déjà désactivé."
 msgid "Friendly-traceback is already enabled."
 msgstr "Friendly-traceback est déjà activé."
 
-#: console_helpers.py:81
-msgid "Nothing to delete: no exception recorded."
-msgstr "Rien à supprimer : aucune exception enregistrée."
-
-#: console_helpers.py:88
-msgid "There is no such history item."
-msgstr "Il n'y a pas un tel élément dans l'histoire."
-
-#: console_helpers.py:94 functions_help.py:15
+#: console_helpers.py:95 functions_help.py:15
 msgid "Shows a list of recorded traceback messages."
 msgstr "Affiche une liste des messages de traceback enregistrés."
 
-#: console_helpers.py:96 functions_help.py:17
-msgid "You can also use `history.clear()` and `del history[index]`."
-msgstr ""
-"Vous pouvez également utiliser `history.clear()` et `del history[index]`."
+#: console_helpers.py:97 functions_help.py:17
+msgid "You can also use `history.clear()` and `history.pop()`."
+msgstr "Vous pouvez également utiliser `history.clear()` et `history.pop()`."
+
+#: console_helpers.py:107
+msgid "Nothing to delete: no exception recorded."
+msgstr "Rien à supprimer : aucune exception enregistrée."
+
+#: console_helpers.py:114
+msgid "There is no such history item."
+msgstr "Il n'y a pas un tel élément dans l'histoire."
 
 #: console_helpers.py:163 console_helpers.py:167
 msgid "{exception} is not an exception."
@@ -753,20 +752,20 @@ msgstr "une chaîne de caractères (`str`)"
 msgid "a `tuple`"
 msgstr "un `tuple`"
 
-#: info_variables.py:337
+#: info_variables.py:327
 msgid "Friendly warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 "Attention : vous avez redéfini l'identifiant Python (builtin) `{name}`.\n"
 
-#: info_variables.py:503
+#: info_variables.py:508
 msgid "Object too large to be processed by Python."
 msgstr "Objet trop grand pour être traité par Python."
 
-#: info_variables.py:507
+#: info_variables.py:512
 msgid "Unable to compute."
 msgstr "Impossible de calculer."
 
-#: info_variables.py:565
+#: info_variables.py:570
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
