@@ -85,7 +85,8 @@ def explain_traceback(redirect: Union[str, Writer, None] = None) -> None:
 def hide_secrets(patterns: Union[List, None] = None) -> None:
     """Intended to prevent values of certain variables to be shown.
     Parameter:
-        * patterns: a list of regular expression patterns.
+
+        - patterns: a list of regular expression patterns.
     """
     info_variables.confidential.hide_confidential_information(patterns=patterns)
 

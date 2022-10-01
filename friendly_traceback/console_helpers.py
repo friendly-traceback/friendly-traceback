@@ -244,9 +244,6 @@ def www(site: Optional[Site] = None) -> None:  # pragma: no cover
     * If the argument 'site' == "email",
       the default email client should open with Friendly's
       developer's address already filled in.
-
-    * If the argument 'site' == "warnings", a specific issue
-      on Github will be shown, inviting comments.
     """
     import urllib.parse
     import webbrowser
@@ -256,7 +253,6 @@ def www(site: Optional[Site] = None) -> None:  # pragma: no cover
         "python": "https://docs.python.org/3",
         "bug": "https://github.com/friendly-traceback/friendly-traceback/issues/new",
         "email": "mailto:andre.roberge@gmail.com",
-        "warnings": "https://github.com/friendly-traceback/friendly-traceback/issues/7",
     }
     try:
         site = site.casefold()
