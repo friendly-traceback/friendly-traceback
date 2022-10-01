@@ -108,10 +108,6 @@ class _State:
             return
         current_lang.install(lang)
         self.lang = lang
-        # TODO: this might not be needed, we could just update the language
-        # TODO: when display is needed.
-        if self.recorded_tracebacks:
-            self.recorded_tracebacks[-1].recompile_info()
 
     def install_gettext(self, lang: str) -> None:
         """Sets the current language for gettext."""
