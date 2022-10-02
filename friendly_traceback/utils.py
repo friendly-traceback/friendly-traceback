@@ -8,7 +8,6 @@ import types
 import uuid
 from typing import Any, Iterable, List, Tuple
 
-import executing
 import pure_eval
 
 from .tb_data import TracebackData  # purely for type checking
