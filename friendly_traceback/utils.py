@@ -231,8 +231,7 @@ def to_code_block(code: str) -> str:
     indent = " " * 4
     new_lines = ["\n"]
     lines = code.split("\n")
-    for line in lines:
-        new_lines.append(f"{indent}{line}")
+    new_lines.extend(f"{indent}{line}" for line in lines)
     new_lines.append("\n")
     return "\n".join(new_lines)
 
