@@ -164,18 +164,21 @@ def show_warning(
         # is repeated
         return
 
-    for outer_frame in inspect.getouterframes(inspect.currentframe()):
-        if outer_frame.filename == filename and outer_frame.lineno == lineno:
-            warning_data = WarningInfo(
-                warning_instance,
-                warning_type,
-                filename,
-                lineno,
-                frame=outer_frame.frame,
-                lines=outer_frame.code_context,
-            )
-            break
-    else:
+    try:
+        for outer_frame in inspect.getouterframes(inspect.currentframe()):
+            if outer_frame.filename == filename and outer_frame.lineno == lineno:
+                warning_data = WarningInfo(
+                    warning_instance,
+                    warning_type,
+                    filename,
+                    lineno,
+                    frame=outer_frame.frame,
+                    lines=outer_frame.code_context,
+                )
+                break
+        else:
+            warning_data = WarningInfo(warning_instance, warning_type, filename, lineno)
+    except Exception:
         warning_data = WarningInfo(warning_instance, warning_type, filename, lineno)
 
     message = str(warning_instance)
