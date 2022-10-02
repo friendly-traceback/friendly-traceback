@@ -213,9 +213,9 @@ def get_bad_statement(tb_data: TracebackData) -> str:
     """This function attempts to recover a complete statement
     even if it spans multiple lines."""
     try:
-        st = executing.executing.statement_containing_node(tb_data.node)
-        source = executing.executing.Source.for_frame(tb_data.exception_frame)
-        return source.asttokens().get_text(st)
+        ex = tb_data.records[-1].executing
+        [statement] = ex.statements
+        return ex.source.asttokens().get_text(statement)
     except Exception:  # noqa
         if hasattr(tb_data, "original_bad_line"):
             return tb_data.original_bad_line
