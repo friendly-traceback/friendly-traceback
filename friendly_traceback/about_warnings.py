@@ -1,4 +1,12 @@
-"""This module will expand later."""
+"""This module includes all relevant classes and functions so that
+friendly-traceback can give help with warnings.
+
+It contains one function (``enable_warnings``) which is part of the API,
+and one (``get_warning_parser``) which is the only other function in this module
+which is intended to be part of the public API. However, while the latter
+can be imported using ``from friendly_traceback import enable_warnings``,
+``get_warning_parser`` needs to be imported from this module.
+"""
 import inspect
 import sys
 import warnings
@@ -22,6 +30,21 @@ _warnings_seen = {}
 _run_with_pytest = False
 if "pytest" in sys.modules:
     _run_with_pytest = True
+
+
+def enable_warnings():
+    """Used to enable all warnings, with 'always' being used as the
+    parameter for warnings.simplefilter.
+
+    While friendly_traceback, used by many third-party packages, does not
+    automatically handle warnings by default, friendly, which is meant to
+    be used by end-users instead of other packages/libraries, does call
+    enable_warnings by default.
+    """
+    # Note: enable_warnings is imported by friendly_traceback.__init__
+    # so that it is part of the public API.
+    warnings.simplefilter("always")
+    warnings.showwarning = show_warning
 
 
 class MyFormatter(Formatter):
@@ -111,7 +134,10 @@ class WarningInfo:
                 self.lines if self.lines is not None else []
             )
             if not self.problem_statement:  # should not happen
-                formatted_source = _("<'source unavailable'>")
+                formatted_source = _(
+                    "The source is unavailable.\n"
+                    "If you used `exec`, consider using `friendly_exec` instead."
+                )
             else:  # assume single line
                 formatted_source = f"    -->{self.lineno}| " + self.problem_statement
             return formatted_source
@@ -191,11 +217,6 @@ def show_warning(
     session.write_err(f"`{warning_type.__name__}`: {message}\n")
 
 
-def enable_warnings():
-    warnings.simplefilter("always")
-    warnings.showwarning = show_warning
-
-
 INCLUDED_PARSERS = {
     SyntaxWarning: "syntax_warning",
 }
@@ -221,7 +242,7 @@ class WarningDataParser:
     def add(self, func: Parser) -> None:
         """This method is meant to be used by projects that extend
         friendly-traceback. It is used as a decorator to add a message parser
-        to a list that is automatically updated.
+        to a list that is automatically updated::
 
             @instance.add
             def some_warning_parsers(message, traceback_data):
@@ -232,6 +253,19 @@ class WarningDataParser:
 
 
 def get_warning_parser(warning_type: Type[_E]) -> WarningDataParser:
+    """Gets a 'parser' to find the cause for a given warning.
+    Usage::
+
+        parser = get_warning_parser(SomeSpecificWarning)
+
+        @parser.add
+        def some_meaningful_name(warning_message: str,
+                                 warning_data: WarningDataParser) -> dict:
+            if not handled_by_this_function(warning_message):
+                return {}  # let other parsers deal with it
+
+            ...
+    """
     if warning_type not in WARNING_DATA_PARSERS:
         WARNING_DATA_PARSERS[warning_type] = WarningDataParser()
         if warning_type in INCLUDED_PARSERS:

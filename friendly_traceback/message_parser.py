@@ -1,3 +1,13 @@
+"""This module contains the necessary class and functions needed to
+help finding the cause (specific information aka answer to ``why()``)
+of an exception. Most of the content should be considered to be private.
+
+It does contain one function (``get_parser``)
+which is intended to be part of the public API, but needs to be
+imported from this module instead of simply from ``friendly_traceback``.
+"""
+
+
 from importlib import import_module
 from typing import List, Type
 
@@ -43,7 +53,7 @@ class RuntimeMessageParser:
     def add(self, func: Parser) -> None:
         """This method is meant to be used by projects that extend
         friendly-traceback. It is used as a decorator to add a message parser
-        to a list that is automatically updated.
+        to a list that is automatically updated::
 
             @instance.add
             def some_message_parser(message, traceback_data):
@@ -54,6 +64,19 @@ class RuntimeMessageParser:
 
 
 def get_parser(exception_type: Type[_E]) -> RuntimeMessageParser:
+    """Gets a 'parser' to find the cause for a given exception.
+    Usage::
+
+        parser = get_parser(SomeSpecificError)
+
+        @parser.add
+        def some_meaningful_name(message: str,
+                                 tb_data: TracebackData) -> dict:
+            if not handled_by_this_function(message):
+                return {}  # let other parsers deal with it
+
+            ...
+    """
     if exception_type not in RUNTIME_MESSAGE_PARSERS:
         RUNTIME_MESSAGE_PARSERS[exception_type] = RuntimeMessageParser()
         if exception_type in INCLUDED_PARSERS:

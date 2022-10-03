@@ -24,7 +24,7 @@ This module currently contains 2 formatters:
 
 * ``repl()``: This is used to print the information in a traditional console.
   The indentation of the traceback itself is chosen
-  so as to reproduce that of a normal Python traceback.
+  to reproduce that of a normal Python traceback.
 
 * ``docs()``: this produces output with leading spaces so that it can be
   embedded as a code-block in a file (such as .rst). It can also be used

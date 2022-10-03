@@ -1,6 +1,11 @@
-"""info_generic.py
+"""This module contains the necessary class and functions needed to
+help describing what a given exception or warning means
+(i.e. the answer to ``why()``)
+of an exception. Most of the content should be considered to be private.
 
-Generic information about Python exceptions.
+It does contain one decorator (``register``)
+which is intended to be part of the public API, but needs to be
+imported from this module instead of simply from ``friendly_traceback``.
 """
 import inspect
 from typing import Any, Callable, Dict, Type
@@ -47,7 +52,16 @@ def get_generic_explanation(exception_type: Type[BaseException]) -> str:
 def register(
     error_class: Type[BaseException],
 ) -> Callable[[GenericExplain], GenericExplain]:
-    """Decorator used to record as available an explanation for a given exception"""
+    """Decorator used to record as available an explanation for a given exception.
+
+    Usage::
+
+        from friendly_traceback.info_generic import register
+
+        @register
+        def describe(SomeErrorOrWarning) -> str:
+            '''`SomeErrorOrWarning` means that ...'''
+    """
 
     def add_exception(function):
         if error_class in GENERIC:
