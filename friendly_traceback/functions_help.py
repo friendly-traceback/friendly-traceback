@@ -37,13 +37,7 @@ short_description = {
     "set_formatter": lambda: _("Sets the formatter to use for display."),
     "set_debug": lambda: _("Use True (default) or False to enable debugging methods."),
     # The following are not translated by choice.
-    "_debug_tb": (
-        lambda: "Shows the full traceback, including code from friendly_traceback."
-    ),
     "_get_info": lambda: "Returns the content of the traceback items",
-    "_show_info": lambda: "Shows the all the items recorded in the traceback.",
-    "_get_exception": lambda: "Returns the exception instance.",
-    "_get_frame": lambda: "Returns the frame object where the exception occurred.",
     "_get_statement": lambda: "Returns a special Statement object for SyntaxError.",
     "_get_tb_data": lambda: "Return a special traceback object.",
 }

@@ -317,40 +317,6 @@ set_formatter = friendly_traceback.set_formatter
 # ===== Debugging functions are not unit tested by choice =====
 
 
-def _debug_tb() -> None:  # pragma: no cover
-    """Shows the true Python traceback, which includes
-    files from friendly itself.
-    """
-    explain(-1, include="debug_tb")
-
-
-def _get_exception() -> Optional[BaseException]:  # pragma: no cover
-    """Debugging tool: returns the exception instance or None if no exception
-    has been raised.
-    """
-    if not session.recorded_tracebacks:
-        print(_nothing_to_show())
-        return None  # add explicit None here and elsewhere to silence mypy
-    current_tb = session.recorded_tracebacks[-1]
-    if hasattr(current_tb, "tb_data"):
-        return current_tb.tb_data.exception_instance
-    return current_tb.warning_instance
-
-
-def _get_frame() -> Optional[types.FrameType]:  # pragma: no cover
-    """This returns the frame in which the exception occurred.
-
-    This is not intended for end-users but is useful in development.
-    """
-    if not session.recorded_tracebacks:
-        print(_nothing_to_show())
-        return None
-    current_tb = session.recorded_tracebacks[-1]
-    if hasattr(current_tb, "tb_data"):
-        return current_tb.tb_data.exception_frame
-    return current_tb.frame  # warnings
-
-
 def _get_statement() -> Optional[Statement]:  # pragma: no cover
     """This returns a 'Statement' instance obtained for SyntaxErrors and
     subclasses.  Such a Statement instance contains essentially all
@@ -438,12 +404,8 @@ helpers: Dict[str, Callable[..., None]] = {
 add_help_attribute(helpers)
 
 debug_helper_methods: Dict[str, Callable[..., Any]] = {
-    "_debug_tb": _debug_tb,
-    "_get_frame": _get_frame,
     "_get_info": _get_info,
-    "_show_info": _show_info,
     "_get_tb_data": _get_tb_data,
-    "_get_exception": _get_exception,
     "_get_statement": _get_statement,
 }
 add_help_attribute(debug_helper_methods)
