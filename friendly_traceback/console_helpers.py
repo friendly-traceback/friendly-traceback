@@ -140,11 +140,6 @@ def python_tb(index: int = -1) -> None:
     explain(index, include="python_tb")
 
 
-def toggle_prompt() -> None:
-    """Toggles the style of prompt to use in the console."""
-    session.ipython_prompt = not session.ipython_prompt
-
-
 def what(
     exception_or_index: Union[
         Type[BaseException], str, bytes, types.CodeType, int, None
@@ -392,7 +387,6 @@ helpers: Dict[str, Callable[..., None]] = {
     "history": history,
     "friendly_tb": friendly_tb,
     "python_tb": python_tb,
-    "toggle_prompt": toggle_prompt,
     "show_paths": show_paths,
     "get_include": get_include,
     "set_include": set_include,

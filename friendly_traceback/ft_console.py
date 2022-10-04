@@ -51,6 +51,11 @@ def rich_displayhook(value: Any) -> None:
     _old_displayhook(value)
 
 
+def toggle_prompt() -> None:
+    """Toggles the style of prompt to use in the console."""
+    session.ipython_prompt = not session.ipython_prompt
+
+
 class FriendlyTracebackConsole(InteractiveConsole):
     def __init__(
         self,
@@ -236,6 +241,7 @@ def start_console(
         # Make sure we don't overwrite with our own functions
         helpers.update(local_vars)
     helpers["friendly_exec"] = friendly_traceback.friendly_exec
+    helpers["toggle_prompt"] = toggle_prompt
 
     console = FriendlyTracebackConsole(
         local_vars=helpers,

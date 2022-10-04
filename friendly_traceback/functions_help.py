@@ -17,9 +17,6 @@ short_description = {
     + _("You can also use `history.clear()` and `history.pop()`."),
     "set_lang": lambda: _("Sets the language to be used."),
     "show_paths": lambda: _("Shows the paths corresponding to synonyms used."),
-    "toggle_prompt": lambda: _(
-        "Changes the prompt style to be used in the Friendly console."
-    ),
     "what": lambda: _("Shows the generic meaning of a given exception."),
     "where": lambda: _("Shows where an exception was raised."),
     "why": lambda: _("Shows the likely cause of the exception."),
