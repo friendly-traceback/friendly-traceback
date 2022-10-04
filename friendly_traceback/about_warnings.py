@@ -254,6 +254,11 @@ class WarningDataParser:
 
 def get_warning_parser(warning_type: Type[_E]) -> WarningDataParser:
     """Gets a 'parser' to find the cause for a given warning.
+
+    Args:
+
+        warning_type: a warning class.
+
     Usage::
 
         parser = get_warning_parser(SomeSpecificWarning)

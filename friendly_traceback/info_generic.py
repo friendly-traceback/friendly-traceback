@@ -54,6 +54,9 @@ def register(
 ) -> Callable[[GenericExplain], GenericExplain]:
     """Decorator used to record as available an explanation for a given exception.
 
+    Args:
+        error_class: an exception class.
+
     Usage::
 
         from friendly_traceback.info_generic import register

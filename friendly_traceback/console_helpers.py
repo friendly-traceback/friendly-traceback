@@ -1,9 +1,23 @@
 """
-console_helpers.py
-------------------
+This module includes functions that can be used in a friendly console
+or in other **interactive** environments such as in a Jupyter notebook.
 
-Functions that can be used in a friendly console or in other interactive
-environments such as in a Jupyter notebook.
+If you intend to use ``friendly_traceback`` in an interactive environment,
+you should use ``friendly`` instead, as in::
+
+    from friendly.ipython import ...
+    # or
+    from friendly.jupyter import ...
+    # etc.
+
+Since this documentation is generated automatically by Sphinx using
+``friendly_traceback`` code, it will not contain all the relevant
+functions specific to a given environment. To find out about what
+functions are available in such environments, do the following::
+
+    prompt>> from friendly.X import Friendly
+    prompt>> Friendly
+    # The output will include the required information
 """
 # NOTE: __all__ is defined at the very bottom of this file
 import inspect

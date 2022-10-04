@@ -65,6 +65,10 @@ class RuntimeMessageParser:
 
 def get_parser(exception_type: Type[_E]) -> RuntimeMessageParser:
     """Gets a 'parser' to find the cause for a given exception.
+
+    Args:
+        exception_type: an exception class.
+
     Usage::
 
         parser = get_parser(SomeSpecificError)
