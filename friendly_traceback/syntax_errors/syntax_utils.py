@@ -325,3 +325,10 @@ def add_mark_to_new_statement(statement_object, new_statement, mark):
         if line.strip() != new_line.strip():
             lines.append(mark)
     return "\n".join(lines)
+
+
+def is_invisible_control_character(char):
+    n = ord(char)
+    if 0 <= n <= 0x1F or n == 0x7F or 0x80 <= n <= 0x9F:
+        return char
+    return False

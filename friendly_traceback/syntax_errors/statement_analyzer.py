@@ -94,6 +94,24 @@ def analyze_statement(statement):
 
 
 @add_statement_analyzer
+def invalid_non_printable_character(statement=None):
+    # new message for Python 3.11
+    # invalid non-printable character ...
+    char = statement.bad_token.string
+    if (
+        statement.bad_token.name() == "ERRORTOKEN"
+        and len(char) == 1
+        and su.is_invisible_control_character(char) == char
+    ):
+        return {
+            "cause": _(
+                "Your code contains the invalid non-printable character {char}.\n"
+            ).format(char=repr(char))
+        }
+    return {}
+
+
+@add_statement_analyzer
 def mismatched_brackets(statement):
     """Detecting code that ends with an unmatched closing bracket"""
     if not (statement.end_bracket and statement.bad_token == statement.last_token):

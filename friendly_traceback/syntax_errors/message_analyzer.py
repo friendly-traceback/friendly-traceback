@@ -1978,3 +1978,29 @@ def slash_must_appear_only_once(message: str = "", statement=None):
     if "/ may appear only once" not in message:
         return {}
     return error_in_def.analyze_def_statement(statement)
+
+
+@add_python_message
+def invalid_non_printable_character(message: str = "", statement=None):
+    # new message for Python 3.11
+    if "invalid non-printable character" not in message:
+        return {}
+
+    problem = _(
+        "Friendly-traceback cannot identify the non-printable character.\n"
+        "This should not happen. Please report this case"
+    )
+
+    char = statement.bad_token.string
+    if len(char) != 1:
+        return {"cause": problem + "\n not len(char)==1"}
+    if su.is_invisible_control_character(char) != char:
+        return {"cause": problem + "\n is_invisible_control_character(char) != char"}
+    if statement.bad_token.name() != "ERRORTOKEN":
+        return {"cause": problem + "\n not ERRORTOKEN"}
+
+    return {
+        "cause": _(
+            "Your code contains the invalid non-printable character {char}.\n"
+        ).format(char=repr(char))
+    }

@@ -737,6 +737,10 @@ descriptions = {
         in_cause: "You cannot assign a value to `True`.",
         title: "Named argument can't be a Python keyword",
     },
+    "invalid_non_printable_char": {
+        in_cause: "Your code contains the invalid non-printable character",
+        title: "Invalid non printable character"
+    },
     "invalid_octal": {
         in_cause: "Did you made a mistake in writing an octal integer",
         title: "Invalid octal number",
