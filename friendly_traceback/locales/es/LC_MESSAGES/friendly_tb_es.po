@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2022-09-29 06:56-0300\n"
+"POT-Creation-Date: 2022-10-08 18:36-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,32 +11,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:205 __main__.py:172
+#: __init__.py:214 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr "El archivo {filename} no existe."
 
-#: __init__.py:301
+#: __init__.py:296
+msgid "The available languages are:"
+msgstr "Los idiomas disponibles son:"
+
+#: __init__.py:324
 msgid "{include}: Unrecognized value."
 msgstr ""
 
-#: __init__.py:302
+#: __init__.py:325
 msgid "The allowed values are:"
 msgstr ""
 
-#: about_warnings.py:63
+#: about_warnings.py:90
 msgid "Warning issued on line `{line}` of code block {filename}."
 msgstr ""
 "Excepción elevada en la linea `{line}` del bloque de código {filename}."
 
-#: about_warnings.py:67
+#: about_warnings.py:94
 msgid "Warning issued on line `{line}` of file '{filename}'."
 msgstr "Excepción elevada en la linea `{line}` del archivo '{filename}'."
 
-#: base_formatters.py:182 base_formatters.py:188
+#: about_warnings.py:137
+msgid ""
+"The source is unavailable.\n"
+"If you used `exec`, consider using `friendly_exec` instead."
+msgstr ""
+
+#: base_formatters.py:201 base_formatters.py:207
 msgid "I have no suggestion to offer."
 msgstr "No tengo una sugerencia para ofrecer."
 
-#: base_formatters.py:186
+#: base_formatters.py:205
 msgid "I have no suggestion to offer; try `why()`."
 msgstr "No tengo una sugerencia para ofrecer; intenta con `why()`."
 
@@ -51,7 +61,7 @@ msgstr ""
 "Si es así, para continuar, prueba: `start_console(local_vars=locals())`.\n"
 "Tendrás que importar `start_console` si no lo has hecho ya.\n"
 
-#: config.py:75 config.py:195 console_helpers.py:29
+#: config.py:75 config.py:191 console_helpers.py:43
 msgid "Nothing to show: no exception recorded."
 msgstr "Nada para mostrar: no se registró una excepción."
 
@@ -59,7 +69,7 @@ msgstr "Nada para mostrar: no se registró una excepción."
 msgid "Invalid index value."
 msgstr ""
 
-#: config.py:321
+#: config.py:317
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -67,33 +77,37 @@ msgstr ""
 "Se ha producido una excepción antes de importar el friendly-traceback.\n"
 "Hay alguna información disponible."
 
-#: console_helpers.py:35
+#: console_helpers.py:49
 msgid "Friendly-traceback is already disabled."
 msgstr ""
 
-#: console_helpers.py:45
+#: console_helpers.py:59
 msgid "Friendly-traceback is already enabled."
 msgstr ""
 
-#: console_helpers.py:81
+#: console_helpers.py:109 functions_help.py:15
+msgid "Shows a list of recorded traceback messages."
+msgstr "Muestra una lista de los mensajes de traceback registrados."
+
+#: console_helpers.py:111 functions_help.py:17
+msgid "You can also use `history.clear()` and `history.pop()`."
+msgstr ""
+
+#: console_helpers.py:121
 #, fuzzy
 #| msgid "Nothing to show: no exception recorded."
 msgid "Nothing to delete: no exception recorded."
 msgstr "Nada para mostrar: no se registró una excepción."
 
-#: console_helpers.py:89 functions_help.py:15
-msgid "Shows a list of recorded traceback messages."
-msgstr "Muestra una lista de los mensajes de traceback registrados."
-
-#: console_helpers.py:91 functions_help.py:17
-msgid "You can also use `history.clear()` and `del history[index]`."
+#: console_helpers.py:128
+msgid "There is no such history item."
 msgstr ""
 
-#: console_helpers.py:156 console_helpers.py:160
+#: console_helpers.py:172 console_helpers.py:176
 msgid "{exception} is not an exception."
 msgstr "{exception} no es una excepción."
 
-#: console_helpers.py:260
+#: console_helpers.py:272
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -101,11 +115,11 @@ msgstr ""
 "Argumento no valido para `www()`.\n"
 "Los argumentos validos incluyen `None` o alguno de `{sites}`.\n"
 
-#: console_helpers.py:284
+#: console_helpers.py:296
 msgid "The default web browser cannot be used for searching."
 msgstr "El navegador web por defecto no se puede utilizar para la búsqueda."
 
-#: console_helpers.py:475
+#: console_helpers.py:461
 msgid ""
 "The following methods of the Friendly object should also be available as "
 "functions."
@@ -117,11 +131,19 @@ msgstr ""
 msgid "More lines not shown."
 msgstr "Más lineas no mostradas."
 
-#: core.py:126 core.py:166
+#: core.py:126 core.py:167
 msgid "Python exception:"
 msgstr "Excepción Python:"
 
-#: core.py:186
+#: core.py:181
+msgid "The exception includes the following note:\n"
+msgstr ""
+
+#: core.py:185
+msgid "The exception includes the following notes:\n"
+msgstr ""
+
+#: core.py:205
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -135,58 +157,62 @@ msgstr ""
 "Esto puede ocurrir si un método `__repr__` o un método `__str__`\n"
 "lanza una excepción o no devuelve una cadena.\n"
 
-#: core.py:237
+#: core.py:256
 msgid "The encoding of the file was not valid.\n"
 msgstr "La codificación del archivo no era valida.\n"
 
-#: core.py:317 core.py:334
+#: core.py:336 core.py:357
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 "{filename} no es un archivo regular de Python cuyo contenido pueda ser "
 "analizado.\n"
 
-#: core.py:322
+#: core.py:340
+msgid "If you used `exec`, consider using `friendly_exec` instead.\n"
+msgstr ""
+
+#: core.py:345
 msgid "Exception raised on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 "Excepción elevada en la linea `{linenumber}` del bloque de código "
 "'{filename}'.\n"
 
-#: core.py:326
+#: core.py:349
 msgid "Exception raised on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 "Excepción elevada en la linea `{linenumber}` del archivo '{filename}'.\n"
 
-#: core.py:362
+#: core.py:385
 msgid "Execution stopped on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 "La ejecución se detuvo en la linea `{linenumber}` del bloque de "
 "código{filename}.\n"
 
-#: core.py:366
+#: core.py:389
 msgid "Execution stopped on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 "La ejecución se detuvo en la linea `{linenumber}` del archivo '{filename}'.\n"
 
-#: core.py:390
+#: core.py:413
 #, fuzzy
 #| msgid "File {filename}, line {line}"
 msgid "Code block {filename}, line `{line}`"
 msgstr "Archivo {filename}, línea {line}"
 
-#: core.py:394
+#: core.py:417
 msgid "File '{filename}', line `{line}`"
 msgstr "Archivo {filename}, línea `{line}`"
 
-#: core.py:408
+#: core.py:431
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr "El contenido completo de `{filename}` no está disponible.\n"
 
-#: core.py:422
+#: core.py:445
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "Python no pudo entender el código en el bloque de código {filename}\n"
 
-#: core.py:426
+#: core.py:449
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -194,11 +220,11 @@ msgstr ""
 "Python no pudo entender el código en el archivo\n"
 "'{filename}'\n"
 
-#: core.py:431
+#: core.py:454
 msgid "at the location indicated.\n"
 msgstr "en la ubicación indicada.\n"
 
-#: core.py:669
+#: core.py:692
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -276,84 +302,80 @@ msgid "Shows the paths corresponding to synonyms used."
 msgstr "Muestra las rutas correspondientes a los sinónimos utilizados."
 
 #: functions_help.py:20
-msgid "Changes the prompt style to be used in the Friendly console."
-msgstr "Cambia el estilo del indicador de consola que será utilizado."
-
-#: functions_help.py:23
 msgid "Shows the generic meaning of a given exception."
 msgstr "Muestra el significado genérico de una determinada excepción."
 
-#: functions_help.py:24
+#: functions_help.py:21
 msgid "Shows where an exception was raised."
 msgstr "Muestra dónde se ha producido una excepción."
 
-#: functions_help.py:25
+#: functions_help.py:22
 msgid "Shows the likely cause of the exception."
 msgstr "Muestra la causa probable de la excepción."
 
-#: functions_help.py:26
+#: functions_help.py:23
 msgid "Opens a web browser at a useful location."
 msgstr "Abre un navegador web en una ubicación útil."
 
-#: functions_help.py:27
+#: functions_help.py:24
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr "Sugerencia que a veces se añade a un traceback amistoso."
 
-#: functions_help.py:28
+#: functions_help.py:25
 msgid "Shows a normal Python traceback."
 msgstr "Muestra un traceback normal de Python."
 
-#: functions_help.py:29
+#: functions_help.py:26
 msgid "Shows a simplified Python traceback."
 msgstr "Muestra un traceback simplificado de Python."
 
-#: functions_help.py:30
+#: functions_help.py:27
 msgid "Returns the current value used for items to include by default."
 msgstr ""
 "Devuelve el valor actual utilizado para los elementos a incluir por defecto."
 
-#: functions_help.py:33
+#: functions_help.py:30
 msgid "Sets the items to show by default when an exception is raised."
 msgstr ""
 "Establece los elementos a mostrar por defecto cuando se produce una "
 "excepción."
 
-#: functions_help.py:36
+#: functions_help.py:33
 msgid "Returns the language currently used."
 msgstr "Devuelve el idioma utilizado actualmente."
 
-#: functions_help.py:37
+#: functions_help.py:34
 msgid "Sets the formatter to use for display."
 msgstr "Establece el formateador que será utilizado para mostrar."
 
-#: functions_help.py:38
+#: functions_help.py:35
 msgid "Use True (default) or False to enable debugging methods."
 msgstr ""
 "Utilice True (por defecto) o False para activar los métodos de depuración."
 
-#: info_generic.py:36
+#: info_generic.py:41
 msgid "A warning of type `{name}` is a subclass of `{parent}`.\n"
 msgstr ""
 "A warning of type `{name}` is a subclass of `{parent}`.\n"
 "\n"
 
-#: info_generic.py:40
+#: info_generic.py:45
 msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
 msgstr "Una excepción del tipo `{name}` es subclase de `{parent}`.\n"
 
-#: info_generic.py:70
+#: info_generic.py:87
 msgid ""
 "All built-in exceptions defined by Python are derived from `Exception`.\n"
 "All user-defined exceptions should also be derived from this class.\n"
 msgstr ""
 
-#: info_generic.py:78
+#: info_generic.py:95
 msgid ""
 "`BaseException` is the base class for all built-in exceptions.\n"
 "It is not meant to be directly inherited by user-defined classes.\n"
 msgstr ""
 
-#: info_generic.py:86
+#: info_generic.py:103
 msgid ""
 "`ArithmeticError` is the base class for those built-in exceptions\n"
 "that are raised for various arithmetic errors.\n"
@@ -366,7 +388,7 @@ msgstr ""
 "Es inusual que veas esta excepción;\n"
 "normalmente, una excepción más específica debería haber sido lanzada.\n"
 
-#: info_generic.py:96
+#: info_generic.py:113
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -380,7 +402,7 @@ msgstr ""
 "\n"
 "Si `condición` es `False` o equivalente, se produce un `AssertionError`.\n"
 
-#: info_generic.py:106
+#: info_generic.py:123
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
@@ -390,7 +412,7 @@ msgstr ""
 "    objeto.x\n"
 "y `x` no es un método o atributo (variable) perteneciente al `objeto`.\n"
 
-#: info_generic.py:115
+#: info_generic.py:132
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
@@ -398,7 +420,7 @@ msgstr ""
 "Se produce un `EOFError` cuando la función `input()` alcanza\n"
 "una condición de fin de archivo (EOF) sin leer ningún dato.\n"
 
-#: info_generic.py:123
+#: info_generic.py:140
 msgid ""
 "A `FileNotFoundError` exception indicates that you\n"
 "are trying to open a file that cannot be found by Python.\n"
@@ -408,7 +430,7 @@ msgstr ""
 "tratando de abrir un archivo que no puede ser encontrado por Python.\n"
 "Esto puede deberse a que has escrito mal el nombre del archivo.\n"
 
-#: info_generic.py:132
+#: info_generic.py:149
 msgid ""
 "An `ImportError` exception indicates that a certain object could not\n"
 "be imported from a module or package. Most often, this is\n"
@@ -419,7 +441,7 @@ msgstr ""
 "que\n"
 "porque el nombre del objeto no está escrito correctamente.\n"
 
-#: info_generic.py:141
+#: info_generic.py:158
 msgid ""
 "An `IndentationError` occurs when a given line of code is\n"
 "not indented (aligned vertically with other lines) as expected.\n"
@@ -427,7 +449,7 @@ msgstr ""
 "Un `IndentationError` ocurre cuando una línea de código dada no está\n"
 "con la indentación (alineada verticalmente con otras líneas) que se espera.\n"
 
-#: info_generic.py:149
+#: info_generic.py:166
 msgid ""
 "An `IndexError` occurs when you try to get an item from a list,\n"
 "a tuple, or a similar object (sequence), and use an index which\n"
@@ -440,7 +462,7 @@ msgstr ""
 "no existe; normalmente, esto ocurre porque el índice que se da\n"
 "es mayor que la longitud de la secuencia.\n"
 
-#: info_generic.py:159
+#: info_generic.py:176
 msgid ""
 "A `KeyError` is raised when a value is not found as a\n"
 "key in a Python dict or in a similar object.\n"
@@ -448,7 +470,7 @@ msgstr ""
 "Se produce un `KeyError` cuando no se encuentra un valor como llave\n"
 "en un dict de Python o en un objeto similar.\n"
 
-#: info_generic.py:167
+#: info_generic.py:184
 msgid ""
 "`LookupError` is the base class for the exceptions that are raised\n"
 "when a key or index used on a mapping or sequence is invalid.\n"
@@ -458,7 +480,7 @@ msgstr ""
 "cuando una clave o índice utilizado en un mapeo o secuencia no es válido.\n"
 "También puede ser elevada directamente por codecs.lookup().\n"
 
-#: info_generic.py:176
+#: info_generic.py:193
 msgid ""
 "Like the name indicates, a `MemoryError` occurs when Python\n"
 "runs out of memory. This can happen if you create an object\n"
@@ -468,7 +490,7 @@ msgstr ""
 "se queda sin memoria. Esto puede ocurrir si se crea un objeto\n"
 "que es demasiado grande, como una lista con demasiados elementos.\n"
 
-#: info_generic.py:185
+#: info_generic.py:202
 msgid ""
 "A `ModuleNotFoundError` exception indicates that you\n"
 "are trying to import a module that cannot be found by Python.\n"
@@ -480,7 +502,7 @@ msgstr ""
 "Esto puede deberse a que has escrito mal el nombre del módulo\n"
 "o porque no está instalado en tu computadora.\n"
 
-#: info_generic.py:195
+#: info_generic.py:212
 msgid ""
 "A `NameError` exception indicates that a variable or\n"
 "function name is not known to Python.\n"
@@ -494,7 +516,7 @@ msgstr ""
 "Sin embargo, a veces es porque el nombre se utiliza\n"
 "antes de ser definido o de recibir un valor.\n"
 
-#: info_generic.py:206
+#: info_generic.py:223
 msgid ""
 "An `OSError` exception is usually raised by the Operating System\n"
 "to indicate that an operation is not allowed or that\n"
@@ -505,7 +527,7 @@ msgstr ""
 "para indicar que una operación no está permitida o que\n"
 "un recurso no está disponible.\n"
 
-#: info_generic.py:215
+#: info_generic.py:232
 msgid ""
 "An `OverflowError` is raised when the result of an arithmetic operation\n"
 "is too large to be handled by the computer's processor.\n"
@@ -514,7 +536,7 @@ msgstr ""
 "aritmética\n"
 "es demasiado grande para ser manejado por el procesador del ordenador.\n"
 
-#: info_generic.py:223
+#: info_generic.py:240
 msgid ""
 "A `RecursionError` is raised when a function calls itself,\n"
 "directly or indirectly, too many times.\n"
@@ -526,14 +548,14 @@ msgstr ""
 "Casi siempre indica que has cometido un error en tu código\n"
 "y que su programa nunca se detendrá.\n"
 
-#: info_generic.py:233
+#: info_generic.py:250
 msgid ""
 "A `RuntimeError` is raised when an error is detected that doesn't fall in "
 "any\n"
 "of the more specific exception types defined by Python.\n"
 msgstr ""
 
-#: info_generic.py:241
+#: info_generic.py:258
 msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
@@ -543,11 +565,11 @@ msgstr ""
 "elementos para proporcionar cuando su método `__next__` es llamado por\n"
 "la función incorporada `next()`.\n"
 
-#: info_generic.py:250
+#: info_generic.py:267
 msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr "Un `SyntaxError` ocurre cuando Python no puede entender tu código.\n"
 
-#: info_generic.py:255
+#: info_generic.py:272
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -565,7 +587,7 @@ msgstr ""
 "La recomendación de Python es utilizar siempre espacios para sangrar el "
 "código.\n"
 
-#: info_generic.py:267
+#: info_generic.py:284
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -578,7 +600,7 @@ msgstr ""
 "o por intentar realizar una operación no permitida en un tipo de objeto "
 "determinado.\n"
 
-#: info_generic.py:277
+#: info_generic.py:294
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
@@ -586,7 +608,7 @@ msgstr ""
 "Un `ValueError` indica que una función o una operación\n"
 "recibió un argumento del tipo correcto, pero un valor inapropiado.\n"
 
-#: info_generic.py:285
+#: info_generic.py:302
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -607,7 +629,7 @@ msgstr ""
 "Python que se trata de una variable global, de lo contrario verá\n"
 "un `UnboundLocalError`.\n"
 
-#: info_generic.py:299
+#: info_generic.py:316
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -616,46 +638,46 @@ msgstr ""
 "por cero, ya sea directamente o utilizando alguna otra operación "
 "matemática.\n"
 
-#: info_generic.py:307
+#: info_generic.py:324
 msgid "`UserWarning` is the default class for `warnings.warn()`.\n"
 msgstr ""
 
-#: info_generic.py:312
+#: info_generic.py:329
 msgid ""
 "`SyntaxWarning` often indicates that your code will likely not give the "
 "result you expect.\n"
 msgstr ""
 
-#: info_generic.py:319
+#: info_generic.py:336
 msgid ""
 "`DeprecationWarning` indicates that some feature will not be available in a "
 "future version.\n"
 msgstr ""
 
-#: info_generic.py:326
+#: info_generic.py:343
 msgid ""
 "`RuntimeWarning` often indicates some not recommended runtime features.\n"
 msgstr ""
 
-#: info_generic.py:333
+#: info_generic.py:350
 msgid ""
 "`FutureWarning` is the base category for features that will likely be "
 "deprecated\n"
 "in future Python versions.\n"
 msgstr ""
 
-#: info_generic.py:341
+#: info_generic.py:358
 msgid ""
 "`UnicodeWarning` is the base category for warnings related to unicode.\n"
 msgstr ""
 
-#: info_generic.py:346
+#: info_generic.py:363
 msgid ""
 "`BytesWarning` is the base category for warnings related to bytes and "
 "bytearray.\n"
 msgstr ""
 
-#: info_generic.py:353
+#: info_generic.py:370
 msgid "`Warning` is the base class of all warning category classes.\n"
 msgstr ""
 
@@ -699,19 +721,19 @@ msgstr "un string (`str`)"
 msgid "a `tuple`"
 msgstr "una `tuple`"
 
-#: info_variables.py:328
+#: info_variables.py:327
 msgid "Friendly warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 
-#: info_variables.py:494
+#: info_variables.py:508
 msgid "Object too large to be processed by Python."
 msgstr "Objeto demasiado grande para ser procesado por Python."
 
-#: info_variables.py:498
+#: info_variables.py:512
 msgid "Unable to compute."
 msgstr ""
 
-#: info_variables.py:556
+#: info_variables.py:570
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -794,7 +816,7 @@ msgstr ""
 #: runtime_errors\name_error.py:101 runtime_errors\name_error.py:103
 #: runtime_errors\unbound_local_error.py:54
 #: syntax_errors\message_analyzer.py:462 syntax_errors\message_analyzer.py:1105
-#: syntax_errors\statement_analyzer.py:1281
+#: syntax_errors\statement_analyzer.py:1299
 msgid "Did you mean `{name}`?\n"
 msgstr "¿Quieres decir `{name}`?\n"
 
@@ -1801,8 +1823,8 @@ msgstr ""
 "`{first}` y `{second}`.\n"
 
 #: runtime_errors\type_error.py:240 runtime_errors\type_error.py:794
-#: runtime_errors\type_error.py:905 syntax_errors\statement_analyzer.py:1161
-#: syntax_errors\statement_analyzer.py:1421
+#: runtime_errors\type_error.py:905 syntax_errors\statement_analyzer.py:1179
+#: syntax_errors\statement_analyzer.py:1439
 msgid "Did you mean `{line}`?\n"
 msgstr "¿Quieres decir `{line}`?\n"
 
@@ -2091,8 +2113,8 @@ msgstr ""
 "interpreta como índices se supone que es una lista separada, y una coma\n"
 "debería haberse escrito antes de la apertura `[` de esa lista.\n"
 
-#: runtime_errors\type_error.py:716 syntax_errors\statement_analyzer.py:1074
-#: syntax_errors\statement_analyzer.py:1417
+#: runtime_errors\type_error.py:716 syntax_errors\statement_analyzer.py:1092
+#: syntax_errors\statement_analyzer.py:1435
 msgid "Did you forget a comma?\n"
 msgstr "¿Te has olvidado de una coma?\n"
 
@@ -2751,8 +2773,8 @@ msgstr ""
 #: syntax_errors\error_in_def.py:110 syntax_errors\error_in_def.py:136
 #: syntax_errors\message_analyzer.py:1065
 #: syntax_errors\message_analyzer.py:1608
-#: syntax_errors\statement_analyzer.py:1214
-#: syntax_errors\statement_analyzer.py:1233
+#: syntax_errors\statement_analyzer.py:1232
+#: syntax_errors\statement_analyzer.py:1251
 msgid "Did you forget parentheses?\n"
 msgstr "¿Has olvidado los paréntesis?\n"
 
@@ -2856,7 +2878,7 @@ msgid "Perhaps you meant to write a comma.\n"
 msgstr "Tal vez querías escribir una coma.\n"
 
 #: syntax_errors\error_in_def.py:290 syntax_errors\error_in_def.py:476
-#: syntax_errors\statement_analyzer.py:765 syntax_errors\syntax_utils.py:119
+#: syntax_errors\statement_analyzer.py:783 syntax_errors\syntax_utils.py:119
 msgid "Did you mean to write a comma?\n"
 msgstr "¿Querías escribir una coma?\n"
 
@@ -3142,7 +3164,7 @@ msgstr ""
 "Sólo se pueden asignar objetos a identificadores (nombres de variables).\n"
 
 #: syntax_errors\message_analyzer.py:26
-#: syntax_errors\statement_analyzer.py:1539
+#: syntax_errors\statement_analyzer.py:1557
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
@@ -3317,7 +3339,7 @@ msgstr ""
 "diferente.\n"
 
 #: syntax_errors\message_analyzer.py:304
-#: syntax_errors\statement_analyzer.py:945
+#: syntax_errors\statement_analyzer.py:963
 msgid ""
 "You were trying to assign a value to the Python keyword `{keyword}`.\n"
 "This is not allowed.\n"
@@ -3402,7 +3424,7 @@ msgid "Perhaps you meant to write `{name}` instead of `{original}`\n"
 msgstr "Tal vez quiso escribir `{name}` en lugar de `{original}`.\n"
 
 #: syntax_errors\message_analyzer.py:468 syntax_errors\message_analyzer.py:606
-#: syntax_errors\statement_analyzer.py:568
+#: syntax_errors\statement_analyzer.py:586
 msgid "Perhaps you needed `==` instead of `=`.\n"
 msgstr "Tal vez necesitabas `==` en lugar de `=`.\n"
 
@@ -3480,7 +3502,7 @@ msgstr ""
 "`for` o dentro de un bucle `while`.\n"
 
 #: syntax_errors\message_analyzer.py:607
-#: syntax_errors\statement_analyzer.py:569
+#: syntax_errors\statement_analyzer.py:587
 msgid ""
 "You likely used an assignment operator `=` instead of an equality operator "
 "`==`.\n"
@@ -3569,7 +3591,7 @@ msgstr ""
 "Quizás escribiste una clave de dict sin escribir el valor correspondiente.\n"
 
 #: syntax_errors\message_analyzer.py:793 syntax_errors\message_analyzer.py:1003
-#: syntax_errors\statement_analyzer.py:1599
+#: syntax_errors\statement_analyzer.py:1617
 msgid "Did you forget to write a dict value?\n"
 msgstr "¿Olvidaste escribir el valor del dict?\n"
 
@@ -3637,12 +3659,12 @@ msgid "Did you forget to escape a backslash character?\n"
 msgstr "¿Olvidaste escapar un carácter de barra invertida?\n"
 
 #: syntax_errors\message_analyzer.py:934
-#: syntax_errors\statement_analyzer.py:357
+#: syntax_errors\statement_analyzer.py:375
 msgid "Perhaps you forgot to escape a quote character.\n"
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:935
-#: syntax_errors\statement_analyzer.py:358
+#: syntax_errors\statement_analyzer.py:376
 msgid ""
 "I suspect that you were trying to use a quote character inside a string\n"
 "that was enclosed in quotes of the same kind.\n"
@@ -3690,7 +3712,7 @@ msgstr ""
 "o contiene un punto, etc.\n"
 
 #: syntax_errors\message_analyzer.py:999
-#: syntax_errors\statement_analyzer.py:1590
+#: syntax_errors\statement_analyzer.py:1608
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you forgot to write a value after a colon.\n"
@@ -3745,7 +3767,7 @@ msgstr ""
 "de lo contrario, es necesario añadir un cierre `}`.\n"
 
 #: syntax_errors\message_analyzer.py:1057
-#: syntax_errors\statement_analyzer.py:1186
+#: syntax_errors\statement_analyzer.py:1204
 msgid ""
 "I am guessing that you were writing a comprehension or a generator "
 "expression\n"
@@ -3830,7 +3852,7 @@ msgstr ""
 "su nivel de indentación, y no por el uso de algunas llaves, como `{...}`.\n"
 
 #: syntax_errors\message_analyzer.py:1164
-#: syntax_errors\statement_analyzer.py:172
+#: syntax_errors\statement_analyzer.py:190
 msgid "Did you use copy-paste?\n"
 msgstr "¿Usaste copiar y pegar?\n"
 
@@ -3855,7 +3877,7 @@ msgid "I have no suggestion to offer to fix this problem.\n"
 msgstr "No tengo una sugerencia para arreglar este problema.\n"
 
 #: syntax_errors\message_analyzer.py:1238
-#: syntax_errors\statement_analyzer.py:690
+#: syntax_errors\statement_analyzer.py:708
 msgid ""
 "The double star operator `**` is likely interpreted to mean that\n"
 "dict unpacking is to be used which is not allowed or does not make sense "
@@ -3876,7 +3898,7 @@ msgstr ""
 
 #: syntax_errors\message_analyzer.py:1308
 #: syntax_errors\message_analyzer.py:1694
-#: syntax_errors\statement_analyzer.py:497
+#: syntax_errors\statement_analyzer.py:515
 msgid ""
 "The following statement has no syntax error:\n"
 "\n"
@@ -4053,7 +4075,7 @@ msgstr ""
 "palabra clave.\n"
 
 #: syntax_errors\message_analyzer.py:1609
-#: syntax_errors\statement_analyzer.py:1234
+#: syntax_errors\statement_analyzer.py:1252
 msgid ""
 "I am guessing that you wanted to use an `except` statement\n"
 "with multiple exception types. If that is the case, you must\n"
@@ -4098,7 +4120,7 @@ msgstr ""
 "palabra clave.\n"
 
 #: syntax_errors\message_analyzer.py:1648
-#: syntax_errors\statement_analyzer.py:614
+#: syntax_errors\statement_analyzer.py:632
 msgid ""
 "Perhaps you need to type\n"
 "\n"
@@ -4116,14 +4138,14 @@ msgstr ""
 "llamarla.\n"
 
 #: syntax_errors\message_analyzer.py:1655
-#: syntax_errors\statement_analyzer.py:621
+#: syntax_errors\statement_analyzer.py:639
 msgid "Note that arguments of `print` must be separated by commas.\n"
 msgstr ""
 "Tenga en cuenta que los argumentos de `print` deben estar separados por "
 "comas.\n"
 
 #: syntax_errors\message_analyzer.py:1656
-#: syntax_errors\statement_analyzer.py:622
+#: syntax_errors\statement_analyzer.py:640
 msgid "Did you mean `print({message})`?\n"
 msgstr "¿Quieres decir `print({message})`?\n"
 
@@ -4283,7 +4305,7 @@ msgstr ""
 "delante de la cadena, o reemplazar `\\U`, por `\\\\U`.\n"
 
 #: syntax_errors\message_analyzer.py:1875
-#: syntax_errors\statement_analyzer.py:109
+#: syntax_errors\statement_analyzer.py:127
 msgid "The closing {bracket} on line {linenumber} does not match anything.\n"
 msgstr ""
 "El {bracket} de cierre de la línea {linenumber} no coincide con nada.\n"
@@ -4317,7 +4339,18 @@ msgstr ""
 "para evitar la redefinición de `__peg_parser__`.\n"
 "No debería estar presente en otras versiones.\n"
 
-#: syntax_errors\statement_analyzer.py:144
+#: syntax_errors\message_analyzer.py:1989
+msgid ""
+"Friendly-traceback cannot identify the non-printable character.\n"
+"This should not happen. Please report this case"
+msgstr ""
+
+#: syntax_errors\message_analyzer.py:2003
+#: syntax_errors\statement_analyzer.py:107
+msgid "Your code contains the invalid non-printable character {char}.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:162
 msgid ""
 "The closing {bracket} on line {close_lineno} does not match the opening "
 "{open_bracket} on line {open_lineno}.\n"
@@ -4325,16 +4358,16 @@ msgstr ""
 "El {bracket} de cierre de la línea {close_lineno} no coincide con el "
 "{open_bracket} de apertura de la línea {open_lineno}.\n"
 
-#: syntax_errors\statement_analyzer.py:166
+#: syntax_errors\statement_analyzer.py:184
 msgid "Did you mean to write `...`?\n"
 msgstr "¿Querías escribir `...`?\n"
 
-#: syntax_errors\statement_analyzer.py:167
+#: syntax_errors\statement_analyzer.py:185
 msgid ""
 "It looks like you meant to write `...` but added an extra `.` by mistake.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:181
+#: syntax_errors\statement_analyzer.py:199
 msgid ""
 "It looks like you copy-pasted code from an interactive interpreter.\n"
 "The Python prompt, `>>>`, should not be included in your code.\n"
@@ -4342,7 +4375,7 @@ msgstr ""
 "Parece que has copiado y pegado código de un intérprete interactivo.\n"
 "El prompt de Python, `>>>`, no debería estar incluido en tu código.\n"
 
-#: syntax_errors\statement_analyzer.py:191
+#: syntax_errors\statement_analyzer.py:209
 msgid ""
 "It looks like you copy-pasted code from an interactive interpreter.\n"
 "The Python prompt, `...`, should not be included in your code.\n"
@@ -4350,11 +4383,11 @@ msgstr ""
 "Parece que has copiado y pegado código de un intérprete interactivo.\n"
 "El prompt de Python, `...`, no debería estar incluido en tu código.\n"
 
-#: syntax_errors\statement_analyzer.py:205
+#: syntax_errors\statement_analyzer.py:223
 msgid "You should not use the backquote character.\n"
 msgstr "No debe utilizar el carácter de retrocomilla.\n"
 
-#: syntax_errors\statement_analyzer.py:206
+#: syntax_errors\statement_analyzer.py:224
 msgid ""
 "You are using the backquote character.\n"
 "Either you meant to write a single quote, ', or copied Python 2 code;\n"
@@ -4365,11 +4398,11 @@ msgstr ""
 "de Python 2;\n"
 "en este último caso, utiliza la función `repr(x)`."
 
-#: syntax_errors\statement_analyzer.py:227
+#: syntax_errors\statement_analyzer.py:245
 msgid "You forgot to add a condition.\n"
 msgstr "Has olvidado añadir una condición.\n"
 
-#: syntax_errors\statement_analyzer.py:229
+#: syntax_errors\statement_analyzer.py:247
 msgid ""
 "An `if` statement requires a condition:\n"
 "\n"
@@ -4383,7 +4416,7 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:235
+#: syntax_errors\statement_analyzer.py:253
 msgid ""
 "A `while` loop requires a condition:\n"
 "\n"
@@ -4397,11 +4430,11 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:241
+#: syntax_errors\statement_analyzer.py:259
 msgid "A `for` loop requires at least 3 more terms.\n"
 msgstr "Un bucle `for` requiere al menos 3 términos más.\n"
 
-#: syntax_errors\statement_analyzer.py:242
+#: syntax_errors\statement_analyzer.py:260
 msgid ""
 "A `for` loop is an iteration over a sequence:\n"
 "\n"
@@ -4415,11 +4448,11 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:248
+#: syntax_errors\statement_analyzer.py:266
 msgid "A class needs a name.\n"
 msgstr "Una clase necesita un nombre.\n"
 
-#: syntax_errors\statement_analyzer.py:249
+#: syntax_errors\statement_analyzer.py:267
 msgid ""
 "A `class` statement requires a name:\n"
 "\n"
@@ -4433,7 +4466,7 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:266
+#: syntax_errors\statement_analyzer.py:284
 msgid ""
 "You cannot use the Python keyword `{word}` as an attribute.\n"
 "\n"
@@ -4441,15 +4474,15 @@ msgstr ""
 "No se puede utilizar la palabra clave de Python `{word}` como atributo.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:272
+#: syntax_errors\statement_analyzer.py:290
 msgid "`{word}` cannot be used as an attribute.\n"
 msgstr "`{word}` no puede utilizarse como atributo.\n"
 
-#: syntax_errors\statement_analyzer.py:294
+#: syntax_errors\statement_analyzer.py:312
 msgid "Perhaps you meant to write `elif`.\n"
 msgstr "Tal vez querías escribir `elif`.\n"
 
-#: syntax_errors\statement_analyzer.py:295
+#: syntax_errors\statement_analyzer.py:313
 msgid ""
 "You likely meant to use Python's `elif` keyword\n"
 "but wrote `{name}` instead.\n"
@@ -4459,11 +4492,11 @@ msgstr ""
 "pero en su lugar escribiste `{name}`.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:314
+#: syntax_errors\statement_analyzer.py:332
 msgid "Did you mean `from {module} import {function}`?\n"
 msgstr "¿Quieres decir `from {module} import {function}`?\n"
 
-#: syntax_errors\statement_analyzer.py:317
+#: syntax_errors\statement_analyzer.py:335
 msgid ""
 "You wrote something like\n"
 "\n"
@@ -4483,7 +4516,7 @@ msgstr ""
 "    from {module} import {function}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:388
+#: syntax_errors\statement_analyzer.py:406
 msgid ""
 "The augmented assignment operator is not allowed in Python version "
 "{version}.\n"
@@ -4491,7 +4524,7 @@ msgstr ""
 "El operador de asignación aumentada no está permitido en la versión "
 "{version} de Python.\n"
 
-#: syntax_errors\statement_analyzer.py:391
+#: syntax_errors\statement_analyzer.py:409
 msgid ""
 "You appear to be using the operator `:=`, sometimes called\n"
 "the walrus operator. This operator requires the use of\n"
@@ -4501,11 +4534,11 @@ msgstr ""
 "el operador morsa. Este operador requiere el uso de\n"
 "Python 3.8 o más reciente. Estás utilizando la versión {version}.\n"
 
-#: syntax_errors\statement_analyzer.py:429
+#: syntax_errors\statement_analyzer.py:447
 msgid "Did you write operators in an incorrect order?\n"
 msgstr "¿Has escrito los operadores en un orden incorrecto?\n"
 
-#: syntax_errors\statement_analyzer.py:430
+#: syntax_errors\statement_analyzer.py:448
 msgid ""
 "It looks like you wrote two operators (`{first}` and `{second}`)\n"
 "in the wrong order: `{wrong}` instead of `{correct}`.\n"
@@ -4513,7 +4546,7 @@ msgstr ""
 "Parece que has escrito dos operadores (`{first}` y `{second}`)\n"
 "en el orden equivocado: `{wrong}` en lugar de `{correct}`.\n"
 
-#: syntax_errors\statement_analyzer.py:466
+#: syntax_errors\statement_analyzer.py:484
 msgid ""
 "You wrote three equal signs in a row which is allowed in some\n"
 "programming languages, but not in Python. To check if two objects\n"
@@ -4527,11 +4560,11 @@ msgstr ""
 "representan\n"
 "exactamente el mismo objeto, utiliza el operador `is`.\n"
 
-#: syntax_errors\statement_analyzer.py:472
+#: syntax_errors\statement_analyzer.py:490
 msgid "Did you mean to use `is` instead of `===`?\n"
 msgstr "¿Querías usar `is` en lugar de `===`?\n"
 
-#: syntax_errors\statement_analyzer.py:476
+#: syntax_errors\statement_analyzer.py:494
 msgid ""
 "You cannot have write the same operator, `{op}`, twice in a row.\n"
 "Perhaps you wrote one of them by mistake\n"
@@ -4541,7 +4574,7 @@ msgstr ""
 "Tal vez usted escribió uno de ellos por error\n"
 "o se olvidó de escribir algo entre ellos.\n"
 
-#: syntax_errors\statement_analyzer.py:487
+#: syntax_errors\statement_analyzer.py:505
 msgid ""
 "You cannot have these two operators, `{first}` and `{second}`,\n"
 "following each other.\n"
@@ -4553,7 +4586,7 @@ msgstr ""
 "Parece que usted trató de usar una expresión estelar como un valor de dict;\n"
 "esto no está permitido.\n"
 
-#: syntax_errors\statement_analyzer.py:501
+#: syntax_errors\statement_analyzer.py:519
 msgid ""
 "You cannot have these two operators, `{first}` and `{second}`,\n"
 "following each other. Perhaps you wrote one of them by mistake\n"
@@ -4563,7 +4596,7 @@ msgstr ""
 "siguiéndose el uno al otro. Tal vez usted escribió uno de ellos por error\n"
 "o se olvidó de escribir algo entre ellos.\n"
 
-#: syntax_errors\statement_analyzer.py:508
+#: syntax_errors\statement_analyzer.py:526
 msgid ""
 "Or perhaps you included a space by mistake between the two operators\n"
 "and meant to write `{oper}` as a single operator.\n"
@@ -4571,11 +4604,11 @@ msgstr ""
 "O quizás incluyó un espacio por error entre los dos operadores\n"
 "y quiso escribir `{oper}` como un solo operador.\n"
 
-#: syntax_errors\statement_analyzer.py:537
+#: syntax_errors\statement_analyzer.py:555
 msgid "Did you mean to use `=`?\n"
 msgstr "¿Querías usar `=`?\n"
 
-#: syntax_errors\statement_analyzer.py:538
+#: syntax_errors\statement_analyzer.py:556
 msgid ""
 "You use the augmented assignment operator `:=` where\n"
 "the normal assignment operator `=` was required.\n"
@@ -4583,7 +4616,7 @@ msgstr ""
 "Se utiliza el operador de asignación aumentado `:=` donde\n"
 "el operador de asignación normal `=` era necesario.\n"
 
-#: syntax_errors\statement_analyzer.py:578
+#: syntax_errors\statement_analyzer.py:596
 msgid ""
 "The following statement would not contain a syntax error:\n"
 "\n"
@@ -4593,11 +4626,11 @@ msgstr ""
 "\n"
 "    {new_statement}"
 
-#: syntax_errors\statement_analyzer.py:584
+#: syntax_errors\statement_analyzer.py:602
 msgid "Perhaps you needed `==` or `:=` instead of `=`.\n"
 msgstr "Tal vez necesitabas `==` o `:=` en lugar de `=`.\n"
 
-#: syntax_errors\statement_analyzer.py:585
+#: syntax_errors\statement_analyzer.py:603
 msgid ""
 "You used an assignment operator `=`; perhaps you meant to use \n"
 "an equality operator, `==`, or the walrus operator `:=`.\n"
@@ -4605,7 +4638,7 @@ msgstr ""
 "Has utilizado un operador de asignación `=`; quizás querías utilizar \n"
 "un operador de igualdad, `==`, o el operador de asignación aumentado `:=`.\n"
 
-#: syntax_errors\statement_analyzer.py:638
+#: syntax_errors\statement_analyzer.py:656
 msgid ""
 "It looks as if you are attempting to use pip to install a module.\n"
 "`pip` is a command that needs to run in a terminal,\n"
@@ -4615,11 +4648,11 @@ msgstr ""
 "`pip` es un comando que debe ejecutarse en una terminal,\n"
 "no desde un intérprete de Python.\n"
 
-#: syntax_errors\statement_analyzer.py:646
+#: syntax_errors\statement_analyzer.py:664
 msgid "Pip cannot be used in a Python interpreter.\n"
 msgstr "Pip no puede ser utilizado en un intérprete de Python.\n"
 
-#: syntax_errors\statement_analyzer.py:649
+#: syntax_errors\statement_analyzer.py:667
 msgid ""
 "I am guessing that you are attempting to use Python to run a program.\n"
 "You must do so from a terminal and not from a Python interpreter.\n"
@@ -4627,26 +4660,26 @@ msgstr ""
 "Supongo que estás intentando utilizar Python para ejecutar un programa.\n"
 "Debe hacerlo desde un terminal y no desde un intérprete de Python.\n"
 
-#: syntax_errors\statement_analyzer.py:659
+#: syntax_errors\statement_analyzer.py:677
 msgid "You cannot have a dot `.` followed by `{bracket}`.\n"
 msgstr "No puede haber un punto `.` seguido de `{bracket}`.\n"
 
-#: syntax_errors\statement_analyzer.py:669
+#: syntax_errors\statement_analyzer.py:687
 msgid "Perhaps you need to replace the dot by a comma.\n"
 msgstr "Tal vez haya que sustituir el punto por una coma.\n"
 
-#: syntax_errors\statement_analyzer.py:680
+#: syntax_errors\statement_analyzer.py:698
 msgid ""
 "It looks like you are trying to raise an exception using Python 2 syntax.\n"
 msgstr ""
 "Parece que estás intentando lanzar una excepción utilizando la sintaxis de "
 "Python 2.\n"
 
-#: syntax_errors\statement_analyzer.py:735
+#: syntax_errors\statement_analyzer.py:753
 msgid "Did you forget a colon `:`?\n"
 msgstr "¿Olvidaste los dos puntos `:`?\n"
 
-#: syntax_errors\statement_analyzer.py:739
+#: syntax_errors\statement_analyzer.py:757
 msgid ""
 "You wrote a `{for_while}` loop but\n"
 "forgot to add a colon `:` at the end\n"
@@ -4656,7 +4689,7 @@ msgstr ""
 "olvidó añadir dos puntos `:` al final\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:746
+#: syntax_errors\statement_analyzer.py:764
 msgid ""
 "You wrote a statement beginning with\n"
 "`{name}` but forgot to add a colon `:` at the end.\n"
@@ -4666,31 +4699,31 @@ msgstr ""
 "{name}` pero se olvidó de añadir los dos puntos `:` al final.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:764
+#: syntax_errors\statement_analyzer.py:782
 msgid "You wrote a semicolon, `;`, where a comma was expected.\n"
 msgstr "Has escrito un punto y coma, `;`, donde se esperaba una coma.\n"
 
-#: syntax_errors\statement_analyzer.py:784
+#: syntax_errors\statement_analyzer.py:802
 msgid "You wrote semicolons, `;`, where commas were expected.\n"
 msgstr "Has escrito punto y coma, `;`, donde se esperaban comas.\n"
 
-#: syntax_errors\statement_analyzer.py:785
+#: syntax_errors\statement_analyzer.py:803
 msgid "Did you mean to write commas?\n"
 msgstr "¿Querías escribir comas?\n"
 
-#: syntax_errors\statement_analyzer.py:801
+#: syntax_errors\statement_analyzer.py:819
 msgid "You wrote a semicolon, `;`, where a colon was expected.\n"
 msgstr "Has escrito un punto y coma, `;`, donde se esperaba dos puntos.\n"
 
-#: syntax_errors\statement_analyzer.py:802
+#: syntax_errors\statement_analyzer.py:820
 msgid "Did you mean to write a colon?\n"
 msgstr "¿Querías escribir dos puntos?\n"
 
-#: syntax_errors\statement_analyzer.py:820
+#: syntax_errors\statement_analyzer.py:838
 msgid "Did you made a mistake in writing an hexadecimal integer?\n"
 msgstr "¿Te has equivocado al escribir un entero hexadecimal?\n"
 
-#: syntax_errors\statement_analyzer.py:821
+#: syntax_errors\statement_analyzer.py:839
 msgid ""
 "It looks like you used an invalid character (`{character}`) in an "
 "hexadecimal number.\n"
@@ -4712,11 +4745,11 @@ msgstr ""
 "seguido de los caracteres utilizados para representar el valor de ese número "
 "entero.\n"
 
-#: syntax_errors\statement_analyzer.py:840
+#: syntax_errors\statement_analyzer.py:858
 msgid "Did you made a mistake in writing an octal integer?\n"
 msgstr "¿Te has equivocado al escribir un entero octal?\n"
 
-#: syntax_errors\statement_analyzer.py:841
+#: syntax_errors\statement_analyzer.py:859
 msgid ""
 "It looks like you used an invalid character (`{character}`) in an octal "
 "number.\n"
@@ -4738,15 +4771,15 @@ msgstr ""
 "seguido de los caracteres utilizados para representar el valor de ese número "
 "entero.\n"
 
-#: syntax_errors\statement_analyzer.py:868
+#: syntax_errors\statement_analyzer.py:886
 msgid "Valid names cannot begin with a number.\n"
 msgstr "Los nombres válidos no pueden empezar por un número.\n"
 
-#: syntax_errors\statement_analyzer.py:875
+#: syntax_errors\statement_analyzer.py:893
 msgid "Did you mean `{number}j`?\n"
 msgstr "¿Quieres decir `{number}j`?\n"
 
-#: syntax_errors\statement_analyzer.py:876
+#: syntax_errors\statement_analyzer.py:894
 msgid ""
 "Perhaps you thought that `i` could be used to represent\n"
 "the square root of `-1`. In Python, the symbol used for this is `j`\n"
@@ -4760,7 +4793,7 @@ msgstr ""
 "seguido de `j`, sin espacios intermedios.\n"
 "Tal vez haya querido escribir `{number}j`.\n"
 
-#: syntax_errors\statement_analyzer.py:886
+#: syntax_errors\statement_analyzer.py:904
 msgid ""
 "[Note: `{first} * {second}` would also be valid\n"
 "since `{first}` is a complex number.]\n"
@@ -4768,15 +4801,15 @@ msgstr ""
 "[Nota: `{first}` * {second}` también sería válido\n"
 "ya que `{first}` es un número complejo].\n"
 
-#: syntax_errors\statement_analyzer.py:897
+#: syntax_errors\statement_analyzer.py:915
 msgid "Perhaps you forgot a multiplication operator, `{first} * {second}`.\n"
 msgstr "Tal vez olvidó un operador de multiplicación, `{first} * {second}`.\n"
 
-#: syntax_errors\statement_analyzer.py:912
+#: syntax_errors\statement_analyzer.py:930
 msgid "Your Python version does not support this f-string feature.\n"
 msgstr "Su versión de Python no soporta esta función f-string.\n"
 
-#: syntax_errors\statement_analyzer.py:913
+#: syntax_errors\statement_analyzer.py:931
 msgid ""
 "You are likely using a 'debug' syntax of f-strings introduced\n"
 "in Python version 3.8. You are using version {version}.\n"
@@ -4785,7 +4818,7 @@ msgstr ""
 "introducida\n"
 "en la versión 3.8 de Python. Estás usando la versión {version}.\n"
 
-#: syntax_errors\statement_analyzer.py:919
+#: syntax_errors\statement_analyzer.py:937
 msgid ""
 "You are likely trying to assign a value within an f-string.\n"
 "This is not allowed.\n"
@@ -4793,7 +4826,7 @@ msgstr ""
 "Es probable que esté intentando asignar un valor dentro de un f-string.\n"
 "Esto no está permitido.\n"
 
-#: syntax_errors\statement_analyzer.py:934
+#: syntax_errors\statement_analyzer.py:952
 msgid ""
 "The content of your f-string is invalid. Please consult the documentation:\n"
 "https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
@@ -4801,13 +4834,13 @@ msgstr ""
 "El contenido de su f-string no es válido. Consulte la documentación:\n"
 "https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
 
-#: syntax_errors\statement_analyzer.py:944
+#: syntax_errors\statement_analyzer.py:962
 msgid "Python keywords cannot be used as identifiers (variable names).\n"
 msgstr ""
 "Las palabras clave de Python no pueden utilizarse como identificadores "
 "(nombres de variables).\n"
 
-#: syntax_errors\statement_analyzer.py:968
+#: syntax_errors\statement_analyzer.py:986
 msgid ""
 "`lambda` does not allow parentheses around its arguments.\n"
 "This was allowed in Python 2 but it not allowed in Python 3.\n"
@@ -4815,7 +4848,7 @@ msgstr ""
 "`lambda` no permite paréntesis alrededor de sus argumentos.\n"
 "Esto estaba permitido en Python 2 pero no en Python 3.\n"
 
-#: syntax_errors\statement_analyzer.py:985
+#: syntax_errors\statement_analyzer.py:1003
 msgid ""
 "You cannot have explicit tuples as arguments.\n"
 "Assign any tuple to a parameter and unpack it\n"
@@ -4825,11 +4858,11 @@ msgstr ""
 "Asigne cualquier tupla a un parámetro y desempaque\n"
 "dentro del cuerpo de la función.\n"
 
-#: syntax_errors\statement_analyzer.py:1018
+#: syntax_errors\statement_analyzer.py:1036
 msgid "If you remove `{type_decl}`, you will have a valid Python statement.\n"
 msgstr "Si eliminas `{type_decl}`, tendrás una declaración válida de Python.\n"
 
-#: syntax_errors\statement_analyzer.py:1022
+#: syntax_errors\statement_analyzer.py:1040
 msgid ""
 "However, even if you remove `{type_decl}`, there would still be some\n"
 "some syntax errors.\n"
@@ -4837,11 +4870,11 @@ msgstr ""
 "Sin embargo, incluso si se elimina `{type_decl}`, todavía habría algunos\n"
 "algunos errores de sintaxis.\n"
 
-#: syntax_errors\statement_analyzer.py:1027
+#: syntax_errors\statement_analyzer.py:1045
 msgid "You do not need to declare variables in Python.\n"
 msgstr "No es necesario declarar variables en Python.\n"
 
-#: syntax_errors\statement_analyzer.py:1028
+#: syntax_errors\statement_analyzer.py:1046
 msgid ""
 "It looks like you were trying to declare that `{var}` was\n"
 "a variable using the word `{type_decl}`.\n"
@@ -4849,7 +4882,7 @@ msgstr ""
 "Parece que estabas intentando declarar que `{var}` era\n"
 "una variable utilizando la palabra `{type_decl}`.\n"
 
-#: syntax_errors\statement_analyzer.py:1061
+#: syntax_errors\statement_analyzer.py:1079
 msgid ""
 "I am guessing that you forgot a comma between two strings\n"
 "when defining a dict.\n"
@@ -4859,11 +4892,11 @@ msgstr ""
 "al definir un dict.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1106
+#: syntax_errors\statement_analyzer.py:1124
 msgid "Did you forget to write `in`?\n"
 msgstr "¿Olvidaste escribir `in`?\n"
 
-#: syntax_errors\statement_analyzer.py:1107
+#: syntax_errors\statement_analyzer.py:1125
 msgid ""
 "It looks as though you forgot to use the keyword `in`\n"
 "as part of a `for` statement. Perhaps you meant:\n"
@@ -4877,11 +4910,11 @@ msgstr ""
 "    {new_statement}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1129
+#: syntax_errors\statement_analyzer.py:1147
 msgid "Did you forget to write parenthesis?\n"
 msgstr "¿Te has olvidado de escribir paréntesis?\n"
 
-#: syntax_errors\statement_analyzer.py:1130
+#: syntax_errors\statement_analyzer.py:1148
 msgid ""
 "It looks as though you forgot to use to use parenthesis with `range`.\n"
 "Perhaps you meant:\n"
@@ -4895,7 +4928,7 @@ msgstr ""
 "    {new_statement}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1162
+#: syntax_errors\statement_analyzer.py:1180
 msgid ""
 "Perhaps you meant to write `{keyword}` and made a typo.\n"
 "The correct line might be `{line}`\n"
@@ -4903,7 +4936,7 @@ msgstr ""
 "Tal vez quiso escribir `{keyword}` y cometió un error.\n"
 "La línea correcta podría ser `{line}`\n"
 
-#: syntax_errors\statement_analyzer.py:1175
+#: syntax_errors\statement_analyzer.py:1193
 msgid ""
 "I am guessing that you were writing a comprehension or a generator "
 "expression\n"
@@ -4932,7 +4965,7 @@ msgstr ""
 "    [f(x) for x in secuencia if condición]  # 'if' despues de 'for'\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1277
+#: syntax_errors\statement_analyzer.py:1295
 msgid ""
 "You cannot have spaces in identifiers (variable names).\n"
 "Perhaps you meant `{name}`?\n"
@@ -4940,11 +4973,11 @@ msgstr ""
 "No puede haber espacios en los identificadores (nombres de variables).\n"
 "¿Quizás se refería a `{name}`?\n"
 
-#: syntax_errors\statement_analyzer.py:1299
+#: syntax_errors\statement_analyzer.py:1317
 msgid "`bf` is an illegal string prefix.\n"
 msgstr "`bf` es un prefijo de cadena no valido.\n"
 
-#: syntax_errors\statement_analyzer.py:1300
+#: syntax_errors\statement_analyzer.py:1318
 msgid ""
 "I am guessing that you wanted a binary f-string;\n"
 "this is not allowed.\n"
@@ -4952,7 +4985,7 @@ msgstr ""
 "Supongo que querías un f-string binario;\n"
 "esto no está permitido.\n"
 
-#: syntax_errors\statement_analyzer.py:1324
+#: syntax_errors\statement_analyzer.py:1342
 msgid ""
 "It is possible that you forgot a comma between items in a tuple, \n"
 "or between function arguments, \n"
@@ -4962,7 +4995,7 @@ msgstr ""
 "o entre los argumentos de una función, \n"
 "en la posición indicada por ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1332
+#: syntax_errors\statement_analyzer.py:1350
 msgid ""
 "It is possible that you forgot a comma between items in a list\n"
 "at the position indicated by ^.\n"
@@ -4970,7 +5003,7 @@ msgstr ""
 "Es posible que haya olvidado una coma entre los elementos de una lista\n"
 "en la posición indicada por ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1338
+#: syntax_errors\statement_analyzer.py:1356
 msgid ""
 "It is possible that you forgot a comma between items in a set or dict\n"
 "at the position indicated by ^.\n"
@@ -4978,7 +5011,7 @@ msgstr ""
 "Es posible que haya olvidado una coma entre los elementos de un set o dict\n"
 "en la posición indicada por ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1362
+#: syntax_errors\statement_analyzer.py:1380
 msgid ""
 "Python indicates that the error is caused by `{second}` written immediately "
 "after `{first}`.\n"
@@ -4986,15 +5019,15 @@ msgstr ""
 "Python indica que el error es causado por `{second}` escrito inmediatamente "
 "después de `{first}`.\n"
 
-#: syntax_errors\statement_analyzer.py:1419
+#: syntax_errors\statement_analyzer.py:1437
 msgid "Perhaps you meant{line}"
 msgstr "Tal vez quiso decir{line}."
 
-#: syntax_errors\statement_analyzer.py:1426
+#: syntax_errors\statement_analyzer.py:1444
 msgid "Did you forget something between `{first}` and `{second}`?\n"
 msgstr "¿Olvidaste algo entre `{first}` y `{second}`?\n"
 
-#: syntax_errors\statement_analyzer.py:1441
+#: syntax_errors\statement_analyzer.py:1459
 msgid ""
 "Perhaps you meant to insert an operator like `{operators}`\n"
 "between `{first}` and `{second}`.\n"
@@ -5006,7 +5039,7 @@ msgstr ""
 "Las siguientes líneas de código no causarían ningún `SyntaxError`:\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1450
+#: syntax_errors\statement_analyzer.py:1468
 msgid ""
 "Note: these are just some of the possible choices and that\n"
 "some of them might raise other types of exceptions.\n"
@@ -5014,11 +5047,11 @@ msgstr ""
 "Nota: estas son sólo algunas de las opciones posibles y que\n"
 "algunas de ellas pueden generar otros tipos de excepciones.\n"
 
-#: syntax_errors\statement_analyzer.py:1457
+#: syntax_errors\statement_analyzer.py:1475
 msgid "There is an additional possibility.\n"
 msgstr "Hay una posibilidad adicional.\n"
 
-#: syntax_errors\statement_analyzer.py:1472
+#: syntax_errors\statement_analyzer.py:1490
 msgid ""
 "It is possible that you used an equal sign `=` instead of a colon `:`\n"
 "to assign values to keys in a dict\n"
@@ -5028,7 +5061,7 @@ msgstr ""
 "para asignar valores a las claves de un dict\n"
 "antes o en la posición indicada por ^.\n"
 
-#: syntax_errors\statement_analyzer.py:1489
+#: syntax_errors\statement_analyzer.py:1507
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 "Perhaps you meant to write\n"
@@ -5041,7 +5074,7 @@ msgstr ""
 "\n"
 "`{new_statement}`\n"
 
-#: syntax_errors\statement_analyzer.py:1521
+#: syntax_errors\statement_analyzer.py:1539
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -5064,7 +5097,7 @@ msgstr ""
 "    from {module} import objeto_1 as nombre_1\n"
 "    from {module} import objeto_2 as nombre_2  # si es necesario\n"
 
-#: syntax_errors\statement_analyzer.py:1551
+#: syntax_errors\statement_analyzer.py:1569
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
@@ -5072,11 +5105,11 @@ msgstr ""
 "Supongo que has escrito {bad_token} dos veces seguidas por error.\n"
 "Si ese es el caso, tienes que eliminar la segunda.\n"
 
-#: syntax_errors\statement_analyzer.py:1555
+#: syntax_errors\statement_analyzer.py:1573
 msgid "Did you write {bad_token} twice by mistake?\n"
 msgstr "¿Has escrito {bad_token} dos veces por error?\n"
 
-#: syntax_errors\statement_analyzer.py:1574
+#: syntax_errors\statement_analyzer.py:1592
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
@@ -5084,11 +5117,11 @@ msgstr ""
 "Supongo que has escrito {bad_token} por error.\n"
 "Quitándolo y escribiendo `{line}` parece que se solucionara el error.\n"
 
-#: syntax_errors\statement_analyzer.py:1578
+#: syntax_errors\statement_analyzer.py:1596
 msgid "Did you write {bad_token} by mistake?\n"
 msgstr "¿Has escrito {bad_token} por error?\n"
 
-#: syntax_errors\statement_analyzer.py:1595
+#: syntax_errors\statement_analyzer.py:1613
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps wrote a dict key without writing the corresponding value.\n"
@@ -5096,7 +5129,7 @@ msgstr ""
 "Parece que el error se ha producido al escribir un `dict` de Python.\n"
 "Tal vez escribió una clave de `dict` sin escribir el valor correspondiente.\n"
 
-#: syntax_errors\statement_analyzer.py:1611
+#: syntax_errors\statement_analyzer.py:1629
 msgid ""
 "The `else` keyword does not begin a code block that matches\n"
 "a valid code block, possibly because `else` is not indented correctly.\n"
@@ -5105,7 +5138,7 @@ msgstr ""
 "un bloque de código válido, posiblemente porque `else` no está indentado "
 "correctamente.\n"
 
-#: syntax_errors\statement_analyzer.py:1626
+#: syntax_errors\statement_analyzer.py:1644
 msgid ""
 "The `elif` keyword does not begin a code block that matches\n"
 "an `if` block, possibly because `elif` is not indented correctly.\n"
@@ -5113,11 +5146,11 @@ msgstr ""
 "La palabra clave `elif` no comienza un bloque de código que coincide con\n"
 "un bloque `if`, posiblemente porque `elif` no tiene el indentado correcto.\n"
 
-#: syntax_errors\statement_analyzer.py:1658
+#: syntax_errors\statement_analyzer.py:1676
 msgid "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr "Has utilizado corchetes, `[...]` en lugar de paréntesis.\n"
 
-#: syntax_errors\statement_analyzer.py:1662
+#: syntax_errors\statement_analyzer.py:1680
 msgid ""
 "Write the following instead:\n"
 "\n"
@@ -5127,15 +5160,15 @@ msgstr ""
 "\n"
 "{new_statement}"
 
-#: syntax_errors\statement_analyzer.py:1706
+#: syntax_errors\statement_analyzer.py:1724
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr "El {bracket} de apertura en la línea {linenumber} no está cerrado.\n"
 
-#: syntax_errors\statement_analyzer.py:1720
+#: syntax_errors\statement_analyzer.py:1738
 msgid "If this is incorrect, please report this case.\n"
 msgstr "Si esto es incorrecto, por favor reporte este caso.\n"
 
-#: syntax_errors\statement_analyzer.py:1732
+#: syntax_errors\statement_analyzer.py:1750
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a generator expression.\n"
@@ -5146,7 +5179,7 @@ msgstr ""
 "No puedes tener bloques de código separados dentro de las expresiones del "
 "generador.\n"
 
-#: syntax_errors\statement_analyzer.py:1738
+#: syntax_errors\statement_analyzer.py:1756
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a list comprehension.\n"
@@ -5157,7 +5190,7 @@ msgstr ""
 "No se pueden tener bloques de código separados dentro de las comprensiones "
 "de listas.\n"
 
-#: syntax_errors\statement_analyzer.py:1744
+#: syntax_errors\statement_analyzer.py:1762
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a dict or set comprehension.\n"
@@ -5168,7 +5201,7 @@ msgstr ""
 "No puedes tener bloques de código separados dentro de las comprensiones dict "
 "o set.\n"
 
-#: syntax_errors\statement_analyzer.py:1750
+#: syntax_errors\statement_analyzer.py:1768
 msgid "If this explanation is incorrect, please report this case.\n"
 msgstr "Si esta explicación es incorrecta, por favor informe de este caso.\n"
 
@@ -5298,6 +5331,9 @@ msgid ""
 "(`start:stop` or `start:stop:step`) \n"
 "and you have used {obj_type} instead.\n"
 msgstr ""
+
+#~ msgid "Changes the prompt style to be used in the Friendly console."
+#~ msgstr "Cambia el estilo del indicador de consola que será utilizado."
 
 #~ msgid "Nothing to go back to: no exception recorded."
 #~ msgstr "Nada a donde volver: no se registró excepción alguna."

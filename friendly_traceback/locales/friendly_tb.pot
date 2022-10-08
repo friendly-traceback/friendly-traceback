@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-08 15:17-0300\n"
+"POT-Creation-Date: 2022-10-08 18:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,11 +45,11 @@ msgid ""
 "If you used `exec`, consider using `friendly_exec` instead."
 msgstr ""
 
-#: base_formatters.py:182 base_formatters.py:188
+#: base_formatters.py:201 base_formatters.py:207
 msgid "I have no suggestion to offer."
 msgstr ""
 
-#: base_formatters.py:186
+#: base_formatters.py:205
 msgid "I have no suggestion to offer; try `why()`."
 msgstr ""
 
@@ -120,11 +120,21 @@ msgstr ""
 msgid "More lines not shown."
 msgstr ""
 
-#: core.py:126 core.py:166
+#: core.py:126 core.py:167
 msgid "Python exception:"
 msgstr ""
 
-#: core.py:186
+#: core.py:181
+msgid ""
+"The exception includes the following note:\n"
+msgstr ""
+
+#: core.py:185
+msgid ""
+"The exception includes the following notes:\n"
+msgstr ""
+
+#: core.py:205
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -133,71 +143,71 @@ msgid ""
 "raises an exception or does not return a string.\n"
 msgstr ""
 
-#: core.py:237
+#: core.py:256
 msgid ""
 "The encoding of the file was not valid.\n"
 msgstr ""
 
-#: core.py:317 core.py:338
+#: core.py:336 core.py:357
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 
-#: core.py:321
+#: core.py:340
 msgid ""
 "If you used `exec`, consider using `friendly_exec` instead.\n"
 msgstr ""
 
-#: core.py:326
+#: core.py:345
 msgid ""
 "Exception raised on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 
-#: core.py:330
+#: core.py:349
 msgid ""
 "Exception raised on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 
-#: core.py:366
+#: core.py:385
 msgid ""
 "Execution stopped on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 
-#: core.py:370
+#: core.py:389
 msgid ""
 "Execution stopped on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 
-#: core.py:394
+#: core.py:413
 msgid "Code block {filename}, line `{line}`"
 msgstr ""
 
-#: core.py:398
+#: core.py:417
 msgid "File '{filename}', line `{line}`"
 msgstr ""
 
-#: core.py:412
+#: core.py:431
 msgid ""
 "The entire content of `{filename}` is not available.\n"
 msgstr ""
 
-#: core.py:426
+#: core.py:445
 msgid ""
 "Python could not understand the code in the code block {filename}\n"
 msgstr ""
 
-#: core.py:430
+#: core.py:449
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr ""
 
-#: core.py:435
+#: core.py:454
 msgid ""
 "at the location indicated.\n"
 msgstr ""
 
-#: core.py:673
+#: core.py:692
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"

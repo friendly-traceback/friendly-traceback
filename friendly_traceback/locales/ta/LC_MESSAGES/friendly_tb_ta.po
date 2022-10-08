@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: friendly-traceback\n"
-"POT-Creation-Date: 2022-09-27 17:45-0300\n"
+"POT-Creation-Date: 2022-10-08 18:36-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,31 +11,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:205 __main__.py:172
+#: __init__.py:214 __main__.py:172
 msgid "The file {filename} does not exist."
 msgstr "கோப்பு {filename} வட்டில் இல்லை."
 
-#: __init__.py:301
+#: __init__.py:296
+msgid "The available languages are:"
+msgstr "கிடைக்கக்கூடிய அம்சங்கள்:"
+
+#: __init__.py:324
 msgid "{include}: Unrecognized value."
 msgstr ""
 
-#: __init__.py:302
+#: __init__.py:325
 msgid "The allowed values are:"
 msgstr ""
 
-#: about_warnings.py:63
+#: about_warnings.py:90
 msgid "Warning issued on line `{line}` of code block {filename}."
 msgstr "குறியீட்டுப் பகுதி {filename} இன் `{line}` வரியில் விதிவிலக்கு எழுப்பப்பட்டது."
 
-#: about_warnings.py:67
+#: about_warnings.py:94
 msgid "Warning issued on line `{line}` of file '{filename}'."
 msgstr "'{filename}' கோப்பின் `{line}` ஆம் வரியில் விதிவிலக்கு எழுப்பப்பட்டது."
 
-#: base_formatters.py:182 base_formatters.py:188
+#: about_warnings.py:137
+msgid ""
+"The source is unavailable.\n"
+"If you used `exec`, consider using `friendly_exec` instead."
+msgstr ""
+
+#: base_formatters.py:201 base_formatters.py:207
 msgid "I have no suggestion to offer."
 msgstr "நான் வழங்க எந்த பரிந்துரையும் இல்லை."
 
-#: base_formatters.py:186
+#: base_formatters.py:205
 msgid "I have no suggestion to offer; try `why()`."
 msgstr "நான் வழங்க எந்த ஆலோசனையும் இல்லை; `why()` முயற்சிக்கவும்."
 
@@ -49,19 +59,15 @@ msgstr ""
 "அப்படியானால், தொடர, முயற்சிக்கவும்: `start_console(local_vars=locals())`.\n"
 "நீங்கள் ஏற்கனவே அவ்வாறு செய்யவில்லை என்றால், `start_console` ஐ இறக்குமதி செய்ய வேண்டும்.\n"
 
-#: config.py:75 config.py:209 console_helpers.py:29
+#: config.py:75 config.py:191 console_helpers.py:43
 msgid "Nothing to show: no exception recorded."
 msgstr "காட்ட எதுவும் இல்லை: விதிவிலக்கு பதிவு செய்யப்படவில்லை."
 
-#: config.py:77
-msgid "`index` must be a positive integer or -1.\n"
+#: config.py:80
+msgid "Invalid index value."
 msgstr ""
 
-#: config.py:88
-msgid "There are only {number} recorded exceptions.\n"
-msgstr ""
-
-#: config.py:335
+#: config.py:317
 msgid ""
 "An exception occurred before friendly-traceback was imported.\n"
 "Some information is available."
@@ -69,23 +75,37 @@ msgstr ""
 "friendly-traceback இறக்குமதி செய்யப்படுவதற்கு முன்பு ஒரு விதிவிலக்கு ஏற்பட்டது.\n"
 "சில தகவல்கள் கிடைக்கின்றன."
 
-#: console_helpers.py:39
-msgid "Nothing to go back to: no exception recorded."
-msgstr "திரும்பிச் செல்வதற்கு எதுவும் இல்லை: விதிவிலக்கு பதிவு செய்யப்படவில்லை."
-
-#: console_helpers.py:52
+#: console_helpers.py:49
 msgid "Friendly-traceback is already disabled."
 msgstr ""
 
-#: console_helpers.py:60
+#: console_helpers.py:59
 msgid "Friendly-traceback is already enabled."
 msgstr ""
 
-#: console_helpers.py:143 console_helpers.py:147
+#: console_helpers.py:109 functions_help.py:15
+msgid "Shows a list of recorded traceback messages."
+msgstr "பதிவுசெய்யப்பட்ட மீண்டும்கண்டுபிடிக்கும் செய்திகளின் பட்டியலைக் காட்டுகிறது."
+
+#: console_helpers.py:111 functions_help.py:17
+msgid "You can also use `history.clear()` and `history.pop()`."
+msgstr ""
+
+#: console_helpers.py:121
+#, fuzzy
+#| msgid "Nothing to show: no exception recorded."
+msgid "Nothing to delete: no exception recorded."
+msgstr "காட்ட எதுவும் இல்லை: விதிவிலக்கு பதிவு செய்யப்படவில்லை."
+
+#: console_helpers.py:128
+msgid "There is no such history item."
+msgstr ""
+
+#: console_helpers.py:172 console_helpers.py:176
 msgid "{exception} is not an exception."
 msgstr "{exception} என்பது விதிவிலக்கல்ல."
 
-#: console_helpers.py:245
+#: console_helpers.py:272
 msgid ""
 "Invalid argument for `www()`.\n"
 "Valid arguments include `None` or one of `{sites}`.\n"
@@ -93,7 +113,7 @@ msgstr ""
 "`www()` க்கான தவறான மதிப்புரு.\n"
 "செல்லுபடியாகும் வாதங்களில் `None` அல்லது `{sites}`இல் ஒன்று அடங்கும்.\n"
 
-#: console_helpers.py:269
+#: console_helpers.py:296
 msgid "The default web browser cannot be used for searching."
 msgstr "தேடலுக்கு இயல்புநிலை இணைய உலாவியைப் பயன்படுத்த முடியாது."
 
@@ -105,11 +125,19 @@ msgstr "நட்பு பொருளின் பின்வரும் ம
 msgid "More lines not shown."
 msgstr "மேலும் வரிகள் காட்டப்படவில்லை."
 
-#: core.py:126 core.py:166
+#: core.py:126 core.py:167
 msgid "Python exception:"
 msgstr "பைதான் விதிவிலக்கு:"
 
-#: core.py:186
+#: core.py:181
+msgid "The exception includes the following note:\n"
+msgstr ""
+
+#: core.py:185
+msgid "The exception includes the following notes:\n"
+msgstr ""
+
+#: core.py:205
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -123,47 +151,51 @@ msgstr ""
 "`__repr__` அல்லது `__str__` முறை விதிவிலக்கை எழுப்பினால் \n"
 "அல்லது சரத்தை வழங்கவில்லை என்றால் இது நிகழலாம்.\n"
 
-#: core.py:237
+#: core.py:256
 msgid "The encoding of the file was not valid.\n"
 msgstr "கோப்பின் குறியாக்கம் தவறானது.\n"
 
-#: core.py:317 core.py:334
+#: core.py:336 core.py:357
 msgid "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr "{filename} என்பது வழக்கமான பைதான் கோப்பு அல்ல, அதன் உள்ளடக்கங்களை பகுப்பாய்வு செய்யலாம்.\n"
 
-#: core.py:322
+#: core.py:340
+msgid "If you used `exec`, consider using `friendly_exec` instead.\n"
+msgstr ""
+
+#: core.py:345
 msgid "Exception raised on line `{linenumber}` of code block {filename}.\n"
 msgstr "குறியீட்டுப் பகுதி {filename} இன் `{linenumber}` வரியில் விதிவிலக்கு எழுப்பப்பட்டது.\n"
 
-#: core.py:326
+#: core.py:349
 msgid "Exception raised on line `{linenumber}` of file '{filename}'.\n"
 msgstr "'{filename}' கோப்பின் `{linenumber}` ஆம் வரியில் விதிவிலக்கு எழுப்பப்பட்டது.\n"
 
-#: core.py:362
+#: core.py:385
 msgid "Execution stopped on line `{linenumber}` of code block {filename}.\n"
 msgstr "குறியீட்டுப் பகுதி {filename} இன் `{linenumber}` ஆம் வரியில் செயல்படுத்தல் நிறுத்தப்பட்டது.\n"
 
-#: core.py:366
+#: core.py:389
 msgid "Execution stopped on line `{linenumber}` of file '{filename}'.\n"
 msgstr "'{filename}' கோப்பின் `{linenumber}` ஆம் வரியில் செயல்படுத்தல் நிறுத்தப்பட்டது.\n"
 
-#: core.py:390
+#: core.py:413
 msgid "Code block {filename}, line `{line}`"
 msgstr "கோப்பு {filename}, வரி `{line}`"
 
-#: core.py:394
+#: core.py:417
 msgid "File '{filename}', line `{line}`"
 msgstr "கோப்பு '{filename}', வரி `{line}`"
 
-#: core.py:408
+#: core.py:431
 msgid "The entire content of `{filename}` is not available.\n"
 msgstr "`{filename}` இன் முழு உள்ளடக்கமும் கிடைக்கவில்லை.\n"
 
-#: core.py:422
+#: core.py:445
 msgid "Python could not understand the code in the code block {filename}\n"
 msgstr "{filename} குறியீட்டுப் பகுதியில் உள்ள குறியீட்டை பைத்தானால் புரிந்து கொள்ள முடியவில்லை\n"
 
-#: core.py:426
+#: core.py:449
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
@@ -171,11 +203,11 @@ msgstr ""
 "'{filename}' \n"
 "கோப்பில் உள்ள குறியீட்டைப் பைத்தானால் புரிந்து கொள்ள முடியவில்லை\n"
 
-#: core.py:431
+#: core.py:454
 msgid "at the location indicated.\n"
 msgstr "சுட்டிக்காட்டப்பட்ட இடத்தில்.\n"
 
-#: core.py:669
+#: core.py:692
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -232,112 +264,98 @@ msgid "Internal error for Friendly.\n"
 msgstr "நட்புக்கு உள் பிழை.\n"
 
 #: functions_help.py:10
-msgid "Removes the last recorded traceback item."
-msgstr "கடைசியாகப் பதிவுசெய்யப்பட்ட மீண்டும்கண்டுபிடிக்கும் உருப்படியை நீக்குகிறது."
-
-#: functions_help.py:11
 msgid "Disable friendly-traceback and restore previous exception hook."
 msgstr ""
 
-#: functions_help.py:14
+#: functions_help.py:13
 msgid "Enable friendly-traceback as an exception hook"
 msgstr ""
 
-#: functions_help.py:15
+#: functions_help.py:14
 msgid "Shows all the information about the last traceback."
 msgstr "கடைசி மீண்டும்கண்டுபிடிப்பு பற்றிய அனைத்து தகவல்களையும் காட்டுகிறது."
 
-#: functions_help.py:16
-msgid "Shows a list of recorded traceback messages."
-msgstr "பதிவுசெய்யப்பட்ட மீண்டும்கண்டுபிடிக்கும் செய்திகளின் பட்டியலைக் காட்டுகிறது."
-
-#: functions_help.py:17
+#: functions_help.py:18
 msgid "Sets the language to be used."
 msgstr "பயன்படுத்த வேண்டிய மொழியை அமைக்கிறது."
 
-#: functions_help.py:18
+#: functions_help.py:19
 msgid "Shows the paths corresponding to synonyms used."
 msgstr "பயன்படுத்தப்படும் ஒத்த சொற்களுடன் தொடர்புடைய பாதைகளைக் காட்டுகிறது."
 
-#: functions_help.py:19
-#, fuzzy
-#| msgid "Changes the prompt style to be used in the console."
-msgid "Changes the prompt style to be used in the Friendly console."
-msgstr "கன்சோலில் பயன்படுத்த வேண்டிய ப்ராம்ட் ஸ்டைலை மாற்றுகிறது."
-
-#: functions_help.py:22
+#: functions_help.py:20
 msgid "Shows the generic meaning of a given exception."
 msgstr "கொடுக்கப்பட்ட விதிவிலக்கின் பொதுவான பொருளைக் காட்டுகிறது."
 
-#: functions_help.py:23
+#: functions_help.py:21
 msgid "Shows where an exception was raised."
 msgstr "விதிவிலக்கு எங்கு எழுப்பப்பட்டது என்பதைக் காட்டுகிறது."
 
-#: functions_help.py:24
+#: functions_help.py:22
 msgid "Shows the likely cause of the exception."
 msgstr "விதிவிலக்கான சாத்தியமான காரணத்தைக் காட்டுகிறது."
 
-#: functions_help.py:25
+#: functions_help.py:23
 msgid "Opens a web browser at a useful location."
 msgstr "பயனுள்ள இடத்தில் இணைய உலாவியைத் திறக்கும்."
 
-#: functions_help.py:26
+#: functions_help.py:24
 msgid "Suggestion sometimes added to a friendly traceback."
 msgstr "பரிந்துரை சில சமயங்களில் நட்பு மீண்டும்கண்டுபிடிப்பில் சேர்க்கப்படும்."
 
-#: functions_help.py:27
+#: functions_help.py:25
 msgid "Shows a normal Python traceback."
 msgstr "சாதாரண பைதான் மீண்டும்கண்டுபிடிப்பைக் காட்டுகிறது."
 
-#: functions_help.py:28
+#: functions_help.py:26
 msgid "Shows a simplified Python traceback."
 msgstr "எளிமைப்படுத்தப்பட்ட பைதான் மீண்டும்கண்டுபிடிப்பை காட்டுகிறது."
 
-#: functions_help.py:29
+#: functions_help.py:27
 msgid "Returns the current value used for items to include by default."
 msgstr "இயல்புநிலையில் சேர்க்கப்படும் உருப்படிகளுக்குப் பயன்படுத்தப்படும் தற்போதைய மதிப்பை வழங்கும்."
 
-#: functions_help.py:32
+#: functions_help.py:30
 msgid "Sets the items to show by default when an exception is raised."
 msgstr "விதிவிலக்கு எழுப்பப்படும்போது, ​​இயல்புநிலையாகக் காண்பிக்க உருப்படிகளை அமைக்கிறது."
 
-#: functions_help.py:35
+#: functions_help.py:33
 msgid "Returns the language currently used."
 msgstr "தற்போது பயன்படுத்தப்படும் மொழியை வழங்குகிறது."
 
-#: functions_help.py:36
+#: functions_help.py:34
 msgid "Sets the formatter to use for display."
 msgstr "காட்சிக்கு பயன்படுத்த வடிவமைப்பை அமைக்கிறது."
 
-#: functions_help.py:37
+#: functions_help.py:35
 #, fuzzy
 #| msgid "Use True (default) or False to set the debug flag."
 msgid "Use True (default) or False to enable debugging methods."
 msgstr "பிழைத்திருத்தக் கொடியை அமைக்க True (இயல்புநிலை) அல்லது False என்பதைப் பயன்படுத்தவும்."
 
-#: info_generic.py:36
+#: info_generic.py:41
 #, fuzzy
 #| msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
 msgid "A warning of type `{name}` is a subclass of `{parent}`.\n"
 msgstr "`{name}` வகை விதிவிலக்கு என்பது `{parent}` இன் துணைப்பிரிவாகும்.\n"
 
-#: info_generic.py:40
+#: info_generic.py:45
 msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
 msgstr "`{name}` வகை விதிவிலக்கு என்பது `{parent}` இன் துணைப்பிரிவாகும்.\n"
 
-#: info_generic.py:70
+#: info_generic.py:87
 msgid ""
 "All built-in exceptions defined by Python are derived from `Exception`.\n"
 "All user-defined exceptions should also be derived from this class.\n"
 msgstr ""
 
-#: info_generic.py:78
+#: info_generic.py:95
 msgid ""
 "`BaseException` is the base class for all built-in exceptions.\n"
 "It is not meant to be directly inherited by user-defined classes.\n"
 msgstr ""
 
-#: info_generic.py:86
+#: info_generic.py:103
 msgid ""
 "`ArithmeticError` is the base class for those built-in exceptions\n"
 "that are raised for various arithmetic errors.\n"
@@ -349,7 +367,7 @@ msgstr ""
 "இந்த விதிவிலக்கை நீங்கள் பார்ப்பது அசாதாரணமானது;\n"
 "பொதுவாக, ஒரு குறிப்பிட்ட விதிவிலக்கு எழுப்பப்பட்டிருக்க வேண்டும்.\n"
 
-#: info_generic.py:96
+#: info_generic.py:113
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -358,14 +376,14 @@ msgid ""
 "If `condition` is `False` or equivalent, an `AssertionError` is raised.\n"
 msgstr ""
 "பைத்தானில், நிபந்தனை `condition` என்பது தவறு `False` அல்ல, \n"
-"அல்லது வெற்றுப் பட்டியல் போன்ற தவறு `False` என்பதற்குச் சமமானதாக இல்லை என்பதை உறுதிப்படுத்த, உறுதிப்படுத்துதல் `assert` என்ற "
-"முக்கிய சொல் \n"
+"அல்லது வெற்றுப் பட்டியல் போன்ற தவறு `False` என்பதற்குச் சமமானதாக இல்லை என்பதை உறுதிப்படுத்த, உறுதிப்படுத்துதல் "
+"`assert` என்ற முக்கிய சொல் \n"
 "உறுதிப்படுத்தல் நிபந்தனை `assert condition` படிவத்தின் அறிக்கைகளில் பயன்படுத்தப்படுகிறது.\n"
 "\n"
-"நிபந்தனை `condition` என்பது தவறு `False` அல்லது அதற்கு சமமானதாக இருந்தால், உறுதிப்படுத்தல்பிழை `AssertionError` "
-"எழுப்பப்படும்.\n"
+"நிபந்தனை `condition` என்பது தவறு `False` அல்லது அதற்கு சமமானதாக இருந்தால், உறுதிப்படுத்தல்பிழை "
+"`AssertionError` எழுப்பப்படும்.\n"
 
-#: info_generic.py:106
+#: info_generic.py:123
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
@@ -375,7 +393,7 @@ msgstr ""
 "    `object.x`\n"
 "மேலும் `x` என்பது `object`க்கு சொந்தமான ஒரு முறை அல்லது பண்புக்கூறு (மாறி) அல்ல.\n"
 
-#: info_generic.py:115
+#: info_generic.py:132
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
@@ -383,7 +401,7 @@ msgstr ""
 "`input()` செயல்பாடு  எந்த தரவையும் படிக்காமல் ஒரு இறுதி கோப்பு நிலை (EOF) \n"
 "படிக்கும்போது  இறுதிகோப்புநிலைபிழை `EOFError` எழுப்பப்படுகிறது.\n"
 
-#: info_generic.py:123
+#: info_generic.py:140
 msgid ""
 "A `FileNotFoundError` exception indicates that you\n"
 "are trying to open a file that cannot be found by Python.\n"
@@ -393,7 +411,7 @@ msgstr ""
 "கோப்பைத் திறக்க முயற்சி செய்கிறார்கள் என்பதைக் குறிக்கிறது.\n"
 "நீங்கள் கோப்பின் பெயரை தவறாக எழுதியதால்  இது நிகழலாம்.\n"
 
-#: info_generic.py:132
+#: info_generic.py:149
 msgid ""
 "An `ImportError` exception indicates that a certain object could not\n"
 "be imported from a module or package. Most often, this is\n"
@@ -403,7 +421,7 @@ msgstr ""
 "இறக்குமதி செய்ய முடியாது என்பதை இறக்குமதிப்பிழை `ImportError` விதிவிலக்கு குறிக்கிறது. \n"
 "பெரும்பாலும், பொருளின் பெயர் சரியாக எழுதப்படாததே இதற்குக் காரணம்.\n"
 
-#: info_generic.py:141
+#: info_generic.py:158
 msgid ""
 "An `IndentationError` occurs when a given line of code is\n"
 "not indented (aligned vertically with other lines) as expected.\n"
@@ -411,7 +429,7 @@ msgstr ""
 "கொடுக்கப்பட்ட குறியீட்டு வரி எதிர்பார்த்தபடி உள்தள்ளப்படாமல் \n"
 "(பிற வரிகளுடன் செங்குத்தாக சீரமைக்கப்பட்டது) இருக்கும்பொழுது உள்தள்ளல்பிழை `IndentationError`  ஏற்படுகிறது.\n"
 
-#: info_generic.py:149
+#: info_generic.py:166
 msgid ""
 "An `IndexError` occurs when you try to get an item from a list,\n"
 "a tuple, or a similar object (sequence), and use an index which\n"
@@ -423,7 +441,7 @@ msgstr ""
 "பொதுவாக, நீங்கள் கொடுக்கும் குறியீட்டு\n"
 "வரிசையின் நீளத்தை விட அதிகமாக இருப்பதால் இது நிகழ்கிறது.\n"
 
-#: info_generic.py:159
+#: info_generic.py:176
 msgid ""
 "A `KeyError` is raised when a value is not found as a\n"
 "key in a Python dict or in a similar object.\n"
@@ -431,18 +449,18 @@ msgstr ""
 "பைதான் அகராதியிலோ அல்லது அதைப் போன்ற பொருளிலோ ஒரு மதிப்பு\n"
 "திறவுகோலாக காணப்படும்போது திறவுகோல்பிழை `KeyError` எழுப்பப்படுகிறது.\n"
 
-#: info_generic.py:167
+#: info_generic.py:184
 msgid ""
 "`LookupError` is the base class for the exceptions that are raised\n"
 "when a key or index used on a mapping or sequence is invalid.\n"
 "It can also be raised directly by codecs.lookup().\n"
 msgstr ""
-"தேடல்பிழை `LookupError` என்பது அட்டவணை அல்லது வரிசைமுறையில் பயன்படுத்தப்படும் திறவுகோல் அல்லது குறியீட்டு தவறானதாக இருக்கும் "
-"போது\n"
+"தேடல்பிழை `LookupError` என்பது அட்டவணை அல்லது வரிசைமுறையில் பயன்படுத்தப்படும் திறவுகோல் அல்லது குறியீட்டு "
+"தவறானதாக இருக்கும் போது\n"
 "எழுப்பப்படும் விதிவிலக்குகளுக்கான அடிப்படை வகுப்பாகும்.\n"
 "இது codecs.lookup() மூலமாகவும் நேரடியாக எழுப்பப்படலாம்.\n"
 
-#: info_generic.py:176
+#: info_generic.py:193
 msgid ""
 "Like the name indicates, a `MemoryError` occurs when Python\n"
 "runs out of memory. This can happen if you create an object\n"
@@ -452,7 +470,7 @@ msgstr ""
 "பல உருப்படிகளைக் கொண்ட பட்டியல் போன்ற மிகப் பெரிய பொருளை நீங்கள்\n"
 "உருவாக்கினால் இது நிகழலாம்.\n"
 
-#: info_generic.py:185
+#: info_generic.py:202
 msgid ""
 "A `ModuleNotFoundError` exception indicates that you\n"
 "are trying to import a module that cannot be found by Python.\n"
@@ -464,7 +482,7 @@ msgstr ""
 "நீங்கள் தொகுதியின் பெயரை தவறாக எழுதியதாலோ அல்லது உங்கள் கணினியில்\n"
 "நிறுவப்படாததாலோ இது நிகழலாம்.\n"
 
-#: info_generic.py:195
+#: info_generic.py:212
 msgid ""
 "A `NameError` exception indicates that a variable or\n"
 "function name is not known to Python.\n"
@@ -478,7 +496,7 @@ msgstr ""
 "இருப்பினும், சில நேரங்களில் பெயர் வரையறுக்கப்படுவதற்கு முன்பு அல்லது\n"
 "மதிப்பைக் கொடுப்பதற்கு முன்பு பயன்படுத்தப்படுவதால் வருகிறது.\n"
 
-#: info_generic.py:206
+#: info_generic.py:223
 msgid ""
 "An `OSError` exception is usually raised by the Operating System\n"
 "to indicate that an operation is not allowed or that\n"
@@ -488,7 +506,7 @@ msgstr ""
 "அனுமதிக்கப்படவில்லை அல்லது ஆதாரம் இல்லை என்பதைக் குறிக்க இயக்க \n"
 "முறைமையால் எழுப்பப்படுகிறது.\n"
 
-#: info_generic.py:215
+#: info_generic.py:232
 msgid ""
 "An `OverflowError` is raised when the result of an arithmetic operation\n"
 "is too large to be handled by the computer's processor.\n"
@@ -496,7 +514,7 @@ msgstr ""
 "ஒரு எண்கணிதச் செயல்பாட்டின் விளைவு கணினியின் செயலியால் கையாள \n"
 "முடியாத அளவுக்குப் பெரிதாக இருக்கும்போது வழிதல்பிழை `OverflowError` எழுப்பப்படுகிறது.\n"
 
-#: info_generic.py:223
+#: info_generic.py:240
 msgid ""
 "A `RecursionError` is raised when a function calls itself,\n"
 "directly or indirectly, too many times.\n"
@@ -508,7 +526,7 @@ msgstr ""
 "உங்கள் குறியீட்டில் நீங்கள் பிழை செய்துள்ளீர்கள் என்பதையும் உங்கள் நிரல்\n"
 "ஒருபோதும் நிறுத்தப்படாது என்பதையும் இது எப்போதும் குறிக்கிறது.\n"
 
-#: info_generic.py:233
+#: info_generic.py:250
 msgid ""
 "A `RuntimeError` is raised when an error is detected that doesn't fall in any\n"
 "of the more specific exception types defined by Python.\n"
@@ -516,7 +534,7 @@ msgstr ""
 "பைத்தானால் வரையறுக்கப்பட்ட எந்த குறிப்பிட்ட விதிவிலக்கு வகைகளிலும்\n"
 "வராத பிழை கண்டறியப்பட்டால் இயக்கநேரப்பிழை`RuntimeError` எழுப்பப்படுகிறது.\n"
 
-#: info_generic.py:241
+#: info_generic.py:258
 msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
@@ -526,11 +544,11 @@ msgstr ""
 "அழைக்கப்படும் போது, மறு செய்கைக்கு வழங்க வேண்டிய உருப்படி எதுவும்\n"
 "இல்லை என்பதைக் குறிக்க மறுசெய்கையைநிறுத்து `StopIteration` உயர்த்தப்பட்டது.\n"
 
-#: info_generic.py:250
+#: info_generic.py:267
 msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr "பைத்தானால் உங்கள் குறியீட்டைப் புரிந்து கொள்ள முடியாதபோது தொடரியல்பிழை `SyntaxError` ஏற்படுகிறது.\n"
 
-#: info_generic.py:255
+#: info_generic.py:272
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -543,10 +561,11 @@ msgstr ""
 "பயன்படுத்தியுள்ளீர்கள் என்பதைக் குறிக்கிறது.\n"
 "பைத்தானில் இதற்கு அனுமதி இல்லை.\n"
 "உங்கள் குறியீட்டை உள்தள்ளுவது என்பது வரிகளின் தொடக்கத்தில்\n"
-"இடைவெளிகள் அல்லது தாவல் எழுத்துக்களைச் செருகுவதன் மூலம் செங்குத்தாக சீரமைக்கப்பட்ட குறியீடுகளின் தொகுதியைக் கொண்டிருப்பதாகும்.\n"
+"இடைவெளிகள் அல்லது தாவல் எழுத்துக்களைச் செருகுவதன் மூலம் செங்குத்தாக சீரமைக்கப்பட்ட குறியீடுகளின் தொகுதியைக் "
+"கொண்டிருப்பதாகும்.\n"
 "உங்கள் குறியீட்டை உள்தள்ள எப்போதும் இடைவெளிகளைப் பயன்படுத்த வேண்டும் என்பதே பைத்தானின் பரிந்துரை.\n"
 
-#: info_generic.py:267
+#: info_generic.py:284
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -558,7 +577,7 @@ msgstr ""
 "தவறான வகைப் பொருளுடன் அழைப்பதாலோ அல்லது கொடுக்கப்பட்ட\n"
 "வகைப் பொருளில் அனுமதிக்கப்படாத செயலைச் செய்ய முயற்சிப்பதாலோ ஏற்படுகிறது.\n"
 
-#: info_generic.py:277
+#: info_generic.py:294
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
@@ -566,7 +585,7 @@ msgstr ""
 "ஒரு மதிப்புப்பிழை `ValueError` என்பது ஒரு செயல்பாடு அல்லது செயல்பாடு\n"
 "சரியான வகையின் வாதத்தைப் பெற்றது, ஆனால் ஒரு பொருத்தமற்ற மதிப்பைக் குறிக்கிறது.\n"
 
-#: info_generic.py:285
+#: info_generic.py:302
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -582,12 +601,12 @@ msgstr ""
 "ஒரு மதிப்பு ஒதுக்கப்படுவதற்கு முன் பயன்படுத்தப்படும் ஒரு மாறி கருதப்படுகிறது\n"
 "அந்த செயல்பாட்டிற்கு வெளியே வரையறுக்கப்பட வேண்டும்;\n"
 "இது ஒரு உலகளாவிய `global` (அல்லது சில நேரங்களில் உள்ளூர்அல்லாத `nonlocal`) மாறி என அறியப்படுகிறது.\n"
-"இது ஒரு உலகளாவிய மாறி என்பதை பைத்தானுக்கு முதலில் குறிப்பிடாமல் ஒரு செயல்பாட்டிற்குள் அத்தகைய உலகளாவிய மாறிக்கு நீங்கள் "
-"மதிப்பை ஒதுக்க முடியாது, \n"
+"இது ஒரு உலகளாவிய மாறி என்பதை பைத்தானுக்கு முதலில் குறிப்பிடாமல் ஒரு செயல்பாட்டிற்குள் அத்தகைய உலகளாவிய "
+"மாறிக்கு நீங்கள் மதிப்பை ஒதுக்க முடியாது, \n"
 "இல்லையெனில் நீங்கள் பார்ப்பீர்கள்\n"
 "ஒரு வரம்பற்றஉள்ளூர்பிழை `UnboundLocalError`.\n"
 
-#: info_generic.py:299
+#: info_generic.py:316
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -595,37 +614,38 @@ msgstr ""
 "ஒரு மதிப்பை சுழியத்தால் நேரடியாகவோ அல்லது வேறு சில கணிதச் \n"
 "செயல்பாட்டைப் பயன்படுத்தியோ வகுக்க முயற்சிக்கும்போது சுழியவகுத்தல்பிழை `ZeroDivisionError` ஏற்படுகிறது.\n"
 
-#: info_generic.py:307
+#: info_generic.py:324
 msgid "`UserWarning` is the default class for `warnings.warn()`.\n"
 msgstr ""
 
-#: info_generic.py:312
+#: info_generic.py:329
 msgid "`SyntaxWarning` often indicates that your code will likely not give the result you expect.\n"
 msgstr ""
 
-#: info_generic.py:319
-msgid "`DeprecationWarning` indicates that some feature will not be available in a future version.\n"
+#: info_generic.py:336
+msgid ""
+"`DeprecationWarning` indicates that some feature will not be available in a future version.\n"
 msgstr ""
 
-#: info_generic.py:326
+#: info_generic.py:343
 msgid "`RuntimeWarning` often indicates some not recommended runtime features.\n"
 msgstr ""
 
-#: info_generic.py:333
+#: info_generic.py:350
 msgid ""
 "`FutureWarning` is the base category for features that will likely be deprecated\n"
 "in future Python versions.\n"
 msgstr ""
 
-#: info_generic.py:341
+#: info_generic.py:358
 msgid "`UnicodeWarning` is the base category for warnings related to unicode.\n"
 msgstr ""
 
-#: info_generic.py:346
+#: info_generic.py:363
 msgid "`BytesWarning` is the base category for warnings related to bytes and bytearray.\n"
 msgstr ""
 
-#: info_generic.py:353
+#: info_generic.py:370
 msgid "`Warning` is the base class of all warning category classes.\n"
 msgstr ""
 
@@ -669,19 +689,19 @@ msgstr "ஒரு சரம் (`str`)"
 msgid "a `tuple`"
 msgstr "ஒரு `மடங்கு`"
 
-#: info_variables.py:328
+#: info_variables.py:327
 msgid "Friendly warning: you have redefined the python builtin `{name}`.\n"
 msgstr ""
 
-#: info_variables.py:494
+#: info_variables.py:508
 msgid "Object too large to be processed by Python."
 msgstr ""
 
-#: info_variables.py:498
+#: info_variables.py:512
 msgid "Unable to compute."
 msgstr ""
 
-#: info_variables.py:556
+#: info_variables.py:570
 msgid ""
 "A type hint found for `{name}` in the {scope} scope.\n"
 "Perhaps you had used a colon instead of an equal sign and wrote\n"
@@ -753,11 +773,12 @@ msgstr ""
 "இருப்பினும், தொகுதி `{module}` இறக்குமதி செய்யப்பட்டதாகத் தெரியவில்லை.\n"
 
 #: runtime_errors\attribute_error.py:97 runtime_errors\attribute_error.py:105
-#: runtime_errors\attribute_error.py:138 runtime_errors\attribute_error.py:390 runtime_errors\import_error.py:110
-#: runtime_errors\key_error.py:187 runtime_errors\key_error.py:194 runtime_errors\module_not_found_error.py:123
-#: runtime_errors\name_error.py:101 runtime_errors\name_error.py:103 runtime_errors\unbound_local_error.py:54
-#: syntax_errors\message_analyzer.py:462 syntax_errors\message_analyzer.py:1105
-#: syntax_errors\statement_analyzer.py:1281
+#: runtime_errors\attribute_error.py:138 runtime_errors\attribute_error.py:390
+#: runtime_errors\import_error.py:110 runtime_errors\key_error.py:187
+#: runtime_errors\key_error.py:194 runtime_errors\module_not_found_error.py:123
+#: runtime_errors\name_error.py:101 runtime_errors\name_error.py:103
+#: runtime_errors\unbound_local_error.py:54 syntax_errors\message_analyzer.py:462
+#: syntax_errors\message_analyzer.py:1105 syntax_errors\statement_analyzer.py:1299
 msgid "Did you mean `{name}`?\n"
 msgstr "`{name}` எனக் குறிப்பிடுகிறீர்களா?\n"
 
@@ -1100,7 +1121,8 @@ msgstr ""
 
 #: runtime_errors\import_error.py:111
 msgid "Perhaps you meant to import `{correct}` (from `{module}`) instead of `{typo}`\n"
-msgstr "ஒருவேளை நீங்கள் `{typo}` என்பதற்குப் பதிலாக `{correct}` (from `{module}`) இறக்குமதி செய்ய நினைத்திருக்கலாம்\n"
+msgstr ""
+"ஒருவேளை நீங்கள் `{typo}` என்பதற்குப் பதிலாக `{correct}` (from `{module}`) இறக்குமதி செய்ய நினைத்திருக்கலாம்\n"
 
 #: runtime_errors\import_error.py:120
 msgid ""
@@ -1138,7 +1160,8 @@ msgstr ""
 "இந்தச் செயல்பாட்டின் போது, மற்றொரு கோப்பில் உள்ள குறியீடு, \n"
 "    '{last_file}' \n"
 "செயல்படுத்தப்பட்டது. இருப்பினும் இந்த கடைசி கோப்பில், பைதான் முதல் \n"
-"இறக்குமதியை முடிப்பதற்கு முன், அசல் தொகுதி `{last_module}` இரண்டாவது முறையாக இறக்குமதி செய்ய முயற்சி செய்யப்பட்டது.\n"
+"இறக்குமதியை முடிப்பதற்கு முன், அசல் தொகுதி `{last_module}` இரண்டாவது முறையாக இறக்குமதி செய்ய முயற்சி "
+"செய்யப்பட்டது.\n"
 
 #: runtime_errors\index_error.py:36
 msgid ""
@@ -1168,7 +1191,8 @@ msgstr ""
 
 #: runtime_errors\index_error.py:62 runtime_errors\index_error.py:150
 msgid "Remember: the first item of {obj_type} is not at index 1 but at index 0.\n"
-msgstr "நினைவில் கொள்ளுங்கள்: {obj_type} இன் முதல் உருப்படி குறியீட்டு 1 இல் இல்லை, ஆனால் குறியீட்டு 0 இல் உள்ளது.\n"
+msgstr ""
+"நினைவில் கொள்ளுங்கள்: {obj_type} இன் முதல் உருப்படி குறியீட்டு 1 இல் இல்லை, ஆனால் குறியீட்டு 0 இல் உள்ளது.\n"
 
 #: runtime_errors\index_error.py:67 runtime_errors\index_error.py:155
 msgid "`{name}` contains no item.\n"
@@ -1730,8 +1754,9 @@ msgstr ""
 "{operator} செய்ய முயற்சித்தீர்கள்: \n"
 "{first} மற்றும் {second}.\n"
 
-#: runtime_errors\type_error.py:240 runtime_errors\type_error.py:794 runtime_errors\type_error.py:905
-#: syntax_errors\statement_analyzer.py:1161 syntax_errors\statement_analyzer.py:1421
+#: runtime_errors\type_error.py:240 runtime_errors\type_error.py:794
+#: runtime_errors\type_error.py:905 syntax_errors\statement_analyzer.py:1179
+#: syntax_errors\statement_analyzer.py:1439
 msgid "Did you mean `{line}`?\n"
 msgstr "`{line}` என்று சொன்னீர்களா?\n"
 
@@ -1859,8 +1884,8 @@ msgstr ""
 "'{fn_name}' செயல்பாட்டிற்குத் தேவையானதை விட குறைவான நிலை \n"
 "வாதங்களுடன் ({nb_required} இல்லை) என்று நீங்கள் அழைத்திருக்கிறீர்கள்.\n"
 
-#: runtime_errors\type_error.py:485 runtime_errors\type_error.py:871 warning_parsers\syntax_warning.py:20
-#: warning_parsers\syntax_warning.py:68
+#: runtime_errors\type_error.py:485 runtime_errors\type_error.py:871
+#: warning_parsers\syntax_warning.py:20 warning_parsers\syntax_warning.py:68
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
@@ -2016,8 +2041,8 @@ msgstr ""
 "குறியீடுகளாக விளக்குவது ஒரு தனி பட்டியலாக இருக்க வேண்டும், மேலும் அந்த \n"
 "பட்டியலின் `[` திறப்பதற்கு முன் காற்புள்ளி எழுதப்பட்டிருக்க வேண்டும்.\n"
 
-#: runtime_errors\type_error.py:716 syntax_errors\statement_analyzer.py:1074
-#: syntax_errors\statement_analyzer.py:1417
+#: runtime_errors\type_error.py:716 syntax_errors\statement_analyzer.py:1092
+#: syntax_errors\statement_analyzer.py:1435
 msgid "Did you forget a comma?\n"
 msgstr "காற்புள்ளியை மறந்துவிட்டீர்களா?\n"
 
@@ -2100,7 +2125,8 @@ msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from `{name}`, an object of type `{obj_type}`. This is not allowed.\n"
 msgstr ""
-"இந்தக் குறியீட்டைப் பயன்படுத்தி, `{obj_type}` வகைப் பொருளான `{name}` இலிருந்து ஒரு பொருளை மீட்டெடுக்க முயற்சித்தீர்கள். \n"
+"இந்தக் குறியீட்டைப் பயன்படுத்தி, `{obj_type}` வகைப் பொருளான `{name}` இலிருந்து ஒரு பொருளை மீட்டெடுக்க "
+"முயற்சித்தீர்கள். \n"
 "இதற்கு அனுமதி இல்லை.\n"
 
 #: runtime_errors\type_error.py:943
@@ -2660,9 +2686,9 @@ msgstr "செயல்பாடுகள் மற்றும் முறை�
 msgid "You tried to define a function or method and did not use the correct syntax.\n"
 msgstr "நீங்கள் ஒரு செயல்பாடு அல்லது முறையை வரையறுக்க முயற்சித்தீர்கள் மற்றும் சரியான தொடரியல் பயன்படுத்தவில்லை.\n"
 
-#: syntax_errors\error_in_def.py:110 syntax_errors\error_in_def.py:136 syntax_errors\message_analyzer.py:1065
-#: syntax_errors\message_analyzer.py:1608 syntax_errors\statement_analyzer.py:1214
-#: syntax_errors\statement_analyzer.py:1233
+#: syntax_errors\error_in_def.py:110 syntax_errors\error_in_def.py:136
+#: syntax_errors\message_analyzer.py:1065 syntax_errors\message_analyzer.py:1608
+#: syntax_errors\statement_analyzer.py:1232 syntax_errors\statement_analyzer.py:1251
 msgid "Did you forget parentheses?\n"
 msgstr "அடைப்புக்குறிகளை மறந்துவிட்டீர்களா?\n"
 
@@ -2724,8 +2750,8 @@ msgid ""
 "that is a name that begins with a letter or an underscore character, `_`,\n"
 "and which contains only letters, digits or the underscore character.\n"
 msgstr ""
-"ஒரு செயல்பாட்டின் பெயர் செல்லுபடியாகும் பைதான் அடையாளங்காட்டியாக இருக்க வேண்டும், அது ஒரு எழுத்து அல்லது அடிக்கோடிட்ட எழுத்துடன் "
-"தொடங்கும் பெயர், \n"
+"ஒரு செயல்பாட்டின் பெயர் செல்லுபடியாகும் பைதான் அடையாளங்காட்டியாக இருக்க வேண்டும், அது ஒரு எழுத்து அல்லது "
+"அடிக்கோடிட்ட எழுத்துடன் தொடங்கும் பெயர், \n"
 "`_`, \n"
 "மேலும் இதில் எழுத்துக்கள், இலக்கங்கள் அல்லது அடிக்கோடி எழுத்து மட்டுமே இருக்கும்.\n"
 
@@ -2759,8 +2785,8 @@ msgstr "நீங்கள் புள்ளியிடப்பட்ட ப�
 msgid "Perhaps you meant to write a comma.\n"
 msgstr "ஒருவேளை நீங்கள் காற்புள்ளியை எழுத நினைத்திருக்கலாம்.\n"
 
-#: syntax_errors\error_in_def.py:290 syntax_errors\error_in_def.py:476 syntax_errors\statement_analyzer.py:765
-#: syntax_errors\syntax_utils.py:119
+#: syntax_errors\error_in_def.py:290 syntax_errors\error_in_def.py:476
+#: syntax_errors\statement_analyzer.py:783 syntax_errors\syntax_utils.py:119
 msgid "Did you mean to write a comma?\n"
 msgstr "காற்புள்ளியை எழுத நினைத்தீர்களா?\n"
 
@@ -2923,7 +2949,8 @@ msgid ""
 "\n"
 "    {new_statement}"
 msgstr ""
-"நீங்கள் எழுத்துப் பிழை செய்து, சம அடையாளத்திற்குப் பதிலாக `{op}` என்று எழுதியிருக்கிறீர்கள் என்று சந்தேகிக்கிறேன். \n"
+"நீங்கள் எழுத்துப் பிழை செய்து, சம அடையாளத்திற்குப் பதிலாக `{op}` என்று எழுதியிருக்கிறீர்கள் என்று "
+"சந்தேகிக்கிறேன். \n"
 "பின்வரும் அறிக்கையில் தொடரியல் பிழை இல்லை:\n"
 "\n"
 "   {new_statement}"
@@ -3012,7 +3039,7 @@ msgstr ""
 msgid "You can only assign objects to identifiers (variable names).\n"
 msgstr "அடையாளங்காட்டிகளுக்கு (மாறி பெயர்கள்) மட்டுமே நீங்கள் பொருட்களை ஒதுக்க முடியும்.\n"
 
-#: syntax_errors\message_analyzer.py:26 syntax_errors\statement_analyzer.py:1539
+#: syntax_errors\message_analyzer.py:26 syntax_errors\statement_analyzer.py:1557
 msgid ""
 "You can only delete names of objects, or items in mutable containers\n"
 "such as `list`, `set`, or `dict`.\n"
@@ -3178,7 +3205,7 @@ msgstr "நீள்வட்டச் சின்னம் `...` என்ப�
 msgid "`{keyword}` is a constant in Python; you cannot assign it a different value.\n"
 msgstr "`{keyword}` என்பது பைத்தானில் ஒரு மாறிலி; நீங்கள் வேறு மதிப்பை ஒதுக்க முடியாது.\n"
 
-#: syntax_errors\message_analyzer.py:304 syntax_errors\statement_analyzer.py:945
+#: syntax_errors\message_analyzer.py:304 syntax_errors\statement_analyzer.py:963
 msgid ""
 "You were trying to assign a value to the Python keyword `{keyword}`.\n"
 "This is not allowed.\n"
@@ -3269,7 +3296,7 @@ msgid "Perhaps you meant to write `{name}` instead of `{original}`\n"
 msgstr "ஒருவேளை நீங்கள் `{original}` என்பதற்குப் பதிலாக `{name}` என்று எழுத நினைத்திருக்கலாம்\n"
 
 #: syntax_errors\message_analyzer.py:468 syntax_errors\message_analyzer.py:606
-#: syntax_errors\statement_analyzer.py:568
+#: syntax_errors\statement_analyzer.py:586
 msgid "Perhaps you needed `==` instead of `=`.\n"
 msgstr "`=` என்பதற்குப் பதிலாக `==` தேவைப்படலாம்.\n"
 
@@ -3341,7 +3368,7 @@ msgstr "{bracket} ஒருபோதும் மூடப்படவில்�
 msgid "The Python keyword `break` can only be used inside a `for` loop or inside a `while` loop.\n"
 msgstr "பைதான் முக்கிய சொல்லான `break` என்பது `for` சுழலில் அல்லது `while` சுழலில் மட்டுமே பயன்படுத்தப்படும்.\n"
 
-#: syntax_errors\message_analyzer.py:607 syntax_errors\statement_analyzer.py:569
+#: syntax_errors\message_analyzer.py:607 syntax_errors\statement_analyzer.py:587
 msgid "You likely used an assignment operator `=` instead of an equality operator `==`.\n"
 msgstr "சமத்துவ இயக்கிக்குப் பதிலாக `=` ஒதுக்கீட்டு இயக்கிகளைப் பயன்படுத்தியிருக்கலாம்.\n"
 
@@ -3426,13 +3453,15 @@ msgstr ""
 "ஒருவேளை நீங்கள் தொடர்புடைய மதிப்பை எழுதாமல் அகராதி திரவுகோலை எழுதியிருக்கலாம்.\n"
 
 #: syntax_errors\message_analyzer.py:793 syntax_errors\message_analyzer.py:1003
-#: syntax_errors\statement_analyzer.py:1599
+#: syntax_errors\statement_analyzer.py:1617
 msgid "Did you forget to write a dict value?\n"
 msgstr "அகராதி மதிப்பை எழுத மறந்துவிட்டீர்களா?\n"
 
 #: syntax_errors\message_analyzer.py:800
-msgid "The Python keyword `continue` can only be used inside a `for` loop or inside a `while` loop.\n"
-msgstr "பைதான் முக்கிய சொல்லான `continue` என்பது `for` சுழலில் அல்லது `while` சுழலில் மட்டுமே பயன்படுத்தப்படும்.\n"
+msgid ""
+"The Python keyword `continue` can only be used inside a `for` loop or inside a `while` loop.\n"
+msgstr ""
+"பைதான் முக்கிய சொல்லான `continue` என்பது `for` சுழலில் அல்லது `while` சுழலில் மட்டுமே பயன்படுத்தப்படும்.\n"
 
 #: syntax_errors\message_analyzer.py:812
 msgid ""
@@ -3488,13 +3517,13 @@ msgstr ""
 msgid "Did you forget to escape a backslash character?\n"
 msgstr "பின்சாய்வுக் எழுத்திலிருந்து தப்பிக்க மறந்துவிட்டீர்களா?\n"
 
-#: syntax_errors\message_analyzer.py:934 syntax_errors\statement_analyzer.py:357
+#: syntax_errors\message_analyzer.py:934 syntax_errors\statement_analyzer.py:375
 #, fuzzy
 #| msgid "Did you forget to escape a backslash character?\n"
 msgid "Perhaps you forgot to escape a quote character.\n"
 msgstr "பின்சாய்வுக் எழுத்திலிருந்து தப்பிக்க மறந்துவிட்டீர்களா?\n"
 
-#: syntax_errors\message_analyzer.py:935 syntax_errors\statement_analyzer.py:358
+#: syntax_errors\message_analyzer.py:935 syntax_errors\statement_analyzer.py:376
 msgid ""
 "I suspect that you were trying to use a quote character inside a string\n"
 "that was enclosed in quotes of the same kind.\n"
@@ -3538,7 +3567,7 @@ msgstr ""
 "அது ஒரு எண்ணுடன் தொடங்குவதால், அல்லது ஒரு சரம்,\n"
 "அல்லது ஒரு காலகட்டம் போன்றவை உள்ளன.\n"
 
-#: syntax_errors\message_analyzer.py:999 syntax_errors\statement_analyzer.py:1590
+#: syntax_errors\message_analyzer.py:999 syntax_errors\statement_analyzer.py:1608
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps you forgot to write a value after a colon.\n"
@@ -3592,7 +3621,7 @@ msgstr ""
 "நீங்கள் ஒற்றை `{` ஐ அச்சிட விரும்பினால், f-சரத்தில் `{{` எழுத வேண்டும்; \n"
 "இல்லையெனில், நீங்கள் மூடும் `}` ஐச் சேர்க்க வேண்டும்.\n"
 
-#: syntax_errors\message_analyzer.py:1057 syntax_errors\statement_analyzer.py:1186
+#: syntax_errors\message_analyzer.py:1057 syntax_errors\statement_analyzer.py:1204
 msgid ""
 "I am guessing that you were writing a comprehension or a generator expression\n"
 "and forgot to include parentheses around tuples.\n"
@@ -3605,8 +3634,8 @@ msgid ""
 "    [(i, i**2) for i in range(10)]\n"
 "\n"
 msgstr ""
-"நீங்கள் ஒரு புரிதல் அல்லது உருவாக்கி வெளிப்பாடு எழுதுகிறீர்கள் என்று நினைக்கிறேன், மேலும் மடங்குகளைச் சுற்றி அடைப்புக்குறிகளைச் "
-"சேர்க்க மறந்துவிட்டீர்கள். எடுத்துக்காட்டாக,\n"
+"நீங்கள் ஒரு புரிதல் அல்லது உருவாக்கி வெளிப்பாடு எழுதுகிறீர்கள் என்று நினைக்கிறேன், மேலும் மடங்குகளைச் சுற்றி "
+"அடைப்புக்குறிகளைச் சேர்க்க மறந்துவிட்டீர்கள். எடுத்துக்காட்டாக,\n"
 "\n"
 "[ஐ, ஐ**2 for ஐ in range(10)]\n"
 "\n"
@@ -3669,14 +3698,14 @@ msgid ""
 "Unlike other programming languages, Python's code block are defined by\n"
 "their indentation level, and not by using some curly braces, like `{...}`.\n"
 msgstr ""
-"வேறொருவரின் ஆலோசனையைப் பின்பற்றி நீங்கள் `from __future__ import braces` என்று எழுதியிருக்கிறீர்கள் என்று சந்தேகிக்கிறேன். இது "
-"ஒருபோதும் வேலை செய்யாது. \n"
+"வேறொருவரின் ஆலோசனையைப் பின்பற்றி நீங்கள் `from __future__ import braces` என்று எழுதியிருக்கிறீர்கள் என்று "
+"சந்தேகிக்கிறேன். இது ஒருபோதும் வேலை செய்யாது. \n"
 "\n"
 "பிற நிரலாக்க மொழிகளைப் போலல்லாமல், பைத்தானின் குறியீட்டுத் தொகுதி \n"
 "அவற்றின் உள்தள்ளல் மட்டத்தால் வரையறுக்கப்படுகிறது, மேலும் `{...}` போன்ற சில \n"
 "சுருள் அடைப்புக்குறிகளைப் பயன்படுத்தி அல்ல.\n"
 
-#: syntax_errors\message_analyzer.py:1164 syntax_errors\statement_analyzer.py:172
+#: syntax_errors\message_analyzer.py:1164 syntax_errors\statement_analyzer.py:190
 msgid "Did you use copy-paste?\n"
 msgstr "நீங்கள் நகல்-ஒட்டு பயன்படுத்தினீர்களா?\n"
 
@@ -3700,7 +3729,7 @@ msgstr "இருப்பினும், சிக்கல் பின்வ
 msgid "I have no suggestion to offer to fix this problem.\n"
 msgstr "இந்தச் சிக்கலைச் சரிசெய்வதற்கு என்னிடம் எந்த ஆலோசனையும் இல்லை.\n"
 
-#: syntax_errors\message_analyzer.py:1238 syntax_errors\statement_analyzer.py:690
+#: syntax_errors\message_analyzer.py:1238 syntax_errors\statement_analyzer.py:708
 msgid ""
 "The double star operator `**` is likely interpreted to mean that\n"
 "dict unpacking is to be used which is not allowed or does not make sense here.\n"
@@ -3717,7 +3746,7 @@ msgstr ""
 "இயக்கியைப் பயன்படுத்த முடியாது.\n"
 
 #: syntax_errors\message_analyzer.py:1308 syntax_errors\message_analyzer.py:1694
-#: syntax_errors\statement_analyzer.py:497
+#: syntax_errors\statement_analyzer.py:515
 msgid ""
 "The following statement has no syntax error:\n"
 "\n"
@@ -3889,7 +3918,7 @@ msgstr ""
 "ஆனால் அனைத்து நிலைவாதங்களுக்குப் பிறகு தோன்றும் முக்கியச்சொல் வாதங்களுடன். \n"
 "பைத்தானின் கூற்றுப்படி, நீங்கள் முக்கியச்சொல் வாதங்களுக்குப் பிறகு நிலை வாதங்களைப் பயன்படுத்துகிறீர்கள்.\n"
 
-#: syntax_errors\message_analyzer.py:1609 syntax_errors\statement_analyzer.py:1234
+#: syntax_errors\message_analyzer.py:1609 syntax_errors\statement_analyzer.py:1252
 msgid ""
 "I am guessing that you wanted to use an `except` statement\n"
 "with multiple exception types. If that is the case, you must\n"
@@ -3931,7 +3960,7 @@ msgstr ""
 "ஆனால் அனைத்து நிலைவாதங்களுக்குப் பிறகு தோன்றும் முக்கியச்சொல் வாதங்களுடன்.  \n"
 "பைத்தானின் கூற்றுப்படி, நீங்கள் முக்கியச்சொல் வாதங்களுக்குப் பிறகு நிலை வாதங்களைப் பயன்படுத்துகிறீர்கள்.\n"
 
-#: syntax_errors\message_analyzer.py:1648 syntax_errors\statement_analyzer.py:614
+#: syntax_errors\message_analyzer.py:1648 syntax_errors\statement_analyzer.py:632
 msgid ""
 "Perhaps you need to type\n"
 "\n"
@@ -3947,11 +3976,11 @@ msgstr ""
 "பைத்தானின் பழைய பதிப்பில் `print` என்பது ஒரு முக்கிய சொல்லாகும். \n"
 "இப்போது, `print` என்பது ஒரு செயல்பாடு; அதை அழைக்க நீங்கள் அடைப்புக்குறிகளைப் பயன்படுத்த வேண்டும்.\n"
 
-#: syntax_errors\message_analyzer.py:1655 syntax_errors\statement_analyzer.py:621
+#: syntax_errors\message_analyzer.py:1655 syntax_errors\statement_analyzer.py:639
 msgid "Note that arguments of `print` must be separated by commas.\n"
 msgstr "`print` வாதங்கள் காற்புள்ளிகளால் பிரிக்கப்பட வேண்டும் என்பதை நினைவில் கொள்ளவும்.\n"
 
-#: syntax_errors\message_analyzer.py:1656 syntax_errors\statement_analyzer.py:622
+#: syntax_errors\message_analyzer.py:1656 syntax_errors\statement_analyzer.py:640
 msgid "Did you mean `print({message})`?\n"
 msgstr "நீங்கள் `print({message})` எனக் குறிப்பிடுகிறீர்களா?\n"
 
@@ -4099,7 +4128,7 @@ msgstr ""
 "மூலம் 'மூல சரம்' என்று அழைக்கப்படுவதை எழுதவும் அல்லது `\\U` ஐ `\\\\U` ஆல் \n"
 "மாற்றவும்.\n"
 
-#: syntax_errors\message_analyzer.py:1875 syntax_errors\statement_analyzer.py:109
+#: syntax_errors\message_analyzer.py:1875 syntax_errors\statement_analyzer.py:127
 msgid "The closing {bracket} on line {linenumber} does not match anything.\n"
 msgstr "வரி {linenumber} இல் மூடும் {bracket} எதனுடனும் பொருந்தவில்லை.\n"
 
@@ -4131,21 +4160,33 @@ msgstr ""
 "பைதான் 3.9 இல் சேர்க்கப்பட்ட செய்தி. \n"
 "இது மற்ற பதிப்புகளில் இருக்கக்கூடாது.\n"
 
-#: syntax_errors\statement_analyzer.py:144
+#: syntax_errors\message_analyzer.py:1989
 msgid ""
-"The closing {bracket} on line {close_lineno} does not match the opening {open_bracket} on line {open_lineno}.\n"
+"Friendly-traceback cannot identify the non-printable character.\n"
+"This should not happen. Please report this case"
 msgstr ""
-"{close_lineno} வரியில் உள்ள மூடும் {bracket}, {open_lineno} வரியில் திறக்கும் {open_bracket} உடன் பொருந்தவில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:166
+#: syntax_errors\message_analyzer.py:2003 syntax_errors\statement_analyzer.py:107
+msgid "Your code contains the invalid non-printable character {char}.\n"
+msgstr ""
+
+#: syntax_errors\statement_analyzer.py:162
+msgid ""
+"The closing {bracket} on line {close_lineno} does not match the opening {open_bracket} on line "
+"{open_lineno}.\n"
+msgstr ""
+"{close_lineno} வரியில் உள்ள மூடும் {bracket}, {open_lineno} வரியில் திறக்கும் {open_bracket} உடன் "
+"பொருந்தவில்லை.\n"
+
+#: syntax_errors\statement_analyzer.py:184
 msgid "Did you mean to write `...`?\n"
 msgstr "`...` என்று எழுத வேண்டுமா?\n"
 
-#: syntax_errors\statement_analyzer.py:167
+#: syntax_errors\statement_analyzer.py:185
 msgid "It looks like you meant to write `...` but added an extra `.` by mistake.\n"
 msgstr ""
 
-#: syntax_errors\statement_analyzer.py:181
+#: syntax_errors\statement_analyzer.py:199
 msgid ""
 "It looks like you copy-pasted code from an interactive interpreter.\n"
 "The Python prompt, `>>>`, should not be included in your code.\n"
@@ -4153,7 +4194,7 @@ msgstr ""
 "ஊடாடும் மொழிபெயர்ப்பாளரிடமிருந்து நீங்கள் குறியீட்டை நகலெடுத்து ஒட்டியது போல் தெரிகிறது. \n"
 "பைதான் உடனுக்குடன், `>>>`, உங்கள் குறியீட்டில் சேர்க்கப்படக்கூடாது.\n"
 
-#: syntax_errors\statement_analyzer.py:191
+#: syntax_errors\statement_analyzer.py:209
 msgid ""
 "It looks like you copy-pasted code from an interactive interpreter.\n"
 "The Python prompt, `...`, should not be included in your code.\n"
@@ -4161,11 +4202,11 @@ msgstr ""
 "ஊடாடும் மொழிபெயர்ப்பாளரிடமிருந்து நீங்கள் குறியீட்டை நகலெடுத்து ஒட்டியது போல் தெரிகிறது. \n"
 "பைதான் உடனுக்குடன், `...`, உங்கள் குறியீட்டில் சேர்க்கப்படக்கூடாது.\n"
 
-#: syntax_errors\statement_analyzer.py:205
+#: syntax_errors\statement_analyzer.py:223
 msgid "You should not use the backquote character.\n"
 msgstr "பின்மேற்கோள் எழுத்தை நீங்கள் பயன்படுத்தக்கூடாது.\n"
 
-#: syntax_errors\statement_analyzer.py:206
+#: syntax_errors\statement_analyzer.py:224
 msgid ""
 "You are using the backquote character.\n"
 "Either you meant to write a single quote, ', or copied Python 2 code;\n"
@@ -4175,11 +4216,11 @@ msgstr ""
 "நீங்கள் ஒற்றை மேற்கோளை எழுத வேண்டும், ', அல்லது பைதான் 2 குறியீட்டை நகலெடுத்திருக்க வேண்டும்; \n"
 "இந்த பிந்தைய வழக்கில், `repr(x)` செயல்பாட்டைப் பயன்படுத்தவும்."
 
-#: syntax_errors\statement_analyzer.py:227
+#: syntax_errors\statement_analyzer.py:245
 msgid "You forgot to add a condition.\n"
 msgstr "நிபந்தனையைச் சேர்க்க மறந்துவிட்டீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:229
+#: syntax_errors\statement_analyzer.py:247
 msgid ""
 "An `if` statement requires a condition:\n"
 "\n"
@@ -4193,7 +4234,7 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:235
+#: syntax_errors\statement_analyzer.py:253
 msgid ""
 "A `while` loop requires a condition:\n"
 "\n"
@@ -4207,11 +4248,11 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:241
+#: syntax_errors\statement_analyzer.py:259
 msgid "A `for` loop requires at least 3 more terms.\n"
 msgstr "ஒரு `for` சுழலூக்கு குறைந்தது 3 விதிமுறைகள் தேவை.\n"
 
-#: syntax_errors\statement_analyzer.py:242
+#: syntax_errors\statement_analyzer.py:260
 msgid ""
 "A `for` loop is an iteration over a sequence:\n"
 "\n"
@@ -4225,11 +4266,11 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:248
+#: syntax_errors\statement_analyzer.py:266
 msgid "A class needs a name.\n"
 msgstr "ஒரு வகுப்பிற்கு ஒரு பெயர் தேவை.\n"
 
-#: syntax_errors\statement_analyzer.py:249
+#: syntax_errors\statement_analyzer.py:267
 msgid ""
 "A `class` statement requires a name:\n"
 "\n"
@@ -4243,7 +4284,7 @@ msgstr ""
 "        ...\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:266
+#: syntax_errors\statement_analyzer.py:284
 msgid ""
 "You cannot use the Python keyword `{word}` as an attribute.\n"
 "\n"
@@ -4251,15 +4292,15 @@ msgstr ""
 "நீங்கள் பைதான் முக்கிய சொல்லான `{word}` ஐ பண்புக்கூறாகப் பயன்படுத்த முடியாது.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:272
+#: syntax_errors\statement_analyzer.py:290
 msgid "`{word}` cannot be used as an attribute.\n"
 msgstr "`{word}` ஐ பண்புக்கூறாகப் பயன்படுத்த முடியாது.\n"
 
-#: syntax_errors\statement_analyzer.py:294
+#: syntax_errors\statement_analyzer.py:312
 msgid "Perhaps you meant to write `elif`.\n"
 msgstr "ஒருவேளை நீங்கள் 'elif' என்று எழுத நினைத்திருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:295
+#: syntax_errors\statement_analyzer.py:313
 msgid ""
 "You likely meant to use Python's `elif` keyword\n"
 "but wrote `{name}` instead.\n"
@@ -4269,11 +4310,11 @@ msgstr ""
 "ஆனால் அதற்குப் பதிலாக `{name}` என்று எழுதியிருக்கலாம்.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:314
+#: syntax_errors\statement_analyzer.py:332
 msgid "Did you mean `from {module} import {function}`?\n"
 msgstr "`from {module} import {function}` என்று நீங்கள் சொன்னீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:317
+#: syntax_errors\statement_analyzer.py:335
 #, fuzzy
 #| msgid ""
 #| "You wrote something like\n"
@@ -4303,11 +4344,11 @@ msgstr ""
 "\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:388
+#: syntax_errors\statement_analyzer.py:406
 msgid "The augmented assignment operator is not allowed in Python version {version}.\n"
 msgstr "பைதான் பதிப்பில் {version} விரிவாக்கப்பட்ட ஒதுக்கல் இயக்கி அனுமதிக்கப்படவில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:391
+#: syntax_errors\statement_analyzer.py:409
 msgid ""
 "You appear to be using the operator `:=`, sometimes called\n"
 "the walrus operator. This operator requires the use of\n"
@@ -4317,11 +4358,11 @@ msgstr ""
 "இயக்கி என்று அழைக்கப்படுகிறது. இந்த இயக்கிக்கு Python 3.8 அல்லது \n"
 "புதியது தேவை. நீங்கள் பதிப்பு {version} ஐப் பயன்படுத்துகிறீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:429
+#: syntax_errors\statement_analyzer.py:447
 msgid "Did you write operators in an incorrect order?\n"
 msgstr "இயக்கிகளை தவறான வரிசையில் எழுதினீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:430
+#: syntax_errors\statement_analyzer.py:448
 msgid ""
 "It looks like you wrote two operators (`{first}` and `{second}`)\n"
 "in the wrong order: `{wrong}` instead of `{correct}`.\n"
@@ -4329,7 +4370,7 @@ msgstr ""
 "நீங்கள் இரண்டு இயக்கிகளை (`{first}` மற்றும் `{second}`) தவறான \n"
 "வரிசையில் எழுதியது போல் தெரிகிறது: `{correct}` என்பதற்குப் பதிலாக `{wrong}`.\n"
 
-#: syntax_errors\statement_analyzer.py:466
+#: syntax_errors\statement_analyzer.py:484
 msgid ""
 "You wrote three equal signs in a row which is allowed in some\n"
 "programming languages, but not in Python. To check if two objects\n"
@@ -4338,15 +4379,15 @@ msgid ""
 msgstr ""
 "நீங்கள் ஒரு வரிசையில் மூன்று சமமான அடையாளங்களை எழுதியுள்ளீர்கள், \n"
 "இது சில நிரலாக்க மொழிகளில் அனுமதிக்கப்படுகிறது, ஆனால் பைத்தானில் \n"
-"இல்லை. இரண்டு பொருள்கள் சமமாக உள்ளதா என்பதைச் சரிபார்க்க, இரண்டு சம அடையாளங்களைப் பயன்படுத்தவும், `==`; இரண்டு பெயர்கள் ஒரே "
-"பொருளைக் \n"
+"இல்லை. இரண்டு பொருள்கள் சமமாக உள்ளதா என்பதைச் சரிபார்க்க, இரண்டு சம அடையாளங்களைப் பயன்படுத்தவும், `==`; இரண்டு "
+"பெயர்கள் ஒரே பொருளைக் \n"
 "குறிக்கின்றனவா என்பதைப் பார்க்க, `is` இயக்கியைப் பயன்படுத்தவும்.\n"
 
-#: syntax_errors\statement_analyzer.py:472
+#: syntax_errors\statement_analyzer.py:490
 msgid "Did you mean to use `is` instead of `===`?\n"
 msgstr "`===` என்பதற்குப் பதிலாக `is` ஐப் பயன்படுத்த விரும்புகிறீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:476
+#: syntax_errors\statement_analyzer.py:494
 msgid ""
 "You cannot have write the same operator, `{op}`, twice in a row.\n"
 "Perhaps you wrote one of them by mistake\n"
@@ -4356,7 +4397,7 @@ msgstr ""
 "ஒருவேளை நீங்கள் அவற்றில் ஒன்றை தவறுதலாக எழுதியிருக்கலாம் \n"
 "அல்லது அவற்றுக்கிடையே ஏதாவது எழுத மறந்துவிட்டீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:487
+#: syntax_errors\statement_analyzer.py:505
 msgid ""
 "You cannot have these two operators, `{first}` and `{second}`,\n"
 "following each other.\n"
@@ -4368,7 +4409,7 @@ msgstr ""
 "\n"
 "இது அனுமதிக்கப்படவில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:501
+#: syntax_errors\statement_analyzer.py:519
 msgid ""
 "You cannot have these two operators, `{first}` and `{second}`,\n"
 "following each other. Perhaps you wrote one of them by mistake\n"
@@ -4378,7 +4419,7 @@ msgstr ""
 "பின்பற்ற முடியாது. ஒருவேளை நீங்கள் அவற்றில் ஒன்றை தவறுதலாக \n"
 "எழுதியிருக்கலாம் அல்லது அவற்றுக்கிடையே ஏதாவது எழுத மறந்துவிட்டீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:508
+#: syntax_errors\statement_analyzer.py:526
 msgid ""
 "Or perhaps you included a space by mistake between the two operators\n"
 "and meant to write `{oper}` as a single operator.\n"
@@ -4386,11 +4427,11 @@ msgstr ""
 "அல்லது இரண்டு இயக்கிகளுக்கு இடையே தவறுதலாக இடைவெளியைச் சேர்த்துவிட்டு, \n"
 "`{oper}` என்பதை ஒற்றை ஆபரேட்டராக எழுத நினைத்திருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:537
+#: syntax_errors\statement_analyzer.py:555
 msgid "Did you mean to use `=`?\n"
 msgstr "`=` ஐப் பயன்படுத்த விரும்புகிறீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:538
+#: syntax_errors\statement_analyzer.py:556
 msgid ""
 "You use the augmented assignment operator `:=` where\n"
 "the normal assignment operator `=` was required.\n"
@@ -4398,7 +4439,7 @@ msgstr ""
 "சாதாரண ஒதுக்கல் இயக்கி `=` தேவைப்படும் இடத்தில் `:=` அதிகரிக்கப்பட்ட \n"
 "ஒதுக்கல் இயக்கியைப் பயன்படுத்துகிறீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:578
+#: syntax_errors\statement_analyzer.py:596
 msgid ""
 "The following statement would not contain a syntax error:\n"
 "\n"
@@ -4408,11 +4449,11 @@ msgstr ""
 "\n"
 "     {new_statement}"
 
-#: syntax_errors\statement_analyzer.py:584
+#: syntax_errors\statement_analyzer.py:602
 msgid "Perhaps you needed `==` or `:=` instead of `=`.\n"
 msgstr "ஒருவேளை உங்களுக்கு `=` என்பதற்குப் பதிலாக `==` அல்லது `:=` தேவைப்படலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:585
+#: syntax_errors\statement_analyzer.py:603
 msgid ""
 "You used an assignment operator `=`; perhaps you meant to use \n"
 "an equality operator, `==`, or the walrus operator `:=`.\n"
@@ -4420,7 +4461,7 @@ msgstr ""
 "நீங்கள் ஒரு ஒதுக்கல் இயக்கியைப் பயன்படுத்தியுள்ளீர்கள் `=`; ஒருவேளை நீங்கள் \n"
 "சமத்துவ இயக்கி, `==` அல்லது கடற்குதிரை இயக்கி `:=` ஐப் பயன்படுத்த நினைத்திருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:638
+#: syntax_errors\statement_analyzer.py:656
 msgid ""
 "It looks as if you are attempting to use pip to install a module.\n"
 "`pip` is a command that needs to run in a terminal,\n"
@@ -4430,11 +4471,11 @@ msgstr ""
 "`pip` என்பது முனையத்தில் இயங்க வேண்டிய கட்டளை, \n"
 "பைதான் மொழிபெயர்ப்பாளரிடமிருந்து அல்ல.\n"
 
-#: syntax_errors\statement_analyzer.py:646
+#: syntax_errors\statement_analyzer.py:664
 msgid "Pip cannot be used in a Python interpreter.\n"
 msgstr "பைதான் மொழிபெயர்ப்பாளரில் பிப்பைப் பயன்படுத்த முடியாது.\n"
 
-#: syntax_errors\statement_analyzer.py:649
+#: syntax_errors\statement_analyzer.py:667
 msgid ""
 "I am guessing that you are attempting to use Python to run a program.\n"
 "You must do so from a terminal and not from a Python interpreter.\n"
@@ -4442,23 +4483,23 @@ msgstr ""
 "நீங்கள் ஒரு நிரலை இயக்க பைத்தானைப் பயன்படுத்த முயற்சிக்கிறீர்கள் என்று நினைக்கிறேன். \n"
 "நீங்கள் ஒரு முனையத்திலிருந்து அவ்வாறு செய்ய வேண்டும், பைதான் மொழிபெயர்ப்பாளரிடமிருந்து அல்ல.\n"
 
-#: syntax_errors\statement_analyzer.py:659
+#: syntax_errors\statement_analyzer.py:677
 msgid "You cannot have a dot `.` followed by `{bracket}`.\n"
 msgstr "உங்களிடம் `.` புள்ளியை தொடர்ந்து `{bracket}` இருக்க முடியாது.\n"
 
-#: syntax_errors\statement_analyzer.py:669
+#: syntax_errors\statement_analyzer.py:687
 msgid "Perhaps you need to replace the dot by a comma.\n"
 msgstr "ஒருவேளை நீங்கள் புள்ளியை காற்புள்ளியால் மாற்ற வேண்டும்.\n"
 
-#: syntax_errors\statement_analyzer.py:680
+#: syntax_errors\statement_analyzer.py:698
 msgid "It looks like you are trying to raise an exception using Python 2 syntax.\n"
 msgstr "நீங்கள் Python 2 தொடரியல் பயன்படுத்தி விதிவிலக்கை உருவாக்க முயற்சிப்பது போல் தெரிகிறது.\n"
 
-#: syntax_errors\statement_analyzer.py:735
+#: syntax_errors\statement_analyzer.py:753
 msgid "Did you forget a colon `:`?\n"
 msgstr "`:` என்ற முக்காற்புள்ளியை மறந்துவிட்டீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:739
+#: syntax_errors\statement_analyzer.py:757
 msgid ""
 "You wrote a `{for_while}` loop but\n"
 "forgot to add a colon `:` at the end\n"
@@ -4468,7 +4509,7 @@ msgstr ""
 "முக்காற்புள்ளியைச் சேர்க்க மறந்துவிட்டீர்கள்\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:746
+#: syntax_errors\statement_analyzer.py:764
 msgid ""
 "You wrote a statement beginning with\n"
 "`{name}` but forgot to add a colon `:` at the end.\n"
@@ -4478,39 +4519,39 @@ msgstr ""
 "என்ற முக்காற்புள்ளியைச் சேர்க்க மறந்துவிட்டீர்கள்.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:764
+#: syntax_errors\statement_analyzer.py:782
 #, fuzzy
 #| msgid "You wrote a semi-colon, `;`, where a comma was expected.\n"
 msgid "You wrote a semicolon, `;`, where a comma was expected.\n"
 msgstr "காற்புள்ளியை , எதிர்பார்க்கப்படும் இடத்தில் `;` என்ற அரைப்புள்ளியை எழுதியுள்ளீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:784
+#: syntax_errors\statement_analyzer.py:802
 #, fuzzy
 #| msgid "You wrote semi-colons, `;`, where commas were expected.\n"
 msgid "You wrote semicolons, `;`, where commas were expected.\n"
 msgstr "காற்புள்ளிகள் , எதிர்பார்க்கப்பட்ட இடத்தில் `;` என்ற அரைப்புள்ளிகளை எழுதியுள்ளீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:785
+#: syntax_errors\statement_analyzer.py:803
 msgid "Did you mean to write commas?\n"
 msgstr "காற்புள்ளிகளை எழுத வேண்டும் என்று சொன்னீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:801
+#: syntax_errors\statement_analyzer.py:819
 #, fuzzy
 #| msgid "You wrote a semi-colon, `;`, where a comma was expected.\n"
 msgid "You wrote a semicolon, `;`, where a colon was expected.\n"
 msgstr "காற்புள்ளியை , எதிர்பார்க்கப்படும் இடத்தில் `;` என்ற அரைப்புள்ளியை எழுதியுள்ளீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:802
+#: syntax_errors\statement_analyzer.py:820
 #, fuzzy
 #| msgid "Did you mean to write a comma?\n"
 msgid "Did you mean to write a colon?\n"
 msgstr "காற்புள்ளியை எழுத நினைத்தீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:820
+#: syntax_errors\statement_analyzer.py:838
 msgid "Did you made a mistake in writing an hexadecimal integer?\n"
 msgstr "பதின்ம முழு எண்ணை எழுதுவதில் தவறிழைத்தீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:821
+#: syntax_errors\statement_analyzer.py:839
 msgid ""
 "It looks like you used an invalid character (`{character}`) in an hexadecimal number.\n"
 "\n"
@@ -4528,11 +4569,11 @@ msgstr ""
 "பைத்தானில், பதின்ம எண்கள் `0x` அல்லது `0X` உடன் தொடங்கும், அதைத் \n"
 "தொடர்ந்து வரும் எழுத்துக்கள் அந்த முழு எண்ணின் மதிப்பைக் குறிக்கப் பயன்படுத்தப்படும்.\n"
 
-#: syntax_errors\statement_analyzer.py:840
+#: syntax_errors\statement_analyzer.py:858
 msgid "Did you made a mistake in writing an octal integer?\n"
 msgstr "எண் முழு எண்ணை எழுதுவதில் தவறு செய்துவிட்டீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:841
+#: syntax_errors\statement_analyzer.py:859
 #, fuzzy
 #| msgid ""
 #| "It looks like you used an invalid character (`{character}`) in an octal number.\n"
@@ -4559,15 +4600,15 @@ msgstr ""
 "`o` என்ற எழுத்து) உடன் தொடங்கும், அதைத் தொடர்ந்து வரும் எழுத்துக்கள் அந்த \n"
 "முழு எண்ணின் மதிப்பைக் குறிக்கப் பயன்படுத்தப்படும்.\n"
 
-#: syntax_errors\statement_analyzer.py:868
+#: syntax_errors\statement_analyzer.py:886
 msgid "Valid names cannot begin with a number.\n"
 msgstr "சரியான பெயர்கள் எண்ணுடன் தொடங்க முடியாது.\n"
 
-#: syntax_errors\statement_analyzer.py:875
+#: syntax_errors\statement_analyzer.py:893
 msgid "Did you mean `{number}j`?\n"
 msgstr "நீங்கள் `{number}j` என்று கூறுகிறீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:876
+#: syntax_errors\statement_analyzer.py:894
 msgid ""
 "Perhaps you thought that `i` could be used to represent\n"
 "the square root of `-1`. In Python, the symbol used for this is `j`\n"
@@ -4581,7 +4622,7 @@ msgstr ""
 "இடைவெளிகள் இல்லாமல். \n"
 "ஒருவேளை நீங்கள் `{number}j` என்று எழுத நினைத்திருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:886
+#: syntax_errors\statement_analyzer.py:904
 msgid ""
 "[Note: `{first} * {second}` would also be valid\n"
 "since `{first}` is a complex number.]\n"
@@ -4589,15 +4630,15 @@ msgstr ""
 "[குறிப்பு: `{first}` ஒரு கலப்பு எண் என்பதால் `{first} * {second}` \n"
 "என்பதும் செல்லுபடியாகும்.]\n"
 
-#: syntax_errors\statement_analyzer.py:897
+#: syntax_errors\statement_analyzer.py:915
 msgid "Perhaps you forgot a multiplication operator, `{first} * {second}`.\n"
 msgstr "ஒருவேளை நீங்கள் பெருக்கல் இயக்கியை மறந்துவிட்டீர்கள், `{first} * {second}`.\n"
 
-#: syntax_errors\statement_analyzer.py:912
+#: syntax_errors\statement_analyzer.py:930
 msgid "Your Python version does not support this f-string feature.\n"
 msgstr "உங்கள் பைதான் பதிப்பு இந்த f-சரம் அம்சத்தை ஆதரிக்கவில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:913
+#: syntax_errors\statement_analyzer.py:931
 msgid ""
 "You are likely using a 'debug' syntax of f-strings introduced\n"
 "in Python version 3.8. You are using version {version}.\n"
@@ -4605,7 +4646,7 @@ msgstr ""
 "பைதான் பதிப்பு 3.8 இல் அறிமுகப்படுத்தப்பட்ட f-சரத்தின் 'பிழைத்திருத்த' தொடரியலை நீங்கள் பயன்படுத்துகிறீர்கள். \n"
 "நீங்கள் பதிப்பு {version} ஐப் பயன்படுத்துகிறீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:919
+#: syntax_errors\statement_analyzer.py:937
 msgid ""
 "You are likely trying to assign a value within an f-string.\n"
 "This is not allowed.\n"
@@ -4613,7 +4654,7 @@ msgstr ""
 "நீங்கள் ஒரு f-சரத்தில் மதிப்பை ஒதுக்க முயற்சிக்கிறீர்கள். \n"
 "இதற்கு அனுமதி இல்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:934
+#: syntax_errors\statement_analyzer.py:952
 msgid ""
 "The content of your f-string is invalid. Please consult the documentation:\n"
 "https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
@@ -4621,11 +4662,11 @@ msgstr ""
 "உங்கள் f-சர உள்ளடக்கம் தவறானது. ஆவணங்களைப் பார்க்கவும்: \n"
 "https://docs.python.org/3/reference/lexical_analysis.html#f-strings\n"
 
-#: syntax_errors\statement_analyzer.py:944
+#: syntax_errors\statement_analyzer.py:962
 msgid "Python keywords cannot be used as identifiers (variable names).\n"
 msgstr "பைதான் முக்கியச்சொற்களை அடையாளங்காட்டிகளாகப் பயன்படுத்த முடியாது (மாறி பெயர்கள்).\n"
 
-#: syntax_errors\statement_analyzer.py:968
+#: syntax_errors\statement_analyzer.py:986
 msgid ""
 "`lambda` does not allow parentheses around its arguments.\n"
 "This was allowed in Python 2 but it not allowed in Python 3.\n"
@@ -4633,7 +4674,7 @@ msgstr ""
 "`lambda` அதன் வாதங்களைச் சுற்றி அடைப்புக்குறிகளை அனுமதிக்காது. \n"
 "இது பைதான் 2 இல் அனுமதிக்கப்பட்டது ஆனால் பைதான் 3 இல் அனுமதிக்கப்படவில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:985
+#: syntax_errors\statement_analyzer.py:1003
 msgid ""
 "You cannot have explicit tuples as arguments.\n"
 "Assign any tuple to a parameter and unpack it\n"
@@ -4643,11 +4684,11 @@ msgstr ""
 "எந்த மடங்கையும் ஒரு அளவுருவுக்கு ஒதுக்கி, செயல்பாட்டின் உடலில் \n"
 "அதைத் திறக்கவும்.\n"
 
-#: syntax_errors\statement_analyzer.py:1018
+#: syntax_errors\statement_analyzer.py:1036
 msgid "If you remove `{type_decl}`, you will have a valid Python statement.\n"
 msgstr "நீங்கள் `{type_decl}` ஐ அகற்றினால், உங்களிடம் சரியான பைதான் அறிக்கை இருக்கும்.\n"
 
-#: syntax_errors\statement_analyzer.py:1022
+#: syntax_errors\statement_analyzer.py:1040
 msgid ""
 "However, even if you remove `{type_decl}`, there would still be some\n"
 "some syntax errors.\n"
@@ -4655,11 +4696,11 @@ msgstr ""
 "இருப்பினும், நீங்கள் `{type_decl}` ஐ அகற்றினாலும், சில தொடரியல் \n"
 "பிழைகள் இருக்கும்.\n"
 
-#: syntax_errors\statement_analyzer.py:1027
+#: syntax_errors\statement_analyzer.py:1045
 msgid "You do not need to declare variables in Python.\n"
 msgstr "நீங்கள் பைத்தானில் மாறிகளை அறிவிக்க வேண்டியதில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:1028
+#: syntax_errors\statement_analyzer.py:1046
 msgid ""
 "It looks like you were trying to declare that `{var}` was\n"
 "a variable using the word `{type_decl}`.\n"
@@ -4667,7 +4708,7 @@ msgstr ""
 "`{var}` என்பது `{type_decl}` என்ற வார்த்தையைப் பயன்படுத்தி ஒரு மாறி என்று \n"
 "நீங்கள் அறிவிக்க முயற்சிப்பது போல் தெரிகிறது.\n"
 
-#: syntax_errors\statement_analyzer.py:1061
+#: syntax_errors\statement_analyzer.py:1079
 msgid ""
 "I am guessing that you forgot a comma between two strings\n"
 "when defining a dict.\n"
@@ -4677,11 +4718,11 @@ msgstr ""
 "காற்புள்ளியை நீங்கள் மறந்துவிட்டீர்கள் என்று நினைக்கிறேன்.\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1106
+#: syntax_errors\statement_analyzer.py:1124
 msgid "Did you forget to write `in`?\n"
 msgstr "`in` எழுத மறந்துவிட்டீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:1107
+#: syntax_errors\statement_analyzer.py:1125
 msgid ""
 "It looks as though you forgot to use the keyword `in`\n"
 "as part of a `for` statement. Perhaps you meant:\n"
@@ -4695,11 +4736,11 @@ msgstr ""
 "   {new_statement}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1129
+#: syntax_errors\statement_analyzer.py:1147
 msgid "Did you forget to write parenthesis?\n"
 msgstr "அடைப்புக்குறி எழுத மறந்துவிட்டீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:1130
+#: syntax_errors\statement_analyzer.py:1148
 msgid ""
 "It looks as though you forgot to use to use parenthesis with `range`.\n"
 "Perhaps you meant:\n"
@@ -4713,7 +4754,7 @@ msgstr ""
 "   {new_statement}\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1162
+#: syntax_errors\statement_analyzer.py:1180
 msgid ""
 "Perhaps you meant to write `{keyword}` and made a typo.\n"
 "The correct line might be `{line}`\n"
@@ -4721,7 +4762,7 @@ msgstr ""
 "ஒருவேளை நீங்கள் `{keyword}` என்று எழுத நினைத்திருக்கலாம் மற்றும் எழுத்துப் பிழை செய்திருக்கலாம். \n"
 "சரியான வரி `{line}` ஆக இருக்கலாம்\n"
 
-#: syntax_errors\statement_analyzer.py:1175
+#: syntax_errors\statement_analyzer.py:1193
 msgid ""
 "I am guessing that you were writing a comprehension or a generator expression\n"
 "and use the wrong order for a condition.\n"
@@ -4749,7 +4790,7 @@ msgstr ""
 "    [f(x) for ஐ in வரிசை if நிபந்தனை]  # 'for'க்கு பிறகு 'if' \n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1277
+#: syntax_errors\statement_analyzer.py:1295
 msgid ""
 "You cannot have spaces in identifiers (variable names).\n"
 "Perhaps you meant `{name}`?\n"
@@ -4757,11 +4798,11 @@ msgstr ""
 "அடையாளங்காட்டிகளில் (மாறி பெயர்கள்) இடைவெளிகளை வைத்திருக்க முடியாது.\n"
 "ஒருவேளை நீங்கள் `{name}` எனக் குறிப்பிடுகிறீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:1299
+#: syntax_errors\statement_analyzer.py:1317
 msgid "`bf` is an illegal string prefix.\n"
 msgstr "`bf` என்பது ஒரு சட்டவிரோத சரம் முன்னொட்டு.\n"
 
-#: syntax_errors\statement_analyzer.py:1300
+#: syntax_errors\statement_analyzer.py:1318
 msgid ""
 "I am guessing that you wanted a binary f-string;\n"
 "this is not allowed.\n"
@@ -4769,7 +4810,7 @@ msgstr ""
 "உங்களுக்கு ஒரு பைனரி f-சரம் வேண்டும் என்று நான் நினைக்கிறேன்; \n"
 "இது அனுமதிக்கப்படவில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:1324
+#: syntax_errors\statement_analyzer.py:1342
 #, fuzzy
 #| msgid ""
 #| "It is possible that you forgot a comma between items in a tuple, \n"
@@ -4784,7 +4825,7 @@ msgstr ""
 "இடையில் அல்லது செயல்பாட்டு வாதங்களுக்கு இடையில் நீங்கள் காற்புள்ளியை \n"
 "மறந்துவிட்டீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:1332
+#: syntax_errors\statement_analyzer.py:1350
 #, fuzzy
 #| msgid ""
 #| "It is possible that you forgot a comma between items in a list\n"
@@ -4796,7 +4837,7 @@ msgstr ""
 "^ ஆல் குறிப்பிடப்பட்ட நிலைக்கு முன் பட்டியலில் உள்ள உருப்படிகளுக்கு இடையே \n"
 "உள்ள காற்புள்ளியை நீங்கள் மறந்துவிட்டீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:1338
+#: syntax_errors\statement_analyzer.py:1356
 #, fuzzy
 #| msgid ""
 #| "It is possible that you forgot a comma between items in a set or dict\n"
@@ -4808,19 +4849,21 @@ msgstr ""
 "^ ஆல் குறிப்பிடப்பட்ட நிலைக்கு முன் ஒரு தொகுப்பு அல்லது அகராதியில் உள்ள \n"
 "உருப்படிகளுக்கு இடையே உள்ள காற்புள்ளியை நீங்கள் மறந்துவிட்டீர்கள்.\n"
 
-#: syntax_errors\statement_analyzer.py:1362
-msgid "Python indicates that the error is caused by `{second}` written immediately after `{first}`.\n"
-msgstr "`{first}` க்குப் பிறகு உடனடியாக எழுதப்பட்ட `{second}` மூலம் பிழை ஏற்பட்டது என்பதை பைதான் குறிக்கிறது.\n"
+#: syntax_errors\statement_analyzer.py:1380
+msgid ""
+"Python indicates that the error is caused by `{second}` written immediately after `{first}`.\n"
+msgstr ""
+"`{first}` க்குப் பிறகு உடனடியாக எழுதப்பட்ட `{second}` மூலம் பிழை ஏற்பட்டது என்பதை பைதான் குறிக்கிறது.\n"
 
-#: syntax_errors\statement_analyzer.py:1419
+#: syntax_errors\statement_analyzer.py:1437
 msgid "Perhaps you meant{line}"
 msgstr "ஒருவேளை நீங்கள் `{line}` என்று சொன்னீர்களா."
 
-#: syntax_errors\statement_analyzer.py:1426
+#: syntax_errors\statement_analyzer.py:1444
 msgid "Did you forget something between `{first}` and `{second}`?\n"
 msgstr "`{first}` மற்றும் `{second}` இடையே ஏதாவது மறந்துவிட்டீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:1441
+#: syntax_errors\statement_analyzer.py:1459
 msgid ""
 "Perhaps you meant to insert an operator like `{operators}`\n"
 "between `{first}` and `{second}`.\n"
@@ -4832,7 +4875,7 @@ msgstr ""
 "ஏற்படுத்தாது:\n"
 "\n"
 
-#: syntax_errors\statement_analyzer.py:1450
+#: syntax_errors\statement_analyzer.py:1468
 msgid ""
 "Note: these are just some of the possible choices and that\n"
 "some of them might raise other types of exceptions.\n"
@@ -4840,11 +4883,11 @@ msgstr ""
 "குறிப்பு: இவை சாத்தியமான சில தேர்வுகள் மற்றும் அவற்றில் சில வேறு வகையான \n"
 "விதிவிலக்குகளை எழுப்பலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:1457
+#: syntax_errors\statement_analyzer.py:1475
 msgid "There is an additional possibility.\n"
 msgstr "கூடுதல் வாய்ப்பு உள்ளது.\n"
 
-#: syntax_errors\statement_analyzer.py:1472
+#: syntax_errors\statement_analyzer.py:1490
 msgid ""
 "It is possible that you used an equal sign `=` instead of a colon `:`\n"
 "to assign values to keys in a dict\n"
@@ -4854,7 +4897,7 @@ msgstr ""
 "மதிப்புகளை ஒதுக்க, முக்காற்புள்ளி `:` என்பதற்குப் பதிலாக `=` என்ற சம \n"
 "அடையாளத்தைப் பயன்படுத்தியிருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:1489
+#: syntax_errors\statement_analyzer.py:1507
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 "Perhaps you meant to write\n"
@@ -4866,7 +4909,7 @@ msgstr ""
 "\n"
 "`{new_statement}`\n"
 
-#: syntax_errors\statement_analyzer.py:1521
+#: syntax_errors\statement_analyzer.py:1539
 msgid ""
 "I am guessing that you are trying to import at least one object\n"
 "from module `{module}` and rename it using the Python keyword `as`;\n"
@@ -4878,8 +4921,8 @@ msgid ""
 "    from {module} import object_1 as name_1\n"
 "    from {module} import object_2 as name_2  # if needed\n"
 msgstr ""
-"நீங்கள் தொகுதி `{module}` இலிருந்து குறைந்தபட்சம் ஒரு பொருளை இறக்குமதி செய்து, பைதான் முக்கிய சொல்லான `as` ஐப் பயன்படுத்தி "
-"மறுபெயரிட \n"
+"நீங்கள் தொகுதி `{module}` இலிருந்து குறைந்தபட்சம் ஒரு பொருளை இறக்குமதி செய்து, பைதான் முக்கிய சொல்லான `as` ஐப் "
+"பயன்படுத்தி மறுபெயரிட \n"
 "முயற்சிக்கிறீர்கள் என்று நினைக்கிறேன்; \n"
 "நன்கு வரையறுக்கப்பட்ட தொடரியல் மூலம் ஒரே நேரத்தில் ஒரு பொருளை \n"
 "மறுபெயரிட மட்டுமே இந்த முக்கிய சொல்லைப் பயன்படுத்த முடியும். \n"
@@ -4889,7 +4932,7 @@ msgstr ""
 "    from {module} import பொருள்_1 as பெயர்_1\n"
 "    from {module} import பொருள்_2 as பெயர்_2  # ஆக தேவைப்பட்டால்\n"
 
-#: syntax_errors\statement_analyzer.py:1551
+#: syntax_errors\statement_analyzer.py:1569
 msgid ""
 "I am guessing that you wrote {bad_token} twice in a row by mistake.\n"
 "If that is the case, you need to remove the second one.\n"
@@ -4897,11 +4940,11 @@ msgstr ""
 "நீங்கள் தவறுதலாக இரண்டு முறை {bad_token} என்று எழுதிவிட்டீர்கள் என்று நினைக்கிறேன். \n"
 "அப்படியானால், நீங்கள் இரண்டாவதாக அகற்ற வேண்டும்.\n"
 
-#: syntax_errors\statement_analyzer.py:1555
+#: syntax_errors\statement_analyzer.py:1573
 msgid "Did you write {bad_token} twice by mistake?\n"
 msgstr "தவறுதலாக இரண்டு முறை {bad_token} என்று எழுதிவிட்டீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:1574
+#: syntax_errors\statement_analyzer.py:1592
 msgid ""
 "I am guessing that you wrote {bad_token} by mistake.\n"
 "Removing it and writing `{line}` seems to fix the error.\n"
@@ -4909,11 +4952,11 @@ msgstr ""
 "நீங்கள் தவறுதலாக {bad_token} எழுதிவிட்டீர்கள் என்று நினைக்கிறேன். \n"
 "அதை நீக்கிவிட்டு `{line}` எழுதுவது பிழையை சரிசெய்வதாகத் தெரிகிறது.\n"
 
-#: syntax_errors\statement_analyzer.py:1578
+#: syntax_errors\statement_analyzer.py:1596
 msgid "Did you write {bad_token} by mistake?\n"
 msgstr "தவறுதலாக {bad_token} என்று எழுதிவிட்டீர்களா?\n"
 
-#: syntax_errors\statement_analyzer.py:1595
+#: syntax_errors\statement_analyzer.py:1613
 msgid ""
 "It looks like the error occurred as you were writing a Python dict.\n"
 "Perhaps wrote a dict key without writing the corresponding value.\n"
@@ -4921,7 +4964,7 @@ msgstr ""
 "நீங்கள் பைதான் அகராதியை எழுதும் போது பிழை ஏற்பட்டது போல் தெரிகிறது. \n"
 "தொடர்புடைய மதிப்பை எழுதாமல் ஒரு அகராதி திறவுகோலை எழுதியிருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:1611
+#: syntax_errors\statement_analyzer.py:1629
 msgid ""
 "The `else` keyword does not begin a code block that matches\n"
 "a valid code block, possibly because `else` is not indented correctly.\n"
@@ -4929,7 +4972,7 @@ msgstr ""
 "`else` முக்கிய சொல் சரியான குறியீடு தொகுதியுடன் பொருந்தக்கூடிய குறியீடு \n"
 "தொகுதியைத் தொடங்காது, ஒருவேளை `else` சரியாக உள்தள்ளப்படாததால் இருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:1626
+#: syntax_errors\statement_analyzer.py:1644
 msgid ""
 "The `elif` keyword does not begin a code block that matches\n"
 "an `if` block, possibly because `elif` is not indented correctly.\n"
@@ -4937,11 +4980,11 @@ msgstr ""
 "`elif` முக்கிய சொல்லானது, `if` தொகுதியுடன் பொருந்தக்கூடிய குறியீடுத் \n"
 "தொகுதியைத் தொடங்கவில்லை, ஒருவேளை `elif` சரியாக உள்தள்ளப்படாததால் இருக்கலாம்.\n"
 
-#: syntax_errors\statement_analyzer.py:1658
+#: syntax_errors\statement_analyzer.py:1676
 msgid "You used square brackets, `[...]` instead of parentheses.\n"
 msgstr "அடைப்புக்குறிகளுக்குப் பதிலாக சதுர அடைப்புக்குறிகளைப் பயன்படுத்தியுள்ளீர்கள், `[...]`.\n"
 
-#: syntax_errors\statement_analyzer.py:1662
+#: syntax_errors\statement_analyzer.py:1680
 msgid ""
 "Write the following instead:\n"
 "\n"
@@ -4951,15 +4994,15 @@ msgstr ""
 "\n"
 "{new_statement}"
 
-#: syntax_errors\statement_analyzer.py:1706
+#: syntax_errors\statement_analyzer.py:1724
 msgid "The opening {bracket} on line {linenumber} is not closed.\n"
 msgstr "வரி {linenumber} இல் திறப்பு {bracket} மூடப்படவில்லை.\n"
 
-#: syntax_errors\statement_analyzer.py:1720
+#: syntax_errors\statement_analyzer.py:1738
 msgid "If this is incorrect, please report this case.\n"
 msgstr "இது தவறாக இருந்தால், இந்த வழக்கைப் புகாரளிக்கவும்.\n"
 
-#: syntax_errors\statement_analyzer.py:1732
+#: syntax_errors\statement_analyzer.py:1750
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a generator expression.\n"
@@ -4969,7 +5012,7 @@ msgstr ""
 "குறியீடு தொகுதியைத் தொடங்கி அறிக்கையை நீங்கள் எழுதியிருக்கலாம்.\n"
 "உருவாக்கி வெளிப்பாடுகளுக்குள் தனி குறியீடு தொகுதிகள் இருக்க முடியாது.\n"
 
-#: syntax_errors\statement_analyzer.py:1738
+#: syntax_errors\statement_analyzer.py:1756
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a list comprehension.\n"
@@ -4979,7 +5022,7 @@ msgstr ""
 "குறியீடு தொகுதியைத் தொடங்கி அறிக்கையை நீங்கள் எழுதியிருக்கலாம்.\n"
 "பட்டியல் புரிதல்களுக்குள் தனி குறியீடு தொகுதிகள் இருக்க முடியாது.\n"
 
-#: syntax_errors\statement_analyzer.py:1744
+#: syntax_errors\statement_analyzer.py:1762
 msgid ""
 "Perhaps you wrote a statement beginning a code block\n"
 "intended to be part of a dict or set comprehension.\n"
@@ -4989,7 +5032,7 @@ msgstr ""
 "என்பதற்காக, குறியீடு தொகுதியைத் தொடங்கி அறிக்கையை நீங்கள் எழுதியிருக்கலாம்.\n"
 "அகராதி அல்லது தொகுப்பு புரிதல்களுக்குள் நீங்கள் தனி குறியீடு தொகுதிகளை வைத்திருக்க முடியாது.\n"
 
-#: syntax_errors\statement_analyzer.py:1750
+#: syntax_errors\statement_analyzer.py:1768
 msgid "If this explanation is incorrect, please report this case.\n"
 msgstr "இந்த விளக்கம் தவறாக இருந்தால், இந்த வழக்கைப் புகாரளிக்கவும்.\n"
 
@@ -5129,6 +5172,17 @@ msgstr ""
 "ஒரு முழு எண் அல்லது துண்டாக இருக்க வேண்டும் \n"
 "(`தொடக்கம்:நிறுத்து` அல்லது `தொடக்கம்:நிறுத்தம்:படி`) \n"
 "மற்றும் உங்களிடம் உள்ளது அதற்குப் பதிலாக {obj_type} பயன்படுத்தப்பட்டது.\n"
+
+#~ msgid "Nothing to go back to: no exception recorded."
+#~ msgstr "திரும்பிச் செல்வதற்கு எதுவும் இல்லை: விதிவிலக்கு பதிவு செய்யப்படவில்லை."
+
+#~ msgid "Removes the last recorded traceback item."
+#~ msgstr "கடைசியாகப் பதிவுசெய்யப்பட்ட மீண்டும்கண்டுபிடிக்கும் உருப்படியை நீக்குகிறது."
+
+#, fuzzy
+#~| msgid "Changes the prompt style to be used in the console."
+#~ msgid "Changes the prompt style to be used in the Friendly console."
+#~ msgstr "கன்சோலில் பயன்படுத்த வேண்டிய ப்ராம்ட் ஸ்டைலை மாற்றுகிறது."
 
 #~ msgid "No information is available about this warning.\n"
 #~ msgstr "இந்த முன்னறிவிப்பு குறித்து எந்த தகவலும் இல்லை.\n"
