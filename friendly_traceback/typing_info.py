@@ -20,7 +20,7 @@ _E = TypeVar("_E", bound=BaseException)
 
 
 if sys.version_info >= (3, 8):
-    from typing import Literal, Optional, Protocol, TypedDict
+    from typing import Literal, Protocol, TypedDict
 
     InclusionChoice = Literal[
         "message",
@@ -41,6 +41,8 @@ if sys.version_info >= (3, 8):
         original_python_traceback: str
         simulated_python_traceback: str
         shortened_traceback: str
+        exception_notes_intro: str
+        exception_notes: str
         suggest: str
         generic: str
         parsing_error: str
@@ -52,9 +54,12 @@ if sys.version_info >= (3, 8):
         exception_raised_header: str
         exception_raised_source: str
         exception_raised_variables: str
+        warning_message: str
+        warning_location_header: str
+        warning_source: str
+        warning_variables: str
+        additional_variable_warning: str
         lang: str
-        _exc_instance: BaseException
-        _frame: Optional[FrameType]
         _tb_data: "TracebackData"
 
     class Formatter(Protocol):

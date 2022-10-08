@@ -127,9 +127,10 @@ class FriendlyTraceback:
         self.info["lang"] = session.lang
         self.message = self.assign_message(etype, value)  # language independent
         self.assign_tracebacks()
-
-        # include some values for debugging purpose in an interactive session
+        # include the value for debugging purpose in an interactive session ...
         self.tb_data.exception_instance = value
+        # ... and for extracting the notes information
+        self.add_exception_note()
 
     def assign_message(self, etype, value) -> str:
         """Assigns the error message, as the attribute ``message``
@@ -165,8 +166,26 @@ class FriendlyTraceback:
 
         self.info["header"] = _("Python exception:")
         self.info["lang"] = session.lang
+        self.add_exception_note()
         self.assign_tracebacks()
         self.compile_info()
+
+    def add_exception_note(self):
+        """Adding information from exception notes; new to Python 3.11"""
+        if not hasattr(self.tb_data.exception_instance, "__notes__"):
+            return
+        notes = self.tb_data.exception_instance.__notes__
+        if len(notes) == 0:
+            return
+        if len(notes) == 1:
+            self.info["exception_notes_intro"] = _(
+                "The exception includes the following note:\n"
+            )
+        else:
+            self.info["exception_notes_intro"] = _(
+                "The exception includes the following notes:\n"
+            )
+        self.info["exception_notes"] = notes
 
     def assign_cause(self) -> None:
         """Determine the cause of an exception, which is what is returned
@@ -348,9 +367,9 @@ class FriendlyTraceback:
 
         var_info = info_variables.get_var_info(line, record.frame)
         self.info["exception_raised_variables"] = var_info["var_info"]
-        if "additional variable warning" in var_info:
-            self.info["additional variable warning"] = var_info[
-                "additional variable warning"
+        if "additional_variable_warning" in var_info:
+            self.info["additional_variable_warning"] = var_info[
+                "additional_variable_warning"
             ]
 
     def locate_last_call(self, record: FrameInfo, partial_source, var_info) -> None:

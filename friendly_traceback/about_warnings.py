@@ -65,21 +65,21 @@ class WarningInfo:
         self.lines = lines
         self.frame = frame
         self.info = {}
-        self.info["warning message"] = f"{warning_type.__name__}: {self.message}\n"
-        self.info["message"] = self.info["warning message"]
+        self.info["warning_message"] = f"{warning_type.__name__}: {self.message}\n"
+        self.info["message"] = self.info["warning_message"]
 
         if frame is not None:
             source = self.format_source()
-            self.info["warning source"] = source
+            self.info["warning_source"] = source
             self.problem_statement = executing.Source.executing(frame).text()
             var_info = get_var_info(self.problem_statement, frame)
             self.info["warning variables"] = var_info["var_info"]
-            if "additional variable warning" in var_info:
-                self.info["additional variable warning"] = var_info[
-                    "additional variable warning"
+            if "additional_variable_warning" in var_info:
+                self.info["additional_variable_warning"] = var_info[
+                    "additional_variable_warning"
                 ]
         else:
-            self.info["warning source"] = self.get_source_frame_missing()
+            self.info["warning_source"] = self.get_source_frame_missing()
         self.recompile_info()
 
     def recompile_info(self):
@@ -94,7 +94,7 @@ class WarningInfo:
             location = _(
                 "Warning issued on line `{line}` of file '{filename}'."
             ).format(filename=short_filename, line=self.lineno)
-        self.info["warning location header"] = location + "\n"
+        self.info["warning_location_header"] = location + "\n"
 
         self.info.update(**get_warning_cause(self.warning_type, self.message, self))
 

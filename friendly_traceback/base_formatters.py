@@ -47,8 +47,10 @@ items_in_order = [
     "original_python_traceback",  # <-- Friendly._debug_tb()
     "simulated_python_traceback",  # <-- python_tb()
     "shortened_traceback",  # <-- friendly_tb()
+    "exception_notes_intro",  # New for Python 3.11
+    "exception_notes",  # New in Python 3.11
     "suggest",  # <-- hint()
-    "warning message",
+    "warning_message",
     "generic",  # <-- what()
     "parsing_error",
     "parsing_error_source",
@@ -59,10 +61,10 @@ items_in_order = [
     "exception_raised_header",
     "exception_raised_source",
     "exception_raised_variables",
-    "warning location header",
-    "warning source",
+    "warning_location_header",
+    "warning_source",
     "warning variables",
-    "additional variable warning",
+    "additional_variable_warning",
 ]
 
 
@@ -72,8 +74,10 @@ repl_indentation = {
     "simulated_python_traceback": "none",
     "original_python_traceback": "none",
     "shortened_traceback": "none",
+    "exception_notes_intro": "none",
+    "exception_notes": "none",
     "suggest": "double",
-    "warning message": "single",
+    "warning_message": "single",
     "generic": "single",
     "parsing_error": "single",
     "parsing_error_source": "none",
@@ -84,10 +88,10 @@ repl_indentation = {
     "exception_raised_header": "single",
     "exception_raised_source": "none",
     "exception_raised_variables": "double",
-    "warning location header": "single",
-    "warning source": "none",
+    "warning_location_header": "single",
+    "warning_source": "none",
     "warning variables": "double",
-    "additional variable warning": "single",
+    "additional_variable_warning": "single",
 }
 
 
@@ -110,7 +114,20 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     for item in items_to_show:
         if item in info:
             indentation = spacing[repl_indentation[item]]
-            lines = info[item].split("\n")
+            if item == "exception_notes":
+                lines = []
+                for note in info[item]:
+                    note_lines = note.split("\n")
+                    if "exception_notes_intro" in items_to_show:
+                        for index, line in enumerate(note_lines):
+                            if index == 0:
+                                note_lines[0] = "* " + note_lines[0]
+                            else:
+                                note_lines[index] = "  " + note_lines[index]
+                    lines.extend(note_lines)
+                lines.append("\n")
+            else:
+                lines = info[item].split("\n")
             for line in lines:
                 result.append(indentation + line)
 
@@ -156,6 +173,8 @@ def docs(
             "simulated_python_traceback": "single",
             "original_python_traceback": "single",
             "shortened_traceback": "single",
+            "exception_notes_intro": "single",
+            "exception_notes": "single",
         }
     )
 
@@ -207,14 +226,21 @@ items_groups: Dict[InclusionChoice, Set[str]] = {
         "exception_raised_header",
         "exception_raised_source",
         "exception_raised_variables",
-        "warning location header",
-        "warning source",
+        "warning_location_header",
+        "warning_source",
         "warning variables",
-        "additional variable warning",
+        "additional_variable_warning",
     },
-    "friendly_tb": {"shortened_traceback", "suggest", "warnings", "warning message"},
-    "python_tb": {"simulated_python_traceback"},
-    "debug_tb": {"original_python_traceback"},
+    "friendly_tb": {
+        "shortened_traceback",
+        "suggest",
+        "warnings",
+        "warning_message",
+        "exception_notes_intro",
+        "exception_notes",
+    },
+    "python_tb": {"simulated_python_traceback", "exception_notes"},
+    "debug_tb": {"original_python_traceback", "exception_notes"},
     "detailed_tb": {"detailed_tb"},
 }
 items_groups["explain"] = (
