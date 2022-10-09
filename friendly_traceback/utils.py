@@ -6,7 +6,7 @@ import ast
 import difflib
 import types
 import uuid
-from typing import Any, Iterable, List, Tuple
+from typing import Any, Dict, Iterable, List, Tuple
 
 import pure_eval
 
@@ -28,7 +28,7 @@ def eval_expr(expr: str, frame: types.FrameType) -> Any:
     This can raise some exceptions which are meant to be caught by the
     calling function.
     """
-    node = ast.parse(expr.strip()).body[0].value  # noqa
+    node = ast.parse(expr.strip()).body[0].value  # type: ignore # noqa
     evaluator = pure_eval.Evaluator.from_frame(frame)
     return evaluator[node]  # can raise an exception
 
@@ -72,7 +72,7 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
         words = [word for word in words if len(word) >= 7]
         max_dist = 3
 
-    similar_words = {}
+    similar_words: Dict[int, List[str]] = {}
     for word in words:
         distance = _leven(word_with_typo, word, max_dist + 1)
         if distance <= max_dist:
@@ -97,8 +97,8 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
 # https://gist.github.com/giststhebearbear/4145811
 
 
-def _leven(s1, s2, max_distance):
-    #  get smallest string so our rows are minimized
+def _leven(s1: str, s2: str, max_distance: int) -> int:
+    #  get the smallest string so our rows are minimized
     s1, s2 = (s1, s2) if len(s1) <= len(s2) else (s2, s1)
     #  set lengths
     l1, l2 = len(s1), len(s2)
@@ -124,7 +124,7 @@ def _leven(s1, s2, max_distance):
     #  match a, change e->i change i->e => aie
     #  Damarau-Levenshtein has a cost of 1
     #  match a, transpose ei to ie => aie
-    prev_row = None
+    prev_row: List[int] = []
 
     #  build first leven matrix row
     #  The first row represents transformation from an empty string
@@ -214,7 +214,7 @@ def get_bad_statement(tb_data: TracebackData) -> str:
     try:
         ex = tb_data.records[-1].executing
         [statement] = ex.statements
-        return ex.source.asttokens().get_text(statement)
+        return ex.source.asttokens().get_text(statement)  # type: ignore
     except Exception:  # noqa
         if hasattr(tb_data, "original_bad_line"):
             return tb_data.original_bad_line
@@ -239,7 +239,7 @@ def to_code_block(code: str) -> str:
 # The following is currently not used in friendly-traceback but
 # is used by friendly.  It is kept here as it is part of
 # a trio of functions, with one being used in friendly-traceback.
-def get_highlighting_ranges(lines):
+def get_highlighting_ranges(lines: List[str]) -> Dict[int, List[Tuple[int, int]]]:
     """Given a block of code highlighted primarily with carets (^),
     this function will identify the lines containing carets and break up
     that line into sub-ranges, showing at which indices the carets
@@ -263,7 +263,7 @@ def get_highlighting_ranges(lines):
     return error_lines
 
 
-def get_single_line_highlighting_ranges(line):
+def get_single_line_highlighting_ranges(line: str) -> List[Tuple[int, int]]:
     """Given a single line containing alternating sequences of consecutive
     spaces and carets (^), this function will compute the position of the
     beginning and end of each sequence of consecutive characters,
@@ -289,7 +289,7 @@ def get_single_line_highlighting_ranges(line):
     return caret_line
 
 
-def create_caret_highlighted(caret_line):
+def create_caret_highlighted(caret_line: List[Tuple[int, int]]) -> str:
     """Creates a line containing alternating sequences of spaces
     and carets, from a list containing a series of tuples denoting
     the range in which the carets are found.
