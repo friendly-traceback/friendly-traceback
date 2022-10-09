@@ -41,7 +41,7 @@ if sys.version_info >= (3, 8):
         original_python_traceback: str
         simulated_python_traceback: str
         shortened_traceback: str
-        exception_notes_intro: str
+        exception_notes_intro: List[str]
         exception_notes: str
         suggest: str
         generic: str
