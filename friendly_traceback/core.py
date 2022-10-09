@@ -119,7 +119,7 @@ class FriendlyTraceback:
             debug_helper.log("Uncaught exception in TracebackData:")
             if debug_helper.DEBUG:
                 raise
-            debug_helper.handle_internal_error(e)
+            debug_helper.handle_internal_error(str(e))
             raise SystemExit
         self.tb = tb
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]

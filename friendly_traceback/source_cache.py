@@ -8,7 +8,7 @@ Note that we monkeypatch Python's linecache.getlines.
 import inspect
 import linecache
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Generator, List, Optional
 
 import stack_data
 
@@ -38,15 +38,15 @@ class Cache:
         lines = [line + "\n" for line in source.splitlines()]
         entry = (len(source), time.time(), lines, filename)
         # mypy cannot get the type information from linecache in stdlib
-        linecache.cache[filename] = entry  # type: ignore
+        linecache.cache[filename] = entry
         self.local_cache[filename] = lines
 
     def remove(self, filename: str) -> None:
         """Removes an entry from the cache if it can be found."""
         if filename in self.local_cache:
             del self.local_cache[filename]
-        if filename in linecache.cache:  # type: ignore
-            del linecache.cache[filename]  # type: ignore
+        if filename in linecache.cache:
+            del linecache.cache[filename]
         # clear stack_data cache so it pulls fresh lines from linecache
         stack_data.Source._class_local("__source_cache", {}).pop(filename, None)
 
@@ -79,7 +79,7 @@ cache = Cache()
 linecache.getlines = cache.get_source_lines
 
 
-def _counter():
+def _counter() -> Generator[int, None, None]:
     num = 0
     while True:
         yield num
@@ -89,7 +89,11 @@ def _counter():
 counter = _counter()
 
 
-def friendly_exec(source, globals_=None, locals_=None):
+def friendly_exec(
+    source: Any,
+    globals_: Optional[Dict[str, None]] = None,
+    locals_: Optional[Dict[str, None]] = None,
+) -> None:
     """A version of exec that uses a different filename each time
     instead of the Python default '<string>', and caches the source.
     This makes it possible to provide more help on code executed via 'exec'.
@@ -110,7 +114,7 @@ def friendly_exec(source, globals_=None, locals_=None):
         if locals_ is None:
             locals_ = true_locals
     else:
-        if locals is None:
+        if locals_ is None:
             locals_ = true_globals
     # Let any exception bubble up: they will be correctly handled
     # by friendly-traceback

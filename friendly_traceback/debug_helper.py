@@ -28,13 +28,13 @@ def log_error(exc: Optional[BaseException] = None) -> None:
         sys.exit()
 
 
-def log(*args):
+def log(*args: str) -> None:
     if DEBUG:
         for arg in args:
             print(arg)
 
 
-def handle_internal_error(arg) -> None:
-    print(_("Fatal error - aborting"))
+def handle_internal_error(arg: str) -> None:
+    print(_("Fatal error - aborting"), arg)
     print(_("Please report this issue."))
     sys.exit()

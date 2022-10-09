@@ -48,6 +48,7 @@ if sys.version_info >= (3, 8):
         parsing_error: str
         parsing_error_source: str
         cause: str
+        detailed_tb: List[str]
         last_call_header: str
         last_call_source: str
         last_call_variables: str

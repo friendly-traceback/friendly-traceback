@@ -70,14 +70,14 @@ class FriendlyFormatter(Formatter):
 
 class FrameInfo(stack_data.FrameInfo):
     @cached_property
-    def partial_source(self):
+    def partial_source(self) -> str:
         return self._partial_source(with_node_range=False)
 
     @cached_property
-    def partial_source_with_node_range(self):
+    def partial_source_with_node_range(self) -> str:
         return self._partial_source(with_node_range=True)
 
-    def _partial_source(self, with_node_range: bool):
+    def _partial_source(self, with_node_range: bool) -> str:
         """Gets the part of the source where an exception occurred,
         formatted in a pre-determined way, as well as the content
         of the specific line where the exception occurred.
@@ -127,10 +127,10 @@ class FrameInfo(stack_data.FrameInfo):
         return source
 
     @cached_property
-    def highlighted_source(self):
+    def highlighted_source(self) -> str:
         return self._highlighted_source(with_node_range=False)
 
-    def problem_line(self):
+    def problem_line(self) -> str:
         if not self.lines:
             return ""
         for line_obj in self.lines:
@@ -142,7 +142,7 @@ class FrameInfo(stack_data.FrameInfo):
                 return str(line_obj.text)
         return ""
 
-    def _highlighted_source(self, with_node_range: bool):
+    def _highlighted_source(self, with_node_range: bool) -> str:
         """Extracts a few relevant lines from a file content given as a list
         of lines, adding line number information and identifying
         a particular line.
@@ -246,7 +246,7 @@ class FrameInfo(stack_data.FrameInfo):
             line for line in self.lines if isinstance(line, Line) and line.is_current
         )
 
-    def handle_special_cases(self):
+    def handle_special_cases(self) -> str:
         """Hack to try to identify a problematic text when node_text is None.
 
         We just use the information to highlight where in a statement

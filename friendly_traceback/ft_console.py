@@ -105,8 +105,8 @@ class FriendlyTracebackConsole(InteractiveConsole):
         with in some way (this is the same as runsource()).
         """
         # mypy cannot get the type information from InteractiveConsole in stdlib
-        self.buffer.append(line)  # type: ignore
-        source = "\n".join(self.buffer)  # type: ignore
+        self.buffer.append(line)
+        source = "\n".join(self.buffer)
 
         # Each valid code sample is saved with its own fake filename.
         # They are numbered consecutively to help understand
@@ -154,7 +154,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         line.
         """
         try:
-            code = self.compile(source, filename, symbol)  # type: ignore
+            code = self.compile(source, filename, symbol)
         except (OverflowError, SyntaxError, ValueError):
             # Case 1
             if session.installed:
