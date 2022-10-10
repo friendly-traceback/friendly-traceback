@@ -1,6 +1,7 @@
 """Getting specific information for AttributeError"""
 import ast
 import builtins
+import platform
 import re
 import sys
 from types import FrameType
@@ -169,8 +170,18 @@ def type_object_has_no_attribute(message: str, tb_data: TracebackData) -> CauseI
     if not match:
         return {}
     frame = tb_data.exception_frame
-
     return _attribute_error_in_object(match[1], match[2], tb_data, frame)
+
+
+def _invalid_add_note(exc_name, frame):
+    exc = info_variables.get_object_from_name(exc_name, frame)
+    if issubclass(exc, BaseException):
+        hint = _("`add_note()` is only allowed for Python version 3.11 and newer.\n")
+        using = _("You are using Python version {version}.\n").format(
+            version=platform.python_version()
+        )
+        return {"cause": hint + using, "suggest": hint}
+    return {}
 
 
 @parser._add
@@ -188,6 +199,10 @@ def attribute_error_in_object(message: str, tb_data: TracebackData) -> CauseInfo
                 "for a variable whose value is `None`."
             ).format(attr=match[2])
         }
+    if match[2] == "add_note" and sys.version_info < (3, 11):
+        cause = _invalid_add_note(match[1], frame)
+        if cause:
+            return cause
 
     return _attribute_error_in_object(match[1], match[2], tb_data, frame)
 
