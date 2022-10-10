@@ -84,6 +84,8 @@ class FriendlyTracebackConsole(InteractiveConsole):
         if session.ipython_prompt:
             sys.ps1 = "[1]: "
             sys.ps2 = "...: "
+        if local_vars:
+            local_vars["__name__"] = "__friendly_console__"
         super().__init__(locals=local_vars)
         session.suggest_console = ""
 
