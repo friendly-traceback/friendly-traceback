@@ -63,7 +63,7 @@ items_in_order = [
     "exception_raised_variables",
     "warning_location_header",
     "warning_source",
-    "warning variables",
+    "warning_variables",
     "additional_variable_warning",
 ]
 
@@ -90,7 +90,7 @@ repl_indentation = {
     "exception_raised_variables": "double",
     "warning_location_header": "single",
     "warning_source": "none",
-    "warning variables": "double",
+    "warning_variables": "double",
     "additional_variable_warning": "single",
 }
 
@@ -228,7 +228,7 @@ items_groups: Dict[InclusionChoice, Set[str]] = {
         "exception_raised_variables",
         "warning_location_header",
         "warning_source",
-        "warning variables",
+        "warning_variables",
         "additional_variable_warning",
     },
     "friendly_tb": {
