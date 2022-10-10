@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-08 18:36-0300\n"
+"POT-Creation-Date: 2022-10-10 08:18-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,7 +226,15 @@ msgid ""
 "Problem: source of `{filename}` is not available\n"
 msgstr ""
 
-#: ft_console.py:29
+#: ft_console.py:30
+msgid "Use exit() or Ctrl-Z plus Return to exit."
+msgstr ""
+
+#: ft_console.py:32
+msgid "Use exit() or Ctrl-D to exit."
+msgstr ""
+
+#: ft_console.py:33
 msgid "Type 'Friendly' for help on special functions/methods."
 msgstr ""
 

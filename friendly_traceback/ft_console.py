@@ -26,7 +26,11 @@ from .typing_info import Formatter, InclusionChoice
 def type_friendly() -> str:
     # Explicit type as mypy cannot infer correctly the return type on its own here
     _: Callable[[str], str] = current_lang.translate
-    return _("Type 'Friendly' for help on special functions/methods.")
+    if sys.platform == "win32":
+        exit_ = _("Use exit() or Ctrl-Z plus Return to exit.") + "\n"
+    else:
+        exit_ = _("Use exit() or Ctrl-D to exit.") + "\n"
+    return exit_ + _("Type 'Friendly' for help on special functions/methods.")
 
 
 BANNER = "\nFriendly-traceback version {}. [Python version: {}]\n".format(

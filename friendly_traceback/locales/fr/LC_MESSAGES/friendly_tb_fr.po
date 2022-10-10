@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-10-08 18:36-0300\n"
+"POT-Creation-Date: 2022-10-10 08:18-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -244,7 +244,15 @@ msgstr "Veuillez signaler ce problème."
 msgid "Problem: source of `{filename}` is not available\n"
 msgstr "Problème : la source de `{filename}` n'est pas disponible.\n"
 
-#: ft_console.py:29
+#: ft_console.py:30
+msgid "Use exit() or Ctrl-Z plus Return to exit."
+msgstr "Utilisez exit() ou Ctrl-Z plus Return pour quitter."
+
+#: ft_console.py:32
+msgid "Use exit() or Ctrl-D to exit."
+msgstr "Utilisez exit() ou Ctrl-D pour quitter."
+
+#: ft_console.py:33
 msgid "Type 'Friendly' for help on special functions/methods."
 msgstr ""
 "Tapez \"Friendly\" pour obtenir de l'aide sur les fonctions ou méthodes "
@@ -5522,6 +5530,12 @@ msgstr ""
 "doit être soit un entier, soit une tranche\n"
 "(`début:arrêt` ou `début:arrêt:étape`)\n"
 "et vous avez utilisé {obj_type} à la place.\n"
+
+#~ msgid ""
+#~ "To exit press Ctrl-D in Linux and macOS and Ctrl-Z + Return on Windows"
+#~ msgstr ""
+#~ "Pour quitter, appuyez sur Ctrl-D sous Linux et macOS et Ctrl-Z + Entrée "
+#~ "sous Windows"
 
 #~ msgid "<'source unavailable'>"
 #~ msgstr "<'source non disponible'>"
