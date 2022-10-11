@@ -290,7 +290,7 @@ def parse_unsupported_operand_type(message: str, tb_data: TracebackData) -> Caus
 def parse_order_comparison(message: str, tb_data: TracebackData) -> CauseInfo:
     # example: '<' not supported between instances of 'int' and 'str'
     pattern = re.compile(
-        r"[\'\"](.+)[\'\"] not supported between instances of [\'\"](\w+)[\'\"] and [\'\"](\w+)[\'\"]"  # noqa
+        r"[\'\"](.+)[\'\"] not supported between instances of [\'\"]([\.\w]+)[\'\"] and [\'\"]([\.\w]+)[\'\"]"  # noqa
     )
     match = re.search(pattern, message)
     if match is None:
@@ -315,18 +315,31 @@ def parse_order_comparison(message: str, tb_data: TracebackData) -> CauseInfo:
         second=convert_type(match[3]),
     )
 
-    number = None
-    if match[2] in ["int", "float"] and match[3] == "str":
+    other = number = None
+    if match[2] in ["int", "float"]:
         number = match[2]
-    elif match[3] in ["int", "float"] and match[2] == "str":
+        other = match[3]
+    elif match[3] in ["int", "float"]:
         number = match[3]
+        other = match[2]
+
+    other_obj = info_variables.get_object_from_name(other, frame)
 
     if number is not None:
-        more_cause, possible_hint = _convert_str_to_number(
-            "str", number, frame, tb_data
-        )
-        if more_cause is not None:
-            return {"cause": cause + more_cause, "suggest": possible_hint}
+        if other == "str":
+            more_cause, possible_hint = _convert_str_to_number(
+                "str", number, frame, tb_data
+            )
+            if more_cause is not None:
+                return {"cause": cause + more_cause, "suggest": possible_hint}
+        elif hasattr(other_obj, "__next__") and hasattr(other_obj, "__iter__"):
+            more_cause = _(
+                "`{iter}` is an iterator. You likely needed to write something like\n\n"
+                "    next({iter}())\n\n"
+                "or use it in a `for` loop to get a number from it\n"
+                "before comparing it to {number}.\n"
+            ).format(iter=other, number=convert_type(number))
+            return {"cause": cause + "\n" + more_cause}
 
     return {"cause": cause}
 

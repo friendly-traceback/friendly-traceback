@@ -80,7 +80,7 @@ def convert_type(short_form: str) -> str:
         "string": _("a string (`str`)"),
         "tuple": _("a `tuple`"),
     }
-    return forms.get(short_form, short_form)
+    return forms.get(short_form, f"`{short_form}`")
 
 
 def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:

@@ -320,6 +320,7 @@ def test_Unsupported_operand_types():
 
 
 def test_Comparison_not_supported():
+    import itertools
     try:
         3j < 4j
     except TypeError:
@@ -340,6 +341,17 @@ def test_Comparison_not_supported():
     assert "TypeError: '<' not supported between instances of 'int' and 'str'" in result
     if friendly_traceback.get_lang() == "en":
         assert "You tried to do an order comparison (<)" in result
+
+    try:
+        42 < itertools.count()
+    except TypeError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+
+    assert "TypeError: '<' not supported between instances of 'int' and 'itertools.count'" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "`itertools.count` is an iterator" in result
 
     try:
         a = "2"
