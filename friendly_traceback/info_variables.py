@@ -162,6 +162,9 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
             except SyntaxError as e:
                 debug_helper.log(f"Problem with ASTTokens: {e}" + f"\nline: {line}")
                 return objects
+        else:
+            debug_helper.log(f"Problem with ASTTokens: {e}" + f"\nline: {line}")
+            return objects
 
     if atok is not None:
         evaluator = Evaluator.from_frame(frame)
