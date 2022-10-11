@@ -11,7 +11,7 @@ import types
 from typing import Any, Dict, List, Union
 
 from . import debug_helper, token_utils, utils
-from .ft_gettext import current_lang, please_report
+from .ft_gettext import current_lang
 from .path_info import path_utils
 from .typing_info import ObjectsInfo, ScopeKind, SimilarNamesInfo
 
@@ -217,9 +217,8 @@ def get_object_from_name(name: str, frame: types.FrameType) -> Any:
 
     # We will limit to only one dot i.e. 'name.attribute'
     if "." in name:
-        if name.find(".") != 1:
-            print("get_object_from_name cannot parse names with more than one dot.")
-            print(please_report())
+        if name.count(".") > 1:
+            print(name.count("."), name)
             return None
         name, attribute = name.replace(" ", "").split(".")
     else:
