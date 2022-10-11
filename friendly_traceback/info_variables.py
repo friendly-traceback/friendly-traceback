@@ -8,7 +8,7 @@ import builtins
 import re
 import sys
 import types
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List, Tuple, Union
 
 from . import debug_helper, token_utils, utils
 from .ft_gettext import current_lang
@@ -108,17 +108,22 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
         "name, obj": [],
         "name, type": [],
     }
+    names = set()
+    objects, names = find_identifiers(objects, line, frame, names)
+    return find_expressions(objects, line, frame, names)
 
+
+def find_identifiers(
+    objects: ObjectsInfo, line: str, frame: types.FrameType, names: set
+) -> Tuple[ObjectsInfo, set]:
+    """finds all the identifiers and corresponding objects"""
     scopes = (
         ("locals", frame.f_locals),  # always have locals before globals
         ("globals", frame.f_globals),
     )
-
-    names = set()
-
     tokens = token_utils.get_significant_tokens(line)
     if not tokens:
-        return objects
+        return objects, names
     for tok in tokens:
         if tok.is_identifier():
             name = tok.string
@@ -143,7 +148,13 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                     obj_type = type(obj).__name__
                     if obj_type is not None:
                         objects["name, type"].append((name, obj_type))
+    return objects, names
 
+
+def find_expressions(
+    objects: ObjectsInfo, line: str, frame: types.FrameType, names: set
+) -> ObjectsInfo:
+    """Use asttokens to find expressions of interest to include in variables shown."""
     line = line.strip()
     if line.startswith(
         ("def ", "if ", "while ", "class ", "for ", "with ")
