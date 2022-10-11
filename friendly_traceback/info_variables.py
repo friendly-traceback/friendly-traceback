@@ -45,10 +45,7 @@ class ConfidentialInformation:
 
     def is_confidential(self, name: str) -> bool:
         """Identify variable names that are deemed to contain confidential information"""
-        for pattern in self.regex:
-            if re.fullmatch(pattern, name):
-                return True
-        return False
+        return any(re.fullmatch(pattern, name) for pattern in self.regex)
 
     def redact_confidential(self, name: str, value: Any) -> Any:
         if confidential.is_confidential(name):
@@ -221,9 +218,7 @@ def get_object_from_name(name: str, frame: types.FrameType) -> Any:
     if name in frame.f_globals:
         return frame.f_globals[name]
 
-    if name in dir(builtins):  # Do this last
-        return getattr(builtins, name)
-    return None
+    return getattr(builtins, name) if name in dir(builtins) else None
 
 
 def get_variables_in_frame_by_scope(
@@ -304,8 +299,7 @@ def get_var_info(line: str, frame: types.FrameType) -> dict:
     if names_info:
         names_info.append("")
     var_info = {"var_info": "\n".join(names_info)}
-    builtins_warnings = find_renamed_builtins(frame)
-    if builtins_warnings:
+    if builtins_warnings := find_renamed_builtins(frame):
         var_info["additional_variable_warning"] = builtins_warnings
     return var_info
 
@@ -367,9 +361,9 @@ def simplify_repr(value: str, splitlines: bool = True) -> str:
         path = path_utils.shorten_path(path[:-1])  # -1 removes >
         # Avoid lines that are too long
         if len(obj_repr) + len(path) > MAX_LENGTH and splitlines:
-            value = obj_repr + f">\n{INDENT}from " + path
+            value = f"{obj_repr}>\n{INDENT}from {path}"
         else:
-            value = obj_repr + "> from " + path
+            value = f"{obj_repr}> from {path}"
 
     # Replace some strings so that colour formatting is nicer
     value = value.replace("<class '", "<class ")
@@ -383,7 +377,7 @@ def simplify_repr(value: str, splitlines: bool = True) -> str:
         value = simplify_bound_method(value, splitlines=splitlines)
     elif ".<locals>." in value:
         parts = value.split(".<locals>.")
-        file_name = ".<locals>".join(parts[0:-1])
+        file_name = ".<locals>".join(parts[:-1])
         obj_name = parts[-1]
         if value.startswith("<function "):
             start = "<function "
@@ -404,25 +398,18 @@ def simplify_repr(value: str, splitlines: bool = True) -> str:
 
 
 def simplify_bound_method(name: str, splitlines: bool = False) -> str:
-    name = name[0:-1]  # remove final >
+    name = name[:-1]
     if ".<locals>." in name:
         method, obj = name.split(" of ")
         parts = method.split(".<locals>.")
         method = f"<bound method {parts[-1]}>"
         obj_parts = obj.split(".<locals>.")
+        file_name = ".<locals>".join(obj_parts[:-1])
         obj_name = obj_parts[-1]
-        file_name = ".<locals>".join(obj_parts[0:-1])
-        name = (
-            method
-            + " of <"
-            + obj_name
-            + "` defined in `<function "
-            + file_name[1:]
-            + ">"
-        )
+        name = f"{method} of <{obj_name}` defined in `<function {file_name[1:]}>"
         if len(name) > MAX_LENGTH and splitlines:
-            of_object = f"\n{INDENT}of <" + obj_name
-            defined_in = f"\n{INDENT}defined in <function " + file_name[1:] + ">"
+            of_object = f"\n{INDENT}of <{obj_name}"
+            defined_in = f"\n{INDENT}defined in <function {file_name[1:]}>"
             name = method + of_object + defined_in
     else:
         name = name.replace(" of", "> of")
@@ -482,7 +469,7 @@ def format_multiline(value: str) -> str:
     # This is useful for tabular data
     indent = "\n" + " " * 8
     lines = value.split("\n")
-    new_lines = [line if len(line) < 72 else line[:68] + "..." for line in lines]
+    new_lines = [line if len(line) < 72 else f"{line[:68]}..." for line in lines]
     if len(new_lines) > 6:
         new_lines = new_lines[:6] + ["..."]
     return indent + indent.join(new_lines)
@@ -499,14 +486,14 @@ def shorten_long_line(value: str, obj: str) -> (str, str):
         for part in parts:
             if len(part) + length > MAX_LENGTH:
                 break
-            new_parts.append(part + ", ")
+            new_parts.append(f"{part}, ")
             length += len(part) + 2
         if new_parts:
             value = "".join(new_parts) + "..." + value[-1]
         else:
-            value = value[0 : MAX_LENGTH - 5] + "..." + value[-1]
+            value = f"{value[:MAX_LENGTH - 5]}...{value[-1]}"
     else:
-        value = value[0 : MAX_LENGTH - 5] + "..." + value[-1]
+        value = f"{value[:MAX_LENGTH - 5]}...{value[-1]}"
     try:
         length_info = len(obj)
     except OverflowError:
@@ -543,7 +530,7 @@ def get_similar_names(name: str, frame: types.FrameType) -> SimilarNamesInfo:
     if all_similar:
         most_similar = utils.get_similar_words(name, all_similar)
         similar["best"] = most_similar[0]
-    elif name in ["length", "lenght"]:
+    elif name in {"length", "lenght"}:
         # utils.get_similar_words() used above only look for relatively
         # minor letter mismatches in making suggestions.
         # Here we add a few additional hard-coded cases.
