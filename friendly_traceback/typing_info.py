@@ -2,7 +2,6 @@
 
 import os
 import sys
-from types import FrameType
 from typing import TYPE_CHECKING, Any, Callable, Dict, List, Tuple, TypeVar, Union
 
 if TYPE_CHECKING:
@@ -101,11 +100,10 @@ else:
     SimilarNamesInfo = Dict[str, List[str]]
 
 
-Explain = Callable[[_E, FrameType, "TracebackData"], CauseInfo]
 GenericExplain = Callable[[], str]
 Parser = Union[
-    Callable[[str, FrameType, "TracebackData"], CauseInfo],
-    Callable[[_E, FrameType, "TracebackData"], CauseInfo],
+    Callable[[str, "TracebackData"], CauseInfo],
+    Callable[[_E, "TracebackData"], CauseInfo],
 ]
 Translator = Callable[[str], str]
 Writer = Callable[[str], None]
