@@ -9,12 +9,14 @@ imported from this module instead of simply from ``friendly_traceback``.
 
 
 from importlib import import_module
-from typing import List, Type
+from typing import List, Type, TypeVar
 
 from . import debug_helper
 from .ft_gettext import internal_error, no_information, unknown_case
 from .tb_data import TracebackData  # for type checking only
 from .typing_info import _E, CauseInfo, Parser
+
+_P = TypeVar("_P", bound=Parser)
 
 INCLUDED_PARSERS = {
     AttributeError: "attribute_error",
@@ -42,15 +44,16 @@ class RuntimeMessageParser:
         self.core_parsers: List[Parser] = []
         self.custom_parsers: List[Parser] = []
 
-    def _add(self, func: Parser) -> None:
+    def _add(self, func: _P) -> _P:
         """This method is meant to be used only within friendly-traceback.
         It is used as a decorator to add a message parser to a list that is
         automatically updated.
         """
         self.parsers.append(func)
         self.core_parsers.append(func)
+        return func
 
-    def add(self, func: Parser) -> None:
+    def add(self, func: _P) -> _P:
         """This method is meant to be used by projects that extend
         friendly-traceback. It is used as a decorator to add a message parser
         to a list that is automatically updated::
@@ -61,6 +64,7 @@ class RuntimeMessageParser:
         """
         self.custom_parsers.append(func)
         self.parsers = self.custom_parsers + self.core_parsers
+        return func
 
 
 def get_parser(exception_type: Type[_E]) -> RuntimeMessageParser:

@@ -145,8 +145,13 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
                         objects["name, type"].append((name, obj_type))
 
     line = line.strip()
-    if line.startswith(("def", "if", "while", "class", "for")) and line.endswith(":"):
+    if line.startswith(
+        ("def ", "if ", "while ", "class ", "for ", "with ")
+    ) and line.endswith(":"):
         line += " pass"
+
+    atok = None
+
     try:
         atok = ASTTokens(line.strip(), parse=True)
     except SyntaxError as e:
