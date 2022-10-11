@@ -150,8 +150,6 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     ) and line.endswith(":"):
         line += " pass"
 
-    atok = None
-
     try:
         atok = ASTTokens(line.strip(), parse=True)
     except SyntaxError as e:
