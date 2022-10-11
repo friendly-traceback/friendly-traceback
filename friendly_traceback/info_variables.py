@@ -11,7 +11,7 @@ import types
 from typing import Any, Dict, List, Union
 
 from . import debug_helper, token_utils, utils
-from .ft_gettext import current_lang
+from .ft_gettext import current_lang, please_report
 from .path_info import path_utils
 from .typing_info import ObjectsInfo, ScopeKind, SimilarNamesInfo
 
@@ -210,11 +210,31 @@ def get_object_from_name(name: str, frame: types.FrameType) -> Any:
     # We must guard against people defining their own type with a
     # standard name by checking standard types last.
 
+    # We will limit to only one dot i.e. 'name.attribute'
+    if "." in name:
+        if name.find(".") != 1:
+            print("get_object_from_name cannot parse names with more than one dot.")
+            print(please_report())
+            return None
+        name, attribute = name.replace(" ", "").split(".")
+    else:
+        attribute = None
+
     if name in frame.f_locals:
-        return frame.f_locals[name]
+        if attribute is None:
+            return frame.f_locals[name]
+        else:
+            obj = frame.f_locals[name]
+            if hasattr(obj, attribute):
+                return getattr(obj, attribute)
 
     if name in frame.f_globals:
-        return frame.f_globals[name]
+        if attribute is None:
+            return frame.f_globals[name]
+        else:
+            obj = frame.f_globals[name]
+            if hasattr(obj, attribute):
+                return getattr(obj, attribute)
 
     if name in dir(builtins):  # Do this last
         return getattr(builtins, name)

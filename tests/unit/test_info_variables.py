@@ -114,5 +114,10 @@ def test_simplify_repr():
     )
 
 
+def test_get_dotted_name_from_frame():
+    import itertools
+    frame = inspect.currentframe()
+    assert ft.info_variables.get_object_from_name('itertools.count', frame) != None
+
 if __name__ == "__main__":
     test_get_variables_in_frame_by_scope()
