@@ -116,9 +116,7 @@ def get_cause(
     message_parser = get_parser(exception_type)
 
     for parser in message_parser.parsers:
-        # This could be simpler if we could use the walrus operator
-        cause = parser(message, tb_data)
-        if cause:
+        if cause := parser(message, tb_data):
             return cause
 
     # Special case where a connection attempt failed when using
@@ -127,8 +125,7 @@ def get_cause(
         if issubclass(exception_type, OSError):
             os_error_parser = get_parser(OSError)
             for parser in os_error_parser.parsers:
-                cause = parser(message, tb_data)
-                if cause:
+                if cause := parser(message, tb_data):
                     return cause
                 else:
                     return {"cause": no_information(), "suggest": unknown_case()}
@@ -138,5 +135,5 @@ def get_cause(
     if not message_parser.parsers:
         return {}
 
-    debug_helper.log(str(message))
+    debug_helper.log(message)
     return {"cause": no_information(), "suggest": unknown_case()}
