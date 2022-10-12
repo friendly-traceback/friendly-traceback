@@ -64,7 +64,7 @@ def _what_kind_of_literal(literal):
         if isinstance(a, kind):
             return result
 
-    debug_helper.log("New kind of literal" + str(a))  # pragma: no cover
+    debug_helper.log(f"New kind of literal{str(a)}")
     return ""  # pragma: no cover
 
 
@@ -77,7 +77,7 @@ def _proper_decimal_or_octal_number(prev_str, bad_str):
         return {}
 
     if prev_str == "0" and set(bad_str).issubset("01234567_"):
-        correct = "0o" + bad_str
+        correct = f"0o{bad_str}"
         hint = _("Did you mean `{num}`?\n").format(num=correct)
         cause = _(
             "Perhaps you meant to write the octal number `{num}`\n"
@@ -191,7 +191,7 @@ def assign_to_function_call(message: str = "", statement=None):
         statement.bad_token, statement.tokens, "="
     )
     if fn_call is None:
-        fn_call = statement.bad_token.string + "(...)"
+        fn_call = f"{statement.bad_token.string}(...)"
         cause = _(
             "You wrote the expression\n\n"
             "    {fn_call} = ...\n"
@@ -318,12 +318,9 @@ def assign_to_keyword(message: str = "", statement=None):
 
 def _assign_to_literal_in_for_loop(statement):
     # see assign_to_literal() below
-    tokens = statement.tokens[0 : statement.bad_token_index]
+    tokens = statement.tokens[: statement.bad_token_index]
     for tok in tokens[::-1]:
-        if tok == "in":  # pragma: no cover
-            debug_helper.log("New case for assign_to_literal")
-            break
-        elif tok == "for":
+        if tok == "for":
             cause = _(
                 "A for loop must have the form:\n\n"
                 "    for ... in sequence:\n\n"
@@ -331,6 +328,9 @@ def _assign_to_literal_in_for_loop(statement):
                 "and not literals like `{bad_token}`.\n"
             ).format(bad_token=statement.bad_token)
             return {"cause": cause, "suggest": _assign_to_identifiers_only()}
+        if tok == "in":  # pragma: no cover
+            debug_helper.log("New case for assign_to_literal")
+            break
     return {}
 
 
@@ -377,10 +377,7 @@ def assign_to_literal(message: str = "", statement=None):
             ).format(fstring=statement.bad_token)
             return {"cause": cause}
     else:
-        if expression is not None:
-            literal = expression
-        else:
-            literal = None
+        literal = expression if expression is not None else None
         name = _("variable_name")
 
     if len(parts) == 2 and name.isidentifier():
@@ -454,7 +451,7 @@ def assign_to_operator(message: str = "", statement=None):
                         return lhs
             return ""
         except Exception as e:  # pragma: no cover
-            debug_helper.log("Problem in could_be_identifier:" + str(e))
+            debug_helper.log(f"Problem in could_be_identifier:{str(e)}")
             return ""
 
     name = _could_be_identifier(bad_line)
@@ -773,8 +770,9 @@ def colon_expected(message: str = "", statement=None):
     new_statement = fixers.replace_token(
         statement.statement_tokens,
         statement.bad_token,
-        statement.bad_token.string + ":",
+        f"{statement.bad_token.string}:",
     )
+
     if fixers.check_statement(new_statement):  # pragma: no cover
         debug_helper.log("New case for colon_expected.")
         return {"cause": cause, "suggest": hint}
@@ -911,34 +909,36 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
         if tok.is_string():
             previous_string = tok
 
-    if previous_string is not None:
-        if previous_string.string[-1] == statement.bad_token:
-            new_tokens = []
-            for tok in statement.tokens:
-                if tok == previous_string:
-                    s = tok.string[:-1] + tok.string[-1].replace("'", "\\'").replace(
-                        '"', '\\"'
-                    )
-                    tok_copy = previous_string.copy()
-                    tok_copy.string = s
-                    new_tokens.append(tok_copy)
-                else:
-                    new_tokens.append(tok)
-            new_line = token_utils.untokenize(new_tokens)
-            if fixers.check_statement(new_line):
-                quote_position = previous_string.end_col
-                indent = len(statement.bad_line) - len(statement.bad_line.lstrip())
-                quote_position -= indent
-                mark = " " * (quote_position - 1) + "^^"
+    if (
+        previous_string is not None
+        and previous_string.string[-1] == statement.bad_token
+    ):
+        new_tokens = []
+        for tok in statement.tokens:
+            if tok == previous_string:
+                s = tok.string[:-1] + tok.string[-1].replace("'", "\\'").replace(
+                    '"', '\\"'
+                )
+                tok_copy = previous_string.copy()
+                tok_copy.string = s
+                new_tokens.append(tok_copy)
+            else:
+                new_tokens.append(tok)
+        new_line = token_utils.untokenize(new_tokens)
+        if fixers.check_statement(new_line):
+            quote_position = previous_string.end_col
+            indent = len(statement.bad_line) - len(statement.bad_line.lstrip())
+            quote_position -= indent
+            mark = " " * (quote_position - 1) + "^^"
 
-                hint = _("Perhaps you forgot to escape a quote character.\n")
-                cause = _(
-                    "I suspect that you were trying to use a quote character inside a string\n"
-                    "that was enclosed in quotes of the same kind.\n"
-                    "Perhaps you should have escaped the inner quote character:\n\n"
-                    "    {new_line}\n"
-                    "    {mark}\n"
-                ).format(new_line=new_line, mark=mark)
+            hint = _("Perhaps you forgot to escape a quote character.\n")
+            cause = _(
+                "I suspect that you were trying to use a quote character inside a string\n"
+                "that was enclosed in quotes of the same kind.\n"
+                "Perhaps you should have escaped the inner quote character:\n\n"
+                "    {new_line}\n"
+                "    {mark}\n"
+            ).format(new_line=new_line, mark=mark)
 
     return {"cause": cause, "suggest": hint}
 
@@ -1231,10 +1231,7 @@ def invalid_decimal_literal(message: str = "", statement=None):
 @add_python_message
 def invalid_double_star_operator(message: str = "", _statement=None):
     # Used to be "invalid syntax" prior to Python version 3.10
-    if (
-        message == "f-string: can't use double starred expression here"  # 3.10.0a7
-        or message == "f-string: cannot use double starred expression here"  # future?
-    ):
+    if message == "f-string: cannot use double starred expression here":
         cause = _(
             "The double star operator `**` is likely interpreted to mean that\n"
             "dict unpacking is to be used which is not allowed or does not make sense here.\n"
@@ -1339,9 +1336,7 @@ def lambda_expression_parameters_cannot_be_paren(message: str = "", statement=No
         return {}
 
     cause = statement_analyzer.lambda_with_paren(statement)
-    if cause:
-        return cause
-    return {}
+    return cause or {}
 
 
 @add_python_message
@@ -1935,9 +1930,7 @@ def you_found_it(message: str = "", statement=None):  # pragma: no cover
 
 @add_python_message
 def cannot_delete_something_else(message: str = "", _statement=None):
-    if not message.startswith("cannot delete"):
-        return {}
-    return {"cause": _can_only_delete()}
+    return {"cause": _can_only_delete()} if message.startswith("cannot delete") else {}
 
 
 @add_python_message
