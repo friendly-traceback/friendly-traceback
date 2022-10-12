@@ -99,7 +99,7 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     similar = info_variables.get_similar_names(unknown_name, frame)
     if "lowercase" in known_module:
         hint = _("Did you mean `{name}`?\n").format(name=unknown_name.lower())
-    elif similar["best"] is not None:
+    elif similar["best"]:
         hint = _("Did you mean `{name}`?\n").format(name=similar["best"])
     elif type_hint:
         hint = _("Did you use a colon instead of an equal sign?\n")

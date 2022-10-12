@@ -86,7 +86,7 @@ if sys.version_info >= (3, 8):
     )
     SimilarNamesInfo = TypedDict(
         "SimilarNamesInfo",
-        {"locals": List[str], "globals": List[str], "builtins": List[str], "best": Any},
+        {"locals": List[str], "globals": List[str], "builtins": List[str], "best": str},
     )
 
 else:
