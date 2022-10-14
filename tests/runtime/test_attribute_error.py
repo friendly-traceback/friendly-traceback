@@ -350,7 +350,7 @@ def test_Use_join_with_str():
 
 def test_Circular_import():
     from friendly_traceback.runtime_errors import stdlib_modules
-    stdlib_modules.names.append("my_turtle1")
+    stdlib_modules.names.add("my_turtle1")
     try:
        import my_turtle1
     except AttributeError as e:

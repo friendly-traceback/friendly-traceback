@@ -7,10 +7,10 @@ This list is not authoritative but should be good enough.
 import sys
 
 if hasattr(sys, "stdlib_module_names"):  # Python 3.10+
-    # convert to list, so we can append mocks for tests.
-    names = list(sys.stdlib_module_names)  # type: ignore[import]
+    # convert to set from frozenset, so we can add mocks for tests.
+    names = set(sys.stdlib_module_names)  # type: ignore[import]
 else:
-    names = [
+    names = {
         "abc",
         "aifc",
         "antigravity",
@@ -235,4 +235,4 @@ else:
         "zipimport",
         "zlib",
         "zoneinfo",
-    ]
+    }

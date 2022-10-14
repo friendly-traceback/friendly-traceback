@@ -97,11 +97,14 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
 
     type_hint = info_variables.name_has_type_hint(unknown_name, frame)
     similar = info_variables.get_similar_names(unknown_name, frame)
-    if "lowercase" in known_module:
-        hint = _("Did you mean `{name}`?\n").format(name=unknown_name.lower())
-    elif similar["best"]:
-        hint = _("Did you mean `{name}`?\n").format(name=similar["best"])
-    elif type_hint:
+    if similar["best"]:
+        if hint:
+            hint = hint.replace("\n", "") + _(" Or did you mean `{name}`?\n").format(
+                name=similar["best"]
+            )
+        else:
+            hint = _("Did you mean `{name}`?\n").format(name=similar["best"])
+    elif type_hint and not hint:
         hint = _("Did you use a colon instead of an equal sign?\n")
 
     additional = type_hint + format_similar_names(unknown_name, similar)
@@ -110,7 +113,7 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
         if more:
             additional += "\n" + more
     except Exception as e:  # pragma: no cover
-        debug_helper.log("Problem in name_not_defined()")
+        debug_helper.log("Problem in name_not_defined()/missing_self().")
         debug_helper.log_error(e)
 
     forgot_import = is_module_attribute(unknown_name)
