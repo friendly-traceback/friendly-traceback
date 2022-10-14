@@ -11,7 +11,7 @@ please file an issue.
 import re
 import traceback
 import types
-from typing import List, Optional, Sequence, Type
+from typing import List, Optional, Type
 
 from . import debug_helper, info_generic, info_variables, message_parser, tb_data
 from .frame_info import FrameInfo
@@ -139,10 +139,7 @@ class FriendlyTraceback:
             NameError: name 'a' is not defined
         """
         exc_name = etype.__name__
-        if hasattr(value, "msg"):
-            message = value.msg
-        else:
-            message = self.tb_data.full_message
+        message = value.msg if hasattr(value, "msg") else self.tb_data.full_message
         self.info["message"] = f"{exc_name}: {message}\n"
         return self.info["message"]
 
@@ -307,7 +304,7 @@ class FriendlyTraceback:
         if len(records) < 2:
             return
 
-        self.info["detailed_tb"] = self.get_detailed_stack_info(records)
+        self.info["detailed_tb"] = self.get_detailed_stack_info()
         _ignore, partial_source, var_info = self.info["detailed_tb"][0]
         self.locate_last_call(records[0], partial_source, var_info)
 
@@ -394,7 +391,7 @@ class FriendlyTraceback:
         if var_info:
             self.info["last_call_variables"] = var_info
 
-    def get_detailed_stack_info(self, records):
+    def get_detailed_stack_info(self):
         # sourcery skip: use-named-expression
         if self.tb_data.filename == "<stdin>":
             return []
@@ -485,9 +482,7 @@ class FriendlyTraceback:
         from .config import session
 
         if not hasattr(self, "message"):
-            self.assign_message(
-                self.tb_data.exception_type, self.tb_data.value, self.tb
-            )
+            self.assign_message(self.tb_data.exception_type, self.tb_data.value)
         if isinstance(self.tb_data.formatted_tb, str):
             # for example: "Traceback not available from IDLE" ...
             tb = self.info["message"]
@@ -556,13 +551,13 @@ class FriendlyTraceback:
         else:
             self.info["shortened_traceback"] = "\n".join(shortened_tb) + "\n"
 
-    def shorten(self, tb: Sequence[str]) -> List[str]:
+    def shorten(self, tb: List[str]) -> List[str]:
         """Shortens a traceback (as list of lines)
         by removing lines if it exceeds a certain length
         and by using short synonyms for some common directories."""
         from .config import session
 
-        shortened_tb = tb[0:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
+        shortened_tb = tb[:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
         pattern = re.compile(r'^  File "(.*)", ')  # noqa
         temp = []
         for line in shortened_tb:

@@ -30,12 +30,14 @@ for mod_name in names:
     for attr_name in dir(imported_mod):
         if attr_name.startswith("_") or len(attr_name) == 1:
             continue
+        elif attr_name in names and attr_name != mod_name:
+            continue
         elif attr_name in all_attributes:
             all_attributes[attr_name].append(mod_name)
         else:
             all_attributes[attr_name] = [mod_name]
 
-
-print(f"# Created with {sys.version_info}")
-print("attribute_names = ", end="")
-pprint(all_attributes)
+with open("modules_attributes.py", "w") as f:
+    f.write(f"# Created with {sys.version_info}\n")
+    f.write("attribute_names = ")
+    pprint(all_attributes, stream=f, indent=4)
