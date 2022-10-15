@@ -8,7 +8,6 @@ can be imported using ``from friendly_traceback import enable_warnings``,
 ``get_warning_parser`` needs to be imported from this module.
 """
 import inspect
-import sys
 import warnings
 from importlib import import_module
 from typing import List, Type
@@ -27,12 +26,10 @@ from .typing_info import _E, CauseInfo, Parser
 _ = current_lang.translate
 _warnings_seen = {}
 
-_run_with_pytest = False
-if "pytest" in sys.modules:
-    _run_with_pytest = True
+_RUNNING_TESTS = False
 
 
-def enable_warnings():
+def enable_warnings(testing: bool = False) -> None:
     """Used to enable all warnings, with 'always' being used as the
     parameter for warnings.simplefilter.
 
@@ -43,6 +40,8 @@ def enable_warnings():
     """
     # Note: enable_warnings is imported by friendly_traceback.__init__
     # so that it is part of the public API.
+    global _RUNNING_TESTS
+    _RUNNING_TESTS = testing
     warnings.simplefilter("always")
     warnings.showwarning = show_warning
 
@@ -133,17 +132,17 @@ class WarningInfo:
             self.problem_statement = "".join(
                 self.lines if self.lines is not None else []
             )
-            if not self.problem_statement:  # should not happen
-                formatted_source = _(
+            return (
+                f"    -->{self.lineno}| {self.problem_statement}"
+                if self.problem_statement
+                else _(
                     "The source is unavailable.\n"
                     "If you used `exec`, consider using `friendly_exec` instead."
                 )
-            else:  # assume single line
-                formatted_source = f"    -->{self.lineno}| " + self.problem_statement
-            return formatted_source
+            )
 
 
-def saw_warning_before(warning_type, message, filename, lineno):
+def saw_warning_before(warning_type, message, filename, lineno) -> bool:
     """Records a warning if it has not been seen at the exact location
     and returns True; returns False otherwise.
     """
@@ -159,11 +158,9 @@ def saw_warning_before(warning_type, message, filename, lineno):
             else:
                 _warnings_seen[warning_type][message][filename] = [lineno]
         else:
-            _warnings_seen[warning_type][message] = {}
-            _warnings_seen[warning_type][message][filename] = [lineno]
+            _warnings_seen[warning_type][message] = {filename: [lineno]}
     else:
-        _warnings_seen[warning_type] = {}
-        _warnings_seen[warning_type][message] = {}
+        _warnings_seen[warning_type] = {message: {}}
         _warnings_seen[warning_type][message][filename] = [lineno]
     return False
 
@@ -209,7 +206,7 @@ def show_warning(
 
     message = str(warning_instance)
 
-    if not _run_with_pytest:
+    if not _RUNNING_TESTS:
         session.recorded_tracebacks.append(warning_data)
     elif "cause" in warning_data.info:
         # We know how to explain this; we do not print while running tests
@@ -297,7 +294,7 @@ def get_warning_cause(
 def get_cause(
     warning_type,
     message: str,
-    warning_data: WarningDataParser = None,
+    warning_data: WarningDataParser,
 ) -> CauseInfo:
     """For a given exception type, cycle through the known message parsers,
     looking for one that can find a cause of the exception."""
