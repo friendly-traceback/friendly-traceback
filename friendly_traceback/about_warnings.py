@@ -63,8 +63,7 @@ class WarningInfo:
         self.begin_lineno = lineno
         self.lines = lines
         self.frame = frame
-        self.info = {}
-        self.info["warning_message"] = f"{warning_type.__name__}: {self.message}\n"
+        self.info = {"warning_message": f"{warning_type.__name__}: {self.message}\n"}
         self.info["message"] = self.info["warning_message"]
 
         if frame is not None:
@@ -171,15 +170,7 @@ def show_warning(
     for do_not_show_warning in IGNORE_WARNINGS:
         if do_not_show_warning(warning_instance, warning_type, filename, lineno):
             return
-    if (  # friendly_idle causes these two warnings.
-        warning_type == ImportWarning
-        and str(warning_instance)
-        in [
-            "PatchingFinder.find_spec() not found; falling back to find_module()",
-            "PatchingLoader.exec_module() not found; falling back to load_module()",
-        ]
-    ):
-        return
+
     if saw_warning_before(
         warning_type.__name__, str(warning_instance), filename, lineno
     ):
