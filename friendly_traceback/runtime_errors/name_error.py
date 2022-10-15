@@ -90,7 +90,7 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     )
 
     hint = ""
-    known_module = is_stdlib_module(unknown_name, tb_data)
+    known_module = is_stdlib_module(unknown_name)
     if known_module:
         cause = known_module["cause"]
         hint = known_module["suggest"]
@@ -200,7 +200,7 @@ def flipfloperator() -> CauseInfo:  # pragma: no cover
     return {"cause": cause, "suggest": hint}
 
 
-def is_stdlib_module(name: str, tb_data: TracebackData) -> CauseInfo:
+def is_stdlib_module(name: str) -> CauseInfo:
     """Determine if an unknown name is to be found in the Python standard library.
     We're looking for something like name.attribute"""
     # Some Python 2 libraries used names with uppercase letters.

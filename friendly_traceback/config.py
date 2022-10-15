@@ -38,6 +38,7 @@ class _State:
         self.include: InclusionChoice = "explain"
         self.lang: str = "en"
         self.install_gettext(self.lang)
+        self.other_set_lang = []
         self.suggest_console: str = "\n" + _(
             "Are you using a regular Python console instead of a Friendly console?\n"
             "If so, to continue, try: `start_console(local_vars=locals())`.\n"
@@ -108,6 +109,8 @@ class _State:
             return
         current_lang.install(lang)
         self.lang = lang
+        for fn in self.other_set_lang:
+            fn(lang)
 
     def install_gettext(self, lang: str) -> None:
         """Sets the current language for gettext."""

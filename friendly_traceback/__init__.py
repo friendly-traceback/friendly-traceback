@@ -31,7 +31,7 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.40"
+__version__ = "0.7.41"
 
 # ===========================================
 
@@ -44,6 +44,16 @@ from .config import session
 from .ft_gettext import current_lang
 from .source_cache import friendly_exec  # noqa
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
+
+
+def add_other_set_lang(func: Callable) -> None:
+    """Intended for extension to friendly_traceback that can also do translations.
+
+    Args:
+        func: a callable that should be invoked when ``set_lang`` is called to
+              also set the language of the extension.
+    """
+    session.other_set_lang.append(func)
 
 
 def exclude_file_from_traceback(full_path: StrPath) -> None:
