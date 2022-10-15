@@ -31,7 +31,7 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.41"
+__version__ = "0.7.43"
 
 # ===========================================
 
@@ -40,6 +40,7 @@ from pathlib import Path
 
 from . import base_formatters, debug_helper, editors_helpers, info_variables, path_info
 from .about_warnings import enable_warnings  # noqa
+from .about_warnings import IGNORE_WARNINGS
 from .config import session
 from .ft_gettext import current_lang
 from .source_cache import friendly_exec  # noqa
@@ -54,6 +55,18 @@ def add_other_set_lang(func: Callable) -> None:
               also set the language of the extension.
     """
     session.other_set_lang.append(func)
+
+
+def add_ignored_warnings(do_not_show_warning: Callable) -> None:
+    """Adds a function which will be passed
+    ``warning_instance, warning_type, filename, lineno`` as arguments
+    when a warning is raised. If this function returns ``True``, the
+    warning will be ignored.
+
+    This is intended for third-party packages that might trigger warnings
+    which should not be shown to a user of friendly_traceback.
+    """
+    IGNORE_WARNINGS.add(do_not_show_warning)
 
 
 def exclude_file_from_traceback(full_path: StrPath) -> None:
@@ -122,8 +135,7 @@ def test_secrets(name: str = ""):
         )
         return
     obj = frame.f_locals[name]
-    obj_repr = info_variables.format_var_info(name, obj)
-    return obj_repr
+    return info_variables.format_var_info(name, obj)
 
 
 def get_output(flush: bool = True) -> str:

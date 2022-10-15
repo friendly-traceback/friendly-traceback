@@ -25,8 +25,8 @@ from .typing_info import _E, CauseInfo, Parser
 
 _ = current_lang.translate
 _warnings_seen = {}
-
 _RUNNING_TESTS = False
+IGNORE_WARNINGS = set()
 
 
 def enable_warnings(testing: bool = False) -> None:
@@ -168,8 +168,9 @@ def saw_warning_before(warning_type, message, filename, lineno) -> bool:
 def show_warning(
     warning_instance, warning_type, filename, lineno, file=None, line=None
 ):
-    if filename == "<>":  # internal to IPython
-        return
+    for do_not_show_warning in IGNORE_WARNINGS:
+        if do_not_show_warning(warning_instance, warning_type, filename, lineno):
+            return
     if (  # friendly_idle causes these two warnings.
         warning_type == ImportWarning
         and str(warning_instance)
