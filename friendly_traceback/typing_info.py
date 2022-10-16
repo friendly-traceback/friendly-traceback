@@ -70,7 +70,7 @@ if sys.version_info >= (3, 8):
         cause: str
         suggest: str
 
-    Site = Literal["friendly", "python", "bug", "email", "warnings"]
+    Site = Literal["friendly", "python", "bug", "email"]
 
     ScopeKind = Literal["local", "global", "nonlocal"]
 

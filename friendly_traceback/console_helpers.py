@@ -227,74 +227,93 @@ def why(index: int = -1) -> None:
         explain(index, "why")
 
 
-def www(site: Optional[Site] = None) -> None:  # pragma: no cover
+def www(site_or_index: Union[Site, int] = -1) -> None:  # pragma: no cover
     """This uses the ``webbrowser`` module to open a tab (or window)
      in the default browser, linking to a specific url
      or opening the default email client.
 
-    * If the argument 'site' is not specified,
-      and an exception has been raised,
+    * If the argument ``site_or_index`` is not specified,
+      and an exception or a warning has been raised,
       an internet search will be done using
-      the exception message as the search string.
+      the exception message of the last exception or warning
+      as the search string.
 
-    * If the argument 'site' is not specified,
+    * If the argument ``site_or_index`` is not specified,
       and NO exception has been raised,
       Friendly's documentation will open.
 
-    * If the argument 'site' == "friendly",
+    * If the argument ``site_or_index`` == "friendly",
       Friendly's documentation will open.
 
-    * If the argument 'site' == "python", Python's documentation site
+    * If the argument ``site_or_index`` == "python", Python's documentation site
       will open with the currently used Python version.
 
-    * If the argument 'site' == "bug",
-      the Issues page for Friendly on Github will open.
+    * If the argument ``site_or_index`` == "bug",
+      the Issues page for Friendly on GitHub will open.
 
-    * If the argument 'site' == "email",
+    * If the argument ``site_or_index`` == "email",
       the default email client should open with Friendly's
       developer's address already filled in.
+
+    * If the argument ``site_or_index`` is an integer representing an item
+      in the recorded history,  an internet search will be done using
+      the exception message of the corresponding item as the search string.
     """
     import urllib.parse
     import webbrowser
 
+    def open_browser(url):
+        try:
+            webbrowser.open_new_tab(url)
+        except Exception:  # noqa
+            session.write_err(
+                _("The default web browser cannot be used for searching.")
+            )
+            return
+
     urls: Dict[Site, str] = {
         "friendly": "https://friendly-traceback.github.io/docs/index.html",
-        "python": "https://docs.python.org/3",
+        "python": f"https://docs.python.org/3.{sys.version_info.minor}/",
         "bug": "https://github.com/friendly-traceback/friendly-traceback/issues/new",
         "email": "mailto:andre.roberge@gmail.com",
     }
+    invalid_args = _(
+        "Invalid argument for `www()`.\n"
+        "Valid arguments are integer values or one of `{sites}`.\n"
+    ).format(sites=repr(urls.keys()))
+
+    if isinstance(site_or_index, int):
+        index = site_or_index
+    else:
+        try:
+            site = site_or_index.casefold()
+        except Exception:  # noqa
+            session.write_err(invalid_args)
+            return
+        else:
+            if site not in urls:
+                session.write_err(invalid_args)
+                return
+            return open_browser(urls[site])
+
     try:
-        site = site.casefold()
-    except Exception:  # noqa
-        pass
-    if site not in urls and site is not None:
-        session.write_err(
-            _(
-                "Invalid argument for `www()`.\n"
-                "Valid arguments include `None` or one of `{sites}`.\n"
-            ).format(sites=repr(urls.keys()))
+        info = (
+            session.recorded_tracebacks[index].info
+            if session.recorded_tracebacks
+            else {}
         )
+    except IndexError:
+        session.write_err(_("Invalid index value."))
         return
 
-    info = session.recorded_tracebacks[-1].info if session.recorded_tracebacks else {}
-    if site is None and info:
+    url = urls["friendly"]
+    if info:
         message = info["message"].replace("'", "")
         if " (" in message:
             message = message.split("(")[0]
-        url = "https://duckduckgo.com?q=" + urllib.parse.quote(message)  # noqa
-    elif site is None:
-        url = urls["friendly"]
-    else:
-        url = urls[site]
+        url = f"https://duckduckgo.com?q={urllib.parse.quote(message)}"
 
-    if site == "python":
-        url = url + f".{sys.version_info.minor}/"
-
-    try:
-        webbrowser.open_new_tab(url)
-    except Exception:  # noqa
-        session.write_err(_("The default web browser cannot be used for searching."))
-        return
+    return open_browser(url)
 
 
 def set_debug(flag: bool = True) -> None:  # pragma: no cover
@@ -344,9 +363,7 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
         print(_nothing_to_show())
         return None
     current_tb = session.recorded_tracebacks[-1]
-    if hasattr(current_tb, "tb_data"):
-        return current_tb.tb_data
-    return current_tb
+    return current_tb.tb_data if hasattr(current_tb, "tb_data") else current_tb
 
 
 def _get_info() -> list:

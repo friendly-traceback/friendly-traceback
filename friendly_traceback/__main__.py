@@ -8,6 +8,7 @@ command line. You can find more details by doing::
     python -m friendly -h
 
 """
+
 import argparse
 import platform
 import runpy
@@ -27,9 +28,7 @@ from . import (
 )
 from .ft_gettext import current_lang
 
-versions = "Friendly-traceback version {}. [Python version: {}]\n".format(
-    __version__, platform.python_version()
-)
+versions = f"Friendly-traceback version {__version__}. [Python version: {platform.python_version()}]\n"
 
 
 def import_function(dotted_path: str) -> type:
