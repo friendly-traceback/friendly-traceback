@@ -921,6 +921,10 @@ descriptions = {
         in_cause: "You can only use a `return`",
         title: "Cannot use return outside function",
     },
+    "scientific_notation_missing_exponent": {
+        in_cause: "Did you mean `1.5e0`",
+        title: "Missing exponent for scientific notation"
+    },
     "semi_colon_instead_of_colon": {
         in_cause: "You wrote a semicolon, `;`, where a colon was expected.",
         title: "Semicolon instead of colon",

@@ -900,6 +900,16 @@ def invalid_name(statement):
         ).format(number=first)
         return {"cause": cause, "suggest": hint}
 
+    if second.string in ["e", "E"] and not first.is_complex():
+        hint = _("Did you mean `{number}{second}0`?\n").format(
+            number=first, second=second
+        )
+        cause = _(
+            "Perhaps you meant to write `{number}{second}0` in scientific notation\n"
+            "and forgot the numerical value for the exponent.\n"
+        ).format(number=first, second=second)
+        return {"cause": hint + cause, "suggest": hint}
+
     if first.is_complex():
         note = _(
             "[Note: `{first} * {second}` would also be valid\n"
