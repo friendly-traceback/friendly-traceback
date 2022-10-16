@@ -104,10 +104,7 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     if include == "message":
         return info["message"]
     if include == "detailed_tb":
-        if "detailed_tb" in info:
-            return detailed_tb(info)
-        else:
-            return ""
+        return detailed_tb(info) if "detailed_tb" in info else ""
     items_to_show = select_items(include)
     spacing = {"single": " " * 4, "double": " " * 8, "none": ""}
     result = [""]
@@ -121,16 +118,14 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
                     if "exception_notes_intro" in items_to_show:
                         for index, line in enumerate(note_lines):
                             if index == 0:
-                                note_lines[0] = "* " + note_lines[0]
+                                note_lines[0] = f"* {note_lines[0]}"
                             else:
-                                note_lines[index] = "  " + note_lines[index]
+                                note_lines[index] = f"  {note_lines[index]}"
                     lines.extend(note_lines)
                 lines.append("\n")
             else:
                 lines = info[item].split("\n")
-            for line in lines:
-                result.append(indentation + line)
-
+            result.extend(indentation + line for line in lines)
     if result == [""] or not result:
         return no_result(info, include)
 
@@ -148,10 +143,8 @@ def detailed_tb(info: Info) -> str:  # Special case
     spacing = {"location": " " * 4, "var_info": " " * 8}
     for location, source, var_info in info["detailed_tb"]:
         result.append(spacing["location"] + location)
-        for line in source.split("\n"):
-            result.append(line)
-        for line in var_info.split("\n"):
-            result.append(spacing["var_info"] + line)
+        result.extend(iter(source.split("\n")))
+        result.extend(spacing["var_info"] + line for line in var_info.split("\n"))
     return "\n".join(result)
 
 
@@ -177,20 +170,18 @@ def docs(
             "exception_notes": "single",
         }
     )
-
+    if include == "message":
+        return info["message"]
+    if include == "detailed_tb":
+        return detailed_tb(info) if "detailed_tb" in info else ""
     items_to_show = select_items(include)
     spacing = {"single": " " * 4, "double": " " * 8, "none": ""}
     result = [""]
     for item in items_to_show:
         if item in info and info[item].strip():
             indentation = spacing[pre_items[item]]
-            for line in info[item].split("\n"):
-                result.append(indentation + line)
-
-    if result == [""]:
-        return no_result(info, include)
-
-    return "\n".join(result)
+            result.extend(indentation + line for line in info[item].split("\n"))
+    return no_result(info, include) if result == [""] else "\n".join(result)
 
 
 def no_result(info: Info, include: InclusionChoice) -> str:
