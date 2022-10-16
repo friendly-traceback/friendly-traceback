@@ -210,6 +210,30 @@ def test_int_base_not_in_range():
     return result, message
 
 
+def test_remove_item_not_in_list():
+    try:
+        [1, 2, 3] . remove (   4 )
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "list.remove(x): x not in list" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "`[1, 2, 3]` does not contain `4`"
+
+    a_list = [1, 2, 3]
+    b = 4
+    try:
+        a_list.remove(b)
+    except ValueError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "list.remove(x): x not in list" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "`a_list` does not contain `b`"
+    return result, message
+
 
 if __name__ == "__main__":
     print(test_Too_many_values_to_unpack()[0])

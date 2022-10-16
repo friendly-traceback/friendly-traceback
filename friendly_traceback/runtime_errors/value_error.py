@@ -342,10 +342,51 @@ def time_strftime_incorrect_format(message: str, _tb_data: TracebackData) -> Cau
 
 
 @parser._add
+def list_remove_x_not_in_list(message: str, tb_data: TracebackData) -> CauseInfo:
+    if message != "list.remove(x): x not in list":
+        return {}
+    bad_line = tb_data.bad_line
+    frame = tb_data.exception_frame
+    all_objects = info_variables.get_all_objects(bad_line, frame)["name, obj"]
+    dot_remove = 0
+    list_remove = the_list = ""
+    for name, obj in all_objects:
+        if "." in name and "remove" in name:
+            dot_remove += 1
+            list_remove = name
+        elif isinstance(obj, list):
+            the_list = name
+
+    if dot_remove == 1 and not the_list:
+        # for a literal [1, 2].remove(3)
+        the_list = list_remove.replace("remove", "").strip()[:-1]
+
+    if dot_remove == 1 and the_list:
+        item = bad_line.replace(list_remove, "").strip()[1:-1].strip()
+        the_list = list_remove.replace("remove", "").strip()[:-1]
+        cause = _(
+            "You have attempted to remove `{item}` from the list `{the_list}`.\n"
+            "However, `{the_list}` does not contain `{item}`.\n"
+        ).format(the_list=the_list, item=item)
+    elif the_list:
+        cause = _(
+            "You have attempted to remove an item from the list `{the_list}`.\n"
+            "However, `{the_list}` does not contain that item.\n"
+        ).format(the_list=the_list)
+    else:
+        cause = _(
+            "You have attempted to remove an item a list that does not contain such an item.\n"
+        )
+    return {"cause": cause} if cause else {}
+
+
+@parser._add
 def generic_explanation_already_exist(
     message: str, _tb_data: TracebackData
 ) -> CauseInfo:
-    pattern = "An explanation of what `(.*)` means already exists:"
+    # See info_generic.py
+    # TODO: add unit test
+    pattern = "A description of `(.*)` means already exists:"
     match = re.search(pattern, message)
     if not match:
         return {}
