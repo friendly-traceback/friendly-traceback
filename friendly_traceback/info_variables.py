@@ -447,13 +447,13 @@ def simplify_bound_method(name: str, splitlines: bool = False) -> str:
     return name
 
 
-def safe_repr(obj):
-    try:
-        # guard against the case where obj == Friendly; #106
+def safe_repr(obj: Any) -> str:
+    try:  # guard against the case where obj == Friendly; #106
         obj_repr = str(obj.true_repr())
         # wrapped in str() for added security in case someone
         # else uses an attribute called true_repr
-    except Exception:  # skipcq: PYL-W0703 - we ignore any attribute access failures here, not only AttributeError
+    except Exception:  # skipcq: PYL-W0703 - see PR #201 ...
+        # ... we ignore any attribute access failures here, not only AttributeError
         try:
             obj_repr = repr(obj)
         except Exception:  # issue #161: repr not returning a string

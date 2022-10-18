@@ -47,7 +47,7 @@ from .source_cache import friendly_exec  # noqa
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
 
 
-def add_other_set_lang(func: Callable) -> None:
+def add_other_set_lang(func: Callable[[str], None]) -> None:
     """Intended for extension to friendly_traceback that can also do translations.
 
     Args:
@@ -57,7 +57,7 @@ def add_other_set_lang(func: Callable) -> None:
     session.other_set_lang.append(func)
 
 
-def add_ignored_warnings(do_not_show_warning: Callable) -> None:
+def add_ignored_warnings(do_not_show_warning: Callable[[Any], bool]) -> None:
     """Adds a function which will be passed
     ``warning_instance, warning_type, filename, lineno`` as arguments
     when a warning is raised. If this function returns ``True``, the
@@ -108,7 +108,7 @@ def explain_traceback(redirect: Union[str, Writer, None] = None) -> None:
     session.explain_traceback(redirect=redirect)
 
 
-def hide_secrets(patterns: Union[List, None] = None) -> None:
+def hide_secrets(patterns: Union[List[str], None] = None) -> None:
     """Intended to prevent values of certain variables to be shown.
 
     Args:
@@ -118,22 +118,17 @@ def hide_secrets(patterns: Union[List, None] = None) -> None:
     info_variables.confidential.hide_confidential_information(patterns=patterns)
 
 
-def test_secrets(name: str = ""):
+def test_secrets(name: str = "") -> Union[str, None]:
     """Given a variable name that exists in the local scope where this function is invoked
     returns the value that will be shown if the variable value needs to be
     shown in a traceback.
     """
-    if not isinstance(name, str):
-        print(
-            "The argument of test_secrets must be a string representing the name of local object."
-        )
-        return
     frame = inspect.getouterframes(inspect.currentframe())[1].frame
     if name not in frame.f_locals:
         print(
             "The argument of test_secrets must be a string representing the name of a local object."
         )
-        return
+        return None
     obj = frame.f_locals[name]
     return info_variables.format_var_info(name, obj)
 
@@ -188,12 +183,12 @@ def uninstall() -> None:
 
 def run(
     filename: StrPath,
-    lang: Optional[str] = None,
+    lang: str = "en",
     include: Optional[InclusionChoice] = None,
     args: Optional[Sequence[str]] = None,
-    console: bool = True,
-    formatter: Union[str, Formatter] = None,
-    redirect: Union[str, Writer, None] = None,
+    console: Optional[bool] = True,
+    formatter: Optional[Union[str, Formatter]] = "repl",
+    redirect: Optional[Union[str, Writer]] = None,
     ipython_prompt: bool = True,
 ) -> Optional[Dict[str, Any]]:  # sourcery skip: move-assign
     """Given a filename (relative or absolute path) ending with the ".py"
@@ -234,7 +229,7 @@ def run(
 
         if not filename.exists():
             print(_("The file {filename} does not exist.").format(filename=filename))
-            return
+            return {}
 
     session.install(lang=lang, include=include, redirect=redirect)
     session.set_formatter(formatter)
@@ -248,6 +243,7 @@ def run(
             formatter=formatter,
             banner="",
             include=include,
+            lang=lang,
             ipython_prompt=ipython_prompt,
         )
     else:

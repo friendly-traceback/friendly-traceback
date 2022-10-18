@@ -33,9 +33,9 @@ def type_friendly() -> str:
     return exit_ + _("Type 'Friendly' for help on special functions/methods.")
 
 
-BANNER = "\nFriendly-traceback version {}. [Python version: {}]\n".format(
-    friendly_traceback.__version__, platform.python_version()
-)
+BANNER = f"""Friendly-traceback version {friendly_traceback.__version__}
+Python version: {platform.python_version()}
+"""
 
 
 _old_displayhook = sys.displayhook
