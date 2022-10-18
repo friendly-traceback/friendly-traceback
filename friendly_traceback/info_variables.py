@@ -453,7 +453,7 @@ def safe_repr(obj):
         obj_repr = str(obj.true_repr())
         # wrapped in str() for added security in case someone
         # else uses an attribute called true_repr
-    except Exception:
+    except Exception:  # skipcq: PYL-W0703 - we ignore any attribute access failures here, not only AttributeError
         try:
             obj_repr = repr(obj)
         except Exception:  # issue #161: repr not returning a string
