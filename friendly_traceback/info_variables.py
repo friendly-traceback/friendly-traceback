@@ -448,12 +448,12 @@ def simplify_bound_method(name: str, splitlines: bool = False) -> str:
 
 
 def safe_repr(obj):
-    if hasattr(obj, "true_repr"):  # sourcery: skip
+    try:
         # guard against the case where obj == Friendly; #106
         obj_repr = str(obj.true_repr())
         # wrapped in str() for added security in case someone
         # else uses an attribute called true_repr
-    else:
+    except Exception:
         try:
             obj_repr = repr(obj)
         except Exception:  # issue #161: repr not returning a string

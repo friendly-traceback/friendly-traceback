@@ -119,5 +119,15 @@ def test_get_dotted_name_from_frame():
     frame = inspect.currentframe()
     assert ft.info_variables.get_object_from_name('itertools.count', frame) != None
 
+
+def test_safe_repr_can_handle_errors_on_attribute_access():
+
+    class Proxy:
+        def __getattr__(self, name):
+            raise NotImplementedError
+
+    assert ft.info_variables.safe_repr(Proxy())
+
+
 if __name__ == "__main__":
     test_get_variables_in_frame_by_scope()
