@@ -98,9 +98,7 @@ class TracebackData(Generic[_E]):
 
             def remove_space(text: str) -> str:
                 if text.rstrip():
-                    if text.endswith("\n"):
-                        return text.rstrip() + "\n"
-                    return text.rstrip()
+                    return text.rstrip() + "\n" if text.endswith("\n") else text.rstrip()
                 return text
 
             self.statement.entire_statement = remove_space(
@@ -250,8 +248,8 @@ class TracebackData(Generic[_E]):
         def _log_error() -> None:  # pragma: no cover
             debug_helper.log("Internal error in TracebackData.get_source_info.")
             debug_helper.log("No records found.")
-            debug_helper.log("self.exception_type:" + str(self.exception_type))
-            debug_helper.log("self.value:" + str(self.value))
+            debug_helper.log(f"self.exception_type:{str(self.exception_type)}")
+            debug_helper.log(f"self.value:{str(self.value)}")
             debug_helper.log_error()
 
         _log_error()  # pragma: no cover
