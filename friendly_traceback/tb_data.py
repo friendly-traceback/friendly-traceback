@@ -5,7 +5,7 @@ import sys
 import traceback
 import types
 from itertools import dropwhile
-from typing import List, Optional, Tuple, Type
+from typing import Generic, List, Optional, Tuple, Type
 
 from stack_data import BlankLines, Options
 
@@ -50,7 +50,7 @@ def retrieve_message(etype: Type[_E], value: _E, tb: types.TracebackType) -> str
     return full_message.split(":", 1)[1].strip()
 
 
-class TracebackData:
+class TracebackData(Generic[_E]):
     """Raw traceback info obtained from Python.
 
     Instances of this class are intended to include all the relevant
@@ -78,9 +78,9 @@ class TracebackData:
         self.bad_line = "\n"
         self.original_bad_line = "\n"
         self.filename = ""
-        self.exception_frame = None
-        self.exception_instance = None
-        self.program_stopped_frame = None
+        self.exception_frame: Optional[types.FrameType] = None
+        self.exception_instance: Optional[_E] = None
+        self.program_stopped_frame: Optional[types.FrameType] = None
         self.program_stopped_bad_line = "\n"
         self.get_source_info()
 
