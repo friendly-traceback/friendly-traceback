@@ -329,8 +329,7 @@ def get_var_info(line: str, frame: types.FrameType) -> dict:
     if names_info:
         names_info.append("")
     var_info = {"var_info": "\n".join(names_info)}
-    builtins_warnings = find_renamed_builtins(frame)
-    if builtins_warnings:
+    if builtins_warnings := find_renamed_builtins(frame):
         var_info["additional_variable_warning"] = builtins_warnings
     return var_info
 

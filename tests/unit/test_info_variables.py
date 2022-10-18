@@ -75,9 +75,9 @@ def test_simplify_repr():
     import math
     import collections
 
-    simplify = ft.info_variables.simplify_repr
     INDENT = ft.info_variables.INDENT
 
+    simplify = ft.info_variables.simplify_repr
     simplified_math = simplify(repr(math))
     assert simplified_math == "<module math (builtin)>" or (
         "<module math>" in simplified_math and "PYTHON_LIB" in simplified_math
@@ -107,8 +107,7 @@ def test_simplify_repr():
             " of <tests.runtime.test_type_error.test_method_got_multiple_argument."
             "<locals>.T object at 0x00000179EE9CD7F0>>"
         )
-        == "<bound method T.some_method>"
-        + f"\n{INDENT}of <T object>"
+        == f"<bound method T.some_method>\n{INDENT}of <T object>"
         + f"\n{INDENT}defined in <function "
         + "tests.runtime.test_type_error.test_method_got_multiple_argument>"
     )
