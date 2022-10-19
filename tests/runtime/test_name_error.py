@@ -182,6 +182,20 @@ def test_missing_import_from_other_1():
     assert "NameError: name 'fake_module_name' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you forgot to import `fake_module_name` which is a known library." in result
+    return result, message
+
+
+def test_missing_import_from_other_2():
+    friendly_traceback.add_other_module_names_synonyms({"plt": "matplotlib.pyplot"})
+    try:
+        plt.something
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'plt' is not defined" in result
+    assert "import matplotlib.pyplot as plt" in result
+    return result, message
 
 def test_Free_variable_referenced():
     def outer():
