@@ -16,10 +16,11 @@ or newer.
 If you find that some additional functionality would be useful to
 have as part of the public API, please let us know.
 """
-try:
+
+import contextlib
+
+with contextlib.suppress(ImportError, ModuleNotFoundError):
     import readline  # noqa issue 80; ImportError added for Pypy.
-except (ModuleNotFoundError, ImportError):
-    pass
 
 import os
 import sys
@@ -43,7 +44,7 @@ from .about_warnings import enable_warnings  # noqa
 from .about_warnings import IGNORE_WARNINGS
 from .config import session
 from .ft_gettext import current_lang
-from .runtime_errors import third_party_names
+from .runtime_errors import modules_attributes, third_party_names
 from .source_cache import friendly_exec  # noqa
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
 
@@ -63,7 +64,7 @@ def add_ignored_warnings(do_not_show_warning: Callable[[Any], bool]) -> None:
 def add_other_attribute_names(attributes: Dict) -> None:
     """Intended for extension to friendly_traceback that provide support for
     some other modules. An example is friendly_pandas.  These names can be
-    used as suggestion in case of a AttributeError, suggesting that a given
+    used as suggestion in case of a NameError, suggesting that a given
     module (name) should perhaps be imported.
 
     Args:
@@ -74,12 +75,12 @@ def add_other_attribute_names(attributes: Dict) -> None:
                    attributes = {"cos": ["cmath", "math"],
                                  "sin": ["cmath", "math"] }
     """
-    attr_names = third_party_names.attribute_names
+    attr_names = modules_attributes.attribute_names
     for attribute in attributes:
         if attribute not in attr_names:
-            attr_names[attribute] = set(attributes[attribute])
+            attr_names[attribute] = list(attributes[attribute])
         else:
-            attr_names[attribute].add(set(attributes[attribute]))
+            attr_names[attribute].extend(list(attributes[attribute]))
 
 
 def add_other_module_names(names: Sequence) -> None:
@@ -92,8 +93,7 @@ def add_other_module_names(names: Sequence) -> None:
         names: a sequence of module names. For example:
                ``names = ['pandas', 'numpy', 'matplotlib']``
     """
-    for name in names:
-        third_party_names.modules.add(name)
+    third_party_names.modules.update(set(names))
 
 
 def add_other_module_names_synonyms(synonyms: Dict) -> None:
