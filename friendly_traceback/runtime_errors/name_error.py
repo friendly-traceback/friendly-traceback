@@ -8,7 +8,7 @@ from ..message_parser import get_parser
 from ..tb_data import TracebackData  # for type checking only
 from ..typing_info import CauseInfo, SimilarNamesInfo  # for type checking only
 from ..utils import list_to_string
-from . import stdlib_modules
+from . import stdlib_modules, third_party_names
 from .modules_attributes import attribute_names
 
 parser = get_parser(NameError)
@@ -94,6 +94,11 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     if known_module:
         cause = known_module["cause"]
         hint = known_module["suggest"]
+    else:
+        known_module = is_third_party_module(unknown_name)
+        if known_module:
+            cause = known_module["cause"]
+            hint = known_module["suggest"]
 
     type_hint = info_variables.name_has_type_hint(unknown_name, frame)
     similar = info_variables.get_similar_names(unknown_name, frame)
@@ -122,7 +127,7 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
             additional += "\n" + forgot_import
         else:
             additional = forgot_import
-    if not additional:
+    if not additional and not hint:
         additional = _("I have no additional information for you.\n")
 
     explanation = {"cause": cause + additional}
@@ -224,6 +229,37 @@ def is_stdlib_module(name: str) -> CauseInfo:
                 + "\n"
             )
             return {"cause": cause, "suggest": hint, "lowercase": True}
+        return {"cause": cause, "suggest": hint}
+    return {}
+
+
+def is_third_party_module(name: str) -> CauseInfo:
+    if name in third_party_names.modules:
+        hint = _("Did you forget to import `{name}`?\n").format(name=name)
+        cause = (
+            "\n"
+            + _(
+                "The name `{name}` is not defined in your program.\n"
+                "Perhaps you forgot to import `{name}`.\n"
+            ).format(name=name)
+            + "\n"
+        )
+        return {"cause": cause, "suggest": hint}
+
+    synonyms = third_party_names.module_synonyms
+    if name in synonyms:
+        hint = _("Did you forget to import `{true_name}`?\n").format(
+            true_name=synonyms[name]
+        )
+        cause = (
+            "\n"
+            + _(
+                "The name `{name}` is not defined in your program.\n"
+                "Perhaps you forgot to write\n\n"
+                "   import {true_name} as {name}\n"
+            ).format(name=name, true_name=synonyms[name])
+            + "\n"
+        )
         return {"cause": cause, "suggest": hint}
     return {}
 

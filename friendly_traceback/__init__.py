@@ -43,18 +43,9 @@ from .about_warnings import enable_warnings  # noqa
 from .about_warnings import IGNORE_WARNINGS
 from .config import session
 from .ft_gettext import current_lang
+from .runtime_errors import third_party_names
 from .source_cache import friendly_exec  # noqa
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
-
-
-def add_other_set_lang(func: Callable[[str], None]) -> None:
-    """Intended for extension to friendly_traceback that can also do translations.
-
-    Args:
-        func: a callable that should be invoked when ``set_lang`` is called to
-              also set the language of the extension.
-    """
-    session.other_set_lang.append(func)
 
 
 def add_ignored_warnings(do_not_show_warning: Callable[[Any], bool]) -> None:
@@ -67,6 +58,68 @@ def add_ignored_warnings(do_not_show_warning: Callable[[Any], bool]) -> None:
     which should not be shown to a user of friendly_traceback.
     """
     IGNORE_WARNINGS.add(do_not_show_warning)
+
+
+def add_other_attribute_names(attributes: Dict) -> None:
+    """Intended for extension to friendly_traceback that provide support for
+    some other modules. An example is friendly_pandas.  These names can be
+    used as suggestion in case of a AttributeError, suggesting that a given
+    module (name) should perhaps be imported.
+
+    Args:
+        attributes: A dict with attribute names used as keys and a sequence of
+               modules containing such attributes. An example from the
+               standard library might be::
+
+                   attributes = {"cos": ["cmath", "math"],
+                                 "sin": ["cmath", "math"] }
+    """
+    attr_names = third_party_names.attribute_names
+    for attribute in attributes:
+        if attribute not in attr_names:
+            attr_names[attribute] = set(attributes[attribute])
+        else:
+            attr_names[attribute].add(set(attributes[attribute]))
+
+
+def add_other_module_names(names: Sequence) -> None:
+    """Intended for extension to friendly_traceback that provide support for
+    some other modules. An example is friendly_pandas.  These names can be
+    used as suggestion in case of a NameError, suggesting that a given
+    module (name) should perhaps be imported.
+
+    Args:
+        names: a sequence of module names. For example:
+               ``names = ['pandas', 'numpy', 'matplotlib']``
+    """
+    for name in names:
+        third_party_names.modules.add(name)
+
+
+def add_other_module_names_synonyms(synonyms: Dict) -> None:
+    """Intended for extension to friendly_traceback that provide support for
+    some other modules. An example is friendly_pandas.  These names can be
+    used as suggestion in case of a NameError, suggesting that a given
+    module (name) should perhaps be imported. For example, given
+    ``names = {"np": "numpy"}``, if ``np`` is an unknown name, the suggestion
+    would include ``import numpy as np``
+
+    Args:
+        synonyms: a dict containing synonyms often used for module names imported.
+                For example:
+                ``synonyms = {"np": "numpy"}``
+    """
+    third_party_names.module_synonyms.update(**synonyms)
+
+
+def add_other_set_lang(func: Callable[[str], None]) -> None:
+    """Intended for extension to friendly_traceback that can also do translations.
+
+    Args:
+        func: a callable that should be invoked when ``set_lang`` is called to
+              also set the language of the extension.
+    """
+    session.other_set_lang.append(func)
 
 
 def exclude_file_from_traceback(full_path: StrPath) -> None:
