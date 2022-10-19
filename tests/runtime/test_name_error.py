@@ -197,6 +197,21 @@ def test_missing_import_from_other_2():
     assert "import matplotlib.pyplot as plt" in result
     return result, message
 
+
+def test_missing_import_from_other_3():
+    friendly_traceback.add_other_attribute_names({"show": ["matplotlib.pyplot", "funny"] })
+    try:
+        show()
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'show' is not defined" in result
+    assert "matplotlib.pyplot" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "`show` is a name found in the following modules:" in result
+    return result, message
+
 def test_Free_variable_referenced():
     def outer():
         def inner():
