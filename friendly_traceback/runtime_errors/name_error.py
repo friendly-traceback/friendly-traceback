@@ -36,7 +36,7 @@ def is_module_attribute(name):
             "Perhaps you forgot to write\n\n    from {mod} import {name}\n"
         ).format(name=name, mod=names[0])
     return _(
-        "`{name}` is a name found in the following modules from the standard library:\n"
+        "`{name}` is a name found in the following modules:\n"
         "{modules}.\n"
         "Perhaps you forgot to import `{name}` from one of these modules.\n"
     ).format(name=name, modules=list_to_string(names))
@@ -240,7 +240,7 @@ def is_third_party_module(name: str) -> CauseInfo:
             "\n"
             + _(
                 "The name `{name}` is not defined in your program.\n"
-                "Perhaps you forgot to import `{name}`.\n"
+                "Perhaps you forgot to import `{name}` which is a known library.\n"
             ).format(name=name)
             + "\n"
         )

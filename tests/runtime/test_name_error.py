@@ -171,6 +171,18 @@ def test_missing_import3():
     return result, message
 
 
+def test_missing_import_from_other_1():
+    friendly_traceback.add_other_module_names(["fake_module_name"])
+    try:
+        fake_module_name.something()
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'fake_module_name' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "Perhaps you forgot to import `fake_module_name` which is a known library." in result
+
 def test_Free_variable_referenced():
     def outer():
         def inner():
