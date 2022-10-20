@@ -13,6 +13,9 @@ sys.path.append(os.path.join(this_dir, ".."))
 import friendly_traceback
 from syntax_errors_descriptions import descriptions
 
+# prevent known warnings from being printed out and inserted in
+# the documentation
+friendly_traceback.enable_warnings(testing=True)
 
 def write(text):
     sys.stderr.write(text + "\n")
