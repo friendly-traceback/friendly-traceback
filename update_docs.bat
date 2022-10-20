@@ -48,6 +48,11 @@ call deactivate
 
 call ..\venv-friendly-traceback-3.9\scripts\activate
 call python trb_english.py
+call python trb_syntax_english.py
+call deactivate
+
+call ..\venv-friendly-traceback-3.10\scripts\activate
+call python trb_english.py
 call python trb_french.py
 call python trb_hebrew.py
 call python trb_italian.py
@@ -63,11 +68,6 @@ call python trb_syntax_spanish.py
 call python trb_syntax_tamil.py
 call deactivate
 
-call ..\venv-friendly-traceback-3.10\scripts\activate
-call python trb_english.py
-call python trb_syntax_english.py
-call deactivate
-
 call ..\venv-friendly-traceback-3.11\scripts\activate
 call python trb_english.py
 call python trb_syntax_english.py
@@ -80,4 +80,4 @@ del compare_messages.html
 cd ..\..\friendly-docs
 call make html
 cd ..\friendly-traceback
-call venv-friendly-traceback-3.9\scripts\activate
+call venv-friendly-traceback-3.10\scripts\activate

@@ -27,25 +27,35 @@ def get_generic_explanation(exception_type: Type[BaseException]) -> str:
     if exception_type in GENERIC:
         return GENERIC[exception_type]()
     else:
-        for known_exception_type in GENERIC:
-            if (
-                known_exception_type == BaseException
-                or known_exception_type == Exception
-                or not inspect.isclass(known_exception_type)
-            ):
-                continue
-            if inspect.isclass(exception_type) and issubclass(
-                exception_type, known_exception_type
-            ):
-                if known_exception_type.__name__.endswith("Warning"):
+        if not issubclass(exception_type, BaseException):
+            return no_information()
+        parents = inspect.getmro(exception_type)
+        for index, parent in enumerate(parents):
+            if parent in GENERIC:
+                tree = [p.__name__ for p in parents[: index + 1]]
+                break
+        else:
+            tree = [p.__name__ for p in parents]
+
+        for parent in parents:
+            if parent in GENERIC:
+                if parent.__name__.endswith("Warning"):
                     explanation = _(
                         "A warning of type `{name}` is a subclass of `{parent}`.\n"
-                    ).format(name=exception_name, parent=known_exception_type.__name__)
+                    ).format(name=exception_name, parent=parent.__name__)
                 else:
                     explanation = _(
                         "An exception of type `{name}` is a subclass of `{parent}`.\n"
-                    ).format(name=exception_name, parent=known_exception_type.__name__)
-                return explanation + GENERIC[known_exception_type]()
+                    ).format(name=exception_name, parent=parent.__name__)
+                nothing_specific = _(
+                    "Nothing more specific is known about `{name}`."
+                ).format(name=exception_name)
+                if len(tree) > 2:
+                    nothing_specific += "\n" + _(
+                        "The inheritance is as follows:\n\n" "    {tree}\n"
+                    ).format(tree=" -> ".join(tree))
+                return explanation + nothing_specific + "\n\n" + GENERIC[parent]()
+
         return no_information()
 
 
@@ -103,8 +113,6 @@ def arithmetic_error() -> str:
     return _(
         "`ArithmeticError` is the base class for those built-in exceptions\n"
         "that are raised for various arithmetic errors.\n"
-        "It is unusual that you are seeing this exception;\n"
-        "normally, a more specific exception should have been raised.\n"
     )
 
 

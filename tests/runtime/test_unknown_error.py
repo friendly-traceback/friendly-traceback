@@ -4,10 +4,22 @@ import friendly_traceback
 class UnknownException(Exception):
     pass
 
+class UnknownTwo(UnknownException):
+    pass
+
 
 def test_Generic():
     old_debug = friendly_traceback.debug_helper.DEBUG
     friendly_traceback.debug_helper.DEBUG = False
+
+    try:
+        raise UnknownTwo("irrelevant message")
+    except Exception as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "UnknownException -> Exception" in result
+
     try:
         raise UnknownException("Some informative message about an unknown exception.")
     except Exception as e:
@@ -17,7 +29,7 @@ def test_Generic():
 
     assert "Some informative message" in result
     if friendly_traceback.get_lang() == "en":
-        assert "No information is known about this exception." in result
+        assert "Nothing more specific is known about" in result
     friendly_traceback.debug_helper.DEBUG = old_debug
     return result, message
 

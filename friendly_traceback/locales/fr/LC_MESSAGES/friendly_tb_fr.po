@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-10-19 21:41-0300\n"
+"POT-Creation-Date: 2022-10-20 16:04-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -361,15 +361,29 @@ msgid "Use True (default) or False to enable debugging methods."
 msgstr ""
 "Utilisez True (par défaut) ou False pour activer les méthodes de débogage."
 
-#: info_generic.py:41
+#: info_generic.py:43
 msgid "A warning of type `{name}` is a subclass of `{parent}`.\n"
 msgstr "Un avertissement de type `{name}` est une sous-classe de `{parent}`.\n"
 
-#: info_generic.py:45
+#: info_generic.py:47
 msgid "An exception of type `{name}` is a subclass of `{parent}`.\n"
 msgstr "Une exception de type `{name}` est une sous-classe de `{parent}`.\n"
 
-#: info_generic.py:87
+#: info_generic.py:50
+msgid "Nothing more specific is known about `{name}`."
+msgstr "Rien de plus précis n'est connu au sujet de `{name}`."
+
+#: info_generic.py:54
+msgid ""
+"The inheritance is as follows:\n"
+"\n"
+"    {tree}\n"
+msgstr ""
+"L'héritage est le suivant :\n"
+"\n"
+"    {tree}\n"
+
+#: info_generic.py:97
 msgid ""
 "All built-in exceptions defined by Python are derived from `Exception`.\n"
 "All user-defined exceptions should also be derived from this class.\n"
@@ -379,7 +393,7 @@ msgstr ""
 "Toutes les exceptions définies par l'utilisateur doivent également être "
 "dérivées de cette classe.\n"
 
-#: info_generic.py:95
+#: info_generic.py:105
 msgid ""
 "`BaseException` is the base class for all built-in exceptions.\n"
 "It is not meant to be directly inherited by user-defined classes.\n"
@@ -388,19 +402,15 @@ msgstr ""
 "Elle ne devrait pas être utilisée comme parent par les classes définies par "
 "l'utilisateur.\n"
 
-#: info_generic.py:103
+#: info_generic.py:113
 msgid ""
 "`ArithmeticError` is the base class for those built-in exceptions\n"
 "that are raised for various arithmetic errors.\n"
-"It is unusual that you are seeing this exception;\n"
-"normally, a more specific exception should have been raised.\n"
 msgstr ""
 "`ArithmeticError` est la classe de base pour les exceptions\n"
 "qui sont soulevées pour diverses erreurs arithmétiques.\n"
-"Il est inhabituel que vous voyiez cette exception;\n"
-"normalement, une exception plus spécifique aurait dû être soulevée.\n"
 
-#: info_generic.py:113
+#: info_generic.py:121
 msgid ""
 "In Python, the keyword `assert` is used in statements of the form\n"
 "`assert condition`, to confirm that `condition` is not `False`,\n"
@@ -416,7 +426,7 @@ msgstr ""
 "Si `condition` est `False` ou son équivalent, une exception de type "
 "`AssertionError` est levée.\n"
 
-#: info_generic.py:123
+#: info_generic.py:131
 msgid ""
 "An `AttributeError` occurs when the code contains something like\n"
 "    `object.x`\n"
@@ -428,7 +438,7 @@ msgstr ""
 "et `x` n’est pas une méthode ou un attribut (variable) appartenant à "
 "`objet`.\n"
 
-#: info_generic.py:132
+#: info_generic.py:140
 msgid ""
 "An `EOFError` is raised when the `input()` function hits\n"
 "an end-of-file condition (EOF) without reading any data.\n"
@@ -437,7 +447,7 @@ msgstr ""
 "atteint\n"
 "une condition de fin de fichier (EOF) sans lire aucune données.\n"
 
-#: info_generic.py:140
+#: info_generic.py:148
 msgid ""
 "A `FileNotFoundError` exception indicates that you\n"
 "are trying to open a file that cannot be found by Python.\n"
@@ -448,7 +458,7 @@ msgstr ""
 "Cela pourrait être parce que vous fait une faute d'orthographe en\n"
 "écrivant le nom du fichier.\n"
 
-#: info_generic.py:149
+#: info_generic.py:157
 msgid ""
 "An `ImportError` exception indicates that a certain object could not\n"
 "be imported from a module or package. Most often, this is\n"
@@ -458,7 +468,7 @@ msgstr ""
 "être importé à partir d’un module ou d’un paquet. Très souvent, c’est\n"
 "parce que le nom de l’objet n’est pas écrit correctement.\n"
 
-#: info_generic.py:158
+#: info_generic.py:166
 msgid ""
 "An `IndentationError` occurs when a given line of code is\n"
 "not indented (aligned vertically with other lines) as expected.\n"
@@ -469,7 +479,7 @@ msgstr ""
 "lignes)\n"
 "de la façon attendue.\n"
 
-#: info_generic.py:166
+#: info_generic.py:174
 msgid ""
 "An `IndexError` occurs when you try to get an item from a list,\n"
 "a tuple, or a similar object (sequence), and use an index which\n"
@@ -483,7 +493,7 @@ msgstr ""
 "n’existe pas; typiquement, c’est parce que l’indice que vous donnez\n"
 "est plus grand que la longueur de la séquence.\n"
 
-#: info_generic.py:176
+#: info_generic.py:184
 msgid ""
 "A `KeyError` is raised when a value is not found as a\n"
 "key in a Python dict or in a similar object.\n"
@@ -491,7 +501,7 @@ msgstr ""
 "Une `KeyError` est levée lorsqu'une valeur n'est pas trouvée en tant que\n"
 "clé dans un dict Python ou dans un objet similaire.\n"
 
-#: info_generic.py:184
+#: info_generic.py:192
 msgid ""
 "`LookupError` is the base class for the exceptions that are raised\n"
 "when a key or index used on a mapping or sequence is invalid.\n"
@@ -502,7 +512,7 @@ msgstr ""
 "séquence est invalide.\n"
 "Elle peut également être levée directement par codecs.lookup().\n"
 
-#: info_generic.py:193
+#: info_generic.py:201
 msgid ""
 "Like the name indicates, a `MemoryError` occurs when Python\n"
 "runs out of memory. This can happen if you create an object\n"
@@ -514,7 +524,7 @@ msgstr ""
 "Cela peut se produire si vous créez un objet\n"
 "qui est trop grand, comme une liste avec trop d'éléments.\n"
 
-#: info_generic.py:202
+#: info_generic.py:210
 msgid ""
 "A `ModuleNotFoundError` exception indicates that you\n"
 "are trying to import a module that cannot be found by Python.\n"
@@ -527,7 +537,7 @@ msgstr ""
 "écrivant le nom du module, ou parce qu’il n’est pas installé sur votre "
 "ordinateur.\n"
 
-#: info_generic.py:212
+#: info_generic.py:220
 msgid ""
 "A `NameError` exception indicates that a variable or\n"
 "function name is not known to Python.\n"
@@ -541,7 +551,7 @@ msgstr ""
 "Cependant, cela peut également indiquer que le nom a été\n"
 "utilisé avant qu'on ne lui ait associé une valeur.\n"
 
-#: info_generic.py:223
+#: info_generic.py:231
 msgid ""
 "An `OSError` exception is usually raised by the Operating System\n"
 "to indicate that an operation is not allowed or that\n"
@@ -552,7 +562,7 @@ msgstr ""
 "pour indiquer qu’une opération n’est pas autorisée ou\n"
 "qu'une ressource n’est pas disponible.\n"
 
-#: info_generic.py:232
+#: info_generic.py:240
 msgid ""
 "An `OverflowError` is raised when the result of an arithmetic operation\n"
 "is too large to be handled by the computer's processor.\n"
@@ -561,7 +571,7 @@ msgstr ""
 "opération arithmétique\n"
 "est trop grand pour être manipulé par le processeur de l’ordinateur.\n"
 
-#: info_generic.py:240
+#: info_generic.py:248
 msgid ""
 "A `RecursionError` is raised when a function calls itself,\n"
 "directly or indirectly, too many times.\n"
@@ -575,7 +585,7 @@ msgstr ""
 "votre code\n"
 "et que votre programme ne terminerait jamais.\n"
 
-#: info_generic.py:250
+#: info_generic.py:258
 msgid ""
 "A `RuntimeError` is raised when an error is detected that doesn't fall in "
 "any\n"
@@ -585,7 +595,7 @@ msgstr ""
 "n'appartient à aucun\n"
 "des types d'exception plus spécifiques définis par Python.\n"
 
-#: info_generic.py:258
+#: info_generic.py:266
 msgid ""
 "`StopIteration` is raised to indicate that an iterator has no more\n"
 "item to provide when its `__next__` method is called by\n"
@@ -596,13 +606,13 @@ msgstr ""
 "d'élément à fournir lorsque sa méthode `__next__` est invoquée par\n"
 "la fonction builtin `next()`.\n"
 
-#: info_generic.py:267
+#: info_generic.py:275
 msgid "A `SyntaxError` occurs when Python cannot understand your code.\n"
 msgstr ""
 "Une exception de type `SyntaxError` se produit lorsque Python ne peut pas "
 "comprendre votre code.\n"
 
-#: info_generic.py:272
+#: info_generic.py:280
 msgid ""
 "A `TabError` indicates that you have used both spaces\n"
 "and tab characters to indent your code.\n"
@@ -620,7 +630,7 @@ msgstr ""
 "La recommandation de Python est de toujours utiliser des espaces\n"
 "pour indenter votre code.\n"
 
-#: info_generic.py:284
+#: info_generic.py:292
 msgid ""
 "A `TypeError` is usually caused by trying\n"
 "to combine two incompatible types of objects,\n"
@@ -633,7 +643,7 @@ msgstr ""
 "ou en tentant d'effectuer une opération non permise sur un type d'objet "
 "donné.\n"
 
-#: info_generic.py:294
+#: info_generic.py:302
 msgid ""
 "A `ValueError` indicates that a function or an operation\n"
 "received an argument of the right type, but an inappropriate value.\n"
@@ -641,7 +651,7 @@ msgstr ""
 "Une exception `ValueError` indique qu'une fonction ou une opération\n"
 "a reçu un argument du bon type, mais une valeur inappropriée.\n"
 
-#: info_generic.py:302
+#: info_generic.py:310
 msgid ""
 "In Python, variables that are used inside a function are known as \n"
 "local variables. Before they are used, they must be assigned a value.\n"
@@ -665,7 +675,7 @@ msgstr ""
 "qu’il s’agit d’une variable globale, sinon vous verrez une exception "
 "`UnboundLocalError`.\n"
 
-#: info_generic.py:316
+#: info_generic.py:324
 msgid ""
 "A `ZeroDivisionError` occurs when you are attempting to divide a value\n"
 "by zero either directly or by using some other mathematical operation.\n"
@@ -674,11 +684,11 @@ msgstr ""
 "diviser une valeur\n"
 "par zéro soit directement ou en utilisant une autre opération mathématique.\n"
 
-#: info_generic.py:324
+#: info_generic.py:332
 msgid "`UserWarning` is the default class for `warnings.warn()`.\n"
 msgstr "`UserWarning` est la classe par défaut pour `warnings.warn()`.\n"
 
-#: info_generic.py:329
+#: info_generic.py:337
 msgid ""
 "`SyntaxWarning` often indicates that your code will likely not give the "
 "result you expect.\n"
@@ -686,7 +696,7 @@ msgstr ""
 "Un avertissement de type `SyntaxWarning` indique souvent que votre code ne "
 "donnera probablement pas le résultat escompté.\n"
 
-#: info_generic.py:336
+#: info_generic.py:344
 msgid ""
 "`DeprecationWarning` indicates that some feature will not be available in a "
 "future version.\n"
@@ -694,14 +704,14 @@ msgstr ""
 "`DeprecationWarning` indique qu'une certaine fonctionnalité ne sera pas "
 "disponible dans une version future.\n"
 
-#: info_generic.py:343
+#: info_generic.py:351
 msgid ""
 "`RuntimeWarning` often indicates some not recommended runtime features.\n"
 msgstr ""
 "Un avertissement de type `RuntimeWarning` indique souvent des "
 "fonctionnalités d'exécution non recommandées.\n"
 
-#: info_generic.py:350
+#: info_generic.py:358
 msgid ""
 "`FutureWarning` is the base category for features that will likely be "
 "deprecated\n"
@@ -711,14 +721,14 @@ msgstr ""
 "probablement dépréciées\n"
 "dans les futures versions de Python.\n"
 
-#: info_generic.py:358
+#: info_generic.py:366
 msgid ""
 "`UnicodeWarning` is the base category for warnings related to unicode.\n"
 msgstr ""
 "`UnicodeWarning` est la catégorie de base pour les avertissements liés à "
 "l'unicode.\n"
 
-#: info_generic.py:363
+#: info_generic.py:371
 msgid ""
 "`BytesWarning` is the base category for warnings related to bytes and "
 "bytearray.\n"
@@ -726,7 +736,7 @@ msgstr ""
 "`BytesWarning` est la catégorie de base pour les avertissements liés aux "
 "octets (`bytes`) et aux tableaux d'octets (`bytearray`).\n"
 
-#: info_generic.py:370
+#: info_generic.py:378
 msgid "`Warning` is the base class of all warning category classes.\n"
 msgstr ""
 "`Warning` est la classe de base de toutes les classes de catégories "

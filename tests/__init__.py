@@ -8,4 +8,6 @@ if parent_dir not in sys.path:
 from friendly_traceback import about_warnings, debug_helper
 
 debug_helper.DEBUG = True
+# The following will suppress warnings from the pytest output.
+# However, they will show up in the documentation.
 about_warnings.enable_warnings(testing=True)
