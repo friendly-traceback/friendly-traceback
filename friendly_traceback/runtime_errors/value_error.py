@@ -253,9 +253,10 @@ def could_not_convert_to_float(message: str, _tb_data: TracebackData) -> CauseIn
         debug_helper.log("Could not find match in could_not_convert_to_float.")
         return {}
     string = match[1]
-    cause = _("The string `{string}` cannot be converted to a `float`.\n").format(
-        string=string
-    )
+    cause = _(
+        "The string `{string}` cannot be converted to a `float`\n"
+        "as it does not represent a number.\n"
+    ).format(string=string)
     return {"cause": cause}
 
 

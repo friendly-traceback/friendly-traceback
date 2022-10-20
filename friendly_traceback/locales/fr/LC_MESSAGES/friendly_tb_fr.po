@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-10-16 17:43-0300\n"
+"POT-Creation-Date: 2022-10-19 21:41-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,19 +15,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 3.1.1\n"
 
-#: __init__.py:236 __main__.py:171
+#: __init__.py:284 __main__.py:171
 msgid "The file {filename} does not exist."
 msgstr "Le fichier {filename} n'existe pas."
 
-#: __init__.py:318
+#: __init__.py:367
 msgid "The available languages are:"
 msgstr "Les langues disponibles sont les suivantes :"
 
-#: __init__.py:346
+#: __init__.py:395
 msgid "{include}: Unrecognized value."
 msgstr "{include} : Valeur non reconnue."
 
-#: __init__.py:347
+#: __init__.py:396
 msgid "The allowed values are:"
 msgstr "Les valeurs permises sont :"
 
@@ -866,7 +866,7 @@ msgstr ""
 #: runtime_errors\attribute_error.py:139 runtime_errors\attribute_error.py:405
 #: runtime_errors\import_error.py:110 runtime_errors\key_error.py:187
 #: runtime_errors\key_error.py:194 runtime_errors\module_not_found_error.py:123
-#: runtime_errors\name_error.py:106 runtime_errors\unbound_local_error.py:54
+#: runtime_errors\name_error.py:111 runtime_errors\unbound_local_error.py:54
 #: syntax_errors\message_analyzer.py:459 syntax_errors\message_analyzer.py:1105
 #: syntax_errors\statement_analyzer.py:1309
 msgid "Did you mean `{name}`?\n"
@@ -1197,7 +1197,7 @@ msgid "Perhaps you meant one of the following files with similar names:\n"
 msgstr ""
 "Vous vouliez peut-être un des fichiers suivants ayant des noms semblables :\n"
 
-#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:126
+#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:131
 msgid "I have no additional information for you.\n"
 msgstr "Je n’ai pas d’informations supplémentaires pour vous.\n"
 
@@ -1572,13 +1572,11 @@ msgstr ""
 
 #: runtime_errors\name_error.py:38
 msgid ""
-"`{name}` is a name found in the following modules from the standard "
-"library:\n"
+"`{name}` is a name found in the following modules:\n"
 "{modules}.\n"
 "Perhaps you forgot to import `{name}` from one of these modules.\n"
 msgstr ""
-"`{name}` est un nom trouvé dans les modules suivants de la bibliothèque "
-"standard :\n"
+"`{name}` est un nom trouvé dans les modules suivants :\n"
 "{modules}.\n"
 "Vous avez peut-être oublié d'importer `{name}` de l'un de ces modules.\n"
 
@@ -1592,24 +1590,24 @@ msgstr ""
 "qui existe dans une portée englobante,\n"
 "mais qui n'a pas encore reçu de valeur.\n"
 
-#: runtime_errors\name_error.py:88 runtime_errors\name_error.py:142
+#: runtime_errors\name_error.py:88 runtime_errors\name_error.py:147
 msgid "In your program, no object with the name `{var_name}` exists.\n"
 msgstr ""
 "Dans votre programme, aucun objet portant le nom `{var_name}` n'existe.\n"
 
-#: runtime_errors\name_error.py:102
+#: runtime_errors\name_error.py:107
 msgid " Or did you mean `{name}`?\n"
 msgstr " Ou vouliez-vous dire `{name}` ?\n"
 
-#: runtime_errors\name_error.py:108
+#: runtime_errors\name_error.py:113
 msgid "Did you use a colon instead of an equal sign?\n"
 msgstr "Avez-vous utilisé deux points au lieu d’un signe égal ?\n"
 
-#: runtime_errors\name_error.py:141
+#: runtime_errors\name_error.py:146
 msgid "Did you mean `1j`?\n"
 msgstr "Vouliez-vous dire `1j` ?\n"
 
-#: runtime_errors\name_error.py:145
+#: runtime_errors\name_error.py:150
 msgid ""
 "However, sometimes `{name}` is intended to represent\n"
 "the square root of `-1` which is written as `1j` in Python.\n"
@@ -1617,20 +1615,20 @@ msgstr ""
 "Toutefois, parfois, `{name}` est utilisé pour représenter\n"
 "la racine carrée de `-1` qui est écrit `1j` en Python.\n"
 
-#: runtime_errors\name_error.py:175
+#: runtime_errors\name_error.py:180
 msgid "Did you mean `{word}`?\n"
 msgstr "Vouliez-vous dire `{word}` ?\n"
 
-#: runtime_errors\name_error.py:176
+#: runtime_errors\name_error.py:181
 msgid "I suspect you meant to write the keyword `{word}` and made a typo.\n"
 msgstr ""
 "Cependant, je soupçonne que vous avez écrit le mot-clé `{word}` par erreur.\n"
 
-#: runtime_errors\name_error.py:184
+#: runtime_errors\name_error.py:189
 msgid "`__debug__` is a constant.\n"
 msgstr "`__debug__` est une constante.\n"
 
-#: runtime_errors\name_error.py:185
+#: runtime_errors\name_error.py:190
 msgid ""
 "`__debug__` is a constant that cannot be deleted.\n"
 "In future Python versions, attempting to delete it will be a SyntaxError.\n"
@@ -1640,11 +1638,11 @@ msgstr ""
 "entraînera\n"
 "une exception de type SyntaxError.\n"
 
-#: runtime_errors\name_error.py:193
+#: runtime_errors\name_error.py:198
 msgid "You must be a fan of PyConAu!\n"
 msgstr "Vous devez être un fan de PyConAu!\n"
 
-#: runtime_errors\name_error.py:194
+#: runtime_errors\name_error.py:199
 msgid ""
 "I am guessing that you tried to use (one of) the flipfloperators\n"
 "shown during the second Lightning Talk session of PyConAu 2018,\n"
@@ -1658,11 +1656,11 @@ msgstr ""
 "\n"
 "#### Notez que c’est toujours une mauvaise idée.\n"
 
-#: runtime_errors\name_error.py:209
+#: runtime_errors\name_error.py:214 runtime_errors\name_error.py:238
 msgid "Did you forget to import `{name}`?\n"
 msgstr "Avez-vous oublié d’importer `{name}` ?\n"
 
-#: runtime_errors\name_error.py:212
+#: runtime_errors\name_error.py:217
 msgid ""
 "The name `{name}` is not defined in your program.\n"
 "Perhaps you forgot to import `{lowercase}` which is found\n"
@@ -1672,45 +1670,70 @@ msgstr ""
 "Peut-être avez-vous oublié d’importer `{lowercase}` qui se trouve\n"
 "dans la bibliothèque standard de Python.\n"
 
-#: runtime_errors\name_error.py:221
+#: runtime_errors\name_error.py:226
 msgid "Note that the name of the module is `{lowercase}` and not `{name}`.\n"
 msgstr "Notez que le nom du module est `{lowercase}` et non `{name}`.\n"
 
-#: runtime_errors\name_error.py:239
+#: runtime_errors\name_error.py:241
+msgid ""
+"The name `{name}` is not defined in your program.\n"
+"Perhaps you forgot to import `{name}` which is a known library.\n"
+msgstr ""
+"Le nom `{name}` n'est pas défini dans votre programme.\n"
+"Vous avez peut-être oublié d'importer `{name}` qui est une bibliothèque "
+"connue.\n"
+
+#: runtime_errors\name_error.py:251
+msgid "Did you forget to import `{true_name}`?\n"
+msgstr "Avez-vous oublié d'importer `{true_name}` ?\n"
+
+#: runtime_errors\name_error.py:256
+msgid ""
+"The name `{name}` is not defined in your program.\n"
+"Perhaps you forgot to write\n"
+"\n"
+"   import {true_name} as {name}\n"
+msgstr ""
+"Le nom `{name}` n'est pas défini dans votre programme.\n"
+"Vous avez peut-être oublié d'écrire\n"
+"\n"
+"   import {true_name} as {name}\n"
+
+#: runtime_errors\name_error.py:275
 msgid "The similar name `{name}` was found in the local scope.\n"
 msgstr "Le nom semblable `{name}` a été trouvé dans la portée locale.\n"
 
-#: runtime_errors\name_error.py:240
+#: runtime_errors\name_error.py:276
 msgid "The similar name `{name}` was found in the global scope.\n"
 msgstr "Le nom semblable `{name}` a été trouvé dans la portée globale.\n"
 
-#: runtime_errors\name_error.py:241
+#: runtime_errors\name_error.py:277
 msgid "The Python builtin `{name}` has a similar name.\n"
 msgstr "L'identifiant Python (builtin) `{name}` a un nom semblable.\n"
 
-#: runtime_errors\name_error.py:250 runtime_errors\unbound_local_error.py:124
+#: runtime_errors\name_error.py:286 runtime_errors\unbound_local_error.py:124
 msgid "Instead of writing `{name}`, perhaps you meant one of the following:\n"
 msgstr ""
 "Au lieu d’écrire `{name}`, peut-être que vous vouliez écrire l'un des noms "
 "suivants :\n"
 
-#: runtime_errors\name_error.py:255 runtime_errors\unbound_local_error.py:128
+#: runtime_errors\name_error.py:291 runtime_errors\unbound_local_error.py:128
 msgid "*   Local scope: "
 msgstr "*    Portée locale : "
 
-#: runtime_errors\name_error.py:256
+#: runtime_errors\name_error.py:292
 msgid "*   Global scope: "
 msgstr "*    Portée globale : "
 
-#: runtime_errors\name_error.py:257
+#: runtime_errors\name_error.py:293
 msgid "*   Python builtins: "
 msgstr "*    Identifiant Python (builtins) : "
 
-#: runtime_errors\name_error.py:321
+#: runtime_errors\name_error.py:357
 msgid "Did you write `self` at the wrong place?\n"
 msgstr "Avez-vous écrit `self` au mauvais endroit ?\n"
 
-#: runtime_errors\name_error.py:322
+#: runtime_errors\name_error.py:358
 msgid ""
 "The {scope} object `{obj}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1721,11 +1744,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}(...`\n"
 "au lieu de `{unknown_name}(self, ...`.\n"
 
-#: runtime_errors\name_error.py:329
+#: runtime_errors\name_error.py:365
 msgid "Did you forget to add `self.`?\n"
 msgstr "Avez-vous oublié d’ajouter `self.` ?\n"
 
-#: runtime_errors\name_error.py:330
+#: runtime_errors\name_error.py:366
 msgid ""
 "A {scope} object, `{obj}`,\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1737,11 +1760,11 @@ msgstr ""
 "Peut-être que vous auriez dû écrire `self.{unknown_name}`\n"
 "au lieu de `{unknown_name}`.\n"
 
-#: runtime_errors\name_error.py:337
+#: runtime_errors\name_error.py:373
 msgid "Did you forget to add `{name}.`?\n"
 msgstr "Avez-vous oublié d’ajouter `{name}.` ?\n"
 
-#: runtime_errors\name_error.py:338
+#: runtime_errors\name_error.py:374
 msgid ""
 "The {scope} object `{name}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -2077,7 +2100,7 @@ msgstr ""
 "moins d'arguments positionnels qu'il n'en faut ({nb_required} manquent).\n"
 
 #: runtime_errors\type_error.py:498 runtime_errors\type_error.py:884
-#: warning_parsers\syntax_warning.py:20 warning_parsers\syntax_warning.py:68
+#: warning_parsers\syntax_warning.py:21 warning_parsers\syntax_warning.py:69
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
@@ -2085,7 +2108,7 @@ msgstr ""
 "\n"
 "Remarque : `NoneType` signifie que l’objet a une valeur de `None`.\n"
 
-#: runtime_errors\type_error.py:505 warning_parsers\syntax_warning.py:26
+#: runtime_errors\type_error.py:505 warning_parsers\syntax_warning.py:27
 msgid ""
 "Python indicates that you have an object of type `{obj_type}`,\n"
 "followed by something surrounded by parentheses, `(...)`,\n"
@@ -2302,7 +2325,7 @@ msgstr ""
 msgid "Instead of using {original}, consider using {replacement}.\n"
 msgstr "Au lieu d’utiliser {original}, envisagez d’utiliser {replacement}.\n"
 
-#: runtime_errors\type_error.py:890 warning_parsers\syntax_warning.py:74
+#: runtime_errors\type_error.py:890 warning_parsers\syntax_warning.py:75
 msgid ""
 "Subscriptable objects are typically containers from which\n"
 "you can retrieve item using the notation `[...]`.\n"
@@ -2310,7 +2333,7 @@ msgstr ""
 "Les objets subscriptibles sont généralement des conteneurs à partir\n"
 "desquels on peut tirer des éléments en utilisant la notation `[...]`.\n"
 
-#: runtime_errors\type_error.py:902 warning_parsers\syntax_warning.py:78
+#: runtime_errors\type_error.py:902 warning_parsers\syntax_warning.py:79
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from an object of type `{obj_type}` which is not allowed.\n"
@@ -2670,12 +2693,14 @@ msgstr ""
 "12.\n"
 
 #: runtime_errors\value_error.py:256
-msgid "The string `{string}` cannot be converted to a `float`.\n"
+msgid ""
+"The string `{string}` cannot be converted to a `float`\n"
+"as it does not represent a number.\n"
 msgstr ""
-"La chaîne `{string}` ne peut pas être convertie en un nombre décimal "
-"(`float`).\n"
+"La chaîne de caractères `{string}` ne peut pas être convertie en `float`\n"
+"car elle ne représente pas un nombre.\n"
 
-#: runtime_errors\value_error.py:271
+#: runtime_errors\value_error.py:272
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
@@ -2686,11 +2711,11 @@ msgstr ""
 "classe ;\n"
 "ceci n'est pas autorisé.\n"
 
-#: runtime_errors\value_error.py:283
+#: runtime_errors\value_error.py:284
 msgid "The third argument of the function `pow()` cannot be zero.\n"
 msgstr "Le troisième argument de la fonction `pow()` ne peut pas être zéro.\n"
 
-#: runtime_errors\value_error.py:312
+#: runtime_errors\value_error.py:313
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
@@ -2698,7 +2723,7 @@ msgstr ""
 "Je ne reconnais pas ce message d’erreur.\n"
 "Je devine que le problème est avec la fonction `{name}`.\n"
 
-#: runtime_errors\value_error.py:318
+#: runtime_errors\value_error.py:319
 msgid ""
 "Its docstring is:\n"
 "\n"
@@ -2708,11 +2733,11 @@ msgstr ""
 "\n"
 "{docstring}\n"
 
-#: runtime_errors\value_error.py:322
+#: runtime_errors\value_error.py:323
 msgid "I have no more information.\n"
 msgstr "Je n’ai plus d’informations.\n"
 
-#: runtime_errors\value_error.py:332
+#: runtime_errors\value_error.py:333
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
@@ -2732,7 +2757,7 @@ msgstr ""
 "Le site suivant peut également être utile : https://www.strfti.me/ (anglais "
 "seulement).\n"
 
-#: runtime_errors\value_error.py:367
+#: runtime_errors\value_error.py:368
 msgid ""
 "You have attempted to remove `{item}` from the list `{the_list}`.\n"
 "However, `{the_list}` does not contain `{item}`.\n"
@@ -2740,7 +2765,7 @@ msgstr ""
 "Vous avez tenté de supprimer `{item}` de la liste `{the_list}`.\n"
 "Cependant, `{the_list}` ne contient pas `{item}`.\n"
 
-#: runtime_errors\value_error.py:372
+#: runtime_errors\value_error.py:373
 msgid ""
 "You have attempted to remove an item from the list `{the_list}`.\n"
 "However, `{the_list}` does not contain that item.\n"
@@ -2748,7 +2773,7 @@ msgstr ""
 "Vous avez tenté de supprimer un élément de la liste `{the_list}`.\n"
 "Cependant, la liste `{the_list}` ne contient pas cet élément.\n"
 
-#: runtime_errors\value_error.py:377
+#: runtime_errors\value_error.py:378
 msgid ""
 "You have attempted to remove an item a list that does not contain such an "
 "item.\n"
@@ -2756,7 +2781,7 @@ msgstr ""
 "Vous avez tenté de supprimer un élément d'une liste qui ne contient pas un "
 "tel élément.\n"
 
-#: runtime_errors\value_error.py:393
+#: runtime_errors\value_error.py:394
 msgid ""
 "An explanation of `{exception}` already exists.\n"
 "If you think that a better explanation can be given, please file an issue.\n"
@@ -5585,7 +5610,7 @@ msgstr ""
 "{name}\n"
 "Je pense que vous vouliez plutôt écrire la fraction `{num}/{denom}`.\n"
 
-#: warning_parsers\syntax_warning.py:46
+#: warning_parsers\syntax_warning.py:47
 msgid ""
 "You have {container_type} followed by square brackets, `[...]`.\n"
 "What is included between the square brackets, `[...]`,\n"
