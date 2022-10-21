@@ -6,6 +6,7 @@ The idea is to silence internal exceptions raised by Friendly
 itself for most users by redirecting them here, and have them
 printed only when debugging mode is activated.
 """
+import inspect
 import sys
 from typing import Optional
 
@@ -25,6 +26,8 @@ def log_error(exc: Optional[BaseException] = None) -> None:
     if DEBUG:  # pragma: no cover
         if exc is not None:
             print(repr(exc))
+            frame = inspect.currentframe().f_back
+            print(f"{frame.f_code.co_filename}, line: {frame.f_lineno}")
         sys.exit()
 
 
