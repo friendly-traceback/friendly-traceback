@@ -92,6 +92,9 @@ def check_statement(statement):
 
     statement = token_utils.strip_comment(statement)
     try:
+        # The statement might have been indented in the original Python file,
+        # so we remove the indentation of that first line
+        statement = statement.lstrip()
         if statement.rstrip().endswith(":"):
             statement += " pass"
 
@@ -102,9 +105,6 @@ def check_statement(statement):
         elif statement.startswith("except") or statement.startswith("finally"):
             statement = try_block % statement
 
-        # The statement might have been indented in the original Python file,
-        # so we remove the indentation of that first line
-        statement = statement.lstrip()
         with warnings.catch_warnings():
             warnings.simplefilter("error")
             try:

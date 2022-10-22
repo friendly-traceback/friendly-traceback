@@ -1744,17 +1744,15 @@ def else_with_no_match(statement):
 
 @add_statement_analyzer
 def elif_with_no_matching_if(statement):
-    if not (
-        statement.bad_token == statement.first_token == "elif"
-        and statement.last_token == ":"
-    ):
+    if not (statement.bad_token == statement.first_token == "elif"):
         return {}
-
-    cause = _(
-        "The `elif` keyword does not begin a code block that matches\n"
-        "an `if` block, possibly because `elif` is not indented correctly.\n"
-    )
-    return {"cause": cause}
+    if fixers.check_statement(statement.bad_line):
+        cause = _(
+            "The `elif` keyword does not begin a code block that matches\n"
+            "an `if` block, possibly because `elif` is not indented correctly.\n"
+        )
+        return {"cause": cause}
+    return {}
 
 
 @add_statement_analyzer
