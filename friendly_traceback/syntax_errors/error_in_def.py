@@ -101,6 +101,12 @@ def missing_parens(statement):
     ):
         return {}
 
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     new_statement = fixers.replace_token(
         statement.statement_tokens,
         statement.bad_token,
@@ -123,6 +129,11 @@ def missing_parens_2(statement):
     # Something like
     # def test a, b:
     if statement.bad_token_index != 2 + ASYNC and statement.last_token != ":":
+        return {}
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     new_statement = fixers.replace_two_tokens(
@@ -154,6 +165,13 @@ def missing_colon(statement):
         or statement.statement_brackets
     ):
         return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     cause = _("A function definition statement must end with a colon.\n")
 
     new_statement = fixers.replace_token(
@@ -198,6 +216,12 @@ def keyword_as_function_name(statement):
     if not (statement.bad_token.is_keyword() and statement.prev_token == def_token):
         return {}
 
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     hint = _("You cannot use a Python keyword as a function name.\n")
     cause = _(
         "You tried to use the Python keyword `{kwd}` as a function name.\n"
@@ -216,6 +240,12 @@ def keyword_as_function_name(statement):
 def other_invalid_function_names(statement):
     def_token = statement.tokens[ASYNC]
     if statement.bad_token.is_identifier() or not (statement.prev_token == def_token):
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     new_statement = fixers.replace_token(
@@ -246,6 +276,12 @@ def function_definition_missing_name(statement):
     ):
         return {}
 
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     cause = _("You forgot to name your function.\n")
 
     new_statement = fixers.replace_token(
@@ -261,6 +297,12 @@ def function_definition_missing_name(statement):
 @add_statement_analyzer
 def keyword_not_allowed_as_function_argument(statement):
     if not (statement.bad_token.is_keyword() and statement.begin_brackets):
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     new_statement = fixers.replace_token(
@@ -464,6 +506,12 @@ def operator_as_argument(statement):
     2. operator instead of equal sign
     """
     if not statement.bad_token.is_operator() or statement.prev_token == "def":
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     no_op = _("You cannot have operators as function arguments.\n")

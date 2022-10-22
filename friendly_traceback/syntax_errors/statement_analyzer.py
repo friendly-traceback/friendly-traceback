@@ -443,6 +443,12 @@ def inverted_operators(statement):
     else:
         return {}
 
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     correct = second.string + first.string
     hint = _("Did you write operators in an incorrect order?\n")
     cause = _(
@@ -511,7 +517,10 @@ def consecutive_operators(statement):
             new_statement = fixers.replace_token(
                 statement.statement_tokens, statement.bad_token, ""
             )
-            if fixers.check_statement(new_statement):
+            # See issue 205
+            if fixers.check_statement(new_statement) and not fixers.check_statement(
+                statement.bad_line
+            ):
                 cause += "\n" + _(
                     "The following statement has no syntax error:\n\n    {statement}\n"
                 ).format(statement=new_statement)
@@ -550,6 +559,12 @@ def walrus_instead_of_equal(statement):
     else:
         bad_token = statement.bad_token
 
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "=")
     if fixers.check_statement(new_statement):
         hint = _("Did you mean to use `=`?\n")
@@ -573,6 +588,12 @@ def assign_instead_of_equal(statement):
         bad_token = statement.bad_token
 
     if bad_token != "=":
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "==")
@@ -620,6 +641,11 @@ def print_as_statement(statement):
             and statement.bad_token != "("
         )
     ):
+        return {}
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     content = statement.entire_statement.replace("print", "", 1).strip()
@@ -678,6 +704,12 @@ def dot_followed_by_bracket(statement):
             bracket=statement.bad_token
         )
     else:
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     new_statement = fixers.replace_token(
@@ -740,6 +772,12 @@ def missing_colon(statement):
     ):
         return {}
 
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     new_statement = fixers.replace_token(
         statement.statement_tokens,
         statement.bad_token,
@@ -773,6 +811,12 @@ def missing_colon(statement):
 def semi_colon_instead_of_comma(statement):
     """Writing a semicolon as a typo"""
     if statement.bad_token != ";":
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     new_statement = fixers.replace_token(
@@ -811,7 +855,11 @@ def semi_colon_instead_of_colon(statement):
     """Writing a semicolon as a typo"""
     if statement.bad_token != ";":
         return {}
-
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
     new_statement = fixers.replace_token(
         statement.statement_tokens, statement.bad_token, ":"
     )
@@ -1040,6 +1088,11 @@ def wrong_type_declaration(statement):
         "complex",
     ):
         return {}
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
 
     new_statement = fixers.replace_token(statement.statement_tokens, prev_token, "")
     if fixers.check_statement(new_statement):
@@ -1077,7 +1130,11 @@ def missing_comma_before_string_in_dict(statement):
         and statement.tokens[statement.bad_token_index - 1].is_string()
     ):
         return {}
-
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
     before_prev = statement.tokens[statement.bad_token_index - 2]
 
     new_statement = fixers.replace_token(
@@ -1127,6 +1184,12 @@ def missing_in_with_for(statement):
     if nb_for == 0 or nb_in >= nb_for:
         return {}
 
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     new_statement = fixers.replace_token(
         statement.statement_tokens, bad_token, "in " + bad_token.string
     )
@@ -1144,6 +1207,12 @@ def missing_in_with_for(statement):
 @add_statement_analyzer
 def missing_parens_for_range(statement):
     if statement.prev_token != "range" or statement.last_token != ":":
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     new_statement = fixers.replace_two_tokens(
@@ -1271,12 +1340,22 @@ def parens_around_exceptions(statement):
 def current_is_misspelled_python_keyword(statement):
     if not statement.bad_token.is_name():
         return {}
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
     return misspelled_python_keyword(statement.tokens, statement.bad_token)
 
 
 @add_statement_analyzer
 def previous_is_misspelled_python_keyword(statement):
     if not statement.prev_token.is_name():
+        return {}
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
     return misspelled_python_keyword(statement.tokens, statement.prev_token)
 
@@ -1385,6 +1464,12 @@ def missing_comma_or_operator(statement):
     ) and not (
         prev_token.is_identifier() or prev_token.is_number() or prev_token.is_string()
     ):
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     possible_cause = _(
@@ -1512,6 +1597,12 @@ def boolean_instead_of_comma(statement):
     # Includes cases where boolean added after comma
     if statement.bad_token.string not in ["and", "or"]:
         return {}
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
+
     bad_token = statement.bad_token
 
     possible_cause = _(
@@ -1586,13 +1677,21 @@ def duplicate_token(statement):
     new_statement = fixers.replace_token(
         statement.statement_tokens, statement.bad_token, ""
     )
-    if fixers.check_statement(new_statement):
+    # issue 205: check to see if original statement is found to be faulty.
+    if fixers.check_statement(new_statement) and not fixers.check_statement(
+        statement.bad_line
+    ):
         return {"cause": cause, "suggest": hint}
     return {"cause": cause + more_errors(), "suggest": hint}
 
 
 @add_statement_analyzer
 def extra_token(statement):
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {}
     new_statement = fixers.replace_token(
         statement.statement_tokens, statement.bad_token, ""
     )
@@ -1672,6 +1771,12 @@ def bracket_instead_of_paren(statement):
             open_bracket = square_brackets.pop()
             matching_pairs.append((open_bracket, tok))
     if not matching_pairs:
+        return {}
+
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
         return {}
 
     for first, second in matching_pairs:

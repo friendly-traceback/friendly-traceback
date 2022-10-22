@@ -1684,6 +1684,12 @@ def starred_expression_in_dict_value(message: str = "", statement=None):
         bad_token = statement.bad_token
     else:
         return {"cause": cause}
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {"cause": cause}
+
     new_statement = fixers.replace_token(statement.statement_tokens, bad_token, "")
     if fixers.check_statement(new_statement):
         cause += "\n" + _(
@@ -1729,6 +1735,16 @@ def trailing_comma_not_allowed(message: str = "", statement=None):
         "Python indicates that you need to surround an expression\n"
         "ending with a comma by parentheses.\n"
     )
+    no_additional_suggestion = _(
+        "I have no additional suggestion to offer.\n"
+        "Please feel free to report this case.\n"
+    )
+    # Before we make any attempt at modifying the original code,
+    # we make sure that our statement checker can properly identify that
+    # the original code is invalid. See #205
+    if fixers.check_statement(statement.bad_line):
+        return {"cause": cause + no_additional_suggestion}
+
     perhaps_new_statement = lambda: _(  # noqa
         "Perhaps you meant to write\n\n`{new_statement}`\n"
     )
@@ -1773,12 +1789,7 @@ def trailing_comma_not_allowed(message: str = "", statement=None):
             return {"cause": cause, "suggest": hint}
 
     debug_helper.log("new case to consider.")
-    cause += _(
-        "I have no additional suggestion to offer.\n"
-        "Please feel free to report this case.\n"
-    )
-
-    return {"cause": cause}
+    return {"cause": cause + no_additional_suggestion}
 
 
 @add_python_message
