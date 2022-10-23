@@ -1,0 +1,4 @@
+try:
+    pass
+finnally:
+    pass

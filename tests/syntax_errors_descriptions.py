@@ -599,6 +599,10 @@ descriptions = {
         in_cause: "The `except` keyword does not begin a code block that matches",
         title: "except with no matching try",
     },
+    "except_or_finally": {
+        in_cause: "finally:",
+        title: "except or finally missing",
+    },
     "extra_token": {in_cause: "wrote `==` by mistake", title: "Extra token"},
     "f_string_assign_value": {  # Python < 3.8
         in_cause: "You are likely trying to assign a value within an f-string.",
@@ -1096,6 +1100,14 @@ descriptions = {
         in_cause: "A `TabError` indicates that you have used",
         title: "TabError",
     },
+    "typo_in_except": {
+        in_cause: "except Exception:",
+        title: "Wrong word instead of expect",
+    },
+    "typo_in_finally": {
+        in_cause: "finally:",
+        title: "Typo in finally",
+    },
     "unescaped_backslash": {
         in_cause: "Did you forget to escape a backslash character",
         title: "EOL unescaped backslash",
@@ -1147,6 +1159,7 @@ if sys.version_info >= (3, 8):
 if sys.version_info < (3, 9):
     del descriptions["too_many_parentheses"]  # will be a memory error instead
 
-
-if (3, 9) < sys.version_info < (3, 11):
-    del descriptions["missing_in_with_for"]  # problem with 3.10.1
+if sys.version_info < (3, 10):
+    del descriptions["except_or_finally"]
+    del descriptions["typo_in_finally"]
+    del descriptions["typo_in_except"]

@@ -944,6 +944,52 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
 
 
 @add_python_message
+def expected_except_or_finally(message: str = "", statement=None):
+    if message != "expected 'except' or 'finally' block":  # new in 3.10
+        return {}
+    cause = _(
+        "You wrote a `try` block which did not include an `except` nor a `finally` block.\n"
+    )
+
+    if fixers.check_statement(statement.bad_line):
+        # our checker does not see a problem, so it cannot be used reliably
+        # to find a fix
+        return {"cause": cause}
+
+    hint = ""
+    similar = utils.get_similar_words(statement.tokens[0].string, ["except", "finally"])
+    tokens = statement.tokens
+    if similar:
+        new_statement = fixers.replace_token(tokens, tokens[0], similar[0])
+        if fixers.check_statement(new_statement):
+            cause += _("Perhaps you meant to write\n\n    {new_statement}").format(
+                new_statement=new_statement
+            )
+        hint = _("Did you mean `{new_statement}`?").format(new_statement=new_statement)
+    else:
+        new_statement = fixers.replace_token(tokens, tokens[0], "except")
+        with_except = fixers.check_statement(new_statement)
+        new_statement2 = fixers.replace_token(tokens, tokens[0], "finally")
+        with_finally = fixers.check_statement(new_statement2)
+        if with_except and with_finally:
+            cause += _(
+                "Perhaps you meant to write either\n\n"
+                "    {new_statement}"
+                "\n\nor\n\n"
+                "    {new_statement2}"
+            ).format(new_statement=new_statement, new_statement2=new_statement2)
+        elif with_except:
+            cause += _("Perhaps you meant to write\n\n    {new_statement}").format(
+                new_statement=new_statement
+            )
+            hint = _("Did you mean `{new_statement}`?").format(
+                new_statement=new_statement
+            )
+
+    return {"cause": cause, "suggest": hint} if hint else {"cause": cause}
+
+
+@add_python_message
 def expected_paren(message: str = "", statement=None):
     if message != "expected '('":
         return {}
