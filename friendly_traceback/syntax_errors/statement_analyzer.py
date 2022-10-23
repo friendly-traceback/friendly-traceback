@@ -1047,7 +1047,7 @@ def lambda_with_paren(statement):
         )
         return {"cause": cause}
 
-    tokens = list(statement.tokens[0 : statement.bad_token_index])
+    tokens = list(statement.tokens[: statement.bad_token_index])
     tokens.reverse()
     for tok in tokens:
         if tok == "lambda":
@@ -1191,8 +1191,9 @@ def missing_in_with_for(statement):
         return {}
 
     new_statement = fixers.replace_token(
-        statement.statement_tokens, bad_token, "in " + bad_token.string
+        statement.statement_tokens, bad_token, f"in {bad_token.string}"
     )
+
     if fixers.check_statement(new_statement):
         hint = _("Did you forget to write `in`?\n")
         cause = _(
@@ -1290,7 +1291,7 @@ def comprehension_condition_or_tuple(statement):
     )
 
     if statement.bad_token == "else":
-        for tok in statement.tokens[0 : statement.bad_token_index]:
+        for tok in statement.tokens[: statement.bad_token_index]:
             if tok == "for":
                 cause = cause_condition
                 break
@@ -1622,9 +1623,7 @@ def boolean_instead_of_comma(statement):
                 new_statement=new_statement, boolean=bad_token
             )
 
-    if cause:
-        return {"cause": cause}
-    return {}
+    return {"cause": cause} if cause else {}
 
 
 @add_statement_analyzer
@@ -1756,6 +1755,32 @@ def elif_with_no_matching_if(statement):
 
 
 @add_statement_analyzer
+def except_with_no_matching_try(statement):
+    if not (statement.bad_token == statement.first_token == "except"):
+        return {}
+    if fixers.check_statement(statement.bad_line):
+        cause = _(
+            "The `except` keyword does not begin a code block that matches\n"
+            "a `try` block, possibly because `except` is not indented correctly.\n"
+        )
+        return {"cause": cause}
+    return {}
+
+
+@add_statement_analyzer
+def finally_with_no_matching_try(statement):
+    if not (statement.bad_token == statement.first_token == "finally"):
+        return {}
+    if fixers.check_statement(statement.bad_line):
+        cause = _(
+            "The `finally` keyword does not begin a code block that matches\n"
+            "a `try` block, possibly because `finally` is not indented correctly.\n"
+        )
+        return {"cause": cause}
+    return {}
+
+
+@add_statement_analyzer
 def bracket_instead_of_paren(statement):
     if statement.statement_brackets:
         return {}
@@ -1788,7 +1813,7 @@ def bracket_instead_of_paren(statement):
         if fixers.check_statement(new_statement):
             hint = _("You used square brackets, `[...]` instead of parentheses.\n")
             lines = new_statement.split("\n")
-            new_lines = ["    " + line for line in lines]
+            new_lines = [f"    {line}" for line in lines]
             new_statement = "\n".join(new_lines)
             cause = hint + _("Write the following instead:\n\n{new_statement}").format(
                 new_statement=new_statement

@@ -595,6 +595,10 @@ descriptions = {
         in_cause: "with multiple exception types.",
         title: "Parens around multiple exceptions",
     },
+    "except_no_try": {
+        in_cause: "The `except` keyword does not begin a code block that matches",
+        title: "except with no matching try",
+    },
     "extra_token": {in_cause: "wrote `==` by mistake", title: "Extra token"},
     "f_string_assign_value": {  # Python < 3.8
         in_cause: "You are likely trying to assign a value within an f-string.",
@@ -619,6 +623,10 @@ descriptions = {
     "f_string_with_backslash": {
         in_cause: "you can replace the part that contains a backslash",
         title: "f-string with backslash",
+    },
+    "finally_no_try": {
+        in_cause: "The `finally` keyword does not begin a code block that matches",
+        title: "finally with no matching try",
     },
     "for_missing_terms": {
         in_cause: "A `for` loop is an iteration over a sequence",

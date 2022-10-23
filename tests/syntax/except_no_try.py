@@ -1,0 +1,2 @@
+except Exception:
+    pass
