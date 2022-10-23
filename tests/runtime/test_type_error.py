@@ -549,6 +549,25 @@ def test_Not_callable():
 
 
 def test_Derive_from_BaseException():
+    class MyException:
+        pass
+    # silence problem with ASTTokens
+    friendly_traceback.debug_helper.DEBUG = False
+    try:
+        try:
+            1/0
+        except (MyException, BaseException):
+            pass
+    except TypeError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    friendly_traceback.debug_helper.DEBUG = True
+
+    assert "catching classes that do not inherit from BaseException" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "you must only have classes that derive from `BaseException`" in result
+
     try:
         raise "exception"  # noqa
     except TypeError as e:
@@ -558,7 +577,7 @@ def test_Derive_from_BaseException():
 
     assert "TypeError: exceptions must derive from BaseException" in result
     if friendly_traceback.get_lang() == "en":
-        assert "In Python 3, exceptions must be derived from BaseException." in result
+        assert "Exceptions must be derived from `BaseException`." in result
     return result, message
 
 

@@ -416,9 +416,45 @@ def exception_derived_from_base_exception(
 ) -> CauseInfo:
     if "exceptions must derive from BaseException" in message:
         return {
-            "cause": _("In Python 3, exceptions must be derived from BaseException.\n")
+            "cause": _(
+                "Exceptions must be derived from `BaseException`.\n"
+                "It is recommended that user-defined exceptions derive from\n"
+                "`Exception`, a subclass of `BaseException`.\n"
+            )
         }
     return {}
+
+
+@parser._add
+def catch_class_derived_from_base_exception(
+    message: str, tb_data: TracebackData
+) -> CauseInfo:
+    if (
+        "catching classes that do not inherit from BaseException is not allowed"
+        not in message
+    ):
+        return {}
+
+    all_objects = info_variables.get_all_objects(
+        tb_data.bad_line, tb_data.exception_frame
+    )["name, obj"]
+    not_exceptions = [
+        name for name, obj in all_objects if not issubclass(obj, BaseException)
+    ]
+
+    cause = _(
+        "In an `except` statement, you must only have classes that derive from `BaseException`.\n"
+    )
+    if len(not_exceptions) == 1:
+        cause += _("The following is not a valid classes: `{not_exception}`.\n").format(
+            not_exception=not_exceptions[0]
+        )
+    else:
+        cause += _("The following are not valid classes: `{not_exception}`.\n").format(
+            not_exception=utils.list_to_string(not_exceptions)
+        )
+
+    return {"cause": cause}
 
 
 @parser._add
