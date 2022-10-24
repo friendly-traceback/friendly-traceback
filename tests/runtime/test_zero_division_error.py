@@ -214,7 +214,7 @@ def test_Division_by_zero_literal():
         or "ZeroDivisionError: integer modulo by zero" in result
     )
     if friendly_traceback.get_lang() == "en":
-        assert "Using the modulo operator, you are dividing by zero" in result
+        assert "Using the modulo operator, `%`, you are dividing by zero" in result
 
     try:
         1.0 / 0

@@ -17,7 +17,7 @@ def expression_is_zero(
     try:
         if int(expression) == 0:
             if modulo:
-                return _("Using the modulo operator, you are dividing by zero.\n")
+                return _("Using the modulo operator, `%`, you are dividing by zero.\n")
             return _("You are dividing by zero.\n")
     except Exception:  # noqa
         return ""
@@ -83,7 +83,7 @@ def integer_division_or_modulo(message: str, tb_data: TracebackData) -> CauseInf
             cause = expression_is_zero(expression, modulo=True)
             if not cause:
                 cause = _(
-                    "Using the modulo operator, you are dividing by the following term\n\n"
+                    "Using the modulo operator, `%`, you are dividing by the following term\n\n"
                     "    {expression}\n\n"
                     "which is equal to zero.\n"
                 ).format(expression=expression)
@@ -118,7 +118,7 @@ def float_modulo(message: str, tb_data: TracebackData) -> CauseInfo:
         cause = expression_is_zero(expression, modulo=True)
         if not cause:
             cause = _(
-                "Using the modulo operator, you are dividing by the following term\n\n"
+                "Using the modulo operator, `%`, you are dividing by the following term\n\n"
                 "    {expression}\n\n"
                 "which is equal to zero.\n"
             ).format(expression=expression)
