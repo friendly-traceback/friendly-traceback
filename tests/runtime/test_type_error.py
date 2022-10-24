@@ -48,6 +48,18 @@ def test_Can_only_concatenate():
     return result, message
 
 
+def test_Cant_mod_complex_numbers():
+    try:
+        3 + 3j % 2
+    except TypeError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    if friendly_traceback.get_lang() == "en":
+        assert "You cannot use complex numbers with the modulo" in result
+    return result, message
+
+
 def test_divmod():
     a = 2
     b = 3 + 2j
