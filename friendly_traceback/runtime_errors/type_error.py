@@ -488,13 +488,12 @@ def incorrect_nb_positional_arguments(
     if ".<locals>." in fn_name:
         fn_name = fn_name.split(".<locals>.")[1]
     if int(nb_given) - int(nb_required) == 1:
-        # Python 3.10
         if "." in fn_name:
             missing_self = True
         else:
             tokens = token_utils.get_significant_tokens(tb_data.bad_line)
-            prev_token = tokens[0]
             missing_self = False
+            prev_token = tokens[0]
             for token in tokens:
                 if token == fn_name and prev_token == ".":
                     missing_self = True
@@ -802,7 +801,7 @@ def indices_must_be_integers_or_slices(
         return {"cause": cause}
 
     not_index = tb_data.bad_line.replace(container, "", 1).strip()
-    if not (not_index.startswith("[") and not_index.endswith("]")):
+    if not not_index.startswith("[") or not not_index.endswith("]"):
         if additional_cause:
             return {"cause": cause + additional_cause, "suggest": hint}
         return {"cause": cause}
@@ -864,10 +863,7 @@ def indices_must_be_integers_or_slices(
     if len(names) == 1:  # This should usually be the case
         more_cause, hint = forgot_to_convert_name_to_int(names[0])
         cause += "\n" + more_cause
-        if hint is not None:
-            return {"cause": cause, "suggest": hint}
-        return {"cause": cause}
-
+        return {"cause": cause} if hint is None else {"cause": cause, "suggest": hint}
     if additional_cause:
         return {"cause": cause + additional_cause, "suggest": hint}
     return {"cause": cause}
@@ -1207,8 +1203,8 @@ def generator_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
         "in a list:\n\n"
     )
     tokens = token_utils.get_significant_tokens(tb_data.bad_line)
-    nb_open = sum(1 for tok in tokens if tok == "(")
-    nb_close = sum(1 for tok in tokens if tok == ")")
+    nb_open = sum(tok == "(" for tok in tokens)
+    nb_close = sum(tok == ")" for tok in tokens)
     if (
         nb_open == nb_close
         and nb_open >= 1
