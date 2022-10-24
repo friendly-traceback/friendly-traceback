@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-23 09:55-0300\n"
+"POT-Creation-Date: 2022-10-24 10:58-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,21 +120,21 @@ msgstr ""
 msgid "More lines not shown."
 msgstr ""
 
-#: core.py:126 core.py:164
+#: core.py:127 core.py:166
 msgid "Python exception:"
 msgstr ""
 
-#: core.py:178
+#: core.py:180
 msgid ""
 "The exception includes the following note:\n"
 msgstr ""
 
-#: core.py:182
+#: core.py:184
 msgid ""
 "The exception includes the following notes:\n"
 msgstr ""
 
-#: core.py:202
+#: core.py:204
 msgid ""
 "Warning: improperly formed exception.\n"
 "I suspect that a custom exception has been raised\n"
@@ -143,71 +143,71 @@ msgid ""
 "raises an exception or does not return a string.\n"
 msgstr ""
 
-#: core.py:253
+#: core.py:255
 msgid ""
 "The encoding of the file was not valid.\n"
 msgstr ""
 
-#: core.py:333 core.py:354
+#: core.py:335 core.py:356
 msgid ""
 "{filename} is not a regular Python file whose contents can be analyzed.\n"
 msgstr ""
 
-#: core.py:337
+#: core.py:339
 msgid ""
 "If you used `exec`, consider using `friendly_exec` instead.\n"
 msgstr ""
 
-#: core.py:342
+#: core.py:344
 msgid ""
 "Exception raised on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 
-#: core.py:346
+#: core.py:348
 msgid ""
 "Exception raised on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 
-#: core.py:382
+#: core.py:384
 msgid ""
 "Execution stopped on line `{linenumber}` of code block {filename}.\n"
 msgstr ""
 
-#: core.py:386
+#: core.py:388
 msgid ""
 "Execution stopped on line `{linenumber}` of file '{filename}'.\n"
 msgstr ""
 
-#: core.py:410
+#: core.py:412
 msgid "Code block {filename}, line `{line}`"
 msgstr ""
 
-#: core.py:414
+#: core.py:416
 msgid "File '{filename}', line `{line}`"
 msgstr ""
 
-#: core.py:428
+#: core.py:430
 msgid ""
 "The entire content of `{filename}` is not available.\n"
 msgstr ""
 
-#: core.py:442
+#: core.py:444
 msgid ""
 "Python could not understand the code in the code block {filename}\n"
 msgstr ""
 
-#: core.py:446
+#: core.py:448
 msgid ""
 "Python could not understand the code in the file\n"
 "'{filename}'\n"
 msgstr ""
 
-#: core.py:451
+#: core.py:453
 msgid ""
 "at the location indicated.\n"
 msgstr ""
 
-#: core.py:687
+#: core.py:689
 msgid ""
 "Unfortunately, no additional information is available:\n"
 "the content of file '<stdin>' is not accessible.\n"
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Type 'Friendly' for help on special functions/methods."
 msgstr ""
 
-#: ft_gettext.py:81
+#: ft_gettext.py:82
 msgid ""
 "Please report this example to\n"
 "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
@@ -246,23 +246,23 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ft_gettext.py:89
+#: ft_gettext.py:90
 msgid ""
 "Friendly-traceback does not know the cause of this error.\n"
 msgstr ""
 
-#: ft_gettext.py:95
+#: ft_gettext.py:96
 msgid ""
 "No information is known about this exception.\n"
 msgstr ""
 
-#: ft_gettext.py:97
+#: ft_gettext.py:98
 msgid ""
 "If you are using the Friendly console, use `www()` to\n"
 "do an Internet search for this particular case.\n"
 msgstr ""
 
-#: ft_gettext.py:106
+#: ft_gettext.py:107
 msgid ""
 "Internal error for Friendly.\n"
 msgstr ""
@@ -666,7 +666,7 @@ msgid ""
 "If so, you should use a different name for your program.\n"
 msgstr ""
 
-#: runtime_errors\attribute_error.py:42 runtime_errors\import_error.py:67
+#: runtime_errors\attribute_error.py:42 runtime_errors\import_error.py:63
 msgid ""
 "You have a circular import.\n"
 msgstr ""
@@ -696,9 +696,9 @@ msgstr ""
 
 #: runtime_errors\attribute_error.py:98 runtime_errors\attribute_error.py:106
 #: runtime_errors\attribute_error.py:139 runtime_errors\attribute_error.py:405
-#: runtime_errors\import_error.py:110 runtime_errors\key_error.py:187
-#: runtime_errors\key_error.py:194
-#: runtime_errors\module_not_found_error.py:123
+#: runtime_errors\import_error.py:106 runtime_errors\key_error.py:184
+#: runtime_errors\key_error.py:191
+#: runtime_errors\module_not_found_error.py:121
 #: runtime_errors\name_error.py:111 runtime_errors\unbound_local_error.py:54
 #: syntax_errors\message_analyzer.py:459
 #: syntax_errors\message_analyzer.py:1151
@@ -852,7 +852,7 @@ msgid ""
 "Perhaps you meant to write `{obj}.{correct}` instead of `{obj}.{typo}`\n"
 msgstr ""
 
-#: runtime_errors\attribute_error.py:412 runtime_errors\import_error.py:117
+#: runtime_errors\attribute_error.py:412 runtime_errors\import_error.py:113
 msgid ""
 "Did you mean one of the following: `{names}`?\n"
 msgstr ""
@@ -902,33 +902,33 @@ msgid ""
 "`{known_builtin}({obj_name})`."
 msgstr ""
 
-#: runtime_errors\attribute_error.py:509
+#: runtime_errors\attribute_error.py:508
 msgid ""
 "Did you mean `{attr}`?\n"
 msgstr ""
 
-#: runtime_errors\attribute_error.py:510
+#: runtime_errors\attribute_error.py:509
 msgid ""
 "The object `{name}` has no attribute named `{attribute}`.\n"
 msgstr ""
 
-#: runtime_errors\attribute_error.py:514
+#: runtime_errors\attribute_error.py:513
 msgid ""
 "However, `{attr}` is an attribute of `{name}` with a similar meaning.\n"
 msgstr ""
 
-#: runtime_errors\attribute_error.py:518
+#: runtime_errors\attribute_error.py:517
 msgid ""
 "However, `{name}` has the following attributes with similar meanings:\n"
 "`{attributes}`.\n"
 msgstr ""
 
-#: runtime_errors\attribute_error.py:527
+#: runtime_errors\attribute_error.py:526
 msgid ""
 "Did you mean to separate object names by a comma?\n"
 msgstr ""
 
-#: runtime_errors\attribute_error.py:529
+#: runtime_errors\attribute_error.py:528
 msgid ""
 "`{second}` is not an attribute of `{first}`.\n"
 "However, both `{first}` and `{second}` are known objects.\n"
@@ -937,52 +937,52 @@ msgid ""
 msgstr ""
 
 #: runtime_errors\file_not_found_error.py:25
-#: runtime_errors\file_not_found_error.py:39
+#: runtime_errors\file_not_found_error.py:36
 msgid ""
 "In your program, the name of the\n"
 "file that cannot be found is `{filename}`.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:33
+#: runtime_errors\file_not_found_error.py:32
 msgid ""
 "{directory}\n"
 "is not a valid directory.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:44
+#: runtime_errors\file_not_found_error.py:41
 msgid ""
 "It was expected to be found in the\n"
 "`{directory}` directory.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:48
+#: runtime_errors\file_not_found_error.py:45
 msgid ""
 "Did you mean `{similar}`?\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:50
+#: runtime_errors\file_not_found_error.py:47
 msgid ""
 "The file `{similar}` has a similar name.\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:55
+#: runtime_errors\file_not_found_error.py:52
 msgid ""
 "Perhaps you meant one of the following files with similar names:\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:62 runtime_errors\name_error.py:131
+#: runtime_errors\file_not_found_error.py:59 runtime_errors\name_error.py:131
 msgid ""
 "I have no additional information for you.\n"
 msgstr ""
 
-#: runtime_errors\import_error.py:70
+#: runtime_errors\import_error.py:66
 msgid ""
 "The object that could not be imported is `{name}`.\n"
 "The module or package where it was \n"
 "expected to be found is `{module}`.\n"
 msgstr ""
 
-#: runtime_errors\import_error.py:87
+#: runtime_errors\import_error.py:83
 msgid ""
 "Python indicated that you have a circular import.\n"
 "This can occur if executing the code in module 'A'\n"
@@ -991,18 +991,18 @@ msgid ""
 "before the execution of the code in module 'A' had been completed.\n"
 msgstr ""
 
-#: runtime_errors\import_error.py:99
+#: runtime_errors\import_error.py:95
 msgid ""
 "Inconsistent state: `'{module}'` was apparently not imported.\n"
 "As a result, no further analysis can be done.\n"
 msgstr ""
 
-#: runtime_errors\import_error.py:111
+#: runtime_errors\import_error.py:107
 msgid ""
 "Perhaps you meant to import `{correct}` (from `{module}`) instead of `{typo}`\n"
 msgstr ""
 
-#: runtime_errors\import_error.py:120
+#: runtime_errors\import_error.py:116
 msgid ""
 "Instead of trying to import `{typo}` from `{module}`, \n"
 "perhaps you meant to import one of \n"
@@ -1010,12 +1010,12 @@ msgid ""
 "`{candidates}`\n"
 msgstr ""
 
-#: runtime_errors\import_error.py:138
+#: runtime_errors\import_error.py:134
 msgid ""
 "The object that could not be imported is `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\import_error.py:190
+#: runtime_errors\import_error.py:186
 msgid ""
 "The problem was likely caused by what is known as a 'circular import'.\n"
 "First, Python imported and started executing the code in file\n"
@@ -1126,51 +1126,51 @@ msgid ""
 "Missing key `{key}` in a `ChainMap` or in a similar object.\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:140
+#: runtime_errors\key_error.py:137
 msgid ""
 "A `dict` or a similar object which I cannot identify\n"
 "does not have `{key}` as a key.\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:147
+#: runtime_errors\key_error.py:144
 msgid ""
 "The key `{key}` cannot be found in the dict `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:152
+#: runtime_errors\key_error.py:149
 msgid ""
 "The key `{key}` cannot be found in `{name}`, an object of type `{obj_type}`.\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:162
+#: runtime_errors\key_error.py:159
 msgid ""
 "`{name}` contains a string key which is identical to `str({key})`.\n"
 "Perhaps you forgot to convert the key into a string.\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:166
+#: runtime_errors\key_error.py:163
 msgid ""
 "Did you forget to convert `{key}` into a string?\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:175
+#: runtime_errors\key_error.py:172
 msgid ""
 "`{key}` is a string.\n"
 "There is a key of `{name}` whose string representation\n"
 "is identical to `{key}`.\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:180
+#: runtime_errors\key_error.py:177
 msgid ""
 "Did you convert `{key}` into a string by mistake?\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:188
+#: runtime_errors\key_error.py:185
 msgid ""
 "`{name}` is a key of `{dict_}` which is similar to `{key}`.\n"
 msgstr ""
 
-#: runtime_errors\key_error.py:196
+#: runtime_errors\key_error.py:193
 msgid ""
 "`{name}` has some keys similar to `{key}` including:\n"
 "`{names}`.\n"
@@ -1226,34 +1226,34 @@ msgid ""
 "`{rest}` cannot be imported from `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:97
+#: runtime_errors\module_not_found_error.py:95
 msgid ""
 "The curses module is rarely installed with Python on Windows.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:99
+#: runtime_errors\module_not_found_error.py:97
 msgid ""
 "The curses module is often not installed with Python.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:100
+#: runtime_errors\module_not_found_error.py:98
 msgid ""
 "You have tried to import the curses module.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:116
+#: runtime_errors\module_not_found_error.py:114
 msgid ""
 "No module named `{name}` can be imported.\n"
 "Perhaps you need to install it.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:125
+#: runtime_errors\module_not_found_error.py:123
 msgid ""
 "The following existing modules have names that are similar \n"
 "to the module you tried to import: `{names}`\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:130
+#: runtime_errors\module_not_found_error.py:128
 msgid ""
 "`{name}` is an existing module that has a similar name.\n"
 msgstr ""
@@ -1478,7 +1478,7 @@ msgid ""
 "characters, `\\`, by double ones: `\\\\`.\n"
 msgstr ""
 
-#: runtime_errors\runtime_error.py:51
+#: runtime_errors\runtime_error.py:48
 msgid ""
 "While you were iterating over the items of `{name}` ({container_type})\n"
 "in a `{for_while}` loop, you either tried to add or remove items from it.\n"
@@ -1491,7 +1491,7 @@ msgid ""
 "        # Change {name}\n"
 msgstr ""
 
-#: runtime_errors\runtime_error.py:62
+#: runtime_errors\runtime_error.py:59
 msgid ""
 "While you were iterating over the items of a container ({container_type})\n"
 "in a `{for_while}` loop, you either tried to add or remove items from it.\n"
@@ -1509,100 +1509,105 @@ msgid ""
 "Perhaps you forgot to convert the string `{name}` into {number_type}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:76 runtime_errors\type_error.py:90
+#: runtime_errors\type_error.py:71
+msgid ""
+"You cannot use complex numbers with the modulo operator `%`.\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:88 runtime_errors\type_error.py:102
 msgid ""
 "The arguments of `divmod` must be integers (`int`) or real (`float`) numbers.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:81 runtime_errors\type_error.py:94
+#: runtime_errors\type_error.py:93 runtime_errors\type_error.py:106
 msgid ""
 "At least one of the arguments was a complex number.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:111
+#: runtime_errors\type_error.py:123
 msgid ""
 "The second argument of the function `getattr()` must be a string.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:116
+#: runtime_errors\type_error.py:128
 msgid ""
 "The second argument of the function `hasattr()` must be a string.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:119
+#: runtime_errors\type_error.py:131
 msgid ""
 "Some attribute of a function you called is expected to be a string.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:140 runtime_errors\type_error.py:163
+#: runtime_errors\type_error.py:152 runtime_errors\type_error.py:175
 msgid ""
 "You tried to concatenate (add) two different types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:193
+#: runtime_errors\type_error.py:205
 msgid ""
 "You tried to add two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:201
+#: runtime_errors\type_error.py:213
 msgid ""
 "You tried to subtract two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:209
+#: runtime_errors\type_error.py:221
 msgid ""
 "You tried to multiply two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:217
+#: runtime_errors\type_error.py:229
 msgid ""
 "You tried to divide two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:225
+#: runtime_errors\type_error.py:237
 msgid ""
 "You tried to perform the bitwise operation {operator}\n"
 "on two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:240 runtime_errors\type_error.py:843
-#: runtime_errors\type_error.py:954 syntax_errors\statement_analyzer.py:1259
+#: runtime_errors\type_error.py:252 runtime_errors\type_error.py:854
+#: runtime_errors\type_error.py:962 syntax_errors\statement_analyzer.py:1259
 #: syntax_errors\statement_analyzer.py:1535
 msgid ""
 "Did you mean `{line}`?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:241
+#: runtime_errors\type_error.py:253
 msgid ""
 "Outside of Python, `^` is often used to indicate exponentiation.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:244 runtime_errors\type_error.py:846
+#: runtime_errors\type_error.py:256 runtime_errors\type_error.py:857
 msgid ""
 "Perhaps you meant `{line}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:247
+#: runtime_errors\type_error.py:259
 msgid ""
 "You tried to perform the bit shifting operation {operator}\n"
 "on two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:257
+#: runtime_errors\type_error.py:269
 msgid ""
 "You tried to exponentiate (raise to a power)\n"
 "using two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:266
+#: runtime_errors\type_error.py:278
 msgid ""
 "You tried to use the operator {operator}\n"
 "using two incompatible types of objects:\n"
@@ -1611,25 +1616,25 @@ msgid ""
 "for multiplication of matrices.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:301
+#: runtime_errors\type_error.py:313
 msgid ""
 "Complex numbers cannot be ordered.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:302
+#: runtime_errors\type_error.py:314
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two complex numbers.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:308
+#: runtime_errors\type_error.py:320
 msgid ""
 "You tried to do an order comparison ({operator})\n"
 "between two incompatible types of objects:\n"
 "{first} and {second}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:336
+#: runtime_errors\type_error.py:348
 msgid ""
 "`{iter}` is an iterator. You likely needed to write something like\n"
 "\n"
@@ -1639,18 +1644,18 @@ msgid ""
 "before comparing it to {number}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:368
+#: runtime_errors\type_error.py:380
 msgid "Perhaps you meant to write `{operator}=` instead of `={operator}`"
 msgstr ""
 
-#: runtime_errors\type_error.py:372
+#: runtime_errors\type_error.py:384
 msgid ""
 "You tried to use the unary operator '{operator}'\n"
 "with the following type of object: {obj}.\n"
 "This operation is not defined for this type of object.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:398
+#: runtime_errors\type_error.py:410
 msgid ""
 "In Python, some objects are known as immutable:\n"
 "once defined, their value cannot be changed.\n"
@@ -1658,64 +1663,64 @@ msgid ""
 "most likely by using an indexing operation.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:405
+#: runtime_errors\type_error.py:417
 msgid ""
 "Did you mean to use a list?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:406
+#: runtime_errors\type_error.py:418
 msgid ""
 "Perhaps you meant to use a list instead.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:419
+#: runtime_errors\type_error.py:431
 msgid ""
 "Exceptions must be derived from `BaseException`.\n"
 "It is recommended that user-defined exceptions derive from\n"
 "`Exception`, a subclass of `BaseException`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:445
+#: runtime_errors\type_error.py:457
 msgid ""
 "In an `except` statement, you must only have classes that derive from `BaseException`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:449
+#: runtime_errors\type_error.py:461
 msgid ""
 "The following is not a valid classes: `{not_exception}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:453
+#: runtime_errors\type_error.py:465
 msgid ""
 "The following are not valid classes: `{not_exception}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:491
+#: runtime_errors\type_error.py:502
 msgid ""
 "You apparently have called the function `{fn_name}` with\n"
 "{nb_given} positional argument(s) while it requires {nb_required}\n"
 "such positional argument(s).\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:497
+#: runtime_errors\type_error.py:508
 msgid ""
 "Perhaps you forgot `self` when defining `{fn_name}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:517
+#: runtime_errors\type_error.py:528
 msgid ""
 "You apparently have called the function '{fn_name}' with\n"
 "fewer positional arguments than it requires ({nb_required} missing).\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:534 runtime_errors\type_error.py:920
+#: runtime_errors\type_error.py:545 runtime_errors\type_error.py:928
 #: warning_parsers\syntax_warning.py:21 warning_parsers\syntax_warning.py:69
 msgid ""
 "\n"
 "Note: `NoneType` means that the object has a value of `None`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:541 warning_parsers\syntax_warning.py:27
+#: runtime_errors\type_error.py:552 warning_parsers\syntax_warning.py:27
 msgid ""
 "Python indicates that you have an object of type `{obj_type}`,\n"
 "followed by something surrounded by parentheses, `(...)`,\n"
@@ -1724,14 +1729,14 @@ msgid ""
 "or you forgot a comma before `(...)`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:563
+#: runtime_errors\type_error.py:574
 msgid ""
 "The parenthesis `()` following `{obj_name}` are interpreted\n"
 "by Python as a function call for `{obj_name}`.\n"
 "However, `{obj_name}` is not a function but an object of type `{obj_type}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:570
+#: runtime_errors\type_error.py:581
 msgid ""
 "Because of the surrounding parenthesis, `{fn_call}` \n"
 "is interpreted by Python as indicating a function call for \n"
@@ -1740,7 +1745,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:583
+#: runtime_errors\type_error.py:594
 msgid ""
 "However, `{fn_call}` is a `tuple`.\n"
 "Either the object `{obj_name}` was meant to be a function\n"
@@ -1749,81 +1754,81 @@ msgid ""
 "`{obj_name}, {fn_call}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:590
+#: runtime_errors\type_error.py:601
 msgid ""
 "Did you forget a comma between `{obj_name}` and `{fn_call}`?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:596
+#: runtime_errors\type_error.py:607
 msgid ""
 "However, `{obj_name}` is a sequence.\n"
 "Perhaps you meant to use `[]` instead of `()` and write\n"
 "`{obj_name}[{slice}]`\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:601
+#: runtime_errors\type_error.py:612
 msgid ""
 "Did you mean `{obj_name}[{slice}]`?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:612
+#: runtime_errors\type_error.py:623
 msgid ""
 "However, both `{obj_name}` and `{fn_call}` are numbers.\n"
 "Perhaps you forgot a multiplication operator, `*`,\n"
 "and meant to write `{obj_name} * {fn_call}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:617
+#: runtime_errors\type_error.py:628
 msgid ""
 "Did you mean `{obj_name} * {fn_call}`?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:629
+#: runtime_errors\type_error.py:640
 msgid ""
 "Did you forget to convert `{name}` into an integer?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:630
+#: runtime_errors\type_error.py:641
 msgid ""
 "Perhaps you forgot to convert `{name}` into an integer.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:642
+#: runtime_errors\type_error.py:653
 msgid ""
 "You can only multiply sequences, such as list, tuples,\n"
 " strings, etc., by integers.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:664
+#: runtime_errors\type_error.py:675
 msgid ""
 "Did you forget to convert `{name1}` and `{name2}` into integers?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:667
+#: runtime_errors\type_error.py:678
 msgid ""
 "Perhaps you forgot to convert `{name1}` and `{name2}` into integers.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:703
+#: runtime_errors\type_error.py:714
 msgid ""
 "You wrote an object whose value is `None` where an integer was expected.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:713
+#: runtime_errors\type_error.py:724
 msgid ""
 "You wrote an object of type `{obj}` where an integer was expected.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:723
+#: runtime_errors\type_error.py:734
 msgid ""
 "Did you forget to convert `{names}` into integers?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:726
+#: runtime_errors\type_error.py:737
 msgid "Perhaps you forgot to convert `{names}` into integers."
 msgstr ""
 
-#: runtime_errors\type_error.py:749
+#: runtime_errors\type_error.py:760
 msgid ""
 "In the expression `{line}`\n"
 "what is included between the square brackets, `[...]`,\n"
@@ -1832,39 +1837,39 @@ msgid ""
 "and you have used {obj_type} instead.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:760
+#: runtime_errors\type_error.py:771
 msgid ""
 "Note: sometimes this exception is raised because what Python\n"
 "interprets as indices was meant to be a separate list, and a comma\n"
 "should have been written before the opening `[` of that list.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:765 syntax_errors\statement_analyzer.py:1159
+#: runtime_errors\type_error.py:776 syntax_errors\statement_analyzer.py:1159
 #: syntax_errors\statement_analyzer.py:1531
 msgid ""
 "Did you forget a comma?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:800
+#: runtime_errors\type_error.py:811
 msgid ""
 "Perhaps you have forgotten a comma between two identical lists\n"
 "`{container}`. The second list had been interpreted as\n"
 "the indexation of the first one by the index `{new_index}`\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:806
+#: runtime_errors\type_error.py:817
 msgid ""
 "Perhaps you have forgotten a comma between the object `{container}`\n"
 "and the list `{index}`.  The list `{index}` had been interpreted as\n"
 "the indexation of object `{container}` by the index `{new_index}`\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:811
+#: runtime_errors\type_error.py:822
 msgid ""
 "Did you forget a comma before `{index}`?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:873
+#: runtime_errors\type_error.py:881
 msgid ""
 "When using a slice to extract a range of elements\n"
 "from a sequence, that is something like\n"
@@ -1873,7 +1878,7 @@ msgid ""
 "or possibly some other object having an `__index__` method.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:890
+#: runtime_errors\type_error.py:898
 msgid ""
 "Only hashable objects can be used\n"
 "as elements of `set` or keys of `dict`.\n"
@@ -1881,119 +1886,119 @@ msgid ""
 "once they have been created."
 msgstr ""
 
-#: runtime_errors\type_error.py:900
+#: runtime_errors\type_error.py:908
 msgid ""
 "Instead of using {original}, consider using {replacement}.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:926 warning_parsers\syntax_warning.py:75
+#: runtime_errors\type_error.py:934 warning_parsers\syntax_warning.py:75
 msgid ""
 "Subscriptable objects are typically containers from which\n"
 "you can retrieve item using the notation `[...]`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:938 warning_parsers\syntax_warning.py:79
+#: runtime_errors\type_error.py:946 warning_parsers\syntax_warning.py:79
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from an object of type `{obj_type}` which is not allowed.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:955
+#: runtime_errors\type_error.py:963
 msgid ""
 "Perhaps you meant to write `{line}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:958
+#: runtime_errors\type_error.py:966
 msgid ""
 "Using this notation, you attempted to retrieve an item\n"
 "from `{name}`, an object of type `{obj_type}`. This is not allowed.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:992
+#: runtime_errors\type_error.py:1000
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables.\n"
 "'{obj_name}' is not a container. A container is required here.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1007
+#: runtime_errors\type_error.py:1015
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables.\n"
 "An iterable is required here.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1022 runtime_errors\value_error.py:25
+#: runtime_errors\type_error.py:1030 runtime_errors\value_error.py:25
 msgid ""
 "Unpacking is a convenient way to assign a name,\n"
 "to each item of an iterable.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1026
+#: runtime_errors\type_error.py:1034
 msgid ""
 "An iterable is an object capable of returning its members one at a time.\n"
 "Python containers (`list, tuple, dict`, etc.) are iterables,\n"
 "but not objects of type `{obj_type}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1041
+#: runtime_errors\type_error.py:1049
 msgid ""
 "{function} does not accept a sequence as an argument.\n"
 "Instead of writing `{line}`\n"
 "perhaps you should use the `dict.fromkeys()` method: `{new_line}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1046
+#: runtime_errors\type_error.py:1054
 msgid ""
 "Perhaps you need to use the `dict.fromkeys()` method.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1084 runtime_errors\type_error.py:1108
+#: runtime_errors\type_error.py:1092 runtime_errors\type_error.py:1116
 msgid ""
 "Did you forget to call `{name}`?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1085 runtime_errors\type_error.py:1109
+#: runtime_errors\type_error.py:1093 runtime_errors\type_error.py:1117
 msgid ""
 "I suspect that you forgot to add parentheses to call `{name}`.\n"
 "You might have meant to write:\n"
 "`{line}`\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1123
+#: runtime_errors\type_error.py:1131
 msgid ""
 "The function `vars` is used to list the content of the\n"
 "`__dict__` attribute of an object.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1132
+#: runtime_errors\type_error.py:1140
 msgid ""
 "Object `{name}` uses `__slots__` instead of `__dict__`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1136
+#: runtime_errors\type_error.py:1144
 msgid ""
 "`{name}`, the argument of `vars`, is an object without such an attribute.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1157
+#: runtime_errors\type_error.py:1165
 msgid ""
 "You have specified the value of argument `{argument}` more than once\n"
 "when calling the function named `{function}`.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1178
+#: runtime_errors\type_error.py:1186
 msgid ""
 "This function has only one argument: `{arguments}`\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1182
+#: runtime_errors\type_error.py:1190
 msgid ""
 "This function has the following arguments:\n"
 "`{arguments}`\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1192
+#: runtime_errors\type_error.py:1200
 msgid ""
 "I am guessing that you were trying to count the number of elements\n"
 "produced by a generator expression. You first need to capture them\n"
@@ -2001,12 +2006,12 @@ msgid ""
 "\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1213
+#: runtime_errors\type_error.py:1221
 msgid ""
 "    {new_line}\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1214
+#: runtime_errors\type_error.py:1222
 msgid ""
 "You likely need to build a list first.\n"
 msgstr ""
@@ -2102,107 +2107,107 @@ msgid ""
 "`{value}` is an invalid argument for `int()` in base `{base}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:162
+#: runtime_errors\value_error.py:159
 msgid ""
 "The following characters are not allowed: `{invalid}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:174
+#: runtime_errors\value_error.py:171
 msgid ""
 "When base `0` is specified, `int()` expects the argument\n"
 "to be an integer literal, written in\n"
 "base 2 (`0b...`), 8 (`0o...`), 10, or 16 (`0x...`).\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:180
+#: runtime_errors\value_error.py:177
 msgid ""
 "In base `{base}`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `{max_n}` into an integer.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:185
+#: runtime_errors\value_error.py:182
 msgid ""
 "In base `11`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letter `'a'` into an integer.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:190
+#: runtime_errors\value_error.py:187
 msgid ""
 "In base `base`, `int()` is most often use to convert a string\n"
 "containing the digits `0` to `9` and the letters\n"
 "from `'a'` to `'{max_n}'` into an integer.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:206
+#: runtime_errors\value_error.py:203
 msgid ""
 "You need to convert `'{value}'` to a float first.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:207
+#: runtime_errors\value_error.py:204
 msgid ""
 "The string `'{value}'` needs to be first converted using `float()`\n"
 "before the result can be converted into an integer using `int()`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:219
+#: runtime_errors\value_error.py:216
 msgid ""
 "The argument `base` of `int()` must be either zero\n"
 "or any integer from 2 to 36.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:227
+#: runtime_errors\value_error.py:224
 msgid ""
 "You wrote {base} which is not allowed.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:238
+#: runtime_errors\value_error.py:235
 msgid ""
 "Did you specify an invalid month?\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:239
+#: runtime_errors\value_error.py:236
 msgid ""
 "I am guessing that you specify an invalid value for a month\n"
 "in a `date` object. Valid values are integers, from 1 to 12.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:256
+#: runtime_errors\value_error.py:253
 msgid ""
 "The string `{string}` cannot be converted to a `float`\n"
 "as it does not represent a number.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:272
+#: runtime_errors\value_error.py:269
 msgid ""
 "The name `{var}` is used both as the name of a class variable\n"
 "and as a string item in the class `__slots__`;\n"
 "this is not allowed.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:284
+#: runtime_errors\value_error.py:281
 msgid ""
 "The third argument of the function `pow()` cannot be zero.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:313
+#: runtime_errors\value_error.py:310
 msgid ""
 "I do not recognize this error message.\n"
 "I am guessing that the problem is with the function `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:319
+#: runtime_errors\value_error.py:316
 msgid ""
 "Its docstring is:\n"
 "\n"
 "{docstring}\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:323
+#: runtime_errors\value_error.py:320
 msgid ""
 "I have no more information.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:333
+#: runtime_errors\value_error.py:330
 msgid ""
 "The value you gave for the time is not in the format you specified.\n"
 "Make sure to use the same separator between items\n"
@@ -2213,24 +2218,24 @@ msgid ""
 "The following site might also be useful: https://www.strfti.me/\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:368
+#: runtime_errors\value_error.py:365
 msgid ""
 "You have attempted to remove `{item}` from the list `{the_list}`.\n"
 "However, `{the_list}` does not contain `{item}`.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:373
+#: runtime_errors\value_error.py:370
 msgid ""
 "You have attempted to remove an item from the list `{the_list}`.\n"
 "However, `{the_list}` does not contain that item.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:378
+#: runtime_errors\value_error.py:375
 msgid ""
 "You have attempted to remove an item a list that does not contain such an item.\n"
 msgstr ""
 
-#: runtime_errors\value_error.py:394
+#: runtime_errors\value_error.py:391
 msgid ""
 "An explanation of `{exception}` already exists.\n"
 "If you think that a better explanation can be given, please file an issue.\n"
@@ -2238,7 +2243,7 @@ msgstr ""
 
 #: runtime_errors\zero_division_error.py:20
 msgid ""
-"Using the modulo operator, you are dividing by zero.\n"
+"Using the modulo operator, `%`, you are dividing by zero.\n"
 msgstr ""
 
 #: runtime_errors\zero_division_error.py:21
@@ -2271,7 +2276,7 @@ msgstr ""
 #: runtime_errors\zero_division_error.py:85
 #: runtime_errors\zero_division_error.py:120
 msgid ""
-"Using the modulo operator, you are dividing by the following term\n"
+"Using the modulo operator, `%`, you are dividing by the following term\n"
 "\n"
 "    {expression}\n"
 "\n"
