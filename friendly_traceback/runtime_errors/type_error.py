@@ -63,6 +63,18 @@ def _convert_str_to_number(
 
 
 @parser._add
+def cant_mod_complex_number(message: str, tb_data: TracebackData) -> CauseInfo:
+    valid_message = "can't mod complex numbers" in message or (
+        "unsupported operand type(s) for %:" in message and "complex" in message
+    )
+    return (
+        {"cause": _("You cannot use complex numbers with the modulo operator `%`.\n")}
+        if valid_message
+        else {}
+    )
+
+
+@parser._add
 def cant_take_floor_or_mod_of_complex_number(
     message: str, tb_data: TracebackData
 ) -> CauseInfo:
