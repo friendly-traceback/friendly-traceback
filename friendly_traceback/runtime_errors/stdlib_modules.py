@@ -2,9 +2,12 @@
 that do not start with an underscore.
 
 This list is not authoritative but should be good enough.
-"""
 
+Note that some module might not be found on some platform.
+See function ``module_exists`` at the end.
+"""
 import sys
+from importlib.util import find_spec
 
 if hasattr(sys, "stdlib_module_names"):  # Python 3.10+
     # convert to set from frozenset, so we can add mocks for tests.
@@ -236,3 +239,11 @@ else:
         "zlib",
         "zoneinfo",
     }
+
+
+def module_exists(name):
+    found = False
+    if name in names:
+        name_spec = find_spec(name)
+        found = name_spec is not None
+    return found

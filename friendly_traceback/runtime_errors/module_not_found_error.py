@@ -111,6 +111,10 @@ def no_module_named(message: str, _tb_data: TracebackData) -> CauseInfo:
         return curses_no_found()
 
     similar = get_similar_words(name, stdlib_modules.names)
+    similar = [
+        mod_name for mod_name in similar if stdlib_modules.module_exists(mod_name)
+    ]
+
     cause = _(
         "No module named `{name}` can be imported.\n"
         "Perhaps you need to install it.\n"

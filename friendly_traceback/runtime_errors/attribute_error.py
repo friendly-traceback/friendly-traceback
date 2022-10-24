@@ -28,7 +28,7 @@ def circular_import(message: str, _tb_data: TracebackData) -> CauseInfo:
         return {}
     module = match[1]
 
-    if module in stdlib_modules.names:
+    if stdlib_modules.module_exists(module):
         hint = _("Did you give your program the same name as a Python module?\n")
         cause = _(
             "I suspect that you used the name `{module}.py` for your program\n"
@@ -75,7 +75,7 @@ def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo
             "attribute named `{attribute}`.\n"
             "However, it does not appear that module `{module}` was imported.\n"
         ).format(module=module, attribute=attribute)
-        if module in stdlib_modules.names:
+        if stdlib_modules.module_exists(module):
             hint = _("Did you give your program the same name as a Python module?\n")
             cause += _(
                 "I suspect that you used the name `{module}.py` for your program\n"
@@ -111,7 +111,7 @@ def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo
         ).format(names=names, typo=attribute, module=module)
         return {"cause": cause, "suggest": hint}
 
-    if module in stdlib_modules.names and hasattr(mod, "__file__"):
+    if stdlib_modules.module_exists(module) and hasattr(mod, "__file__"):
         mod_path = path_utils.shorten_path(mod.__file__)
         if not mod_path.startswith("PYTHON_LIB:"):
             hint = _("Did you give your program the same name as a Python module?\n")

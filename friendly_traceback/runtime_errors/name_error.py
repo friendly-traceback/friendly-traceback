@@ -210,7 +210,7 @@ def is_stdlib_module(name: str) -> CauseInfo:
     We're looking for something like name.attribute"""
     # Some Python 2 libraries used names with uppercase letters.
     lowercase = name.lower()
-    if name in stdlib_modules.names or lowercase in stdlib_modules.names:
+    if stdlib_modules.module_exists(name) or stdlib_modules.module_exists(lowercase):
         hint = _("Did you forget to import `{name}`?\n").format(name=lowercase)
         cause = (
             "\n"
