@@ -90,11 +90,10 @@ class FriendlyTracebackConsole(InteractiveConsole):
         session.suggest_console = ""
 
     def interact(self, banner=None, exitmsg=None) -> None:
-        if not session.exception_before_import:
-            if did_exception_occur_before():
-                print(banner)
-                banner = ""
-                friendly_tb()
+        if not session.exception_before_import and did_exception_occur_before():
+            print(banner)
+            banner = ""
+            friendly_tb()
         super().interact(banner=banner, exitmsg=exitmsg)
 
     def push(self, line: str) -> bool:

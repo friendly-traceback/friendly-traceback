@@ -40,7 +40,7 @@ class LangState:
         try:
             # We first look for the exact language requested.
             _lang = gettext.translation(
-                "friendly_tb_" + lang,
+                f"friendly_tb_{lang}",
                 localedir=os.path.normpath(
                     os.path.join(os.path.dirname(__file__), "locales")
                 ),
@@ -53,7 +53,7 @@ class LangState:
             # generic version, such as fr, defined by a two-letter code.
             lang = lang[:2]
             _lang = gettext.translation(
-                "friendly_tb_" + lang,
+                f"friendly_tb_{lang}",
                 localedir=os.path.normpath(
                     os.path.join(os.path.dirname(__file__), "locales")
                 ),
@@ -62,6 +62,7 @@ class LangState:
                 # the source file will be used if the requested language
                 # is not available.
             )
+
         self.lang = lang
         self._translate = _lang.gettext
 
@@ -102,5 +103,5 @@ def no_information() -> str:
 
 
 def internal_error(e: Optional[BaseException]) -> str:
-    debug_helper.log("--> Internal error: " + repr(e))
+    debug_helper.log(f"--> Internal error: {repr(e)}")
     return _("Internal error for Friendly.\n") + please_report()

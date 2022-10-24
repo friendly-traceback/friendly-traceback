@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Any, Callable, Dict, List, Tuple, TypeVar, Uni
 if TYPE_CHECKING:
     from _typeshed import StrPath
 
-    from .core import TracebackData
+    from .tb_data import TracebackData
 else:
     StrPath = Union[str, os.PathLike]
 

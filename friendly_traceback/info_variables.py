@@ -452,11 +452,11 @@ def safe_repr(obj: Any) -> str:
         obj_repr = str(obj.true_repr())
         # wrapped in str() for added security in case someone
         # else uses an attribute called true_repr
-    except Exception:  # skipcq: PYL-W0703 - see PR #201 ...
+    except Exception:  # skipcq: PYL-W0703 - see PR #201 ... # noqa
         # ... we ignore any attribute access failures here, not only AttributeError
         try:
             obj_repr = repr(obj)
-        except Exception:  # issue #161: repr not returning a string
+        except Exception:  # issue #161: repr not returning a string  # noqa
             obj_repr = str(type(obj))
     return obj_repr
 
@@ -543,7 +543,7 @@ def get_similar_names(name: str, frame: types.FrameType) -> SimilarNamesInfo:
     """
     similar: SimilarNamesInfo = {}
     # We need to first combine the candidates from all possible sources
-    # so as to treat them on an equal footing.
+    # to treat them on an equal footing.
     locals_ = list(frame.f_locals.keys())
     globals_ = list(frame.f_globals.keys())
     builtins_ = dir(builtins)
