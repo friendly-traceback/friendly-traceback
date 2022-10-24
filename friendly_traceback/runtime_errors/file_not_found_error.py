@@ -28,12 +28,9 @@ def no_such_file_or_directory(
     ).format(filename=filename)
     if not dir_:
         dir_ = os.getcwd()
-    else:
-        if not os.path.isdir(dir_):
-            cause += _("{directory}\nis not a valid directory.\n").format(
-                directory=dir_
-            )
-            return {"cause": cause}
+    elif not os.path.isdir(dir_):
+        cause += _("{directory}\nis not a valid directory.\n").format(directory=dir_)
+        return {"cause": cause}
     all_files = os.listdir(dir_)
     all_similar = get_similar_words(filename, all_files)
     cause = _(

@@ -65,7 +65,7 @@ def integer_division_or_modulo(message: str, tb_data: TracebackData) -> CauseInf
     nb_div = expression.count("//")
     nb_mod = expression.count("%")
     nb_divmod = expression.count("divmod")
-    if nb_div and not (nb_mod or nb_divmod):
+    if nb_div and not nb_mod and not nb_divmod:
         if nb_div == 1:
             expression = expression.split("//")[1]
             cause = expression_is_zero(expression)
@@ -77,7 +77,7 @@ def integer_division_or_modulo(message: str, tb_data: TracebackData) -> CauseInf
                 ).format(expression=expression)
         else:
             cause = expression_includes_division_by_zero(expression)
-    elif nb_mod and not (nb_div or nb_divmod):
+    elif nb_mod and not nb_div and not nb_divmod:
         if nb_mod == 1:
             expression = expression.split("%")[1]
             cause = expression_is_zero(expression, modulo=True)
@@ -89,7 +89,7 @@ def integer_division_or_modulo(message: str, tb_data: TracebackData) -> CauseInf
                 ).format(expression=expression)
         else:
             cause = expression_includes_division_by_zero(expression)
-    elif nb_divmod and not (nb_div or nb_mod):
+    elif nb_divmod and not nb_div and not nb_mod:
         cause = _("The second argument of the `divmod()` function is zero.\n")
     else:
         cause = expression_includes_division_by_zero(expression)

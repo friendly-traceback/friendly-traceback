@@ -87,9 +87,7 @@ def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
             rest=rest, name=name
         )
 
-    if hint:
-        return {"cause": cause, "suggest": hint}
-    return {"cause": cause}
+    return {"cause": cause, "suggest": hint} if hint else {"cause": cause}
 
 
 def curses_no_found() -> CauseInfo:

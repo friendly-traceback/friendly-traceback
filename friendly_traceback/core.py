@@ -123,8 +123,10 @@ class FriendlyTraceback:
             raise SystemExit
         self.tb = tb
         self.suppressed = ["       ... " + _("More lines not shown.") + " ..."]
-        self.info = {"header": _("Python exception:")}  # Used by HackInScience
-        self.info["lang"] = session.lang
+        self.info = {
+            "header": _("Python exception:"),  # Used by HackInScience
+            "lang": session.lang,
+        }
         self.message = self.assign_message(etype, value)  # language independent
         self.assign_tracebacks()
         # include the value for debugging purpose in an interactive session ...

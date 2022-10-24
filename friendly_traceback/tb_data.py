@@ -34,7 +34,7 @@ def convert_value_to_message(value: BaseException) -> str:
 
 
 def retrieve_message(etype: Type[_E], value: _E, tb: types.TracebackType) -> str:
-    "Safely retrieves the message, including any additional hint from Python."
+    """Safely retrieves the message, including any additional hint from Python."""
     message = convert_value_to_message(value)
     if (
         message == STR_FAILED
@@ -73,6 +73,8 @@ class TracebackData(Generic[_E]):
         self.formatted_tb = traceback.format_exception(etype, value, tb)
         self.records = self.get_records(tb)
         self.python_records = self.get_records(tb, python_excluded=False)
+        # The following attribute gets its value in core.py
+        self.simulated_python_traceback: Optional[str] = None
 
         # The following three attributes get their correct values in get_source_info()
         self.bad_line = "\n"
@@ -98,9 +100,9 @@ class TracebackData(Generic[_E]):
 
             def remove_space(text: str) -> str:
                 if text.rstrip():
-                    if text.endswith("\n"):
-                        return text.rstrip() + "\n"
-                    return text.rstrip()
+                    return (
+                        text.rstrip() + "\n" if text.endswith("\n") else text.rstrip()
+                    )
                 return text
 
             self.statement.entire_statement = remove_space(
@@ -118,6 +120,28 @@ class TracebackData(Generic[_E]):
         from our own code that are included either at the beginning or
         at the end of the traceback.
         """
+
+        def trim_records(complete_records):
+            partial_records = list(
+                dropwhile(
+                    lambda record: is_excluded_file(
+                        record.filename, python_excluded=python_excluded
+                    ),
+                    complete_records,
+                )
+            )
+            partial_records.reverse()
+            partial_records = list(
+                dropwhile(
+                    lambda record: is_excluded_file(
+                        record.filename, python_excluded=python_excluded
+                    ),
+                    partial_records,
+                )
+            )
+            partial_records.reverse()
+            return partial_records
+
         try:
             all_records = list(
                 FrameInfo.stack_data(
@@ -126,48 +150,14 @@ class TracebackData(Generic[_E]):
                     collapse_repeated_frames=False,
                 )
             )
-            records = list(
-                dropwhile(
-                    lambda record: is_excluded_file(
-                        record.filename, python_excluded=python_excluded
-                    ),
-                    all_records,
-                )
-            )
-            records.reverse()
-            records = list(
-                dropwhile(
-                    lambda record: is_excluded_file(
-                        record.filename, python_excluded=python_excluded
-                    ),
-                    records,
-                )
-            )
-            records.reverse()
+            records = trim_records(all_records)
             if records or issubclass(self.exception_type, (SyntaxError, MemoryError)):
                 return records
         except AssertionError:  # from stack_data
-            # problems may arise when SyntaxErrors are raise
+            # problems may arise when SyntaxErrors are raised
             # from a normal console like the one used in Mu.
             all_records = inspect.getinnerframes(tb, cache.context)
-            records = list(
-                dropwhile(
-                    lambda record: is_excluded_file(
-                        record.filename, python_excluded=python_excluded
-                    ),
-                    all_records,
-                )
-            )
-            records.reverse()
-            records = list(
-                dropwhile(
-                    lambda record: is_excluded_file(
-                        record.filename, python_excluded=python_excluded
-                    ),
-                    records,
-                )
-            )
-            records.reverse()
+            records = trim_records(all_records)
             if records or issubclass(self.exception_type, (SyntaxError, MemoryError)):
                 return records
         # If all the records are removed, it likely means that all the error
@@ -250,8 +240,8 @@ class TracebackData(Generic[_E]):
         def _log_error() -> None:  # pragma: no cover
             debug_helper.log("Internal error in TracebackData.get_source_info.")
             debug_helper.log("No records found.")
-            debug_helper.log("self.exception_type:" + str(self.exception_type))
-            debug_helper.log("self.value:" + str(self.value))
+            debug_helper.log(f"self.exception_type:{str(self.exception_type)}")
+            debug_helper.log(f"self.value:{str(self.value)}")
             debug_helper.log_error()
 
         _log_error()  # pragma: no cover

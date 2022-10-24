@@ -36,10 +36,7 @@ def container_changed_size_during_iteration(
             names.append(name)
 
     tokens = token_utils.tokenize(tb_data.bad_line)
-    loop_keywords = []
-    for tok in tokens:
-        if tok.string in {"for", "while"}:
-            loop_keywords.append(tok.string)
+    loop_keywords = [tok.string for tok in tokens if tok.string in {"for", "while"}]
 
     loop_keywords = set(loop_keywords)
     if len(loop_keywords) == 1:

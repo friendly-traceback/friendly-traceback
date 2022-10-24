@@ -419,10 +419,10 @@ def handle_attribute_typo(
 
 
 def perhaps_builtin(attribute: str, known_attributes: Iterable[str]) -> Optional[str]:
-    if attribute in ["min", "max", "sorted", "reversed", "sum"]:
+    if attribute in {"min", "max", "sorted", "reversed", "sum"}:
         return attribute
     elif (
-        attribute in ["len", "length", "lenght", "size"]  # noqa
+        attribute in {"len", "length", "lenght", "size"}  # noqa
         and "__len__" in known_attributes
     ):
         return "len"
@@ -485,11 +485,10 @@ def use_builtin_function(
 
 
 def perhaps_join(obj: Any) -> bool:
-    if hasattr(obj, "__iter__") or (
-        hasattr(obj, "__getitem__") and hasattr(obj, "__len__")
-    ):
-        return True
-    return False
+    return bool(
+        hasattr(obj, "__iter__")
+        or (hasattr(obj, "__getitem__") and hasattr(obj, "__len__"))
+    )
 
 
 def perhaps_synonym(

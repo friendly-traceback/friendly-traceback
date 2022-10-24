@@ -103,15 +103,12 @@ def missing_key_in_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
 @parser._add
 def missing_key_in_dict(_message: str, tb_data: TracebackData) -> CauseInfo:
     value = tb_data.value
-    key = value.args[0]
     bad_line = tb_data.bad_line.strip()
     frame = tb_data.exception_frame
     if bad_line.startswith("raise "):
         return {}
-    if str(key) not in bad_line:
-        return {}
-
-    return analyze_missing_key(key, frame, bad_line)
+    key = value.args[0]
+    return {} if str(key) not in bad_line else analyze_missing_key(key, frame, bad_line)
 
 
 @parser._add

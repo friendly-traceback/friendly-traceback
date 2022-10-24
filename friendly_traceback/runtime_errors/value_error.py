@@ -153,10 +153,7 @@ def invalid_literal_for_int(message: str, _tb_data: TracebackData) -> CauseInfo:
             convert = char.lower()
         else:
             convert = unicodedata.numeric(char, None)
-            if convert is not None:
-                convert = str(int(convert))
-            else:
-                convert = char
+            convert = str(int(convert)) if convert is not None else char
         if convert not in valid and char not in invalid:
             invalid.append(char)
     invalid = _("The following characters are not allowed: `{invalid}`.\n").format(

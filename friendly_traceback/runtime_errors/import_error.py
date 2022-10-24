@@ -39,9 +39,7 @@ def _cannot_import_name_from(message: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.7+
     pattern = re.compile(r"cannot import name '(.*)' from '(.*)'")
     match = re.search(pattern, message)
-    if not match:
-        return {}
-    return cannot_import_name_from(match[1], match[2], tb_data)
+    return cannot_import_name_from(match[1], match[2], tb_data) if match else {}
 
 
 @parser._add
@@ -49,9 +47,7 @@ def _cannot_import_name(message: str, tb_data: TracebackData) -> CauseInfo:
     # Python 3.6 does not give us more information
     pattern = re.compile(r"cannot import name '(.*)'")
     match = re.search(pattern, message)
-    if not match:  # pragma: no cover
-        return {}
-    return cannot_import_name(match[1], tb_data)
+    return cannot_import_name(match[1], tb_data) if match else {}
 
 
 def cannot_import_name_from(
@@ -162,12 +158,12 @@ def extract_import_data_from_traceback(tb_data: TracebackData) -> Modules:
         match_import = re.search(pattern_import, line)
 
         if match_file:
-            current_file = path_utils.shorten_path(match_file.group(1))
+            current_file = path_utils.shorten_path(match_file[1])
         elif match_from or match_import:
             if match_from:
-                modules_imported.append((current_file, match_from.group(1)))
+                modules_imported.append((current_file, match_from[1]))
             else:
-                module = match_import.group(1)
+                module = match_import[1]
                 if "," in module:  # multiple modules imported on same line
                     modules = module.split(",")
                     for mod in modules:
