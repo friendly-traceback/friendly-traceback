@@ -14,7 +14,8 @@ def test_Generic():
     assert "AssertionError" in result
     if friendly_traceback.get_lang() == "en":
         assert "an `AssertionError` is raised." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

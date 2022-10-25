@@ -16,7 +16,8 @@ def test_Popitem_empty_dict():
         expected = "You tried to retrieve an item from `d` which is an empty `dict`."
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Popitem_empty_ChainMap():
@@ -34,7 +35,8 @@ def test_Popitem_empty_ChainMap():
         expected = "You tried to retrieve an item from `alpha` which is an empty `ChainMap`."
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 
@@ -52,7 +54,8 @@ def test_Generic_key_error():
         expected = "The key `'c'` cannot be found in the dict `d`.\n"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_ChainMap():
@@ -70,7 +73,8 @@ def test_ChainMap():
         expected = "The key `42` cannot be found in `d`, an object of type `ChainMap`."
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def chain_map_string_by_mistake():
@@ -106,7 +110,8 @@ def test_String_by_mistake():
         expected = "Did you convert `(0, 0)` into a string by mistake?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Forgot_to_convert_to_string():
@@ -123,7 +128,8 @@ def test_Forgot_to_convert_to_string():
         expected = "Did you forget to convert `2` into a string?"
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Similar_names():
@@ -163,8 +169,5 @@ def test_Similar_names():
         ok, diff = expected_in_result(expected, result)
         assert ok, diff
 
-    return result, message
-
-
-if __name__ == "__main__":
-    print(test_Generic()[0])
+    if friendly_traceback._writing_docs:
+        return result, message

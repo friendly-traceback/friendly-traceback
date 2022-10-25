@@ -32,7 +32,8 @@ def test_Generic():
     assert "AttributeError: type object 'A' has no attribute 'x'" in result
     if friendly_traceback.get_lang() == "en":
         assert "The object `A` has no attribute" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Generic_different_frame():
@@ -56,7 +57,8 @@ def test_Generic_different_frame():
     if friendly_traceback.get_lang() == "en":
         assert "The object `a` has no attribute" in result
         assert "Did you mean `attr2`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Generic_instance():
@@ -73,7 +75,8 @@ def test_Generic_instance():
     assert "AttributeError: 'A' object has no attribute 'x'" in result
     if friendly_traceback.get_lang() == "en":
         assert "The object `a` has no attribute" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Object_attribute_typo():
@@ -89,7 +92,8 @@ def test_Object_attribute_typo():
     assert "AttributeError: 'list' object has no attribute 'appendh'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `append`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Use_builtin():
@@ -105,7 +109,8 @@ def test_Use_builtin():
     assert "AttributeError: 'list' object has no attribute 'length'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `len(a)`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Use_synonym():
@@ -121,7 +126,8 @@ def test_Use_synonym():
     assert "AttributeError: 'list' object has no attribute 'add'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `append`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 
@@ -155,7 +161,8 @@ def test_Module_attribute_typo():
         )
     assert "cos, cosh" in result or "cosh, cos" in result
     assert not "acosh" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Shadow_stdlib_module():
@@ -174,7 +181,8 @@ def test_Shadow_stdlib_module():
             "There is also a module named `turtle` in Python's standard library."
             in result
         )
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Nonetype():
@@ -190,7 +198,8 @@ def test_Nonetype():
     if friendly_traceback.get_lang() == "en":
         assert "for a variable whose value is `None`" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Perhaps_comma():
@@ -207,14 +216,11 @@ def test_Perhaps_comma():
         message = str(e)
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
-
-    if sys.version_info >= (3, 10):
-        result = "            Skipped test"
-        return result, message
     assert "'str' object has no attribute 'defg'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean to separate object names by a comma" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Builtin_function():
@@ -229,7 +235,8 @@ def test_Builtin_function():
     assert "'builtin_function_or_method'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `len(text)`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Builtin_module_with_no_file():
@@ -246,7 +253,8 @@ def test_Builtin_module_with_no_file():
     assert "module 'sys' has no attribute 'foo'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Python tells us" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Using_slots():
@@ -266,7 +274,8 @@ def test_Using_slots():
     assert "'F' object has no attribute 'b'" in result
     if friendly_traceback.get_lang() == "en":
         assert "object `f` uses `__slots__`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Read_only():
@@ -286,7 +295,8 @@ def test_Read_only():
     assert "'F' object attribute 'b' is read-only" in result
     if friendly_traceback.get_lang() == "en":
         assert "The only attribute of `f` whose value can be changed is" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Tuple_by_accident():
@@ -302,7 +312,8 @@ def test_Tuple_by_accident():
     if friendly_traceback.get_lang() == "en":
         assert "Did you write a comma" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Attribute_from_other_module():
@@ -331,7 +342,8 @@ def test_Attribute_from_other_module():
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean one of the following modules:" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Use_join_with_str():
@@ -345,7 +357,8 @@ def test_Use_join_with_str():
     assert "'list' object has no attribute 'join'" in result
     if friendly_traceback.get_lang() == "en":
         assert "something like `'abc'.join(['a', '2'])`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Circular_import():
@@ -365,7 +378,8 @@ def test_Circular_import():
         assert "import a module with the same name" in result
         assert "from Python's standard library" in result
     stdlib_modules.names.pop()
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Circular_import_b():
     try:
@@ -383,7 +397,8 @@ def test_Circular_import_b():
     )
     if friendly_traceback.get_lang() == "en":
         assert "have a circular import." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

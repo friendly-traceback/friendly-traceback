@@ -15,7 +15,8 @@ def test_Generic():
     assert "ArithmeticError" in result
     if friendly_traceback.get_lang() == "en":
         assert "`ArithmeticError` is the base class" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

@@ -48,6 +48,9 @@ from .runtime_errors import modules_attributes, third_party_names
 from .source_cache import friendly_exec  # noqa
 from .typing_info import Formatter, InclusionChoice, StrPath, Writer
 
+# See https://github.com/friendly-traceback/friendly-traceback/issues/207
+_writing_docs = False  # noqa
+
 
 def add_ignored_warnings(do_not_show_warning: Callable[[Any], bool]) -> None:
     """Adds a function which will be passed

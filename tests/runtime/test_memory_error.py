@@ -16,7 +16,8 @@ def test_Generic():
     assert "MemoryError" in result
     if friendly_traceback.get_lang() == "en":
         assert "a `MemoryError` occurs when Python" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

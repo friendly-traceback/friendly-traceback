@@ -16,7 +16,8 @@ def test_Short_tuple():
     assert "IndexError: tuple index out of range" in result
     if friendly_traceback.get_lang() == "en":
         assert "The valid index values of" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Long_list():
@@ -32,7 +33,8 @@ def test_Long_list():
     assert "IndexError: list index out of range" in result
     if friendly_traceback.get_lang() == "en":
         assert "The valid index values of" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Empty():
     a = []
@@ -46,7 +48,8 @@ def test_Empty():
     assert "IndexError: list index out of range" in result
     if friendly_traceback.get_lang() == "en":
         assert "contains no item" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Assignment():
@@ -92,4 +95,5 @@ def test_Assignment():
         assert "a `list` of length `10`." in result
         assert "The valid index values of `a` are integers ranging from" in result
         assert "`-10` to `9`." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message

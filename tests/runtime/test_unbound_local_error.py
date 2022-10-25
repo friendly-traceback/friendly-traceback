@@ -37,7 +37,8 @@ def test_Missing_global():
             "Did you forget to add `global spam_missing_global`?\n"
             in result
         )
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Missing_nonlocal():
@@ -55,7 +56,8 @@ def test_Missing_nonlocal():
             "Did you forget to add `nonlocal spam_missing_nonlocal`?\n"
             in result
         )
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Missing_both():
@@ -72,7 +74,8 @@ def test_Missing_both():
         assert  "either `global spam_missing_both`" in result
         assert  "`nonlocal spam_missing_both`" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Typo_in_local():
@@ -109,7 +112,8 @@ def test_Typo_in_local():
     if friendly_traceback.get_lang() == "en":
         assert "perhaps you meant one of the following" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Using_name_of_builtin():
@@ -128,7 +132,8 @@ def test_Using_name_of_builtin():
             or "cannot access local variable 'max'" in result)
     if friendly_traceback.get_lang() == "en":
         assert "`max` is a Python builtin function." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 if __name__ == "__main__":
     print(test_Missing_global()[0])

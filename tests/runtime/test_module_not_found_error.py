@@ -13,7 +13,8 @@ def test_Standard_library_module():
     assert "No module named 'Tkinter'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `tkinter`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Not_a_package():
@@ -42,7 +43,8 @@ def test_Not_a_package_similar_name():
     assert "No module named" in result and "'os.pathh'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `import os.path`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Object_not_module():
     try:
@@ -55,7 +57,8 @@ def test_Object_not_module():
     assert "No module named" in result and " 'os.open'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `from os import open`?" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Similar_object_not_module():
     try:
@@ -69,7 +72,8 @@ def test_Similar_object_not_module():
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `from os import open`?" in result
         assert "`open` is a name similar to `opend`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Need_to_install_module():
     try:
@@ -82,7 +86,8 @@ def test_Need_to_install_module():
     assert "No module named 'alphabet'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you need to install it" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 
@@ -98,7 +103,8 @@ if sys.platform.startswith("win"):
         if friendly_traceback.get_lang() == "en":
             assert "The curses module is rarely installed with Python on Windows." in result
 
-        return result, message
+        if friendly_traceback._writing_docs:
+            return result, message
 
 
 if __name__ == "__main__":

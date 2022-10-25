@@ -24,4 +24,5 @@ def test_size_changed_during_iteration():
     assert "RuntimeError" in result
     if ft.get_lang() == "en":
         assert "While you were iterating over the items of `numbers` (a `set`)" in result
-    return result, message
+    if ft._writing_docs:
+        return result, message

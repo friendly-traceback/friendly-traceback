@@ -14,7 +14,8 @@ def test_Generic():
     assert "RecursionError" in result
     if friendly_traceback.get_lang() == "en":
         assert "too many times" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

@@ -14,6 +14,8 @@ import friendly_traceback
 # prevent known warnings from being printed out and inserted in
 # the documentation
 friendly_traceback.enable_warnings(testing=True)
+# See https://github.com/friendly-traceback/friendly-traceback/issues/207
+friendly_traceback._writing_docs = True
 
 
 def write(text):

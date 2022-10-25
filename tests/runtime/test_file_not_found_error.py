@@ -16,7 +16,8 @@ def test_Filename_not_found():
     if friendly_traceback.get_lang() == "en":
         assert "that cannot be found is `does_not_exist`." in result
         assert "I have no additional information" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Filename_not_found_2():
@@ -40,7 +41,8 @@ def test_Filename_not_found_2():
         assert "The file `setup.py` has a similar name." in result, os.getcwd()
     if chdir:
         os.chdir(cwd)
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Filename_not_found_3():
@@ -62,7 +64,8 @@ def test_Filename_not_found_3():
         assert "Perhaps you meant one of the following files with similar names:" in result
     if chdir:
         os.chdir(cwd)
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Directory_not_found():
@@ -78,7 +81,8 @@ def test_Directory_not_found():
     )
     if friendly_traceback.get_lang() == "en":
         assert "is not a valid directory" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

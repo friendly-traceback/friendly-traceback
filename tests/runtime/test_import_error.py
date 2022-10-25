@@ -62,7 +62,8 @@ def test_Simple_import_error():
     assert "ImportError: cannot import name 'Pi'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `pi`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 # The following test has become unreliable when running under pytest.
@@ -81,7 +82,8 @@ def test_Simple_import_error():
 #     if friendly_traceback.get_lang() == "en":
 #         assert friendly_traceback.utils.expected_in_result("what is known as a 'circular import'", result)
 #
-#     return result, message
+#     if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

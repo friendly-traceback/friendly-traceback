@@ -15,7 +15,8 @@ def test_Generic():
     )
     if friendly_traceback.get_lang() == "en":
         assert "`OverflowError` is raised when the result" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Huge_lenght():
@@ -30,7 +31,8 @@ def test_Huge_lenght():
     if friendly_traceback.get_lang() == "en":
         assert "Object too large to be processed by Python." in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

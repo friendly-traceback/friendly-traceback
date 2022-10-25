@@ -45,7 +45,8 @@ def test_Can_only_concatenate():
     assert "TypeError: can only concatenate" in result
     if friendly_traceback.get_lang() == "en":
         assert "a `tuple` and a `list`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Cant_mod_complex_numbers():
@@ -57,7 +58,8 @@ def test_Cant_mod_complex_numbers():
     result = friendly_traceback.get_output()
     if friendly_traceback.get_lang() == "en":
         assert "You cannot use complex numbers with the modulo" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_divmod():
@@ -78,7 +80,8 @@ def test_divmod():
         assert must_be in result
         assert "At least one of the arguments was a complex number" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 
@@ -328,7 +331,8 @@ def test_Unsupported_operand_types():
     assert "TypeError: unsupported operand type(s) for @=:" in result
     if friendly_traceback.get_lang() == "en":
         assert "You tried to use the operator @" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Comparison_not_supported():
@@ -378,7 +382,8 @@ def test_Comparison_not_supported():
         assert "You tried to do an order comparison (>=" in result
         assert "Did you forget to convert the string" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Bad_type_for_unary_operator():
@@ -431,7 +436,8 @@ def test_Bad_type_for_unary_operator():
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you meant to write `+=`" in result
         assert "You tried to use the unary operator '+'" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Tuple_no_item_assignment():
@@ -447,7 +453,8 @@ def test_Tuple_no_item_assignment():
     if friendly_traceback.get_lang() == "en":
         assert "In Python, some objects are known as immutable:" in result
         assert "Perhaps you meant to use a list" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Too_many_positional_argument():
@@ -481,7 +488,8 @@ def test_Too_many_positional_argument():
     if friendly_traceback.get_lang() == "en":
         assert "2 positional argument(s) while it requires 1" in result
         # assert "Perhaps you forgot `self`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Too_few_positional_argument():
@@ -499,7 +507,8 @@ def test_Too_few_positional_argument():
     assert "fn() missing 2 required positional argument" in result
     if friendly_traceback.get_lang() == "en":
         assert "fewer positional arguments than it requires (2 missing)." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Not_callable():
@@ -557,7 +566,8 @@ def test_Not_callable():
     assert "TypeError: 'list' object is not callable" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you meant to use `[]` instead of `()`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Derive_from_BaseException():
@@ -590,7 +600,8 @@ def test_Derive_from_BaseException():
     assert "TypeError: exceptions must derive from BaseException" in result
     if friendly_traceback.get_lang() == "en":
         assert "Exceptions must be derived from `BaseException`." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Cannot_multiply_by_non_int():
@@ -647,7 +658,8 @@ def test_Cannot_multiply_by_non_int():
     assert "TypeError: can't multiply sequence by non-int of type 'str'" in result
     if friendly_traceback.get_lang() == "en":
         assert 'Did you forget to convert `"2"` into an integer?' in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Not_an_integer():
@@ -692,7 +704,8 @@ def test_Not_an_integer():
     assert "TypeError: 'str' object cannot be interpreted as an integer" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you forgot to convert `c, d` into integers." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Indices_must_be_integers_or_slices():
@@ -729,7 +742,8 @@ def test_Indices_must_be_integers_or_slices():
     assert "TypeError: list indices must be integers or slices" in result
     if friendly_traceback.get_lang() == "en":
         assert 'Perhaps you forgot to convert `"2"` into an integer.' in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Slice_indices_must_be_integers_or_None():
@@ -746,7 +760,8 @@ def test_Slice_indices_must_be_integers_or_None():
     ) in result
     if friendly_traceback.get_lang() == "en":
         assert "When using a slice to extract a range of elements" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Unhachable_type():
@@ -760,7 +775,8 @@ def test_Unhachable_type():
     assert "unhashable type: 'list'" in result
     if friendly_traceback.get_lang() == "en":
         assert "consider using a `tuple`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Object_is_not_subscriptable():
@@ -801,7 +817,8 @@ def test_Object_is_not_subscriptable():
     assert "TypeError: 'function' object is not subscriptable" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `f(1)`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Object_is_not_iterable():
@@ -815,7 +832,8 @@ def test_Object_is_not_iterable():
     assert "TypeError: 'int' object is not iterable" in result
     if friendly_traceback.get_lang() == "en":
         assert "An iterable is required here." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Argument_of_object_is_not_iterable():
@@ -831,7 +849,8 @@ def test_Argument_of_object_is_not_iterable():
     if friendly_traceback.get_lang() == "en":
         assert "A container is required here." in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Cannot_unpack_non_iterable_object():
     try:
@@ -847,7 +866,8 @@ def test_Cannot_unpack_non_iterable_object():
     )
     if friendly_traceback.get_lang() == "en":
         assert "An iterable is an object capable" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Cannot_convert_dictionary_update_sequence():
@@ -872,7 +892,8 @@ def test_Cannot_convert_dictionary_update_sequence():
     assert "TypeError: cannot convert dictionary update" in result
     if friendly_traceback.get_lang() == "en":
         assert ".update( dict.fromkeys(" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Builtin_has_no_len():
@@ -886,7 +907,8 @@ def test_Builtin_has_no_len():
     assert "TypeError: object of type 'builtin_function_or_method' has no len()"
     if friendly_traceback.get_lang() == "en":
         assert 'Did you forget to call `"Hello world".split`?' in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_function_has_no_len():
@@ -903,7 +925,8 @@ def test_function_has_no_len():
     assert "TypeError: object of type 'function' has no len()" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you forget to call `bad`?" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_vars_arg_must_have_dict():
@@ -948,7 +971,8 @@ def test_vars_arg_must_have_dict():
         assert cause in result
         assert use_slots in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_function_got_multiple_argument():
@@ -978,7 +1002,8 @@ def test_function_got_multiple_argument():
     if friendly_traceback.get_lang() == "en":
         assert "This function has the following arguments" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_method_got_multiple_argument():
@@ -997,7 +1022,8 @@ def test_method_got_multiple_argument():
     if friendly_traceback.get_lang() == "en":
         assert "This function has only one argument" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_getattr_attribute_name_must_be_string():
@@ -1027,7 +1053,8 @@ def test_getattr_attribute_name_must_be_string():
             in result
         )
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Generator_has_no_len():
@@ -1043,7 +1070,8 @@ def test_Generator_has_no_len():
         assert 'len([letter' in result
         assert 'for letter in "word"])' in result
         assert "You likely need to build a list first." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 if __name__ == "__main__":
     print(test_Not_an_integer()[0])

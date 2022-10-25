@@ -31,7 +31,8 @@ def test_Generic():
     if friendly_traceback.get_lang() == "en":
         assert "Nothing more specific is known about" in result
     friendly_traceback.debug_helper.DEBUG = old_debug
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

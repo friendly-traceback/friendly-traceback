@@ -34,7 +34,8 @@ def test_Not_enough_values_to_unpack():
     assert "ValueError: not enough values to unpack (expected 3, got 2)" in result
     if friendly_traceback.get_lang() == "en":
         assert "a string (`str`) of length 2" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Too_many_values_to_unpack():
@@ -49,7 +50,8 @@ def test_Too_many_values_to_unpack():
     assert "ValueError: too many values to unpack (expected 2)" in result
     if friendly_traceback.get_lang() == "en":
         assert "a `list` of length 3" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Date_invalid_month():
@@ -64,7 +66,8 @@ def test_Date_invalid_month():
     assert "month must be in 1..12" in result
     if friendly_traceback.get_lang() == "en":
         assert "Valid values are integers, from 1 to 12" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Slots_conflicts_with_class_variable():
@@ -80,7 +83,8 @@ def test_Slots_conflicts_with_class_variable():
     assert "'a' in __slots__ conflicts with class variable" in result
     if friendly_traceback.get_lang() == "en":
         assert "is used both as the name of a class variable" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Could_not_convert_to_float():
@@ -94,7 +98,8 @@ def test_Could_not_convert_to_float():
     assert "could not convert string to float: '42b'" in result
     if friendly_traceback.get_lang() == "en":
         assert "The string `42b` cannot be converted to a `float`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Pow_third_arg_cannot_be_zero():
@@ -109,7 +114,8 @@ def test_Pow_third_arg_cannot_be_zero():
     assert "pow() 3rd argument cannot be 0" in result
     if friendly_traceback.get_lang() == "en":
         assert "The third argument of the function `pow()` cannot be zero" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_time_strptime_incorrect_format():  # issue 78
@@ -133,7 +139,8 @@ def test_time_strptime_incorrect_format():  # issue 78
     if friendly_traceback.get_lang() == "en":
         assert "The value you gave for the time is not in the format you specified." in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Convert_to_int():
@@ -193,7 +200,8 @@ def test_Convert_to_int():
     if english:
         assert "The following characters are not allowed: `a`" in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_int_base_not_in_range():
@@ -207,7 +215,8 @@ def test_int_base_not_in_range():
     if friendly_traceback.get_lang() == "en":
         assert "You wrote 37 which is not allowed." in result
 
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_remove_item_not_in_list():
@@ -232,7 +241,8 @@ def test_remove_item_not_in_list():
     assert "list.remove(x): x not in list" in result
     if friendly_traceback.get_lang() == "en":
         assert "`a_list` does not contain `b`"
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":

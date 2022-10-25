@@ -17,7 +17,8 @@ def test_Urllib_error():
     if friendly_traceback.get_lang() == "en":
         assert "An exception of type `URLError` is a subclass of `OSError`." in result
         assert "I suspect that you are trying to connect to a server" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_no_information():
@@ -37,7 +38,8 @@ def test_no_information():
         for line in lines:
             assert line in result
     friendly_traceback.debug_helper.DEBUG = old_debug
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_invalid_argument():
@@ -54,4 +56,5 @@ def test_invalid_argument():
     assert "Invalid argument" in result
     if friendly_traceback.get_lang() == "en":
         assert "front of the filename or path, or replace all single backslash" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message

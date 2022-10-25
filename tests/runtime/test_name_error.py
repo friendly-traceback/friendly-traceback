@@ -21,7 +21,8 @@ def test_Generic():
     assert "NameError: name 'something' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "In your program, no object with the name `something` exists." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 x: 3
 
@@ -36,7 +37,8 @@ def test_Annotated_variable():
     assert "NameError: name 'x' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "x = 3" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 alphabet = 'abc'
 
@@ -101,7 +103,8 @@ def test_Synonym():
     assert "NameError: name 'cost' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "perhaps you meant one of the following" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Missing_import():
@@ -141,7 +144,8 @@ def test_Missing_import():
     assert "NameError: name 'unicodedata' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you forgot to import `unicodedata`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_missing_import2():
@@ -155,7 +159,8 @@ def test_missing_import2():
     assert "NameError: name 'ABCMeta' is not defined"
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you forgot to import `ABCMeta` from one of these modules." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_missing_import3():
@@ -168,7 +173,8 @@ def test_missing_import3():
 
     assert "NameError: name 'AF_APPLETALK' is not defined" in result
     assert "from socket import AF_APPLETALK" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_missing_import_from_other_1():
@@ -182,7 +188,8 @@ def test_missing_import_from_other_1():
     assert "NameError: name 'fake_module_name' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you forgot to import `fake_module_name` which is a known library." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_missing_import_from_other_2():
@@ -195,7 +202,8 @@ def test_missing_import_from_other_2():
     result = friendly_traceback.get_output()
     assert "NameError: name 'plt' is not defined" in result
     assert "import matplotlib.pyplot as plt" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_missing_import_from_other_3():
@@ -210,7 +218,8 @@ def test_missing_import_from_other_3():
     assert "matplotlib.pyplot" in result
     if friendly_traceback.get_lang() == "en":
         assert "`show` is a name found in the following modules:" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Free_variable_referenced():
     def outer():
@@ -231,7 +240,8 @@ def test_Free_variable_referenced():
     if friendly_traceback.get_lang() == "en":
         assert "that exists in an enclosing scope" in result
         assert "but has not yet been assigned a value." in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Custom_name():
@@ -245,7 +255,8 @@ def test_Custom_name():
     assert "NameError: name 'python' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "You are already using Python!" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Missing_self_1():
@@ -280,7 +291,8 @@ def test_Missing_self_1():
     assert "NameError: name 'add_toy' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you should have written `self.add_toy" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_Missing_self_2():
@@ -314,7 +326,8 @@ def test_Missing_self_2():
     assert "NameError: name 'add_toy' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you should have written `self.add_toy`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 @pytest.mark.skipif(not tkinter, reason="tkinter not present; likely MacOS")
 def test_Missing_module_name():
@@ -328,7 +341,8 @@ def test_Missing_module_name():
     assert "NameError: name 'Frame' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "Perhaps you should have written `tkinter.Frame`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 def test_special_keyword():
@@ -358,7 +372,8 @@ def test_special_keyword():
     assert "NameError: name 'brek' is not defined" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `break`" in result
-    return result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 
 if __name__ == "__main__":
