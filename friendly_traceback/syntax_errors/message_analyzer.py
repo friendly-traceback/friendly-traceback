@@ -1625,7 +1625,10 @@ def nonlocal_at_module_level(message: str = "", _statement=None):
 
 @add_python_message
 def non_default_arg_follows_default_arg(message: str = "", _statement=None):
-    if "non-default argument follows default argument" not in message:
+    if (
+        "parameter without a default follows parameter with a default" not in message
+        and "non-default argument follows default argument" not in message
+    ):
         return {}
     cause = _(
         "In Python, you can define functions with only positional arguments\n\n"

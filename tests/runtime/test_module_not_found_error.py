@@ -25,7 +25,7 @@ def test_Not_a_package():
         message = str(e)
     result = friendly_traceback.get_output()
     
-    assert "ModuleNotFoundError: No module named 'os.xxx'" in result
+    assert "No module named" in result and "'os.xxx'" in result
     if friendly_traceback.get_lang() == "en":
         assert "`xxx` cannot be imported" in result
 
@@ -39,7 +39,7 @@ def test_Not_a_package_similar_name():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
     
-    assert "No module named 'os.pathh'" in result
+    assert "No module named" in result and "'os.pathh'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `import os.path`" in result
     return result, message
@@ -52,7 +52,7 @@ def test_Object_not_module():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
 
-    assert "No module named 'os.open'" in result
+    assert "No module named" in result and " 'os.open'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `from os import open`?" in result
     return result, message
@@ -65,7 +65,7 @@ def test_Similar_object_not_module():
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
 
-    assert "No module named 'os.opend'" in result
+    assert "No module named" in result and " 'os.opend'" in result
     if friendly_traceback.get_lang() == "en":
         assert "Did you mean `from os import open`?" in result
         assert "`open` is a name similar to `opend`" in result

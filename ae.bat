@@ -6,7 +6,8 @@ if "%1"=="3.7" goto py_37
 if "%1"=="3.8" goto py_38
 if "%1"=="3.10" goto py_310
 if "%1"=="3.11" goto py_311
-goto py_39
+if "%1"=="3.12" goto py_312
+goto py_310
 
 
 :py_36
@@ -31,6 +32,10 @@ goto end
 
 :py_311
 venv-friendly-traceback-3.11\scripts\activate
+goto end
+
+:py_312
+venv-friendly-traceback-3.12\scripts\activate
 goto end
 
 :end

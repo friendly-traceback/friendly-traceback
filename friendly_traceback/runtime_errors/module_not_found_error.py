@@ -17,7 +17,8 @@ _ = current_lang.translate
 
 @parser._add
 def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
-    pattern = re.compile(r"No module named '(.*)'; '(.*)' is not a package")
+    # Python 3.12.0a1 has two spaces after 'named'
+    pattern = re.compile(r"No module named\s*'(.*)'; '(.*)' is not a package")
     match = re.search(pattern, message)
     if not match:
         return {}
