@@ -13,7 +13,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #: __init__.py:284 __main__.py:171
 msgid "The file {filename} does not exist."
@@ -1116,7 +1116,7 @@ msgid ""
 "Perhaps you wanted something like `{str_content}.join({obj_name})`.\n"
 msgstr ""
 "L’objet `{obj_name}` n’a pas d’attribut nommé `join`.\n"
-"Vous vouliez peut-être plutôt écrire quelque chose comme `'...'."
+"Vous vouliez peut-être plutôt écrire quelque chose comme `{str_content}."
 "join({obj_name})`.\n"
 
 #: runtime_errors\attribute_error.py:476

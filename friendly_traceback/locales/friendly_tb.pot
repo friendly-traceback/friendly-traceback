@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-24 10:58-0300\n"
+"POT-Creation-Date: 2022-10-25 12:30-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -698,7 +698,7 @@ msgstr ""
 #: runtime_errors\attribute_error.py:139 runtime_errors\attribute_error.py:405
 #: runtime_errors\import_error.py:106 runtime_errors\key_error.py:184
 #: runtime_errors\key_error.py:191
-#: runtime_errors\module_not_found_error.py:121
+#: runtime_errors\module_not_found_error.py:126
 #: runtime_errors\name_error.py:111 runtime_errors\unbound_local_error.py:54
 #: syntax_errors\message_analyzer.py:459
 #: syntax_errors\message_analyzer.py:1151
@@ -865,8 +865,8 @@ msgid ""
 msgstr ""
 
 #: runtime_errors\attribute_error.py:438
-#: syntax_errors\message_analyzer.py:1817
-#: syntax_errors\message_analyzer.py:1830
+#: syntax_errors\message_analyzer.py:1820
+#: syntax_errors\message_analyzer.py:1833
 msgid ""
 "Did you write a comma by mistake?\n"
 msgstr ""
@@ -1176,84 +1176,84 @@ msgid ""
 "`{names}`.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:35
+#: runtime_errors\module_not_found_error.py:36
 msgid ""
 "No additional information available since `{name}` cannot be imported.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:46
+#: runtime_errors\module_not_found_error.py:47
 msgid ""
 "Did you mean `from {name} import {rest}`?\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:49
+#: runtime_errors\module_not_found_error.py:50
 msgid ""
 "`{rest}` is not a separate module but an object that is part of `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:59
+#: runtime_errors\module_not_found_error.py:60
 msgid ""
 "Did you mean `import {name}.{attr}`?\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:62
+#: runtime_errors\module_not_found_error.py:63
 msgid ""
 "Perhaps you meant `import {name}.{attr}`.\n"
 "`{attr}` is a name similar to `{rest}` and is a module that\n"
 "can be imported from `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:70
+#: runtime_errors\module_not_found_error.py:71
 msgid ""
 "Did you mean `from {name} import {attr}`?\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:73
+#: runtime_errors\module_not_found_error.py:74
 msgid ""
 "Perhaps you meant `from {name} import {attr}`.\n"
 "`{attr}` is a name similar to `{rest}` and is an object that\n"
 "can be imported from `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:80
+#: runtime_errors\module_not_found_error.py:81
 msgid ""
 "Other objects with similar names that are part of\n"
 " `{name}` include `{others}`.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:86
+#: runtime_errors\module_not_found_error.py:87
 msgid ""
 "`{rest}` cannot be imported from `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:95
+#: runtime_errors\module_not_found_error.py:96
 msgid ""
 "The curses module is rarely installed with Python on Windows.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:97
+#: runtime_errors\module_not_found_error.py:98
 msgid ""
 "The curses module is often not installed with Python.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:98
+#: runtime_errors\module_not_found_error.py:99
 msgid ""
 "You have tried to import the curses module.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:114
+#: runtime_errors\module_not_found_error.py:119
 msgid ""
 "No module named `{name}` can be imported.\n"
 "Perhaps you need to install it.\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:123
+#: runtime_errors\module_not_found_error.py:128
 msgid ""
 "The following existing modules have names that are similar \n"
 "to the module you tried to import: `{names}`\n"
 msgstr ""
 
-#: runtime_errors\module_not_found_error.py:128
+#: runtime_errors\module_not_found_error.py:133
 msgid ""
 "`{name}` is an existing module that has a similar name.\n"
 msgstr ""
@@ -1461,7 +1461,7 @@ msgid ""
 "and check your internet connectivity.\n"
 msgstr ""
 
-#: runtime_errors\os_error.py:37 syntax_errors\message_analyzer.py:1902
+#: runtime_errors\os_error.py:37 syntax_errors\message_analyzer.py:1905
 msgid ""
 "Perhaps you need to double the backslash characters.\n"
 msgstr ""
@@ -2006,11 +2006,6 @@ msgid ""
 "\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1221
-msgid ""
-"    {new_line}\n"
-msgstr ""
-
 #: runtime_errors\type_error.py:1222
 msgid ""
 "You likely need to build a list first.\n"
@@ -2375,7 +2370,7 @@ msgstr ""
 
 #: syntax_errors\error_in_def.py:116 syntax_errors\error_in_def.py:147
 #: syntax_errors\message_analyzer.py:1111
-#: syntax_errors\message_analyzer.py:1649
+#: syntax_errors\message_analyzer.py:1652
 #: syntax_errors\statement_analyzer.py:1312
 #: syntax_errors\statement_analyzer.py:1331
 msgid ""
@@ -3308,7 +3303,7 @@ msgid ""
 msgstr ""
 
 #: syntax_errors\message_analyzer.py:1351
-#: syntax_errors\message_analyzer.py:1741
+#: syntax_errors\message_analyzer.py:1744
 #: syntax_errors\statement_analyzer.py:524
 msgid ""
 "The following statement has no syntax error:\n"
@@ -3414,7 +3409,7 @@ msgid ""
 "given a value outside that function."
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1630
+#: syntax_errors\message_analyzer.py:1633
 msgid ""
 "In Python, you can define functions with only positional arguments\n"
 "\n"
@@ -3432,7 +3427,7 @@ msgid ""
 "According to Python, you used positional arguments after keyword ones.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1650
+#: syntax_errors\message_analyzer.py:1653
 #: syntax_errors\statement_analyzer.py:1332
 msgid ""
 "I am guessing that you wanted to use an `except` statement\n"
@@ -3440,7 +3435,7 @@ msgid ""
 "surround them with parentheses.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1662
+#: syntax_errors\message_analyzer.py:1665
 msgid ""
 "In Python, you can call functions with only positional arguments\n"
 "\n"
@@ -3458,7 +3453,7 @@ msgid ""
 "According to Python, you used positional arguments after keyword ones.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1689
+#: syntax_errors\message_analyzer.py:1692
 #: syntax_errors\statement_analyzer.py:658
 msgid ""
 "Perhaps you need to type\n"
@@ -3469,24 +3464,24 @@ msgid ""
 "Now, `print` is a function; you need to use parentheses to call it.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1696
+#: syntax_errors\message_analyzer.py:1699
 #: syntax_errors\statement_analyzer.py:665
 msgid ""
 "Note that arguments of `print` must be separated by commas.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1697
+#: syntax_errors\message_analyzer.py:1700
 #: syntax_errors\statement_analyzer.py:666
 msgid ""
 "Did you mean `print({message})`?\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1706
+#: syntax_errors\message_analyzer.py:1709
 msgid ""
 "You can only use a `return` statement inside a function or method.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1715
+#: syntax_errors\message_analyzer.py:1718
 msgid ""
 "A star assignment must be of the form:\n"
 "\n"
@@ -3494,97 +3489,97 @@ msgid ""
 "\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1725
+#: syntax_errors\message_analyzer.py:1728
 msgid ""
 "It looks like you tried to use a starred expression as a dict value;\n"
 "this is not allowed.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1752
+#: syntax_errors\message_analyzer.py:1755
 msgid ""
 "Your code is too complex for Python:\n"
 "you need to reduce the number of indented code blocks\n"
 "contained inside other code blocks.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1765
+#: syntax_errors\message_analyzer.py:1768
 msgid ""
 "Your code is too complex for Python:\n"
 "you need to reduce the number of parentheses\n"
 "contained inside other parentheses.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1780
+#: syntax_errors\message_analyzer.py:1783
 msgid ""
 "Python indicates that you need to surround an expression\n"
 "ending with a comma by parentheses.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1784
+#: syntax_errors\message_analyzer.py:1787
 msgid ""
 "I have no additional suggestion to offer.\n"
 "Please feel free to report this case.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1794
+#: syntax_errors\message_analyzer.py:1797
 msgid ""
 "Perhaps you meant to write\n"
 "\n"
 "`{new_statement}`\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1802
+#: syntax_errors\message_analyzer.py:1805
 msgid ""
 "However, I suspect that you wrote the keyword `{boolean}` by mistake.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1806
+#: syntax_errors\message_analyzer.py:1809
 msgid ""
 "The Python keyword `{boolean}` can only be used for boolean expressions.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1818
-#: syntax_errors\message_analyzer.py:1831
+#: syntax_errors\message_analyzer.py:1821
+#: syntax_errors\message_analyzer.py:1834
 msgid ""
 "However, if you remove the last comma, there will be no syntax error.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1846
+#: syntax_errors\message_analyzer.py:1849
 msgid ""
 "You are using the continuation character `\\` outside of a string,\n"
 "and it is followed by some other character(s).\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1869
+#: syntax_errors\message_analyzer.py:1872
 msgid ""
 "I am guessing that you wanted to divide by the number {number} \n"
 "and wrote \\ instead of /."
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1873
+#: syntax_errors\message_analyzer.py:1876
 msgid ""
 "Did you mean to divide by {number}?\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1876
+#: syntax_errors\message_analyzer.py:1879
 msgid ""
 "I am guessing that you forgot to enclose some content in a string.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1885
+#: syntax_errors\message_analyzer.py:1888
 msgid ""
 "Python tells us that it reached the end of the file\n"
 "and expected more content.\n"
 "\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1892
+#: syntax_errors\message_analyzer.py:1895
 msgid ""
 "I will attempt to be give a bit more information.\n"
 "\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1903
+#: syntax_errors\message_analyzer.py:1906
 msgid ""
 "I suspect that you wrote a string that contains\n"
 "one backslash character, `\\` followed by an uppercase `U`\n"
@@ -3596,43 +3591,43 @@ msgid ""
 "front of the string, or replace `\\U`, by `\\\\U`.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1927
+#: syntax_errors\message_analyzer.py:1930
 #: syntax_errors\statement_analyzer.py:127
 msgid ""
 "The closing {bracket} on line {linenumber} does not match anything.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1938
+#: syntax_errors\message_analyzer.py:1941
 msgid ""
 "Perhaps you forgot a closing quote.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1955
+#: syntax_errors\message_analyzer.py:1958
 msgid ""
 "Inside the f-string `{fstring}`, \n"
 "you have another string, which starts with either a\n"
 "single quote (') or double quote (\"), without a matching closing one.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1968
+#: syntax_errors\message_analyzer.py:1971
 msgid ""
 "You can only use a `yield` statement inside a function.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:1977
+#: syntax_errors\message_analyzer.py:1980
 msgid ""
 "This is a message that was added in Python 3.9\n"
 "to prevent redefining `__peg_parser__`.\n"
 "It should not be present in other versions.\n"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:2039
+#: syntax_errors\message_analyzer.py:2042
 msgid ""
 "Friendly-traceback cannot identify the non-printable character.\n"
 "This should not happen. Please report this case"
 msgstr ""
 
-#: syntax_errors\message_analyzer.py:2053
+#: syntax_errors\message_analyzer.py:2056
 #: syntax_errors\statement_analyzer.py:107
 msgid ""
 "Your code contains the invalid non-printable character {char}.\n"
