@@ -1218,7 +1218,7 @@ def generator_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
     else:
         new_line = "len([...])"
 
-    cause += _("    {new_line}\n").format(new_line=new_line)
+    cause += ("    {new_line}\n").format(new_line=new_line)
     hint = _("You likely need to build a list first.\n")
 
     return {"cause": cause, "suggest": hint}
