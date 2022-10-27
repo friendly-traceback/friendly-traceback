@@ -536,7 +536,9 @@ def shorten_long_line(value: str, obj: str) -> (str, str):
     return value, length_info
 
 
-def get_similar_names(name: str, frame: types.FrameType) -> SimilarNamesInfo:
+def get_similar_names(
+    name: str, frame: types.FrameType, include_builtins: bool = True
+) -> SimilarNamesInfo:
     """This function looks for objects with names similar to 'name' in
     either the current locals() and globals() as well as in
     Python's builtins.
@@ -546,7 +548,7 @@ def get_similar_names(name: str, frame: types.FrameType) -> SimilarNamesInfo:
     # to treat them on an equal footing.
     locals_ = list(frame.f_locals.keys())
     globals_ = list(frame.f_globals.keys())
-    builtins_ = dir(builtins)
+    builtins_ = dir(builtins) if include_builtins else []
     all_similar = utils.get_similar_words(name, locals_ + globals_ + builtins_)
     similar["locals"] = []
     similar["globals"] = []

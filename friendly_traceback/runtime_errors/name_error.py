@@ -102,7 +102,15 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
             hint = known_module["suggest"]
 
     type_hint = info_variables.name_has_type_hint(unknown_name, frame)
-    similar = info_variables.get_similar_names(unknown_name, frame)
+
+    # If the unknown name is followed by '.', it is not a typo for a builtin
+    try:
+        rest_of_line = tb_data.node.first_token.line[tb_data.node.first_token.end[1] :]
+        tokens = token_utils.get_significant_tokens(rest_of_line)
+        include_builtins = not tokens or tokens[0] != "."
+    except Exception:  # noqa
+        include_builtins = True
+    similar = info_variables.get_similar_names(unknown_name, frame, include_builtins)
     if similar["best"]:
         if hint:
             hint = hint.replace("\n", "") + _(" Or did you mean `{name}`?\n").format(
