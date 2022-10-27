@@ -74,7 +74,7 @@ call python trb_syntax_english.py
 call deactivate
 
 call python compare_messages.py
-copy compare_messages.html ..\..\docs\source\compare_messages.html
+copy compare_messages.html ..\..\friendly-docs\source\compare_messages.html
 del compare_messages.html
 
 cd ..\..\friendly-docs

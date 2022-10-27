@@ -86,24 +86,46 @@ def print_different(fn_name, in_36, in_37, in_38, in_39, in_310, in_311):
         output.write("<b>3.11: </b>" + in_311 + "\n")
         output.write("</pre>\n")
 
+keys = (
+    set(info_36.keys())
+    .union(set(info_37.keys()))
+    .union(set(info_38.keys()))
+    .union(set(info_39.keys()))
+    .union(set(info_310.keys()))
+    .union(set(info_311.keys()))
+)
 
-# TODO: revise the following
-for f_name in info_36:
-    try:
-        messages_36 = info_36[f_name].replace("<", "&lt;").replace(">", "&gt;")
-        messages_37 = info_37[f_name].replace("<", "&lt;").replace(">", "&gt;")
-        messages_38 = info_38[f_name].replace("<", "&lt;").replace(">", "&gt;")
-        messages_39 = info_39[f_name].replace("<", "&lt;").replace(">", "&gt;")
-        messages_310 = info_310[f_name].replace("<", "&lt;").replace(">", "&gt;")
-        messages_311 = info_311[f_name].replace("<", "&lt;").replace(">", "&gt;")
-    except KeyError:
-        output.write("<div class='filename-header'>")
-        output.write("entry does not exist in one data file for " + f_name)
-        output.write("</div>\n")
-        continue
-
+for f_name in keys:
+    messages_36 = (
+        info_36.get(f_name, "not present").replace("<", "&lt;").replace(">", "&gt;")
+    )
+    messages_37 = (
+        info_37.get(f_name, "not present").replace("<", "&lt;").replace(">", "&gt;")
+    )
+    messages_38 = (
+        info_38.get(f_name, "not present").replace("<", "&lt;").replace(">", "&gt;")
+    )
+    messages_39 = (
+        info_39.get(f_name, "not present").replace("<", "&lt;").replace(">", "&gt;")
+    )
+    messages_310 = (
+        info_310.get(f_name, "not present")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+    )
+    messages_311 = (
+        info_311.get(f_name, "not present")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+    )
     print_different(
-        f_name, messages_36, messages_37, messages_38, messages_39, messages_310, messages_311
+        f_name,
+        messages_36,
+        messages_37,
+        messages_38,
+        messages_39,
+        messages_310,
+        messages_311,
     )
 
 output.write("</div>\n")
