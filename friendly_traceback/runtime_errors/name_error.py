@@ -94,7 +94,8 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     known_module = is_stdlib_module(unknown_name)
     if known_module:
         cause = known_module["cause"]
-        hint = known_module["suggest"]
+        if "suggest" in hint:
+            hint = known_module["suggest"]
     else:
         known_module = is_third_party_module(unknown_name)
         if known_module:
@@ -251,6 +252,15 @@ def is_stdlib_module(name: str) -> CauseInfo:
             )
             return {"cause": cause, "suggest": hint, "lowercase": True}
         return {"cause": cause, "suggest": hint}
+    if name in stdlib_modules.names:
+        return {
+            "cause": _(
+                "There is a module named `{name}` that is part of the\n"
+                "Python standard library. However, it might not be available\n"
+                "for your operating system, or it may to be installed separately.\n"
+            ).format(name=name)
+            + "\n\n"
+        }
     return {}
 
 

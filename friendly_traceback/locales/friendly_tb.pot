@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-27 15:37-0300\n"
+"POT-Creation-Date: 2022-10-27 18:33-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,19 +15,19 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: __init__.py:287 __main__.py:171
+#: __init__.py:274 __main__.py:171
 msgid "The file {filename} does not exist."
 msgstr ""
 
-#: __init__.py:370
+#: __init__.py:357
 msgid "The available languages are:"
 msgstr ""
 
-#: __init__.py:398
+#: __init__.py:385
 msgid "{include}: Unrecognized value."
 msgstr ""
 
-#: __init__.py:399
+#: __init__.py:386
 msgid "The allowed values are:"
 msgstr ""
 
@@ -699,7 +699,7 @@ msgstr ""
 #: runtime_errors\import_error.py:106 runtime_errors\key_error.py:184
 #: runtime_errors\key_error.py:191
 #: runtime_errors\module_not_found_error.py:136
-#: runtime_errors\name_error.py:125 runtime_errors\unbound_local_error.py:54
+#: runtime_errors\name_error.py:126 runtime_errors\unbound_local_error.py:54
 #: syntax_errors\message_analyzer.py:459
 #: syntax_errors\message_analyzer.py:1151
 #: syntax_errors\statement_analyzer.py:1389
@@ -970,7 +970,7 @@ msgid ""
 "Perhaps you meant one of the following files with similar names:\n"
 msgstr ""
 
-#: runtime_errors\file_not_found_error.py:59 runtime_errors\name_error.py:152
+#: runtime_errors\file_not_found_error.py:59 runtime_errors\name_error.py:153
 msgid ""
 "I have no additional information for you.\n"
 msgstr ""
@@ -1293,64 +1293,64 @@ msgid ""
 "but has not yet been assigned a value.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:89 runtime_errors\name_error.py:168
+#: runtime_errors\name_error.py:89 runtime_errors\name_error.py:169
 msgid ""
 "In your program, no object with the name `{var_name}` exists.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:121
+#: runtime_errors\name_error.py:122
 msgid ""
 " Or did you mean `{name}`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:127
+#: runtime_errors\name_error.py:128
 msgid ""
 "Did you use a colon instead of an equal sign?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:148
+#: runtime_errors\name_error.py:149
 msgid ""
 "Perhaps you meant to write `{name}` and also forgot to import it.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:167
+#: runtime_errors\name_error.py:168
 msgid ""
 "Did you mean `1j`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:171
+#: runtime_errors\name_error.py:172
 msgid ""
 "However, sometimes `{name}` is intended to represent\n"
 "the square root of `-1` which is written as `1j` in Python.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:201
+#: runtime_errors\name_error.py:202
 msgid ""
 "Did you mean `{word}`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:202
+#: runtime_errors\name_error.py:203
 msgid ""
 "I suspect you meant to write the keyword `{word}` and made a typo.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:210
+#: runtime_errors\name_error.py:211
 msgid ""
 "`__debug__` is a constant.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:211
+#: runtime_errors\name_error.py:212
 msgid ""
 "`__debug__` is a constant that cannot be deleted.\n"
 "In future Python versions, attempting to delete it will be a SyntaxError.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:219
+#: runtime_errors\name_error.py:220
 msgid ""
 "You must be a fan of PyConAu!\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:220
+#: runtime_errors\name_error.py:221
 msgid ""
 "I am guessing that you tried to use (one of) the flipfloperators\n"
 "shown during the second Lightning Talk session of PyConAu 2018,\n"
@@ -1359,35 +1359,42 @@ msgid ""
 "#### Note that it is still a bad idea.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:235 runtime_errors\name_error.py:272
+#: runtime_errors\name_error.py:236 runtime_errors\name_error.py:281
 msgid ""
 "Did you forget to import `{name}`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:238
+#: runtime_errors\name_error.py:239
 msgid ""
 "The name `{name}` is not defined in your program.\n"
 "Perhaps you forgot to import `{lowercase}` which is found\n"
 "in Python's standard library.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:247
+#: runtime_errors\name_error.py:248
 msgid ""
 "Note that the name of the module is `{lowercase}` and not `{name}`.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:275
+#: runtime_errors\name_error.py:257
+msgid ""
+"There is a module named `{name}` that is part of the\n"
+"Python standard library. However, it might not be available\n"
+"for your operating system, or it may to be installed separately.\n"
+msgstr ""
+
+#: runtime_errors\name_error.py:284
 msgid ""
 "The name `{name}` is not defined in your program.\n"
 "Perhaps you forgot to import `{name}` which is a known library.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:285
+#: runtime_errors\name_error.py:294
 msgid ""
 "Did you forget to import `{true_name}`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:290
+#: runtime_errors\name_error.py:299
 msgid ""
 "The name `{name}` is not defined in your program.\n"
 "Perhaps you forgot to write\n"
@@ -1395,44 +1402,44 @@ msgid ""
 "    import {true_name} as {name}\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:309
+#: runtime_errors\name_error.py:318
 msgid ""
 "The similar name `{name}` was found in the local scope.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:310
+#: runtime_errors\name_error.py:319
 msgid ""
 "The similar name `{name}` was found in the global scope.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:311
+#: runtime_errors\name_error.py:320
 msgid ""
 "The Python builtin `{name}` has a similar name.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:320 runtime_errors\unbound_local_error.py:124
+#: runtime_errors\name_error.py:329 runtime_errors\unbound_local_error.py:124
 msgid ""
 "Instead of writing `{name}`, perhaps you meant one of the following:\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:325 runtime_errors\unbound_local_error.py:128
+#: runtime_errors\name_error.py:334 runtime_errors\unbound_local_error.py:128
 msgid "*   Local scope: "
 msgstr ""
 
-#: runtime_errors\name_error.py:326
+#: runtime_errors\name_error.py:335
 msgid "*   Global scope: "
 msgstr ""
 
-#: runtime_errors\name_error.py:327
+#: runtime_errors\name_error.py:336
 msgid "*   Python builtins: "
 msgstr ""
 
-#: runtime_errors\name_error.py:391
+#: runtime_errors\name_error.py:400
 msgid ""
 "Did you write `self` at the wrong place?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:392
+#: runtime_errors\name_error.py:401
 msgid ""
 "The {scope} object `{obj}`\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1440,12 +1447,12 @@ msgid ""
 "instead of `{unknown_name}(self, ...`.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:399
+#: runtime_errors\name_error.py:408
 msgid ""
 "Did you forget to add `self.`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:400
+#: runtime_errors\name_error.py:409
 msgid ""
 "A {scope} object, `{obj}`,\n"
 "has an attribute named `{unknown_name}`.\n"
@@ -1453,12 +1460,12 @@ msgid ""
 "instead of `{unknown_name}`.\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:407
+#: runtime_errors\name_error.py:416
 msgid ""
 "Did you forget to add `{name}.`?\n"
 msgstr ""
 
-#: runtime_errors\name_error.py:408
+#: runtime_errors\name_error.py:417
 msgid ""
 "The {scope} object `{name}`\n"
 "has an attribute named `{unknown_name}`.\n"
