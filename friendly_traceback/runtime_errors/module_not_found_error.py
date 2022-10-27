@@ -111,6 +111,16 @@ def no_module_named(message: str, _tb_data: TracebackData) -> CauseInfo:
     if name == "_curses":
         return curses_no_found()
 
+    if name in stdlib_modules.names and not stdlib_modules.module_exists(name):
+        return {
+            "cause": _(
+                "No module named `{name}` can be imported.\n\n"
+                "Note that there is a module named `{name}` that is part of the\n"
+                "Python standard library. However, it might not be available\n"
+                "for your operating system, or it may to be installed separately.\n"
+            ).format(name=name)
+        }
+
     similar = get_similar_words(name, stdlib_modules.names)
     similar = [
         mod_name for mod_name in similar if stdlib_modules.module_exists(mod_name)

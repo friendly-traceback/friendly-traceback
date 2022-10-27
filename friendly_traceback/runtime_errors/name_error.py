@@ -1,4 +1,5 @@
 import re
+from importlib.util import find_spec
 from types import FrameType
 from typing import Any, Tuple
 
@@ -234,7 +235,8 @@ def is_stdlib_module(name: str) -> CauseInfo:
 
 
 def is_third_party_module(name: str) -> CauseInfo:
-    if name in third_party_names.modules:
+    found = find_spec(name)
+    if found or name in third_party_names.modules:
         hint = _("Did you forget to import `{name}`?\n").format(name=name)
         cause = (
             "\n"
