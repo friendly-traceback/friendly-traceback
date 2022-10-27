@@ -2,7 +2,9 @@
 base_formatters.py
 ===================
 
-Default formatters showing all or only part of the available information.
+This file contains the formatters included with ``friendly_traceback``.
+Other formatters of potential interest, including a formatter designed
+for IDLE as well as some making use of Rich, are included with ``friendly``.
 
 A formatter is a function that takes two arguments:
 
