@@ -32,7 +32,7 @@ if not valid_version:  # pragma: no cover
     print("Python 3.6 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.50"
+__version__ = "0.7.53"
 
 # ===========================================
 
@@ -84,19 +84,6 @@ def add_other_attribute_names(attributes: Dict) -> None:
             attr_names[attribute] = list(attributes[attribute])
         else:
             attr_names[attribute].extend(list(attributes[attribute]))
-
-
-def add_other_module_names(names: Sequence) -> None:
-    """Intended for extension to friendly_traceback that provide support for
-    some other modules. An example is friendly_pandas.  These names can be
-    used as suggestion in case of a NameError, suggesting that a given
-    module (name) should perhaps be imported.
-
-    Args:
-        names: a sequence of module names. For example:
-               ``names = ['pandas', 'numpy', 'matplotlib']``
-    """
-    third_party_names.modules.update(set(names))
 
 
 def add_other_module_names_synonyms(synonyms: Dict) -> None:

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-10-27 15:10-0300\n"
+"POT-Creation-Date: 2022-10-27 15:37-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1392,7 +1392,7 @@ msgid ""
 "The name `{name}` is not defined in your program.\n"
 "Perhaps you forgot to write\n"
 "\n"
-"   import {true_name} as {name}\n"
+"    import {true_name} as {name}\n"
 msgstr ""
 
 #: runtime_errors\name_error.py:309

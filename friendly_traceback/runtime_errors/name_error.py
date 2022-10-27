@@ -268,7 +268,7 @@ def typo_in_stdlib_module(name, attribute):
 
 def is_third_party_module(name: str) -> CauseInfo:
     found = find_spec(name)
-    if found or name in third_party_names.modules:
+    if found:
         hint = _("Did you forget to import `{name}`?\n").format(name=name)
         cause = (
             "\n"
@@ -290,7 +290,7 @@ def is_third_party_module(name: str) -> CauseInfo:
             + _(
                 "The name `{name}` is not defined in your program.\n"
                 "Perhaps you forgot to write\n\n"
-                "   import {true_name} as {name}\n"
+                "    import {true_name} as {name}\n"
             ).format(name=name, true_name=synonyms[name])
             + "\n"
         )
