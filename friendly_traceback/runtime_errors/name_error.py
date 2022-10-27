@@ -104,13 +104,18 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     type_hint = info_variables.name_has_type_hint(unknown_name, frame)
 
     # If the unknown name is followed by '.', it is not a typo for a builtin
+    potential_module_attribute = "<None>"
     try:
         rest_of_line = tb_data.node.first_token.line[tb_data.node.first_token.end[1] :]
         tokens = token_utils.get_significant_tokens(rest_of_line)
-        include_builtins = not tokens or tokens[0] != "."
+        potential_module = not tokens or tokens[0] != "."
+        if len(tokens) > 1:
+            potential_module_attribute = tokens[1].string
     except Exception:  # noqa
-        include_builtins = True
-    similar = info_variables.get_similar_names(unknown_name, frame, include_builtins)
+        potential_module = True
+    similar = info_variables.get_similar_names(
+        unknown_name, frame, include_builtins=potential_module
+    )
     if similar["best"]:
         if hint:
             hint = hint.replace("\n", "") + _(" Or did you mean `{name}`?\n").format(
@@ -137,7 +142,14 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
         else:
             additional = forgot_import
     if not additional and not hint:
-        additional = _("I have no additional information for you.\n")
+        # example: maths.pi
+        name = typo_in_stdlib_module(unknown_name, potential_module_attribute)
+        if name:
+            additional = "\n" + _(
+                "Perhaps you meant to write `{name}` and also forgot to import it.\n"
+            ).format(name=name)
+        else:
+            additional = _("I have no additional information for you.\n")
 
     explanation = {"cause": cause + additional}
     if not hint:
@@ -240,6 +252,18 @@ def is_stdlib_module(name: str) -> CauseInfo:
             return {"cause": cause, "suggest": hint, "lowercase": True}
         return {"cause": cause, "suggest": hint}
     return {}
+
+
+def typo_in_stdlib_module(name, attribute):
+    similar = utils.get_similar_words(name, stdlib_modules.names)
+    for other in similar:
+        if (
+            stdlib_modules.module_exists(other)
+            and attribute in attribute_names
+            and other in attribute_names[attribute]
+        ):
+            return other
+    return None
 
 
 def is_third_party_module(name: str) -> CauseInfo:
