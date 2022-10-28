@@ -101,16 +101,11 @@ class _State:
         return result
 
     def set_lang(self, lang: str) -> None:
-        """Sets the language and, if it is not the current language
-        and a traceback exists, the information is recompiled for the
-        new target language.
-        """
-        if lang == self.lang:
-            return
-        current_lang.install(lang)
-        self.lang = lang
+        """Sets the language."""
         for fn in self.other_set_lang:
             fn(lang)
+        current_lang.install(lang)
+        self.lang = lang
 
     def install_gettext(self, lang: str) -> None:
         """Sets the current language for gettext."""
