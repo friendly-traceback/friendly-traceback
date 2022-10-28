@@ -90,33 +90,37 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
         var_name=unknown_name
     )
 
-    hint = ""
-    known_module = is_stdlib_module(unknown_name)
-    if known_module:
-        cause = known_module["cause"]
-        if "suggest" in hint:
-            hint = known_module["suggest"]
-    else:
-        known_module = is_third_party_module(unknown_name)
-        if known_module:
-            cause = known_module["cause"]
-            hint = known_module["suggest"]
-
-    type_hint = info_variables.name_has_type_hint(unknown_name, frame)
-
     # If the unknown name is followed by '.', it is not a typo for a builtin
     potential_module_attribute = "<None>"
     try:
         rest_of_line = tb_data.node.first_token.line[tb_data.node.first_token.end[1] :]
         tokens = token_utils.get_significant_tokens(rest_of_line)
-        potential_module = not tokens or tokens[0] != "."
+        potential_module = tokens and tokens[0].string == "."
         if len(tokens) > 1:
             potential_module_attribute = tokens[1].string
     except Exception:  # noqa
         potential_module = True
-    similar = info_variables.get_similar_names(
-        unknown_name, frame, include_builtins=potential_module
-    )
+        similar = info_variables.get_similar_names(unknown_name, frame)
+    else:
+        similar = info_variables.get_similar_names(
+            unknown_name, frame, include_builtins=not potential_module
+        )
+
+    hint = ""
+    if potential_module:
+        known_module = is_stdlib_module(unknown_name)
+        if known_module:
+            cause = known_module["cause"]
+            if "suggest" in hint:
+                hint = known_module["suggest"]
+        else:
+            known_module = is_third_party_module(unknown_name)
+            if known_module:
+                cause = known_module["cause"]
+                hint = known_module["suggest"]
+
+    type_hint = info_variables.name_has_type_hint(unknown_name, frame)
+
     if similar["best"]:
         if hint:
             hint = hint.replace("\n", "") + _(" Or did you mean `{name}`?\n").format(

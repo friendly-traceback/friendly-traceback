@@ -206,6 +206,34 @@ def test_missing_import_from_other_2():
     if friendly_traceback._writing_docs:
         return result, message
 
+
+def test_potential_module():
+    # we suggest a module if the name is followed by a dot,
+    # otherwise we suggest a builtin.
+    tuple_similar_name = "The Python builtin `tuple` has a similar name."
+    try:
+        turtle(1)
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'turtle' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert tuple_similar_name in result
+
+    try:
+        turtle.Pen
+    except NameError as e:
+        message = str(e)
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "NameError: name 'turtle' is not defined" in result
+    if friendly_traceback.get_lang() == "en":
+        assert tuple_similar_name not in result
+    if friendly_traceback._writing_docs:
+        return result, message
+
+
 def test_Free_variable_referenced():
     def outer():
         def inner():
