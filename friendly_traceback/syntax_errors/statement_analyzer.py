@@ -329,15 +329,21 @@ def import_from(statement):
     statement.location_markers = su.highlight_two_tokens(
         statement.tokens[0], statement.bad_token
     )
+    bad_line = statement.bad_line.replace("import ", "").strip()
+    function, module = bad_line.split(" from ")
+    new_line = f"from {module} import {function}"
+    if not fixers.check_statement(new_line):
+        function = module = "(...)"
+
     hint = _("Did you mean `from {module} import {function}`?\n").format(
-        module=module, function=function
+        module=module.strip(), function=function.strip()
     )
     cause = _(
         "You wrote something like\n\n"
         "    import {function} from {module}\n\n"
         "instead of\n\n"
         "    from {module} import {function}\n\n"
-    ).format(module=module, function=function)
+    ).format(module=module.strip(), function=function.strip())
     return {"cause": cause, "suggest": hint}
 
 

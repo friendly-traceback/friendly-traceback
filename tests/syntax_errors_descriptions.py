@@ -676,6 +676,14 @@ descriptions = {
         in_cause: "from turtle import pen",
         title: "Import inversion: import X from Y",
     },
+    "import_from_2": {
+        in_cause: "from math import sin, cos",
+        title: "Import inversion: import X, Y from Z",
+    },
+    "import_from_3": {
+        in_cause: "from (...) import (...)",
+        title: "Import inversion: import a.b.c from d.e.f",
+    },
     "indentation_error_1": {
         in_cause: "expected to begin a new indented block",
         title: "IndentationError: expected an indented block",
