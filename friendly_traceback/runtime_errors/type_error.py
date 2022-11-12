@@ -6,6 +6,7 @@ providing a more detailed explanation.
 
 import inspect
 import re
+import sys
 from types import FrameType
 from typing import Any, List, Optional, Tuple, Type
 
@@ -1221,4 +1222,60 @@ def generator_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
     cause += ("    {new_line}\n").format(new_line=new_line)
     hint = _("You likely need to build a list first.\n")
 
+    return {"cause": cause, "suggest": hint}
+
+
+@parser._add
+def module_(message: str, tb_data: TracebackData) -> CauseInfo:
+    # Usually, this will happen because one attempts to subclass using
+    # a module name instead of a class inside this module.
+    # For example:
+    #     import enum
+    #     class a(enum):
+    #         ...
+    # I will assume that the missing class is something that is spelled
+    # similarly to the module name.
+    if message != "module() takes at most 2 arguments (3 given)":
+        return {}
+    bad_line = tb_data.bad_line
+    if not bad_line.startswith("class "):
+        return {}
+    all_objects = info_variables.get_all_objects(bad_line, tb_data.exception_frame)[
+        "name, obj"
+    ]
+    modules = []
+    for name, mod in all_objects:
+        if name in sys.modules and mod.__class__.__name__ == "module":
+            modules.append(mod)
+            mod_name = name
+    if not modules:
+        return {}
+
+    cause = _(
+        "You are attempting to subclass a module.\n"
+        "You likely forgot to import a class from that module.\n"
+    )
+    if len(modules) > 1:
+        return {"cause": cause}
+
+    classes = []
+    for name in dir(mod):
+        if inspect.isclass(getattr(mod, name)):
+            classes.append(name)
+    similar = utils.get_similar_words(mod_name, classes)
+    possible_class = "SomeClass"
+    if similar:
+        possible_class = similar[0]
+    tokens = token_utils.get_significant_tokens(bad_line)
+    for tok in tokens:
+        if tok == mod_name:
+            tok.string = mod_name + f".{possible_class}"
+    new_line = token_utils.untokenize(tokens)
+    hint = _("Did you mean `{new_line}`?\n").format(new_line=new_line)
+    cause = _(
+        "You are attempting to subclass the module `{mod_name}`.\n"
+        "Perhaps you meant:\n\n"
+        "    {new_line}\n"
+        "        ...\n\n"
+    ).format(mod_name=mod_name, new_line=new_line)
     return {"cause": cause, "suggest": hint}
