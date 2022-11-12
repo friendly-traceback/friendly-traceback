@@ -1235,9 +1235,14 @@ def module_(message: str, tb_data: TracebackData) -> CauseInfo:
     #         ...
     # I will assume that the missing class is something that is spelled
     # similarly to the module name.
-    if message != "module() takes at most 2 arguments (3 given)":
+    if message not in [
+        "module() takes at most 2 arguments (3 given)",
+        "module.__init__() takes at most 2 arguments (3 given)",  # Python 3.6
+    ]:
         return {}
     bad_line = tb_data.bad_line
+    if not bad_line.endswith(":"):  # Python 3.11+
+        bad_line = bad_line.split(":")[0] + ":"
     if not bad_line.startswith("class "):
         return {}
     all_objects = info_variables.get_all_objects(bad_line, tb_data.exception_frame)[

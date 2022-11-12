@@ -1073,5 +1073,21 @@ def test_Generator_has_no_len():
     if friendly_traceback._writing_docs:
         return result, message
 
-if __name__ == "__main__":
-    print(test_Not_an_integer()[0])
+
+def test_Inherit_from_module():
+    import enum
+    try:
+        class a(enum):
+            ...
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert ("module() takes at most 2 arguments (3 given)" in result
+            or
+            "module.__init__() takes at most 2 arguments (3 given)" in result)
+    if friendly_traceback.get_lang() == "en":
+        assert 'Did you mean `class a(enum.Enum):`?' in result
+    if friendly_traceback._writing_docs:
+        return result, message
+
