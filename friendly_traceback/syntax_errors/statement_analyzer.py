@@ -112,6 +112,30 @@ def invalid_non_printable_character(statement=None):
 
 
 @add_statement_analyzer
+def missing_index(statement=None):
+    if not (statement.bad_token == "]" and statement.prev_token == "["):
+        return {}
+    new_tokens = []
+    for tok in statement.tokens:
+        if (
+            tok is statement.bad_token
+        ):  # Check for identity as other brackets might be present
+            new_tokens.append("0")
+        new_tokens.append(tok)
+
+    new_line = token_utils.untokenize(new_tokens)
+    if not fixers.check_statement(new_line):
+        return {}
+    hint = _("Did you forget to add an index?\n")
+    cause = _(
+        "It looks like you forgot to add an index.\n"
+        "Perhaps you meant to write something like:\n\n"
+        "    {new_line}"
+    ).format(new_line=new_line)
+    return {"cause": cause, "suggest": hint}
+
+
+@add_statement_analyzer
 def mismatched_brackets(statement):
     """Detecting code that ends with an unmatched closing bracket"""
     if not (statement.end_bracket and statement.bad_token == statement.last_token):

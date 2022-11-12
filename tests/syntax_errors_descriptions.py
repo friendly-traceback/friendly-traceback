@@ -856,6 +856,10 @@ descriptions = {
         in_cause: "Did you forget to write `in`?",
         title: "For loop missing 'in' operator",
     },
+    "missing_index": {
+        in_cause: "[1, 2, 3][0]",
+        title: "Missing index"
+    },
     "missing_parens_for_range": {
         in_cause: "you forgot to use to use parenthesis with `range`",
         title: "Missing parenthesis for range",
