@@ -571,6 +571,11 @@ def x_is_not_callable(message: str, tb_data: TracebackData) -> CauseInfo:
     else:
         return {"cause": cause + none_type}
 
+    # Handle case (1.)(...) to replace by (...) instead of ()(...)
+    tokens = token_utils.tokenize(fn_call)
+    if len(tokens) > 2 and tokens[0] == "(" and tokens[1] == ")":
+        fn_call = fn_call[tokens[1].end_col :]
+
     if fn_call.replace(" ", "") == "()":
         cause = _(
             "The parenthesis `()` following `{obj_name}` are interpreted\n"
