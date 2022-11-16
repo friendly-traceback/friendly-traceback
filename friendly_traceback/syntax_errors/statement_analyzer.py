@@ -348,8 +348,6 @@ def import_from(statement):
     if statement.bad_token != "from" or statement.tokens[0] != "import":
         return {}
 
-    function = statement.prev_token
-    module = statement.next_token
     statement.location_markers = su.highlight_two_tokens(
         statement.tokens[0], statement.bad_token
     )

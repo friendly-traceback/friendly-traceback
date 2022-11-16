@@ -2057,3 +2057,31 @@ def invalid_non_printable_character(message: str = "", statement=None):
             "Your code contains the invalid non-printable character {char}.\n"
         ).format(char=repr(char))
     }
+
+
+@add_python_message
+def import_from(message: str = "", statement=None):
+    # new message for Python 3.12
+    if message != "Did you mean to use 'from ... import ...' instead?":
+        return {}
+    for token in statement.tokens:
+        if token == "from":
+            bad_token = token
+            break
+    statement.location_markers = su.highlight_two_tokens(statement.tokens[0], bad_token)
+    bad_line = statement.bad_line.replace("import ", "").strip()
+    function, module = bad_line.split(" from ")
+    new_line = f"from {module} import {function}"
+    if not fixers.check_statement(new_line):
+        function = module = "(...)"
+
+    hint = _("Did you mean `from {module} import {function}`?\n").format(
+        module=module.strip(), function=function.strip()
+    )
+    cause = _(
+        "You wrote something like\n\n"
+        "    import {function} from {module}\n\n"
+        "instead of\n\n"
+        "    from {module} import {function}\n\n"
+    ).format(module=module.strip(), function=function.strip())
+    return {"cause": cause, "suggest": hint}
