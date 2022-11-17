@@ -1644,10 +1644,27 @@ def non_default_arg_follows_default_arg(message: str = "", _statement=None):
 
 
 @add_python_message
-def parens_around_exceptions(message: str = "", _statement=None):
+def parens_around_exceptions(message: str = "", statement=None):
+    # sourcery skip: merge-comparisons
     # keep in sync with statement_analyzer.parens_around_exceptions
     if message != "multiple exception types must be parenthesized":
         return {}
+
+    new_tokens = []
+    paren_added = False
+    for token in statement.tokens:
+        if token == "except":
+            new_tokens.extend([token, " ("])
+        elif token == "as" or token == ":" and not paren_added:
+            new_tokens.extend([" ) ", token])
+            paren_added = True
+        else:
+            new_tokens.append(token)
+    new_line = token_utils.untokenize(new_tokens)
+    if not fixers.check_statement(new_line):
+        new_line = ""
+    else:
+        new_line = f"\n    {new_line.lstrip()}\n"
 
     hint = _("Did you forget parentheses?\n")
     cause = _(
@@ -1655,7 +1672,7 @@ def parens_around_exceptions(message: str = "", _statement=None):
         "with multiple exception types. If that is the case, you must\n"
         "surround them with parentheses.\n"
     )
-    return {"cause": cause + "\n", "suggest": hint}
+    return {"cause": cause + new_line, "suggest": hint}
 
 
 @add_python_message
