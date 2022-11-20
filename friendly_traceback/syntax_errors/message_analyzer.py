@@ -1962,11 +1962,7 @@ def unterminated_f_string(message: str = "", statement=None):
     for tok in [statement.prev_token, statement.bad_token, statement.next_token]:
         # escaped quotes are not allowed in f-strings, so we can simply count the number
         # of quotes of both kinds and look for an odd-number.
-        if (
-            tok.is_string()
-            and tok.string.startswith("f")
-            and (tok.string.count("'") % 2 or tok.string.count('"') % 2)
-        ):
+        if tok.is_f_string():
             fstring = tok
             break
     else:  # pragma: no cover
@@ -2102,3 +2098,30 @@ def import_from(message: str = "", statement=None):
         "    from {module} import {function}\n\n"
     ).format(module=module.strip(), function=function.strip())
     return {"cause": cause, "suggest": hint}
+
+
+@add_python_message
+def incomplete_input(message: str = "", statement=None):
+    # This can occur when using code.interact() which is used
+    # by IDLE and the friendly console
+    # Note: there are no unit tests for this.
+    if message != "incomplete input":
+        return {}
+    try:
+        compile(statement.bad_line, "<dummy>", "single")
+    except SyntaxError as exc:
+        cause = _("The statement `{line}` is not valid.\n\n").format(
+            line=statement.bad_line
+        )
+        if exc.msg == "incomplete input":
+            cause += _("I don't have any additional information")
+            return {"cause": cause}
+        for case in MESSAGE_ANALYZERS:
+            original_cause = case(exc.msg, statement)
+            if original_cause:
+                cause += original_cause["cause"]
+                break
+        else:
+            cause += _("I don't have any additional information")
+        return {"cause": cause}
+    return {}

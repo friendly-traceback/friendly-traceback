@@ -140,6 +140,12 @@ class Token:
         """Returns True if the token is a string"""
         return self.type == py_tokenize.STRING
 
+    def is_f_string(self) -> bool:
+        """Return True if the token is an f-string"""
+        return self.type == py_tokenize.STRING and (
+            self.string.startswith("f") or self.string.startswith("F")
+        )
+
     def is_unclosed_string(self) -> bool:
         """Returns True if the token is part of an unclosed triple-quoted string"""
         return self.type == UNCLOSED
