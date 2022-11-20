@@ -111,16 +111,16 @@ def test_Missing_import():
     # Check to see if a module from the stdlib should have been
     # imported.
     try:
-        Tkinter.frame
+        Math.cos
     except NameError as e:
         message = str(e)
         friendly_traceback.explain_traceback(redirect="capture")
     result = friendly_traceback.get_output()
 
-    assert "NameError: name 'Tkinter' is not defined" in result
+    assert "NameError: name 'Math' is not defined" in result
     if friendly_traceback.get_lang() == "en":
-        assert "Perhaps you forgot to import `tkinter`" in result
-        assert "module is `tkinter` and not `Tkinter`." in result
+        assert "Perhaps you forgot to import `math`" in result
+        assert "module is `math` and not `Math`." in result
 
     # The following is for negative result
     try:
