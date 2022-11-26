@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-20 09:20-0400\n"
+"POT-Creation-Date: 2022-11-25 21:16-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -358,7 +358,7 @@ msgstr ""
 
 #: info_generic.py:97
 msgid ""
-"All built-in exceptions defined by Python are derived from `Exception`.\n"
+"Most built-in exceptions defined by Python are derived from `Exception`.\n"
 "All user-defined exceptions should also be derived from this class.\n"
 msgstr ""
 

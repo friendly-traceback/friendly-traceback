@@ -95,7 +95,7 @@ def register(
 @register(Exception)
 def _exception() -> str:
     return _(
-        "All built-in exceptions defined by Python are derived from `Exception`.\n"
+        "Most built-in exceptions defined by Python are derived from `Exception`.\n"
         "All user-defined exceptions should also be derived from this class.\n"
     )
 
