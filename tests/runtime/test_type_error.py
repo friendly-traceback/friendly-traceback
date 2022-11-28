@@ -1,6 +1,7 @@
 import sys
 
 import friendly_traceback
+import pytest
 
 
 def test_Can_only_concatenate():
@@ -1091,3 +1092,27 @@ def test_Inherit_from_module():
     if friendly_traceback._writing_docs:
         return result, message
 
+@pytest.mark.skipif(sys.version_info.minor < 9, reason="GenericAlias not defined")
+def assigned_to_type_hint():
+    x = list[1, 2, 3]
+    try:
+        x[0]
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+    result = friendly_traceback.get_output()
+    assert "descriptor 'append' for 'list' objects doesn't apply to a 'int' object" in result
+    if friendly_traceback.get_lang() == "en":
+        assert "`x` is a `GenericAlias` used for type annotations." in result
+
+    try:
+        x.append(0)
+    except TypeError as e:
+        friendly_traceback.explain_traceback(redirect="capture")
+        message = str(e)
+    result = friendly_traceback.get_output()
+    assert ("There are no type variables left in list[1, 2, 3]" in result or
+            "list[1, 2, 3] is not a generic class" in result)
+    if friendly_traceback.get_lang() == "en":
+        assert "`x` is a `GenericAlias` used for type annotations." in result
+    if friendly_traceback._writing_docs:
+        return result, message

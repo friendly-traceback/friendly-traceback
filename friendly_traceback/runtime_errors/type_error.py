@@ -7,7 +7,7 @@ providing a more detailed explanation.
 import inspect
 import re
 import sys
-from types import FrameType
+import types
 from typing import Any, List, Optional, Tuple, Type
 
 from .. import debug_helper, info_variables, token_utils, utils
@@ -22,7 +22,7 @@ _ = current_lang.translate
 
 
 def _convert_str_to_number(
-    obj_type1: str, obj_type2: str, frame: FrameType, tb_data: TracebackData
+    obj_type1: str, obj_type2: str, frame: types.FrameType, tb_data: TracebackData
 ) -> Tuple[Optional[str], Optional[str]]:
     """Determines if a suggestion should be made to convert a string to a
     number type; potentially useful for beginners that write programs
@@ -690,7 +690,7 @@ def cannot_multiply_by_str(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 def find_possible_integers(
-    object_of_type: Type[Any], frame: FrameType, line: str
+    object_of_type: Type[Any], frame: types.FrameType, line: str
 ) -> List[str]:
     all_objects = info_variables.get_all_objects(line, frame)
     names = []
@@ -1268,10 +1268,7 @@ def module_(message: str, tb_data: TracebackData) -> CauseInfo:
     if len(modules) > 1:
         return {"cause": cause}
 
-    classes = []
-    for name in dir(mod):
-        if inspect.isclass(getattr(mod, name)):
-            classes.append(name)
+    classes = [name for name in dir(mod) if inspect.isclass(getattr(mod, name))]
     similar = utils.get_similar_words(mod_name, classes)
     possible_class = "SomeClass"
     if similar:
@@ -1279,7 +1276,7 @@ def module_(message: str, tb_data: TracebackData) -> CauseInfo:
     tokens = token_utils.get_significant_tokens(bad_line)
     for tok in tokens:
         if tok == mod_name:
-            tok.string = mod_name + f".{possible_class}"
+            tok.string = f"{mod_name}.{possible_class}"
     new_line = token_utils.untokenize(tokens)
     hint = _("Did you mean `{new_line}`?\n").format(new_line=new_line)
     cause = _(
@@ -1289,3 +1286,32 @@ def module_(message: str, tb_data: TracebackData) -> CauseInfo:
         "        ...\n\n"
     ).format(mod_name=mod_name, new_line=new_line)
     return {"cause": cause, "suggest": hint}
+
+
+@parser._add
+def assigned_to_type_hint(message: str, tb_data: TracebackData) -> CauseInfo:
+    # something like x = list[1, 2, 3], and then trying to use `x` as
+    # a normal list
+    pattern = re.compile(
+        "descriptor '.*' for '.*' objects doesn't apply to a '.*' object"
+    )
+    match = re.search(pattern, message)
+    if not (
+        match
+        or message.startswith("There are no type variables left in")
+        or message.endswith("is not a generic class")
+    ):
+        return {}
+    all_objects = info_variables.get_all_objects(
+        tb_data.bad_line, tb_data.exception_frame
+    )["name, obj"]
+    for name, obj in all_objects:
+        if isinstance(obj, types.GenericAlias):
+            break
+    else:
+        return {}
+    return {
+        "cause": _("`{name}` is a `GenericAlias` used for type annotations.\n").format(
+            name=name
+        )
+    }

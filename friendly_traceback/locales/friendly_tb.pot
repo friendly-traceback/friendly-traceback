@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-11-25 21:16-0400\n"
+"POT-Creation-Date: 2022-11-28 09:29-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2038,12 +2038,12 @@ msgid ""
 "You likely forgot to import a class from that module.\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1284
+#: runtime_errors\type_error.py:1281
 msgid ""
 "Did you mean `{new_line}`?\n"
 msgstr ""
 
-#: runtime_errors\type_error.py:1285
+#: runtime_errors\type_error.py:1282
 msgid ""
 "You are attempting to subclass the module `{mod_name}`.\n"
 "Perhaps you meant:\n"
@@ -2051,6 +2051,11 @@ msgid ""
 "    {new_line}\n"
 "        ...\n"
 "\n"
+msgstr ""
+
+#: runtime_errors\type_error.py:1312
+msgid ""
+"`{name}` is a `GenericAlias` used for type annotations.\n"
 msgstr ""
 
 #: runtime_errors\unbound_local_error.py:31
