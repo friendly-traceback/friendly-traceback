@@ -9,8 +9,3 @@ repos:
     rev: 3.9.2
     hooks:
     -   id: flake8
--   repo: https://github.com/timothycrosley/isort
-    rev: 5.9.3
-    hooks:
-    -   id: isort
-        exclude: ^tests/

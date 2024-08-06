@@ -1,7 +1,7 @@
 # Developer notes
 
 Friendly has no other dependencies than modules included in
-Python's standard library. Python versions supported include 3.6, 3.7 and 3.8.
+Python's standard library. Python versions supported include 3.6, to 3.12 inclusively.
 
 We use [black](https://github.com/python/black) for formatting and
 [flake8](http://flake8.pycqa.org/en/latest/) for linting.
@@ -27,26 +27,26 @@ of the existing batch files.
 
 1. Create a virtual environment for a given Python version:
 
-        $ py -3.7 -m venv ./venv-friendly3.7
+        py -3.7 -m venv ./venv-friendly-traceback-3.7
 
 2. Activate the virtual environment; on Windows you can use
 
-        $ ae 3.7
+        ae 3.7
 
     Otherwise, you can presumably do something like:
 
-        $ venv-friendly3.7/scripts/activate
+        venv-friendly-tracceback-3.7/scripts/activate
 
 3. Install the required dependencies for formatting, linting and testing
 
-        $ python -m pip install -r requirements-dev.txt
+        python -m pip install -r requirements-dev.txt
 
 
 4. If desired, deactivate the virtual environment and create new ones for
    other Python versions
 
-        $ deactivate
-        $ py -3.6 -m venv ./venv-friendly3.6
+        deactivate
+        py -3.6 -m venv ./venv-friendly-traceback-3.6
 
    etc.
 
@@ -55,9 +55,9 @@ of the existing batch files.
 1. ae.bat
 
    Used to activate a virtual environment based on the Python version;
-   Python 3.7 is the default.  Example usage:
+   currently Python 3.10 is the default.  Example usage:
 
-        $ ae 3.6
+        ae 3.6
 
 2. make_trb.bat
 
@@ -80,14 +80,14 @@ of the existing batch files.
 
 Install pytest-cov and run the following:
 
-     $ python -m pytest --cov=friendly_traceback --cov-report html
-     $ switch environment for another python version.
-     $ python -m pytest --cov=friendly_traceback --cov-append --cov-report html
+     python -m pytest --cov=friendly_traceback --cov-report html
+     switch environment for another python version.
+     python -m pytest --cov=friendly_traceback --cov-append --cov-report html
 
 ## Running a single test
 
 It is often useful to run a single test case as you develop.
 From the root directory, you can do something like the following:
 
-    $ pytest -k Text_in_function_name
+    pytest -k Text_in_function_name
 

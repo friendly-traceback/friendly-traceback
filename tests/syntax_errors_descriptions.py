@@ -1175,3 +1175,6 @@ if sys.version_info < (3, 10):
     del descriptions["except_or_finally"]
     del descriptions["typo_in_finally"]
     del descriptions["typo_in_except"]
+
+if sys.version_info >= (3, 12):
+    del descriptions["too_many_nested_blocks"]
