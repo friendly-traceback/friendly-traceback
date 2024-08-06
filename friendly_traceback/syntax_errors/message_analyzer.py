@@ -1396,12 +1396,23 @@ def leading_zeros_in_decimal_integers(message: str = "", statement=None):
     ):
         return {}
 
+    # Suppose problem is string 01
+    # Prior to Python 3.12, statement.bad_token.string would have been 0.
+    # For Python 3.12, this would be 01.
+
     if statement.bad_token.string[0] == "0":
-        prev_str = statement.bad_token.string
-        bad_str = statement.next_token.string
+        no_leading_zeros = statement.bad_token.string.lstrip("0")
+        if not no_leading_zeros:
+            prev_str = statement.bad_token.string
+            bad_str = statement.next_token.string
+        else:
+            nb_zeros = len(statement.bad_token.string) - len(no_leading_zeros)
+            prev_str = "0" * nb_zeros
+            bad_str = statement.bad_token.string[nb_zeros:]
     else:
         prev_str = statement.prev_token.string
         bad_str = statement.bad_token.string
+
     return _proper_decimal_or_octal_number(prev_str, bad_str)
 
 
