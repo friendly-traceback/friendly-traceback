@@ -6,6 +6,7 @@ This list is not authoritative but should be good enough.
 Note that some module might not be found on some platform.
 See function ``module_exists`` at the end.
 """
+
 import sys
 from importlib.util import find_spec
 

@@ -32,6 +32,7 @@ This module currently contains 2 formatters:
   embedded as a code-block in a file (such as .rst). It can also be used
   to print the information in a traditional console.
 """
+
 from typing import Dict, List, Set
 
 from . import debug_helper

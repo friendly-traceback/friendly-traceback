@@ -5,6 +5,7 @@ This is especially useful when a custom REPL is used.
 
 Note that we monkeypatch Python's linecache.getlines.
 """
+
 import inspect
 import linecache
 import time

@@ -19,6 +19,7 @@ functions are available in such environments, do the following::
     prompt>> Friendly
     # The output will include the required information
 """
+
 # NOTE: __all__ is defined at the very bottom of this file
 import inspect
 import sys

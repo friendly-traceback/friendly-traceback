@@ -2,6 +2,7 @@
 
 Keep tabs of all settings.
 """
+
 import sys
 import types
 from typing import List, Optional, Type, Union
@@ -302,6 +303,7 @@ def did_exception_occur_before() -> bool:
 
     Returns True if such information was captures, False otherwise.
     """
+
     # Note that if an exception occurred while friendly-traceback was imported,
     # this will not capture the information.
     # For example, suppose we try to do:

@@ -4,6 +4,7 @@
 A collection of useful functions and methods to deal with tokenizing
 source code.
 """
+
 import ast
 import keyword
 import sys

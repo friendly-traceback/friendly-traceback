@@ -6,6 +6,7 @@ thus restricting tracebacks to code written by the users.
 If Friendly-traceback is used by some other program,
 it might be desirable to exclude additional files.
 """
+
 import os
 import sys
 from typing import Set, TypeVar

@@ -1,4 +1,5 @@
 """Getting specific information for AttributeError"""
+
 import ast
 import builtins
 import platform

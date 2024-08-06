@@ -2,6 +2,7 @@
 
 A few useful objects which do not naturally fit anywhere else.
 """
+
 import ast
 import difflib
 import types

@@ -1,4 +1,5 @@
 """This module is intended to add help attributes to various functions."""
+
 from typing import Any, Callable, Dict, Union
 
 from friendly_traceback import debug_helper

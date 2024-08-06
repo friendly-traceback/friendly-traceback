@@ -6,6 +6,7 @@ The idea is to silence internal exceptions raised by Friendly
 itself for most users by redirecting them here, and have them
 printed only when debugging mode is activated.
 """
+
 import inspect
 import sys
 from typing import Optional

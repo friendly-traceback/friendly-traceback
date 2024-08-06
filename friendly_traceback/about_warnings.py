@@ -7,6 +7,7 @@ which is intended to be part of the public API. However, while the latter
 can be imported using ``from friendly_traceback import enable_warnings``,
 ``get_warning_parser`` needs to be imported from this module.
 """
+
 import inspect
 import warnings
 from importlib import import_module

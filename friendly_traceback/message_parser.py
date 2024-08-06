@@ -7,7 +7,6 @@ which is intended to be part of the public API, but needs to be
 imported from this module instead of simply from ``friendly_traceback``.
 """
 
-
 from importlib import import_module
 from typing import List, Type, TypeVar
 

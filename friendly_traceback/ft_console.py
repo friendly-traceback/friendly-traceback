@@ -5,6 +5,7 @@ ft_console.py
 Adaptation of Python's console found in code.py so that it can be
 used to show some friendly tracebacks.
 """
+
 import codeop  # need to import to exclude from tracebacks
 import os
 import platform

@@ -7,6 +7,7 @@ It does contain one decorator (``register``)
 which is intended to be part of the public API, but needs to be
 imported from this module instead of simply from ``friendly_traceback``.
 """
+
 import inspect
 from typing import Any, Callable, Dict, Type
 

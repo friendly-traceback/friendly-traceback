@@ -5,6 +5,7 @@ This is not meant to be imported anywhere.
 The output is shown in the console. It should be saved in
 modules_attributes.py located in this directory.
 """
+
 import sys
 from pprint import pprint
 
