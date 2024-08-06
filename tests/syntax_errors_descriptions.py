@@ -1178,3 +1178,7 @@ if sys.version_info < (3, 10):
 
 if sys.version_info >= (3, 12):
     del descriptions["too_many_nested_blocks"]
+    descriptions["f_string_unterminated"]= {
+        in_cause: "never ended the string with another quote on that line",
+        title: "unterminated string literal",
+    }

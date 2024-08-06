@@ -873,6 +873,7 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
     if not (
         "EOL while scanning string literal" in message
         or "unterminated string literal" in message  # Python 3.10+
+        or "unterminated string literal" in message  # Python 3.12
     ):
         return {}
 
@@ -1952,7 +1953,10 @@ def unmatched_parenthesis(message: str = "", statement=None):
 
 @add_python_message
 def unterminated_f_string(message: str = "", statement=None):
-    if "f-string: unterminated string" not in message:
+    if not (
+        "f-string: unterminated string" in message
+        or "unterminated string literal" in message
+    ):
         return {}
 
     hint = _("Perhaps you forgot a closing quote.\n")
