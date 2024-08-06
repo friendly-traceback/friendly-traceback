@@ -368,10 +368,17 @@ def bad_operand_type_for_unary(message: str, tb_data: TracebackData) -> CauseInf
     hint = None
     # The user might have written something like "=+" instead of
     # "+="
+
     operator = match[1]
     index = token_utils.find_substring_index(
         tb_data.original_bad_line, tb_data.bad_line
     )
+    if (
+        index == 0 and tb_data.original_bad_line.lstrip() == tb_data.bad_line.strip()
+    ):  # Python 3.12
+        # Assume that the first '+' we find is the right one.
+        index = token_utils.find_substring_index(tb_data.original_bad_line, "+")
+
     if index > 0:
         tokens = token_utils.get_significant_tokens(tb_data.original_bad_line)
         if (
