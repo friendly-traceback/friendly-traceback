@@ -393,6 +393,8 @@ def strip_comment(line: str) -> str:
             token = Token(tok)
             if token.is_comment():
                 continue
+            if not token.string:
+                token.line = ""
             tokens.append(token)
     except py_tokenize.TokenError:
         pass

@@ -133,3 +133,8 @@ def test_unclosed_triple_quoted_string():
         source = f.read()
         assert token_utils.untokenize(token_utils.tokenize(source)) == source
 
+
+def test_strip_commment():
+    statement = "if True: # a comment"
+    stripped = token_utils.strip_comment(statement)
+    assert stripped.strip() == "if True:"
