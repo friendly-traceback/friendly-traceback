@@ -144,3 +144,10 @@ def test_strip_commment():
     statement = "if True: # a comment"
     stripped = token_utils.strip_comment(statement)
     assert stripped.strip() == "if True:"
+
+
+def test_invalid_octal():
+    # See https://github.com/friendly-traceback/friendly-traceback/issues/242
+    statement = "b = 0o1876"
+    new_statement = token_utils.untokenize(token_utils.tokenize(statement))
+    assert new_statement == statement

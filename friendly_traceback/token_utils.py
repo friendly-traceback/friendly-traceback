@@ -289,6 +289,8 @@ def tokenize(source: str) -> List[Token]:
             remaining.lstrip().startswith(('"""', "'''"))
             or remaining.lstrip().startswith(("'", '"'))
         ):
+            if sys.version_info >= (3, 12):
+                tokens = handle_remaining(tokens, remaining)
             if source.endswith((" ", "\t")):
                 fix_empty_line(source, tokens)
             return tokens
@@ -333,6 +335,36 @@ def tokenize(source: str) -> List[Token]:
     if source.endswith((" ", "\t")):
         fix_empty_line(source, tokens)
 
+    return tokens
+
+
+def handle_remaining(tokens, remaining):
+    """With Python 3.12, the tokenizer changed significantly and can drop content
+    when invalid code is encountered. This is an attempt to provide a
+    sufficient fix for friendly-traceback.
+    See https://github.com/friendly-traceback/friendly-traceback/issues/242 for an
+    example
+    """
+    rest_of_line = remaining.split("\n")[0]
+    if not tokens:
+        end_row = 1
+        end_col = 0
+        line = rest_of_line
+    else:
+        end_row, end_col = tokens[-1].end
+        line = tokens[-1].line
+
+    tokens.append(
+        Token(
+            (
+                py_tokenize.ERRORTOKEN,
+                line[end_col:],
+                (end_row, end_col),
+                (end_row, end_col + len(rest_of_line)),
+                line,
+            )
+        )
+    )
     return tokens
 
 

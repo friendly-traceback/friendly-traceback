@@ -907,6 +907,7 @@ def invalid_hexadecimal(statement):
         wrong = statement.next_token
     else:
         prev = statement.prev_token
+
         wrong = statement.bad_token
     if not (prev.immediately_before(wrong) and prev.string.lower().startswith("0x")):
         return {}
@@ -928,9 +929,16 @@ def invalid_octal(statement):
     """Identifies problem caused by invalid character in an octal number."""
     prev = statement.prev_token
     wrong = statement.bad_token
-    if not (prev.immediately_before(wrong) and prev.string.lower().startswith("0o")):
+    if sys.version_info < (3, 12):
+        if not (
+            prev.immediately_before(wrong) and prev.string.lower().startswith("0o")
+        ):
+            return {}
+        bad_digit = wrong.string[0]
+    elif "0o" in wrong.string or "0O" in wrong.string:
+        bad_digit = statement.bad_line[statement.offset - 1]
+    else:
         return {}
-
     hint = _("Did you made a mistake in writing an octal integer?\n")
     cause = _(
         "It looks like you used an invalid character (`{character}`) in an octal number.\n\n"
@@ -939,7 +947,7 @@ def invalid_octal(statement):
         "In Python, octal numbers start with either `0o` or `0O`,\n"
         "(the digit zero followed by the letter `o`)\n"
         "followed by the characters used to represent the value of that integer.\n"
-    ).format(character=wrong.string[0])
+    ).format(character=bad_digit)
     return {"cause": cause, "suggest": hint}
 
 
