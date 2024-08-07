@@ -133,6 +133,12 @@ def test_unclosed_triple_quoted_string():
         source = f.read()
         assert token_utils.untokenize(token_utils.tokenize(source)) == source
 
+def test_unterminated_string():
+    # See https://github.com/friendly-traceback/friendly-traceback/issues/241
+    with open("tests/unterminated.txt") as f:
+        source = f.read()
+        assert token_utils.untokenize(token_utils.tokenize(source)) == source
+
 
 def test_strip_commment():
     statement = "if True: # a comment"

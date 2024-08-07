@@ -873,7 +873,6 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
     if not (
         "EOL while scanning string literal" in message
         or "unterminated string literal" in message  # Python 3.10+
-        or "unterminated string literal" in message  # Python 3.12
     ):
         return {}
 

@@ -286,7 +286,8 @@ def tokenize(source: str) -> List[Token]:
         length = len(new_source)
         remaining = source[length:]
         if not (
-            remaining.lstrip().startswith('"""') or remaining.lstrip().startswith("'''")
+            remaining.lstrip().startswith(('"""', "'''"))
+            or remaining.lstrip().startswith(("'", '"'))
         ):
             if source.endswith((" ", "\t")):
                 fix_empty_line(source, tokens)
