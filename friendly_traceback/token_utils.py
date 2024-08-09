@@ -319,8 +319,11 @@ def tokenize(source: str) -> List[Token]:
             elif source.endswith((" ", "\t")):
                 fix_empty_last_line(source, tokens)
             return tokens
-        else:
+        elif tokens:
             return add_unclosed_string_content(tokens, remaining, new_source)
+        else:
+            debug_helper.log("Problem: could not tokenize the source.")
+            return []
 
     if source.endswith((" ", "\t")):
         fix_empty_last_line(source, tokens)
