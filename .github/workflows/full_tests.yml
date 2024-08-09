@@ -30,7 +30,7 @@ jobs:
         with:
           path: |
             .tox
-          key: ${{ matrix.os }}-${{ hashFiles('tox.ini') }}-${{ hashFiles('requirements-dev.txt') }}-${{ matrix.tox.python-version }}
+          key: ${{ matrix.os }}-${{ hashFiles('tox.ini') }}-${{ hashFiles('requirements-dev-github.txt') }}-${{ matrix.tox.python-version }}
       - name: setup tox
         run: |
           python --version

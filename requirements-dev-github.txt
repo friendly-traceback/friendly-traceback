@@ -1,0 +1,8 @@
+asttokens >= 2.0.4
+executing >= 1.1.0
+pure_eval >= 0.2.1
+stack_data >= 0.5.1
+pytest == 7.1
+flake8
+pre-commit
+wheel
