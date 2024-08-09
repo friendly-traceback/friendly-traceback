@@ -12,7 +12,6 @@ def test_flush():
     assert "NameError: name 'c' is not defined" in result1
     result2 = friendly_traceback.get_output()  # returns empty string
     assert not result2
-    return result, result2
 
 
 if __name__ == "__main__":
