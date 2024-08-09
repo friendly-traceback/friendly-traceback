@@ -9,7 +9,7 @@ import sys
 
 import pytest
 
-IN_GITHUB_ACTIONS = os.getenv("GITHUB_ACTIONS") == "true"
+IN_GITHUB_ACTIONS = bool(os.getenv("GITHUB_ACTIONS"))
 
 
 def run(lang):
