@@ -30,7 +30,8 @@ def test_Not_a_package():
     if friendly_traceback.get_lang() == "en":
         assert "`xxx` cannot be imported" in result
 
-    return  result, message
+    if friendly_traceback._writing_docs:
+        return result, message
 
 def test_Not_a_package_similar_name():
     try:

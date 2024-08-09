@@ -3,7 +3,7 @@ executing >= 1.1.0
 pure_eval >= 0.2.1
 stack_data >= 0.5.1
 black
-pytest == 7.1
+pytest
 pytest-cov
 coverage
 flake8
