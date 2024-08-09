@@ -233,21 +233,43 @@ def is_operator(op: Union[str, Token]) -> bool:
     )
 
 
-def fix_empty_line(source: str, tokens: Sequence[Token]) -> None:
+def fix_empty_last_line(source: str, tokens: Sequence[Token]) -> None:
     """Python's tokenizer drops entirely a last line if it consists only of
     space characters and/or tab characters.  To ensure that we can always have::
 
         untokenize(tokenize(source)) == source
 
-    we correct the last token content if needed.
+    we correct the last token content by modifying ``tokens`` in place.
     """
+    if not tokens:
+        return
     nb = 0
     for char in reversed(source):
         if char in (" ", "\t"):
             nb += 1
         else:
             break
-    tokens[-1].string = source[-nb:]
+    last_token = tokens.pop()
+
+    row = last_token.start_row
+    # When dealing with an empty line, Python 3.12 generate an NL token on the last line
+    # and adds a ENDMARKER token on the next (non-existent) line.
+    # For previous version no NL token was inserted.
+    if (
+        sys.version_info >= (3, 12)
+        and len(tokens) > 1
+        and tokens[-1].type == py_tokenize.NL
+    ):
+        prev_token = tokens.pop()
+        if last_token.start_row != prev_token.start_row:
+            row = prev_token.start_row
+
+    last_token.string = source[-nb:]
+    last_token.start = (row, last_token.start_col)
+    last_token.end = (row, last_token.end_col + len(last_token.string))
+    last_token.line = last_token.string
+
+    tokens.append(last_token)
 
 
 def tokenize(source: str) -> List[Token]:
@@ -282,6 +304,9 @@ def tokenize(source: str) -> List[Token]:
         pass
 
     new_source = untokenize(tokens)
+    if not source.strip():  # Used to prevent "fix" to be applied to
+        return tokens  # MEANINGLESS_TOKEN defined elsewhere
+
     if new_source != source:
         length = len(new_source)
         remaining = source[length:]
@@ -291,50 +316,56 @@ def tokenize(source: str) -> List[Token]:
         ):
             if sys.version_info >= (3, 12):
                 tokens = handle_remaining(tokens, remaining)
-            if source.endswith((" ", "\t")):
-                fix_empty_line(source, tokens)
+            elif source.endswith((" ", "\t")):
+                fix_empty_last_line(source, tokens)
             return tokens
-        additional_lines = [line + "\n" for line in remaining.split("\n")]
-        # removed extra \n added on last line
-        additional_lines[-1] = additional_lines[-1][0:-1]
-        last_token = tokens[-1]
-        string = additional_lines[0]
-        if new_source.endswith("\n"):
-            start_row = last_token.end_row + 1
-            start_col = 0
-            end_col = len(string)
-            line = string
         else:
-            spaces_before_quotes = len(string) - len(string.lstrip())
-            start_row = last_token.end_row
-            start_col = last_token.end_col + spaces_before_quotes
-            string = string.lstrip()
-            end_col = start_col + len(string)
-            line = last_token.string + string
-        end_row = start_row
-        tokens.append(
-            Token((UNCLOSED, string, (start_row, start_col), (end_row, end_col), line))
-        )
-        for line in additional_lines[1:]:
-            start_row += 1
-            end_row = start_row
-            start_col = 0
-            end_col = len(line)
-            tokens.append(
-                Token(
-                    (
-                        UNCLOSED,
-                        line,
-                        (start_row, start_col),
-                        (end_row, end_col),
-                        line,
-                    )
-                )
-            )
+            return add_unclosed_string_content(tokens, remaining, new_source)
 
     if source.endswith((" ", "\t")):
-        fix_empty_line(source, tokens)
+        fix_empty_last_line(source, tokens)
 
+    return tokens
+
+
+def add_unclosed_string_content(tokens, remaining, new_source):
+    additional_lines = [line + "\n" for line in remaining.split("\n")]
+    # removed extra \n added on last line
+    additional_lines[-1] = additional_lines[-1][0:-1]
+    last_token = tokens[-1]
+    string = additional_lines[0]
+    if new_source.endswith("\n"):
+        start_row = last_token.end_row + 1
+        start_col = 0
+        end_col = len(string)
+        line = string
+    else:
+        spaces_before_quotes = len(string) - len(string.lstrip())
+        start_row = last_token.end_row
+        start_col = last_token.end_col + spaces_before_quotes
+        string = string.lstrip()
+        end_col = start_col + len(string)
+        line = last_token.string + string
+    end_row = start_row
+    tokens.append(
+        Token((UNCLOSED, string, (start_row, start_col), (end_row, end_col), line))
+    )
+    for line in additional_lines[1:]:
+        start_row += 1
+        end_row = start_row
+        start_col = 0
+        end_col = len(line)
+        tokens.append(
+            Token(
+                (
+                    UNCLOSED,
+                    line,
+                    (start_row, start_col),
+                    (end_row, end_col),
+                    line,
+                )
+            )
+        )
     return tokens
 
 
@@ -399,22 +430,20 @@ def get_lines(source: str) -> List[List[Token]]:
     lines: List[List[Token]] = []
     current_row = -1
     new_line: List[Token] = []
-    try:
-        for tok in py_tokenize.generate_tokens(StringIO(source).readline):
-            token = Token(tok)
-            if token.start_row != current_row:
-                current_row = token.start_row
-                if new_line:
-                    lines.append(new_line)
-                new_line = []
-            new_line.append(token)
-        lines.append(new_line)
-    except (py_tokenize.TokenError, Exception):  # pragma: no cover
-        debug_helper.log("Exception raise in token_utils.get_lines")
-        return lines
+    tokens = tokenize(source)
+    if not tokens:
+        return [[]]
+    new_line = [tokens[0]]
 
-    if source.endswith((" ", "\t")):
-        fix_empty_line(source, lines[-1])
+    for token in tokens[1:]:
+        if token.start_row != current_row:
+            current_row = token.start_row
+            if new_line:
+                lines.append(new_line)
+            new_line = []
+        new_line.append(token)
+    lines.append(new_line)
+
     return lines
 
 
