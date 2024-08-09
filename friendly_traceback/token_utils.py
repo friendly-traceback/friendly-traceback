@@ -372,30 +372,74 @@ def add_unclosed_string_content(tokens, remaining, new_source):
 def handle_remaining(tokens, remaining):
     """With Python 3.12, the tokenizer changed significantly and can drop content
     when invalid code is encountered. This is an attempt to provide a
-    sufficient fix for friendly-traceback.
-    See https://github.com/friendly-traceback/friendly-traceback/issues/242 for an
-    example
+    sufficient fix for friendly-traceback. Note that this will not guarantee that
+
+        source == untokenize(tokenize(source))
+
+    but should be sufficient for providing the relevant information for
+    SyntaxError cases.
+
+    See https://github.com/friendly-traceback/friendly-traceback/issues/242.
     """
     rest_of_line = remaining.split("\n")[0]
+
     if not tokens:
-        end_row = 1
-        end_col = 0
+        start_row = 1
+        start_col = 0
         line = rest_of_line
     else:
-        end_row, end_col = tokens[-1].end
+        start_row, start_col = tokens[-1].end
         line = tokens[-1].line
+
+    stripped_remaining = rest_of_line.lstrip()
+    start_col += len(rest_of_line) - len(stripped_remaining)
+
+    position = 0
+    if stripped_remaining.startswith(("0o", "0O")):
+        # find first offending digit
+        for ch in stripped_remaining:
+            if ch in {"8", "9"}:
+                break
+            position += 1
+        else:
+            debug_helper.log("Did not find disallowed octal digit")
+            return tokens
 
     tokens.append(
         Token(
             (
-                py_tokenize.ERRORTOKEN,
-                line[end_col:],
-                (end_row, end_col),
-                (end_row, end_col + len(rest_of_line)),
+                py_tokenize.NUMBER,
+                stripped_remaining[:position],
+                (start_row, start_col),
+                (start_row, start_col + position),
                 line,
             )
         )
     )
+    source_rest = rest_of_line[position + 1 :]
+
+    remaining_tokens = tokenize(source_rest)
+    for tok in remaining_tokens:
+        if not tok.string:
+            tok.line = ""
+        else:
+            tok.line = line
+        if tok.start_col == 0 and tok.string == "":  # Endmarker
+            tok.start = tok.end = (tok.start_row, tok.start_col) = (
+                tok.end_row,
+                tok.end_col,
+            ) = (start_row + 1, 0)
+        else:
+            tok.start = (tok.start_row, tok.start_col) = (
+                start_row,
+                tok.start_col + start_col + position,
+            )
+            tok.end = (tok.end_row, tok.end_col) = (
+                start_row,
+                tok.end_col + start_col + position,
+            )
+        tokens.append(tok)
+
     return tokens
 
 
@@ -525,6 +569,7 @@ def untokenize(tokens: Iterable[Union[str, Token]]) -> str:
     """
     # Adapted from https://github.com/myint/untokenize,
     # Copyright (C) 2013-2018 Steven Myint, MIT License (same as this project).
+
     words = []
     previous_line = ""
     last_row = 0
