@@ -95,14 +95,8 @@ def analyze_statement(statement):
 
 @add_statement_analyzer
 def invalid_non_printable_character(statement=None):
-    # new message for Python 3.11
-    # invalid non-printable character ...
     char = statement.bad_token.string
-    if (
-        statement.bad_token.name() == "ERRORTOKEN"
-        and len(char) == 1
-        and token_utils.is_invisible_control_character(char) == char
-    ):
+    if len(char) == 1 and token_utils.is_invisible_control_character(char) == char:
         return {
             "cause": _(
                 "Your code contains the invalid non-printable character {char}.\n"

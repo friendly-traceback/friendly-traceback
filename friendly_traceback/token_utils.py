@@ -415,6 +415,9 @@ def append_missing_tokens(tokens, remaining):
             return tokens
         tok_type = py_tokenize.NUMBER
         tok_string = stripped_remaining[:offset]
+    elif is_invisible_control_character(stripped_remaining[0]):
+        tok_type = py_tokenize.STRING
+        tok_string = stripped_remaining[0]
     else:
         return tokens
 
@@ -642,6 +645,8 @@ def print_tokens(source: TextOrTokens) -> None:  # pragma: no cover
 
 def is_invisible_control_character(char):
     """Used to determine if a character would be visible when printed."""
+    if len(char) != 1:  # protect against invalid input
+        return False
     n = ord(char)
     if 0 <= n <= 0x1F or n == 0x7F or 0x80 <= n <= 0x9F:
         return char

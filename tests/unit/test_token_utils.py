@@ -148,6 +148,8 @@ def test_strip_commment():
 
 def test_invalid_octal():
     # See https://github.com/friendly-traceback/friendly-traceback/issues/242
-    statement = "b = 0o1876"
-    new_statement = token_utils.untokenize(token_utils.tokenize(statement))
-    assert new_statement == statement
+    check("b = 0o1876 + 0o2")
+    check("a = 0o23 + 0O2987")
+
+def test_non_printable_character():
+    check('print\x17("Hello")')
