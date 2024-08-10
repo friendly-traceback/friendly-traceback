@@ -1,9 +1,17 @@
-"""token_utils.py
-------------------
-
-A collection of useful functions and methods to deal with tokenizing
+"""A collection of useful functions and methods to deal with tokenizing
 source code.
 """
+# Starting with Python 3.12, the tokenizer was completely rewritten to handle more general
+# f-strings. The following warning was added to the documentation:
+#
+# Warning Note that the functions in this module are only designed to parse
+# syntactically valid Python code (code that does not raise when parsed using ast.parse()).
+# The behavior of the functions in this module is undefined when providing invalid Python code
+# and it can change at any point.
+#
+# In order to provide more precise help when user code contains SyntaxErrors, we are left
+# to deal in an ad-hoc manner to retrieve some invalid tokens.
+#
 
 import ast
 import keyword
@@ -315,14 +323,12 @@ def tokenize(source: str) -> List[Token]:
             or remaining.lstrip().startswith(("'", '"'))
         ):
             if sys.version_info >= (3, 12):
-                tokens = handle_remaining(tokens, remaining)
-            elif source.endswith((" ", "\t")):
-                fix_empty_last_line(source, tokens)
-            return tokens
+                tokens = append_missing_tokens(tokens, remaining)
+                return tokens
         elif tokens:
             return add_unclosed_string_content(tokens, remaining, new_source)
         else:
-            debug_helper.log("Problem: could not tokenize the source.")
+            debug_helper.log("Problem: could not successfully tokenize the source.")
             return []
 
     if source.endswith((" ", "\t")):
@@ -372,7 +378,7 @@ def add_unclosed_string_content(tokens, remaining, new_source):
     return tokens
 
 
-def handle_remaining(tokens, remaining):
+def append_missing_tokens(tokens, remaining):
     """With Python 3.12, the tokenizer changed significantly and can drop content
     when invalid code is encountered. This is an attempt to provide a
     sufficient fix for friendly-traceback. Note that this will not guarantee that
@@ -397,29 +403,33 @@ def handle_remaining(tokens, remaining):
     stripped_remaining = rest_of_line.lstrip()
     start_col += len(rest_of_line) - len(stripped_remaining)
 
-    position = 0
+    offset = 0
     if stripped_remaining.startswith(("0o", "0O")):
         # find first offending digit
         for ch in stripped_remaining:
             if ch in {"8", "9"}:
                 break
-            position += 1
+            offset += 1
         else:
             debug_helper.log("Did not find disallowed octal digit")
             return tokens
+        tok_type = py_tokenize.NUMBER
+        tok_string = stripped_remaining[:offset]
+    else:
+        return tokens
 
     tokens.append(
         Token(
             (
-                py_tokenize.NUMBER,
-                stripped_remaining[:position],
+                tok_type,
+                tok_string,
                 (start_row, start_col),
-                (start_row, start_col + position),
+                (start_row, start_col + offset),
                 line,
             )
         )
     )
-    source_rest = rest_of_line[position + 1 :]
+    source_rest = rest_of_line[offset + 1 :]
 
     remaining_tokens = tokenize(source_rest)
     for tok in remaining_tokens:
@@ -435,11 +445,11 @@ def handle_remaining(tokens, remaining):
         else:
             tok.start = (tok.start_row, tok.start_col) = (
                 start_row,
-                tok.start_col + start_col + position,
+                tok.start_col + start_col + offset,
             )
             tok.end = (tok.end_row, tok.end_col) = (
                 start_row,
-                tok.end_col + start_col + position,
+                tok.end_col + start_col + offset,
             )
         tokens.append(tok)
 
@@ -628,3 +638,11 @@ def print_tokens(source: TextOrTokens) -> None:  # pragma: no cover
         for token in lines:
             print(repr(token))
         print()
+
+
+def is_invisible_control_character(char):
+    """Used to determine if a character would be visible when printed."""
+    n = ord(char)
+    if 0 <= n <= 0x1F or n == 0x7F or 0x80 <= n <= 0x9F:
+        return char
+    return False

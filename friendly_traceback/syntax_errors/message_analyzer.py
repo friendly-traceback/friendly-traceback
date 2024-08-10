@@ -2074,7 +2074,7 @@ def invalid_non_printable_character(message: str = "", statement=None):
     char = statement.bad_token.string
     if len(char) != 1:
         return {"cause": problem + "\n not len(char)==1"}
-    if su.is_invisible_control_character(char) != char:
+    if token_utils.is_invisible_control_character(char) != char:
         return {"cause": problem + "\n is_invisible_control_character(char) != char"}
     if statement.bad_token.name() != "ERRORTOKEN":
         return {"cause": problem + "\n not ERRORTOKEN"}

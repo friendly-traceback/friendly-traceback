@@ -101,7 +101,7 @@ def invalid_non_printable_character(statement=None):
     if (
         statement.bad_token.name() == "ERRORTOKEN"
         and len(char) == 1
-        and su.is_invisible_control_character(char) == char
+        and token_utils.is_invisible_control_character(char) == char
     ):
         return {
             "cause": _(
