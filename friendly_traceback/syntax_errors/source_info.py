@@ -47,7 +47,7 @@ class Statement:
     on that statement, etc.) which are needed for some functions.
     """
 
-    def __init__(self, value, bad_line):
+    def __init__(self, value, bad_line, original_bad_line):
         # The basic information given by a SyntaxError
         self.filename = value.filename
         self.linenumber = value.lineno
@@ -71,8 +71,9 @@ class Statement:
         # From the traceback, we were previously able ot obtain the line
         # of code identified by Python as being problematic.
         self.bad_line = bad_line  # previously obtained from the traceback
+        self.original_bad_line = original_bad_line
         # skipcq: PTC-W0052
-        self.entire_statement = bad_line  # temporary assignment
+        self.entire_statement = original_bad_line  # temporary assignment
 
         # The following will be obtained using offset and bad_line
         self.bad_token = None
@@ -103,7 +104,7 @@ class Statement:
 
         # The following is used to indicate the position of ^ and other
         # symbols when using where()
-        self.location_markers = None
+        self.location_markers = {}
 
         # When using the friendly console (repl), SyntaxError might prevent
         # closing all brackets to complete a statement. Knowing this can be
@@ -315,7 +316,7 @@ class Statement:
     def create_location_markers(self):
         # In some cases, the location markers are determined while analysing
         # the statement to find the cause.
-        if self.location_markers is not None:
+        if self.location_markers:
             return
         # We generally go with the information obtained by Python.
         # although, sometimes it might be off by 1.

@@ -94,7 +94,7 @@ class TracebackData(Generic[_E]):
 
         if issubclass(etype, SyntaxError):
             self.statement: Optional[source_info.Statement] = source_info.Statement(
-                self.value, self.bad_line
+                self.value, self.bad_line, self.original_bad_line
             )
             # Removing extra ending spaces for potentially shorter displays later on
 
