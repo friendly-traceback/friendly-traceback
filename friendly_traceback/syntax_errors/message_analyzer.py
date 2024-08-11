@@ -1878,8 +1878,12 @@ def unexpected_character_after_continuation(message: str = "", statement=None):
         "You are using the continuation character `\\` outside of a string,\n"
         "and it is followed by some other character(s).\n"
     )
-
     bad_token = statement.bad_token
+    prev_token = statement.prev_token
+    marked_token = token_utils.clone(bad_token)
+    real_bad_line = statement.original_bad_line.rstrip("\n")
+    remainder = ""
+
     if statement.prev_token != "\\":
         # Starting with Python 3.9, the new peg parser is
         # not giving us the correct location for the error; so we need to find it.
@@ -1890,30 +1894,47 @@ def unexpected_character_after_continuation(message: str = "", statement=None):
         # the beginning of the line until we find the continuation character.
         # We then remove that character (and leading spaces), tokenize
         # the remaining line: the first token is the one that is desired.
+        if statement.tokens:
+            prev_token = statement.tokens[-1]
         found_continuation = False
-        bad_line = statement.bad_line
+        bad_line = statement.original_bad_line
+
         for token in statement.tokens:
             if bad_line and bad_line[0] == "\\":
-                bad_line = bad_line[1:]
+                remainder = bad_line = bad_line[1:]
                 new_tokens = token_utils.tokenize(bad_line)
                 if new_tokens:
                     bad_token = new_tokens[0]
                     found_continuation = True
                     break
                 break
-            bad_line = bad_line.replace(token.string, "", 1).strip()
+            bad_line = bad_line.replace(token.string, "", 1).lstrip()
+
         if not found_continuation:  # Python 3.12 ... not enough tokens
             if bad_line and bad_line[0] == "\\":
-                bad_line = bad_line.replace("\\", "", 1).strip()
+                remainder = bad_line = bad_line[1:]
+                bad_line = bad_line.replace("\\", "", 1).lstrip()
                 new_tokens = token_utils.tokenize(bad_line[1:])
                 if new_tokens:
                     bad_token = new_tokens[0]
                     found_continuation = True
         if not found_continuation:  # pragma: no cover
             debug_helper.log("Could not find bad token after continuation character.")
+        elif prev_token:
+            remainder = remainder.rstrip("\n")
+            marked_token.start_col = len(real_bad_line) - len(remainder)
+            marked_token.string = remainder
+            statement.location_markers = su.highlight_single_token(marked_token)
+    else:
+        if prev_token and statement.tokens:
+            remainder = remainder.rstrip("\n")
+            marked_token.start_col = len(real_bad_line) - len(remainder)
+            marked_token.string = remainder
+            statement.location_markers = su.highlight_single_token(marked_token)
 
     if bad_token.is_number():  # something like 3 \ 4  instead of 3 / 4
-        number = bad_token
+        number = bad_token.string
+        statement.location_markers = su.highlight_single_token(bad_token)
         cause += _(
             "I am guessing that you wanted to divide by the number {number} \n"
             "and wrote \\ instead of /."
