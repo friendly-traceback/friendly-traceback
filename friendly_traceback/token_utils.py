@@ -88,6 +88,10 @@ class Token:
         """Returns the string attribute."""
         return self.string
 
+    def __len__(self):
+        """Returns the length of the string attribute"""
+        return len(self.string)
+
     def is_comment(self) -> bool:
         """Returns True if the token is a comment."""
         return self.type == py_tokenize.COMMENT
@@ -651,3 +655,15 @@ def is_invisible_control_character(char):
     if 0 <= n <= 0x1F or n == 0x7F or 0x80 <= n <= 0x9F:
         return char
     return False
+
+
+def clone(token):
+    return Token(
+        [
+            token.type,
+            token.string,
+            (token.start_row, token.start_col),
+            (token.end_row, token.end_col),
+            token.line,
+        ]
+    )
