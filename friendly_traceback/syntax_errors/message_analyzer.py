@@ -1926,10 +1926,10 @@ def unexpected_character_after_continuation(message: str = "", statement=None):
             marked_token.string = remainder
             statement.location_markers = su.highlight_single_token(marked_token)
     else:
-        if prev_token and statement.tokens:
+        if prev_token:
             remainder = remainder.rstrip("\n")
-            marked_token.start_col = len(real_bad_line) - len(remainder)
-            marked_token.string = remainder
+            marked_token.start_col = prev_token.end_col
+            marked_token.string = marked_token.line[marked_token.start_col :]
             statement.location_markers = su.highlight_single_token(marked_token)
 
     if bad_token.is_number():  # something like 3 \ 4  instead of 3 / 4

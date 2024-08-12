@@ -252,7 +252,7 @@ class Statement:
         """
         # Some errors, like "Too many statistically nested blocs" prevent
         # Python from making a source available.
-        if not self.statement_tokens:
+        if not (self.statement_tokens or self.original_bad_line.strip("\n")):
             self.formatted_partial_source = ""
             return
 
@@ -264,7 +264,10 @@ class Statement:
             self.offset += 1
             self.end_offset += 1
 
-        lines = self.get_lines_to_show()
+        if self.statement_tokens:
+            lines = self.get_lines_to_show()
+        else:
+            lines = [(self.linenumber, self.original_bad_line.strip("\n"))]
         self.annotate_lines(lines)
 
     def get_lines_to_show(self):
