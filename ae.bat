@@ -1,8 +1,6 @@
 echo off
 REM Default is Python 3.10
 
-if "%1"=="3.6" goto py_36
-if "%1"=="3.7" goto py_37
 if "%1"=="3.8" goto py_38
 if "%1"=="3.9" goto py_39
 if "%1"=="3.10" goto py_310
@@ -11,14 +9,6 @@ if "%1"=="3.12" goto py_312
 if "%1"=="3.13" goto py_313
 goto py_310
 
-
-:py_36
-venv-friendly-traceback-3.6\scripts\activate
-goto end
-
-:py_37
-venv-friendly-traceback-3.7\scripts\activate
-goto end
 
 :py_38
 venv-friendly-traceback-3.8\scripts\activate
