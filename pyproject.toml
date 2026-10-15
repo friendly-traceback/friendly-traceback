@@ -1,26 +1,62 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "friendly-traceback"
+dynamic = ["version"]
+description = 'Friendlier tracebacks in any language.'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "André Roberge", email = "andre.roberge@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Natural Language :: English",
+  "Natural Language :: French",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Intended Audience :: Education",
+  "Topic :: Education",
+  "Topic :: Software Development :: Interpreters",
+]
+
+[project.urls]
+Documentation = "https://friendly-traceback.github.io/docs/index.html"
+Issues = "https://github.com/friendly-traceback/friendly-traceback/issues"
+Source = "https://github.com/friendly-traceback/friendly-traceback"
+
+[tool.hatch.version]
+path = "src/friendly_traceback/__about__.py"
+
+dependencies = ["token-utils", "asttokens", "executing", "pure_eval", "stack_data"]
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore"]
 
 [tool.mypy]
-files = ["friendly_traceback"]
-mypy_path = ["_typeshed"]
-ignore_missing_imports = false
-warn_unused_configs = true
-disallow_any_generics = true
-disallow_untyped_calls = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-check_untyped_defs = true
-disallow_untyped_decorators = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_return_any = true
-warn_unreachable = true
-show_error_codes = true
+mypy_path = "src/friendly_traceback/"
 
-[tool.isort]
-profile = "black"
-known_first_party = ["friendly_traceback"]
-known_third_party = ["asttokens", "executing", "pure_eval", "stack_data"]
+[tool.pyrefly]
+search-path = ["src/friendly_traceback/"]
+preset = "legacy"
+project-excludes = ["venv*", "build/", "docs_examples/", "tests/"]
+
+[tool.pyright]
+include = ["src/friendly_traceback"]
+stubPath = "."
+extraPaths = ["."]
+
+
+
