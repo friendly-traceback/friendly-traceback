@@ -26,13 +26,13 @@ import os
 import sys
 from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Union
 
-valid_version = sys.version_info >= (3, 6)
+valid_version = sys.version_info >= (3, 8)
 
 if not valid_version:  # pragma: no cover
-    print("Python 3.6 or newer is required.")
+    print("Python 3.8 or newer is required.")
     sys.exit()
 
-__version__ = "0.7.62"
+from friendly_traceback.__about__ import version as __version__
 
 # ===========================================
 

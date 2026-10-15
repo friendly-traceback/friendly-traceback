@@ -1,4 +1,4 @@
-asttokens >= 2.0.4
-executing >= 1.1.0
-pure_eval >= 0.2.1
-stack_data >= 0.6.2
+asttokens
+executing
+pure_eval
+stack_data
