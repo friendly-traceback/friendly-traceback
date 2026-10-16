@@ -11,9 +11,9 @@ import re
 import sys
 
 
-from . import debug_helper, token_utils, utils
-from .ft_gettext import current_lang
-from .path_info import path_utils
+from friendly_traceback import debug_helper, token_utils, utils
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.path_info import path_utils
 
 # third-party
 try:

@@ -16,7 +16,7 @@ try:
 except ImportError:  # other user...
     import friendly_traceback as site_package_module
 
-from .ft_gettext import current_lang
+from friendly_traceback.ft_gettext import current_lang
 
 EXCLUDED_FILE_PATH = set()
 EXCLUDED_DIR_NAMES = set()

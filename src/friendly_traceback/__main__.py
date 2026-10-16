@@ -17,7 +17,7 @@ import warnings
 from importlib import import_module
 from pathlib import Path
 
-from . import (
+from friendly_traceback import (
     debug_helper,
     exclude_file_from_traceback,
     explain_traceback,
@@ -26,7 +26,7 @@ from . import (
     set_formatter,
 )
 from friendly_traceback.__about__ import version
-from .ft_gettext import current_lang
+from friendly_traceback.ft_gettext import current_lang
 
 versions = f"Friendly-traceback version {version}. [Python version: {platform.python_version()}]\n"
 

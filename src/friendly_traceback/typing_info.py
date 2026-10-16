@@ -1,13 +1,14 @@
 """Custom type definitions and shortcuts for annotating ``friendly_traceback``.
 
 We're targeting Python 3.11+.
+
+This module should only be imported by .pyi files
 """
 
 import os
-from typing import Any, Callable, List, Tuple, Union, TypeVar, TYPE_CHECKING
+from typing import Any, Callable, List, Tuple, Union, TypeVar
 
-if TYPE_CHECKING:
-    from friendly_traceback.tb_data import TracebackData
+from friendly_traceback.tb_data import TracebackData
 
 StrPath = Union[str, os.PathLike]
 
@@ -93,10 +94,10 @@ SimilarNamesInfo = TypedDict(
 
 GenericExplain = Callable[[], str]
 
-if TYPE_CHECKING:
-    Parser = Union[
-        Callable[[str, "TracebackData"], CauseInfo],
-        Callable[[type[BaseException] | type[SyntaxError], "TracebackData"], CauseInfo],
-    ]
+
+Parser = Union[
+    Callable[[str, "TracebackData"], CauseInfo],
+    Callable[[type[BaseException] | type[SyntaxError], "TracebackData"], CauseInfo],
+]
 Translator = Callable[[str], str]
 Writer = Callable[[str], None]

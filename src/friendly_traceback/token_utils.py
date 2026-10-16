@@ -20,7 +20,7 @@ import sys
 import tokenize as py_tokenize
 from io import StringIO
 
-from . import debug_helper
+from friendly_traceback import debug_helper
 
 _token_format = "type={type}  string={string}  start={start}  end={end}  line={line}"
 

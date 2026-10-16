@@ -11,11 +11,17 @@ please file an issue.
 import re
 import traceback
 
-from . import debug_helper, info_generic, info_variables, message_parser, tb_data
-from .ft_gettext import current_lang
-from .path_info import path_utils
-from .source_cache import cache
-from .syntax_errors import analyze_syntax, indentation_error
+from friendly_traceback import (
+    debug_helper,
+    info_generic,
+    info_variables,
+    message_parser,
+    tb_data,
+)
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.path_info import path_utils
+from friendly_traceback.source_cache import cache
+from friendly_traceback.syntax_errors import analyze_syntax, indentation_error
 
 try:
     import executing  # noqa # type: ignore

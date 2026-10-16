@@ -33,8 +33,8 @@ This module currently contains 2 formatters:
   to print the information in a traditional console.
 """
 
-from . import debug_helper
-from .ft_gettext import current_lang
+from friendly_traceback import debug_helper
+from friendly_traceback.ft_gettext import current_lang
 
 _ = current_lang.translate
 # The following is the order in which the various items, if they exist

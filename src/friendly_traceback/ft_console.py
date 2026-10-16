@@ -15,10 +15,10 @@ from code import InteractiveConsole
 
 import friendly_traceback
 
-from . import source_cache
-from .config import did_exception_occur_before, session
-from .console_helpers import friendly_tb, helpers
-from .ft_gettext import current_lang
+from friendly_traceback import source_cache
+from friendly_traceback.config import did_exception_occur_before, session
+from friendly_traceback.console_helpers import friendly_tb, helpers
+from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.__about__ import version
 from friendly_traceback import about_warnings
 

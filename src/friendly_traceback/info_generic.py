@@ -10,7 +10,7 @@ imported from this module instead of simply from ``friendly_traceback``.
 
 import inspect
 
-from .ft_gettext import current_lang, no_information
+from friendly_traceback.ft_gettext import current_lang, no_information
 
 GENERIC = {}
 _ = current_lang.translate

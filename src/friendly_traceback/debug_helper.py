@@ -34,7 +34,7 @@ def log(*args):
 
 
 def handle_internal_error(arg):
-    from .ft_gettext import current_lang
+    from friendly_traceback.ft_gettext import current_lang
 
     _ = current_lang.translate
     print(_("Fatal error - aborting"), arg)

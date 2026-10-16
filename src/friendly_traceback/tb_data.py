@@ -8,12 +8,12 @@ from itertools import dropwhile
 
 from stack_data import BlankLines, Options  # pyright: ignore[reportMissingImports]
 
-from . import debug_helper
-from .frame_info import FrameInfo
-from .ft_gettext import current_lang
-from .path_info import is_excluded_file
-from .source_cache import cache
-from .syntax_errors import source_info
+from friendly_traceback import debug_helper
+from friendly_traceback.frame_info import FrameInfo
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.path_info import is_excluded_file
+from friendly_traceback.source_cache import cache
+from friendly_traceback.syntax_errors import source_info
 
 STR_FAILED = "<exception str() failed>"  # Same as Python
 _ = current_lang.translate

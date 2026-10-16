@@ -9,8 +9,8 @@ imported from this module instead of simply from ``friendly_traceback``.
 
 from importlib import import_module
 
-from . import debug_helper
-from .ft_gettext import internal_error, no_information, unknown_case
+from friendly_traceback import debug_helper
+from friendly_traceback.ft_gettext import internal_error, no_information, unknown_case
 
 INCLUDED_PARSERS = {
     AttributeError: "attribute_error",

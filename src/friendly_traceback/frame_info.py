@@ -7,9 +7,9 @@ from stack_data.utils import cached_property
 
 from friendly_traceback import token_utils
 
-from . import debug_helper
-from .ft_gettext import current_lang
-from .source_cache import cache
+from friendly_traceback import debug_helper
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.source_cache import cache
 
 _ = current_lang.translate
 

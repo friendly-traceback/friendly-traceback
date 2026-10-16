@@ -5,8 +5,8 @@ Keep tabs of all settings.
 
 import sys
 
-from . import base_formatters, core, debug_helper
-from .ft_gettext import current_lang
+from friendly_traceback import base_formatters, core, debug_helper
+from friendly_traceback.ft_gettext import current_lang
 
 _ = current_lang.translate
 

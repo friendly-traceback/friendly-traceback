@@ -14,9 +14,9 @@ it can be determined if it should be added to the public API.
 
 import sys
 
-from .config import session
-from .ft_gettext import current_lang
-from .source_cache import cache
+from friendly_traceback.config import session
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.source_cache import cache
 
 
 def check_syntax(

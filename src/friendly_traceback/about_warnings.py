@@ -12,15 +12,19 @@ import inspect
 import warnings
 from importlib import import_module
 
-import executing
-from stack_data import BlankLines, Formatter, Options
+import executing  # pyright: ignore[reportMissingImports]
+from stack_data import (  # pyright: ignore[reportMissingImports]
+    BlankLines,
+    Formatter,
+    Options,
+)
 
-from .config import session
-from .frame_info import FriendlyFormatter
-from .ft_gettext import current_lang, internal_error
-from .info_generic import get_generic_explanation
-from .info_variables import get_var_info
-from .path_info import path_utils
+from friendly_traceback.config import session
+from friendly_traceback.frame_info import FriendlyFormatter
+from friendly_traceback.ft_gettext import current_lang, internal_error
+from friendly_traceback.info_generic import get_generic_explanation
+from friendly_traceback.info_variables import get_var_info
+from friendly_traceback.path_info import path_utils
 
 _ = current_lang.translate
 _warnings_seen = {}
