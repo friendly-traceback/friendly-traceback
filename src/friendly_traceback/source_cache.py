@@ -9,7 +9,7 @@ Note that we monkeypatch Python's linecache.getlines.
 import inspect
 import linecache
 import time
-import stack_data
+import stack_data  # pyright: ignore[reportMissingImports]
 
 old_getlines = linecache.getlines  # To be monkeypatched.
 

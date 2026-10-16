@@ -18,7 +18,6 @@ from importlib import import_module
 from pathlib import Path
 
 from . import (
-    __version__,
     debug_helper,
     exclude_file_from_traceback,
     explain_traceback,
@@ -26,9 +25,10 @@ from . import (
     install,
     set_formatter,
 )
+from friendly_traceback.__about__ import version
 from .ft_gettext import current_lang
 
-versions = f"Friendly-traceback version {__version__}. [Python version: {platform.python_version()}]\n"
+versions = f"Friendly-traceback version {version}. [Python version: {platform.python_version()}]\n"
 
 
 def import_function(dotted_path: str) -> type:
@@ -57,16 +57,12 @@ def import_function(dotted_path: str) -> type:
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
-    description=(
-        """Friendly-traceback makes Python tracebacks easier to understand.
+    description=("""Friendly-traceback makes Python tracebacks easier to understand.
 
     {versions}
 
     If no source is given Friendly-traceback will start an interactive console.
-        """.format(
-            versions=versions
-        )
-    ),
+        """.format(versions=versions)),
 )
 
 parser.add_argument(
@@ -132,7 +128,7 @@ def main() -> None:
     _ = current_lang.translate
     args = parser.parse_args()
     if args.version:  # pragma: no cover
-        print(f"\nFriendly-Traceback version {__version__}")
+        print(f"\nFriendly-Traceback version {version}")
         sys.exit()
 
     include = "friendly_tb"

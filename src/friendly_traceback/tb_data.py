@@ -6,7 +6,7 @@ import traceback
 
 from itertools import dropwhile
 
-from stack_data import BlankLines, Options
+from stack_data import BlankLines, Options  # pyright: ignore[reportMissingImports]
 
 from . import debug_helper
 from .frame_info import FrameInfo

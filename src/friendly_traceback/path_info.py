@@ -10,13 +10,19 @@ it might be desirable to exclude additional files.
 import os
 import sys
 
-import asttokens  # Only use it as a representative to find site-packages
+# Only use it as a representative to find site-packages
+try:
+    import pip as site_package_module
+except ImportError:  # other user...
+    import friendly_traceback as site_package_module
 
 from .ft_gettext import current_lang
 
 EXCLUDED_FILE_PATH = set()
 EXCLUDED_DIR_NAMES = set()
-SITE_PACKAGES = os.path.abspath(os.path.join(os.path.dirname(asttokens.__file__), ".."))
+SITE_PACKAGES = os.path.abspath(
+    os.path.join(os.path.dirname(site_package_module.__file__), "..")
+)
 PYTHON_LIB = os.path.abspath(os.path.dirname(os.__file__))
 FRIENDLY = os.path.abspath(os.path.dirname(__file__))
 TESTS = os.path.abspath(os.path.join(FRIENDLY, "..", "tests"))

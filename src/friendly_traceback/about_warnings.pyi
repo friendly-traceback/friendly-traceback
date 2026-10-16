@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
 from typing import List, Type
-from stack_data import Formatter
+from stack_data import Formatter  # pyright: ignore[reportMissingImports]
 from .typing_info import CauseInfo, Parser
 
 IGNORE_WARNINGS: Incomplete
@@ -21,12 +21,12 @@ class WarningInfo:
     message: str
     problem_statement: str
     warning_instance: Incomplete
-    warning_type: Incomplete
+    warning_type: type[Exception]
 
     def __init__(
         self,
         warning_instance: Incomplete,
-        warning_type: Incomplete,
+        warning_type: type[Exception],
         filename: Incomplete,
         lineno: Incomplete,
         frame: Incomplete = None,
@@ -37,14 +37,14 @@ class WarningInfo:
     def get_source_frame_missing(self) -> Incomplete: ...
 
 def saw_warning_before(
-    warning_type: Incomplete,
+    warning_type: type[Exception],
     message: Incomplete,
     filename: Incomplete,
     lineno: Incomplete,
 ) -> bool: ...
 def show_warning(
     warning_instance: Incomplete,
-    warning_type: Incomplete,
+    warning_type: type[Exception],
     filename: Incomplete,
     lineno: Incomplete,
     file: Incomplete = None,
@@ -64,10 +64,10 @@ class WarningDataParser:
 
 def get_warning_parser(warning_type: Type[BaseException]) -> WarningDataParser: ...
 def get_warning_cause(
-    warning_type: Incomplete,
+    warning_type: type[Exception],
     message: str,
     warning_data: WarningDataParser | None = None,
 ) -> CauseInfo: ...
 def get_cause(
-    warning_type: Incomplete, message: str, warning_data: WarningDataParser
+    warning_type: type[Exception], message: str, warning_data: WarningDataParser
 ) -> CauseInfo: ...

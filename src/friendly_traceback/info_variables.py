@@ -17,8 +17,11 @@ from .path_info import path_utils
 
 # third-party
 try:
-    from asttokens import ASTTokens  # noqa # type: ignore
-    from pure_eval import Evaluator, group_expressions  # noqa # type: ignore
+    from asttokens import ASTTokens  # pyright: ignore[reportMissingImports] # noqa
+    from pure_eval import (  # pyright: ignore[reportMissingImports]
+        Evaluator,
+        group_expressions,
+    )
 except ImportError:  # pragma: no cover
     pass  # ignore errors when processed by Sphinx
 
@@ -157,14 +160,14 @@ def find_expressions(
         line += " pass"
 
     try:
-        atok = ASTTokens(line.strip(), parse=True)
+        atok = ASTTokens(line.strip(), parse=True)  # type: ignore
     except SyntaxError as e:
         if "unexpected EOF" in str(e):
             return objects
         if "\n" in line:
             newline = " ".join(line.split())
             try:
-                atok = ASTTokens(newline.strip(), parse=True)
+                atok = ASTTokens(newline.strip(), parse=True)  # type: ignore
             except SyntaxError as e:
                 debug_helper.log(f"Problem with ASTTokens: {e}" + f"\nline: {line}")
                 return objects
@@ -173,9 +176,9 @@ def find_expressions(
             return objects
 
     if atok is not None:
-        evaluator = Evaluator.from_frame(frame)
+        evaluator = Evaluator.from_frame(frame)  # type: ignore
         try:
-            for nodes, obj in group_expressions(
+            for nodes, obj in group_expressions(  # type: ignore
                 pair for pair in evaluator.find_expressions(atok.tree)
             ):
                 name = atok.get_text(nodes[0])
@@ -252,6 +255,8 @@ def get_variables_in_frame_by_scope(frame, scope):
     """Returns a list of variables based on the provided scope, which must
     be one of 'local', 'global', or 'nonlocal'.
     """
+    from typing import Dict, Any
+
     if scope == "local":
         return frame.f_locals
 
@@ -259,7 +264,7 @@ def get_variables_in_frame_by_scope(frame, scope):
         return frame.f_globals
 
     if scope == "nonlocal":
-        non_locals = {}
+        non_locals: Dict[str, Any] = {}
         while frame.f_back is not None:
             frame = frame.f_back
             # By creating a new list here, we prevent a failure when
@@ -283,7 +288,7 @@ def get_definition_scope(variable_name, frame):
         scopes.append("global")
     if variable_name in nonlocal_vars and (
         variable_name not in frame.f_globals
-        or nonlocal_vars[variable_name] != frame.f_globals[variable_name]
+        or nonlocal_vars[variable_name] != frame.f_globals[variable_name]  # type: ignore
     ):
         scopes.append("nonlocal")
     return scopes
@@ -600,8 +605,8 @@ def name_has_type_hint(name, frame):
     )
 
     for scope, scope_dict in scopes:
-        if "__annotations__" in scope_dict and name in scope_dict["__annotations__"]:
-            hint = scope_dict["__annotations__"][name]
+        if "__annotations__" in scope_dict and name in scope_dict["__annotations__"]:  # type: ignore
+            hint = scope_dict["__annotations__"][name]  # type: ignore
             # For Python 3.10+, all type hints are strings
             if (
                 isinstance(hint, str)

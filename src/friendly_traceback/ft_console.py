@@ -19,6 +19,8 @@ from . import source_cache
 from .config import did_exception_occur_before, session
 from .console_helpers import friendly_tb, helpers
 from .ft_gettext import current_lang
+from friendly_traceback.__about__ import version
+from friendly_traceback import about_warnings
 
 
 def type_friendly():
@@ -31,7 +33,7 @@ def type_friendly():
     return exit_ + _("Type 'Friendly' for help on special functions/methods.")
 
 
-BANNER = f"""Friendly-traceback version {friendly_traceback.__version__}
+BANNER = f"""Friendly-traceback version {version}
 Python version: {platform.python_version()}
 """
 
@@ -228,7 +230,7 @@ def start_console(
 ):
     """Starts a console; modified from code.interact"""
 
-    friendly_traceback.about_warnings.enable_warnings()
+    about_warnings.enable_warnings()
     if banner is None:
         banner = BANNER + type_friendly() + "\n"
     if displayhook is None:
