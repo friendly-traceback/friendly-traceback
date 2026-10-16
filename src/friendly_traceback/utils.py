@@ -5,23 +5,19 @@ A few useful objects which do not naturally fit anywhere else.
 
 import ast
 import difflib
-import types
 import uuid
-from typing import Any, Dict, Iterable, List, Tuple
 
 import pure_eval
 
-from .tb_data import TracebackData  # purely for type checking
 
-
-def unique_variable_name() -> str:
+def unique_variable_name():
     """Creates a unique variable name. Useful when attempting to introduce
     a new token to see if it can fix specific cases of SyntaxError."""
     name = uuid.uuid4()
     return f"_{name.hex}"
 
 
-def eval_expr(expr: str, frame: types.FrameType) -> Any:
+def eval_expr(expr, frame):
     """Attempts to evaluate the expression 'expr' in a frame.
     Note that 'expr' might be a string containing leading spaces which need
     to be removed prior to being evaluated.
@@ -34,7 +30,7 @@ def eval_expr(expr: str, frame: types.FrameType) -> Any:
     return evaluator[node]  # can raise an exception
 
 
-def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
+def get_similar_words(word_with_typo, words):
     """Returns a list of similar words.
 
     The parameters we chose are based on experimenting with
@@ -73,7 +69,7 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
         words = [word for word in words if len(word) >= 7]
         max_dist = 3
 
-    similar_words: Dict[int, List[str]] = {}
+    similar_words = {}
     for word in words:
         distance = _leven(word_with_typo, word, max_dist + 1)
         if distance <= max_dist:
@@ -98,7 +94,7 @@ def get_similar_words(word_with_typo: str, words: Iterable[str]) -> List[str]:
 # https://gist.github.com/giststhebearbear/4145811
 
 
-def _leven(s1: str, s2: str, max_distance: int) -> int:
+def _leven(s1, s2, max_distance):
     #  get the smallest string so our rows are minimized
     s1, s2 = (s1, s2) if len(s1) <= len(s2) else (s2, s1)
     #  set lengths
@@ -125,7 +121,7 @@ def _leven(s1: str, s2: str, max_distance: int) -> int:
     #  match a, change e->i change i->e => aie
     #  Damarau-Levenshtein has a cost of 1
     #  match a, transpose ei to ie => aie
-    prev_row: List[int] = []
+    prev_row = []
 
     #  build first leven matrix row
     #  The first row represents transformation from an empty string
@@ -180,14 +176,14 @@ def _leven(s1: str, s2: str, max_distance: int) -> int:
     return cur_row[-1]
 
 
-def list_to_string(list_: Iterable[str], sep: str = ", ") -> str:
+def list_to_string(list_, sep=", "):
     """Transforms a list of names, like ['a', 'b', 'c'], into a single
     string of names, like "a, b, c"."""
     result = ["{c}".format(c=c.replace("'", "")) for c in list_]
     return sep.join(result)
 
 
-def expected_in_result(expected: str, result: str) -> Tuple[bool, str]:
+def expected_in_result(expected, result):
     """Used in tests. Intended to help more quickly identify
     differences between what was expected and what was found."""
     if expected in result:
@@ -209,7 +205,7 @@ def expected_in_result(expected: str, result: str) -> Tuple[bool, str]:
     return False, "\n" + "\n".join(difflib.ndiff([expected], [best_line]))
 
 
-def get_bad_statement(tb_data: TracebackData) -> str:
+def get_bad_statement(tb_data):
     """This function attempts to recover a complete statement
     even if it spans multiple lines."""
     try:
@@ -224,7 +220,7 @@ def get_bad_statement(tb_data: TracebackData) -> str:
         return ""
 
 
-def to_code_block(code: str) -> str:
+def to_code_block(code):
     """Takes some code and indent it with an added empty line at the top
     and bottom so that it is usable as a Markdown code block without
     showing the triple backquotes.
@@ -240,7 +236,7 @@ def to_code_block(code: str) -> str:
 # The following is currently not used in friendly-traceback but
 # is used by friendly.  It is kept here as it is part of
 # a trio of functions, with one being used in friendly-traceback.
-def get_highlighting_ranges(lines: List[str]) -> Dict[int, List[Tuple[int, int]]]:
+def get_highlighting_ranges(lines):
     """Given a block of code highlighted primarily with carets (^),
     this function will identify the lines containing carets and break up
     that line into sub-ranges, showing at which indices the carets
@@ -264,7 +260,7 @@ def get_highlighting_ranges(lines: List[str]) -> Dict[int, List[Tuple[int, int]]
     return error_lines
 
 
-def get_single_line_highlighting_ranges(line: str) -> List[Tuple[int, int]]:
+def get_single_line_highlighting_ranges(line):
     """Given a single line containing alternating sequences of consecutive
     spaces and carets (^), this function will compute the position of the
     beginning and end of each sequence of consecutive characters,
@@ -290,7 +286,7 @@ def get_single_line_highlighting_ranges(line: str) -> List[Tuple[int, int]]:
     return caret_line
 
 
-def create_caret_highlighted(caret_line: List[Tuple[int, int]]) -> str:
+def create_caret_highlighted(caret_line):
     """Creates a line containing alternating sequences of spaces
     and carets, from a list containing a series of tuples denoting
     the range in which the carets are found.

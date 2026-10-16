@@ -9,11 +9,6 @@ printed only when debugging mode is activated.
 
 import inspect
 import sys
-from typing import Optional
-
-from .ft_gettext import current_lang
-
-_ = current_lang.translate
 
 # DEBUG is set to True when running with pytest.
 # It can also be set to True from __main__ or when
@@ -23,7 +18,7 @@ DEBUG = False
 SHOW_DEBUG_HELPER = False
 
 
-def log_error(exc: Optional[BaseException] = None) -> None:
+def log_error(exc=None):
     if DEBUG:  # pragma: no cover
         if exc is not None:
             print(repr(exc))
@@ -32,13 +27,16 @@ def log_error(exc: Optional[BaseException] = None) -> None:
         sys.exit()
 
 
-def log(*args: str) -> None:
+def log(*args):
     if DEBUG:
         for arg in args:
             print(arg)
 
 
-def handle_internal_error(arg: str) -> None:
+def handle_internal_error(arg):
+    from .ft_gettext import current_lang
+
+    _ = current_lang.translate
     print(_("Fatal error - aborting"), arg)
     print(_("Please report this issue."))
     sys.exit()

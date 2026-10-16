@@ -4,17 +4,14 @@ Keep tabs of all settings.
 """
 
 import sys
-import types
-from typing import List, Optional, Type, Union
 
 from . import base_formatters, core, debug_helper
 from .ft_gettext import current_lang
-from .typing_info import _E, Formatter, InclusionChoice, Info, Writer
 
 _ = current_lang.translate
 
 
-def _write_err(text: Optional[str]) -> None:  # pragma: no cover
+def _write_err(text):  # pragma: no cover
     """Default writer"""
     if text is None:
         return
@@ -30,42 +27,42 @@ class _State:
     to be instantiated only once.
     """
 
-    def __init__(self) -> None:
-        self._captured: List[str] = []
-        self.write_err: Writer = _write_err
-        self.installed: bool = False
-        self.formatter: Formatter = base_formatters.repl
-        self.recorded_tracebacks: List[core.FriendlyTraceback] = []
-        self.include: InclusionChoice = "explain"
-        self.lang: str = "en"
+    def __init__(self):
+        self._captured = []
+        self.write_err = _write_err
+        self.installed = False
+        self.formatter = base_formatters.repl
+        self.recorded_tracebacks = []
+        self.include = "explain"
+        self.lang = "en"
         self.install_gettext(self.lang)
         self.other_set_lang = []
-        self.suggest_console: str = "\n" + _(
+        self.suggest_console = "\n" + _(
             "Are you using a regular Python console instead of a Friendly console?\n"
             "If so, to continue, try: `start_console(local_vars=locals())`.\n"
             "You will need to import `start_console` if you have not already done so.\n"
         )
         # Console; if ipython_prompt == True, prompt = '[digit]: '; False: '>>> '
-        self.ipython_prompt: bool = True  # default iPython style prompt
-        self.exception_before_import: bool = False
+        self.ipython_prompt = True  # default iPython style prompt
+        self.exception_before_import = False
         self.sys_last_type = None
         self.sys_last_value = None
 
         # The following are not used by friendly-traceback but might be
         # used by friendly. We include them here as documentation.
-        self.use_rich: bool = False
-        self.rich_add_vspace: bool = True
-        self.rich_width: Union[int, None] = None
-        self.rich_tb_width: Union[int, None] = None
-        self.is_jupyter: bool = False
-        self.jupyter_button_style: str = ""
+        self.use_rich = False
+        self.rich_add_vspace = True
+        self.rich_width = None
+        self.rich_tb_width = None
+        self.is_jupyter = False
+        self.jupyter_button_style = ""
 
         self.old_excepthook = None
         # Include chain exception info in shortened/friendly traceback
         # this should be disabled by Friendly itself.
         self.include_chained_exception = True
 
-    def show_traceback_info_again(self, index: int = -1) -> None:
+    def show_traceback_info_again(self, index=-1):
         """If has not been cleared, write the traceback info again, using
         the default stream.
 
@@ -90,38 +87,38 @@ class _State:
         # Do not combine with above as 'explanation' could be a list for IDLE
         self.write_err("\n")
 
-    def capture(self, txt: str) -> None:
+    def capture(self, txt):
         """Captures the output instead of writing to stderr."""
         self._captured.append(txt)
 
-    def get_captured(self, flush: bool = True) -> str:
+    def get_captured(self, flush=True) -> str:
         """Returns the result of captured output as a string"""
         result = "".join(self._captured)
         if flush:
             self._captured.clear()
         return result
 
-    def set_lang(self, lang: str) -> None:
+    def set_lang(self, lang):
         """Sets the language."""
         for fn in self.other_set_lang:
             fn(lang)
         current_lang.install(lang)
         self.lang = lang
 
-    def install_gettext(self, lang: str) -> None:
+    def install_gettext(self, lang):
         """Sets the current language for gettext."""
         current_lang.install(lang)
         self.lang = lang
 
-    def set_include(self, include: InclusionChoice) -> None:
+    def set_include(self, include):
         if include not in base_formatters.items_groups:  # pragma: no cover
             raise ValueError(f"{include} is not a valid value.")
         self.include = include
 
-    def get_include(self) -> InclusionChoice:
+    def get_include(self):
         return self.include
 
-    def set_formatter(self, formatter: Union[str, None, Formatter] = None) -> None:
+    def set_formatter(self, formatter=None):
         """Sets the default formatter. If no argument is given, the default
         formatter is used.
         """
@@ -137,10 +134,10 @@ class _State:
 
     def install(
         self,
-        lang: Optional[str] = None,
-        redirect: Union[str, Writer, None] = None,
-        include: InclusionChoice = None,
-    ) -> None:
+        lang=None,
+        redirect=None,
+        include=None,
+    ):
         """Replaces sys.excepthook by friendly's own version."""
 
         if lang is not None:
@@ -156,14 +153,14 @@ class _State:
         sys.excepthook = self.exception_hook
         self.installed = True
 
-    def uninstall(self) -> None:
+    def uninstall(self):
         """Resets sys.excepthook to the excepthook used before installing friendly-traceback."""
         if not self.installed:
             return
         sys.excepthook = self.old_excepthook
         self.installed = False
 
-    def set_redirect(self, redirect: Union[str, Writer, None] = None) -> None:
+    def set_redirect(self, redirect=None):
         """Sets where the output is redirected."""
         if redirect == "capture":
             self.write_err = self.capture
@@ -172,7 +169,7 @@ class _State:
         else:
             self.write_err = _write_err
 
-    def explain_traceback(self, redirect: Union[str, Writer, None] = None) -> None:
+    def explain_traceback(self, redirect=None):
         """Replaces a standard traceback by a friendlier one, giving more
         information about a given exception than a standard traceback.
         Note that this excludes SystemExit and KeyboardInterrupt which
@@ -207,11 +204,11 @@ class _State:
 
     def exception_hook(
         self,
-        etype: Type[_E],
-        value: _E,
-        tb: types.TracebackType,
-        redirect: Union[str, Writer, None] = None,
-    ) -> None:
+        etype,
+        value,
+        tb,
+        redirect=None,
+    ):
         """Replaces a standard traceback by a friendlier one,
         except for SystemExit and KeyboardInterrupt which
         are re-raised.
@@ -237,9 +234,7 @@ class _State:
             return
         self.output_info(info, redirect=redirect)
 
-    def output_info(
-        self, info: dict, redirect: Union[str, Writer, None] = None
-    ) -> None:
+    def output_info(self, info, redirect=None):
         """Outputs the information obtained from a traceback.
 
         By default, the output goes to sys.stderr or to some other stream
@@ -265,10 +260,10 @@ class _State:
 
     def get_traceback_info(
         self,
-        etype: Type[_E],
-        value: _E,
-        tb: types.TracebackType,
-    ) -> Info:
+        etype,
+        value,
+        tb,
+    ):
         """Obtains the information available after a traceback has been raised.
 
         The values of the required arguments are typically the following:
@@ -297,7 +292,7 @@ session = _State()
 # exception occurred.
 
 
-def did_exception_occur_before() -> bool:
+def did_exception_occur_before():
     """If an exception occurred before friendly-traceback was imported, it captures
     the information and prints an informative message to the user.
 

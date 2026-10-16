@@ -1,7 +1,5 @@
 """This module is intended to add help attributes to various functions."""
 
-from typing import Any, Callable, Dict, Union
-
 from friendly_traceback import debug_helper
 from friendly_traceback.ft_gettext import current_lang
 
@@ -41,9 +39,7 @@ short_description = {
 }
 
 
-def add_help_attribute(
-    functions: Dict[str, Callable[..., Any]], description: Union[Dict, None] = None
-) -> None:
+def add_help_attribute(functions, description=None):
     """Given a dict whose content is of the form
     {function_name_string: function_obj}
     it adds customs `help` and  `__rich__repr` attributes for all such

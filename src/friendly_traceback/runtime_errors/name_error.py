@@ -1,13 +1,9 @@
 import re
 from importlib.util import find_spec
-from types import FrameType
-from typing import Any, Tuple
 
 from .. import debug_helper, info_variables, token_utils, utils
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo, SimilarNamesInfo  # for type checking only
 from ..utils import list_to_string
 from . import stdlib_modules, third_party_names
 from .modules_attributes import attribute_names
@@ -16,7 +12,7 @@ parser = get_parser(NameError)
 _ = current_lang.translate
 
 
-def using_python() -> str:  # pragma: no cover
+def using_python():  # pragma: no cover
     return _("You are already using Python!")
 
 
@@ -44,7 +40,7 @@ def is_module_attribute(name):
 
 
 @parser._add
-def free_variable_referenced(message: str, _tb_data: TracebackData) -> CauseInfo:
+def free_variable_referenced(message, _tb_data):
     pattern = re.compile(
         r"free variable '(.*)' referenced before assignment in enclosing scope"
     )
@@ -68,7 +64,7 @@ def free_variable_referenced(message: str, _tb_data: TracebackData) -> CauseInfo
 
 
 @parser._add
-def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
+def name_not_defined(message, tb_data):
     pattern = re.compile(r"name '(.*)' is not defined")
     match = re.search(pattern, message)
     if not match:
@@ -163,7 +159,7 @@ def name_not_defined(message: str, tb_data: TracebackData) -> CauseInfo:
     return explanation
 
 
-def perhaps_special_name(name: str, tb_data: TracebackData) -> CauseInfo:
+def perhaps_special_name(name, tb_data):
     if name == "ꓺ":  # pragma: no cover
         return flipfloperator()
     if name == "__debug__" and tb_data.bad_line.startswith("del "):
@@ -186,7 +182,7 @@ def perhaps_special_name(name: str, tb_data: TracebackData) -> CauseInfo:
     return {}
 
 
-def perhaps_special_keyword(word_with_typo: str, bad_line: str) -> CauseInfo:
+def perhaps_special_keyword(word_with_typo, bad_line):
     """Identifies if one of 'pass', 'break', and 'continue' has possibly been misspelled.
     For 'break' and 'continue', it verifies that it would be used on an indented line since
     not doing so would definitely result in a SyntaxError.
@@ -210,7 +206,7 @@ def perhaps_special_keyword(word_with_typo: str, bad_line: str) -> CauseInfo:
     return {"cause": cause, "suggest": hint}
 
 
-def delete_debug() -> CauseInfo:
+def delete_debug():
     # https://bugs.python.org/issue45000
     hint = _("`__debug__` is a constant.\n")
     cause = _(
@@ -220,7 +216,7 @@ def delete_debug() -> CauseInfo:
     return {"cause": cause, "suggest": hint}
 
 
-def flipfloperator() -> CauseInfo:  # pragma: no cover
+def flipfloperator():  # pragma: no cover
     hint = _("You must be a fan of PyConAu!\n")
     cause = _(
         "I am guessing that you tried to use (one of) the flipfloperators\n"
@@ -231,7 +227,7 @@ def flipfloperator() -> CauseInfo:  # pragma: no cover
     return {"cause": cause, "suggest": hint}
 
 
-def is_stdlib_module(name: str) -> CauseInfo:
+def is_stdlib_module(name):
     """Determine if an unknown name is to be found in the Python standard library.
     We're looking for something like name.attribute"""
     # Some Python 2 libraries used names with uppercase letters.
@@ -280,7 +276,7 @@ def typo_in_stdlib_module(name, attribute):
     return None
 
 
-def is_third_party_module(name: str) -> CauseInfo:
+def is_third_party_module(name):
     found = find_spec(name)
     if found:
         hint = _("Did you forget to import `{name}`?\n").format(name=name)
@@ -312,7 +308,7 @@ def is_third_party_module(name: str) -> CauseInfo:
     return {}
 
 
-def format_similar_names(name: str, similar: SimilarNamesInfo) -> str:
+def format_similar_names(name, similar):
     """This function formats the names that were found to be similar"""
     nb_similar_names = (
         len(similar["locals"]) + len(similar["globals"]) + len(similar["builtins"])
@@ -346,9 +342,7 @@ def format_similar_names(name: str, similar: SimilarNamesInfo) -> str:
     return message
 
 
-def missing_self(
-    unknown_name: str, frame: FrameType, tb_data: TracebackData, hint: str
-) -> Tuple[str, str]:
+def missing_self(unknown_name, frame, tb_data, hint):
     """If the unknown name is referred to with no '.' before it,
     and is an attribute of a known object, perhaps 'self.'
     is missing."""
@@ -395,9 +389,7 @@ def missing_self(
     return message, hint
 
 
-def missing_self_cause(
-    name: str, unknown_name: str, obj: Any, scope: str, first_arg_self: bool, hint: str
-) -> Tuple[str, str]:
+def missing_self_cause(name, unknown_name, obj, scope, first_arg_self, hint):
     obj_repr = repr(obj)
     if obj_repr.startswith("<") and obj_repr.endswith(">"):
         obj_repr = info_variables.simplify_repr(obj_repr, splitlines=False)

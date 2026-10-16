@@ -22,18 +22,16 @@ gettext.translation() is the class-based API for gettext.
 
 import gettext
 import os
-from typing import Optional
 
-from . import debug_helper
-from .typing_info import Translator
+# Note: we import debug_helper inside functions to avoid circular imports
 
 
 class LangState:
-    def __init__(self) -> None:
-        self._translate: Translator = lambda text: text
+    def __init__(self):
+        self._translate = lambda text: text
         self.lang = "en"
 
-    def install(self, lang: Optional[str] = None) -> None:
+    def install(self, lang=None):
         """Sets the language to be used for translations"""
         if lang is None:
             lang = "en"
@@ -66,7 +64,9 @@ class LangState:
         self.lang = lang
         self._translate = _lang.gettext
 
-    def translate(self, text: str) -> str:
+    def translate(self, text):
+        from friendly_traceback import debug_helper
+
         translation = self._translate(text)
         if translation == text and self.lang == "fr":  # pragma: no cover
             debug_helper.log(f"Potentially untranslated text for {self.lang}:")
@@ -78,7 +78,7 @@ current_lang = LangState()  # noqa
 _ = current_lang.translate
 
 
-def please_report() -> str:
+def please_report():
     return _(
         "Please report this example to\n"
         "https://github.com/friendly-traceback/friendly-traceback/issues/new\n"
@@ -86,11 +86,13 @@ def please_report() -> str:
     )
 
 
-def unknown_case() -> str:
+def unknown_case():
     return _("Friendly-traceback does not know the cause of this error.\n")
 
 
-def no_information() -> str:
+def no_information():
+    from friendly_traceback import debug_helper
+
     debug_helper.log("New case to consider.")
     return (
         _("No information is known about this exception.\n")
@@ -102,6 +104,8 @@ def no_information() -> str:
     )
 
 
-def internal_error(e: Optional[BaseException]) -> str:
+def internal_error(e):
+    from friendly_traceback import debug_helper
+
     debug_helper.log(f"--> Internal error: {repr(e)}")
     return _("Internal error for Friendly.\n") + please_report()

@@ -11,9 +11,7 @@ import os
 import platform
 import sys
 import traceback
-import types
 from code import InteractiveConsole
-from typing import Any, Callable, Mapping, Optional, Union
 
 import friendly_traceback
 
@@ -21,12 +19,11 @@ from . import source_cache
 from .config import did_exception_occur_before, session
 from .console_helpers import friendly_tb, helpers
 from .ft_gettext import current_lang
-from .typing_info import Formatter, InclusionChoice
 
 
-def type_friendly() -> str:
+def type_friendly():
     # Explicit type as mypy cannot infer correctly the return type on its own here
-    _: Callable[[str], str] = current_lang.translate
+    _ = current_lang.translate
     if sys.platform == "win32":
         exit_ = _("Use exit() or Ctrl-Z plus Return to exit.") + "\n"
     else:
@@ -42,7 +39,7 @@ Python version: {platform.python_version()}
 _old_displayhook = sys.displayhook
 
 
-def rich_displayhook(value: Any) -> None:
+def rich_displayhook(value):
     """Custom display hook intended to show some brief function descriptions
     that can be translated into various languages, for functions that have
     a custom '__rich_repr__' attribute.
@@ -56,7 +53,7 @@ def rich_displayhook(value: Any) -> None:
     _old_displayhook(value)
 
 
-def toggle_prompt() -> None:
+def toggle_prompt():
     """Toggles the style of prompt to use in the console."""
     session.ipython_prompt = not session.ipython_prompt
 
@@ -64,11 +61,11 @@ def toggle_prompt() -> None:
 class FriendlyTracebackConsole(InteractiveConsole):
     def __init__(
         self,
-        local_vars: Optional[Mapping[str, Any]] = None,
-        formatter: Union[str, Formatter] = "repl",
-        displayhook: Optional[Callable[[object], Any]] = None,
-        ipython_prompt: bool = True,
-    ) -> None:
+        local_vars=None,
+        formatter="repl",
+        displayhook=None,
+        ipython_prompt=True,
+    ):
         """This class builds upon Python's code.InteractiveConsole
         to provide friendly tracebacks. It keeps track
         of code fragment executed by treating each of them as
@@ -88,14 +85,14 @@ class FriendlyTracebackConsole(InteractiveConsole):
         super().__init__(locals=local_vars)
         session.suggest_console = ""
 
-    def interact(self, banner=None, exitmsg=None) -> None:
+    def interact(self, banner=None, exitmsg=None):
         if not session.exception_before_import and did_exception_occur_before():
             print(banner)
             banner = ""
             friendly_tb()
         super().interact(banner=banner, exitmsg=exitmsg)
 
-    def push(self, line: str) -> bool:
+    def push(self, line):
         """Push a line to the interpreter.
 
         The line should not have a trailing newline; it may have
@@ -132,9 +129,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
                 sys.ps2 = "... "
         return more
 
-    def runsource(
-        self, source: str, filename: str = "<friendly-console>", symbol: str = "single"
-    ) -> bool:
+    def runsource(self, source, filename="<friendly-console>", symbol="single"):
         """Compile and run some source in the interpreter.
 
         Arguments are as for compile_command().
@@ -175,7 +170,7 @@ class FriendlyTracebackConsole(InteractiveConsole):
         self.runcode(code)
         return False
 
-    def runcode(self, code: types.CodeType) -> None:
+    def runcode(self, code):
         """Execute a code object.
 
         When an exception occurs, friendly_traceback.explain_traceback() is called to
@@ -209,13 +204,13 @@ class FriendlyTracebackConsole(InteractiveConsole):
     # defined in the parent class. The following are the equivalent methods
     # that can be used if an explicit call is desired for some reason.
 
-    def showsyntaxerror(self, filename: Optional[str] = None) -> None:
+    def showsyntaxerror(self, filename=None):
         if session.installed:
             friendly_traceback.explain_traceback()
         else:
             super().showsyntaxerror(filename)
 
-    def showtraceback(self) -> None:
+    def showtraceback(self):
         if session.installed:
             friendly_traceback.explain_traceback()
         else:
@@ -223,14 +218,14 @@ class FriendlyTracebackConsole(InteractiveConsole):
 
 
 def start_console(
-    local_vars: Optional[Mapping[str, Any]] = None,
-    formatter: Union[str, Formatter] = "repl",
-    include: InclusionChoice = "friendly_tb",
-    lang: str = "en",
-    banner: Optional[str] = None,
-    displayhook: Optional[Callable[[object], Any]] = None,
-    ipython_prompt: bool = True,
-) -> None:
+    local_vars=None,
+    formatter="repl",
+    include="friendly_tb",
+    lang="en",
+    banner=None,
+    displayhook=None,
+    ipython_prompt=True,
+):
     """Starts a console; modified from code.interact"""
 
     friendly_traceback.about_warnings.enable_warnings()

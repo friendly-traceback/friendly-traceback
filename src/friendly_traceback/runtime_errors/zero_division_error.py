@@ -1,18 +1,12 @@
-from typing import SupportsInt, Union
-
 from .. import debug_helper
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 
 parser = get_parser(ZeroDivisionError)
 _ = current_lang.translate
 
 
-def expression_is_zero(
-    expression: Union[str, bytes, SupportsInt], modulo: bool = False
-) -> str:
+def expression_is_zero(expression, modulo=False):
     """Simpler message when the denominator is a literal 0."""
     try:
         if int(expression) == 0:
@@ -25,7 +19,7 @@ def expression_is_zero(
 
 
 @parser._add
-def division_by_zero(message: str, tb_data: TracebackData) -> CauseInfo:
+def division_by_zero(message, tb_data):
     if message not in (
         "division by zero",
         "float division by zero",
@@ -58,7 +52,7 @@ def expression_includes_division_by_zero(expression):
 
 
 @parser._add
-def integer_division_or_modulo(message: str, tb_data: TracebackData) -> CauseInfo:
+def integer_division_or_modulo(message, tb_data):
     if message not in ["integer division or modulo by zero", "integer modulo by zero"]:
         return {}
     expression = tb_data.bad_line
@@ -98,7 +92,7 @@ def integer_division_or_modulo(message: str, tb_data: TracebackData) -> CauseInf
 
 
 @parser._add
-def zero_negative_power(message: str, _tb_data: TracebackData) -> CauseInfo:
+def zero_negative_power(message, _tb_data):
     if message != "0.0 cannot be raised to a negative power":
         return {}
     cause = _(
@@ -109,7 +103,7 @@ def zero_negative_power(message: str, _tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def float_modulo(message: str, tb_data: TracebackData) -> CauseInfo:
+def float_modulo(message, tb_data):
     if message != "float modulo":
         return {}
     expression = tb_data.bad_line
@@ -135,7 +129,7 @@ def float_modulo(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def float_divmod(message: str, _tb_data: TracebackData) -> CauseInfo:
+def float_divmod(message, _tb_data):
     if message != "float divmod()":
         debug_helper.log("new case to consider")  # pragma: no cover
         return {}  # pragma: no cover

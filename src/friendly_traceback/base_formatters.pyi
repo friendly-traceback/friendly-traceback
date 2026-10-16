@@ -1,0 +1,25 @@
+from typing import Dict, List, Set
+from . import debug_helper
+from .ft_gettext import current_lang
+from .typing_info import InclusionChoice, Info
+
+items_in_order: list[str]
+repl_indentation: dict[str, str]
+
+
+def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str: ...
+
+
+def detailed_tb(info: Info) -> str: ...
+
+
+def docs(info: Info, include: InclusionChoice = "friendly_tb") -> str: ...
+
+
+def no_result(info: Info, include: InclusionChoice) -> str: ...
+
+
+items_groups: Dict[InclusionChoice, Set[str]]
+
+
+def select_items(group_name: InclusionChoice) -> List[str]: ...

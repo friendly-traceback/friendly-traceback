@@ -13,7 +13,6 @@ it can be determined if it should be added to the public API.
 """
 
 import sys
-from typing import Any, Dict, Tuple, Union
 
 from .config import session
 from .ft_gettext import current_lang
@@ -22,7 +21,7 @@ from .source_cache import cache
 
 def check_syntax(
     *, source=None, filename="Fake_filename", path=None, include=None, lang=None
-) -> Union[bool, Tuple[Any, str]]:
+):
     """This uses Python's ``compile()`` builtin which does some analysis of
     its code argument and will raise an exception if it identifies
     some syntax errors, but also some less common "overflow" and "value"
@@ -91,7 +90,7 @@ def check_syntax(
     return code
 
 
-def exec_code(*, source=None, path=None, include=None, lang=None) -> Dict:
+def exec_code(*, source=None, path=None, include=None, lang=None):
     """This uses check_syntax to see if the code is valid and, if so,
     executes it into a globals dict containing only
     ``{"__name__": "__main__"}``.
@@ -135,7 +134,7 @@ def exec_code(*, source=None, path=None, include=None, lang=None) -> Dict:
     return module_globals
 
 
-def _temp_set_lang(lang: str) -> str:
+def _temp_set_lang(lang):
     """If lang is not none, temporarily set session.lang to the provided
     value. Keep track of the original lang setting and return it.
 

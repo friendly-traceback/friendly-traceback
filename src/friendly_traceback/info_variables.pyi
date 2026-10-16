@@ -1,0 +1,84 @@
+from typing import ClassVar, Literal
+from _typeshed import Incomplete
+
+import ast
+import builtins
+import re
+import sys
+import types
+from typing import Any, Dict, List, Tuple, Union
+from . import debug_helper, token_utils, utils
+from .ft_gettext import current_lang
+from .path_info import path_utils
+from .typing_info import ObjectsInfo, ScopeKind, SimilarNamesInfo
+from asttokens import ASTTokens
+from pure_eval import Evaluator, group_expressions
+
+INDENT: LiteralString
+MAX_LENGTH: Literal[65] = 65
+RENAMED_BUILTINS: set[str]
+
+
+class ConfidentialInformation:
+    regex: ClassVar[Incomplete]
+    redacted: ClassVar[Literal['\'••••••\'']] = "'••••••'"
+
+    def hide_confidential_information(self, patterns: Union[List, None] = None) -> None: ...
+
+    def is_confidential(self, name: str) -> bool: ...
+
+    def redact_confidential(self, name: str, value: Any) -> Any: ...
+
+
+confidential: ConfidentialInformation
+
+
+def convert_type(short_form: str) -> str: ...
+
+
+def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo: ...
+
+
+def find_identifiers(objects: ObjectsInfo, line: str, frame: types.FrameType, names: set) -> Tuple[ObjectsInfo, set]: ...
+
+
+def find_expressions(objects: ObjectsInfo, line: str, frame: types.FrameType, names: set) -> ObjectsInfo: ...
+
+
+def get_object_from_name(name: str, frame: types.FrameType) -> Any: ...
+
+
+def get_variables_in_frame_by_scope(frame: types.FrameType, scope: ScopeKind) -> Dict[str, Any]: ...
+
+
+def get_definition_scope(variable_name: str, frame: types.FrameType) -> List[ScopeKind]: ...
+
+
+def get_var_info(line: str, frame: types.FrameType) -> dict: ...
+
+
+def find_renamed_builtins(frame: Incomplete) -> str: ...
+
+
+def simplify_repr(value: str, splitlines: bool = True) -> str: ...
+
+
+def simplify_bound_method(name: str, splitlines: bool = False) -> str: ...
+
+
+def safe_repr(obj: Any) -> str: ...
+
+
+def format_var_info(name: str, obj: str, _global: str = "") -> str: ...
+
+
+def format_multiline(value: str) -> str: ...
+
+
+def shorten_long_line(value: str, obj: str) -> (str, str): ...
+
+
+def get_similar_names(name: str, frame: types.FrameType, include_builtins: bool = True) -> SimilarNamesInfo: ...
+
+
+def name_has_type_hint(name: str, frame: types.FrameType) -> str: ...

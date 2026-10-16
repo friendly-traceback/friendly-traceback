@@ -51,7 +51,7 @@ mypy_path = "src/friendly_traceback/"
 [tool.pyrefly]
 search-path = ["src/friendly_traceback/"]
 preset = "legacy"
-project-excludes = ["venv*", "build/", "docs_examples/", "tests/"]
+project-excludes = ["venv*", "build/", "tests/"]
 
 [tool.pyright]
 include = ["src/friendly_traceback"]

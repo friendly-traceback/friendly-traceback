@@ -1,16 +1,15 @@
 import re
 
-from ..about_warnings import WarningInfo, get_warning_parser
+from ..about_warnings import get_warning_parser
 from ..ft_gettext import current_lang
 from ..info_variables import convert_type
-from ..typing_info import CauseInfo  # for type checking only
 
 parser = get_warning_parser(SyntaxWarning)
 _ = current_lang.translate
 
 
 @parser._add
-def object_is_not_callable(message: str, _warning_data: WarningInfo) -> CauseInfo:
+def object_is_not_callable(message, _warning_data):
     pattern = re.compile("'(.*)' object is not callable")
     match = re.match(pattern, message)
     if not match:
@@ -36,7 +35,7 @@ def object_is_not_callable(message: str, _warning_data: WarningInfo) -> CauseInf
 
 
 @parser._add
-def list_indices_must_be(message: str, _warning_data: WarningInfo) -> CauseInfo:
+def list_indices_must_be(message, _warning_data):
     pattern = re.compile(r"(.*) indices must be integers or slices, not (.*);")
     match = re.search(pattern, message)
     if match is None:
@@ -58,7 +57,7 @@ def list_indices_must_be(message: str, _warning_data: WarningInfo) -> CauseInfo:
 
 
 @parser._add
-def object_is_not_subscriptable(message: str, _warning_data: WarningInfo) -> CauseInfo:
+def object_is_not_subscriptable(message, _warning_data):
     pattern = re.compile(r"'(.*)' object is not subscriptable")
     match = re.search(pattern, message)
     if match is None:

@@ -1,14 +1,12 @@
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 
 parser = get_parser(OSError)
 _ = current_lang.translate
 
 
 @parser._add
-def handle_connection_error(_message: OSError, tb_data: TracebackData) -> CauseInfo:
+def handle_connection_error(_messager, tb_data):
     tb = "\n".join(tb_data.formatted_tb)
     if (
         "socket.gaierror" in tb
@@ -27,7 +25,7 @@ def handle_connection_error(_message: OSError, tb_data: TracebackData) -> CauseI
 
 
 @parser._add
-def invalid_argument(message: str, tb_data: TracebackData) -> CauseInfo:
+def invalid_argument(message, tb_data):
     if "Invalid argument:" not in message:
         return {}
     value = tb_data.value

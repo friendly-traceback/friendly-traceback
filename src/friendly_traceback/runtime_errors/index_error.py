@@ -2,22 +2,19 @@
 
 import ast
 import re
-from typing import Dict
 
 import pure_eval
 
 from .. import debug_helper, info_variables
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 
 parser = get_parser(IndexError)
 _ = current_lang.translate
 
 
 @parser._add
-def object_assignment_out_of_range(message: str, tb_data: TracebackData) -> CauseInfo:
+def object_assignment_out_of_range(message, tb_data):
     pattern = re.compile(r"(.*) assignment index out of range")
     match = re.search(pattern, message)
     if not match:
@@ -74,7 +71,7 @@ def object_assignment_out_of_range(message: str, tb_data: TracebackData) -> Caus
     return {"cause": cause}
 
 
-def cannot_identify_object(obj_type: str, bad_line: str) -> Dict:
+def cannot_identify_object(obj_type, bad_line):
     message = f"Cannot identify `{obj_type}` object. line: {bad_line}"
     debug_helper.log(message)
     cause = _(
@@ -86,7 +83,7 @@ def cannot_identify_object(obj_type: str, bad_line: str) -> Dict:
 
 
 @parser._add
-def index_out_of_range(message: str, tb_data: TracebackData) -> CauseInfo:
+def index_out_of_range(message, tb_data):
     pattern = re.compile(r"(.*) index out of range")
     match = re.search(pattern, message)
     if not match:

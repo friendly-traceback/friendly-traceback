@@ -3,8 +3,6 @@ import re
 
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 from ..utils import get_similar_words
 
 parser = get_parser(FileNotFoundError)
@@ -12,9 +10,7 @@ _ = current_lang.translate
 
 
 @parser._add
-def no_such_file_or_directory(
-    value: FileNotFoundError, _tb_data: TracebackData
-) -> CauseInfo:
+def no_such_file_or_directory(value, _tb_data):
     pattern = re.compile("No such file or directory: '(.*)'")
     match = re.search(pattern, str(value))
     if match is None:

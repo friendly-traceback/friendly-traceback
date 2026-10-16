@@ -1,0 +1,3 @@
+names: set[str]
+
+def module_exists(name: str) -> bool: ...

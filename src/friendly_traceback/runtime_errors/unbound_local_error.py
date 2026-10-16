@@ -6,15 +6,13 @@ import re
 from .. import debug_helper, info_variables
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo, SimilarNamesInfo  # for type checking only
 
 parser = get_parser(UnboundLocalError)
 _ = current_lang.translate
 
 
 @parser._add
-def local_variable_referenced(message: str, tb_data: TracebackData) -> CauseInfo:
+def local_variable_referenced(message, tb_data):
     pattern = re.compile(r"local variable '(.*)' referenced before assignment")
     pattern3_11 = re.compile(
         r"cannot access local variable '(.*)'"
@@ -111,7 +109,7 @@ def local_variable_referenced(message: str, tb_data: TracebackData) -> CauseInfo
     return {"cause": cause, "suggest": hint}
 
 
-def format_similar_names(unknown_name: str, similar: SimilarNamesInfo) -> str:
+def format_similar_names(unknown_name, similar):
     """This function formats the names that were found to be similar"""
     nb_similar_names = len(similar["locals"])
     if nb_similar_names == 1:

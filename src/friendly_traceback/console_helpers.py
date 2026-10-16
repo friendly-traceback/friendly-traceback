@@ -23,19 +23,13 @@ functions are available in such environments, do the following::
 # NOTE: __all__ is defined at the very bottom of this file
 import inspect
 import sys
-import types
-from typing import Any, Callable, Dict, List, Optional, Type, Union
-
 import friendly_traceback
-from friendly_traceback import __version__, base_formatters, debug_helper
+from friendly_traceback import base_formatters, debug_helper
 from friendly_traceback.config import session
 from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.functions_help import add_help_attribute
 from friendly_traceback.info_generic import get_generic_explanation
 from friendly_traceback.path_info import show_paths
-from friendly_traceback.syntax_errors.source_info import Statement
-from friendly_traceback.tb_data import TracebackData
-from friendly_traceback.typing_info import InclusionChoice, Site
 
 _ = current_lang.translate
 
@@ -64,7 +58,7 @@ def enable():
     session.install()
 
 
-def explain(index: int = -1, include: InclusionChoice = "explain") -> None:
+def explain(index=-1, include="explain"):
     """Shows the previously recorded traceback info again,
     with the option to specify different items to include.
     For example, ``explain("why")`` is equivalent to ``why()``.
@@ -75,14 +69,14 @@ def explain(index: int = -1, include: InclusionChoice = "explain") -> None:
     friendly_traceback.set_include(old_include)
 
 
-def friendly_tb(index: int = -1) -> None:
+def friendly_tb(index=-1):
     """Shows the simplified Python traceback,
     which includes the hint/suggestion if available.
     """
     explain(index, include="friendly_tb")
 
 
-def hint(index: int = -1) -> None:
+def hint(index=-1):
     """Shows hint/suggestion if available."""
     explain(index, include="hint")
 
@@ -134,7 +128,7 @@ class History:
 history = History()
 
 
-def python_tb(index: int = -1) -> None:
+def python_tb(index=-1):
     """Shows the Python traceback, excluding files from friendly
     itself.
     """
@@ -142,11 +136,9 @@ def python_tb(index: int = -1) -> None:
 
 
 def what(
-    exception_or_index: Union[
-        Type[BaseException], str, bytes, types.CodeType, int, None
-    ] = None,
-    pre: bool = False,
-) -> None:
+    exception_or_index=None,
+    pre=False,
+):
     """If known, shows the generic explanation about a given exception.
 
     If the ``pre`` argument is set to ``True``, the output is
@@ -189,7 +181,7 @@ def what(
         session.write_err(explanation)
 
 
-def where(index: int = -1, more=False) -> None:
+def where(index=-1, more=False):
     """Shows the information about where the exception occurred"""
     if more:
         try:
@@ -205,7 +197,7 @@ def where(index: int = -1, more=False) -> None:
         explain(index, "where")
 
 
-def why(index: int = -1) -> None:
+def why(index=-1):
     """Shows the likely cause of the exception."""
     # If no cause is found, and the exception name is not accompanied by a
     # message, as in "StopIteration:", we use the same info for
@@ -228,7 +220,7 @@ def why(index: int = -1) -> None:
         explain(index, "why")
 
 
-def www(site_or_index: Union[Site, int] = -1) -> None:  # pragma: no cover
+def www(site_or_index=-1):  # pragma: no cover
     """This uses the ``webbrowser`` module to open a tab (or window)
      in the default browser, linking to a specific url
      or opening the default email client.
@@ -272,7 +264,7 @@ def www(site_or_index: Union[Site, int] = -1) -> None:  # pragma: no cover
             )
             return
 
-    urls: Dict[Site, str] = {
+    urls = {
         "friendly": "https://friendly-traceback.github.io/docs/index.html",
         "python": f"https://docs.python.org/3.{sys.version_info.minor}/",
         "bug": "https://github.com/friendly-traceback/friendly-traceback/issues/new",
@@ -317,7 +309,7 @@ def www(site_or_index: Union[Site, int] = -1) -> None:  # pragma: no cover
     return open_browser(url)
 
 
-def set_debug(flag: bool = True) -> None:  # pragma: no cover
+def set_debug(flag=True):  # pragma: no cover
     """This sets the value of the debug flag for the current session."""
     debug_helper.DEBUG = flag
     debug_helper.SHOW_DEBUG_HELPER = flag
@@ -332,7 +324,7 @@ set_formatter = friendly_traceback.set_formatter
 # ===== Debugging functions are not unit tested by choice =====
 
 
-def _get_statement() -> Optional[Statement]:  # pragma: no cover
+def _get_statement():  # pragma: no cover
     """This returns a 'Statement' instance obtained for SyntaxErrors and
     subclasses.  Such a Statement instance contains essentially all
     the known information about the statement where the error occurred.
@@ -354,7 +346,7 @@ def _get_statement() -> Optional[Statement]:  # pragma: no cover
     return None
 
 
-def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
+def _get_tb_data():  # pragma: no cover
     """This returns the TracebackData instance containing all the
     information we have obtained.
 
@@ -367,12 +359,12 @@ def _get_tb_data() -> Optional[TracebackData]:  # pragma: no cover
     return current_tb.tb_data if hasattr(current_tb, "tb_data") else current_tb
 
 
-def _get_info() -> list:
+def _get_info():
     """Debugging tool: returns the content of a traceback info."""
     return session.recorded_tracebacks[-1].info if session.recorded_tracebacks else []
 
 
-def _show_info() -> None:  # pragma: no cover
+def _show_info():  # pragma: no cover
     """Debugging tool: shows the complete content of traceback info.
 
     Prints ``''`` for a given item if it is not present.
@@ -393,7 +385,7 @@ def _show_info() -> None:  # pragma: no cover
             print(f"{item}: {info[item]}")
 
 
-helpers: Dict[str, Callable[..., None]] = {
+helpers = {
     "why": why,
     "what": what,
     "where": where,
@@ -415,7 +407,7 @@ helpers: Dict[str, Callable[..., None]] = {
 }
 add_help_attribute(helpers)
 
-debug_helper_methods: Dict[str, Callable[..., Any]] = {
+debug_helper_methods = {
     "_get_info": _get_info,
     "_get_tb_data": _get_tb_data,
     "_get_statement": _get_statement,
@@ -433,17 +425,15 @@ class FriendlyHelpers:
     For example, we can write ``Friendly.why()`` as equivalent to ``why()``.
     """
 
-    version = __version__
-
-    def __init__(self) -> None:
+    def __init__(self):
         self.helpers = {}
 
-    def add_helper(self, function: Callable) -> None:  # pragma: no cover
+    def add_helper(self, function):  # pragma: no cover
         """Adds a helper base on its name and the function it refers to."""
         self.helpers[function.__name__] = function
         setattr(self, function.__name__, function)
 
-    def remove_helper(self, name: str) -> None:  # pragma: no cover
+    def remove_helper(self, name):  # pragma: no cover
         """Removes a helper from the FriendlyHelpers object"""
         if name in self.helpers:
             del self.helpers[name]
@@ -452,11 +442,11 @@ class FriendlyHelpers:
             message = f"Cannot remove {name}; it is not a known helper."
             debug_helper.log(message)
 
-    def __dir__(self) -> List[str]:  # pragma: no cover
+    def __dir__(self):  # pragma: no cover
         """Only include useful friendly methods."""
         return sorted(list(self.helpers))
 
-    def __repr__(self) -> str:  # pragma: no cover
+    def __repr__(self):  # pragma: no cover
         """Shows a brief description in the default language of what
         each function/method does.
 

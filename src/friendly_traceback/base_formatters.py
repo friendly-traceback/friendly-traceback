@@ -33,11 +33,8 @@ This module currently contains 2 formatters:
   to print the information in a traditional console.
 """
 
-from typing import Dict, List, Set
-
 from . import debug_helper
 from .ft_gettext import current_lang
-from .typing_info import InclusionChoice, Info
 
 _ = current_lang.translate
 # The following is the order in which the various items, if they exist
@@ -98,7 +95,7 @@ repl_indentation = {
 }
 
 
-def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
+def repl(info, include="friendly_tb"):
     """Default formatter, primarily for console usage.
 
     The only change made to the content of "info" is
@@ -135,7 +132,7 @@ def repl(info: Info, include: InclusionChoice = "friendly_tb") -> str:
     return "\n".join(result)
 
 
-def detailed_tb(info: Info) -> str:  # Special case
+def detailed_tb(info):  # Special case
     """Unlike the normal information from 'where()', which focus on at
     most two frames, detailed_tb() gives information for all the frames.
     It is used mostly in IPython based environment - especially with
@@ -151,9 +148,7 @@ def detailed_tb(info: Info) -> str:  # Special case
     return "\n".join(result)
 
 
-def docs(
-    info: Info, include: InclusionChoice = "friendly_tb"
-) -> str:  # pragma: no cover
+def docs(info, include="friendly_tb"):  # pragma: no cover
     """Formatter that produces an output that is suitable for
     insertion in a RestructuredText (.rst) code block,
     with pre-formatted indentation.
@@ -187,7 +182,7 @@ def docs(
     return no_result(info, include) if result == [""] else "\n".join(result)
 
 
-def no_result(info: Info, include: InclusionChoice) -> str:
+def no_result(info, include):
     """Should normally only be called if no result is available
     from either hint() or why().
     """
@@ -206,7 +201,7 @@ def no_result(info: Info, include: InclusionChoice) -> str:
     return ""
 
 
-items_groups: Dict[InclusionChoice, Set[str]] = {
+items_groups = {
     "message": {"message"},  # Also included as last line of traceback
     "message_plus": {"message", "suggest"},  # for SyntaxError in IDLE
     "hint": {"suggest"},
@@ -250,6 +245,6 @@ for item_ in items_groups["friendly_tb"]:
     items_groups["no_tb"].discard(item_)
 
 
-def select_items(group_name: InclusionChoice) -> List[str]:
+def select_items(group_name):
     items = items_groups[group_name]
     return [item for item in items_in_order if item in items]

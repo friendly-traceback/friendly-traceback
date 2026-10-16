@@ -11,7 +11,6 @@ can be imported using ``from friendly_traceback import enable_warnings``,
 import inspect
 import warnings
 from importlib import import_module
-from typing import List, Type
 
 import executing
 from stack_data import BlankLines, Formatter, Options
@@ -22,7 +21,6 @@ from .ft_gettext import current_lang, internal_error
 from .info_generic import get_generic_explanation
 from .info_variables import get_var_info
 from .path_info import path_utils
-from .typing_info import _E, CauseInfo, Parser
 
 _ = current_lang.translate
 _warnings_seen = {}
@@ -30,7 +28,7 @@ _RUNNING_TESTS = False
 IGNORE_WARNINGS = set()
 
 
-def enable_warnings(testing: bool = False) -> None:
+def enable_warnings(testing=False):
     """Used to enable all warnings, with 'always' being used as the
     parameter for warnings.simplefilter.
 
@@ -216,12 +214,12 @@ WARNING_DATA_PARSERS = {}
 class WarningDataParser:
     """This class is used to create objects that collect message parsers."""
 
-    def __init__(self) -> None:
-        self.parsers: List[Parser] = []
-        self.core_parsers: List[Parser] = []
-        self.custom_parsers: List[Parser] = []
+    def __init__(self):
+        self.parsers = []
+        self.core_parsers = []
+        self.custom_parsers = []
 
-    def _add(self, func: Parser) -> None:
+    def _add(self, func):
         """This method is meant to be used only within friendly-traceback.
         It is used as a decorator to add a message parser to a list that is
         automatically updated.
@@ -229,7 +227,7 @@ class WarningDataParser:
         self.parsers.append(func)
         self.core_parsers.append(func)
 
-    def add(self, func: Parser) -> None:
+    def add(self, func):
         """This method is meant to be used by projects that extend
         friendly-traceback. It is used as a decorator to add a message parser
         to a list that is automatically updated::
@@ -242,7 +240,7 @@ class WarningDataParser:
         self.parsers = self.custom_parsers + self.core_parsers
 
 
-def get_warning_parser(warning_type: Type[_E]) -> WarningDataParser:
+def get_warning_parser(warning_type):
     """Gets a 'parser' to find the cause for a given warning.
 
     Args:
@@ -254,8 +252,8 @@ def get_warning_parser(warning_type: Type[_E]) -> WarningDataParser:
         parser = get_warning_parser(SomeSpecificWarning)
 
         @parser.add
-        def some_meaningful_name(warning_message: str,
-                                 warning_data: WarningDataParser) -> dict:
+        def some_meaningful_name(warning_message,
+                                 warning_data) -> dict:
             if not handled_by_this_function(warning_message):
                 return {}  # let other parsers deal with it
 
@@ -271,9 +269,9 @@ def get_warning_parser(warning_type: Type[_E]) -> WarningDataParser:
 
 def get_warning_cause(
     warning_type,
-    message: str,
-    warning_data: WarningDataParser = None,
-) -> CauseInfo:
+    message,
+    warning_data=None,
+):
     """Attempts to get the likely cause of an exception."""
     try:
         return get_cause(warning_type, message, warning_data)
@@ -286,9 +284,9 @@ def get_warning_cause(
 
 def get_cause(
     warning_type,
-    message: str,
-    warning_data: WarningDataParser,
-) -> CauseInfo:
+    message,
+    warning_data,
+):
     """For a given exception type, cycle through the known message parsers,
     looking for one that can find a cause of the exception."""
     warning_parsers = get_warning_parser(warning_type)

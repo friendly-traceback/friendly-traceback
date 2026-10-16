@@ -3,9 +3,8 @@ import inspect
 import io
 import sys
 import traceback
-import types
+
 from itertools import dropwhile
-from typing import Generic, List, Optional, Tuple, Type
 
 from stack_data import BlankLines, Options
 
@@ -15,13 +14,12 @@ from .ft_gettext import current_lang
 from .path_info import is_excluded_file
 from .source_cache import cache
 from .syntax_errors import source_info
-from .typing_info import _E
 
 STR_FAILED = "<exception str() failed>"  # Same as Python
 _ = current_lang.translate
 
 
-def convert_value_to_message(value: BaseException) -> str:
+def convert_value_to_message(value):
     """This converts the 'value' of an exception into a string, while
     being safe to use for custom exceptions which have been incorrectly
     defined. See https://github.com/aroberge/friendly/issues/181 for an example.
@@ -33,7 +31,7 @@ def convert_value_to_message(value: BaseException) -> str:
     return message
 
 
-def retrieve_message(etype: Type[_E], value: _E, tb: types.TracebackType) -> str:
+def retrieve_message(etype, value, tb):
     """Safely retrieves the message, including any additional hint from Python."""
     message = convert_value_to_message(value)
     if (
@@ -42,7 +40,6 @@ def retrieve_message(etype: Type[_E], value: _E, tb: types.TracebackType) -> str
         or etype not in (AttributeError, NameError)
     ):
         return message
-    # 3.10+ hints are not directly accessible from Python.
     err = io.StringIO()
     with contextlib.redirect_stderr(err):
         sys.__excepthook__(etype, value, tb)
@@ -50,7 +47,7 @@ def retrieve_message(etype: Type[_E], value: _E, tb: types.TracebackType) -> str
     return full_message.split(":", 1)[1].strip()
 
 
-class TracebackData(Generic[_E]):
+class TracebackData:
     """Raw traceback info obtained from Python.
 
     Instances of this class are intended to include all the relevant
@@ -58,7 +55,7 @@ class TracebackData(Generic[_E]):
     can be created.
     """
 
-    def __init__(self, etype: Type[_E], value: _E, tb: types.TracebackType) -> None:
+    def __init__(self, etype, value, tb):
         """This object is initialized with the standard values for a
         traceback::
 
@@ -74,31 +71,31 @@ class TracebackData(Generic[_E]):
         self.records = self.get_records(tb)
         self.python_records = self.get_records(tb, python_excluded=False)
         # The following attribute gets its value in core.py
-        self.simulated_python_traceback: Optional[str] = None
+        self.simulated_python_traceback = None
 
         # The following three attributes get their correct values in get_source_info()
         self.bad_line = "\n"
         self.original_bad_line = "\n"
         self.filename = ""
-        self.exception_frame: Optional[types.FrameType] = None
-        self.exception_instance: Optional[_E] = None
-        self.program_stopped_frame: Optional[types.FrameType] = None
+        self.exception_frame = None
+        self.exception_instance = None
+        self.program_stopped_frame = None
         self.program_stopped_bad_line = "\n"
         self.get_source_info()
 
         # The following attributes get their correct values in self.locate_error()
         self.node = None
         self.node_text = ""
-        self.node_range: Optional[Tuple[int, int]] = None
+        self.node_range = None
         self.program_stopped_node_range = None
 
         if issubclass(etype, SyntaxError):
-            self.statement: Optional[source_info.Statement] = source_info.Statement(
+            self.statement = source_info.Statement(
                 self.value, self.bad_line, self.original_bad_line
             )
             # Removing extra ending spaces for potentially shorter displays later on
 
-            def remove_space(text: str) -> str:
+            def remove_space(text: str):
                 if text.rstrip():
                     return (
                         text.rstrip() + "\n" if text.endswith("\n") else text.rstrip()
@@ -113,9 +110,7 @@ class TracebackData(Generic[_E]):
             self.statement = None
             self.locate_error()
 
-    def get_records(
-        self, tb: types.TracebackType, python_excluded: bool = True
-    ) -> List[FrameInfo]:
+    def get_records(self, tb, python_excluded=True):
         """Get the traceback frame history, excluding those originating
         from our own code that are included either at the beginning or
         at the end of the traceback.
@@ -166,7 +161,7 @@ class TracebackData(Generic[_E]):
         # and help identify the problem.
         return all_records  # pragma: no cover
 
-    def get_source_info(self) -> None:
+    def get_source_info(self):
         """Retrieves the file name and the line of code where the exception
         was raised.
         """
@@ -237,7 +232,7 @@ class TracebackData(Generic[_E]):
             return
 
         # We should never reach this stage.
-        def _log_error() -> None:  # pragma: no cover
+        def _log_error():  # pragma: no cover
             debug_helper.log("Internal error in TracebackData.get_source_info.")
             debug_helper.log("No records found.")
             debug_helper.log(f"self.exception_type:{str(self.exception_type)}")
@@ -246,7 +241,7 @@ class TracebackData(Generic[_E]):
 
         _log_error()  # pragma: no cover
 
-    def locate_error(self) -> None:
+    def locate_error(self):
         """Attempts to narrow down the location of the error so that,
         if possible, the problem code is highlighted with ^^^^."""
         if not self.records:  # pragma: no cover

@@ -10,19 +10,15 @@ please file an issue.
 
 import re
 import traceback
-import types
-from typing import List, Optional, Type
 
 from . import debug_helper, info_generic, info_variables, message_parser, tb_data
-from .frame_info import FrameInfo
 from .ft_gettext import current_lang
 from .path_info import path_utils
 from .source_cache import cache
 from .syntax_errors import analyze_syntax, indentation_error
-from .typing_info import _E, Info
 
 try:
-    import executing  # noqa
+    import executing  # noqa # type: ignore
 except ImportError:  # pragma: no cover
     pass  # ignore errors when processed by Sphinx
 
@@ -102,9 +98,7 @@ class FriendlyTraceback:
     * what() shows the information compiled by assign_generic()
     """
 
-    info: Info
-
-    def __init__(self, etype: Type[_E], value: _E, tb: types.TracebackType) -> None:
+    def __init__(self, etype, value, tb):
         """The basic argument are those generated after a traceback
         and obtained via::
 
@@ -134,7 +128,7 @@ class FriendlyTraceback:
         # ... and for extracting the notes information
         self.add_exception_note()
 
-    def assign_message(self, etype, value) -> str:
+    def assign_message(self, etype, value):
         """Assigns the error message, as the attribute ``message``
         which is something like::
 
@@ -145,7 +139,7 @@ class FriendlyTraceback:
         self.info["message"] = f"{exc_name}: {message}\n"
         return self.info["message"]
 
-    def compile_info(self) -> None:
+    def compile_info(self):
         """Compile all info that was not set in __init__."""
         self.assign_generic()
         # For SyntaxError, assigning the cause may result in better location
@@ -157,7 +151,7 @@ class FriendlyTraceback:
         for key in to_remove:
             del self.info[key]
 
-    def recompile_info(self) -> None:
+    def recompile_info(self):
         """This is useful if we need to redisplay some information in a
         different language than what was originally used.
         """
@@ -186,7 +180,7 @@ class FriendlyTraceback:
             )
         self.info["exception_notes"] = notes
 
-    def assign_cause(self) -> None:
+    def assign_cause(self):
         """Determine the cause of an exception, which is what is returned
         by ``why()``.
         """
@@ -213,7 +207,7 @@ class FriendlyTraceback:
         else:
             self.set_cause_runtime()
 
-    def set_cause_runtime(self) -> None:
+    def set_cause_runtime(self):
         """For exceptions other than SyntaxError and subclasses.
         Sets the value of the following attributes:
 
@@ -232,7 +226,7 @@ class FriendlyTraceback:
         cause = message_parser.get_likely_cause(etype, message, self.tb_data)  # [3]
         self.info.update(**cause)
 
-    def set_cause_syntax(self) -> None:
+    def set_cause_syntax(self):
         """For SyntaxError and subclasses. Sets the value of the following
         attributes:
 
@@ -267,7 +261,7 @@ class FriendlyTraceback:
         cause = analyze_syntax.set_cause_syntax(value, self.tb_data)
         self.info.update(**cause)
 
-    def assign_generic(self) -> None:
+    def assign_generic(self):
         """Assigns the generic information about a given error. This is
         the answer to ``what()`` as in "What is a NameError?"
 
@@ -279,7 +273,7 @@ class FriendlyTraceback:
             self.tb_data.exception_type
         )
 
-    def assign_location(self) -> None:
+    def assign_location(self):
         """This sets the values of the answers to 'where()', that is
         the information about the location of the exception.
 
@@ -310,7 +304,7 @@ class FriendlyTraceback:
         _ignore, partial_source, var_info = self.info["detailed_tb"][0]
         self.locate_last_call(records[0], partial_source, var_info)
 
-    def locate_exception_raised(self, record: FrameInfo) -> None:
+    def locate_exception_raised(self, record):
         """Sets the values of the following attributes which are
         part of a friendly
 
@@ -371,7 +365,7 @@ class FriendlyTraceback:
                 "additional_variable_warning"
             ]
 
-    def locate_last_call(self, record: FrameInfo, partial_source, var_info) -> None:
+    def locate_last_call(self, record, partial_source, var_info):
         """Sets the values of the following attributes:
 
         * last_call_header
@@ -419,7 +413,7 @@ class FriendlyTraceback:
             detailed_tb.append((location, partial_source, var_info["var_info"]))
         return detailed_tb
 
-    def locate_parsing_error(self) -> None:
+    def locate_parsing_error(self):
         """Sets the values of the attributes:
 
         * parsing_error
@@ -460,7 +454,7 @@ class FriendlyTraceback:
 
         self.info["parsing_error_source"] = f"{partial_source}\n"
 
-    def assign_tracebacks(self) -> None:
+    def assign_tracebacks(self):
         """When required, a standard Python traceback might be required to be
         included as part of the information shown to the user.
         This function does the required formatting.
@@ -553,7 +547,7 @@ class FriendlyTraceback:
         else:
             self.info["shortened_traceback"] = "\n".join(shortened_tb) + "\n"
 
-    def shorten(self, tb: List[str]) -> List[str]:
+    def shorten(self, tb):
         """Shortens a traceback (as list of lines)
         by removing lines if it exceeds a certain length
         and by using short synonyms for some common directories."""
@@ -580,7 +574,7 @@ class FriendlyTraceback:
             temp.append(line)
         return temp
 
-    def create_traceback(self, records: List[FrameInfo]) -> List[str]:
+    def create_traceback(self, records):
         """Using records that exclude code from certain files,
         creates a list from which a standard-looking traceback can
         be created.
@@ -640,7 +634,7 @@ class FriendlyTraceback:
         return result
 
 
-def process_exception_chain(etype: Type[_E], value: _E) -> str:
+def process_exception_chain(etype, value):
     """Obtains info about exceptions raised while treating other exceptions."""
     seen = set()
     lines = []
@@ -652,7 +646,7 @@ def process_exception_chain(etype: Type[_E], value: _E) -> str:
         "During handling of the above exception, another exception occurred:"
     )
 
-    def chain_exc(typ: Type[_E], exc: _E, tb: Optional[types.TracebackType]) -> None:
+    def chain_exc(typ, exc, tb):
         """Recursive function that insert the contents of 'lines' above."""
         seen.add(id(exc))
         context = exc.__context__
@@ -679,7 +673,7 @@ def process_exception_chain(etype: Type[_E], value: _E) -> str:
     return "".join(lines)
 
 
-def cannot_analyze_stdin() -> str:  # pragma: no cover
+def cannot_analyze_stdin():  # pragma: no cover
     """Typical case: friendly is imported in an ordinary Python
     interpreter (REPL), and the user does not activate the friendly
     console.

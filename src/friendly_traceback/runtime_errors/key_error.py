@@ -1,19 +1,15 @@
 import ast
-from types import FrameType
-from typing import Any, Optional, Tuple
 
 from .. import info_variables, utils
 from ..ft_gettext import current_lang, please_report
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 
 parser = get_parser(KeyError)
 _ = current_lang.translate
 
 
 @parser._add
-def popitem_from_empty_dict(message: str, tb_data: TracebackData) -> CauseInfo:
+def popitem_from_empty_dict(message, tb_data):
     if "popitem(): dictionary is empty" not in message:
         return {}
 
@@ -34,7 +30,7 @@ def popitem_from_empty_dict(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def popitem_from_empty_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
+def popitem_from_empty_chain_map(message, tb_data):
     if "No keys found in the first mapping." not in message:
         return {}
 
@@ -60,7 +56,7 @@ def popitem_from_empty_chain_map(message: str, tb_data: TracebackData) -> CauseI
 
 
 @parser._add
-def missing_key_in_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
+def missing_key_in_chain_map(message, tb_data):
     """Missing keys in collections.ChainMap from using pop()
     can trigger a secondary exception with a different message.
     It turns out that this is this second message we capture
@@ -101,7 +97,7 @@ def missing_key_in_chain_map(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def missing_key_in_dict(_message: str, tb_data: TracebackData) -> CauseInfo:
+def missing_key_in_dict(_message, tb_data):
     value = tb_data.value
     bad_line = tb_data.bad_line.strip()
     frame = tb_data.exception_frame
@@ -112,7 +108,7 @@ def missing_key_in_dict(_message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def missing_key_in_dict_like(_message: str, tb_data: TracebackData) -> CauseInfo:
+def missing_key_in_dict_like(_message, tb_data):
     """Case where a KeyError is raised internally, from user code"""
     value = tb_data.value
     key = value.args[0]
@@ -127,7 +123,7 @@ def missing_key_in_dict_like(_message: str, tb_data: TracebackData) -> CauseInfo
     return analyze_missing_key(key, frame, bad_line)
 
 
-def analyze_missing_key(key: Any, frame: FrameType, bad_line: str) -> CauseInfo:
+def analyze_missing_key(key, frame, bad_line):
     name, obj = find_missing_key_obj(key, frame, bad_line)
     try:
         key_repr = repr(key)
@@ -166,7 +162,7 @@ def analyze_missing_key(key: Any, frame: FrameType, bad_line: str) -> CauseInfo:
     return {"cause": begin_cause}
 
 
-def key_is_a_string(key: str, dict_name: str, obj: Any) -> CauseInfo:
+def key_is_a_string(key, dict_name, obj):
     keys = [str(k) for k in obj.keys()]
     if key in keys:
         additional = _(
@@ -198,9 +194,7 @@ def key_is_a_string(key: str, dict_name: str, obj: Any) -> CauseInfo:
     return {}
 
 
-def find_empty_dict_like_obj(
-    frame: FrameType, bad_line: str
-) -> Tuple[Optional[str], Any]:
+def find_empty_dict_like_obj(frame, bad_line):
     all_objects = info_variables.get_all_objects(bad_line, frame)
     for name, obj in all_objects["name, obj"]:
         if hasattr(obj, "keys") and len(obj) == 0:
@@ -208,9 +202,7 @@ def find_empty_dict_like_obj(
     return None, None
 
 
-def find_missing_key_obj(
-    key: Any, frame: FrameType, bad_line: str
-) -> Tuple[Optional[str], Any]:
+def find_missing_key_obj(key, frame, bad_line):
     all_objects = info_variables.get_all_objects(bad_line, frame)
     for name, obj in all_objects["name, obj"]:
         if hasattr(obj, "keys") and key not in obj:

@@ -3,17 +3,13 @@ import re
 from .. import info_variables, token_utils
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 
 parser = get_parser(RuntimeError)
 _ = current_lang.translate
 
 
 @parser._add
-def container_changed_size_during_iteration(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def container_changed_size_during_iteration(message, tb_data):
     pattern = re.compile(r"(.*) changed size during iteration")
     match = re.search(pattern, message)
     if not match:

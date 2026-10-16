@@ -5,15 +5,11 @@ import builtins
 import platform
 import re
 import sys
-from types import FrameType
-from typing import Any, Iterable, List, Optional, Sequence
 
 from .. import console_helpers, debug_helper, info_variables, utils
 from ..ft_gettext import current_lang, please_report
 from ..message_parser import get_parser
 from ..path_info import path_utils
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 from ..utils import get_similar_words, list_to_string
 from . import stdlib_modules
 
@@ -22,7 +18,7 @@ _ = current_lang.translate
 
 
 @parser._add
-def circular_import(message: str, _tb_data: TracebackData) -> CauseInfo:
+def circular_import(message, _tb_data):
     pattern = re.compile(r"partially initialized module '(.*)' has")
     match = re.search(pattern, message)
     if not match:
@@ -57,7 +53,7 @@ def circular_import(message: str, _tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo:
+def attribute_error_in_module(message, tb_data):
     """Attempts to find if a module attribute or module name might have been misspelled"""
     pattern = re.compile(r"module '(.*)' has no attribute '(.*)'")
     match = re.search(pattern, message)
@@ -164,7 +160,7 @@ def attribute_error_in_module(message: str, tb_data: TracebackData) -> CauseInfo
 
 
 @parser._add
-def type_object_has_no_attribute(message: str, tb_data: TracebackData) -> CauseInfo:
+def type_object_has_no_attribute(message, tb_data):
     """Attempts to find if a module attribute or module name might have been misspelled"""
     pattern = re.compile(r"type object '(.*)' has no attribute '(.*)'")
     match = re.search(pattern, message)
@@ -186,7 +182,7 @@ def _invalid_add_note(exc_name, frame):
 
 
 @parser._add
-def attribute_error_in_object(message: str, tb_data: TracebackData) -> CauseInfo:
+def attribute_error_in_object(message, tb_data):
     pattern = re.compile(r"'(.*)' object has no attribute '(.*)'")
     match = re.search(pattern, message)
     if not match:
@@ -209,7 +205,7 @@ def attribute_error_in_object(message: str, tb_data: TracebackData) -> CauseInfo
 
 
 @parser._add
-def object_attribute_is_read_only(message: str, tb_data: TracebackData) -> CauseInfo:
+def object_attribute_is_read_only(message, tb_data):
     pattern = r"'(.*)' object attribute '(.*)' is read-only"
     match = re.search(pattern, message)
     if match is None:
@@ -262,9 +258,7 @@ def object_attribute_is_read_only(message: str, tb_data: TracebackData) -> Cause
     return {"cause": cause}
 
 
-def _attribute_error_in_object(
-    obj_type: str, attribute: str, tb_data: TracebackData, frame: FrameType
-) -> CauseInfo:
+def _attribute_error_in_object(obj_type, attribute, tb_data, frame):
     """Attempts to find if object attribute might have been misspelled"""
     if obj_type == "builtin_function_or_method":
         obj_name = tb_data.bad_line.replace("." + attribute, "")
@@ -393,9 +387,7 @@ def _attribute_error_in_object(
     return {"cause": cause}
 
 
-def handle_attribute_typo(
-    obj_name: str, attribute: str, similar: Sequence[str]
-) -> CauseInfo:
+def handle_attribute_typo(obj_name, attribute, similar):
     """Takes care of misspelling of existing attribute of object whose
     name could be identified.
     """
@@ -419,7 +411,7 @@ def handle_attribute_typo(
     return {"cause": cause, "suggest": hint}
 
 
-def perhaps_builtin(attribute: str, known_attributes: Iterable[str]) -> Optional[str]:
+def perhaps_builtin(attribute, known_attributes):
     if attribute in {"min", "max", "sorted", "reversed", "sum"}:
         return attribute
     elif (
@@ -430,7 +422,7 @@ def perhaps_builtin(attribute: str, known_attributes: Iterable[str]) -> Optional
     return None
 
 
-def tuple_by_accident(obj: Any, obj_name: str, attribute: str) -> CauseInfo:
+def tuple_by_accident(obj, obj_name, attribute):
     if not (isinstance(obj, tuple) and len(obj) == 1):
         return {}
 
@@ -448,7 +440,7 @@ def tuple_by_accident(obj: Any, obj_name: str, attribute: str) -> CauseInfo:
     return {}
 
 
-def use_str_join(obj_name: str, tb_data: TracebackData) -> CauseInfo:
+def use_str_join(obj_name, tb_data):
     str_content = repr("...")
     hint = _("Did you mean `{str_content}.join({obj_name})`?\n")
     cause = _(
@@ -471,9 +463,7 @@ def use_str_join(obj_name: str, tb_data: TracebackData) -> CauseInfo:
     return {"cause": cause, "suggest": hint}
 
 
-def use_builtin_function(
-    obj_name: str, attribute: str, known_builtin: str
-) -> CauseInfo:
+def use_builtin_function(obj_name, attribute, known_builtin):
     hint = _("Did you mean `{known_builtin}({obj_name})`?\n").format(
         known_builtin=known_builtin, obj_name=obj_name
     )
@@ -485,16 +475,14 @@ def use_builtin_function(
     return {"cause": cause, "suggest": hint}
 
 
-def perhaps_join(obj: Any) -> bool:
+def perhaps_join(obj):
     return bool(
         hasattr(obj, "__iter__")
         or (hasattr(obj, "__getitem__") and hasattr(obj, "__len__"))
     )
 
 
-def perhaps_synonym(
-    attribute: str, known_attributes: Iterable[str]
-) -> Optional[List[str]]:
+def perhaps_synonym(attribute, known_attributes):
     synonyms = [
         ["add", "append", "extend", "insert", "push", "update", "union"],
         ["remove", "discard", "pop"],
@@ -505,7 +493,7 @@ def perhaps_synonym(
     return None
 
 
-def use_synonym(obj_name: str, attribute: str, synonyms: Sequence[str]) -> CauseInfo:
+def use_synonym(obj_name, attribute, synonyms):
     hint = _("Did you mean `{attr}`?\n").format(attr=synonyms[0])
     cause = _("The object `{name}` has no attribute named `{attribute}`.\n").format(
         name=obj_name, attribute=attribute
@@ -523,7 +511,7 @@ def use_synonym(obj_name: str, attribute: str, synonyms: Sequence[str]) -> Cause
     return {"cause": cause, "suggest": hint}
 
 
-def missing_comma(first: str, second: str) -> CauseInfo:
+def missing_comma(first, second):
     hint = _("Did you mean to separate object names by a comma?\n")
 
     cause = _(

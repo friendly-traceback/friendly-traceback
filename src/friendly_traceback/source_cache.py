@@ -9,8 +9,6 @@ Note that we monkeypatch Python's linecache.getlines.
 import inspect
 import linecache
 import time
-from typing import Any, Dict, Generator, List, Optional
-
 import stack_data
 
 old_getlines = linecache.getlines  # To be monkeypatched.
@@ -19,11 +17,11 @@ old_getlines = linecache.getlines  # To be monkeypatched.
 class Cache:
     """Class used to store source of files and similar objects"""
 
-    def __init__(self) -> None:
-        self.local_cache: Dict[str, List[str]] = {}
+    def __init__(self):
+        self.local_cache = {}
         self.context = 4
 
-    def add(self, filename: str, source: str) -> None:
+    def add(self, filename, source):
         """Adds a source (received as a string) corresponding to a filename
         in the cache.
 
@@ -42,7 +40,7 @@ class Cache:
         linecache.cache[filename] = entry
         self.local_cache[filename] = lines
 
-    def remove(self, filename: str) -> None:
+    def remove(self, filename):
         """Removes an entry from the cache if it can be found."""
         if filename in self.local_cache:
             del self.local_cache[filename]
@@ -51,9 +49,7 @@ class Cache:
         # clear stack_data cache so it pulls fresh lines from linecache
         stack_data.Source._class_local("__source_cache", {}).pop(filename, None)
 
-    def get_source_lines(
-        self, filename: str, module_globals: Optional[Dict[str, Any]] = None
-    ) -> List[str]:
+    def get_source_lines(self, filename, module_globals=None):
         """Given a filename, returns the corresponding source, either
         from the cache or from actually opening the file.
 
@@ -80,7 +76,7 @@ cache = Cache()
 linecache.getlines = cache.get_source_lines
 
 
-def _counter() -> Generator[int, None, None]:
+def _counter():
     num = 0
     while True:
         yield num
@@ -91,10 +87,10 @@ counter = _counter()
 
 
 def friendly_exec(
-    source: Any,
-    globals_: Optional[Dict[str, None]] = None,
-    locals_: Optional[Dict[str, None]] = None,
-) -> None:
+    source,
+    globals_=None,
+    locals_=None,
+):
     """A version of exec that uses a different filename each time
     instead of the Python default '<string>', and caches the source.
     This makes it possible to provide more help on code executed via 'exec'.

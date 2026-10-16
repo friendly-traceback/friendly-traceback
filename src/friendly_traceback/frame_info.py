@@ -1,5 +1,4 @@
 import os
-from typing import Iterable
 
 import stack_data
 from executing import only
@@ -23,7 +22,7 @@ class FriendlyFormatter(Formatter):
         self.indent = "    "
         super().__init__(**kwargs)
 
-    def format_frame_source(self, frame: stack_data.FrameInfo) -> Iterable[str]:
+    def format_frame_source(self, frame):
         for line in frame.lines:
             if isinstance(line, Line):
                 yield self.format_line(line)
@@ -33,7 +32,7 @@ class FriendlyFormatter(Formatter):
                 assert line is LINE_GAP
                 yield self.indent + self.line_gap_string + "\n"
 
-    def format_line(self, line: Line) -> str:
+    def format_line(self, line):
         result = self.indent
         if line.is_current:
             result += self.current_line_indicator
@@ -70,14 +69,14 @@ class FriendlyFormatter(Formatter):
 
 class FrameInfo(stack_data.FrameInfo):
     @cached_property
-    def partial_source(self) -> str:
+    def partial_source(self):
         return self._partial_source(with_node_range=False)
 
     @cached_property
-    def partial_source_with_node_range(self) -> str:
+    def partial_source_with_node_range(self):
         return self._partial_source(with_node_range=True)
 
-    def _partial_source(self, with_node_range: bool) -> str:
+    def _partial_source(self, with_node_range):
         """Gets the part of the source where an exception occurred,
         formatted in a pre-determined way, as well as the content
         of the specific line where the exception occurred.
@@ -127,10 +126,10 @@ class FrameInfo(stack_data.FrameInfo):
         return source
 
     @cached_property
-    def highlighted_source(self) -> str:
+    def highlighted_source(self):
         return self._highlighted_source(with_node_range=False)
 
-    def problem_line(self) -> str:
+    def problem_line(self):
         if not self.lines:
             return ""
         for line_obj in self.lines:
@@ -142,7 +141,7 @@ class FrameInfo(stack_data.FrameInfo):
                 return str(line_obj.text)
         return ""
 
-    def _highlighted_source(self, with_node_range: bool) -> str:
+    def _highlighted_source(self, with_node_range):
         """Extracts a few relevant lines from a file content given as a list
         of lines, adding line number information and identifying
         a particular line.
@@ -246,7 +245,7 @@ class FrameInfo(stack_data.FrameInfo):
             line for line in self.lines if isinstance(line, Line) and line.is_current
         )
 
-    def handle_special_cases(self) -> str:
+    def handle_special_cases(self):
         """Hack to try to identify a problematic text when node_text is None.
 
         We just use the information to highlight where in a statement

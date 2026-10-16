@@ -6,8 +6,6 @@ import sys
 from .. import debug_helper
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 from ..utils import get_similar_words, list_to_string
 from . import stdlib_modules
 
@@ -16,7 +14,7 @@ _ = current_lang.translate
 
 
 @parser._add
-def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
+def is_not_a_package(message, _tb_data):
     # Python 3.12.0a1 has two spaces after 'named'
     pattern = re.compile(r"No module named\s*'(.*)'; '(.*)' is not a package")
     match = re.search(pattern, message)
@@ -91,7 +89,7 @@ def is_not_a_package(message: str, _tb_data: TracebackData) -> CauseInfo:
     return {"cause": cause, "suggest": hint} if hint else {"cause": cause}
 
 
-def curses_no_found() -> CauseInfo:
+def curses_no_found():
     if sys.platform.startswith("win"):
         hint = _("The curses module is rarely installed with Python on Windows.\n")
     else:  # pragma: no cover
@@ -101,7 +99,7 @@ def curses_no_found() -> CauseInfo:
 
 
 @parser._add
-def no_module_named(message: str, _tb_data: TracebackData) -> CauseInfo:
+def no_module_named(message, _tb_data):
     pattern = re.compile(r"No module named '(.*)'$")
     match = re.search(pattern, message)
     if not match:  # pragma: no cover

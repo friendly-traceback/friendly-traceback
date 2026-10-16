@@ -7,28 +7,24 @@ providing a more detailed explanation.
 import inspect
 import re
 import unicodedata
-from types import FrameType
-from typing import Any, Optional, Tuple
 
 from .. import debug_helper, info_variables, token_utils, utils
 from ..ft_gettext import current_lang
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 
 convert_type = info_variables.convert_type
 parser = get_parser(ValueError)
 _ = current_lang.translate
 
 
-def _unpacking() -> str:
+def _unpacking():
     return _(
         "Unpacking is a convenient way to assign a name,\n"
         "to each item of an iterable.\n"
     )
 
 
-def get_iterable(code: str, frame: FrameType) -> Tuple[Any, Optional[str]]:
+def get_iterable(code, frame):
     """gets an iterable object and its type as a string."""
     try:
         # As a ValueError exception has been raised, Python has already evaluated
@@ -53,7 +49,7 @@ def get_iterable(code: str, frame: FrameType) -> Tuple[Any, Optional[str]]:
 
 
 @parser._add
-def not_enough_values_to_unpack(message: str, tb_data: TracebackData) -> CauseInfo:
+def not_enough_values_to_unpack(message, tb_data):
     pattern1 = re.compile(r"not enough values to unpack \(expected (\d+), got (\d+)\)")
     match1 = re.search(pattern1, message)
     pattern2 = re.compile(
@@ -92,7 +88,7 @@ def not_enough_values_to_unpack(message: str, tb_data: TracebackData) -> CauseIn
 
 
 @parser._add
-def too_many_values_to_unpack(message: str, tb_data: TracebackData) -> CauseInfo:
+def too_many_values_to_unpack(message, tb_data):
     pattern = re.compile(r"too many values to unpack \(expected (\d+)\)")
     match = re.search(pattern, message)
     if match is None:
@@ -126,7 +122,7 @@ def too_many_values_to_unpack(message: str, tb_data: TracebackData) -> CauseInfo
 
 
 @parser._add
-def invalid_literal_for_int(message: str, _tb_data: TracebackData) -> CauseInfo:
+def invalid_literal_for_int(message, _tb_data):
     pattern = re.compile(r"invalid literal for int\(\) with base (\d+): '(.*)'")
     match = re.search(pattern, message)
     if match is None:
@@ -199,7 +195,7 @@ def invalid_literal_for_int(message: str, _tb_data: TracebackData) -> CauseInfo:
     return {"cause": begin_cause + cause}
 
 
-def _convert_to_float(value: Any) -> CauseInfo:
+def _convert_to_float(value):
     hint = _("You need to convert `'{value}'` to a float first.\n").format(value=value)
     cause = _(
         "The string `'{value}'` needs to be first converted using `float()`\n"
@@ -209,7 +205,7 @@ def _convert_to_float(value: Any) -> CauseInfo:
 
 
 @parser._add
-def base_for_int(message: str, tb_data: TracebackData) -> CauseInfo:
+def base_for_int(message, tb_data):
     if message != "int() base must be >= 2 and <= 36, or 0":
         return {}
     pattern = re.compile(r",\s*base\s*=(\d+)\s*\)")
@@ -226,9 +222,7 @@ def base_for_int(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def date_month_must_be_between_1_and_12(
-    message: str, _tb_data: TracebackData
-) -> CauseInfo:
+def date_month_must_be_between_1_and_12(message, _tb_data):
     if message != "month must be in 1..12":
         return {}
 
@@ -241,7 +235,7 @@ def date_month_must_be_between_1_and_12(
 
 
 @parser._add
-def could_not_convert_to_float(message: str, _tb_data: TracebackData) -> CauseInfo:
+def could_not_convert_to_float(message, _tb_data):
     if not message.startswith("could not convert string to float: "):
         return {}
     pattern = re.compile(r"could not convert string to float: '(.*)'")
@@ -258,9 +252,7 @@ def could_not_convert_to_float(message: str, _tb_data: TracebackData) -> CauseIn
 
 
 @parser._add
-def slots_conflicts_with_class_variable(
-    message: str, _tb_data: TracebackData
-) -> CauseInfo:
+def slots_conflicts_with_class_variable(message, _tb_data):
     pattern = r"'(.*)' in __slots__ conflicts with class variable"
     match = re.search(pattern, message)
     if not match:
@@ -275,14 +267,14 @@ def slots_conflicts_with_class_variable(
 
 
 @parser._add
-def pow_third_arg_cannot_be_zero(message: str, _tb_data: TracebackData) -> CauseInfo:
+def pow_third_arg_cannot_be_zero(message, _tb_data):
     if message != "pow() 3rd argument cannot be 0":
         return {}
     return {"cause": _("The third argument of the function `pow()` cannot be zero.\n")}
 
 
 @parser._add
-def unrecognized_message(_message: str, tb_data: TracebackData) -> CauseInfo:
+def unrecognized_message(_message, tb_data):
     """This attempts to provide some help when a message is not recognized."""
     bad_line = tb_data.bad_line.strip()
     frame = tb_data.exception_frame
@@ -322,7 +314,7 @@ def unrecognized_message(_message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def time_strftime_incorrect_format(message: str, _tb_data: TracebackData) -> CauseInfo:
+def time_strftime_incorrect_format(message, _tb_data):
     pattern = r"time data '(.*)' does not match format '(.*)'"
     match = re.search(pattern, message)
     if not match:
@@ -340,7 +332,7 @@ def time_strftime_incorrect_format(message: str, _tb_data: TracebackData) -> Cau
 
 
 @parser._add
-def list_remove_x_not_in_list(message: str, tb_data: TracebackData) -> CauseInfo:
+def list_remove_x_not_in_list(message, tb_data):
     if message != "list.remove(x): x not in list":
         return {}
     bad_line = tb_data.bad_line
@@ -379,9 +371,7 @@ def list_remove_x_not_in_list(message: str, tb_data: TracebackData) -> CauseInfo
 
 
 @parser._add
-def generic_explanation_already_exist(
-    message: str, _tb_data: TracebackData
-) -> CauseInfo:
+def generic_explanation_already_exist(message, _tb_data):
     # See info_generic.py
     # TODO: add unit test
     pattern = "A description of `(.*)` means already exists:"

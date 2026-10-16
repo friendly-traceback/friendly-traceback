@@ -4,22 +4,21 @@
 Used to provide basic variable information in a way that
 can be useful for beginners without overwhelming them.
 """
+
 import ast
 import builtins
 import re
 import sys
-import types
-from typing import Any, Dict, List, Tuple, Union
+
 
 from . import debug_helper, token_utils, utils
 from .ft_gettext import current_lang
 from .path_info import path_utils
-from .typing_info import ObjectsInfo, ScopeKind, SimilarNamesInfo
 
 # third-party
 try:
-    from asttokens import ASTTokens  # noqa
-    from pure_eval import Evaluator, group_expressions  # noqa
+    from asttokens import ASTTokens  # noqa # type: ignore
+    from pure_eval import Evaluator, group_expressions  # noqa # type: ignore
 except ImportError:  # pragma: no cover
     pass  # ignore errors when processed by Sphinx
 
@@ -36,7 +35,7 @@ class ConfidentialInformation:
     regex = []
     redacted = "'••••••'"
 
-    def hide_confidential_information(self, patterns: Union[List, None] = None) -> None:
+    def hide_confidential_information(self, patterns=None):
         """Use to record words or regular expression patterns that determine
         if a variable represents confidential information.
         """
@@ -44,11 +43,11 @@ class ConfidentialInformation:
             for pattern in patterns:
                 self.regex.append(re.compile(pattern))
 
-    def is_confidential(self, name: str) -> bool:
+    def is_confidential(self, name):
         """Identify variable names that are deemed to contain confidential information"""
         return any(re.fullmatch(pattern, name) for pattern in self.regex)
 
-    def redact_confidential(self, name: str, value: Any) -> Any:
+    def redact_confidential(self, name, value):
         if confidential.is_confidential(name):
             return confidential.redacted
         # The value passed is the repr of the object.
@@ -64,7 +63,7 @@ class ConfidentialInformation:
 confidential = ConfidentialInformation()
 
 
-def convert_type(short_form: str) -> str:
+def convert_type(short_form):
     forms = {
         "complex": _("a complex number"),
         "dict": _("a dictionary (`dict`)"),
@@ -81,7 +80,7 @@ def convert_type(short_form: str) -> str:
     return forms.get(short_form, f"`{short_form}`")
 
 
-def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
+def get_all_objects(line, frame):
     # sourcery skip: assign-if-exp, simplify-generator
     """Given a (partial) line of code and a frame,
     obtains a dict containing all the relevant information about objects
@@ -98,7 +97,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     ('name', obj). It is only occasionally used in helping to make
     suggestions regarding the cause of some exception.
     """
-    objects: ObjectsInfo = {
+    objects = {
         "locals": [],
         "globals": [],
         "builtins": [],
@@ -111,9 +110,7 @@ def get_all_objects(line: str, frame: types.FrameType) -> ObjectsInfo:
     return find_expressions(objects, line, frame, names)
 
 
-def find_identifiers(
-    objects: ObjectsInfo, line: str, frame: types.FrameType, names: set
-) -> Tuple[ObjectsInfo, set]:
+def find_identifiers(objects, line, frame, names):
     """finds all the identifiers and corresponding objects"""
     scopes = (
         ("locals", frame.f_locals),  # always have locals before globals
@@ -150,8 +147,8 @@ def find_identifiers(
 
 
 def find_expressions(
-    objects: ObjectsInfo, line: str, frame: types.FrameType, names: set
-) -> ObjectsInfo:  # sourcery skip: simplify-generator, use-contextlib-suppress
+    objects, line, frame, names
+):  # sourcery skip: simplify-generator, use-contextlib-suppress
     """Use asttokens to find expressions of interest to include in variables shown."""
     line = line.strip()
     if line.startswith(
@@ -199,7 +196,7 @@ def find_expressions(
     return objects
 
 
-def get_object_from_name(name: str, frame: types.FrameType) -> Any:
+def get_object_from_name(name, frame):
     """Given the name of an object, for example 'str', or 'A' for
     class A, returns a basic object of that type found in a frame,
     or None.
@@ -251,9 +248,7 @@ def get_object_from_name(name: str, frame: types.FrameType) -> Any:
     return getattr(builtins, name) if name in dir(builtins) else None
 
 
-def get_variables_in_frame_by_scope(
-    frame: types.FrameType, scope: ScopeKind
-) -> Dict[str, Any]:
+def get_variables_in_frame_by_scope(frame, scope):
     """Returns a list of variables based on the provided scope, which must
     be one of 'local', 'global', or 'nonlocal'.
     """
@@ -276,7 +271,7 @@ def get_variables_in_frame_by_scope(
         return non_locals
 
 
-def get_definition_scope(variable_name: str, frame: types.FrameType) -> List[ScopeKind]:
+def get_definition_scope(variable_name, frame):
     """Returns a list of scopes ('local', 'global', 'nonlocal')
     in which a variable is defined.
     """
@@ -294,7 +289,7 @@ def get_definition_scope(variable_name: str, frame: types.FrameType) -> List[Sco
     return scopes
 
 
-def get_var_info(line: str, frame: types.FrameType) -> dict:
+def get_var_info(line, frame):
     """Given a frame object, it obtains the value (repr) of the names
     found in the logical line (which may span many lines in the file)
     where the exception occurred.
@@ -335,7 +330,7 @@ def get_var_info(line: str, frame: types.FrameType) -> dict:
     return var_info
 
 
-def find_renamed_builtins(frame) -> str:
+def find_renamed_builtins(frame):
     warnings = ""
     for name in dir(builtins):
         if name.startswith("_"):
@@ -366,7 +361,7 @@ def find_renamed_builtins(frame) -> str:
     return warnings
 
 
-def simplify_repr(value: str, splitlines: bool = True) -> str:
+def simplify_repr(value, splitlines=True):
     """Remove irrelevant memory location information from functions, etc.
 
     Does additional formatting in an attempt to make the values (repr)
@@ -428,7 +423,7 @@ def simplify_repr(value: str, splitlines: bool = True) -> str:
     return value
 
 
-def simplify_bound_method(name: str, splitlines: bool = False) -> str:
+def simplify_bound_method(name, splitlines=False):
     name = name[:-1]  # remove final >
     if ".<locals>." in name:
         method, obj = name.split(" of ")
@@ -447,7 +442,7 @@ def simplify_bound_method(name: str, splitlines: bool = False) -> str:
     return name
 
 
-def safe_repr(obj: Any) -> str:
+def safe_repr(obj):
     try:  # guard against the case where obj == Friendly; #106
         obj_repr = str(obj.true_repr())
         # wrapped in str() for added security in case someone
@@ -461,7 +456,7 @@ def safe_repr(obj: Any) -> str:
     return obj_repr
 
 
-def format_var_info(name: str, obj: str, _global: str = "") -> str:
+def format_var_info(name, obj, _global=""):
     """Formats the variable information so that it fits on a single line
     for each variable.
 
@@ -496,7 +491,7 @@ def format_var_info(name: str, obj: str, _global: str = "") -> str:
     return result
 
 
-def format_multiline(value: str) -> str:
+def format_multiline(value):
     # This is useful for tabular data
     indent = "\n" + " " * 8
     lines = value.split("\n")
@@ -506,7 +501,7 @@ def format_multiline(value: str) -> str:
     return indent + indent.join(new_lines)
 
 
-def shorten_long_line(value: str, obj: str) -> (str, str):
+def shorten_long_line(value, obj):
     # We reduce the length of the repr, indicate this by ..., but we
     # also keep the last character so that the repr of a list still
     # ends with ], that of a tuple still ends with ), etc.
@@ -536,14 +531,12 @@ def shorten_long_line(value: str, obj: str) -> (str, str):
     return value, length_info
 
 
-def get_similar_names(
-    name: str, frame: types.FrameType, include_builtins: bool = True
-) -> SimilarNamesInfo:
+def get_similar_names(name, frame, include_builtins=True):
     """This function looks for objects with names similar to 'name' in
     either the current locals() and globals() as well as in
     Python's builtins.
     """
-    similar: SimilarNamesInfo = {}
+    similar = {}
     # We need to first combine the candidates from all possible sources
     # to treat them on an equal footing.
     locals_ = list(frame.f_locals.keys())
@@ -573,7 +566,7 @@ def get_similar_names(
     return similar
 
 
-def name_has_type_hint(name: str, frame: types.FrameType) -> str:
+def name_has_type_hint(name, frame):
     """Identifies if a variable name has a type hint associated with it.
 
     This can be useful if a user write something like::

@@ -8,22 +8,17 @@ import inspect
 import re
 import sys
 import types
-from typing import Any, List, Optional, Tuple, Type
 
 from .. import debug_helper, info_variables, token_utils, utils
 from ..ft_gettext import current_lang, no_information, please_report
 from ..message_parser import get_parser
-from ..tb_data import TracebackData  # for type checking only
-from ..typing_info import CauseInfo  # for type checking only
 
 convert_type = info_variables.convert_type
 parser = get_parser(TypeError)
 _ = current_lang.translate
 
 
-def _convert_str_to_number(
-    obj_type1: str, obj_type2: str, frame: types.FrameType, tb_data: TracebackData
-) -> Tuple[Optional[str], Optional[str]]:
+def _convert_str_to_number(obj_type1, obj_type2, frame, tb_data):
     """Determines if a suggestion should be made to convert a string to a
     number type; potentially useful for beginners that write programs
     that use input() and ask for numbers.
@@ -64,7 +59,7 @@ def _convert_str_to_number(
 
 
 @parser._add
-def cant_mod_complex_number(message: str, tb_data: TracebackData) -> CauseInfo:
+def cant_mod_complex_number(message, tb_data):
     valid_message = "can't mod complex numbers" in message or (
         "unsupported operand type(s) for %:" in message and "complex" in message
     )
@@ -76,9 +71,7 @@ def cant_mod_complex_number(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def cant_take_floor_or_mod_of_complex_number(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def cant_take_floor_or_mod_of_complex_number(message, tb_data):
     if "can't take floor or mod of complex number." not in message:
         return {}
     if "divmod" not in tb_data.bad_line:
@@ -96,7 +89,7 @@ def cant_take_floor_or_mod_of_complex_number(
 
 
 @parser._add
-def unsupported_type_for_divmod(message: str, _tb_data: TracebackData) -> CauseInfo:
+def unsupported_type_for_divmod(message, _tb_data):
     # TODO: try with string arguments
     if "unsupported operand type(s) for divmod()" not in message:
         return {}
@@ -109,9 +102,7 @@ def unsupported_type_for_divmod(message: str, _tb_data: TracebackData) -> CauseI
 
 
 @parser._add
-def getattr_or_hasattr_attribute_name_must_be_string(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def getattr_or_hasattr_attribute_name_must_be_string(message, tb_data):
     # Python 3.11 does not include 'getattr()' nor 'hasattr()' in message
     # We make the assumption that if the name of these function appears in
     # the bad_line, it is the source of the error.
@@ -137,7 +128,7 @@ def getattr_or_hasattr_attribute_name_must_be_string(
 
 
 @parser._add
-def parse_can_only_concatenate(message: str, tb_data: TracebackData) -> CauseInfo:
+def parse_can_only_concatenate(message, tb_data):
     # example: can only concatenate str (not "int") to str
     pattern = re.compile(
         r"can only concatenate (\w+) \(not [\'\"](\w+)[\'\"]\) to (\w+)"
@@ -164,7 +155,7 @@ def parse_can_only_concatenate(message: str, tb_data: TracebackData) -> CauseInf
 
 
 @parser._add
-def parse_must_be_str(message: str, tb_data: TracebackData) -> CauseInfo:
+def parse_must_be_str(message, tb_data):
     # python 3.6 version: must be str, not int
     # example: can only concatenate str (not "int") to str
     pattern = re.compile(r"must be str, not (\w+)")
@@ -187,7 +178,7 @@ def parse_must_be_str(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def parse_unsupported_operand_type(message: str, tb_data: TracebackData) -> CauseInfo:
+def parse_unsupported_operand_type(message, tb_data):
     more_cause = possible_hint = hint = None
     # example: unsupported operand type(s) for +: 'int' and 'str'
     pattern = re.compile(
@@ -300,7 +291,7 @@ def parse_unsupported_operand_type(message: str, tb_data: TracebackData) -> Caus
 
 
 @parser._add
-def parse_order_comparison(message: str, tb_data: TracebackData) -> CauseInfo:
+def parse_order_comparison(message, tb_data):
     # example: '<' not supported between instances of 'int' and 'str'
     pattern = re.compile(
         r"[\'\"](.+)[\'\"] not supported between instances of [\'\"]([\.\w]+)[\'\"] and [\'\"]([\.\w]+)[\'\"]"  # noqa
@@ -358,7 +349,7 @@ def parse_order_comparison(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def bad_operand_type_for_unary(message: str, tb_data: TracebackData) -> CauseInfo:
+def bad_operand_type_for_unary(message, tb_data):
     # example: bad operand type for unary +: 'str'
     pattern = re.compile(r"bad operand type for unary (.+): [\'\"](\w+)[\'\"]")
     match = re.search(pattern, message)
@@ -404,9 +395,7 @@ def bad_operand_type_for_unary(message: str, tb_data: TracebackData) -> CauseInf
 
 
 @parser._add
-def does_not_support_item_assignment(
-    message: str, _tb_data: TracebackData
-) -> CauseInfo:
+def does_not_support_item_assignment(message, _tb_data):
     # example: 'tuple' object does not support item assignment
     pattern = re.compile(r"[\'\"](\w+)[\'\"] object does not support item assignment")
     match = re.search(pattern, message)
@@ -431,9 +420,7 @@ def does_not_support_item_assignment(
 
 
 @parser._add
-def exception_derived_from_base_exception(
-    message: str, _tb_data: TracebackData
-) -> CauseInfo:
+def exception_derived_from_base_exception(message, _tb_data):
     if "exceptions must derive from BaseException" in message:
         return {
             "cause": _(
@@ -446,9 +433,7 @@ def exception_derived_from_base_exception(
 
 
 @parser._add
-def catch_class_derived_from_base_exception(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def catch_class_derived_from_base_exception(message, tb_data):
     if (
         "catching classes that do not inherit from BaseException is not allowed"
         not in message
@@ -478,9 +463,7 @@ def catch_class_derived_from_base_exception(
 
 
 @parser._add
-def incorrect_nb_positional_arguments(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def incorrect_nb_positional_arguments(message, tb_data):
     missing_self = False
     # example: my_function() takes 0 positional arguments but x was/were given
     pattern = re.compile(r"(.*) takes (\d+) positional argument[s]* but (\d+) ")
@@ -524,7 +507,7 @@ def incorrect_nb_positional_arguments(
 
 
 @parser._add
-def missing_positional_arguments(message: str, _tb_data: TracebackData) -> CauseInfo:
+def missing_positional_arguments(message, _tb_data):
     # example: my_function() missing 1 required positional argument
     pattern = re.compile(r"(.*) missing (\d+) required positional argument")
     match = re.search(pattern, message)
@@ -541,7 +524,7 @@ def missing_positional_arguments(message: str, _tb_data: TracebackData) -> Cause
 
 
 @parser._add
-def x_is_not_callable(message: str, tb_data: TracebackData) -> CauseInfo:
+def x_is_not_callable(message, tb_data):
     pattern = re.compile(r"'(.*)' object is not callable")
     match = re.search(pattern, message)
     if match is None:
@@ -646,7 +629,7 @@ def x_is_not_callable(message: str, tb_data: TracebackData) -> CauseInfo:
     return {"cause": cause}
 
 
-def forgot_to_convert_name_to_int(name: str) -> Tuple[str, str]:
+def forgot_to_convert_name_to_int(name):
     """Explanations common to many cases about converting a single
     name to an integer.
     """
@@ -658,7 +641,7 @@ def forgot_to_convert_name_to_int(name: str) -> Tuple[str, str]:
 
 
 @parser._add
-def cannot_multiply_by_str(message: str, tb_data: TracebackData) -> CauseInfo:
+def cannot_multiply_by_str(message, tb_data):
     if "can't multiply sequence by non-int of type 'str'" not in message:
         return {}
 
@@ -696,9 +679,7 @@ def cannot_multiply_by_str(message: str, tb_data: TracebackData) -> CauseInfo:
     return {"cause": cause}
 
 
-def find_possible_integers(
-    object_of_type: Type[Any], frame: types.FrameType, line: str
-) -> List[str]:
+def find_possible_integers(object_of_type, frame, line):
     all_objects = info_variables.get_all_objects(line, frame)
     names = []
     for name, obj in all_objects["name, obj"]:
@@ -713,9 +694,7 @@ def find_possible_integers(
 
 
 @parser._add
-def object_cannot_be_interpreted_as_an_integer(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def object_cannot_be_interpreted_as_an_integer(message, tb_data):
     pattern = re.compile(r"'(.*)' object cannot be interpreted as an integer")
     match = re.search(pattern, message)
     if match is None:
@@ -759,9 +738,7 @@ def object_cannot_be_interpreted_as_an_integer(
 
 
 @parser._add
-def indices_must_be_integers_or_slices(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def indices_must_be_integers_or_slices(message, tb_data):
     pattern = re.compile(r"(.*) indices must be integers or slices, not (.*)")
     match = re.search(pattern, message)
     if match is None:
@@ -883,9 +860,7 @@ def indices_must_be_integers_or_slices(
 
 
 @parser._add
-def slice_indices_must_be_integers_or_none(
-    message: str, _tb_data: TracebackData
-) -> CauseInfo:
+def slice_indices_must_be_integers_or_none(message, _tb_data):
     if message != (
         "slice indices must be integers or None or have an __index__ method"
     ):
@@ -902,7 +877,7 @@ def slice_indices_must_be_integers_or_none(
 
 
 @parser._add
-def unhashable_type(message: str, _tb_data: TracebackData) -> CauseInfo:
+def unhashable_type(message, _tb_data):
     pattern = re.compile(r"unhashable type: '(.*)'")
     match = re.search(pattern, message)
     if match is None:
@@ -929,7 +904,7 @@ def unhashable_type(message: str, _tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def object_is_not_subscriptable(message: str, tb_data: TracebackData) -> CauseInfo:
+def object_is_not_subscriptable(message, tb_data):
     pattern = re.compile(r"'(.*)' object is not subscriptable")
     match = re.search(pattern, message)
     if match is None:
@@ -985,9 +960,7 @@ def object_is_not_subscriptable(message: str, tb_data: TracebackData) -> CauseIn
 
 
 @parser._add
-def argument_of_object_is_not_iterable(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def argument_of_object_is_not_iterable(message, tb_data):
     """This is usually the result of checking if something is contained
     in an object, so the code would include '... in ...'."""
     pattern = re.compile(r"argument of type '(.*)' is not iterable")
@@ -1019,7 +992,7 @@ def argument_of_object_is_not_iterable(
 
 
 @parser._add
-def object_is_not_iterable(message: str, _tb_data: TracebackData) -> CauseInfo:
+def object_is_not_iterable(message, _tb_data):
     pattern = re.compile(r"'(.*)' object is not iterable")
     match = re.search(pattern, message)
     if match is None:
@@ -1034,7 +1007,7 @@ def object_is_not_iterable(message: str, _tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def cannot_unpack_non_iterable(message: str, _tb_data: TracebackData) -> CauseInfo:
+def cannot_unpack_non_iterable(message, _tb_data):
     pattern = re.compile(r"cannot unpack non-iterable (.*) object")
     match = re.search(pattern, message)
     if match is None:
@@ -1053,9 +1026,7 @@ def cannot_unpack_non_iterable(message: str, _tb_data: TracebackData) -> CauseIn
 
 
 @parser._add
-def cannot_convert_dictionary_update_sequence(
-    message: str, tb_data: TracebackData
-) -> CauseInfo:
+def cannot_convert_dictionary_update_sequence(message, tb_data):
     if "cannot convert dictionary update sequence element" not in message:
         return {}
 
@@ -1088,7 +1059,7 @@ def cannot_convert_dictionary_update_sequence(
 
 
 @parser._add
-def builtin_callable_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
+def builtin_callable_has_no_len(message, tb_data):
     if message != "object of type 'builtin_function_or_method' has no len()":
         return {}
 
@@ -1112,7 +1083,7 @@ def builtin_callable_has_no_len(message: str, tb_data: TracebackData) -> CauseIn
 
 
 @parser._add
-def function_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
+def function_has_no_len(message, tb_data):
     if message != "object of type 'function' has no len()":
         return {}
 
@@ -1136,7 +1107,7 @@ def function_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def vars_arg_must_have_dict(message: str, tb_data: TracebackData) -> CauseInfo:
+def vars_arg_must_have_dict(message, tb_data):
     if message != "vars() argument must have __dict__ attribute":
         return {}
 
@@ -1162,7 +1133,7 @@ def vars_arg_must_have_dict(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def function_got_multiple_argument(message: str, tb_data: TracebackData) -> CauseInfo:
+def function_got_multiple_argument(message, tb_data):
     pattern = r"(.*)\(\) got multiple values for argument '(.*)'"
     match = re.search(pattern, message)
     if not match:
@@ -1207,7 +1178,7 @@ def function_got_multiple_argument(message: str, tb_data: TracebackData) -> Caus
 
 
 @parser._add
-def generator_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
+def generator_has_no_len(message, tb_data):
     if message != "object of type 'generator' has no len()":
         return {}
     cause = _(
@@ -1238,7 +1209,7 @@ def generator_has_no_len(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def module_(message: str, tb_data: TracebackData) -> CauseInfo:
+def module_(message, tb_data):
     # Usually, this will happen because one attempts to subclass using
     # a module name instead of a class inside this module.
     # For example:
@@ -1296,7 +1267,7 @@ def module_(message: str, tb_data: TracebackData) -> CauseInfo:
 
 
 @parser._add
-def assigned_to_type_hint(message: str, tb_data: TracebackData) -> CauseInfo:
+def assigned_to_type_hint(message, tb_data):
     # something like x = list[1, 2, 3], and then trying to use `x` as
     # a normal list
     pattern = re.compile(
