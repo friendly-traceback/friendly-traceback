@@ -7,10 +7,9 @@ from .syntax_utils import matching_brackets
 
 MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
 
-LINE_NUMBER: Literal['       {:%d}| '] = "       {:%d}| "
-MARKED_LINE_NUMBER: Literal['    -->{:%d}| '] = "    -->{:%d}| "
-LINE_GAP: Literal['       (...)'] = "       (...)"
-
+LINE_NUMBER: Literal["       {:%d}| "] = "       {:%d}| "
+MARKED_LINE_NUMBER: Literal["    -->{:%d}| "] = "    -->{:%d}| "
+LINE_GAP: Literal["       (...)"] = "       (...)"
 
 class Statement:
     all_statements: Incomplete
@@ -44,27 +43,20 @@ class Statement:
     using_friendly_console: Incomplete
     value: Incomplete
 
-    def __init__(self, value: Incomplete, bad_line: Incomplete, original_bad_line: Incomplete) -> Incomplete: ...
-
+    def __init__(
+        self, value: Incomplete, bad_line: Incomplete, original_bad_line: Incomplete
+    ) -> None: ...
     def exceptional_case(self) -> Incomplete: ...
-
     def get_token_info(self) -> Incomplete: ...
-
     def get_source_tokens(self) -> Incomplete: ...
-
     def assign_individual_token_values(self) -> Incomplete: ...
-
     def format_statement(self) -> Incomplete: ...
-
     def get_lines_to_show(self) -> Incomplete: ...
-
     def annotate_lines(self, lines: Incomplete) -> Incomplete: ...
-
     def create_location_markers(self) -> Incomplete: ...
-
     def obtain_statement(self, source_tokens: Incomplete) -> Incomplete: ...
-
     def remove_meaningless_tokens(self) -> Incomplete: ...
 
-
-def get_lines_from_statement(tokens: Incomplete, linenumber: Incomplete, prev_token: Incomplete) -> Incomplete: ...
+def get_lines_from_statement(
+    tokens: Incomplete, linenumber: Incomplete, prev_token: Incomplete
+) -> Incomplete: ...

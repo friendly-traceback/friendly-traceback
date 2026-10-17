@@ -7,14 +7,15 @@ Note that some module might not be found on some platform.
 See function ``module_exists`` at the end.
 """
 
+from typing import Set
 import sys
 from importlib.util import find_spec
 
 if hasattr(sys, "stdlib_module_names"):  # Python 3.10+
     # convert to set from frozenset, so we can add mocks for tests.
-    names = set(sys.stdlib_module_names)  # type: ignore[import]
+    names: Set[str] = set(sys.stdlib_module_names)  # type: ignore[import]
 else:
-    names = {
+    names: Set[str] = {
         "abc",
         "aifc",
         "antigravity",

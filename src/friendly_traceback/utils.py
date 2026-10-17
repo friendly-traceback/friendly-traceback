@@ -7,7 +7,7 @@ import ast
 import difflib
 import uuid
 
-import pure_eval
+import pure_eval  # pyright: ignore[reportMissingImports]
 
 
 def unique_variable_name():

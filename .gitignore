@@ -10,6 +10,8 @@ test.py
 ignore.py
 example.py
 ignore*.*
+# The following is the occasional output of pydeps
+friendly_traceback.svg
 
 #=====================
 # Byte-compiled / optimized / DLL files

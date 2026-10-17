@@ -96,7 +96,7 @@ GenericExplain = Callable[[], str]
 
 
 Parser = Union[
-    Callable[[str, "TracebackData"], CauseInfo],
+    Callable[[type[str], "TracebackData"], CauseInfo],
     Callable[[type[BaseException] | type[SyntaxError], "TracebackData"], CauseInfo],
 ]
 Translator = Callable[[str], str]
