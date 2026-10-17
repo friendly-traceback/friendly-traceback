@@ -22,7 +22,7 @@ def _write_err(text):  # pragma: no cover
     sys.stderr.write(text)
 
 
-class _State:
+class State:
     """Keeping track of various parameters in a single object meant
     to be instantiated only once.
     """
@@ -287,7 +287,7 @@ class _State:
         return info
 
 
-session = _State()
+session = State()
 # It might sometimes be useful to import Friendly-traceback after an
 # exception occurred.
 

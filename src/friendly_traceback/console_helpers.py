@@ -23,6 +23,7 @@ functions are available in such environments, do the following::
 # NOTE: __all__ is defined at the very bottom of this file
 import inspect
 import sys
+from typing import Any
 import friendly_traceback
 from friendly_traceback import base_formatters, debug_helper
 from friendly_traceback.config import session
@@ -405,7 +406,7 @@ helpers = {
     "set_formatter": set_formatter,
     "set_debug": set_debug,
 }
-add_help_attribute(helpers)
+add_help_attribute(helpers)  # type: ignore
 
 debug_helper_methods = {
     "_get_info": _get_info,
@@ -427,6 +428,9 @@ class FriendlyHelpers:
 
     def __init__(self):
         self.helpers = {}
+
+    def __call__(self):
+        print(self.__repr__())
 
     def add_helper(self, function):  # pragma: no cover
         """Adds a helper base on its name and the function it refers to."""
