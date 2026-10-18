@@ -9,7 +9,7 @@ modules_attributes.py located in this directory.
 import sys
 from pprint import pprint
 
-from stdlib_modules import names
+from friendly_traceback.runtime_errors.stdlib_modules import names  # type: ignore[import]
 
 all_attributes = {}
 for mod_name in names:

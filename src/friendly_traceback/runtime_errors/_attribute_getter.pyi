@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
+from typing import Dict
 
-from stdlib_modules import names
-
-all_attributes: Incomplete
+all_attributes: Dict[str, str]

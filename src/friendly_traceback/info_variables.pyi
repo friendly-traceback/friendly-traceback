@@ -1,9 +1,23 @@
-from typing import ClassVar, Literal
+from typing import Any, List, Tuple, Union, ClassVar, Literal, TypedDict
 from _typeshed import Incomplete
 
 import types
-from typing import Any, List, Tuple, Union
-from .typing_info import ObjectsInfo, ScopeKind, SimilarNamesInfo
+
+SimilarNamesInfo = TypedDict(
+    "SimilarNamesInfo",
+    {"locals": List[str], "globals": List[str], "builtins": List[str], "best": str},
+)
+ScopeKind = Literal["local", "global", "nonlocal"]
+ObjectsInfo = TypedDict(
+    "ObjectsInfo",
+    {
+        "locals": List[Tuple[str, str, Any]],
+        "globals": List[Tuple[str, str, Any]],
+        "builtins": List[Tuple[str, str, Any]],
+        "expressions": List[Tuple[str, Any]],
+        "name, obj": List[Tuple[str, Any]],
+    },
+)
 
 INDENT: str
 MAX_LENGTH: Literal[65] = 65

@@ -6,7 +6,7 @@ _ = current_lang.translate
 
 
 @parser._add
-def handle_connection_error(_messager, tb_data):
+def handle_connection_error(_message, tb_data):
     tb = "\n".join(tb_data.formatted_tb)
     if (
         "socket.gaierror" in tb

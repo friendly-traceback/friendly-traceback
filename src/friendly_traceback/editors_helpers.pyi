@@ -1,5 +1,5 @@
 from typing import Any, Dict, Tuple, Union
-from typing_info import InclusionChoice
+from friendly_traceback.base_formatters import InclusionChoice
 
 def check_syntax(
     *,

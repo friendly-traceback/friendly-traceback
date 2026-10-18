@@ -3,9 +3,8 @@ from _typeshed import Incomplete
 from typing import SupportsInt, Union
 from .. import debug_helper
 from ..ft_gettext import current_lang
-from ..message_parser import RuntimeMessageParser
+from ..message_parser import RuntimeMessageParser, CauseInfo
 from ..tb_data import TracebackData
-from ..typing_info import CauseInfo
 
 parser: RuntimeMessageParser
 

@@ -1,7 +1,6 @@
 from typing import List, Optional, Tuple
-from ..message_parser import RuntimeMessageParser
+from ..message_parser import RuntimeMessageParser, CauseInfo
 from ..tb_data import TracebackData
-from ..typing_info import CauseInfo
 
 parser: RuntimeMessageParser
 

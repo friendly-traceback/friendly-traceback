@@ -1,5 +1,5 @@
 from ..about_warnings import WarningInfo, WarningDataParser
-from ..typing_info import CauseInfo
+from ..message_parser import CauseInfo
 
 parser: WarningDataParser
 

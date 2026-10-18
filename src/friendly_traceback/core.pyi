@@ -1,8 +1,35 @@
 import types
-from typing import List, Type
+from typing import List, Type, Tuple, TypedDict
 from .frame_info import FrameInfo
-from .typing_info import _E, Info
 from .tb_data import TracebackData
+
+class Info(TypedDict, total=False):
+    header: str
+    message: str
+    original_python_traceback: str
+    simulated_python_traceback: str
+    shortened_traceback: str
+    exception_notes_intro: List[str]
+    exception_notes: str
+    suggest: str
+    generic: str
+    parsing_error: str
+    parsing_error_source: str
+    cause: str
+    detailed_tb: List[str]
+    last_call_header: str
+    last_call_source: str
+    last_call_variables: str
+    exception_raised_header: str
+    exception_raised_source: str
+    exception_raised_variables: str
+    warning_message: str
+    warning_location_header: str
+    warning_source: str
+    warning_variables: str
+    additional_variable_warning: str
+    lang: str
+    _tb_data: "TracebackData"
 
 class FriendlyTraceback:
     info: Info
@@ -35,5 +62,5 @@ class FriendlyTraceback:
     def shorten(self, tb: List[str]) -> List[str]: ...
     def create_traceback(self, records: List[FrameInfo]) -> List[str]: ...
 
-def process_exception_chain(etype: Type[_E], value: _E) -> str: ...
+def process_exception_chain(etype: Type[Exception], value: Exception) -> str: ...
 def cannot_analyze_stdin() -> str: ...

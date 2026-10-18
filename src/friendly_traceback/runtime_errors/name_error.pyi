@@ -1,13 +1,21 @@
 from _typeshed import Incomplete
 
 from types import FrameType
-from typing import Any, Tuple
+from typing import Any, Tuple, TypedDict, List
 
 from ..message_parser import RuntimeMessageParser
 from ..tb_data import TracebackData
-from ..typing_info import CauseInfo, SimilarNamesInfo
+
+SimilarNamesInfo = TypedDict(
+    "SimilarNamesInfo",
+    {"locals": List[str], "globals": List[str], "builtins": List[str], "best": str},
+)
 
 parser: RuntimeMessageParser
+
+class CauseInfo(TypedDict, total=False):
+    cause: str
+    suggest: str
 
 def using_python() -> str: ...
 

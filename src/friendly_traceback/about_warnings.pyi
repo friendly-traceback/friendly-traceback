@@ -1,12 +1,16 @@
-from types import FrameType
-from typing import List, Type, Set, Dict, Iterable
-from stack_data import Formatter  # pyright: ignore[reportMissingImports]
-from .typing_info import CauseInfo, Parser
+from types import FrameType, TracebackType
+from typing import List, Type, Iterable, Callable, Union
+from stack_data import Formatter, FrameInfo 
+from friendly_traceback.message_parser import CauseInfo
+
+Parser = Callable[[str, "WarningInfo"], CauseInfo]
 
 def enable_warnings(testing: bool = False) -> None: ...
 
 class MyFormatter(Formatter):
-    def format_frame(self, frame: FrameType) -> Iterable[str]: ...
+    def format_frame(
+        self, frame: Union[FrameInfo, FrameType, TracebackType]
+    ) -> Iterable[str]: ...
 
 class WarningInfo:
     begin_lineno: int

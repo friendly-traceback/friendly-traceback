@@ -37,6 +37,7 @@ from friendly_traceback import debug_helper
 from friendly_traceback.ft_gettext import current_lang
 
 _ = current_lang.translate
+
 # The following is the order in which the various items, if they exist
 # and have been selected to be printed, would be printed.
 # If you are writing a custom formatter, this should be taken as the

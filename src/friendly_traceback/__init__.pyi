@@ -5,12 +5,52 @@ from typing import (
     List,
     Mapping,
     Sequence,
+    Protocol,
+    Union,
+    TypedDict,
 )
-
-valid_version: bool
+import os
 
 from friendly_traceback.__about__ import version as __version__
-from friendly_traceback.typing_info import InclusionChoice, StrPath, Formatter, Writer
+from friendly_traceback.base_formatters import InclusionChoice
+from friendly_traceback.tb_data import TracebackData
+
+Writer = Callable[[str], None]
+
+class Info(TypedDict, total=False):
+    header: str
+    message: str
+    original_python_traceback: str
+    simulated_python_traceback: str
+    shortened_traceback: str
+    exception_notes_intro: List[str]
+    exception_notes: str
+    suggest: str
+    generic: str
+    parsing_error: str
+    parsing_error_source: str
+    cause: str
+    detailed_tb: List[str]
+    last_call_header: str
+    last_call_source: str
+    last_call_variables: str
+    exception_raised_header: str
+    exception_raised_source: str
+    exception_raised_variables: str
+    warning_message: str
+    warning_location_header: str
+    warning_source: str
+    warning_variables: str
+    additional_variable_warning: str
+    lang: str
+    _tb_data: "TracebackData"
+
+StrPath = Union[str, os.PathLike]
+
+class Formatter(Protocol):
+    def __call__(self, info: Info, include: InclusionChoice = ...) -> str: ...
+
+valid_version: bool
 
 def add_ignored_warnings(do_not_show_warning: Callable[[Any], bool]) -> None: ...
 def add_other_attribute_names(attributes: dict) -> None: ...

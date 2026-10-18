@@ -2,7 +2,9 @@ from typing import Callable, ClassVar, Literal
 
 import types
 from typing import Any, Callable, Dict, List, Type, Union
-from friendly_traceback.typing_info import InclusionChoice, Site
+from friendly_traceback.base_formatters import InclusionChoice
+
+Site = Literal["friendly", "python", "bug", "email"]
 
 def disable() -> None: ...
 def enable() -> None: ...

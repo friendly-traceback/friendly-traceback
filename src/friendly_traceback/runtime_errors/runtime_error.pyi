@@ -1,6 +1,5 @@
 from ..tb_data import TracebackData
-from ..typing_info import CauseInfo
-from ..message_parser import RuntimeMessageParser
+from ..message_parser import RuntimeMessageParser, CauseInfo
 
 parser: RuntimeMessageParser
 

@@ -1,6 +1,11 @@
-from typing import Type, List
+from typing import List, TypedDict, Callable
 from .tb_data import TracebackData
-from .typing_info import CauseInfo, Parser
+
+class CauseInfo(TypedDict, total=False):
+    cause: str
+    suggest: str
+
+Parser = Callable[[str, TracebackData], CauseInfo]
 
 INCLUDED_PARSERS: dict[
     type[AttributeError]
@@ -29,7 +34,23 @@ class RuntimeMessageParser:
     def add(self, func: Parser) -> Parser: ...
     def _add(self, func: Parser) -> Parser: ...
 
-def get_parser(exception_type: Type[BaseException]) -> RuntimeMessageParser: ...
+def get_parser(
+    exception_type: (
+        type[AttributeError]
+        | type[FileNotFoundError]
+        | type[ImportError]
+        | type[IndexError]
+        | type[KeyError]
+        | type[ModuleNotFoundError]
+        | type[NameError]
+        | type[OSError]
+        | type[RuntimeError]
+        | type[TypeError]
+        | type[UnboundLocalError]
+        | type[ValueError]
+        | type[ZeroDivisionError]
+    ),
+) -> RuntimeMessageParser: ...
 def get_likely_cause(
     exception_type: type[Exception], message: str, tb_data: TracebackData
 ) -> CauseInfo: ...

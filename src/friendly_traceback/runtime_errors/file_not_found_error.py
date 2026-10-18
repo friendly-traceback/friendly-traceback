@@ -10,9 +10,9 @@ _ = current_lang.translate
 
 
 @parser._add
-def no_such_file_or_directory(value, _tb_data):
+def no_such_file_or_directory(message, _tb_data):
     pattern = re.compile("No such file or directory: '(.*)'")
-    match = re.search(pattern, str(value))
+    match = re.search(pattern, message)
     if match is None:
         return {}
 

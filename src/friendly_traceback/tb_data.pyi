@@ -4,7 +4,6 @@ from _typeshed import Incomplete
 from types import FrameType, TracebackType
 from typing import Generic, List, Type
 from .frame_info import FrameInfo
-from .typing_info import _E
 from friendly_traceback.syntax_errors import source_info
 
 STR_FAILED: Literal["<exception str() failed>"] = "<exception str() failed>"
