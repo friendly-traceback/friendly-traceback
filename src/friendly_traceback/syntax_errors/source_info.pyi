@@ -1,9 +1,7 @@
-from typing import Literal
+from typing import Literal, List, Dict, Any
 from _typeshed import Incomplete
 
-from .. import debug_helper, token_utils
-from ..source_cache import cache
-from .syntax_utils import matching_brackets
+from .. import token_utils
 
 MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
 
@@ -12,36 +10,36 @@ MARKED_LINE_NUMBER: Literal["    -->{:%d}| "] = "    -->{:%d}| "
 LINE_GAP: Literal["       (...)"] = "       (...)"
 
 class Statement:
-    all_statements: Incomplete
-    bad_line: Incomplete
-    bad_token: Incomplete
-    bad_token_comment: Incomplete
+    all_statements: List[str]
+    bad_line: str
+    bad_token: token_utils.Token
+    bad_token_comment: token_utils.Token
     bad_token_index: int
-    begin_brackets: Incomplete
-    end_bracket: Incomplete
-    end_linenumber: Incomplete
-    end_offset: Incomplete
-    entire_statement: Incomplete
-    filename: Incomplete
-    first_token: Incomplete
+    begin_brackets: List
+    end_bracket: str
+    end_linenumber: int
+    end_offset: int
+    entire_statement: str
+    filename: str
+    first_token: token_utils.Token
     formatted_partial_source: str
     fstring_error: Incomplete
-    highlighted_tokens: Incomplete
-    last_token: Incomplete
-    linenumber: Incomplete
-    location_markers: Incomplete
-    message: Incomplete
+    highlighted_tokens: List | None
+    last_token: token_utils.Token
+    linenumber: int
+    location_markers: Dict[str, Any]
+    message: str
     nb_tokens: int
-    next_token: Incomplete
-    offset: Incomplete
-    original_bad_line: Incomplete
-    prev_token: Incomplete
-    source_lines: Incomplete
-    statement_brackets: Incomplete
-    statement_tokens: Incomplete
-    tokens: Incomplete
-    using_friendly_console: Incomplete
-    value: Incomplete
+    next_token: token_utils.Token
+    offset: int
+    original_bad_line: str
+    prev_token: token_utils.Token
+    source_lines: List[str]
+    statement_brackets: List
+    statement_tokens: List[token_utils.Token]
+    tokens: token_utils.Token
+    using_friendly_console: bool
+    value: SyntaxError
 
     def __init__(
         self, value: Incomplete, bad_line: Incomplete, original_bad_line: Incomplete

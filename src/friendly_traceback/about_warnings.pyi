@@ -1,9 +1,12 @@
 from types import FrameType, TracebackType
-from typing import List, Type, Iterable, Callable, Union
-from stack_data import Formatter, FrameInfo 
+from typing import List, Type, Iterable, Callable, Union, Set, Dict
+from stack_data import Formatter, FrameInfo
 from friendly_traceback.message_parser import CauseInfo
 
 Parser = Callable[[str, "WarningInfo"], CauseInfo]
+
+_warnings_seen: Dict[Type[Warning], Dict[Type[str], Dict[Type[str], List[int]]]]
+IGNORE_WARNINGS: Set[Type[Warning]]
 
 def enable_warnings(testing: bool = False) -> None: ...
 

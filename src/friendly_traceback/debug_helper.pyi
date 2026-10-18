@@ -2,8 +2,8 @@ from typing import Literal
 
 from typing import Optional
 
-DEBUG: Literal[False] = False
-SHOW_DEBUG_HELPER: Literal[False] = False
+DEBUG: bool
+SHOW_DEBUG_HELPER: bool
 
 def log_error(exc: Optional[BaseException] = None) -> None: ...
 def log(*args: str) -> None: ...

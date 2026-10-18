@@ -11,7 +11,6 @@ can be imported using ``from friendly_traceback import enable_warnings``,
 import inspect
 import warnings
 from importlib import import_module
-from typing import Set, Type, Dict, List
 
 import executing  # pyright: ignore[reportMissingImports]
 from stack_data import (  # pyright: ignore[reportMissingImports]
@@ -28,9 +27,9 @@ from friendly_traceback.info_variables import get_var_info
 from friendly_traceback.path_info import path_utils
 
 _ = current_lang.translate
-_warnings_seen: Dict[Type[Warning], Dict[Type[str], Dict[Type[str], List[int]]]] = {}
+_warnings_seen = {}
 _RUNNING_TESTS: bool = False
-IGNORE_WARNINGS: Set[Type[Warning]] = set()
+IGNORE_WARNINGS = set()
 
 
 def enable_warnings(testing=False):
