@@ -2,13 +2,14 @@
 """In this module, we try to identify a remedy to a syntax error
 associated with a 'def' statement.
 """
+
 import platform
 import sys
 
-from .. import debug_helper, utils
-from ..ft_gettext import current_lang, internal_error
-from . import fixers
-from . import syntax_utils as su
+from friendly_traceback import debug_helper, utils
+from friendly_traceback.ft_gettext import current_lang, internal_error
+from friendly_traceback.syntax_errors import fixers
+from friendly_traceback.syntax_errors import syntax_utils as su
 
 STATEMENT_ANALYZERS = []
 _ = current_lang.translate

@@ -3,11 +3,11 @@
 import re
 import sys
 
-from .. import debug_helper
-from ..ft_gettext import current_lang, please_report
-from ..message_parser import get_parser
-from ..path_info import path_utils
-from ..utils import get_similar_words, list_to_string
+from friendly_traceback import debug_helper
+from friendly_traceback.ft_gettext import current_lang, please_report
+from friendly_traceback.message_parser import get_parser
+from friendly_traceback.path_info import path_utils
+from friendly_traceback.utils import get_similar_words, list_to_string
 
 parser = get_parser(ImportError)
 _ = current_lang.translate

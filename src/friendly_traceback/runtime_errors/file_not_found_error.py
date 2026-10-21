@@ -1,9 +1,9 @@
 import os
 import re
 
-from ..ft_gettext import current_lang
-from ..message_parser import get_parser
-from ..utils import get_similar_words
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.message_parser import get_parser
+from friendly_traceback.utils import get_similar_words
 
 parser = get_parser(FileNotFoundError)
 _ = current_lang.translate

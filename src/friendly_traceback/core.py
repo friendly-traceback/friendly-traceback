@@ -111,7 +111,7 @@ class FriendlyTraceback:
             etype, value, tb = sys.exc_info()
 
         The "header" key for the info dict is assigned here."""
-        from .config import session
+        from friendly_traceback.config import session
 
         try:
             self.tb_data = tb_data.TracebackData(etype, value, tb)
@@ -161,7 +161,7 @@ class FriendlyTraceback:
         """This is useful if we need to redisplay some information in a
         different language than what was originally used.
         """
-        from .config import session
+        from friendly_traceback.config import session
 
         self.info["header"] = _("Python exception:")
         self.info["lang"] = session.lang
@@ -318,7 +318,7 @@ class FriendlyTraceback:
         * exception_raised_source
         * exception_raised_variables
         """
-        from .config import session
+        from friendly_traceback.config import session
 
         if self.tb_data.filename == "<stdin>":
             self.info["exception_raised_source"] = cannot_analyze_stdin()
@@ -481,7 +481,7 @@ class FriendlyTraceback:
         * simulated_python_traceback
         * shortened_traceback
         """
-        from .config import session
+        from friendly_traceback.config import session
 
         if not hasattr(self, "message"):
             self.assign_message(self.tb_data.exception_type, self.tb_data.value)
@@ -557,7 +557,7 @@ class FriendlyTraceback:
         """Shortens a traceback (as list of lines)
         by removing lines if it exceeds a certain length
         and by using short synonyms for some common directories."""
-        from .config import session
+        from friendly_traceback.config import session
 
         shortened_tb = tb[:2] + self.suppressed + tb[-5:] if len(tb) > 12 else tb[:]
         pattern = re.compile(r'^  File "(.*)", ')  # noqa
@@ -684,7 +684,7 @@ def cannot_analyze_stdin():  # pragma: no cover
     interpreter (REPL), and the user does not activate the friendly
     console.
     """
-    from .config import session
+    from friendly_traceback.config import session
 
     message = _(
         "Unfortunately, no additional information is available:\n"

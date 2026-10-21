@@ -3,9 +3,9 @@
 is relevant to the analysis of SyntaxErrors.
 """
 
-from .. import debug_helper, token_utils
-from ..source_cache import cache
-from .syntax_utils import matching_brackets
+from friendly_traceback import debug_helper, token_utils
+from friendly_traceback.source_cache import cache
+from friendly_traceback.syntax_errors.syntax_utils import matching_brackets
 
 # During the analysis for finding the cause of the error, we typically examine
 # a "bad token" identified by Python as the cause of the error and often

@@ -9,9 +9,9 @@ import re
 import sys
 import types
 
-from .. import debug_helper, info_variables, token_utils, utils
-from ..ft_gettext import current_lang, no_information, please_report
-from ..message_parser import get_parser
+from friendly_traceback import debug_helper, info_variables, token_utils, utils
+from friendly_traceback.ft_gettext import current_lang, no_information, please_report
+from friendly_traceback.message_parser import get_parser
 
 convert_type = info_variables.convert_type
 parser = get_parser(TypeError)

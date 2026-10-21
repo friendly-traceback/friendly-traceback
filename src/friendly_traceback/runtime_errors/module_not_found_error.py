@@ -3,11 +3,11 @@
 import re
 import sys
 
-from .. import debug_helper
-from ..ft_gettext import current_lang
-from ..message_parser import get_parser
-from ..utils import get_similar_words, list_to_string
-from . import stdlib_modules
+from friendly_traceback import debug_helper
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.message_parser import get_parser
+from friendly_traceback.utils import get_similar_words, list_to_string
+from friendly_traceback.runtime_errors import stdlib_modules
 
 parser = get_parser(ModuleNotFoundError)
 _ = current_lang.translate

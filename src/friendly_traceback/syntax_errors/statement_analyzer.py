@@ -1,15 +1,16 @@
 # type: ignore
 """This module contains functions that are used to
-   analyze a single statement which has been identified
-   as containing a syntax error with the message "invalid syntax".
+analyze a single statement which has been identified
+as containing a syntax error with the message "invalid syntax".
 """
+
 import keyword
 import sys
 
-from .. import debug_helper, token_utils, utils
-from ..ft_gettext import current_lang, internal_error
-from . import error_in_def, fixers
-from . import syntax_utils as su
+from friendly_traceback import debug_helper, token_utils, utils
+from friendly_traceback.ft_gettext import current_lang, internal_error
+from friendly_traceback.syntax_errors import error_in_def, fixers
+from friendly_traceback.syntax_errors import syntax_utils as su
 
 STATEMENT_ANALYZERS = []
 _ = current_lang.translate

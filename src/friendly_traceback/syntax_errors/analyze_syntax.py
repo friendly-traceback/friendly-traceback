@@ -19,8 +19,8 @@ incorrect information.
 
 from friendly_traceback.ft_gettext import current_lang, internal_error, unknown_case
 
-from .. import debug_helper
-from . import message_analyzer, statement_analyzer
+from friendly_traceback import debug_helper
+from friendly_traceback.syntax_errors import message_analyzer, statement_analyzer
 
 _ = current_lang.translate
 

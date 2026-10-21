@@ -3,16 +3,17 @@
 Collection of functions that examine SyntaxError messages and
 return relevant information to users.
 """
+
 import __future__
 
 import ast
 import re
 import sys
 
-from .. import debug_helper, token_utils, utils
-from ..ft_gettext import current_lang, please_report
-from . import error_in_def, fixers, statement_analyzer
-from . import syntax_utils as su
+from friendly_traceback import debug_helper, token_utils, utils
+from friendly_traceback.ft_gettext import current_lang, please_report
+from friendly_traceback.syntax_errors import error_in_def, fixers, statement_analyzer
+from friendly_traceback.syntax_errors import syntax_utils as su
 
 MESSAGE_ANALYZERS = []
 _ = current_lang.translate
@@ -2129,7 +2130,7 @@ def invalid_non_printable_character(message: str = "", statement=None):
 @add_python_message
 def import_from(message: str = "", statement=None):
     # new message for Python 3.12
-    if message != "Did you mean to use 'from ... import ...' instead?":
+    if message != "Did you mean to use 'from friendly_traceback.. import ...' instead?":
         return {}
     for token in statement.tokens:
         if token == "from":

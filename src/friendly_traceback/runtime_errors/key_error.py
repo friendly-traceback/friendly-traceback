@@ -1,8 +1,8 @@
 import ast
 
-from .. import info_variables, utils
-from ..ft_gettext import current_lang, please_report
-from ..message_parser import get_parser
+from friendly_traceback import info_variables, utils
+from friendly_traceback.ft_gettext import current_lang, please_report
+from friendly_traceback.message_parser import get_parser
 
 parser = get_parser(KeyError)
 _ = current_lang.translate

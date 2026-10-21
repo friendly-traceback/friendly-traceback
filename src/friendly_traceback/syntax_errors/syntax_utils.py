@@ -3,8 +3,8 @@
 
 import unicodedata
 
-from .. import debug_helper, token_utils
-from ..ft_gettext import current_lang
+from friendly_traceback import debug_helper, token_utils
+from friendly_traceback.ft_gettext import current_lang
 
 _ = current_lang.translate
 

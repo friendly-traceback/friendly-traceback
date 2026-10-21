@@ -5,9 +5,9 @@ import re
 
 import pure_eval
 
-from .. import debug_helper, info_variables
-from ..ft_gettext import current_lang
-from ..message_parser import get_parser
+from friendly_traceback import debug_helper, info_variables
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.message_parser import get_parser
 
 parser = get_parser(IndexError)
 _ = current_lang.translate

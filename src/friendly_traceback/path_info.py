@@ -127,7 +127,7 @@ class PathUtil:
         self.home = os.path.expanduser("~")
 
     def shorten_path(self, path):  # pragma: no cover
-        from .config import session
+        from friendly_traceback.config import session
 
         if path is None:  # can happen in some rare cases
             return path
@@ -170,7 +170,7 @@ class PathUtil:
 
 
 def shorten_jupyter_kernel(path):  # pragma: no cover
-    from .source_cache import cache
+    from friendly_traceback.source_cache import cache
 
     if "__main__" in sys.modules:
         main = sys.modules["__main__"]

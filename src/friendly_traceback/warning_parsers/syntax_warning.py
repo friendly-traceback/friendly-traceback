@@ -1,8 +1,8 @@
 import re
 
-from ..about_warnings import get_warning_parser
-from ..ft_gettext import current_lang
-from ..info_variables import convert_type
+from friendly_traceback.about_warnings import get_warning_parser
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.info_variables import convert_type
 
 parser = get_warning_parser(SyntaxWarning)
 _ = current_lang.translate

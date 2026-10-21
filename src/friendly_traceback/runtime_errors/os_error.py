@@ -1,5 +1,5 @@
-from ..ft_gettext import current_lang
-from ..message_parser import get_parser
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.message_parser import get_parser
 
 parser = get_parser(OSError)
 _ = current_lang.translate

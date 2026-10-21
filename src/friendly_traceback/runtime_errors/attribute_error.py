@@ -6,12 +6,12 @@ import platform
 import re
 import sys
 
-from .. import console_helpers, debug_helper, info_variables, utils
-from ..ft_gettext import current_lang, please_report
-from ..message_parser import get_parser
-from ..path_info import path_utils
-from ..utils import get_similar_words, list_to_string
-from . import stdlib_modules
+from friendly_traceback import console_helpers, debug_helper, info_variables, utils
+from friendly_traceback.ft_gettext import current_lang, please_report
+from friendly_traceback.message_parser import get_parser
+from friendly_traceback.path_info import path_utils
+from friendly_traceback.utils import get_similar_words, list_to_string
+from friendly_traceback.runtime_errors import stdlib_modules
 
 parser = get_parser(AttributeError)
 _ = current_lang.translate

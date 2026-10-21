@@ -1,12 +1,12 @@
 import re
 from importlib.util import find_spec
 
-from .. import debug_helper, info_variables, token_utils, utils
-from ..ft_gettext import current_lang
-from ..message_parser import get_parser
-from ..utils import list_to_string
-from . import stdlib_modules, third_party_names
-from .modules_attributes import attribute_names
+from friendly_traceback import debug_helper, info_variables, token_utils, utils
+from friendly_traceback.ft_gettext import current_lang
+from friendly_traceback.message_parser import get_parser
+from friendly_traceback.utils import list_to_string
+from friendly_traceback.runtime_errors import stdlib_modules, third_party_names
+from friendly_traceback.runtime_errors.modules_attributes import attribute_names
 
 parser = get_parser(NameError)
 _ = current_lang.translate

@@ -317,7 +317,7 @@ def start_console(  # pragma: no cover
     ipython_prompt=True,
 ):
     """Starts a Friendly console."""
-    from . import ft_console
+    from friendly_traceback import ft_console
 
     ft_console.start_console(
         local_vars=local_vars,
