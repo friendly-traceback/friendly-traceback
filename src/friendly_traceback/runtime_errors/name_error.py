@@ -1,7 +1,7 @@
 import re
 from importlib.util import find_spec
 
-from friendly_traceback import debug_helper, info_variables, token_utils, utils
+from friendly_traceback import debug_helper, info_variables, token_utils_old, utils
 from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.message_parser import get_parser
 from friendly_traceback.utils import list_to_string
@@ -90,7 +90,7 @@ def name_not_defined(message, tb_data):
     potential_module_attribute = "<None>"
     try:
         rest_of_line = tb_data.node.first_token.line[tb_data.node.first_token.end[1] :]
-        tokens = token_utils.get_significant_tokens(rest_of_line)
+        tokens = token_utils_old.get_significant_tokens(rest_of_line)
         potential_module = tokens and tokens[0].string == "."
         if len(tokens) > 1:
             potential_module_attribute = tokens[1].string
@@ -187,7 +187,7 @@ def perhaps_special_keyword(word_with_typo, bad_line):
     For 'break' and 'continue', it verifies that it would be used on an indented line since
     not doing so would definitely result in a SyntaxError.
     """
-    tokens = token_utils.get_significant_tokens(bad_line)
+    tokens = token_utils_old.get_significant_tokens(bad_line)
     if len(tokens) != 1:
         return {}
     token = tokens[0]
@@ -349,7 +349,7 @@ def missing_self(unknown_name, frame, tb_data, hint):
     message = ""
     try:
         bad_statement = utils.get_bad_statement(tb_data)
-        tokens = token_utils.get_significant_tokens(bad_statement)
+        tokens = token_utils_old.get_significant_tokens(bad_statement)
     except Exception:  # noqa  # pragma: no cover
         debug_helper.log(
             "Exception raised in missing_self() while trying to get tokens"

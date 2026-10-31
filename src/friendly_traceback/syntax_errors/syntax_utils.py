@@ -3,7 +3,7 @@
 
 import unicodedata
 
-from friendly_traceback import debug_helper, token_utils
+from friendly_traceback import debug_helper, token_utils_old
 from friendly_traceback.ft_gettext import current_lang
 
 _ = current_lang.translate
@@ -313,7 +313,7 @@ def get_expression_before_specified_token(bad_token, tokens, specified_token):
             new_tokens.append(tok)
             break
         new_tokens.append(tok)
-    return token_utils.untokenize(new_tokens).strip()
+    return token_utils_old.untokenize(new_tokens).strip()
 
 
 def add_mark_to_new_statement(statement_object, new_statement, mark):

@@ -3,7 +3,7 @@
 is relevant to the analysis of SyntaxErrors.
 """
 
-from friendly_traceback import debug_helper, token_utils
+from friendly_traceback import debug_helper, token_utils_old
 from friendly_traceback.source_cache import cache
 from friendly_traceback.syntax_errors.syntax_utils import matching_brackets
 
@@ -14,7 +14,7 @@ from friendly_traceback.syntax_errors.syntax_utils import matching_brackets
 # have a token following it. By assigning a meaningless token value to these
 # neighbours, the code for the analysis can be greatly simplified as we do
 # not have to verify the existence of these neighbours.
-MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
+MEANINGLESS_TOKEN = token_utils_old.tokenize(" ")[0]
 # fmt: off
 LINE_NUMBER        = "       {:%d}| "  # noqa
 MARKED_LINE_NUMBER = "    -->{:%d}| "  # noqa
@@ -145,9 +145,9 @@ class Statement:
                     if self.tokens:
                         break
                 else:
-                    self.tokens = [token_utils.tokenize("Internal_error")[0]]
+                    self.tokens = [token_utils_old.tokenize("Internal_error")[0]]
 
-            self.entire_statement = token_utils.untokenize(self.statement_tokens)
+            self.entire_statement = token_utils_old.untokenize(self.statement_tokens)
             if (
                 self.filename.startswith("<friendly-console")
                 and self.statement_brackets
@@ -216,7 +216,7 @@ class Statement:
             source = "".join(self.source_lines)
             if not source.strip():
                 source = self.bad_line or "\n"
-        return token_utils.tokenize(source)
+        return token_utils_old.tokenize(source)
 
     def assign_individual_token_values(self):
         """Assign values of previous and next to bad token and other
@@ -497,7 +497,7 @@ class Statement:
                 self.end_bracket = None
 
         if self.statement_tokens:  # Protecting against EOF while parsing
-            last_line = token_utils.untokenize(self.statement_tokens)
+            last_line = token_utils_old.untokenize(self.statement_tokens)
             if last_line.strip():
                 self.all_statements.append(self.statement_tokens)
             elif self.all_statements:

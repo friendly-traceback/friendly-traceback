@@ -1,6 +1,6 @@
 import re
 
-from friendly_traceback import info_variables, token_utils
+from friendly_traceback import info_variables, token_utils_old
 from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.message_parser import get_parser
 
@@ -31,7 +31,7 @@ def container_changed_size_during_iteration(message, tb_data):
         if isinstance(obj, obj_type):
             names.append(name)
 
-    tokens = token_utils.tokenize(tb_data.bad_line)
+    tokens = token_utils_old.tokenize(tb_data.bad_line)
     loop_keywords = [tok.string for tok in tokens if tok.string in {"for", "while"}]
 
     loop_keywords = set(loop_keywords)

@@ -5,7 +5,7 @@ from executing import only
 from stack_data import LINE_GAP, BlankLineRange, BlankLines, Formatter, Line, Options
 from stack_data.utils import cached_property
 
-from friendly_traceback import token_utils
+from friendly_traceback import token_utils_old
 
 from friendly_traceback import debug_helper
 from friendly_traceback.ft_gettext import current_lang
@@ -218,8 +218,8 @@ class FrameInfo(stack_data.FrameInfo):
             if not node_text:
                 # Highlight the entire line
                 try:
-                    tokens = token_utils.tokenize(self.current_line.text)
-                    tokens = token_utils.remove_meaningless_tokens(tokens)
+                    tokens = token_utils_old.tokenize(self.current_line.text)
+                    tokens = token_utils_old.remove_meaningless_tokens(tokens)
                     return (
                         None,
                         (tokens[0].start_col, tokens[-1].end_col),

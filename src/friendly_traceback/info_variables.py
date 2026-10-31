@@ -11,7 +11,7 @@ import re
 import sys
 
 
-from friendly_traceback import debug_helper, token_utils, utils
+from friendly_traceback import debug_helper, token_utils_old, utils
 from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.path_info import path_utils
 
@@ -119,7 +119,7 @@ def find_identifiers(objects, line, frame, names):
         ("locals", frame.f_locals),  # always have locals before globals
         ("globals", frame.f_globals),
     )
-    tokens = token_utils.get_significant_tokens(line)
+    tokens = token_utils_old.get_significant_tokens(line)
     if not tokens:
         return objects, names
     for tok in tokens:

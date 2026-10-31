@@ -1,21 +1,21 @@
-from friendly_traceback import token_utils
+from friendly_traceback import token_utils_old
 
 # Note: most of the tests involving untokenize have
 # been adapted from https://github.com/myint/untokenize
 
 
 def check(source):
-    tokens = token_utils.tokenize(source)
-    new_source = token_utils.untokenize(tokens)
+    tokens = token_utils_old.tokenize(source)
+    new_source = token_utils_old.untokenize(tokens)
     assert source == new_source
 
 
 def check_lines(source):
-    lines = token_utils.get_lines(source)
+    lines = token_utils_old.get_lines(source)
     tokens = []
     for line in lines:
         tokens.extend(line)
-    assert source == token_utils.untokenize(tokens)
+    assert source == token_utils_old.untokenize(tokens)
 
 
 def test_untokenize():
@@ -93,20 +93,20 @@ source3 = """
 if True:
     a = b # comment
 """
-tokens1 = token_utils.tokenize(source1)
-tokens2 = token_utils.tokenize(source2)
-lines3 = token_utils.get_lines(source3)
+tokens1 = token_utils_old.tokenize(source1)
+tokens2 = token_utils_old.tokenize(source2)
+lines3 = token_utils_old.get_lines(source3)
 
 
 def test_dedent():
-    new_tokens = token_utils.dedent(lines3[2], 4)
+    new_tokens = token_utils_old.dedent(lines3[2], 4)
     assert new_tokens == tokens2
 
 
 def test_indent():
-    new_tokens = token_utils.indent(tokens2, 4)
-    new_line_a = token_utils.untokenize(new_tokens)
-    new_line_b = token_utils.untokenize(lines3[2])
+    new_tokens = token_utils_old.indent(tokens2, 4)
+    new_line_a = token_utils_old.untokenize(new_tokens)
+    new_line_b = token_utils_old.untokenize(lines3[2])
     assert new_line_a == new_line_b
 
 
@@ -117,12 +117,12 @@ def test_self():
 
 
 def test_find_substring_index():
-    assert token_utils.find_substring_index(source2, source3) == -1
-    assert token_utils.find_substring_index(source3, source2) == 3
+    assert token_utils_old.find_substring_index(source2, source3) == -1
+    assert token_utils_old.find_substring_index(source3, source2) == 3
 
 
 def test_immediately_before_and_after():
-    tokens = token_utils.get_significant_tokens("**/ =")
+    tokens = token_utils_old.get_significant_tokens("**/ =")
     assert tokens[0].immediately_before(tokens[1])
     assert tokens[1].immediately_after(tokens[0])
     assert not tokens[1].immediately_before(tokens[2])
@@ -131,18 +131,18 @@ def test_immediately_before_and_after():
 def test_unclosed_triple_quoted_string():
     with open("tests/unclosed.txt") as f:
         source = f.read()
-        assert token_utils.untokenize(token_utils.tokenize(source)) == source
+        assert token_utils_old.untokenize(token_utils_old.tokenize(source)) == source
 
 def test_unterminated_string():
     # See https://github.com/friendly-traceback/friendly-traceback/issues/241
     with open("tests/unterminated.txt") as f:
         source = f.read()
-        assert token_utils.untokenize(token_utils.tokenize(source)) == source
+        assert token_utils_old.untokenize(token_utils_old.tokenize(source)) == source
 
 
 def test_strip_commment():
     statement = "if True: # a comment"
-    stripped = token_utils.strip_comment(statement)
+    stripped = token_utils_old.strip_comment(statement)
     assert stripped.strip() == "if True:"
 
 

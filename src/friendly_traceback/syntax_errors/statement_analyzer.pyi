@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 
 import keyword
 import sys
-from .. import debug_helper, token_utils, utils
+from .. import debug_helper, token_utils_old, utils
 from ..ft_gettext import current_lang, internal_error
 from . import error_in_def, fixers
 from . import syntax_utils as su

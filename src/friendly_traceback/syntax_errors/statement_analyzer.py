@@ -7,7 +7,7 @@ as containing a syntax error with the message "invalid syntax".
 import keyword
 import sys
 
-from friendly_traceback import debug_helper, token_utils, utils
+from friendly_traceback import debug_helper, token_utils_old, utils
 from friendly_traceback.ft_gettext import current_lang, internal_error
 from friendly_traceback.syntax_errors import error_in_def, fixers
 from friendly_traceback.syntax_errors import syntax_utils as su
@@ -97,7 +97,7 @@ def analyze_statement(statement):
 @add_statement_analyzer
 def invalid_non_printable_character(statement=None):
     char = statement.bad_token.string
-    if len(char) == 1 and token_utils.is_invisible_control_character(char) == char:
+    if len(char) == 1 and token_utils_old.is_invisible_control_character(char) == char:
         return {
             "cause": _(
                 "Your code contains the invalid non-printable character {char}.\n"
@@ -118,7 +118,7 @@ def missing_index(statement=None):
             new_tokens.append("0")
         new_tokens.append(tok)
 
-    new_line = token_utils.untokenize(new_tokens)
+    new_line = token_utils_old.untokenize(new_tokens)
     if not fixers.check_statement(new_line):
         return {}
     hint = _("Did you forget to add an index?\n")
@@ -386,7 +386,7 @@ def misplaced_quote(statement):
         else:
             new_tokens.append(tok)
 
-    new_line = token_utils.untokenize(new_tokens)
+    new_line = token_utils_old.untokenize(new_tokens)
     if not fixers.check_statement(new_line):
         return {}
 
@@ -442,7 +442,7 @@ def detect_walrus(statement):
 @add_statement_analyzer
 def inverted_operators(statement):
     """Detect if operators might have been inverted"""
-    is_op = token_utils.is_operator
+    is_op = token_utils_old.is_operator
     if not is_op(statement.bad_token):
         return {}
 
@@ -500,7 +500,7 @@ def inverted_operators(statement):
 
 @add_statement_analyzer
 def consecutive_operators(statement):
-    is_op = token_utils.is_operator
+    is_op = token_utils_old.is_operator
 
     if not (is_op(statement.bad_token) and is_op(statement.prev_token)):
         return {}
@@ -858,7 +858,7 @@ def semi_colon_instead_of_comma(statement):
     else:
         new_statement = statement.entire_statement
     while True:
-        tokens = token_utils.tokenize(new_statement)
+        tokens = token_utils_old.tokenize(new_statement)
         for tok in tokens:
             if tok == ";":
                 break
@@ -1906,8 +1906,8 @@ def unclosed_bracket(statement):
     if not fixers.check_statement(statement.bad_line):
         return {}
 
-    tokens = token_utils.tokenize(statement.bad_line.strip())
-    tokens = token_utils.remove_meaningless_tokens(tokens)
+    tokens = token_utils_old.tokenize(statement.bad_line.strip())
+    tokens = token_utils_old.remove_meaningless_tokens(tokens)
     if tokens[0].string in ["for", "if"] and tokens[-1] == ":":
         if bracket == "(":
             cause = _(

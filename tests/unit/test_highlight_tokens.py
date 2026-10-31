@@ -1,5 +1,5 @@
 from friendly_traceback.syntax_errors import syntax_utils as su
-from friendly_traceback import token_utils as tu
+from friendly_traceback import token_utils_old as tu
 
 
 def test_highlight_token():

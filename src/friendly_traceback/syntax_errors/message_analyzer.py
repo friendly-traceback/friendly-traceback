@@ -10,7 +10,7 @@ import ast
 import re
 import sys
 
-from friendly_traceback import debug_helper, token_utils, utils
+from friendly_traceback import debug_helper, token_utils_old, utils
 from friendly_traceback.ft_gettext import current_lang, please_report
 from friendly_traceback.syntax_errors import error_in_def, fixers, statement_analyzer
 from friendly_traceback.syntax_errors import syntax_utils as su
@@ -925,7 +925,7 @@ def eol_while_scanning_string_literal(message: str = "", statement=None):
                 new_tokens.append(tok_copy)
             else:
                 new_tokens.append(tok)
-        new_line = token_utils.untokenize(new_tokens)
+        new_line = token_utils_old.untokenize(new_tokens)
         if fixers.check_statement(new_line):
             quote_position = previous_string.end_col
             indent = len(statement.bad_line) - len(statement.bad_line.lstrip())
@@ -1672,7 +1672,7 @@ def parens_around_exceptions(message: str = "", statement=None):
             paren_added = True
         else:
             new_tokens.append(token)
-    new_line = token_utils.untokenize(new_tokens)
+    new_line = token_utils_old.untokenize(new_tokens)
     if not fixers.check_statement(new_line):
         new_line = ""
     else:
@@ -1881,7 +1881,7 @@ def unexpected_character_after_continuation(message: str = "", statement=None):
     )
     bad_token = statement.bad_token
     prev_token = statement.prev_token
-    marked_token = token_utils.clone(bad_token)
+    marked_token = token_utils_old.clone(bad_token)
     real_bad_line = statement.original_bad_line.rstrip("\n")
     remainder = ""
 
@@ -1903,7 +1903,7 @@ def unexpected_character_after_continuation(message: str = "", statement=None):
         for token in statement.tokens:
             if bad_line and bad_line[0] == "\\":
                 remainder = bad_line = bad_line[1:]
-                new_tokens = token_utils.tokenize(bad_line)
+                new_tokens = token_utils_old.tokenize(bad_line)
                 if new_tokens:
                     bad_token = new_tokens[0]
                     found_continuation = True
@@ -1915,7 +1915,7 @@ def unexpected_character_after_continuation(message: str = "", statement=None):
             if bad_line and bad_line[0] == "\\":
                 remainder = bad_line = bad_line[1:]
                 bad_line = bad_line.replace("\\", "", 1).lstrip()
-                new_tokens = token_utils.tokenize(bad_line[1:])
+                new_tokens = token_utils_old.tokenize(bad_line[1:])
                 if new_tokens:
                     bad_token = new_tokens[0]
                     found_continuation = True
@@ -2112,12 +2112,12 @@ def invalid_non_printable_character(message: str = "", statement=None):
 
     char = statement.bad_token.string  # 3.11
     prev = statement.prev_token.string  # 3.12
-    if token_utils.is_invisible_control_character(prev) == prev:
+    if token_utils_old.is_invisible_control_character(prev) == prev:
         char = prev
 
     if len(char) != 1:
         return {"cause": problem + "\n not len(char)==1"}
-    if token_utils.is_invisible_control_character(char) != char:
+    if token_utils_old.is_invisible_control_character(char) != char:
         return {"cause": problem + "\n is_invisible_control_character(char) != char"}
 
     return {

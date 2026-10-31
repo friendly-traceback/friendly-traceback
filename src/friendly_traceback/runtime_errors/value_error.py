@@ -8,7 +8,7 @@ import inspect
 import re
 import unicodedata
 
-from friendly_traceback import debug_helper, info_variables, token_utils, utils
+from friendly_traceback import debug_helper, info_variables, token_utils_old, utils
 from friendly_traceback.ft_gettext import current_lang
 from friendly_traceback.message_parser import get_parser
 
@@ -294,7 +294,7 @@ def unrecognized_message(_message, tb_data):
         if not callables:
             return {}
 
-        tokens = token_utils.get_significant_tokens(tb_data.bad_line)
+        tokens = token_utils_old.get_significant_tokens(tb_data.bad_line)
         name, fn_obj = callables[0]
         if name != tokens[0]:
             return {}

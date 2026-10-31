@@ -3,7 +3,7 @@
 
 import warnings
 
-from friendly_traceback import debug_helper, token_utils
+from friendly_traceback import debug_helper, token_utils_old
 
 
 def replace_token(tokens, original_token, new_token_string=" "):
@@ -40,12 +40,12 @@ def replace_token(tokens, original_token, new_token_string=" "):
                 new_tokens.append(new_token)
             else:
                 new_tokens.append(tok)
-        source = token_utils.untokenize(new_tokens)
+        source = token_utils_old.untokenize(new_tokens)
         return source.strip()
     except Exception as e:  # pragma: no cover
         debug_helper.log("Problem in fixers._modify_source().")
         debug_helper.log_error(e)
-        return token_utils.untokenize(tokens)
+        return token_utils_old.untokenize(tokens)
 
 
 def replace_two_tokens(
@@ -55,7 +55,7 @@ def replace_two_tokens(
     if second_token is None:  # pragma: no cover
         debug_helper.log("Problem in fixers.replace_two_tokens()")
         debug_helper.log("second_token should not be None")
-        return token_utils.untokenize(tokens)
+        return token_utils_old.untokenize(tokens)
     try:
         new_tokens = []
         for tok in tokens:
@@ -70,12 +70,12 @@ def replace_two_tokens(
             else:
                 new_tokens.append(tok)
 
-        source = token_utils.untokenize(new_tokens)
+        source = token_utils_old.untokenize(new_tokens)
         return source.strip()
     except Exception as e:  # pragma: no cover
         debug_helper.log("Problem in fixers.replace_two_tokens().")
         debug_helper.log_error(e)
-        return token_utils.untokenize(tokens)
+        return token_utils_old.untokenize(tokens)
 
 
 def check_statement(statement):
@@ -90,7 +90,7 @@ def check_statement(statement):
     if not statement:  # If an empty string has been the result of modifying the code.
         return False
 
-    statement = token_utils.strip_comment(statement)
+    statement = token_utils_old.strip_comment(statement)
     try:
         # The statement might have been indented in the original Python file,
         # so we remove the indentation of that first line
@@ -114,7 +114,7 @@ def check_statement(statement):
                 return False
 
     except Exception as e:  # pragma: no cover
-        debug_helper.log("Problem in token_utils.check_statement().")
+        debug_helper.log("Problem in token_utils_old.check_statement().")
         debug_helper.log_error(e)
         return False
 

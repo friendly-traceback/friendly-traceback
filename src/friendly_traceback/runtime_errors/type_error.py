@@ -9,7 +9,7 @@ import re
 import sys
 import types
 
-from friendly_traceback import debug_helper, info_variables, token_utils, utils
+from friendly_traceback import debug_helper, info_variables, token_utils_old, utils
 from friendly_traceback.ft_gettext import current_lang, no_information, please_report
 from friendly_traceback.message_parser import get_parser
 
@@ -361,17 +361,17 @@ def bad_operand_type_for_unary(message, tb_data):
     # "+="
 
     operator = match[1]
-    index = token_utils.find_substring_index(
+    index = token_utils_old.find_substring_index(
         tb_data.original_bad_line, tb_data.bad_line
     )
     if (
         index == 0 and tb_data.original_bad_line.lstrip() == tb_data.bad_line.strip()
     ):  # Python 3.12
         # Assume that the first '+' we find is the right one.
-        index = token_utils.find_substring_index(tb_data.original_bad_line, "+")
+        index = token_utils_old.find_substring_index(tb_data.original_bad_line, "+")
 
     if index > 0:
-        tokens = token_utils.get_significant_tokens(tb_data.original_bad_line)
+        tokens = token_utils_old.get_significant_tokens(tb_data.original_bad_line)
         if (
             tokens[index - 1] == "="
             and tokens[index - 1].end_col == tokens[index].start_col
@@ -482,7 +482,7 @@ def incorrect_nb_positional_arguments(message, tb_data):
         if "." in fn_name:
             missing_self = True
         else:
-            tokens = token_utils.get_significant_tokens(tb_data.bad_line)
+            tokens = token_utils_old.get_significant_tokens(tb_data.bad_line)
             missing_self = False
             prev_token = tokens[0]
             for token in tokens:
@@ -562,7 +562,7 @@ def x_is_not_callable(message, tb_data):
         return {"cause": cause + none_type}
 
     # Handle case (1.)(...) to replace by (...) instead of ()(...)
-    tokens = token_utils.tokenize(fn_call)
+    tokens = token_utils_old.tokenize(fn_call)
     if len(tokens) > 2 and tokens[0] == "(" and tokens[1] == ")":
         fn_call = fn_call[tokens[1].end_col :]
 
@@ -652,7 +652,7 @@ def cannot_multiply_by_str(message, tb_data):
     )
     names = find_possible_integers(str, frame, tb_data.bad_line)
     if names:
-        tokens = token_utils.get_significant_tokens(tb_data.bad_line)
+        tokens = token_utils_old.get_significant_tokens(tb_data.bad_line)
         int_vars = []
         for prev_token, token in zip(tokens, tokens[1:]):
             if prev_token.string in ("*", "*=") and token.string in names:
@@ -1186,7 +1186,7 @@ def generator_has_no_len(message, tb_data):
         "produced by a generator expression. You first need to capture them\n"
         "in a list:\n\n"
     )
-    tokens = token_utils.get_significant_tokens(tb_data.bad_line)
+    tokens = token_utils_old.get_significant_tokens(tb_data.bad_line)
     nb_open = sum(tok == "(" for tok in tokens)
     nb_close = sum(tok == ")" for tok in tokens)
     if (
@@ -1198,7 +1198,7 @@ def generator_has_no_len(message, tb_data):
     ):
         tokens[1].string = "(["
         tokens[-1].string = "])"
-        new_line = token_utils.untokenize(tokens)
+        new_line = token_utils_old.untokenize(tokens)
     else:
         new_line = "len([...])"
 
@@ -1251,11 +1251,11 @@ def module_(message, tb_data):
     possible_class = "SomeClass"
     if similar:
         possible_class = similar[0]
-    tokens = token_utils.get_significant_tokens(bad_line)
+    tokens = token_utils_old.get_significant_tokens(bad_line)
     for tok in tokens:
         if tok == mod_name:
             tok.string = f"{mod_name}.{possible_class}"
-    new_line = token_utils.untokenize(tokens)
+    new_line = token_utils_old.untokenize(tokens)
     hint = _("Did you mean `{new_line}`?\n").format(new_line=new_line)
     cause = _(
         "You are attempting to subclass the module `{mod_name}`.\n"

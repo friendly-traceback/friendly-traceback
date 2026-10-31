@@ -4,7 +4,7 @@ import __future__
 import ast
 import re
 import sys
-from .. import debug_helper, token_utils, utils
+from .. import debug_helper, token_utils_old, utils
 from ..ft_gettext import current_lang, please_report
 from . import error_in_def, fixers, statement_analyzer
 from . import syntax_utils as su

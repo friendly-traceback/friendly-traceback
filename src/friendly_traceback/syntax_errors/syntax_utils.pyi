@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
 import unicodedata
-from .. import debug_helper, token_utils
+from .. import debug_helper, token_utils_old
 from ..ft_gettext import current_lang
 
 

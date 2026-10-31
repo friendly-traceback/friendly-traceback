@@ -304,7 +304,7 @@ def tokenize(source):
             return tokens
         except Exception as e:  # pragma: no cover
             debug_helper.log(
-                "after IndentationError, error from token_utils.tokenize()"
+                "after IndentationError, error from token_utils_old.tokenize()"
             )
             debug_helper.log(repr(e))
             return tokens
@@ -467,7 +467,7 @@ def get_significant_tokens(source):
     try:
         tokens = tokenize(source)
     except Exception as e:  # pragma: no cover
-        debug_helper.log("Exception from token_utils.get_significant_tokens()")
+        debug_helper.log("Exception from token_utils_old.get_significant_tokens()")
         debug_helper.log_error(e)
         return []
     return remove_meaningless_tokens(tokens)

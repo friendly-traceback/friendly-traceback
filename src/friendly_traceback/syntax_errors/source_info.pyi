@@ -1,9 +1,9 @@
 from typing import Literal, List, Dict, Any
 from _typeshed import Incomplete
 
-from .. import token_utils
+from .. import token_utils_old
 
-MEANINGLESS_TOKEN = token_utils.tokenize(" ")[0]
+MEANINGLESS_TOKEN = token_utils_old.tokenize(" ")[0]
 
 LINE_NUMBER: Literal["       {:%d}| "] = "       {:%d}| "
 MARKED_LINE_NUMBER: Literal["    -->{:%d}| "] = "    -->{:%d}| "
@@ -12,8 +12,8 @@ LINE_GAP: Literal["       (...)"] = "       (...)"
 class Statement:
     all_statements: List[str]
     bad_line: str
-    bad_token: token_utils.Token
-    bad_token_comment: token_utils.Token
+    bad_token: token_utils_old.Token
+    bad_token_comment: token_utils_old.Token
     bad_token_index: int
     begin_brackets: List
     end_bracket: str
@@ -21,23 +21,23 @@ class Statement:
     end_offset: int
     entire_statement: str
     filename: str
-    first_token: token_utils.Token
+    first_token: token_utils_old.Token
     formatted_partial_source: str
     fstring_error: Incomplete
     highlighted_tokens: List | None
-    last_token: token_utils.Token
+    last_token: token_utils_old.Token
     linenumber: int
     location_markers: Dict[str, Any]
     message: str
     nb_tokens: int
-    next_token: token_utils.Token
+    next_token: token_utils_old.Token
     offset: int
     original_bad_line: str
-    prev_token: token_utils.Token
+    prev_token: token_utils_old.Token
     source_lines: List[str]
     statement_brackets: List
-    statement_tokens: List[token_utils.Token]
-    tokens: token_utils.Token
+    statement_tokens: List[token_utils_old.Token]
+    tokens: token_utils_old.Token
     using_friendly_console: bool
     value: SyntaxError
 
